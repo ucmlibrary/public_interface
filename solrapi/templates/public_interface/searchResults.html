@@ -1,0 +1,75 @@
+{% extends "public_interface/base.html" %}
+{% load solrapi-extras %}
+
+{% block styles %}
+<style type="text/css">
+.title {
+  position: absolute; 
+  z-index: 1;
+  top: 30px;
+  left: 140px;
+  width: 200px;
+  padding: 5px 5px;
+  
+  background: rgba(256, 256, 256, 1);
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  
+  visibility: hidden; 
+  opacity:0;
+}
+
+.imgWrap:hover .title {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-3">
+    {% include "public_interface/faceting.html" %}
+  </div>
+  <div class="col-md-9">
+    <div class="row" style="padding-bottom: 20px">
+      <div class="col-md-4">
+        {{ numFound }} objects found in {{ facet_fields.collection_name|length }} collections<br>
+      </div>
+      <div class="col-md-4">
+        Thumbnails | List
+      </div>
+      <div class="col-md-4">
+        View 50 | prev 
+          <select>
+            {% for page in pages|get_range %}
+              <option>{{ page|add:"1" }}</option>
+            {% endfor %}
+          </select>
+        of {{ pages }} next
+      </div>
+    </div>
+
+    <div class="row">
+      {% for object in search_results %}
+        <div class="col-md-3" style="padding: 10px">
+          <div class="imgWrap">
+            <img src="http://content.cdlib.org/ark:/13030/ft4q2nb042/thumbnail"/>
+            <div class="title">{{ object.title.0 }}</div>
+          </div>
+          {{ object.title.0|truncatewords:7 }}<br>
+        </div>
+        {% if forloop.counter|divisibleby:"4" %}
+          <!-- Close 'row' div -->
+          </div>
+          {% if forloop.counter != 16 %}
+            <!-- Open new 'row' div -->
+            <div class="row">
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

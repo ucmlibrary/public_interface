@@ -1,0 +1,76 @@
+{% extends "public_interface/base.html" %}
+
+{% block content %}
+
+<div style="height: 150px; border: 1px solid #777; background-color: #e3e3e3;">
+  CAROUSEL PLACEHOLDER
+</div>
+
+{% for item in docs %}
+
+  <ol class="breadcrumb">
+    <li>Search</li>
+    <li>{{ params.q }}</li>
+    <li class="active">{{ item.title.0 }}</li>
+  </ol>
+  
+  <h1>
+    <span style="text-transform: capitalize">{{ item.type.0 }}</span> /
+    {{ item.title.0 }}
+  </ol></h1>
+  
+  <div style="height: 600px; border: 1px solid #777; background-color: #e3e3e3;">
+    MEDIA VIEWER PLACEHOLDER
+  </div>
+
+  <p>
+    <dl class="dl-horizontal">
+      <dt>Title</dt>
+      <dd>{{ item.title.0 }}</dd>
+      <dt>Creator/Contributor</dt>
+      <dd></dd>
+      <dt>Date</dt>
+      <dd>{{ item.date.0 }}</dd>
+      <dt>Contributing Institution</dt>
+      <dd>
+        {% for campus in item.campus %}
+          {{ campus }}
+        {% endfor %}
+        {% for repository in item.repository %}
+          {{ repository }}
+        {% endfor %}
+      </dd>
+      <dt>Collection</dt>
+      <dd>{{ item.collection_name }}</dd>
+      <dt>Identifier</dt>
+      <dd>{{ item.identifier.0 }}</dd>
+      <dt>Format</dt>
+      <dd></dd>
+      <dt>Notes</dt>
+      <dd>{{ item.description.0 }}</dd>
+      <dt>Subject</dt>
+      <dd></dd>
+    </dl>
+  </p>
+  <hr>
+  <p>
+    <dl class="dl-horizontal">
+      <dt>Publisher</dt>
+      <dd>{{ item.publisher.0 }}</dd>
+      <dt>Rights</dt>
+      <dd>{{ item.rights.0 }}</dd>
+      <dt>Format</dt>
+      <dd>{{ item.format.0 }}</dd>
+      <dt>Relation</dt>
+      <dd>
+        {% for relation in item.relation %}
+          {{ relation }}<br>
+        {% endfor %}
+      </dd>
+    </dl>
+  </p>
+  <p>url thumb {{item.url_thumbnail}}</p>
+
+{% endfor %}
+
+{% endblock %}
