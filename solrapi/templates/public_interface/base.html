@@ -1,9 +1,11 @@
+{% load staticfiles %}
+
 <html>
   <head>
     {% block styles %}{% endblock %}
-    {% load staticfiles %}
     <link rel="stylesheet" href="{% static "bootstrap-3.2.0-dist/css/bootstrap.css" %}"/>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    {% block scripts %}{% endblock %}
   </head>
   <body>
     {% include "public_interface/header.html" %}

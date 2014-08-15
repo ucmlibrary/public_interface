@@ -1,0 +1,38 @@
+{% load solrapi-extras %}
+
+<form id="paginate" action="/search/" method="get">
+  <input type="hidden" name="q" value="{{ q }}"/>
+  {% if filters %}
+    {% for facet_type in FACET_TYPES %}
+      {% for filter in filters|get_item:facet_type.0 %}
+        <input class="hidden" type="checkbox" name="{{ facet_type.0 }}" value="{{ filter }}" checked/>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+  
+  <input type="hidden" name="rows" id="rows" value="{{ rows }}"/>
+  {% if rows == '50' %}
+    <a onClick="$('#rows').prop('value', '16'); $('#paginate').submit();">View 16</a> | 
+  {% else %}
+    <a onClick="$('#rows').prop('value', '50'); $('#paginate').submit();">View 50</a> | 
+  {% endif %}
+  
+  {% if start|subtract:rows >= 0 %}
+    <a onClick="$('#start').val({{ start|subtract:rows }}); $('#paginate').submit();">prev</a>
+  {% else %}
+    prev
+  {% endif %}
+  
+  <select name="start" id="start" form="paginate" onChange="$('#paginate').submit();">
+    {% for page in pages|get_range %}
+      <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
+    {% endfor %}
+  </select>
+  of {{ pages }} 
+  
+  {% if start|add:rows < numFound %}
+    <a onClick="$('#start').val({{ start|add:rows }}); $('#paginate').submit();">next</a>
+  {% else %}
+    next
+  {% endif %}
+</form>

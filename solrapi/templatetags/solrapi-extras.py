@@ -28,3 +28,11 @@ def get_range( value ):
 @register.filter
 def get_item(dictionary, key):
   return dictionary.get(key)
+
+@register.filter
+def multiply( a, b ):
+    return str(int(a) * int(b))
+
+@register.filter
+def subtract( a, b ):
+    return int(a) - int(b)

@@ -1,26 +1,9 @@
 {% load solrapi-extras %}
 
-<form id="refine" action="/search/" method="get">
-  <input type="hidden" name="q" value="{{ q }}">
-  {% if filters %}
-    <input type="hidden" name="fq" value="{{ filters }}">
-  {% endif %}
-  
-  <div class="form-group">
-    <div class="input-group">
-      <label class="sr-only" for="refine-query">Search within results</label>
-      <input id="refine-query" type=search name="q" placeholder="Search within results" class="form-control"/>
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit">
-          Refine
-        </button>
-      </span>
-    </div>
-  </div>
-</form>
-
 <form id="facet" action="/search/" method="get">
   <input type="hidden" name="q" value="{{ q }}">
+  <input type="hidden" name="rows" value="{{ rows }}">
+  <input type="hidden" name="start" value="{{ start }}">
   
   <button type="button" class="btn btn-default" style="width: 100%" onClick="$('.facet').prop('checked', false); $('#facet').submit();">Deselect All</button>
   

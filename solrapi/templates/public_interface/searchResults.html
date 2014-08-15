@@ -1,5 +1,6 @@
 {% extends "public_interface/base.html" %}
 {% load solrapi-extras %}
+{% load staticfiles %}
 
 {% block styles %}
 <style type="text/css">
@@ -19,35 +20,33 @@
   opacity:0;
 }
 
-.imgWrap:hover .title {
-  visibility: visible;
-  opacity: 1;
-}
+.imgWrap:hover .title {visibility: visible; opacity: 1;}
+.filter-pill {padding: 3px 6px !important; margin-bottom: 3px !important; font-size: 75% !important; font-weight: bold !important;}
+
 </style>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
 <div class="row">
   <div class="col-md-3">
-    {% include "public_interface/faceting.html" %}
+    {% include "public_interface/forms/refineQuery.html" %}
+    {% include "public_interface/forms/faceting.html" %}
   </div>
   <div class="col-md-9">
     <div class="row" style="padding-bottom: 20px">
       <div class="col-md-4">
-        {{ numFound }} objects found in {{ facet_fields.collection_name|length }} collections<br>
+        {{ numFound }} objects found in {{ facets.collection_name|length }} collections<br>
       </div>
       <div class="col-md-4">
         Thumbnails | List
       </div>
       <div class="col-md-4">
-        View 50 | prev 
-          <select>
-            {% for page in pages|get_range %}
-              <option>{{ page|add:"1" }}</option>
-            {% endfor %}
-          </select>
-        of {{ pages }} next
+        {% include "public_interface/forms/paginate.html" %}
       </div>
     </div>
 
@@ -55,7 +54,7 @@
       <div class="col-md-12">
         {% for facet_type in FACET_TYPES %}
           {% for filter in filters|get_item:facet_type.0 %}
-            <button type="button" class="btn btn-info" style="padding: 3px 6px; margin-bottom: 3px; font-size: 75%; font-weight: bold;"
+            <button type="button" class="btn btn-info filter-pill"
               onClick="$('#{{ filter|slugify }}.facet-{{ facet_type.0 }}').prop('checked', false); $('#facet').submit();">
               {{ filter }} <span class="glyphicon glyphicon-remove" style="padding-left: 5px"></span>
             </button>
@@ -76,7 +75,7 @@
         {% if forloop.counter|divisibleby:"4" %}
           <!-- Close 'row' div -->
           </div>
-          {% if forloop.counter != 16 %}
+          {% if forloop.counter != rows %}
             <!-- Open new 'row' div -->
             <div class="row">
           {% endif %}
