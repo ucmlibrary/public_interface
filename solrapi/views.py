@@ -33,12 +33,13 @@ def search(request):
             q = request.GET['q']
         
         filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        
         # make filter form fields solr search friendly
         fq = []
         for filter_type in FACET_TYPES:
             if filters[filter_type[0]] > 0:
                 fq.extend(solrize_filters(filters[filter_type[0]], filter_type[0]))
+        
+        rows = request.GET['r'] if 'r' in request.GET else '16'
         
         # perform the search
         s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
@@ -47,7 +48,7 @@ def search(request):
             fq=fq,
             facet='true', 
             facet_field=list(facet_type[0] for facet_type in FACET_TYPES),
-            rows='16'
+            rows=rows
         )
         
         facets = {}
@@ -58,13 +59,14 @@ def search(request):
             )
 
         return render(request, 'public_interface/searchResults.html', {
-            'q': q, 
+            'q': q,
             'filters': filters,
-            'search_results': solr_response.results, 
+            'rows': rows,
+            'search_results': solr_response.results,
             'facets': facets,
             'FACET_TYPES': FACET_TYPES,
             'numFound': solr_response.numFound,
-            'pages': int(math.ceil(float(solr_response.numFound)/16))
+            'pages': int(math.ceil(float(solr_response.numFound)/int(rows)))
         })
     
     return render (request, 'public_interface/base.html', {'q': ''})
