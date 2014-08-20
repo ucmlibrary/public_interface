@@ -1,9 +1,8 @@
 {% load solrapi-extras %}
 
 <form id="facet" action="/search/" method="get">
-  <input type="hidden" name="q" value="{{ q }}">
-  <input type="hidden" name="rows" value="{{ rows }}">
-  <input type="hidden" name="start" value="{{ start }}">
+  <!-- value of the search query from the header form -->
+  <input type="hidden" name="q" value="{{ q }}" form="facet">
   
   <button type="button" class="btn btn-default" style="width: 100%" onClick="$('.facet').prop('checked', false); $('#facet').submit();">Deselect All</button>
   
@@ -23,7 +22,7 @@
         </div>
       </td>
       <td style="padding: 6px 0 0 20px;">
-        <input class="facet facet-{{ facet_type }}" type="checkbox" onChange="$('#facet').submit();" 
+        <input form="facet" class="facet facet-{{ facet_type }}" type="checkbox" onChange="$('#facet').submit();" 
           name="{{ facet_type }}" id="{{ facet|slugify }}" value="{{ facet }}" {% if facet in filters|get_item:facet_type %}checked{% endif %}/>
       </td>
     </tr>

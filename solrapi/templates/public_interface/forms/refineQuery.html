@@ -1,26 +1,13 @@
 {% load solrapi-extras %}
 
-<form id="refine" action="/search/" method="get">
-  <input type="hidden" name="q" value="{{ q }}">
-  <input type="hidden" name="rows" value="{{ rows }}">
-  <input type="hidden" name="start" value="{{ start }}">
-  {% if filters %}
-    {% for facet_type in FACET_TYPES %}
-      {% for filter in filters|get_item:facet_type.0 %}
-        <input class="hidden" type="checkbox" name="{{ facet_type.0 }}" value="{{ filter }}" checked/>
-      {% endfor %}
-    {% endfor %}
-  {% endif %}
-  
-  <div class="form-group">
-    <div class="input-group">
-      <label class="sr-only" for="refine-query">Search within results</label>
-      <input id="refine-query" type=search name="q" placeholder="Search within results" class="form-control"/>
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit">
-          Refine
-        </button>
-      </span>
-    </div>
+<div class="form-group">
+  <div class="input-group">
+    <label class="sr-only" for="refine-query">Search within results</label>
+    <input id="refine-query" type=search name="q" placeholder="Search within results" class="form-control" form="facet"/>
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit" form="facet">
+        Refine
+      </button>
+    </span>
   </div>
-</form>
+</div>
