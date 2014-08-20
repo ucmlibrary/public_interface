@@ -43,13 +43,16 @@
         {{ numFound }} objects found in {{ facets.collection_name|length }} collections<br>
       </div>
       <div class="col-md-4">
-        Thumbnails | List
+        <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
+        <a onClick="$('#view_format').prop('value', 'thumbnails'); $('#facet').submit();">Thumbnails</a> | 
+        <a onClick="$('#view_format').prop('value', 'list'); $('#facet').submit();">List</a>
       </div>
       <div class="col-md-4">
         {% include "public_interface/forms/paginate.html" %}
       </div>
     </div>
 
+    <!-- filter pills -->
     <div class="row">
       <div class="col-md-12">
         {% for facet_type in FACET_TYPES %}
@@ -63,25 +66,26 @@
       </div>
     </div>
 
-    <div class="row">
-      {% for object in search_results %}
-        <div class="col-md-3" style="padding: 10px">
-          <div class="imgWrap">
-            <img src="http://content.cdlib.org/ark:/13030/ft4q2nb042/thumbnail"/>
-            <div class="title">{{ object.title.0 }}</div>
-          </div>
-          {{ object.title.0|truncatewords:7 }}<br>
-        </div>
-        {% if forloop.counter|divisibleby:"4" %}
-          <!-- Close 'row' div -->
-          </div>
-          {% if forloop.counter != rows %}
-            <!-- Open new 'row' div -->
-            <div class="row">
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </div>
+    <form id="object-view" action="/objectView/" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="object_id" id="object_id" value=""/>
+      <input type="hidden" name="q" value="{{ q }}"/>
+      <input type="hidden" name="start" value="{{ start }}"/>
+      {% if filters %}
+        {% for facet_type in FACET_TYPES %}
+          {% for filter in filters|get_item:facet_type.0 %}
+            <input class="hidden" type="checkbox" name="{{ facet_type.0 }}" value="{{ filter }}" checked/>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </form>
+
+    <!-- search results -->
+    {% if view_format == "thumbnails" %}
+      {% include "public_interface/thumbnails-results.html" %}
+    {% elif view_format == "list" %}
+      {% include "public_interface/list-results.html" %}
+    {% endif %}
   </div>
 </div>
 {% endblock %}

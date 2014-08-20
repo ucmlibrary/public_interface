@@ -1,16 +1,23 @@
 {% extends "public_interface/base.html" %}
+{% load solrapi-extras %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"></script>
+{% endblock %}
 
 {% block content %}
 
-<div style="height: 150px; border: 1px solid #777; background-color: #e3e3e3;">
-  CAROUSEL PLACEHOLDER
-</div>
+{% include "public_interface/carousel.html" %}
 
 {% for item in docs %}
 
   <ol class="breadcrumb">
     <li>Search</li>
-    <li>{{ params.q }}</li>
+    <li>{{ q }}</li>
     <li class="active">{{ item.title.0 }}</li>
   </ol>
   
@@ -19,58 +26,59 @@
     {{ item.title.0 }}
   </ol></h1>
   
-  <div style="height: 600px; border: 1px solid #777; background-color: #e3e3e3;">
+  <!-- <div style="height: 600px; border: 1px solid #777; background-color: #e3e3e3;">
     MEDIA VIEWER PLACEHOLDER
-  </div>
+  </div> -->
 
   <p>
     <dl class="dl-horizontal">
-      <dt>Title</dt>
-      <dd>{{ item.title.0 }}</dd>
-      <dt>Creator/Contributor</dt>
-      <dd></dd>
-      <dt>Date</dt>
-      <dd>{{ item.date.0 }}</dd>
-      <dt>Contributing Institution</dt>
-      <dd>
-        {% for campus in item.campus %}
-          {{ campus }}
-        {% endfor %}
-        {% for repository in item.repository %}
-          {{ repository }}
-        {% endfor %}
-      </dd>
-      <dt>Collection</dt>
-      <dd>{{ item.collection_name }}</dd>
-      <dt>Identifier</dt>
-      <dd>{{ item.identifier.0 }}</dd>
-      <dt>Format</dt>
-      <dd></dd>
-      <dt>Notes</dt>
-      <dd>{{ item.description.0 }}</dd>
-      <dt>Subject</dt>
-      <dd></dd>
+      <dt>Title</dt>                      <dd>{% for title in item.title %}{{ title }}                                <br/>{% endfor %}<br/></dd>
+      <dt>Creator/Contributor</dt>        <dd>creator: {% for creator in item.creator %}{{ creator }}                 <br/>{% endfor %}<br/>
+                                              contributor: {% for contributor in item.contributor %}{{ contributor }} <br/>{% endfor %}<br/></dd>
+      <dt>Date</dt>                       <dd>{% for date in item.date %}{{ date }}                                   <br/>{% endfor %}<br/></dd>
+      <dt>Contributing Institution</dt>   <dd></dd>                                                                   <br/>            <br/>
+      <dt>Collection</dt>                 <dd>{% for collection in item.collection %}{{ collection }}                 <br/>{% endfor %}<br/></dd>
+      <dt>Collection Name</dt>            <dd>{% for collection_name in item.collection_name %}{{ collection_name }}  <br/>{% endfor %}<br/></dd>
+      <dt>Identifier</dt>                 <dd>{% for identifier in item.identifier %}{{ identifier }}                 <br/>{% endfor %}<br/></dd>
+      <dt>Format</dt>                     <dd>{% for format in item.format %}{{ format }}                             <br/>{% endfor %}<br/></dd>
+      <dt>Notes</dt>                      <dd>{% for description in item.description %}{{ description }}              <br/>{% endfor %}<br/></dd>
+      <dt>Subject</dt>                    <dd>{% for subject in item.subject %}{{ subject }}                          <br/>{% endfor %}<br/></dd>
+      <dt>Rights</dt>                     <dd>{% for rights in item.rights %}{{ rights }}                             <br/>{% endfor %}<br/></dd>
+      
     </dl>
   </p>
   <hr>
   <p>
     <dl class="dl-horizontal">
-      <dt>Publisher</dt>
-      <dd>{{ item.publisher.0 }}</dd>
-      <dt>Rights</dt>
-      <dd>{{ item.rights.0 }}</dd>
-      <dt>Format</dt>
-      <dd>{{ item.format.0 }}</dd>
-      <dt>Relation</dt>
-      <dd>
-        {% for relation in item.relation %}
-          {{ relation }}<br>
-        {% endfor %}
-      </dd>
+      <dt>Timestamp</dt>                  <dd>{{ item.timestamp }}</dd>
+      <dt>Id</dt>                         <dd>{{ item.id }}</dd>
+      <dt>Campus</dt>                     <dd>{{ item.campus }}</dd>
+      <dt>Campus Name</dt>                <dd>{{ item.campus_name }}</dd>
+      <dt>Repository</dt>                 <dd>{{ item.repository }}</dd>
+      <dt>Repository Name</dt>            <dd>{{ item.repository_name }}</dd>
+      <dt>Created</dt>                    <dd>{{ item.created }}</dd>
+      <dt>Last Modified</dt>              <dd>{{ item.last_modified }}</dd>
+      <dt>Coverage</dt>                   <dd>{{ item.coverage }}</dd>
+      <dt>Language</dt>                   <dd>{{ item.language }}</dd>
+      <dt>Publisher</dt>                  <dd>{{ item.publisher }}</dd>
+      <dt>Relation</dt>                   <dd>{{ item.relation }}</dd>
+      <dt>Source</dt>                     <dd>{{ item.source }}</dd>
+      <dt>Type</dt>                       <dd>{{ item.type }}</dd>
+      <dt>Date Facet</dt>                 <dd>{{ item.date_facet }}</dd>
+      <dt>url_item</dt>                   <dd>{{ item.url_item }}</dd>
+      <dt>reference_image_md5</dt>        <dd>{{ item.reference_image_md5 }}</dd>
+      <dt>payloads</dt>                   <dd>{{ item.payloads }}</dd>
+      <dt>Score</dt>                      <dd>{{ item.score }}</dd>
     </dl>
   </p>
-  <p>url thumb {{item.url_thumbnail}}</p>
-
 {% endfor %}
 
+{% endblock %}
+
+{% block footerScripts %}
+<script>
+$(document).ready(function(){
+  $('.amy-carousel').slick({infinite: true, slidesToShow: 4, slidesToScroll: 4, dots: true});
+});
+</script>
 {% endblock %}

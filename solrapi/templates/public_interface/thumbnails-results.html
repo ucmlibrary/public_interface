@@ -1,0 +1,21 @@
+<div class="row">
+  {% for object in search_results %}
+    <div class="col-md-3 object-thumb" style="padding: 10px; cursor: pointer" onClick="$('#object_id').prop('value', {{"\""|add:object.id|add:"\""}}); $('#object-view > input[name=start]').prop('value', $('.object-thumb').index(this)); $('#object-view').submit();">
+      <div class="imgWrap">
+        <img src="http://content.cdlib.org/ark:/13030/ft4q2nb042/thumbnail"/>
+        <div class="title">{{ object.title.0 }}</div>
+      </div>
+      <a>
+        {{ object.title.0|truncatewords:7 }}<br/>
+      </button><br>
+    </div>
+    {% if forloop.counter|divisibleby:"4" %}
+      <!-- Close 'row' div -->
+      </div>
+      {% if forloop.counter != rows %}
+        <!-- Open new 'row' div -->
+        <div class="row">
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
