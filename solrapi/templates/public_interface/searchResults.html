@@ -2,30 +2,6 @@
 {% load solrapi-extras %}
 {% load staticfiles %}
 
-{% block styles %}
-<style type="text/css">
-.title {
-  position: absolute; 
-  z-index: 1;
-  top: 30px;
-  left: 140px;
-  width: 200px;
-  padding: 5px 5px;
-  
-  background: rgba(256, 256, 256, 1);
-  border: 1px solid #DDD;
-  border-radius: 5px;
-  
-  visibility: hidden; 
-  opacity:0;
-}
-
-.imgWrap:hover .title {visibility: visible; opacity: 1;}
-.filter-pill {padding: 3px 6px !important; margin-bottom: 3px !important; font-size: 75% !important; font-weight: bold !important;}
-
-</style>
-{% endblock %}
-
 {% block scripts %}
 <script src="{% static 'js/search.js' %}"></script>
 {% endblock %}
@@ -65,9 +41,9 @@
       </div>
     </div>
 
-    <form id="object-view" action="/objectView/" method="post">
+    <form id="item-view" action="/itemView/" method="post">
       {% csrf_token %}
-      <input type="hidden" name="object_id" id="object_id" value=""/>
+      <input type="hidden" name="item_id" id="item_id" value=""/>
       <input type="hidden" name="q" value="{{ q }}"/>
       <input type="hidden" name="start" value="{{ start }}"/>
       {% if filters %}

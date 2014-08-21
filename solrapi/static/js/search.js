@@ -51,15 +51,15 @@ $(document).ready(function() {
     $('#facet').submit();
   });
   
-  $('.object-thumb').click(function() {
-    $('#object_id').prop('value', $(this).data('object_id')); 
-    $('#object-view > input[name=start]').prop('value', $('.object-thumb').index(this));
-    $('#object-view').submit(function(that) {
+  $('.item-thumb').click(function() {
+    $('#item_id').prop('value', $(this).data('item_id')); 
+    $('#item-view > input[name=start]').prop('value', $('.item-thumb').index(this));
+    $('#item-view').submit(function(that) {
       return function(e) {
-        $(this).prop('action', '/objectView/' + $(that).data('object_id') + "/");
+        $(this).prop('action', '/itemView/' + $(that).data('item_id') + "/");
         return;
       }
     }(this));
-    $('#object-view').submit();
+    $('#item-view').submit();
   });
 });

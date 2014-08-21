@@ -7,6 +7,8 @@ import operator
 import math
 import solr
 import re
+import urllib2
+import simplejson as json
 
 FACET_TYPES = [('type', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
 
@@ -69,6 +71,7 @@ def search(request):
                 fq.extend(solrize_filters(filters[filter_type[0]], filter_type[0]))
         
         print q
+        print fq
         
         # perform the search
         s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
@@ -82,7 +85,8 @@ def search(request):
         )
         
         for item in solr_response.results:
-            item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+            if 'reference_image_md5' in item:
+                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
         
         facets = {}
         for facet_type in FACET_TYPES:
@@ -109,10 +113,9 @@ def search(request):
 def home(request):
     return render(request, 'public_interface/base.html', {'q': ''})
 
-def objectView(request, object_id=''):
+def itemView(request, item_id=''):
     s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
-    object_id = 'id:' + "\"" + object_id + "\""
-    print object_id
+    item_id = 'id:' + "\"" + item_id + "\""
     
     if request.method == 'POST' and 'q' in request.POST:
         q = request.POST['q']
@@ -133,7 +136,8 @@ def objectView(request, object_id=''):
         )
         carousel_items = solr_response.results
         for item in carousel_items:
-            item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+            if 'reference_image_md5' in item:
+                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
         numFound = solr_response.numFound
     else:
         # MORE LIKE THIS RESULTS
@@ -141,13 +145,43 @@ def objectView(request, object_id=''):
         carousel_items = {}
         numFound = 0
     
-    solr_object = s.select(q=object_id)
-    solr_object.results[0]['reference_image_http'] = md5_to_http_url(solr_object.results[0]['reference_image_md5'])
+    solr_item = s.select(q=item_id)
+    if 'reference_image_md5' in solr_item.results[0]:
+        solr_item.results[0]['reference_image_http'] = md5_to_http_url(solr_item.results[0]['reference_image_md5'])
     
-    context = {'q': q, 'docs': solr_object.results, 'carousel': carousel_items, 'numFound': numFound}
+    context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
     
-    return render(request, 'public_interface/object.html', context)
+    return render(request, 'public_interface/item.html', context)
 
 def collectionsExplore(request):
     s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
-    return render(request, 'public_interface/collections-explore.html', {'lala':'la'})
+    
+    collections_solr_query = s.select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
+    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection']
+    
+    collections = []
+    for collection_url in solr_collections:
+        collection_api = urllib2.urlopen(collection_url + "?format=json")
+        collection_json = collection_api.read()
+        collection_details = json.loads(collection_json)
+        rows = '4' if collection_details['description'] != '' else '5'
+        display_items = s.select(
+            q='*:*', 
+            fields='reference_image_md5, title, id', 
+            rows=rows, 
+            start=0, 
+            fq=['collection: \"' + collection_url + '\"']
+        )
+        
+        for item in display_items:
+            if 'reference_image_md5' in item:
+                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+        
+        collections.append({
+            'name': collection_details['name'], 
+            'description': collection_details['description'], 
+            'slug': collection_details['slug'],
+            'display_items': display_items.results
+        })
+    
+    return render(request, 'public_interface/collections-explore.html', {'collections': collections})
