@@ -11,6 +11,8 @@ import urllib2
 import simplejson as json
 
 FACET_TYPES = [('type', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
+SOLR = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
+
 
 def md5_to_http_url(md5):
     s3_url = md5s3stash.md5_to_s3_url(md5, 'ucldc')
@@ -19,7 +21,12 @@ def md5_to_http_url(md5):
                       s3_url)
     return http_url
 
-def solrize_query(q, rq):
+def process_media(item):
+    if 'reference_image_md5' in item:
+        item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+
+# concat query with 'AND'
+def concat_query(q, rq):
     if q == '':
         return rq
     elif rq == '':
@@ -27,7 +34,8 @@ def solrize_query(q, rq):
     else:
         return q + ' AND ' + rq
 
-def solrize_filters(filters, filter_type):
+# concat filters with 'OR'
+def concat_filters(filters, filter_type):
     # fq = []
     # for f in filters:
     #     fq.append(filter_type + ': "' + f + '"')
@@ -42,6 +50,15 @@ def solrize_filters(filters, filter_type):
     
     return [trial]
 
+# collect filters into an array
+def solrize_filters(filters):
+    fq = []
+    for filter_type in FACET_TYPES:
+        if len(filters[filter_type[0]]) > 0:
+            fq.extend(concat_filters(filters[filter_type[0]], filter_type[0]))
+    return fq
+
+
 def process_facets(facets, filters):
     display_facets = {}
     display_facets = dict((facet, count) for facet, count in facets.iteritems() if count != 0)
@@ -51,31 +68,148 @@ def process_facets(facets, filters):
             display_facets.append((f, 0))
     return display_facets
 
+
+
 def search(request):
     if request.method == 'GET':
-        # concatenate query and refine query form fields
-        if len(request.GET.getlist('q')) > 1:
-            q = reduce(solrize_query, request.GET.getlist('q'))
-        else: 
-            q = request.GET['q']
-        
+        q = reduce(concat_query, request.GET.getlist('q'))
         rows = request.GET['rows'] if 'rows' in request.GET else '16'
         start = request.GET['start'] if 'start' in request.GET else '0'
         view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
         
         filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        # make filter form fields solr search friendly
-        fq = []
-        for filter_type in FACET_TYPES:
-            if len(filters[filter_type[0]]) > 0:
-                fq.extend(solrize_filters(filters[filter_type[0]], filter_type[0]))
+        fq = solrize_filters(filters)
         
-        print q
-        print fq
+        # perform the search
+        solr_search = SOLR.select(
+            q=q,
+            rows=rows,
+            start=start,
+            fq=fq,
+            facet='true', 
+            facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
+        )
+        
+        for item in solr_search.results:
+            process_media(item)
+        
+        facets = {}
+        for facet_type in FACET_TYPES:
+            facets[facet_type[0]] = process_facets(
+                solr_search.facet_counts['facet_fields'][facet_type[0]], 
+                filters[facet_type[0]]
+            )
+        
+        return render(request, 'public_interface/searchResults.html', {
+            'q': q,
+            'filters': filters,
+            'rows': rows,
+            'start': start,
+            'search_results': solr_search.results,
+            'facets': facets,
+            'FACET_TYPES': FACET_TYPES,
+            'numFound': solr_search.numFound,
+            'pages': int(math.ceil(float(solr_search.numFound)/int(rows))),
+            'view_format': view_format
+        })
+        
+    return render (request, 'public_interface/base.html', {'q': ''})
+
+def home(request):
+    return render(request, 'public_interface/base.html', {'q': ''})
+
+def itemView(request, item_id=''):
+    item_id = 'id:' + "\"" + item_id + "\""
+    
+    if request.method == 'POST' and 'q' in request.POST:
+        q = request.POST['q']
+        rows = 6
+        start = request.POST['start'] if 'start' in request.POST else '0'
+        
+        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
+        fq = solrize_filters(filters)
+        
+        solr_search = SOLR.select(
+            q=q,
+            rows='6',
+            start=start,
+            fq=fq
+        )
+        
+        for item in solr_search.results:
+            process_media(item)
+        
+        carousel_items = solr_search.results
+        numFound = solr_search.numFound
+    else:
+        # MORE LIKE THIS RESULTS
+        q = ''
+        carousel_items = {}
+        numFound = 0
+    
+    solr_item = SOLR.select(q=item_id)
+    for item in solr_item.results:
+        process_media(item)
+    
+    context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
+    
+    return render(request, 'public_interface/item.html', context)
+
+def collectionsExplore(request):
+    s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
+    
+    collections_solr_query = SOLR.select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
+    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection']
+    
+    collections = []
+    for collection_url in solr_collections:
+        collection_api = urllib2.urlopen(collection_url + "?format=json")
+        collection_json = collection_api.read()
+        collection_details = json.loads(collection_json)
+        rows = '4' if collection_details['description'] != '' else '5'
+        display_items = SOLR.select(
+            q='*:*', 
+            fields='reference_image_md5, title, id', 
+            rows=rows, 
+            start=0, 
+            fq=['collection: \"' + collection_url + '\"']
+        )
+        
+        for item in display_items:
+            if 'reference_image_md5' in item:
+                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+        
+        collection_url_pattern = re.compile('https://registry.cdlib.org/api/v1/collection/([0-9]+)[/]?')
+        collection_id = collection_url_pattern.match(collection_url)
+        
+        collections.append({
+            'name': collection_details['name'], 
+            'description': collection_details['description'], 
+            'slug': collection_details['slug'],
+            'collection_id': collection_id.group(1),
+            'display_items': display_items.results
+        })
+    
+    return render(request, 'public_interface/collections-explore.html', {'collections': collections})
+
+def collectionView(request, collection_id):
+    if request.method == 'GET':
+        q = reduce(concat_query, request.GET.getlist('q')) if 'q' in request.GET else '*:*'
+        rows = request.GET['rows'] if 'rows' in request.GET else '16'
+        start = request.GET['start'] if 'start' in request.GET else '0'
+        view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
+        
+        collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
+        collection_json = urllib2.urlopen(collection_url).read()
+        collection_details = json.loads(collection_json)
+        
+        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
+        filters['collection_name'] = [collection_details['name']]
+        fq = solrize_filters(filters)
         
         # perform the search
         s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
-        solr_response = s.select(
+        solr_response = SOLR.select(
             q=q,
             rows=rows,
             start=start,
@@ -95,7 +229,7 @@ def search(request):
                 filters[facet_type[0]]
             )
         
-        return render(request, 'public_interface/searchResults.html', {
+        return render(request, 'public_interface/collectionResults.html', {
             'q': q,
             'filters': filters,
             'rows': rows,
@@ -105,83 +239,8 @@ def search(request):
             'FACET_TYPES': FACET_TYPES,
             'numFound': solr_response.numFound,
             'pages': int(math.ceil(float(solr_response.numFound)/int(rows))),
-            'view_format': view_format
-        })
-        
-    return render (request, 'public_interface/base.html', {'q': ''})
-
-def home(request):
-    return render(request, 'public_interface/base.html', {'q': ''})
-
-def itemView(request, item_id=''):
-    s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
-    item_id = 'id:' + "\"" + item_id + "\""
-    
-    if request.method == 'POST' and 'q' in request.POST:
-        q = request.POST['q']
-        start = request.POST['start'] if 'start' in request.POST else '0'
-        
-        filters = dict((filter_type[0], request.POST.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        # make filter form fields solr search friendly
-        fq = []
-        for filter_type in FACET_TYPES:
-            if len(filters[filter_type[0]]) > 0:
-                fq.extend(solrize_filters(filters[filter_type[0]], filter_type[0]))
-        
-        solr_response = s.select(
-            q=q,
-            rows='6',
-            start=start,
-            fq=fq
-        )
-        carousel_items = solr_response.results
-        for item in carousel_items:
-            if 'reference_image_md5' in item:
-                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
-        numFound = solr_response.numFound
-    else:
-        # MORE LIKE THIS RESULTS
-        q = ''
-        carousel_items = {}
-        numFound = 0
-    
-    solr_item = s.select(q=item_id)
-    if 'reference_image_md5' in solr_item.results[0]:
-        solr_item.results[0]['reference_image_http'] = md5_to_http_url(solr_item.results[0]['reference_image_md5'])
-    
-    context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
-    
-    return render(request, 'public_interface/item.html', context)
-
-def collectionsExplore(request):
-    s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
-    
-    collections_solr_query = s.select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
-    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection']
-    
-    collections = []
-    for collection_url in solr_collections:
-        collection_api = urllib2.urlopen(collection_url + "?format=json")
-        collection_json = collection_api.read()
-        collection_details = json.loads(collection_json)
-        rows = '4' if collection_details['description'] != '' else '5'
-        display_items = s.select(
-            q='*:*', 
-            fields='reference_image_md5, title, id', 
-            rows=rows, 
-            start=0, 
-            fq=['collection: \"' + collection_url + '\"']
-        )
-        
-        for item in display_items:
-            if 'reference_image_md5' in item:
-                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
-        
-        collections.append({
-            'name': collection_details['name'], 
-            'description': collection_details['description'], 
-            'slug': collection_details['slug'],
-            'display_items': display_items.results
+            'view_format': view_format, 
+            'collection': collection_details
         })
     
-    return render(request, 'public_interface/collections-explore.html', {'collections': collections})
+    return render(request, 'public_interface/searchResults.html', {'yay': 'yamy'})
