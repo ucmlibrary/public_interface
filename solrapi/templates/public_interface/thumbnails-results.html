@@ -1,13 +1,13 @@
 <div class="row">
   {% for object in search_results %}
-    <div class="col-md-3 object-thumb" style="padding: 10px; cursor: pointer" onClick="$('#object_id').prop('value', {{"\""|add:object.id|add:"\""}}); $('#object-view > input[name=start]').prop('value', $('.object-thumb').index(this)); $('#object-view').submit();">
-      <div class="imgWrap">
-        <img src="http://content.cdlib.org/ark:/13030/ft4q2nb042/thumbnail"/>
+    <div class="col-md-3 object-thumb" style="padding: 10px; cursor: pointer" data-object_id="{{object.id}}">
+      <div class="imgWrap text-center">
+        <img src="{{ object.reference_image_http }}" height=100/>
         <div class="title">{{ object.title.0 }}</div>
       </div>
-      <a>
+      <a style="width: 100%; display:inline-block; padding-top: 4px; margin-bottom: 10px;" class="text-center">
         {{ object.title.0|truncatewords:7 }}<br/>
-      </button><br>
+      </a><br>
     </div>
     {% if forloop.counter|divisibleby:"4" %}
       <!-- Close 'row' div -->

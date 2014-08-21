@@ -2,18 +2,18 @@
   
 <input form="facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
 {% if rows == '50' %}
-  <a onClick="$('#rows').prop('value', '16'); $('#facet').submit();">View 16</a> | 
+  <button id="view16" class="btn btn-link" style="padding:0px; margin:0px; vertical-align:baseline;">View 16</button> | 
 {% else %}
-  <a onClick="$('#rows').prop('value', '50'); $('#facet').submit();">View 50</a> | 
+  <button id="view50" class="btn btn-link" style="padding:0px; margin:0px; vertical-align:baseline;">View 50</button> | 
 {% endif %}
 
 {% if start|subtract:rows >= 0 %}
-  <a onClick="$('#start').val({{ start|subtract:rows }}); $('#facet').submit();">prev</a>
+  <button id="prev" class="btn btn-link" data-start="{{ start|subtract:rows }}" style="padding:0px; margin:0px; vertical-align:baseline;">prev</button>
 {% else %}
   prev
 {% endif %}
 
-<select form="facet" name="start" id="start" onChange="$('#facet').submit();">
+<select form="facet" name="start" id="start">
   {% for page in pages|get_range %}
     <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
   {% endfor %}
@@ -21,7 +21,7 @@
 of {{ pages }} 
 
 {% if start|add:rows < numFound %}
-  <a onClick="$('#start').val({{ start|add:rows }}); $('#facet').submit();">next</a>
+  <button id="next" class="btn btn-link" data-start="{{ start|add:rows }}" style="padding:0px; margin:0px; vertical-align:baseline;">next</button>
 {% else %}
   next
 {% endif %}

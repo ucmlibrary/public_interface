@@ -2,11 +2,20 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
 
+import md5s3stash
 import operator
 import math
 import solr
+import re
 
 FACET_TYPES = [('type', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
+
+def md5_to_http_url(md5):
+    s3_url = md5s3stash.md5_to_s3_url(md5, 'ucldc')
+    http_url = re.sub(r's3://([a-zA-z0-9\/\.]+)', 
+                      r'https://s3.amazonaws.com/\1',
+                      s3_url)
+    return http_url
 
 def solrize_query(q, rq):
     if q == '':
@@ -72,6 +81,9 @@ def search(request):
             facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
         )
         
+        for item in solr_response.results:
+            item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+        
         facets = {}
         for facet_type in FACET_TYPES:
             facets[facet_type[0]] = process_facets(
@@ -99,11 +111,11 @@ def home(request):
 
 def objectView(request, object_id=''):
     s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
+    object_id = 'id:' + "\"" + object_id + "\""
+    print object_id
     
-    if request.method == 'POST':
-        object_id = 'id:' + "\"" + request.POST['object_id'] + "\""
-        
-        q = request.POST['q'] if 'q' in request.POST else ''
+    if request.method == 'POST' and 'q' in request.POST:
+        q = request.POST['q']
         start = request.POST['start'] if 'start' in request.POST else '0'
         
         filters = dict((filter_type[0], request.POST.getlist(filter_type[0])) for filter_type in FACET_TYPES)
@@ -119,13 +131,23 @@ def objectView(request, object_id=''):
             start=start,
             fq=fq
         )
+        carousel_items = solr_response.results
+        for item in carousel_items:
+            item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+        numFound = solr_response.numFound
     else:
-        solr_response = {'results': ''}
-        q = object_id
+        # MORE LIKE THIS RESULTS
+        q = ''
+        carousel_items = {}
+        numFound = 0
     
     solr_object = s.select(q=object_id)
+    solr_object.results[0]['reference_image_http'] = md5_to_http_url(solr_object.results[0]['reference_image_md5'])
     
-    context = {'q': q, 'docs': solr_object.results, 'carousel': solr_response.results, 'numFound': solr_response.numFound}
+    context = {'q': q, 'docs': solr_object.results, 'carousel': carousel_items, 'numFound': numFound}
     
     return render(request, 'public_interface/object.html', context)
 
+def collectionsExplore(request):
+    s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
+    return render(request, 'public_interface/collections-explore.html', {'lala':'la'})

@@ -44,8 +44,8 @@
       </div>
       <div class="col-md-4">
         <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
-        <a onClick="$('#view_format').prop('value', 'thumbnails'); $('#facet').submit();">Thumbnails</a> | 
-        <a onClick="$('#view_format').prop('value', 'list'); $('#facet').submit();">List</a>
+        <button id="thumbnails" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">Thumbnails</button> |
+        <button id="list" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">List</button>
       </div>
       <div class="col-md-4">
         {% include "public_interface/forms/paginate.html" %}
@@ -57,8 +57,7 @@
       <div class="col-md-12">
         {% for facet_type in FACET_TYPES %}
           {% for filter in filters|get_item:facet_type.0 %}
-            <button type="button" class="btn btn-info filter-pill"
-              onClick="$('#{{ filter|slugify }}.facet-{{ facet_type.0 }}').prop('checked', false); $('#facet').submit();">
+            <button type="button" class="btn btn-info filter-pill" data-slug="{{ filter|slugify }}">
               {{ filter }} <span class="glyphicon glyphicon-remove" style="padding-left: 5px"></span>
             </button>
           {% endfor %}

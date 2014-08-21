@@ -1,18 +1,20 @@
 {% for object in search_results %}
   <div class="row" style="padding: 20px 10px">
-    <div class="col-md-5" style="padding-left: 50px;">
-      <img src="http://content.cdlib.org/ark:/13030/ft4q2nb042/thumbnail" height="200"/>
-    </div>
-    <div class="col-md-7">
-      Title: {{ object.title.0 }}<br>
-      Creator/Contributor: {{ object.creator.0 }}<br>
-      Date: {{ object.date.0 }}<br>
-      Identifier: {{ object.identifier.0 }}<br>
-      Format: {{ object.format.0 }}<br>
-      Notes: {{ object.description.0 }}<br>
-      Subject: <br>
-      Collection: {{ object.collection_name.0 }}<br>
-      Contributing Institution: {{ object.repository_name.0 }}<br>
+    <div class="object-thumb" style="cursor: pointer" data-object_id="{{object.id}}">
+      <div class="col-md-5" style="padding-left: 50px;">
+        <img src="{{ object.reference_image_http }}" height="200"/>
+      </div>
+      <div class="col-md-7">
+        Title: {{ object.title.0 }}<br>
+        Creator/Contributor: {{ object.creator.0 }}<br>
+        Date: {{ object.date.0 }}<br>
+        Identifier: {{ object.identifier.0 }}<br>
+        Format: {{ object.format.0 }}<br>
+        Notes: {{ object.description.0 }}<br>
+        Subject: <br>
+        Collection: {{ object.collection_name.0 }}<br>
+        Contributing Institution: {{ object.repository_name.0 }}<br>
+      </div>
     </div>
   </div>
   <hr>

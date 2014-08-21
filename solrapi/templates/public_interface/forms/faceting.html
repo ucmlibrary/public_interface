@@ -4,29 +4,31 @@
   <!-- value of the search query from the header form -->
   <input type="hidden" name="q" value="{{ q }}" form="facet">
   
-  <button type="button" class="btn btn-default" style="width: 100%" onClick="$('.facet').prop('checked', false); $('#facet').submit();">Deselect All</button>
+  <button type="button" id="deselect-facets" class="btn btn-default btn-block">Deselect All</button>
   
   {% for facet_type, facet_type_display in FACET_TYPES %}
-  <div class="row">
-    <div class="col-md-8"><h5>{{ facet_type_display }} ({{ facets|get_item:facet_type|length }})</h5></div>
-    <div class="col-md-4 text-right">
-      <h6><a onClick="$('.facet-{{ facet_type }}').prop('checked', true); $('#facet').submit();">Select all</a></h6>
+  <div class="facet-type">
+    <div class="row">
+      <div class="col-md-8"><h5>{{ facet_type_display }} ({{ facets|get_item:facet_type|length }})</h5></div>
+      <div class="col-md-4 text-right">
+        <h6><button class="btn btn-link select-facets" style="font-size: 12px; padding: 0px; margin: 0px;">Select all</button></h6>
+      </div>
     </div>
+    <table class="table" style="width: 100%">
+      {% for facet, count in facets|get_item:facet_type %}
+      <tr>
+        <td style="padding: 0px; width: 80%">
+          <div class="checkbox" style="font-size: 14px; margin: 5px 0">
+            <label>{{ facet }} ({{ count }})</label>
+          </div>
+        </td>
+        <td style="padding: 6px 0 0 20px;">
+          <input id="{{ facet|slugify }}" class="facet facet-{{ facet_type }}" form="facet" type="checkbox" 
+            name="{{ facet_type }}" value="{{ facet }}" {% if facet in filters|get_item:facet_type %}checked{% endif %}/>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
   </div>
-  <table class="table" style="width: 100%">
-    {% for facet, count in facets|get_item:facet_type %}
-    <tr>
-      <td style="padding: 0px; width: 80%">
-        <div class="checkbox" style="font-size: 14px; margin: 5px 0">
-          <label>{{ facet }} ({{ count }})</label>
-        </div>
-      </td>
-      <td style="padding: 6px 0 0 20px;">
-        <input form="facet" class="facet facet-{{ facet_type }}" type="checkbox" onChange="$('#facet').submit();" 
-          name="{{ facet_type }}" id="{{ facet|slugify }}" value="{{ facet }}" {% if facet in filters|get_item:facet_type %}checked{% endif %}/>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
   {% endfor %}
 </form>

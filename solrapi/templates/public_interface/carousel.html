@@ -3,9 +3,12 @@
     <div class="col-md-6">Search results for <strong>{{ q }}</strong></div>
     <div class="col-md-6 text-right">Displaying 6 of {{ numFound }} | Start over</div>
   </div>
-  <div class="amy-carousel" style="height: 100px; padding: 20px;">
+  <div class="amy-carousel" style="height: 200px; padding: 20px; font-size: 11px;">
     {% for object in carousel %}
-      <div>{{ object.title.0 }}</div>
+      <div style="margin: 10px" class="text-center">
+        <img src="{{ object.reference_image_http }}" height="80px" style="margin: auto;"><br/>
+        {{ object.title.0 }}
+      </div>
     {% endfor %}
   </div>
 </div>
