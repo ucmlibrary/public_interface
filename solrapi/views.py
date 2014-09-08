@@ -15,11 +15,14 @@ SOLR = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
 
 
 def md5_to_http_url(md5):
-    s3_url = md5s3stash.md5_to_s3_url(md5, 'ucldc')
-    http_url = re.sub(r's3://([a-zA-z0-9\/\.]+)', 
-                      r'https://s3.amazonaws.com/\1',
-                      s3_url)
-    return http_url
+    try: 
+        s3_url = md5s3stash.md5_to_s3_url(md5, 'ucldc')
+        http_url = re.sub(r's3://([a-zA-z0-9\/\.]+)', 
+                          r'https://s3.amazonaws.com/\1',
+                          s3_url)
+        return http_url
+    except ValueError:
+        return
 
 def process_media(item):
     if 'reference_image_md5' in item:
@@ -36,19 +39,16 @@ def concat_query(q, rq):
 
 # concat filters with 'OR'
 def concat_filters(filters, filter_type):
-    # fq = []
-    # for f in filters:
-    #     fq.append(filter_type + ': "' + f + '"')
-    # print fq
+    # OR-ING FILTERS OF ONE TYPE, YET AND-ING FILTERS OF DIFF TYPES
+    fq_contents = filter_type + ': '
     
-    # TRIAL FOR OR-ING FILTERS OF ONE TYPE, YET AND-ING FILTERS OF DIFF TYPES
-    trial = filter_type + ': '
     for counter, f in enumerate(filters):
-        trial = trial + '"' + f + '"'
+        fq_contents = fq_contents + '"' + f + '"'
+        # if not at the last filter term, continue OR-ing together terms
         if counter < len(filters)-1:
-            trial = trial + " OR "
+            fq_contents = fq_contents + " OR " + filter_type + ': '
     
-    return [trial]
+    return [fq_contents]
 
 # collect filters into an array
 def solrize_filters(filters):
@@ -56,28 +56,45 @@ def solrize_filters(filters):
     for filter_type in FACET_TYPES:
         if len(filters[filter_type[0]]) > 0:
             fq.extend(concat_filters(filters[filter_type[0]], filter_type[0]))
+    
     return fq
 
 
-def process_facets(facets, filters):
+def process_facets(facets, filters, facet_counts=None):
     display_facets = {}
+    
+    # if we're displaying facets with a current count of 0, change their counts to reflect current count
+    # if facet_counts:
+    #     for facet, count in facets.iteritems():
+    #         if count != 0:
+    #             display_facets[facet] = facet_counts[facet]
+    # else: 
     display_facets = dict((facet, count) for facet, count in facets.iteritems() if count != 0)
+    
     display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(1), reverse=True)
     for f in filters:
         if not any(f in facet for facet in display_facets):
             display_facets.append((f, 0))
+            
     return display_facets
 
 
 
 def search(request):
     if request.method == 'GET':
+        # concatenate query terms from refine query and query box
         q = reduce(concat_query, request.GET.getlist('q'))
+        # set rows to 16 by default, unless there is a different number specified
         rows = request.GET['rows'] if 'rows' in request.GET else '16'
+        # set start to 0 by default, unless there is a different page specified
         start = request.GET['start'] if 'start' in request.GET else '0'
+        # set view format to thumbnails by default, unless list is specified
         view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
         
+        # for each filter_type tuple ('solr_name', 'Display Name') in the list FACET_TYPES
+        # create a dictionary with key solr_name of filter and value list of parameters for that filter
         filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
+        
         fq = solrize_filters(filters)
         
         # perform the search
@@ -87,6 +104,7 @@ def search(request):
             start=start,
             fq=fq,
             facet='true', 
+            facet_limit='-1',
             facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
         )
         
@@ -95,10 +113,43 @@ def search(request):
         
         facets = {}
         for facet_type in FACET_TYPES:
-            facets[facet_type[0]] = process_facets(
-                solr_search.facet_counts['facet_fields'][facet_type[0]], 
-                filters[facet_type[0]]
-            )
+            if len(filters[facet_type[0]]) > 0:
+                # tmp_solr_search = SOLR.select(
+                #     q=q,
+                #     rows=rows,
+                #     start=start,
+                #     facet='true',
+                #     facet_limit='-1',
+                #     facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
+                # )
+                
+                # All the filters except the ones of the current filter type
+                tmp_filters = {key: value for key, value in filters.items()
+                    if key != facet_type[0]}
+                tmp_filters[facet_type[0]] = []
+                
+                tmp_fq = solrize_filters(tmp_filters)
+                tmp_solr_search = SOLR.select(
+                    q=q,
+                    rows=rows,
+                    start=start,
+                    fq=tmp_fq,
+                    facet='true',
+                    facet_limit='-1',
+                    facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
+                )
+                
+                
+                facets[facet_type[0]] = process_facets(
+                    tmp_solr_search.facet_counts['facet_fields'][facet_type[0]],
+                    filters[facet_type[0]],
+                    solr_search.facet_counts['facet_fields'][facet_type[0]]
+                )
+            else: 
+                facets[facet_type[0]] = process_facets(
+                    solr_search.facet_counts['facet_fields'][facet_type[0]], 
+                    filters[facet_type[0]]
+                )
         
         return render(request, 'public_interface/searchResults.html', {
             'q': q,

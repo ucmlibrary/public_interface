@@ -62,4 +62,17 @@ $(document).ready(function() {
     }(this));
     $('#item-view').submit();
   });
+  
+  var repository_autocomplete = new Autocomplete($('#repository_name'));
+  var collection_autocomplete = new Autocomplete($('#collection_name'));
+  
+  // var repo_chosen = new Chosen($('#repository_name'));
+  
+  // $('#repository_name').chosen({width: "100%", inherit_select_classes: true, placeholder_text_multiple: "Search institution facets"});
+  // $('#repository_name').data('chosen').winnow_results();
+  // $('#repository_name_chosen .highlighted').toggleClass('highlighted');
+  // 
+  // $('#collection_name').chosen({width: "100%", inherit_select_classes: true, placeholder_text_multiple: "Search collection facets"});
+  // $('#collection_name').data('chosen').winnow_results();
+  // $('#collection_name_chosen .highlighted').toggleClass('highlighted');
 });

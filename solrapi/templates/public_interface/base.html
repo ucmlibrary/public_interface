@@ -7,7 +7,10 @@
     {% block styles %}{% endblock %}
     
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static "underscore-min.js" %}"></script>
+    <script src="{% static "js/amy-autocomplete.js" %}"></script>
     {% block scripts %}{% endblock %}
+    {% block inline-scripts %}{% endblock %}
   </head>
   <body>
     {% include "public_interface/header.html" %}
