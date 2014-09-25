@@ -80,7 +80,7 @@ Autocomplete.prototype.keyup_checker = function(evt) {
 };
 
 Autocomplete.prototype.get_search_text = function() {
-  if (this.autocomplete_field.val() === 'Search facets') {
+  if (this.autocomplete_field.val() === 'Enter Institution Owner Name' || this.autocomplete_field.val() === 'Enter Collection Name') {
     return "";
   } else {
     return (this.autocomplete_field.val());
