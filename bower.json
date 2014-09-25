@@ -1,0 +1,10 @@
+{
+  "name": "public-interface",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass-official": "~3.2.0",
+    "modernizr": "~2.8.2",
+    "chosen": "~1.2.0",
+    "underscore": "~1.7.0"
+  }
+}
