@@ -37,6 +37,7 @@ runs on `http://localhost:8888` see https://github.com/tingletech/md5s3stash
 brew install npm
 npm install -g bower
 npm install
+bower install
 ```
 
 ```
