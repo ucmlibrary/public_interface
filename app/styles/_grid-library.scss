@@ -1,0 +1,21 @@
+// custom styles
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;
+}
+
+div[class^="col"] { // highlight all grid columns
+    border: 1px solid red;
+    background: #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+img {
+	display: block;
+	width: 150px;
+	height: 150px;
+	border: 1px solid black;
+}

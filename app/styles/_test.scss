@@ -1,0 +1,74 @@
+// custom styles
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;
+}
+
+div[class^="col"] { // highlight all grid columns
+    border: 1px solid red;
+    background: #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+header, footer {
+	@include make-md-column(12);
+	border: 2px solid black;
+}
+
+nav {
+	@include make-md-column(3);
+	border: 2px solid blue;
+}
+
+main {
+	@include make-md-column(6);
+	border: 2px solid green;
+}
+
+aside {
+	@include make-md-column(3);
+	border: 2px solid red;
+}
+
+@mixin bp($point) {
+
+  @if $point == lg-screen {
+    @media (min-width: $screen-lg-min) { @content; }
+  }
+  @else if $point == md-screen {
+    @media (min-width: $screen-md-min) { @content; }
+  }
+  @else if $point == sm-screen {
+    @media (min-width: $screen-sm-min) { @content; }
+  }
+
+}
+
+footer p {
+	color: blue;
+	@include bp(sm-screen) {
+    	color: red;
+	}
+	@include bp(md-screen) {
+    	color: orange;
+	}
+	@include bp(lg-screen) {
+    	color: purple;
+	}
+}
+
+
+footer p {
+	@media (min-width: $screen-sm-min) {
+		color: red;
+	}
+	@media (min-width: $screen-md-min) {
+		color: orange;
+	}
+	@media (min-width: $screen-lg-min) {
+		color: purple;
+	}
+}
