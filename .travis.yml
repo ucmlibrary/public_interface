@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - 2.7
+
+before_script:
+  - npm install
+  - ./node_modules/.bin/bower install
+  - cd test
+  - ../node_modules/.bin/bower install
+  - cd ..
+
+install: "pip install -r requirements.txt"
+
+script:
+  - python manage.py test
+  - ./node_modules/.bin/grunt test
+  - ./node_modules/.bin/grunt
