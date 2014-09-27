@@ -4,6 +4,7 @@ python:
   - 2.7
 
 before_script:
+  - bundle install
   - npm install
   - ./node_modules/.bin/bower install
   - cd test
