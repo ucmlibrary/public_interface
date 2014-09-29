@@ -6,9 +6,11 @@
   -moz-box-sizing: border-box;
 }
 
+.check-comp {
+  width: 400px;
+}
 
 .check-group-title {
-  width: 400px;
   border: 1px solid #000;
   padding: 15px 0 15px 10px;
   font-weight: bold;
@@ -22,7 +24,6 @@
 }
 
 .check-group {
-  max-width: 400px;
   height: 150px;
   overflow: scroll;
   border-left: 1px solid #000;
@@ -54,7 +55,6 @@
 }
 
 .check-group-update {
-  width: 400px;
   border: 1px solid #000;
   padding: 10px;
   text-align: center;
