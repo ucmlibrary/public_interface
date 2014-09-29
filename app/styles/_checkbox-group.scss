@@ -9,12 +9,23 @@
   padding: 15px 0 15px 10px;
   font-weight: bold;
   background: #ccc;
+
+  @include bp(sm-screen) {
+    border: none;
+    background: none;
+  }
+
 }
 
 .check__title .fa {
   float: right;
   margin: -10px 20px 0 0;
   font-size: 3em;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
 }
 
 .check__group {
@@ -22,6 +33,13 @@
   overflow: scroll;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
+
+  @include bp(sm-screen) {
+    height: auto;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+  }
+
 }
 
 .check__label {
@@ -52,4 +70,9 @@
   border: 1px solid #000;
   padding: 10px;
   text-align: center;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
 }
