@@ -6,31 +6,31 @@
   -moz-box-sizing: border-box;
 }
 
-.check-comp {
+.check {
   width: 400px;
 }
 
-.check-group-title {
+.check__title {
   border: 1px solid #000;
   padding: 15px 0 15px 10px;
   font-weight: bold;
   background: #ccc;
 }
 
-.check-group-title .fa {
+.check__title .fa {
   float: right;
   margin: -10px 20px 0 0;
   font-size: 3em;
 }
 
-.check-group {
+.check__group {
   height: 150px;
   overflow: scroll;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
 }
 
-.check-label {
+.check__label {
   display: block;
   min-height: 44px;
   margin: -1px 0 0 0;
@@ -41,11 +41,11 @@
   font-weight: normal;
 }
 
-.check-label:last-of-type {
+.check__label:last-of-type {
   border-bottom: none;
 }
 
-.check-input {
+.check__input {
   position: relative;
   float: right;
   top: 3px;
@@ -54,7 +54,7 @@
   height: 2em;
 }
 
-.check-group-update {
+.check__update {
   border: 1px solid #000;
   padding: 10px;
   text-align: center;
