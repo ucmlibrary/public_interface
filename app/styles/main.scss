@@ -1,9 +1,32 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;
+}
+
+@mixin bp($point) {
+
+  @if $point == lg-screen {
+    @media (min-width: $screen-lg-min) { @content; }
+  }
+  @else if $point == md-screen {
+    @media (min-width: $screen-md-min) { @content; }
+  }
+  @else if $point == sm-screen {
+    @media (min-width: $screen-sm-min) { @content; }
+  }
+
+}
+
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 
 @import "bootstrap_custom/_variables";
 
 @import "bootstrap_custom/bootstrap";
 
+// Custom Components
+
 @import "grid-library";
 
-@import "component-library";
+@import "checkbox-group";
+
