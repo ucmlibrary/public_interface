@@ -1,7 +1,16 @@
+// _____ Main SCSS _____ //
+
 *, *:before, *:after {
   box-sizing: border-box;
   -webkit-box-sizing: border-box; 
   -moz-box-sizing: border-box;
+}
+
+[class^="col"] { // highlight all grid columns
+    border: 1px solid red;
+    background: #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 @mixin bp($point) {
@@ -24,7 +33,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 
 @import "bootstrap_custom/bootstrap";
 
-// _____ Custom Components _____ //
+// _____ Components _____ //
 
 @import "grid-library";
 
