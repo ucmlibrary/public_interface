@@ -4,13 +4,31 @@
   
 }
 
-.global-header__logo {
-  
+.global-header__bars-icon {
+  font-size: 1.4em;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
+}
+
+.global-header__logo img {
+  padding: 10px;
+  border: 1px solid black;
 }
 
 .global-header__logo h1 {
   display: inline;
   font-size: 1.4em;
+}
+
+.global-header__search-icon {
+  font-size: 1.4em;
+  @include bp(sm-screen) {
+    display: none;
+  }
+
 }
 
 .global-header__nav-list {
