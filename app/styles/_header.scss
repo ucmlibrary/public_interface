@@ -1,2 +1,16 @@
 // __________ Header __________ //
 
+.global-header {
+  
+}
+
+.global-header__nav-list {
+  margin: 0;
+  padding: 0;
+}
+
+.global-header__nav-list li {
+  display: inline;
+  list-style: none;
+  // border: 1px solid blue;
+}
