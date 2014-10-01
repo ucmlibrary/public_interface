@@ -1,7 +1,7 @@
 // Checkbox Group
 
 .check {
-  // width: 400px;
+  min-width: 310px;
 }
 
 .check__title {
@@ -89,9 +89,9 @@
 }
 
 .check__update {
+  width: 100%;
   border: 1px solid #000;
   padding: 10px;
-  text-align: center;
 
   @include bp(sm-screen) {
     display: none;
