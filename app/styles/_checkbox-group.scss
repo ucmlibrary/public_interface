@@ -1,7 +1,7 @@
 // Checkbox Group
 
 .check {
-  width: 400px;
+  // width: 400px;
 }
 
 .check__title {
@@ -26,6 +26,28 @@
     display: none;
   }
 
+}
+
+.check__button-group {
+  margin: -1px 0 0 0;
+  border: 1px solid #000;
+  overflow: hidden;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
+}
+
+.check__buttons {
+  float: right;
+  width: 45%;
+  margin: 10px;
+}
+
+.check__buttons:first-of-type {
+  float: left;
+  margin-right: 0;
 }
 
 .check__group {
