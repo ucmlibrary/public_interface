@@ -6,7 +6,8 @@
 
 .global-header__bars-icon {
   font-size: 1.4em;
-
+  cursor: pointer;
+  
   @include bp(sm-screen) {
     display: none;
   }
@@ -35,6 +36,7 @@
 .global-header__search-icon {
   text-align: right;
   font-size: 1.4em;
+  cursor: pointer;
 
   @include bp(sm-screen) {
     display: none;
@@ -53,11 +55,21 @@
   // border: 1px solid blue;
 }
 
-.global-header__collections-institutions {
+.global-header__collections--xs {
   text-align: left;
 
   @include bp(sm-screen) {
-    text-align: center;
+    display: none;
+  }
+
+}
+
+.global-header__collections--sm {
+  display: none;
+  text-align: center;
+
+  @include bp(sm-screen) {
+    display: block;
   }
 
 }
