@@ -4,12 +4,11 @@
   min-width: 310px;
 }
 
-.check__title {
+.check__header {
   border: 1px solid #000;
   padding: 15px 0 15px 10px;
-  font-size: 1.2em;
-  font-weight: bold;
   background: #ccc;
+  overflow: hidden;
 
   @include bp(sm-screen) {
     border: none;
@@ -18,14 +17,26 @@
 
 }
 
-.check__title--selected {
+.check__header--selected {
+  color: #fff;
   background: #999;
 }
 
-.check__title .fa {
+.check__header-text {
+  float: left;
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.check__header-text--selected {
+  color: #fff;
+}
+
+.check__header .fa-angle-down {
   float: right;
-  margin: -10px 20px 0 0;
-  font-size: 2.2em;
+  margin: -5px 20px -20px 0;
+  font-size: 2.6em;
 
   @include bp(sm-screen) {
     display: none;
@@ -97,7 +108,7 @@
   width: 100%;
   border: 1px solid #000;
   padding: 10px;
-  background: none;
+  background: #999;
 
   @include bp(sm-screen) {
     display: none;
@@ -106,5 +117,6 @@
 }
 
 .check__update:disabled {
-  background: #999;
+  opacity: 0.65;
+  background: none;
 }
