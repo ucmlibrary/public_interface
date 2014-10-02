@@ -1,4 +1,4 @@
-// _____ Main SCSS _____ //
+// ##### Main SCSS ##### //
 
 *, *:before, *:after {
   box-sizing: border-box;
@@ -28,15 +28,13 @@
 }
 
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
-
 @import "bootstrap-imports";
-
 @import "bootstrap-variables";
+@import "variables";
+@import "mixins";
 
 // _____ Components _____ //
 
 @import "grid-library";
-
 @import "checkbox-group";
-
 @import "header";
