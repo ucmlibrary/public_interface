@@ -80,12 +80,15 @@
   float: right;
   width: 45%;
   margin: 10px;
+
+  &:first-of-type {
+    float: left;
+    margin-right: 0;
+  }
+
 }
 
-.check__buttons:first-of-type {
-  float: left;
-  margin-right: 0;
-}
+
 
 .check__group {
   height: 150px;
@@ -110,11 +113,14 @@
   border-top: 1px solid #999;
   border-bottom: 1px solid #999;
   font-weight: normal;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
 }
 
-.check__label:last-of-type {
-  border-bottom: none;
-}
+
 
 .check__input {
   position: relative;
@@ -131,13 +137,13 @@
   padding: 10px;
   background: #999;
 
+  &:disabled {
+    opacity: 0.65; // what Bootstrap uses; I may use another technique
+    background: none;
+  }
+
   @include bp(sm-screen) {
     display: none;
   }
 
-}
-
-.check__update:disabled {
-  opacity: 0.65;
-  background: none;
 }
