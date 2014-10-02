@@ -29,9 +29,9 @@
 
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 
-@import "bootstrap_custom/variables";
+@import "bootstrap-imports";
 
-@import "bootstrap_custom/bootstrap";
+@import "bootstrap-variables";
 
 // _____ Components _____ //
 
