@@ -18,8 +18,14 @@
 }
 
 .check__header--selected {
-  color: #fff;
+  @extend .check__header;
   background: #999;
+
+  @include bp(sm-screen) {
+    color: #000;
+    background: none;
+  }
+
 }
 
 .check__header-text {
@@ -30,7 +36,12 @@
 }
 
 .check__header-text--selected {
+  @extend .check__header-text;
   color: #fff;
+
+  @include bp(sm-screen) {
+    color: #000;
+  }
 }
 
 .check__header .fa-angle-down {
