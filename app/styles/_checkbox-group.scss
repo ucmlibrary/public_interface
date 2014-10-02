@@ -18,6 +18,10 @@
 
 }
 
+.check__title--selected {
+  background: #999;
+}
+
 .check__title .fa {
   float: right;
   margin: -10px 20px 0 0;
@@ -101,6 +105,6 @@
 
 }
 
-.check__update--active {
+.check__update:disabled {
   background: #999;
 }
