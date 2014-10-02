@@ -55,6 +55,16 @@
 
 }
 
+.check__select-all {
+  display: none;
+  float: right;
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+  
+}
+
 .check__button-group {
   margin: -1px 0 0 0;
   border: 1px solid #000;
