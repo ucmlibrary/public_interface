@@ -13,20 +13,6 @@
     padding-bottom: 10px;
 }
 
-@mixin bp($point) {
-
-  @if $point == lg-screen {
-    @media (min-width: $screen-lg-min) { @content; }
-  }
-  @else if $point == md-screen {
-    @media (min-width: $screen-md-min) { @content; }
-  }
-  @else if $point == sm-screen {
-    @media (min-width: $screen-sm-min) { @content; }
-  }
-
-}
-
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 @import "bootstrap-imports";
 @import "bootstrap-variables";
