@@ -139,12 +139,32 @@
 }
 
 .check__input {
+  position: absolute; //new
+  top: -9999px;
+  left: -9999px;
+  // position: relative;
+  // float: right;
+  // top: 3px;
+  // right: 10px;
+  // width: 2em;
+  // height: 2em;
+}
+
+.testbox {
   position: relative;
   float: right;
   top: 3px;
   right: 10px;
-  width: 2em;
-  height: 2em;
+  cursor: pointer;
+}
+
+.testbox:before {
+  cursor: pointer;
+  content: "[box]";
+}
+
+input[type=checkbox]:checked ~ span {
+   background: red;
 }
 
 .check__update {
