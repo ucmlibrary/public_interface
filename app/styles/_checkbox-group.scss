@@ -71,6 +71,12 @@
   display: none;
   left: 0;
   right: 0;
+
+  @include bp(sm-screen) {
+    position: relative;
+    display: block;
+  }
+
 }
 
 .check__popdown--selected {
