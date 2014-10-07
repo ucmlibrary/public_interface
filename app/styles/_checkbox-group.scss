@@ -67,10 +67,15 @@
 }
 
 .check__popdown {
-  // display: none;
   position: absolute;
+  display: none;
   left: 0;
   right: 0;
+}
+
+.check__popdown--selected {
+  @extend .check__popdown;
+  display: block;
 }
 
 .check__button-group {
