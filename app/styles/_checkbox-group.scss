@@ -1,6 +1,7 @@
 // Checkbox Group
 
 .check {
+  position: relative;
   min-width: 310px;
 }
 
@@ -65,9 +66,17 @@
   
 }
 
+.check__popdown {
+  // display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
 .check__button-group {
   margin: -1px 0 0 0;
   border: 1px solid #000;
+  background: #fff;
   overflow: hidden;
 
   @include bp(sm-screen) {
