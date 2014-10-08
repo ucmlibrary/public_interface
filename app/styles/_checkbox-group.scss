@@ -131,6 +131,7 @@
   border-top: 1px solid #999;
   border-bottom: 1px solid #999;
   font-weight: normal;
+  background-image: url(/images/checkbox-square.svg);
 
   &:last-of-type {
     border-bottom: none;
@@ -140,8 +141,8 @@
 
 .check__input {
   position: absolute; //new
-  top: -9999px;
-  left: -9999px;
+  top: -9999px; //new
+  left: -9999px; //new
   // position: relative;
   // float: right;
   // top: 3px;
@@ -150,21 +151,17 @@
   // height: 2em;
 }
 
+//new 
 .testbox {
   position: relative;
   float: right;
   top: 3px;
   right: 10px;
-  cursor: pointer;
 }
 
-.testbox:before {
-  cursor: pointer;
-  content: "[box]";
-}
-
-input[type=checkbox]:checked ~ span {
-   background: red;
+//new
+input[type=checkbox]:checked ~ label {
+   background-image: url(/images/checkbox-check.svg);
 }
 
 .check__update {
