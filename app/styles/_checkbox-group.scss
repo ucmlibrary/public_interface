@@ -131,7 +131,8 @@
   border-top: 1px solid #999;
   border-bottom: 1px solid #999;
   font-weight: normal;
-  background-image: url(/images/checkbox-square.svg);
+  background: #fff url("/images/checkbox-square.svg") no-repeat 95% center;
+  background-size: 18px 18px; // constrains SVG canvas for positioning
 
   &:last-of-type {
     border-bottom: none;
@@ -140,28 +141,18 @@
 }
 
 .check__input {
-  position: absolute; //new
-  top: -9999px; //new
-  left: -9999px; //new
-  // position: relative;
-  // float: right;
-  // top: 3px;
-  // right: 10px;
-  // width: 2em;
-  // height: 2em;
-}
-
-//new 
-.testbox {
   position: relative;
   float: right;
   top: 3px;
   right: 10px;
+  width: 2em;
+  height: 2em;
+  opacity: 0; // hide checkbox
 }
 
-//new
-input[type=checkbox]:checked ~ label {
-   background-image: url(/images/checkbox-check.svg);
+.check__input:checked + .check__label {
+   background: #fff url("/images/checkbox-check.svg") no-repeat 95% center;
+   background-size: 15px 15px; // constrains SVG canvas for positioning
 }
 
 .check__update {
