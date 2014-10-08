@@ -152,7 +152,7 @@
 
 .check__input:checked + .check__label {
    background: #fff url("/images/checkbox-check.svg") no-repeat 95% center;
-   background-size: 15px 15px; // constrains SVG canvas for positioning
+   background-size: 18px 12px; // constrains SVG canvas for positioning
 }
 
 .check__update {
