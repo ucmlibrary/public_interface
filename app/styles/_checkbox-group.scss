@@ -147,7 +147,7 @@
   right: 10px;
   width: 2em;
   height: 2em;
-  opacity: 0; // hide checkbox
+  opacity: 0; // hide generic checkboxes
 }
 
 .check__input:checked + .check__label {
@@ -162,8 +162,7 @@
   background: #999;
 
   &:disabled {
-    opacity: 0.65; // what Bootstrap uses; I may use another technique
-    background: none;
+    background: #fff;
   }
 
   @include bp(sm-screen) {
