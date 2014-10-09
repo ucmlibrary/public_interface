@@ -110,7 +110,7 @@
 
 .check__group {
   height: 150px;
-  overflow: scroll;
+  overflow: auto; // turn on scroll bar
   border-left: 1px solid #000;
   border-right: 1px solid #000;
 
