@@ -124,7 +124,6 @@
 
 .check__label {
   display: block;
-  min-height: 44px;
   margin: -1px 0 0 0;
   padding: 10px 50px 10px 10px;
   background: #fff;
@@ -146,10 +145,10 @@ html.svg .check__label {
 .check__input {
   position: relative;
   float: right;
-  top: 3px;
+  top: 10px;
   right: 20px;
-  width: 2em;
-  height: 2em;
+  width: 1.6em;
+  height: 1.6em;
 }
 
 html.svg .check__input {
