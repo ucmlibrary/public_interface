@@ -1,4 +1,4 @@
-// ##### Main SCSS ##### //
+// ***** Main Sass ***** //
 
 *, *:before, *:after {
   box-sizing: border-box;
@@ -13,13 +13,19 @@
     padding-bottom: 10px;
 }
 
+// <<<<< Vendor Libraries >>>>> //
+
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 @import "bootstrap-imports";
 @import "bootstrap-variables";
+@import "slick";
+
+// <<<<< Vendor Customizations >>>>> //
+
 @import "variables";
 @import "mixins";
 
-// _____ Components _____ //
+// <<<<< Custom Components >>>>> //
 
 @import "grid-library";
 @import "carousel";
