@@ -1,4 +1,5 @@
 // Slick carousel
+'use strict'; // for jshint
 
 $(document).ready(function(){
 	$('.carousel').slick({
