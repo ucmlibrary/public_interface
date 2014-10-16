@@ -1,5 +1,11 @@
 // ***** Slick carousel ***** //
 
-$slick-font-path: "../../bower_components/slick.js/slick/fonts/";
+$slick-font-family: "FontAwesome";
+
+$slick-arrow-color: orange;
+
+$slick-prev-character: '\f104';
+
+$slick-next-character: '\f105';
 
 @import "../../bower_components/slick.js/slick/slick.scss";
