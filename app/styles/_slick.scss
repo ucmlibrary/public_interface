@@ -9,3 +9,12 @@ $slick-prev-character: '\f104';
 $slick-next-character: '\f105';
 
 @import "../../bower_components/slick.js/slick/slick.scss";
+
+.slick-prev, .slick-next {
+	width: auto;
+	height: auto;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-size: 50px;
+}
