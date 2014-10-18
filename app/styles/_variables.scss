@@ -1,2 +1,15 @@
 // ##### Custom Variables ##### //
 
+// Extract Bootstrap's breakpoint variables for Slick carousel:
+
+.bootstrap-lg-screen {
+	width: $screen-lg-min;
+}
+
+.bootstrap-md-screen {
+	width: $screen-md-min;
+}
+
+.bootstrap-sm-screen {
+	width: $screen-sm-min;
+}
