@@ -1,41 +1,43 @@
-// Slick carousel
+// Slick carousel settings
+
 'use strict'; // for jshint
 
 $(document).ready(function(){
-	var lg = $('.container').css('width');
-	// var md = $('.bootstrap-md-screen').css('width');
-	// var sm = $('.bootstrap-sm-screen').css('width');
+	
+	// Get Bootstrap CSS breakpoints;
+	var lg = $('.bs-lg-screen').css('width');
+	var md = $('.bs-md-screen').css('width');
+	var sm = $('.bs-sm-screen').css('width');
 
-	document.getElementById('test').innerHTML = lg;
+	lg = lg.replace('px', '');
+	md = md.replace('px', '');
+	sm = sm.replace('px', '');
 
+	// Display Bootstrap breakpoint for testing:
+	// document.getElementById('test').innerHTML = lg;
+
+	// Slick settings:
 	$('.carousel').slick({
-	  dots: true,
 	  infinite: false,
-	  speed: 300,
 	  slidesToShow: 5,
 	  slidesToScroll: 5,
 	  responsive: [
 	    {
-	      // breakpoint: 1200,
 	      breakpoint: lg,
 	      settings: {
 	        slidesToShow: 4,
 	        slidesToScroll: 4,
-	        infinite: true,
-	        dots: true
 	      }
 	    },
 	    {
-	      breakpoint: 992,
-	      // breakpoint: md,
+	      breakpoint: md,
 	      settings: {
 	        slidesToShow: 3,
 	        slidesToScroll: 3
 	      }
 	    },
 	    {
-	      breakpoint: 768,
-	      // breakpoint: sm,
+	      breakpoint: sm,
 	      settings: {
 	        slidesToShow: 2,
 	        slidesToScroll: 2

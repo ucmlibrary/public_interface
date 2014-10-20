@@ -10,6 +10,25 @@ $slick-next-character: '\f105';
 
 @import "../../bower_components/slick.js/slick/slick.scss";
 
+// Extract Bootstrap's breakpoint variables for Slick carousel:
+
+.bs-lg-screen {
+	display: none;
+	width: $screen-lg-min;
+}
+
+.bs-md-screen {
+	display: none;
+	width: $screen-md-min;
+}
+
+.bs-sm-screen {
+	display: none;
+	width: $screen-sm-min;
+}
+
+// Override preexisting Slick selectors:
+
 .slick-prev, .slick-next {
 	width: auto;
 	height: auto;
