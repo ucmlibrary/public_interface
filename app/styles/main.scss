@@ -2,6 +2,8 @@
 
 // This imports all Sass partials and compiles to main.css
 
+// <<<<< Global Classes >>>>> //
+
 *, *:before, *:after {
   box-sizing: border-box;
   -webkit-box-sizing: border-box; 
@@ -27,7 +29,8 @@
 
 // <<<<< Custom Components >>>>> //
 
-@import "grid-library";
 @import "carousel";
 @import "checkbox-group";
+@import "collections";
+@import "grid-library";
 @import "header";
