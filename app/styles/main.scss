@@ -1,5 +1,7 @@
 // ***** Main Sass ***** //
 
+// This imports all Sass partials and compiles to main.css
+
 *, *:before, *:after {
   box-sizing: border-box;
   -webkit-box-sizing: border-box; 
@@ -13,17 +15,15 @@
     padding-bottom: 10px;
 }
 
-// <<<<< Vendor Libraries >>>>> //
-
-$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
-@import "bootstrap-imports";
-@import "bootstrap-variables";
-@import "slick-variables";
-
-// <<<<< Global Customizations >>>>> //
+// <<<<< Global Settings >>>>> //
 
 @import "variables";
 @import "mixins";
+
+// <<<<< Vendor Libraries >>>>> //
+
+@import "bootstrap-imports";
+@import "../../bower_components/slick.js/slick/slick.scss";
 
 // <<<<< Custom Components >>>>> //
 

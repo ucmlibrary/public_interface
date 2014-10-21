@@ -1,4 +1,14 @@
-// ##### Custom Variables ##### //
+// ##### Custom Settings ##### //
+
+// ***** Global variables ***** //
 
 $design-key-color: orange;
 $design-outline-color: gray;
+
+// ***** Slick carousel ***** //
+
+$slick-font-family: "FontAwesome";
+$slick-arrow-color: $design-key-color;
+$slick-prev-character: '\f104';
+$slick-next-character: '\f105';
+$slick-arrow-spacing: 40px;
