@@ -1,0 +1,19 @@
+// ***** For Testing Only ***** //
+
+// Highlight all Bootstrap grid columns
+
+[class^="col"] { 
+	border: 1px solid red;
+	background: #eee;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+// Highlight image placeholders
+
+img {
+	display: block;
+	width: 150px;
+	height: 150px;
+	border: 1px solid #000;
+}
