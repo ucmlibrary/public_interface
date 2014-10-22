@@ -1,2 +1,40 @@
 // ##### Collections Components ##### //
 
+.collect {
+  padding: 20px;
+  background: #eee;
+  border-radius: 10px;
+}
+
+.collect__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.collect__list-item {
+  margin: 0;
+  padding: 0;
+}
+
+.collect__list-link {
+  display: block;
+  width: 2em;
+  margin: 10px 0;
+  color: #000;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  background: #999;
+  border-radius: 5px;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.collect__row-heading {
+  margin: 0.5em 0;
+  padding: 0.5em 0;
+  font-size: 2em;
+  border-top: 1px solid #000;
+}

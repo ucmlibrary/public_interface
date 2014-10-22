@@ -2,11 +2,11 @@
 
 // Highlight all Bootstrap grid columns
 
-[class^="col"] { 
-	border: 1px solid red;
-	background: #eee;
-	padding-top: 10px;
-	padding-bottom: 10px;
+[class^="col-"] { 
+	// border: 1px solid red;
+	// background: #eee;
+	// padding-top: 10px;
+	// padding-bottom: 10px;
 }
 
 // Highlight image placeholders
@@ -15,5 +15,6 @@ img {
 	display: block;
 	width: 100%;
 	height: 130px;
-	border: 1px solid #000;
+	border: 1px solid #ccc;
+	background: #fff;
 }
