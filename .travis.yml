@@ -5,7 +5,8 @@ python:
 
 before_script:
   - bundle install
-  - npm install npm@2
+  - npm install -g npm@2
+  - npm install
   - ./node_modules/.bin/bower install
   - cd test
   - ../node_modules/.bin/bower install
