@@ -6,18 +6,18 @@
   border-radius: 10px;
 }
 
-.collect__list {
+.collect__az-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.collect__list-item {
+.collect__az-list-item {
   margin: 0;
   padding: 0;
 }
 
-.collect__list-link {
+.collect__az-list-link {
   display: block;
   width: 2em;
   margin: 10px 0;
@@ -33,8 +33,8 @@
   }
 }
 
-.collect__list-link--selected {
-  @extend .collect__list-link;
+.collect__az-list-link--selected {
+  @extend .collect__az-list-link;
   color: #fff;
   background: #999;
 }
