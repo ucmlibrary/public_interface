@@ -25,11 +25,18 @@
   font-size: 2em;
   font-weight: bold;
   text-align: center;
-  background: #999;
+  border: #999;
+  background: #ddd;
   border-radius: 5px;
   &:hover {
     text-decoration: none;
   }
+}
+
+.collect__list-link--selected {
+  @extend .collect__list-link;
+  color: #fff;
+  background: #999;
 }
 
 .collect__row-heading {
