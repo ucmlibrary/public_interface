@@ -28,6 +28,7 @@
   border: #999;
   background: #ddd;
   border-radius: 5px;
+
   &:hover {
     text-decoration: none;
   }
@@ -39,9 +40,26 @@
   background: #999;
 }
 
+.collect__row-header:first-child {
+
+  .collect__view-collect-link {
+    display: none;
+  }
+
+  .collect__row-heading {
+    margin: 0 0 0.5em 0;
+    border: none;
+  }
+}
+
 .collect__row-heading {
   margin: 0.5em 0;
   padding: 0.5em 0;
   font-size: 2em;
   border-top: 1px solid #000;
+}
+
+.collect__view-collect-link {
+  display: block;
+  text-align: right;
 }
