@@ -72,3 +72,16 @@
   }
 
 }
+
+.global-header__mobile {
+  display: none;
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+
+}
+
+.global-header__mobile--selected {
+  display: block;
+}
