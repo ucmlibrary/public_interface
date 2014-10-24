@@ -1,6 +1,18 @@
-// Slick carousel settings
-
 'use strict'; // for jshint
+
+// ##### Global Header ##### //
+
+$(document).ready(function(){
+	$('.fa-bars').click(function(){
+    	$('.global-header__search, .global-header__search--selected').toggleClass('global-header__search global-header__search--selected');
+    	$('.global-header__mobile-links, .global-header__mobile-links--selected').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');
+  	});
+  	$('.fa-search').click(function(){
+    	$('.global-header__search, .global-header__search--selected').toggleClass('global-header__search global-header__search--selected');
+  	});
+});
+
+// ##### Carousel ##### //
 
 $(document).ready(function(){
 	
