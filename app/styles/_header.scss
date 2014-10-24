@@ -42,6 +42,10 @@
 
 }
 
+html.no-js .global-header__search {
+  display: block;
+}
+
 .global-header__search--selected {
   display: block;
 }
@@ -93,6 +97,10 @@
     display: block;
   }
 
+}
+
+html.no-js .global-header__mobile-links {
+  display: block;
 }
 
 .global-header__mobile-links--selected {
