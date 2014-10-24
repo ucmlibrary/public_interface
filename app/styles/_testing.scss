@@ -2,7 +2,7 @@
 
 // Highlight all Bootstrap grid columns
 
-[class^="col-"] { 
+body.column-test [class^="col-"] { 
 	border: 1px solid red;
 	background: #eee;
 	padding-top: 10px;
@@ -11,12 +11,12 @@
 
 // Highlight image placeholders
 
-img {
-	// display: block;
-	// width: 100%;
-	// height: 130px;
-	// border: 1px solid #ccc;
-	// background: #fff;
+body.image-test img {
+	display: block;
+	width: 100%;
+	height: 130px;
+	border: 1px solid #ccc;
+	background: #fff;
 }
 
 // Highlight elements with border (ex: border: $bred;)
@@ -24,7 +24,3 @@ img {
 $bred: 1px solid red;
 $bblue: 1px solid blue;
 $bgreen: 1px solid green;
-
-.bg-test {
-	background: yellow;
-}
