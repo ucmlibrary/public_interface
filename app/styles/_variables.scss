@@ -1,11 +1,15 @@
 // ##### Custom Settings ##### //
 
-// ***** Global variables ***** //
+// ***** Global Variables ***** //
 
 $design-key-color: orange;
 $design-outline-color: gray;
 
-// ***** Slick carousel ***** //
+// ***** Bootstrap Variables ***** //
+
+$grid-gutter-width: 0;
+
+// ***** Slick Carousel ***** //
 
 $slick-font-family: "FontAwesome";
 $slick-arrow-color: $design-key-color;
