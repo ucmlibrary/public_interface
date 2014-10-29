@@ -3,10 +3,14 @@
 // ##### Global Header ##### //
 
 $(document).ready(function(){
+	
+	// Toggle mobile menu with search box:
 	$('.js-global-header__bars-icon').click(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
     $('.js-global-header__mobile-links').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');
   });
+
+  // Toggle only search box:
   $('.js-global-header__search-icon').click(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
   });
@@ -15,16 +19,26 @@ $(document).ready(function(){
 // ##### Checkbox Groups ##### //
 
 $(document).ready(function(){
+
+	// Toggle pop-down checkbox group:
 	$('.js-check__header').click(function(){
     $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
   });
+
+  // Select all or deselect all checkboxes:
   $('.js-check__button-select-all').click(function(){
     $('.check__input').prop('checked', true);
-    // $('.js-check__button-deselect-all').prop('disabled', false);
+    $('.js-check__button-deselect-all').prop('disabled', false);
   });
   $('.js-check__button-deselect-all').click(function(){
     $('.check__input').prop('checked', false);
-    // $('.js-check__button-select-all').prop('disabled', true);
+  });
+
+  // If a checkbox is checked, enable 'deselect all' button:
+  $('.check__input').click(function(){
+    if ($('.check__input').is(':checked')) {
+    	$('.js-check__button-deselect-all').prop('disabled', false);
+  	}
   });
 });
 
