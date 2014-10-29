@@ -12,11 +12,19 @@ $(document).ready(function(){
   });
 });
 
-// ##### Global Header ##### //
+// ##### Checkbox Groups ##### //
 
 $(document).ready(function(){
 	$('.js-check__header').click(function(){
     $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
+  });
+  $('.js-check__button-select-all').click(function(){
+    $('.check__input').prop('checked', true);
+    // $('.js-check__button-deselect-all').prop('disabled', false);
+  });
+  $('.js-check__button-deselect-all').click(function(){
+    $('.check__input').prop('checked', false);
+    // $('.js-check__button-select-all').prop('disabled', true);
   });
 });
 
