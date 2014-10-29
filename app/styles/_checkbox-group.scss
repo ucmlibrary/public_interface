@@ -5,9 +5,14 @@
   min-width: 310px;
 }
 
+.check__filter-close .fa-close {
+  color: red;
+}
+
 .check__header {
-  border: 1px solid #000;
+  margin-top: 10px;
   padding: 15px 0 15px 10px;
+  border: 1px solid #000;
   background: #ccc;
   overflow: hidden;
   cursor: pointer;
