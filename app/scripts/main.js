@@ -4,12 +4,20 @@
 
 $(document).ready(function(){
 	$('.js-global-header__bars-icon').click(function(){
-    	$('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
-    	$('.js-global-header__mobile-links').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');
-  	});
-  	$('.js-global-header__search-icon').click(function(){
-    	$('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
-  	});
+    $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
+    $('.js-global-header__mobile-links').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');
+  });
+  $('.js-global-header__search-icon').click(function(){
+    $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
+  });
+});
+
+// ##### Global Header ##### //
+
+$(document).ready(function(){
+	$('.js-check__header').click(function(){
+    $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
+  });
 });
 
 // ##### Carousel ##### //

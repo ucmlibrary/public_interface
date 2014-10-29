@@ -10,6 +10,7 @@
   padding: 15px 0 15px 10px;
   background: #ccc;
   overflow: hidden;
+  cursor: pointer;
 
   @include bp(sm-screen) {
     border: none;
