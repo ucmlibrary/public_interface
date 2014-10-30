@@ -1,21 +1,21 @@
 // ***** Pagination ***** //
 
-.pagination {
-
+.pag {
+	margin: 20px 0;
 }
 
-.pagination__list {
+.pag__list {
 	margin: 0;
 	padding: 0;
 }
 
-.pagination__list-item {
+.pag__list-item {
 	margin: 0 0.1em;
 	display: inline;
 	list-style-type: none;
 }
 
-.pagination__list-link {
+.pag__list-link {
 	padding: 0.5em 0.8em;
 	border: 1px solid $design-outline-color;
 	border-radius: 5px;
@@ -24,8 +24,8 @@
 	}
 }
 
-.pagination__list-link--selected {
-	@extend .pagination__list-link;
+.pag__list-link--selected {
+	@extend .pag__list-link;
 	background: #999;
 	color: #fff;
 }
