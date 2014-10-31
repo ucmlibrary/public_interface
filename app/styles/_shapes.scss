@@ -83,6 +83,40 @@
 	overflow: hidden;
 }
 
+// Set a fixed height on Bootstrap columns
+
 body.column-test [class^="col-"] { 
 	height: 100px;
+}
+
+// Left arrow bubble in fixed container
+
+$arrow-bubble-height: 100px;
+$arrow-bubble-point: 40px;
+
+#arrow-bubble {
+	padding-left: $arrow-bubble-point;
+	width: 300px;
+	height: $arrow-bubble-height;
+	border: 2px solid red;
+}
+
+#arrow-bubble__object {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: gray;
+	border-radius: 0 10px 10px 0;
+}
+
+#arrow-bubble__object:before {
+	position: absolute;
+	right: 100%;
+	top: -2px;
+	width: 0;
+	height: 0;
+	border-top: ($arrow-bubble-height / 2) solid transparent;
+	border-right: $arrow-bubble-point solid gray;
+	border-bottom: ($arrow-bubble-height / 2) solid transparent;
+	content:"";
 }
