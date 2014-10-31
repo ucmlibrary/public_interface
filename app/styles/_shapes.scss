@@ -73,6 +73,7 @@
 	border-left: 30px solid gray;
 	border-bottom: 22px solid transparent;
 	content:"";
+	z-index: 1; // So Bootstrap grid doesn't overlap arrow
 }
 
 #call-object-aside {
@@ -80,4 +81,8 @@
 	height: 100px;
 	background: green;
 	overflow: hidden;
+}
+
+body.column-test [class^="col-"] { 
+	height: 100px;
 }
