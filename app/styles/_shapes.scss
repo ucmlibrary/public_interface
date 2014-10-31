@@ -1,2 +1,47 @@
 // ***** Shapes ***** //
 
+// Test from http://css-tricks.com/examples/ShapesOfCSS/
+
+#callout-test {
+	width: 120px;
+	height: 80px;
+	background: gray;
+	position: relative;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#callout-test:before {
+	content:"";
+	position: absolute;
+	right: 100%;
+	top: 26px;
+	width: 0;
+	height: 0;
+	border-top: 13px solid transparent;
+	border-right: 26px solid gray;
+	border-bottom: 13px solid transparent;
+}
+
+// Callout with right arrow
+
+#callout-rt {
+	position: relative;
+	width: 200px;
+	height: 100px;
+	background: gray;
+	border-radius: 8px;
+}
+
+#callout-rt:before {
+	position: absolute;
+	left: 100%;
+	top: 35px;
+	width: 0;
+	height: 0;
+	border-top: 16px solid transparent;
+	border-left: 24px solid gray;
+	border-bottom: 16px solid transparent;
+	content:"";
+}
