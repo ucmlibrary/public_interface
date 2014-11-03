@@ -20,12 +20,12 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-	// Toggle pop-down checkbox group:
+	// Toggle pop-down checkbox group header (small and medium screens):
 	$('.js-check__header').click(function(){
     $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
   });
 
-  // Select all or deselect all checkboxes:
+  // Select all or deselect all checkboxes (small and medium screens):
   $('.js-check__button-select-all').click(function(){
     $('.check__input').prop('checked', true);
     $('.js-check__button-deselect-all').prop('disabled', false);
