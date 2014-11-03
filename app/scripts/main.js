@@ -34,6 +34,15 @@ $(document).ready(function(){
     $('.check__input').prop('checked', false);
   });
 
+  // Select all or deselect all checkboxes (large screens):
+  $('.js-check__link-select-all').click(function(){
+    $('.check__input').prop('checked', true);
+    $('.js-check__button-deselect-all').prop('disabled', false);
+  });
+  $('.js-check__link-deselect-all').click(function(){
+    $('.check__input').prop('checked', false);
+  });
+
   // If a checkbox is checked, enable 'deselect all' button:
   $('.check__input').click(function(){
     if ($('.check__input').is(':checked')) {
