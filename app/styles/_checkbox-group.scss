@@ -62,9 +62,29 @@
 
 }
 
-.check__select-all, .check__deselect-all {
+html.no-js .check__link-select-all, html.no-js .check__link-deselect-all {
+  display: none;
+}
+
+.check__link-select-all, .check__link-deselect-all {
   display: none;
   float: right;
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+  
+}
+
+.check__link-deselect-all {
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+  
+}
+
+.check__link-select-all--selected, .check__link-deselect-all--selected {
 
   @include bp(sm-screen) {
     display: block;
