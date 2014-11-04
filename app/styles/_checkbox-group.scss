@@ -62,11 +62,11 @@
 
 }
 
-html.no-js .check__link-select-all, html.no-js .check__link-deselect-all {
+html.no-js .check__header-links {
   display: none;
 }
 
-.check__link-select-all, .check__link-deselect-all {
+.check__header-links {
   display: none;
   float: right;
 
@@ -79,7 +79,7 @@ html.no-js .check__link-select-all, html.no-js .check__link-deselect-all {
 .check__link-deselect-all {
 
   @include bp(sm-screen) {
-    display: none;
+    display: none; // default state for Deselect All link
   }
   
 }
