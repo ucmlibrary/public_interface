@@ -76,18 +76,18 @@ html.no-js .check__header-links {
   
 }
 
-.check__link-deselect-all {
-
-  @include bp(sm-screen) {
-    display: none; // default state for Deselect All link
-  }
-  
-}
-
 .check__link-select-all--selected, .check__link-deselect-all--selected {
 
   @include bp(sm-screen) {
     display: block;
+  }
+  
+}
+
+.check__link-select-all--not-selected, .check__link-deselect-all--not-selected {
+
+  @include bp(sm-screen) {
+    display: none;
   }
   
 }
