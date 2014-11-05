@@ -1,6 +1,6 @@
 // ***** Main Sass ***** //
 
-// This imports all Sass partials and compiles to main.css
+// This file imports all Sass partials below and compiles to main.css
 
 // <<<<< Global Classes >>>>> //
 
@@ -20,6 +20,10 @@
 @import "bootstrap-imports";
 @import "../../bower_components/slick.js/slick/slick.scss";
 
+// <<<<< For Testing (Comment Out For Production) >>>>> //
+
+@import "testing";
+
 // <<<<< Custom Components >>>>> //
 
 @import "carousel";
@@ -28,8 +32,5 @@
 @import "grid-library";
 @import "header";
 @import "pagination";
+@import "popover";
 @import "shapes";
-
-// <<<<< For Testing (Comment Out For Production) >>>>> //
-
-@import "testing";
