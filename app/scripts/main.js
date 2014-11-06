@@ -101,3 +101,15 @@ $(document).ready(function(){
 	  ]
 	});
 });
+
+// ##### Popover ##### //
+  
+$(document).ready(function(){
+  $('.pop').popover({
+        placement : 'top'
+  });
+});
+
+$(document).ready(function(){
+    $('a').popover();
+});
