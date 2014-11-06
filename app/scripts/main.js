@@ -1,5 +1,15 @@
 'use strict'; // for jshint
 
+// ##### Popover ##### //
+
+$(document).ready(function(){
+  $('.popit').popover({
+    trigger: 'hover',
+    placement: 'right auto',
+    html: true
+  });
+});
+
 // ##### Global Header ##### //
 
 $(document).ready(function(){
@@ -100,16 +110,4 @@ $(document).ready(function(){
 	    }
 	  ]
 	});
-});
-
-// ##### Popover ##### //
-  
-$(document).ready(function(){
-  $('.pop').popover({
-        placement : 'top'
-  });
-});
-
-$(document).ready(function(){
-    $('a').popover();
 });
