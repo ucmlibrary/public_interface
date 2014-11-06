@@ -5,7 +5,7 @@
 $(document).ready(function(){
   $('.popit').popover({
     trigger: 'hover',
-    placement: 'right auto',
+    placement: 'auto',
     html: true
   });
 });
