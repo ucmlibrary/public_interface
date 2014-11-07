@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-	// Toggle pop-down checkbox group header (small and medium screens):
+	// Expand checkbox group when clicking on header (small and medium screens):
 	$('.js-check__header').click(function(){
     $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
   });
@@ -46,9 +46,11 @@ $(document).ready(function(){
   $('.js-check__button-select-all').click(function(){
     $('.check__input').prop('checked', true);
     $('.js-check__button-deselect-all').prop('disabled', false);
+    $('.js-check__update').prop('disabled', false);
   });
   $('.js-check__button-deselect-all').click(function(){
     $('.check__input').prop('checked', false);
+    $('.js-check__update').prop('disabled', false);
   });
 
   // Select all or deselect all checkboxes (large screens):
@@ -57,11 +59,13 @@ $(document).ready(function(){
     $('.js-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
     $('.js-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
     $('.js-check__button-deselect-all').prop('disabled', false);
+    $('.js-check__update').prop('disabled', false);
   });
   $('.js-check__link-deselect-all').click(function(){
     $('.check__input').prop('checked', false);
     $('.js-check__link-deselect-all').toggleClass('check__link-deselect-all--selected check__link-deselect-all--not-selected');
   	$('.js-check__link-select-all').toggleClass('check__link-select-all--not-selected check__link-select-all--selected');
+  	$('.js-check__update').prop('disabled', false);
   });
 
   // If an existing checkbox is checked, enable 'deselect all' button:
@@ -77,7 +81,7 @@ $(document).ready(function(){
   $('.js-check__update').prop('disabled', false);
   });
 
-  // If 'update results' button is enabled and clicked, toggle pop-down checkbox group:
+  // If 'update results' button is enabled and clicked, collapse checkbox group:
   $('.js-check__update').click(function(){
     if ($('.js-check__update').prop('disabled', false)) {
   		$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
