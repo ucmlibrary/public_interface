@@ -81,10 +81,12 @@ $(document).ready(function(){
   $('.js-check__update').prop('disabled', false);
   });
 
-  // If 'update results' button is enabled and clicked, collapse checkbox group:
+  // If 'update results' button is enabled and clicked, collapse checkbox group and change header styles:
   $('.js-check__update').click(function(){
     if ($('.js-check__update').prop('disabled', false)) {
   		$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
+  		$('.js-check__header').toggleClass('check__header check__header--selected');
+  		$('.js-check__header-text').toggleClass('check__header-text check__header-text--selected');
   	}
   });
 

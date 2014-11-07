@@ -29,7 +29,7 @@
   background: #999;
 
   @include bp(sm-screen) {
-    color: #000;
+    // color: #000;
     background: none;
   }
 
@@ -40,6 +40,7 @@
   margin: 0;
   font-size: 1.2em;
   font-weight: bold;
+  color: #000;
 }
 
 .check__header-text--selected {
