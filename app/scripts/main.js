@@ -2,18 +2,20 @@
 
 // ##### Popover ##### //
 
-$(document).ready(function(){
-  $('.popover__link').popover({
-    trigger: 'hover',
-    placement: 'auto',
-    html: true
-  });
+// $(document).ready(function(){
+//   $('.popover__link').popover({
+//     trigger: 'hover',
+//     placement: 'auto',
+//     html: true
+//   });
+// });
+
 
 // if (Modernizr.mq('only screen and (max-width: 800px)')) {
 // 	$('.popover__link').popover('destroy');
 // }
 
-});
+
 
 // ##### Global Header ##### //
 
@@ -59,15 +61,29 @@ $(document).ready(function(){
   $('.js-check__link-deselect-all').click(function(){
     $('.check__input').prop('checked', false);
     $('.js-check__link-deselect-all').toggleClass('check__link-deselect-all--selected check__link-deselect-all--not-selected');
-    $('.js-check__link-select-all').toggleClass('check__link-select-all--not-selected check__link-select-all--selected');
+  	$('.js-check__link-select-all').toggleClass('check__link-select-all--not-selected check__link-select-all--selected');
   });
 
-  // If a checkbox is checked, enable 'deselect all' button:
+  // If an existing checkbox is checked, enable 'deselect all' button:
+  if ($('.check__input').is(':checked')) {
+  	$('.js-check__button-deselect-all').prop('disabled', false);
+  }
+
+  // If a new checkbox is checked, enable 'deselect all' button and enable 'update results' button:
   $('.check__input').click(function(){
     if ($('.check__input').is(':checked')) {
-    	$('.js-check__button-deselect-all').prop('disabled', false);
+  		$('.js-check__button-deselect-all').prop('disabled', false);
+  	}
+  $('.js-check__update').prop('disabled', false);
+  });
+
+  // If 'update results' button is enabled and clicked, toggle pop-down checkbox group:
+  $('.js-check__update').click(function(){
+    if ($('.js-check__update').prop('disabled', false)) {
+  		$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
   	}
   });
+
 });
 
 // ##### Carousel ##### //
