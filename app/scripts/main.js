@@ -3,11 +3,16 @@
 // ##### Popover ##### //
 
 $(document).ready(function(){
-  $('.popit').popover({
+  $('.popover__link').popover({
     trigger: 'hover',
     placement: 'auto',
     html: true
   });
+
+// if (Modernizr.mq('only screen and (max-width: 800px)')) {
+// 	$('.popover__link').popover('destroy');
+// }
+
 });
 
 // ##### Global Header ##### //

@@ -1,2 +1,23 @@
 // ***** Popover ***** //
 
+.popover__img-thumbnail {
+	display: block;
+	width: 200px;
+	height: 130px;
+}
+
+.popover__img-popover {
+	display: block;
+	width: 380px;
+	height: 280px;
+	margin-bottom: 1em;
+}
+
+.popover { // Bootstrap popover class
+	display: none !important; // don't display popovers on small screens
+
+	@include bp(sm-screen) {
+    display: block !important;
+  }
+
+}
