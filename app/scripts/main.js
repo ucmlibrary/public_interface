@@ -1,25 +1,20 @@
 'use strict'; // for jshint
 
+$(document).ready(function(){
+
 // ##### Popover ##### //
 
-// $(document).ready(function(){
-//   $('.popover__link').popover({
-//     trigger: 'hover',
-//     placement: 'auto',
-//     html: true
-//   });
-// });
-
+  // $('.popover__link').popover({
+  //   trigger: 'hover',
+  //   placement: 'auto',
+  //   html: true
+  // });
 
 // if (Modernizr.mq('only screen and (max-width: 800px)')) {
 // 	$('.popover__link').popover('destroy');
 // }
 
-
-
 // ##### Global Header ##### //
-
-$(document).ready(function(){
 	
 	// Toggle mobile menu with search box:
 	$('.js-global-header__bars-icon').click(function(){
@@ -31,11 +26,8 @@ $(document).ready(function(){
   $('.js-global-header__search-icon').click(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
   });
-});
 
 // ##### Checkbox Groups ##### //
-
-$(document).ready(function(){
 
 	// Expand checkbox group when clicking on header (small and medium screens):
 	$('.js-check__header').click(function(){
@@ -90,11 +82,7 @@ $(document).ready(function(){
   	}
   });
 
-});
-
 // ##### Carousel ##### //
-
-$(document).ready(function(){
 	
 	// Get Bootstrap CSS breakpoints;
 	var lg = $('.bs-lg-screen').css('width');
@@ -105,7 +93,7 @@ $(document).ready(function(){
 	md = md.replace('px', '');
 	sm = sm.replace('px', '');
 
-	// Display Bootstrap breakpoint for testing:
+	// To display Bootstrap breakpoint for testing, uncomment this and add <div id="test"></div> to HTML:
 	// document.getElementById('test').innerHTML = lg;
 
 	// Slick settings:
@@ -137,4 +125,5 @@ $(document).ready(function(){
 	    }
 	  ]
 	});
-});
+
+}); // End of (document).ready(function()
