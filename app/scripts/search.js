@@ -56,7 +56,7 @@ $(document).ready(function() {
     $('#item-view > input[name=start]').prop('value', $('.item-thumb').index(this));
     $('#item-view').submit(function(that) {
       return function(e) {
-        $(this).prop('action', '/itemView/' + $(that).data('item_id') + "/");
+        $(this).prop('action', '/' + $(that).data('item_id') + "/");
         return;
       }
     }(this));

@@ -1,5 +1,5 @@
-{% extends "public_interface/base.html" %}
-{% load solrapi-extras %}
+{% extends "calisphere/base.html" %}
+{% load calisphere-extras %}
 {% load staticfiles %}
 
 {% block scripts %}
@@ -33,10 +33,10 @@
       <button class="btn btn-default btn-block">Go to institution page</button>
     </div>
     <div style="background-color: #d7d7d7; border-radius: 10px; margin-bottom: 20px; padding: 10px;">
-      {% include "public_interface/forms/refineQuery.html" %}
+      {% include "calisphere/forms/refineQuery.html" %}
     </div>
     <div style="background-color: #d7d7d7; border-radius: 10px; padding: 10px;">
-      {% include "public_interface/forms/faceting.html" %}
+      {% include "calisphere/forms/faceting.html" %}
     </div>
   </div>
   <div class="col-md-9" style="background-color: #d7d7d7; border-radius: 10px; margin-bottom: 20px; padding: 10px;">
@@ -50,7 +50,7 @@
         <button id="list" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">List</button>
       </div>
       <div class="col-md-4">
-        {% include "public_interface/forms/paginate.html" %}
+        {% include "calisphere/forms/paginate.html" %}
       </div>
     </div>
 
@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <form id="item-view" action="/itemView/" method="post">
+    <form id="item-view" action="/" method="post">
       {% csrf_token %}
       <input type="hidden" name="item_id" id="item_id" value=""/>
       <input type="hidden" name="q" value="{{ q }}"/>
@@ -83,9 +83,9 @@
 
     <!-- search results -->
     {% if view_format == "thumbnails" %}
-      {% include "public_interface/thumbnails-results.html" %}
+      {% include "calisphere/thumbnails-results.html" %}
     {% elif view_format == "list" %}
-      {% include "public_interface/list-results.html" %}
+      {% include "calisphere/list-results.html" %}
     {% endif %}
   </div>
 </div>

@@ -75,7 +75,8 @@ def process_facets(facets, filters, facet_counts=None):
 
 
 def search(request):
-    if request.method == 'GET':
+    
+    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         # concatenate query terms from refine query and query box
         q = reduce(concat_query, request.GET.getlist('q'))
         # set rows to 16 by default, unless there is a different number specified
@@ -145,7 +146,7 @@ def search(request):
                     filters[facet_type[0]]
                 )
         
-        return render(request, 'public_interface/searchResults.html', {
+        return render(request, 'calisphere/searchResults.html', {
             'q': q,
             'filters': filters,
             'rows': rows,
@@ -158,10 +159,8 @@ def search(request):
             'view_format': view_format
         })
         
-    return render (request, 'public_interface/base.html', {'q': ''})
-
-def home(request):
-    return render(request, 'public_interface/base.html', {'q': ''})
+    return render (request, 'calisphere/base.html', {'q': ''})
+    
 
 def itemView(request, item_id=''):
     item_id = 'id:' + "\"" + item_id + "\""
@@ -198,7 +197,7 @@ def itemView(request, item_id=''):
     
     context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
     
-    return render(request, 'public_interface/item.html', context)
+    return render(request, 'calisphere/item.html', context)
 
 def collectionsExplore(request):
     s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
@@ -235,7 +234,7 @@ def collectionsExplore(request):
             'display_items': display_items.results
         })
     
-    return render(request, 'public_interface/collections-explore.html', {'collections': collections})
+    return render(request, 'calisphere/collections-explore.html', {'collections': collections})
 
 def collectionView(request, collection_id):
     if request.method == 'GET':
@@ -274,7 +273,7 @@ def collectionView(request, collection_id):
                 filters[facet_type[0]]
             )
         
-        return render(request, 'public_interface/collectionResults.html', {
+        return render(request, 'calisphere/collectionResults.html', {
             'q': q,
             'filters': filters,
             'rows': rows,
@@ -288,4 +287,4 @@ def collectionView(request, collection_id):
             'collection': collection_details
         })
     
-    return render(request, 'public_interface/searchResults.html', {'yay': 'yamy'})
+    return render(request, 'calisphere/searchResults.html', {'yay': 'yamy'})
