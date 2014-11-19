@@ -92,16 +92,21 @@ def search(request):
         
         fq = solrize_filters(filters)
         
+        facet_field = list(facet_type[0] for facet_type in FACET_TYPES)
+        
         # perform the search
-        solr_search = SOLR.select(
-            q=q,
-            rows=rows,
-            start=start,
-            fq=fq,
-            facet='true', 
-            facet_limit='-1',
-            facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
-        )
+        try: 
+            solr_search = SOLR.select(
+                q=q,
+                rows=rows,
+                start=start,
+                fq=fq,
+                facet='true', 
+                facet_limit='-1',
+                facet_field=facet_field
+            )
+        except solr.SolrException: 
+            print 'exception exception!'
         
         for item in solr_search.results:
             process_media(item)
@@ -288,3 +293,10 @@ def collectionView(request, collection_id):
         })
     
     return render(request, 'calisphere/searchResults.html', {'yay': 'yamy'})
+
+
+def pjaxTest(request):
+    return render(request, 'calisphere/pjaxTest.html', {'context': 'test'})
+
+def pjaxHello(request):
+    return render(request, 'calisphere/pjaxHello.html', {'context': 'hello'})

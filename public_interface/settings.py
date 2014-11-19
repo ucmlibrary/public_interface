@@ -30,6 +30,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + (
+    'django.core.context_processors.request',
     'public_interface.context_processors.settings',
 )
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'easy_pjax',
     'calisphere',
 )
 
