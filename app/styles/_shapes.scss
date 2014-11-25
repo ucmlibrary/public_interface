@@ -83,12 +83,6 @@
 	overflow: hidden;
 }
 
-// Set a fixed height on Bootstrap columns
-
-body.column-test [class^="col-"] { 
-	height: 100px;
-}
-
 // Left arrow bubble in fixed container
 
 $arrow-bubble-height: 100px;

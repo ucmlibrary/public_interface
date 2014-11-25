@@ -23,6 +23,12 @@ body.image-test img {
 	background: #fff;
 }
 
+// Set a fixed height on Bootstrap columns for shapes
+
+body.shapes-test [class^="col-"] { 
+	height: 100px;
+}
+
 // Highlight elements with border (ex: border: $bred;)
 
 $bred: 1px solid red;
