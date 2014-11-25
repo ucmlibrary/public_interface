@@ -29,6 +29,12 @@ body.shapes-test [class^="col-"] {
 	height: 100px;
 }
 
+// Increase size of Font Awesome icons to compare them
+
+body.icons-test .fa {
+	font-size: 2em !important;
+}
+
 // Highlight elements with border (ex: border: $bred;)
 
 $bred: 1px solid red;
