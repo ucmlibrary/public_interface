@@ -1,8 +1,8 @@
-// ***** Main Sass ***** //
+// ##### Main Sass ##### //
 
-// This file imports all Sass partials below and compiles to main.css
+// This file imports all Sass partials below and compiles result to main.css
 
-// <<<<< Global Classes >>>>> //
+// ***** Global Classes ***** //
 
 *, *:before, *:after {
   box-sizing: border-box;
@@ -10,31 +10,37 @@
   -moz-box-sizing: border-box;
 }
 
-// <<<<< Global Settings >>>>> //
+// ***** Global Settings ***** //
 
 @import "variables";
 @import "mixins";
 @import "fonts";
 
-// <<<<< Vendor Libraries >>>>> //
+// ***** Vendor Libraries ***** //
 
 @import "bootstrap-imports";
 @import "font-awesome-imports";
 @import "../../bower_components/slick.js/slick/slick.scss";
 
-// <<<<< For Testing (Comment Out For Production) >>>>> //
+// ***** For Testing (comment out before compiling for production) ***** //
 
 @import "testing";
 
-// <<<<< Custom Components >>>>> //
+// ***** Custom Elements ***** //
 
 @import "buttons";
+@import "icons";
+@import "shapes";
+
+// ***** Custom Components ***** //
+
 @import "carousel";
 @import "checkbox-group";
-@import "collections";
-@import "grid-library";
 @import "header";
-@import "icons";
 @import "pagination";
 @import "popover";
-@import "shapes";
+
+// ***** Custom Layouts ***** //
+
+@import "collections";
+@import "grid-library";
