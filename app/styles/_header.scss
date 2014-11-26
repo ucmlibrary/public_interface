@@ -42,6 +42,10 @@
 
 }
 
+.global-header__search-button {
+  background: $design-primary-color;
+}
+
 html.no-js .global-header__search {
   display: block;
 }
@@ -83,6 +87,7 @@ html.no-js .global-header__search {
 .global-header__collections--sm {
   display: none;
   text-align: center;
+  background: $design-secondary-color;
 
   @include bp(sm-screen) {
     display: block;
