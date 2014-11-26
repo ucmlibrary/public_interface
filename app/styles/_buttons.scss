@@ -1,2 +1,9 @@
 // ##### Buttons ##### //
 
+.button__object {
+  border: 1px solid $design-dark-gray-color;
+}
+
+.button__icon {
+  color: $design-primary-color;
+}
