@@ -81,6 +81,7 @@ html.no-js .check__header-links {
 
   @include bp(sm-screen) {
     display: block;
+    color: $design-primary-color;
   }
   
 }

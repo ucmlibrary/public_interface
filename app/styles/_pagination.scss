@@ -17,7 +17,7 @@
 
 .pag__list-link {
 	padding: 0.5em 0.8em;
-	border: 1px solid $design-outline-color;
+	border: 1px solid $design-light-gray-color;
 	border-radius: 5px;
 	&:hover {
 		text-decoration: none;
@@ -26,6 +26,6 @@
 
 .pag__list-link--selected {
 	@extend .pag__list-link;
-	background: #999;
+	background: $design-dark-gray-color;
 	color: #fff;
 }
