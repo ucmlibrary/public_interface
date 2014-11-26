@@ -1,9 +1,53 @@
 // ##### Buttons ##### //
 
-.button__object {
+.button__close {
   border: 1px solid $design-dark-gray-color;
 }
 
-.button__icon {
+.button__close-icon {
   color: $design-primary-color;
+}
+
+.button__primary {
+  color: #fff;
+  background: $design-primary-color;
+  border: 1px solid $design-primary-color;
+  &:hover {
+    color: #fff;
+    background: lighten($design-primary-color, 15%);
+    border: 1px solid lighten($design-primary-color, 15%);
+  }
+}
+
+.button__secondary {
+  color: #fff;
+  background: $design-secondary-color;
+  border: 1px solid $design-secondary-color;
+  &:hover {
+    color: #fff;
+    background: lighten($design-secondary-color, 15%);
+    border: 1px solid lighten($design-secondary-color, 15%);
+  }
+}
+
+.button__dark {
+  color: #fff;
+  background: $design-dark-gray-color;
+  border: 1px solid $design-dark-gray-color;
+  &:hover {
+    color: #fff;
+    background: lighten($design-dark-gray-color, 15%);
+    border: 1px solid lighten($design-dark-gray-color, 15%);
+  }
+}
+
+.button__light {
+  color: #fff;
+  background: $design-light-gray-color;
+  border: 1px solid $design-light-gray-color;
+  &:hover {
+    color: #fff;
+    background: lighten($design-light-gray-color, 15%);
+    border: 1px solid lighten($design-light-gray-color, 15%);
+  }
 }
