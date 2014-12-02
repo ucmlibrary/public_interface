@@ -9,46 +9,23 @@
   color: $design-primary-color;
 }
 
-.button__primary {
-  color: #fff;
-  background: $design-primary-color;
-  border: 1px solid $design-primary-color;
-  &:hover {
-    color: #fff;
-    background: lighten($design-primary-color, 15%);
-    border: 1px solid lighten($design-primary-color, 15%);
-  }
-}
+// Create 4 button color classes using the same selector construct:
 
-.button__secondary {
-  color: #fff;
-  background: $design-secondary-color;
-  border: 1px solid $design-secondary-color;
-  &:hover {
-    color: #fff;
-    background: lighten($design-secondary-color, 15%);
-    border: 1px solid lighten($design-secondary-color, 15%);
-  }
-}
+@each $button__color-group, $button__color in
 
-.button__dark {
-  color: #fff;
-  background: $design-dark-gray-color;
-  border: 1px solid $design-dark-gray-color;
-  &:hover {
-    color: #fff;
-    background: lighten($design-dark-gray-color, 15%);
-    border: 1px solid lighten($design-dark-gray-color, 15%);
-  }
-}
+  (primary, $design-primary-color), // creates .button__primary class
+  (secondary, $design-secondary-color),
+  (dark, $design-dark-gray-color),
+  (light, $design-light-gray-color) {
 
-.button__light {
-  color: #fff;
-  background: $design-light-gray-color;
-  border: 1px solid $design-light-gray-color;
-  &:hover {
+  .button__#{$button__color-group} {
     color: #fff;
-    background: lighten($design-light-gray-color, 15%);
-    border: 1px solid lighten($design-light-gray-color, 15%);
+    background: $button__color;
+    border: 1px solid $button__color;
+    &:hover {
+      color: #fff;
+      background: lighten($button__color, 15%);
+      border: 1px solid lighten($button__color, 15%);
+    }
   }
 }
