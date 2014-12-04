@@ -17,9 +17,10 @@ $(document).ready(function(){
 
   // ##### Checkbox Groups ##### //
 
-  // Expand checkbox group when clicking on header (small and medium screens):
+  // Expand checkbox group and switch arrow icon when clicking on header (small and medium screens):
   $('.js-check__header').click(function(){
     $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $('.js-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
   });
 
   // Select all or deselect all checkboxes (small and medium screens):
@@ -67,6 +68,7 @@ $(document).ready(function(){
   		$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
   		$('.js-check__header').toggleClass('check__header check__header--selected');
   		$('.js-check__header-text').toggleClass('check__header-text check__header-text--selected');
+      $('.js-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
   	}
   });
 
