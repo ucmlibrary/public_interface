@@ -3,6 +3,6 @@
 <svg version="1.1" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" width="18px" height="12px">
 
   <polyline points="1,5 5,10 17,1"
-  style="fill:none;stroke:green;stroke-width:3;stroke-linecap:butt" />
+  style="fill:none; stroke:rgb(255, 110, 27); stroke-width:3; stroke-linecap:butt" />
 
 </svg>
