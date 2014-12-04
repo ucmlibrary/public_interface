@@ -49,26 +49,30 @@ $(document).ready(function(){
   	$('.js-check__update').prop('disabled', false);
   });
 
-  // If an existing checkbox is checked, enable 'deselect all' button:
+  // If a checkbox is already checked, enable Deselect All button:
   if ($('.check__input').is(':checked')) {
   	$('.js-check__button-deselect-all').prop('disabled', false);
   }
 
-  // If a new checkbox is checked, enable 'deselect all' button and enable 'update results' button:
-  $('.check__input').click(function(){
+  // If a new checkbox is checked, enable Deselect All button and enable Update Results button:
+  $('.check__input').change(function(){
     if ($('.check__input').is(':checked')) {
   		$('.js-check__button-deselect-all').prop('disabled', false);
   	}
   $('.js-check__update').prop('disabled', false);
   });
 
-  // If 'update results' button is enabled and clicked, collapse checkbox group and change header styles:
+  // Collapse checkbox group, disable Update Results button, and change header styles if any checkboxes are already checked:
   $('.js-check__update').click(function(){
-    if ($('.js-check__update').prop('disabled', false)) {
-  		$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
-  		$('.js-check__header').toggleClass('check__header check__header--selected');
-  		$('.js-check__header-text').toggleClass('check__header-text check__header-text--selected');
-      $('.js-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
+    $('.js-check__update').prop('disabled', true);
+  	$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $('.js-check__header-arrow-icon').toggleClass('fa-angle-up fa-angle-down');
+    if ($('.check__input').is(':checked')) {
+  		$('.js-check__header').addClass('check__header--selected');
+  		$('.js-check__header-text').addClass('check__header-text--selected');
+    } else {
+      $('.js-check__header').removeClass('check__header--selected');
+      $('.js-check__header-text').removeClass('check__header-text--selected');
   	}
   });
 
