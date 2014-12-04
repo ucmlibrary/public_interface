@@ -68,11 +68,11 @@ $(document).ready(function(){
   	$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
     $('.js-check__header-arrow-icon').toggleClass('fa-angle-up fa-angle-down');
     if ($('.check__input').is(':checked')) {
-  		$('.js-check__header').addClass('check__header--selected');
-  		$('.js-check__header-text').addClass('check__header-text--selected');
+  		$('.js-check__header').addClass('check__header--selected').removeClass('check__header');
+  		$('.js-check__header-text').addClass('check__header-text--selected').removeClass('check__header-text');
     } else {
-      $('.js-check__header').removeClass('check__header--selected');
-      $('.js-check__header-text').removeClass('check__header-text--selected');
+      $('.js-check__header').removeClass('check__header--selected').addClass('check__header');
+      $('.js-check__header-text').removeClass('check__header-text--selected').addClass('check__header-text');
   	}
   });
 
