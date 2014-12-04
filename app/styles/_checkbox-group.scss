@@ -1,19 +1,15 @@
-// Checkbox Group
+// ***** Checkbox Group ***** //
 
 .check {
   position: relative;
   min-width: 310px;
 }
 
-.check__filter-close .fa-close {
-  color: red;
-}
-
 .check__header {
   margin-top: 10px;
   padding: 15px 0 15px 10px;
-  border: 1px solid #000;
-  background: #ccc;
+  // border: 1px solid #000;
+  background: $design-dark-gray-color;
   overflow: hidden;
   cursor: pointer;
 
@@ -26,7 +22,7 @@
 
 .check__header--selected {
   @extend .check__header;
-  background: #999;
+  background: $design-light-gray-color;
 
   @include bp(sm-screen) {
     // color: #000;
@@ -40,12 +36,12 @@
   margin: 0;
   font-size: 1.2em;
   font-weight: bold;
-  color: #000;
+  color: #fff;
 }
 
 .check__header-text--selected {
   @extend .check__header-text;
-  color: #fff;
+  color: $design-primary-color;
 
   @include bp(sm-screen) {
     color: #000;
@@ -114,8 +110,8 @@ html.no-js .check__header-links {
 
 .check__button-group {
   margin: -1px 0 0 0;
-  border: 1px solid #000;
-  background: #fff;
+  border: 1px solid $design-dark-gray-color;
+  background: $design-light-gray-color;
   overflow: hidden;
 
   @include bp(sm-screen) {
@@ -155,8 +151,8 @@ html.no-js .check__header-links {
   margin: -1px 0 0 0;
   padding: 10px 50px 10px 10px;
   background: #fff;
-  border-top: 1px solid #999;
-  border-bottom: 1px solid #999;
+  border-top: 1px solid $design-dark-gray-color;
+  border-bottom: 1px solid $design-dark-gray-color;
   font-weight: normal;
 
   &:last-of-type {
@@ -190,11 +186,13 @@ html.svg .check__input:checked + .check__label {
 
 .check__update {
   width: 100%;
-  border: 1px solid #000;
+  border: 1px solid $design-dark-gray-color;
   padding: 10px;
-  background: #999;
+  color: #fff;
+  background: $design-primary-color;
 
   &:disabled {
+    color: #000;
     background: #fff;
   }
 
