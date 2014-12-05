@@ -17,6 +17,9 @@ $(document).ready(function(){
 
   // ##### Checkbox Groups ##### //
 
+  // Disable Update Results button upon document.ready
+  $('.js-check__update').prop('disabled', true);
+
   // Expand checkbox group and switch arrow icon when clicking on header (small and medium screens):
   $('.js-check__header').click(function(){
     $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
