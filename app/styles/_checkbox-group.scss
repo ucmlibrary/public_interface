@@ -8,7 +8,6 @@
 .check__header {
   margin-top: 10px;
   padding: 15px 0 15px 10px;
-  // border: 1px solid #000;
   background: $design-dark-gray-color;
   overflow: hidden;
   cursor: pointer;
@@ -25,7 +24,6 @@
   background: $design-light-gray-color;
 
   @include bp(sm-screen) {
-    // color: #000;
     background: none;
   }
 
@@ -144,13 +142,13 @@ html.no-js .check__button-group {
 .check__group {
   height: 150px;
   overflow: auto; // turn on scroll bar
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
+  border-left: 1px solid $design-dark-gray-color;
+  border-right: 1px solid $design-dark-gray-color;
 
   @include bp(sm-screen) {
     height: auto;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid $design-dark-gray-color;
+    border-bottom: 1px solid $design-dark-gray-color;
   }
 
 }
