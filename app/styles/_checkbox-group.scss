@@ -15,8 +15,13 @@
   @include bp(sm-screen) {
     border: none;
     background: none;
+    cursor: auto;
   }
 
+}
+
+html.no-js .check__header {
+  cursor: auto;
 }
 
 .check__header--selected {
@@ -35,6 +40,11 @@
   font-size: 1.2em;
   font-weight: bold;
   color: #fff;
+
+  @include bp(sm-screen) {
+    color: #000;
+  }
+
 }
 
 .check__header-text--selected {
@@ -44,6 +54,7 @@
   @include bp(sm-screen) {
     color: #000;
   }
+
 }
 
 .check__header-arrow-icon.fa {
@@ -90,8 +101,8 @@ html.no-js .check__header-links {
 }
 
 .check__popdown {
-  position: absolute;
   display: none;
+  position: absolute;
   left: 0;
   right: 0;
 
@@ -102,7 +113,9 @@ html.no-js .check__header-links {
 
 }
 
+// If no JavaScript, then expand popdown and let content flow after component
 html.no-js .check__popdown {
+  position: relative;
   display: block;
 }
 
