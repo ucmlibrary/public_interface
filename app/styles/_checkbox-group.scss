@@ -104,6 +104,10 @@ html.no-js .check__header-links {
 
 }
 
+html.no-js .check__popdown {
+  display: block;
+}
+
 .check__popdown--selected {
   @extend .check__popdown;
   display: block;
@@ -119,6 +123,10 @@ html.no-js .check__header-links {
     display: none;
   }
 
+}
+
+html.no-js .check__button-group {
+  display: none;
 }
 
 .check__button {
