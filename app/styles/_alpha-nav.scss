@@ -13,15 +13,13 @@
 
 .alphanav__list-link {
   display: block;
-  width: 2em;
-  margin: 10px 0;
+  width: 60px;
+  padding: 5px 0;
   color: #000;
-  font-size: 2em;
-  font-weight: bold;
+  font-size: 1.4em;
   text-align: center;
-  border: #999;
-  background: #ddd;
-  border-radius: 5px;
+  border-bottom: 1px solid $design-dark-gray-color;
+  background: #fff;
 
   &:hover {
     text-decoration: none;
@@ -31,5 +29,5 @@
 .alphanav__list-link--selected {
   @extend .alphanav__list-link;
   color: #fff;
-  background: #999;
+  background: $design-secondary-color;
 }
