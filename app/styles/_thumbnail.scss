@@ -1,5 +1,10 @@
 // ##### Thumbnail Image Component ##### //
 
-.thumb {
-  
+.thumb__container {
+  width: 150px;
+}
+
+.thumb__container img {
+  width: 150px;
+  height: auto;
 }
