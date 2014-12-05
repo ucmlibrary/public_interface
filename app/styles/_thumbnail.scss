@@ -1,6 +1,6 @@
 // ##### Thumbnail and List Image Components ##### //
 
-.thumbview__container {
+.thumbview__container figure {
   width: 150px;
 }
 
@@ -9,11 +9,13 @@
   height: auto;
 }
 
-.listview__container {
-  width: 200px;
+.listview__container figure {
+  // width: 200px;
+  // border: $bred;
 }
 
 .listview__container img {
   width: 200px;
   height: auto;
 }
+
