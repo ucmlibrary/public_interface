@@ -1,5 +1,7 @@
 // ##### Thumbnail and List Image Components ##### //
 
+$listview__data-list-line-height: 1.5em;
+
 .thumbview {
   
 }
@@ -17,5 +19,11 @@
   clear: left;
   text-align: right;
   margin-right: 0.5em;
-  line-height: 1.5em;
+  color: $design-dark-gray-color;
+  font-weight: normal;
+  line-height: $listview__data-list-line-height;
+}
+
+.listview__data-defin {
+  line-height: $listview__data-list-line-height;
 }
