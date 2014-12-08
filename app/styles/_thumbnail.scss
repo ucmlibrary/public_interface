@@ -1,31 +1,21 @@
 // ##### Thumbnail and List Image Components ##### //
 
-.thumbview__container figure {
-  // width: 150px;
+.thumbview {
+  
 }
 
-.thumbview__container img {
-  width: 100%;
-  height: auto;
+.listview {
+  
 }
 
-.listview__container figure {
-  border: $bred;
+.listview__data-list {
+  margin-left: 1em;
 }
 
-.listview__container img {
-  width: 200px;
-  height: auto;
-}
-
-dt {
+.listview__data-type {
   float: left;
   clear: left;
   text-align: right;
   margin-right: 0.5em;
-  line-height: 1.5em;
-}
-
-dd {
   line-height: 1.5em;
 }
