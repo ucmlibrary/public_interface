@@ -17,8 +17,10 @@ body.column-test .row .row [class^="col-"] {
 
 body.image-test img {
 	display: block;
-	width: 200px;
-	height: 130px;
+	// width: 200px;
+	// height: 130px;
+	width: 100%;
+	height: auto;
 	border: 1px solid #ccc;
 	background: #fff;
 }
