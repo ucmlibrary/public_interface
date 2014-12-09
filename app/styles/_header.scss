@@ -16,22 +16,22 @@
 
 .global-header__logo {
   background: url(/images/logo-calisphere.svg) no-repeat;
-  background-size: 220px 64px; // size of logo image, small & medium screen
-
+  background-size: $header-logo-xs-width $header-logo-xs-height;
+  
   @include bp(md-screen) {
-    background-size: 284px 82px; // size of logo image, large screen
+    background-size: $header-logo-md-width $header-logo-md-height;
   }
 
 }
 
 .global-header__logo-link {
   display: block;
-  width: 220px; // width of logo image
-  height: 64px; // height of logo image
+  width: $header-logo-xs-width;
+  height: $header-logo-xs-height;
 
   @include bp(md-screen) {
-    width: 284px; // width of logo image
-    height: 82px; // height of logo image
+    width: $header-logo-md-width;
+    height: $header-logo-md-height;
   }
 
 }
