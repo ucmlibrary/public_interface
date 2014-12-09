@@ -17,11 +17,15 @@
 .global-header__logo {
   background: url(/images/logo-calisphere.svg) no-repeat;
   background-size: $header-logo-xs-width $header-logo-xs-height;
-  
+
   @include bp(md-screen) {
     background-size: $header-logo-md-width $header-logo-md-height;
   }
 
+}
+
+html.no-svg .global-header__logo {
+  background: url(/images/logo-calisphere.png) no-repeat;
 }
 
 .global-header__logo-link {
