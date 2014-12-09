@@ -84,6 +84,10 @@ html.no-js .global-header__search {
   list-style: none;
 }
 
+.global-header__nav-list a {
+  color: #000;
+}
+
 .global-header__collections--xs {
   text-align: left;
 
@@ -95,11 +99,21 @@ html.no-js .global-header__search {
 
 .global-header__collections--sm {
   display: none;
-  text-align: center;
+  margin: 20px 0;
+  padding: 5px 0;
   background: $design-secondary-color;
 
   @include bp(sm-screen) {
     display: block;
+  }
+
+}
+
+.global-header__collections--sm-links {
+
+  @include bp(sm-screen) {
+    color: #fff;
+    font-size: 1.4em;
   }
 
 }
