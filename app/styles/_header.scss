@@ -39,8 +39,20 @@
   font-weight: normal;
 }
 
+.global-header__search-field {
+  font-size: 1.5em;
+}
+
 .global-header__search-button {
+  border: 1px solid $design-dark-gray-color;
   background: $design-primary-color;
+  &:hover {
+    background: $link-hover-color;
+  }
+}
+
+.global-header__search-button .fa {
+  color: #fff;
 }
 
 html.no-js .global-header__search {
