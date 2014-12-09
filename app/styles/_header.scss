@@ -15,10 +15,23 @@
 }
 
 .global-header__logo {
-  text-align: center;
+  background: url(/images/logo-calisphere.svg) no-repeat;
+  background-size: 220px 64px; // size of logo image, small & medium screen
 
-  @include bp(sm-screen) {
-    text-align: left;
+  @include bp(md-screen) {
+    background-size: 284px 82px; // size of logo image, large screen
+  }
+
+}
+
+.global-header__logo-link {
+  display: block;
+  width: 220px; // width of logo image
+  height: 64px; // height of logo image
+
+  @include bp(md-screen) {
+    width: 284px; // width of logo image
+    height: 82px; // height of logo image
   }
 
 }
