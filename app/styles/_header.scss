@@ -52,22 +52,28 @@ html.no-svg .global-header__logo {
 .global-header__search-label {
   display: block;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: normal;
+
+  @include bp(md-screen) {
+    font-size: 1.5em;
+  }
+
 }
 
 .global-header__search-field {
-  font-size: 1.5em;
+  font-size: 1.2em;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     height: 45px;
+    font-size: 1.5em;
   }
 
 }
 
 .global-header__search .input-group { // Bootstrap override
   
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     margin: 0 35px;
   }
 
@@ -81,7 +87,7 @@ html.no-svg .global-header__logo {
     background: $link-hover-color;
   }
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     width: 50px;
     height: 45px;
   }
@@ -91,7 +97,7 @@ html.no-svg .global-header__logo {
 .global-header__search-button .fa {
   color: #fff;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     font-size: 2em;
   }
   
