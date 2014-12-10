@@ -56,6 +56,7 @@ html.no-svg .global-header__logo {
   text-align: center;
   font-size: 1.2em;
   font-weight: normal;
+  line-height: normal;
 
   @include bp(md-screen) {
     font-size: 1.5em;
@@ -124,20 +125,6 @@ html.no-js .global-header__search {
 
 }
 
-// .global-header__nav-list {
-//   margin: 0;
-//   padding: 0;
-// }
-
-// .global-header__nav-list li {
-//   display: inline;
-//   list-style: none;
-// }
-
-// .global-header__nav-list a {
-//   color: #000;
-// }
-
 .global-header__collections--xs {
   text-align: left;
 
@@ -205,12 +192,40 @@ html.no-js .global-header__nav {
 .global-header__nav-list {
   margin: 0;
   padding: 0;
+  list-style: none;
+  line-height: normal;
+
+  @include bp(md-screen) {
+    padding: 0 0 0 30px;
+  }
+
+}
+
+.global-header__nav-browse-options {
+  display: block;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+  
 }
 
 .global-header__nav-list-item {
-  list-style: none;
+
+  @include bp(sm-screen) {
+    text-align: center;
+    float: left;
+    width: 25%;
+  }
+
 }
 
 .global-header__nav-link {
-  
+  color: #000;
+  font-size: 1.1em;
+
+  @include bp(md-screen) {
+    font-size: 1.4em;
+  }
+
 }
