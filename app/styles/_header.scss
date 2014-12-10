@@ -58,18 +58,43 @@ html.no-svg .global-header__logo {
 
 .global-header__search-field {
   font-size: 1.5em;
+
+  @include bp(sm-screen) {
+    height: 45px;
+  }
+
+}
+
+.global-header__search .input-group { // Bootstrap override
+  
+  @include bp(sm-screen) {
+    margin: 0 35px;
+  }
+
 }
 
 .global-header__search-button {
+  
   border: 1px solid $design-dark-gray-color;
   background: $design-primary-color;
   &:hover {
     background: $link-hover-color;
   }
+
+  @include bp(sm-screen) {
+    width: 50px;
+    height: 45px;
+  }
+
 }
 
 .global-header__search-button .fa {
   color: #fff;
+
+  @include bp(sm-screen) {
+    font-size: 2em;
+  }
+  
 }
 
 html.no-js .global-header__search {
@@ -134,24 +159,11 @@ html.no-js .global-header__search {
 .global-header__collections--sm-list-item {
   display: inline;
   list-style: none;
-  
 }
 
 .global-header__collections--sm-list-item:first-child .global-header__collections--sm-links {
   border-right: 1px solid #fff;
 }
-
-// .global-header__collections--sm {
-//   display: none;
-//   margin: 20px 0;
-//   padding: 5px 0;
-//   background: $design-secondary-color;
-
-//   @include bp(sm-screen) {
-//     display: block;
-//   }
-
-// }
 
 .global-header__collections--sm-links {
 
