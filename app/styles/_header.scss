@@ -148,53 +148,6 @@ html.no-js .global-header__search {
   
 }
 
-.global-header__collections--xs {
-  text-align: left;
-
-  @include bp(sm-screen) {
-    display: none;
-  }
-
-}
-
-.global-header__collections--sm {
-  display: none;
-
-  @include bp(sm-screen) {
-    display: block;
-    margin: 20px 0;
-    padding: 0.6em 7em 0.6em 0;
-    background: $design-secondary-color;
-    text-align: right;
-  }
-
-}
-
-.global-header__collections--sm-list {
-  margin: 0;
-  padding: 0;
-}
-
-.global-header__collections--sm-list-item {
-  display: inline;
-  list-style: none;
-}
-
-.global-header__collections--sm-list-item:first-child .global-header__collections--sm-links {
-  border-right: 1px solid #fff;
-}
-
-.global-header__collections--sm-links {
-
-  @include bp(sm-screen) {
-    padding: 0.1em 3em;
-    color: #fff;
-    font-size: 1.4em;
-    line-height: normal;
-  }
-
-}
-
 .global-header__nav {
   display: none;
 
@@ -208,7 +161,7 @@ html.no-js .global-header__nav {
   display: block;
 }
 
-.global-header__mobile-links--selected {
+.global-header__mobile-links--selected { // change to 'global-header__nav--selected'
   display: block;
 }
 
@@ -265,6 +218,53 @@ html.no-js .global-header__nav {
 
   @include bp(md-screen) {
     font-size: 1.4em;
+  }
+
+}
+
+// .global-header__collections--xs {
+//   text-align: left;
+
+//   @include bp(sm-screen) {
+//     display: none;
+//   }
+
+// }
+
+.global-header__collections--sm {
+  display: none;
+
+  @include bp(sm-screen) {
+    display: block;
+    margin: 20px 0;
+    padding: 0.6em 7em 0.6em 0;
+    background: $design-secondary-color;
+    text-align: right;
+  }
+
+}
+
+.global-header__collections--sm-list {
+  margin: 0;
+  padding: 0;
+}
+
+.global-header__collections--sm-list-item {
+  display: inline;
+  list-style: none;
+}
+
+.global-header__collections--sm-list-item:first-child .global-header__collections--sm-links {
+  border-right: 1px solid #fff;
+}
+
+.global-header__collections--sm-links {
+
+  @include bp(sm-screen) {
+    padding: 0.1em 3em;
+    color: #fff;
+    font-size: 1.4em;
+    line-height: normal;
   }
 
 }
