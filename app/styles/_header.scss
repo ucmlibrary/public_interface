@@ -14,7 +14,7 @@
 
 }
 
-.global-header__bars-icon .fa {
+.global-header__bars-icon .fa { // fa-bars icon
   font-size: 2.8em;
   color: $design-dark-gray-color;
 }
@@ -47,9 +47,34 @@ html.no-svg .global-header__logo {
 
 }
 
+.global-header__search-icon {
+  // padding: 0 $layout-margin-xs 0 0;
+  text-align: right;
+  cursor: pointer;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
+}
+
+.global-header__search-icon .fa { // fa-search icon
+  font-size: 2.8em;
+  color: $design-primary-color;
+}
+
 .global-header__search {
-  // display: none; // Becomes 'block' via click on search icon
+  display: none; // becomes 'block' on search-icon click
+}
+
+html.no-js .global-header__search {
+  display: block;
+}
+
+.global-header__search--selected {
+  display: block;
   background: $design-dark-gray-color;
+  margin: 10px 0 0 0;
   padding: 10px 0;
 
   @include bp(sm-screen) {
@@ -109,37 +134,13 @@ html.no-svg .global-header__logo {
 
 }
 
-.global-header__search-button .fa {
+.global-header__search-button .fa { // fa-search icon
   color: #fff;
 
   @include bp(md-screen) {
     font-size: 2em;
   }
   
-}
-
-html.no-js .global-header__search {
-  display: block;
-}
-
-.global-header__search--selected {
-  display: block;
-}
-
-.global-header__search-icon {
-  // padding: 0 $layout-margin-xs 0 0;
-  text-align: right;
-  cursor: pointer;
-
-  @include bp(sm-screen) {
-    display: none;
-  }
-
-}
-
-.global-header__search-icon .fa {
-  font-size: 2.8em;
-  color: $design-primary-color;
 }
 
 .global-header__collections--xs {
