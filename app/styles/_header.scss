@@ -20,11 +20,13 @@
 }
 
 .global-header__logo {
+  margin: 0 0 10px 0;
   background: url(/images/logo-calisphere.svg) no-repeat;
   background-position: center top;
   background-size: $header-logo-xs-width $header-logo-xs-height;
 
   @include bp(md-screen) {
+    margin: 0;
     background-size: $header-logo-md-width $header-logo-md-height;
     background-position: left top;
   }
@@ -74,7 +76,6 @@ html.no-js .global-header__search {
 .global-header__search--selected {
   display: block;
   background: $design-dark-gray-color;
-  margin: 10px 0 0 0;
   padding: 10px 0;
 
   @include bp(sm-screen) {
