@@ -5,7 +5,7 @@
 }
 
 .global-header__bars-icon {
-  // padding: 0 0 0 $layout-margin-xs;
+  padding: 10px 0 0 $layout-edge-margin-xs;
   cursor: pointer;
   
   @include bp(sm-screen) {
@@ -52,7 +52,7 @@ html.no-svg .global-header__logo {
 }
 
 .global-header__search-icon {
-  // padding: 0 $layout-margin-xs 0 0;
+  padding: 10px $layout-edge-margin-xs 0 0;
   text-align: right;
   cursor: pointer;
 
@@ -83,7 +83,7 @@ html.no-js .global-header__search {
 .global-header__search--selected {
   display: block;
   background: $design-dark-gray-color;
-  padding: 10px 0;
+  padding: 15px $layout-edge-margin-xs;
   border-bottom: 1px solid #fff;
 
   @include bp(sm-screen) {
@@ -203,7 +203,7 @@ html.no-js .global-header__nav {
 
 .global-header__nav-link {
   display: block;
-  padding: 15px 10px;
+  padding: 15px $layout-edge-margin-xs;
   color: #fff;
   border-bottom: 1px solid #fff;
   background: $design-dark-gray-color;
@@ -226,15 +226,6 @@ html.no-js .global-header__nav {
   }
 
 }
-
-// .global-header__collections--xs {
-//   text-align: left;
-
-//   @include bp(sm-screen) {
-//     display: none;
-//   }
-
-// }
 
 .global-header__collections--sm {
   display: none;
