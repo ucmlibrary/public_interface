@@ -77,11 +77,13 @@ html.no-js .global-header__search {
   display: block;
   background: $design-dark-gray-color;
   padding: 10px 0;
+  border-bottom: 1px solid #fff;
 
   @include bp(sm-screen) {
     display: block;
     background: none;
     padding: 0;
+    border: none;
   }
 
 }
@@ -240,8 +242,24 @@ html.no-js .global-header__nav {
 }
 
 .global-header__nav-link {
-  color: #000;
+  display: block;
+  padding: 15px 10px;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  background: $design-dark-gray-color;
   font-size: 1.1em;
+  &:hover {
+    text-decoration: none;
+  }
+
+  @include bp(sm-screen) {
+    display: inline;
+    padding: 0;
+    color: #000;
+    border: none;
+    background: none;
+    font-size: 1.2em;
+  }
 
   @include bp(md-screen) {
     font-size: 1.4em;
