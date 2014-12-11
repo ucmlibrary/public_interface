@@ -69,6 +69,11 @@ html.no-svg .global-header__logo {
 
 .global-header__search {
   display: none; // becomes 'block' on search-icon click
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+
 }
 
 html.no-js .global-header__search {
