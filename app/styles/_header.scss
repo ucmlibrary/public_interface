@@ -105,8 +105,12 @@ html.no-js .global-header__search {
 
   @include bp(sm-screen) {
     color: #000;
-    font-size: 1.5em;
+    font-size: 1.3em;
     text-align: center;
+  }
+
+  @include bp(md-screen) {
+    font-size: 1.5em;
   }
 
 }
@@ -146,6 +150,7 @@ html.no-js .global-header__search {
 
 .global-header__search-button .fa { // fa-search icon
   color: #fff;
+  font-size: 1.1em;
 
   @include bp(md-screen) {
     font-size: 2em;
