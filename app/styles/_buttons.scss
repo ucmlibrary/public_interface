@@ -31,9 +31,27 @@
 }
 
 .button__prev .fa {
-  margin: 0 0.1em;
+  margin: 0 0.1em 0 0;
 }
 
 .button__next .fa {
-  margin: 0 0.1em;
+  margin: 0 0 0 0.1em;
+}
+
+.button__contact-owner {
+  @extend .button__primary;
+
+  .fa {
+    margin: 0 0.5em 0 0;
+  }
+
+}
+
+.button__download-image {
+  @extend .button__dark;
+
+  .fa {
+    margin: 0 0.5em 0 0;
+  }
+
 }
