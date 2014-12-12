@@ -50,8 +50,8 @@
 .button__download-image {
   @extend .button__dark;
 
-  .fa {
-    margin: 0 0.5em 0 0;
-  }
+  // .fa-stack .fa {
+  //   font-size: 1em;
+  // }
 
 }
