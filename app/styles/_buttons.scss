@@ -30,10 +30,16 @@
   color: $design-primary-color;
 }
 
-.button__prev {
-
+.button__prev .fa {
+  position: relative;
+  top: 0.1em;
+  left: -0.1em;
+  font-size: 1.4em;
 }
 
-.button__next {
-  
+.button__next .fa {
+  position: relative;
+  top: 0.1em;
+  left: 0.1em;
+  font-size: 1.4em;
 }
