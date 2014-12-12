@@ -1,14 +1,5 @@
 // ##### Buttons ##### //
 
-.button__close {
-  border: 1px solid $design-dark-gray-color;
-}
-
-.button__close-icon {
-  margin-left: 1em;
-  color: $design-primary-color;
-}
-
 // Create 4 button color classes using the same selector construct:
 
 @each $button__color-group, $button__color in
@@ -28,4 +19,13 @@
       border: 1px solid lighten($button__color, 15%);
     }
   }
+}
+
+.button__close {
+  border: 1px solid $design-dark-gray-color;
+}
+
+.button__close-icon {
+  margin-left: 1em;
+  color: $design-primary-color;
 }
