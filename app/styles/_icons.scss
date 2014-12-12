@@ -1,12 +1,28 @@
 // ***** Icons ***** //
 
-.fa-stack {
-	margin-top: -0.8em;
-	margin-right: 0.5em;
+.icon__image-set {
+	
+	&.fa-stack {
+		margin-top: -0.8em;
+		margin-right: 0.5em;
+	}
+
+	.fa-stack-2x {
+		top: 0.14em !important;
+		left: 0.14em !important;
+		background: #fff;
+	}
+
 }
 
-.fa-stack-2x {
-	top: 0.14em !important;
-	left: 0.14em !important;
-	background: #fff;
+.icon__download-image {
+	
+	.fa-circle-o {
+		font-size: 1.2em;
+	}
+
+	.fa-arrow-down {
+		font-size: 0.7em;
+	}
+
 }
