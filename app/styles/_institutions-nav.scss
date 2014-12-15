@@ -22,7 +22,7 @@
     background: $design-secondary-color;
 
     :after {
-      content: "\f105";
+      content: "\f105"; // .fa-angle-right icon
       position: absolute;
       right: 15px;
       font-size: 1.5em;
@@ -50,7 +50,7 @@
     background: $design-secondary-color;
 
     :after {
-      content: "\f105";
+      content: "\f105"; // .fa-angle-right icon
       position: absolute;
       right: 15px;
       font-size: 1.5em;
@@ -72,5 +72,7 @@
 }
 
 .list-nav__object-icon {
+  margin-right: 0.5em;
   color: $design-dark-gray-color;
+  font-size: 1.2em; // for image-set icon
 }
