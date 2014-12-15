@@ -1,2 +1,34 @@
 // ##### Institutions Navigation Component ##### //
 
+.inst-nav {
+  
+}
+
+.inst-nav__list {
+  padding: 0;
+  list-style: none;
+}
+
+.list-nav__list-item {
+  border-bottom: 1px solid $design-dark-gray-color;
+
+  &:first-child {
+    border-top: 1px solid $design-dark-gray-color;
+  }
+}
+
+.list-nav__link {
+  display: block;
+  padding: 10px 5px 10px 20px;
+  color: #000;
+  
+  &:hover {
+    color: #000;
+    text-decoration: none;
+  }
+
+}
+
+.list-nav__icon {
+  color: $design-dark-gray-color;
+}
