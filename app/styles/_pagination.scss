@@ -5,7 +5,6 @@
 }
 
 .pag__list {
-	margin: 0;
 	padding: 0;
 }
 
@@ -15,17 +14,6 @@
 	list-style-type: none;
 }
 
-.pag__list-link {
-	padding: 0.5em 0.8em;
-	border: 1px solid $design-light-gray-color;
-	border-radius: 5px;
-	&:hover {
-		text-decoration: none;
-	}
-}
-
 .pag__list-link--selected {
-	@extend .pag__list-link;
-	background: $design-dark-gray-color;
-	color: #fff;
+	@extend .button__secondary;
 }
