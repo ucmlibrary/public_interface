@@ -22,11 +22,17 @@
     background: $design-secondary-color;
 
     :after {
-      content: "\f105"; // .fa-angle-right icon
+      content: "\f107"; // .fa-angle-down icon
       position: absolute;
       right: 15px;
       font-size: 1.5em;
       font-family: FontAwesome;
+    }
+
+    @include bp(sm-screen) {
+      :after {
+        content: "\f105"; // .fa-angle-right icon
+      }
     }
 
   }
@@ -50,11 +56,17 @@
     background: $design-secondary-color;
 
     :after {
-      content: "\f105"; // .fa-angle-right icon
+      content: "\f107"; // .fa-angle-down icon
       position: absolute;
       right: 15px;
       font-size: 1.5em;
       font-family: FontAwesome;
+    }
+
+    @include bp(sm-screen) {
+      :after {
+        content: "\f105"; // .fa-angle-right icon
+      }
     }
 
   }
