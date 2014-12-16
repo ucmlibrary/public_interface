@@ -26,7 +26,7 @@ html.no-js .check__header {
 
 .check__header--selected {
   @extend .check__header;
-  background: $design-light-gray-color;
+  background: $design-dark-gray-color;
 
   @include bp(sm-screen) {
     background: none;
