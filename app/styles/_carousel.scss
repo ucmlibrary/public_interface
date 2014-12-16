@@ -1,6 +1,6 @@
 // ##### Carousel Component ##### //
 
-// <<<<< Extract Bootstrap's breakpoint variables for Slick's javascript >>>>> //
+// ***** Extract Bootstrap's breakpoint variables for Slick's JavaScript ***** //
 
 .bs-lg-screen {
   display: none;
@@ -17,7 +17,7 @@
   width: $screen-sm-min;
 }
 
-// <<<<< Override preexisting Slick selectors >>>>> //
+// ***** Override preexisting Slick selectors ***** //
 
 .slick-slider {
   margin: 0 $slick-arrow-spacing;
