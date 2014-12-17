@@ -111,14 +111,14 @@ sm = sm.replace('px', '');
 // Slick settings (see http://kenwheeler.github.io/slick/):
 $('.carousel').slick({
   infinite: false,
-  slidesToShow: 5,
-  slidesToScroll: 5,
+  slidesToShow: 6,
+  slidesToScroll: 6,
   responsive: [
     {
       breakpoint: lg, // Bootstrap breakpoint pixel variable
       settings: {
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 6,
+        slidesToScroll: 6,
       }
     },
     {
