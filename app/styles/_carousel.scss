@@ -49,8 +49,17 @@
   height: auto;
 }
 
+.thumbnail__image {
+  opacity: 0.75;
+
+  &:hover {
+    opacity: 1;
+  }
+
+}
+
 .thumbnail__image--selected {
-  border: 5px solid $design-dark-gray-color;
+  border: 7px solid $design-dark-gray-color;
 }
 
 .thumbnail__caption {
