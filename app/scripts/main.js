@@ -115,21 +115,21 @@ $('.carousel').slick({
   slidesToScroll: 5,
   responsive: [
     {
-      breakpoint: lg, // Bootstrap breakpoint variable set at top of this file
+      breakpoint: lg, // Bootstrap breakpoint pixel variable
       settings: {
         slidesToShow: 4,
         slidesToScroll: 4,
       }
     },
     {
-      breakpoint: md, // Bootstrap breakpoint variable set at top of this file
+      breakpoint: md, // Bootstrap breakpoint pixel variable
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3
       }
     },
     {
-      breakpoint: sm, // Bootstrap breakpoint variable set at top of this file
+      breakpoint: sm, // Bootstrap breakpoint pixel variable
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2
