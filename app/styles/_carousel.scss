@@ -26,7 +26,7 @@
 .slick-prev, .slick-next {
   width: auto;
   height: auto;
-  margin-top: -20px; // arrow vertical positioning
+  margin-top: -40px; // arrow vertical positioning
 }
 
 .slick-prev {
@@ -43,3 +43,18 @@
 
 // ***** Custom Classes ***** //
 
+// temporary image resize for UI dev:
+.carousel img {
+  width: 120px;
+  height: auto;
+}
+
+.thumbnail__image--selected {
+  border: 5px solid $design-dark-gray-color;
+}
+
+.thumbnail__caption {
+  width: 120px;
+  height: 3.3em; // constrain caption height to three text lines
+  overflow: hidden;
+}
