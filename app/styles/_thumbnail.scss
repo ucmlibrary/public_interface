@@ -5,7 +5,21 @@
 }
 
 .thumbnail__image {
-	
+
+}
+
+.thumbnail__icon {
+	position: absolute;
+	top: 50px;
+	left: 45px;
+	padding: 10px 15px;
+	background-color: $design-primary-color;
+
+	.fa {
+		font-size: 3em;
+		color: #fff;
+	}
+
 }
 
 .thumbnail__caption {
