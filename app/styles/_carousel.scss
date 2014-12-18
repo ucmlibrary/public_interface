@@ -49,7 +49,12 @@
   height: auto;
 }
 
-.thumbnail__image {
+.carousel__thumbnail-container {
+  @extend .thumbnail__container;
+}
+
+.carousel__thumbnail-image {
+  @extend .thumbnail__image;
   opacity: 0.75;
 
   &:hover {
@@ -58,11 +63,12 @@
 
 }
 
-.thumbnail__image--selected {
+.carousel__thumbnail-image--selected {
   border: 7px solid $design-dark-gray-color;
 }
 
-.thumbnail__caption {
+.carousel__thumbnail-caption {
+  @extend .thumbnail__caption;
   width: 120px;
   height: 3.3em; // constrain caption height to three text lines
   overflow: hidden;
