@@ -12,6 +12,13 @@ $thumbnail-image-size: 150px;
   display: block;
 }
 
+.thumbnail__image-area--no-image {
+	display: block;
+	width: 150px;
+	height: 150px;
+	border: 1px solid $design-primary-color;
+}
+
 .thumbnail__image {
 	position: relative;
 	display: block;
