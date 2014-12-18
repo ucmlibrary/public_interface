@@ -1,7 +1,5 @@
 // ##### List View Component ##### //
 
-$listview__data-list-line-height: 1.5em;
-
 .listview {
   
 }
@@ -17,9 +15,9 @@ $listview__data-list-line-height: 1.5em;
   margin-right: 0.5em;
   color: $design-dark-gray-color;
   font-weight: normal;
-  line-height: $listview__data-list-line-height;
+  line-height: $listview-text-line-height;
 }
 
 .listview__data-defin {
-  line-height: $listview__data-list-line-height;
+  line-height: $listview-text-line-height;
 }
