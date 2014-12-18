@@ -49,10 +49,6 @@
   height: auto;
 }
 
-.carousel__thumbnail-container {
-  @extend .thumbnail__container;
-}
-
 .carousel__thumbnail-image {
   @extend .thumbnail__image;
   opacity: 0.75;

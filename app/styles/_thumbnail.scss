@@ -1,16 +1,6 @@
 // ##### Thumbnail Component ##### //
 
-// temporary image resize for UI dev:
-.thumbnail__container img {
-	width: 150px;
-	height: 150px;
-}
-
-.thumbnail__container {
-  display: block;
-}
-
-.thumbnail__image-area--no-image {
+.thumbnail__container--no-image {
 	display: block;
 	width: 150px;
 	height: 150px;
@@ -18,6 +8,10 @@
 }
 
 .thumbnail__image {
+	// temporary image resize for UI dev:
+	width: 150px;
+	height: 150px;
+
 	position: relative;
 	display: block;
 	z-index: -1;
