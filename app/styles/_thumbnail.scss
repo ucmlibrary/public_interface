@@ -1,7 +1,11 @@
 // ##### Thumbnail Component ##### //
 
-.thumbnail__container--no-image {
+.thumbnail__container {
 	display: block;
+}
+
+.thumbnail__container--no-image {
+	@extend .thumbnail__container;
 	width: 150px;
 	height: 150px;
 	border: 1px solid $design-primary-color;

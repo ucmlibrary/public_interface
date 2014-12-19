@@ -19,7 +19,7 @@
     <!-- endbuild -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
-  <body class="image-test">
+  <body>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -35,8 +35,92 @@
       <div class="row">
         <figure class="listview">
           <div class="col-xs-3">
-            <a href="">
-              <img src="images/birds1-thumb.jpg" alt="bird">
+            <a class="listview__container" href="">
+              <img class="listview__image" src="images/birds1-thumb.jpg" alt="bird">
+            </a>
+          </div>
+          <div class="col-xs-9">
+            <dl class="listview__data-list">
+              <dt class="listview__data-type">Title:</dt>
+              <dd class="listview__data-defin">Walther League Picnic in Orange County Park, Orange, California, 1909</dd>
+
+              <dt class="listview__data-type">Creator:</dt>
+              <dd class="listview__data-defin">Hillebrecht, Henry William</dd>
+
+              <dt class="listview__data-type">Date:</dt>
+              <dd class="listview__data-defin">1909-09-06</dd>
+
+              <dt class="listview__data-type">Contributing Institution:</dt>
+              <dd class="listview__data-defin"><a href="">Orange Public Library</a></dd>
+
+              <dt class="listview__data-type">Collection:</dt>
+              <dd class="listview__data-defin"><a href="">Orange Public Library Local History Collection</a></dd>
+
+              <dt class="listview__data-type">Identifier:</dt>
+              <dd class="listview__data-defin">OPL2774, 10511179</dd>
+
+              <dt class="listview__data-type">Format:</dt>
+              <dd class="listview__data-defin">Photographic print, b&ampw, 8.7 x 14.4cm.</dd>
+
+              <dt class="listview__data-type">Notes:</dt>
+              <dd class="listview__data-defin">Orange County</dd>
+
+              <dt class="listview__data-type">Subject:</dt>
+              <dd class="listview__data-defin">California; Orange; picnic; Walther League, Orange County</dd>
+            </dl>
+        </figure>
+      </div>
+      
+      <h3>Icon Overlay</h3>
+
+      <div class="row">
+        <figure class="listview">
+          <div class="col-xs-3">
+            <a class="listview__container" href="">
+              <span class="listview__icon"><i class="fa fa-file-text-o"></i></span>
+              <img class="listview__image" src="images/birds1-thumb.jpg" alt="bird">
+            </a>
+          </div>
+          <div class="col-xs-9">
+            <dl class="listview__data-list">
+              <dt class="listview__data-type">Title:</dt>
+              <dd class="listview__data-defin">Walther League Picnic in Orange County Park, Orange, California, 1909</dd>
+
+              <dt class="listview__data-type">Creator:</dt>
+              <dd class="listview__data-defin">Hillebrecht, Henry William</dd>
+
+              <dt class="listview__data-type">Date:</dt>
+              <dd class="listview__data-defin">1909-09-06</dd>
+
+              <dt class="listview__data-type">Contributing Institution:</dt>
+              <dd class="listview__data-defin"><a href="">Orange Public Library</a></dd>
+
+              <dt class="listview__data-type">Collection:</dt>
+              <dd class="listview__data-defin"><a href="">Orange Public Library Local History Collection</a></dd>
+
+              <dt class="listview__data-type">Identifier:</dt>
+              <dd class="listview__data-defin">OPL2774, 10511179</dd>
+
+              <dt class="listview__data-type">Format:</dt>
+              <dd class="listview__data-defin">Photographic print, b&ampw, 8.7 x 14.4cm.</dd>
+
+              <dt class="listview__data-type">Notes:</dt>
+              <dd class="listview__data-defin">Orange County</dd>
+
+              <dt class="listview__data-type">Subject:</dt>
+              <dd class="listview__data-defin">California; Orange; picnic; Walther League, Orange County</dd>
+            </dl>
+        </figure>
+      </div>
+
+      <h3>Icon Overlay, No Image</h3>
+
+      <div class="row">
+        <figure class="listview">
+          <div class="col-xs-3">
+            <a class="listview__container--no-image" href="">
+              <span class="listview__icon"><i class="fa fa-file-text-o"></i></span>
+              <!-- (no image) -->
             </a>
           </div>
           <div class="col-xs-9">

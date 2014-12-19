@@ -1,7 +1,26 @@
 // ##### List View Component ##### //
 
-.listview {
-  
+.listview__container {
+  @extend .thumbnail__container;
+}
+
+.listview__container--no-image {
+  @extend .thumbnail__container--no-image;
+  // temporary image resize for UI dev:
+  width: 230px !important;
+	height: 230px !important;
+}
+
+.listview__icon {
+	@extend .thumbnail__icon;
+	top: 80px !important;
+	left: 80px !important;
+}
+
+.listview__image {
+	@extend .thumbnail__image;
+	width: 230px !important;
+	height: 230px !important;
 }
 
 .listview__data-list {
