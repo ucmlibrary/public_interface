@@ -11,10 +11,7 @@
   border-bottom: 1px solid #fff;
 
   @include bp(sm-screen) {
-    display: block;
-    background: none;
-    padding: 0;
-    border: none;
+    display: none;
   }
 
 }
@@ -27,47 +24,18 @@
   font-weight: normal;
   line-height: normal;
 
-  @include bp(sm-screen) {
-    color: #000;
-    font-size: 1.3em;
-    text-align: center;
-  }
-
-  @include bp(md-screen) {
-    font-size: 1.5em;
-  }
-
 }
 
 .global-footer__search-field {
   font-size: 1.2em;
-
-  @include bp(md-screen) {
-    height: 45px;
-    font-size: 1.5em;
-  }
-
-}
-
-.global-footer__search .input-group { // Bootstrap override
-  
-  @include bp(md-screen) {
-    margin: 0 35px;
-  }
-
 }
 
 .global-footer__search-button {
-  
   border: 1px solid $design-dark-gray-color;
   background: $design-primary-color;
+  
   &:hover {
     background: $link-hover-color;
-  }
-
-  @include bp(md-screen) {
-    width: 50px;
-    height: 45px;
   }
 
 }
@@ -75,11 +43,14 @@
 .global-footer__search-button .fa { // fa-search icon
   color: #fff;
   font-size: 1.1em;
+}
 
-  @include bp(md-screen) {
-    font-size: 2em;
-  }
+.global-footer__nav {
   
+  @include bp(sm-screen) {
+    text-align: center;
+  }
+
 }
 
 .global-footer__nav-list {
@@ -95,11 +66,16 @@
 }
 
 .global-footer__nav-list-item {
-
+  
   @include bp(sm-screen) {
-    text-align: center;
-    float: left;
-    width: 25%;
+    display: inline;
+    border-left: 1px solid $design-dark-gray-color;
+    padding: 0 0.5em;
+
+    &:first-child {
+      border-left: none;
+    }
+
   }
 
 }
@@ -111,6 +87,7 @@
   border-bottom: 1px solid #fff;
   background: $design-dark-gray-color;
   font-size: 1.1em;
+
   &:hover {
     text-decoration: none;
   }
@@ -118,14 +95,30 @@
   @include bp(sm-screen) {
     display: inline;
     padding: 0;
-    color: #000;
-    border: none;
+    color: $design-primary-color;
     background: none;
-    font-size: 1.2em;
   }
 
-  @include bp(md-screen) {
-    font-size: 1.4em;
+}
+
+.global-footer__copyright {
+  margin: 1em 0 0 0;
+  text-align: center;
+
+  @include bp(sm-screen) {
+    
   }
 
+}
+
+.global-footer__twitter-icon {
+  margin: 0 0.25em;
+  font-size: 2em;
+  color: rgb(41, 138, 201);
+}
+
+.global-footer__facebook-icon {
+  margin: 0 0.25em;
+  font-size: 2em;
+  color: rgb(46, 71, 124);
 }
