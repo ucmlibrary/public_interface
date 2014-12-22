@@ -92,7 +92,6 @@
 
 .global-footer__nav-link--mobile {
   @extend %navbar__bar;
-  background: $design-dark-gray-color;
 
   @include bp(sm-screen) {
     display: inline;
