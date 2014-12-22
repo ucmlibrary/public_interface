@@ -50,15 +50,12 @@
 }
 
 .global-footer__nav-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  line-height: normal;
+  @extend %navbar__container;
   text-align: center;
 }
 
 .global-footer__nav-list--mobile {
-  @extend .global-footer__nav-list;
+  @extend %navbar__container;
   text-align: left;
 
   @include bp(sm-screen) {
@@ -94,16 +91,8 @@
 }
 
 .global-footer__nav-link--mobile {
-  display: block;
-  padding: 15px $layout-edge-margin-xs;
-  color: #fff;
-  border-bottom: 1px solid #fff;
+  @extend %navbar__bar;
   background: $design-dark-gray-color;
-  font-size: 1.1em;
-
-  &:hover {
-    text-decoration: none;
-  }
 
   @include bp(sm-screen) {
     display: inline;

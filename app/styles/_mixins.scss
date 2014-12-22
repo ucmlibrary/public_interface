@@ -1,6 +1,6 @@
-// ***** Custom Mixins ***** //
+// ##### Custom Mixins ##### //
 
-// Abstract Bootstrap's responsive breakpoints for use in custom sass.
+// Abstract Bootstrap's responsive breakpoints for use in custom Sass.
 
 @mixin bp($point) {
 
@@ -12,6 +12,45 @@
   }
   @else if $point == sm-screen {
     @media (min-width: $screen-sm-min) { @content; }
+  }
+
+}
+
+// ***** Mobile Navigation Bars ***** //
+
+// This placeholder creates the mobile navbar for a <ul> <li> <a> structure
+
+%navbar__container { // to be used with <ul>
+	margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: normal;
+}
+
+%navbar__bar { // to be used with <a>
+	display: block;
+  padding: 15px $layout-edge-margin-xs;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  font-size: 1.1em;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+}
+
+// ***** Horizontal Navigation Links ***** //
+
+// This placeholder creates the horizontal nav for a <ul> <li> <a> structure
+
+%horizontal-nav__link { // to be used with <li>
+	display: inline;
+  border-left: 1px solid $design-dark-gray-color;
+  padding: 0 0.5em;
+
+  &:first-child {
+    border-left: none;
   }
 
 }
