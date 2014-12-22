@@ -46,12 +46,19 @@
 }
 
 .global-footer__nav {
-
+  
 }
 
 .global-footer__nav-list {
   @extend %navbar__container;
   text-align: center;
+  
+  margin: 1em 0 0 0;
+
+  @include bp(sm-screen) {
+    margin: 0;
+  }
+
 }
 
 .global-footer__nav-list--mobile {
@@ -104,6 +111,7 @@
 
 .global-footer__copyright {
   margin: 1em 0 0 0;
+  color: $design-dark-gray-color;
   text-align: center;
 
   @include bp(sm-screen) {
