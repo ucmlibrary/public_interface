@@ -7,7 +7,7 @@
 
 .check__header {
   margin-top: 10px;
-  padding: 15px 0 15px 10px;
+  padding: 15px 0 15px $layout-edge-margin-xs;
   background: $design-dark-gray-color;
   overflow: hidden;
   cursor: pointer;
@@ -59,7 +59,7 @@ html.no-js .check__header {
 
 .check__header-arrow-icon.fa {
   float: right;
-  margin: -5px 20px -20px 0;
+  margin: -5px $layout-edge-margin-xs -20px 0;
   font-size: 2.6em;
   color: #fff;
 
@@ -143,7 +143,7 @@ html.no-js .check__button-group {
 .check__button {
   float: right;
   width: 45%;
-  margin: 10px;
+  margin: 10px $layout-edge-margin-xs;
 
   &:first-of-type {
     float: left;
@@ -169,7 +169,7 @@ html.no-js .check__button-group {
 .check__label {
   display: block;
   margin: -1px 0 0 0;
-  padding: 10px 50px 10px 10px;
+  padding: 10px 0 10px $layout-edge-margin-xs;
   background: #fff;
   border-top: 1px solid $design-dark-gray-color;
   border-bottom: 1px solid $design-dark-gray-color;
@@ -182,7 +182,7 @@ html.no-js .check__button-group {
 }
 
 html.svg .check__label {
-  background: #fff url("/images/checkbox-square.svg") no-repeat 95% center;
+  background: #fff url("/images/checkbox-square.svg") no-repeat 96% center;
   background-size: 18px 18px; // constrains SVG canvas for positioning
 }
 
@@ -200,7 +200,7 @@ html.svg .check__input {
 }
 
 html.svg .check__input:checked + .check__label {
-   background: #fff url("/images/checkbox-check.svg") no-repeat 95% center;
+   background: #fff url("/images/checkbox-check.svg") no-repeat 96% center;
    background-size: 18px 12px; // constrains SVG canvas for positioning
 }
 
