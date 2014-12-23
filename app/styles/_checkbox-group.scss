@@ -182,7 +182,7 @@ html.no-js .check__button-group {
 }
 
 html.svg .check__label {
-  background: #fff url("/images/checkbox-square.svg") no-repeat 96% center;
+  background: #fff url("/images/checkbox-square.svg") no-repeat right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
   background-size: 18px 18px; // constrains SVG canvas for positioning
 }
 
@@ -200,7 +200,7 @@ html.svg .check__input {
 }
 
 html.svg .check__input:checked + .check__label {
-   background: #fff url("/images/checkbox-check.svg") no-repeat 96% center;
+   background: #fff url("/images/checkbox-check.svg") no-repeat right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
    background-size: 18px 12px; // constrains SVG canvas for positioning
 }
 
