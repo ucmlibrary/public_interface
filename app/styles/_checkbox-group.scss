@@ -182,8 +182,13 @@ html.no-js .check__button-group {
 }
 
 html.svg .check__label {
-  background: #fff url("/images/checkbox-square.svg") no-repeat right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
+  background: #fff url("/images/checkbox-square.svg") no-repeat;
   background-size: 18px 18px; // constrains SVG canvas for positioning
+  background-position: right 20px center;
+}
+
+html.no-bgpositionshorthand .check__label {
+  background-position: 96% center;
 }
 
 .check__input {
