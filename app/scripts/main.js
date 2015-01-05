@@ -18,64 +18,64 @@ $(document).ready(function(){
   // ##### Checkbox Groups ##### //
 
   // Disable Update Results button upon document.ready
-  $('.js-check__update').prop('disabled', true);
+  $('.js-a-check__update').prop('disabled', true);
 
   // Expand checkbox group and switch arrow icon when clicking on header (small and medium screens):
-  $('.js-check__header').click(function(){
-    $('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
-    $('.js-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
+  $('.js-a-check__header').click(function(){
+    $('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
   });
 
   // Select all or deselect all checkboxes (small and medium screens):
-  $('.js-check__button-select-all').click(function(){
+  $('.js-a-check__button-select-all').click(function(){
     $('.check__input').prop('checked', true);
-    $('.js-check__button-deselect-all').prop('disabled', false);
-    $('.js-check__update').prop('disabled', false);
+    $('.js-a-check__button-deselect-all').prop('disabled', false);
+    $('.js-a-check__update').prop('disabled', false);
   });
-  $('.js-check__button-deselect-all').click(function(){
+  $('.js-a-check__button-deselect-all').click(function(){
     $('.check__input').prop('checked', false);
-    $('.js-check__update').prop('disabled', false);
+    $('.js-a-check__update').prop('disabled', false);
   });
 
   // Select all or deselect all checkboxes (large screens):
-  $('.js-check__link-select-all').click(function(){
+  $('.js-a-check__link-select-all').click(function(){
     $('.check__input').prop('checked', true);
-    $('.js-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
-    $('.js-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
-    $('.js-check__button-deselect-all').prop('disabled', false);
-    $('.js-check__update').prop('disabled', false);
+    $('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
+    $('.js-a-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
+    $('.js-a-check__button-deselect-all').prop('disabled', false);
+    $('.js-a-check__update').prop('disabled', false);
   });
-  $('.js-check__link-deselect-all').click(function(){
+  $('.js-a-check__link-deselect-all').click(function(){
     $('.check__input').prop('checked', false);
-    $('.js-check__link-deselect-all').toggleClass('check__link-deselect-all--selected check__link-deselect-all--not-selected');
-  	$('.js-check__link-select-all').toggleClass('check__link-select-all--not-selected check__link-select-all--selected');
-  	$('.js-check__update').prop('disabled', false);
+    $('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--selected check__link-deselect-all--not-selected');
+  	$('.js-a-check__link-select-all').toggleClass('check__link-select-all--not-selected check__link-select-all--selected');
+  	$('.js-a-check__update').prop('disabled', false);
   });
 
   // If a checkbox is already checked, enable Deselect All button:
   if ($('.check__input').is(':checked')) {
-  	$('.js-check__button-deselect-all').prop('disabled', false);
+  	$('.js-a-check__button-deselect-all').prop('disabled', false);
   }
 
   // If a new checkbox is checked, enable Deselect All button and enable Update Results button:
   $('.check__input').change(function(){
     if ($('.check__input').is(':checked')) {
-  		$('.js-check__button-deselect-all').prop('disabled', false);
+  		$('.js-a-check__button-deselect-all').prop('disabled', false);
   	}
-  $('.js-check__update').prop('disabled', false);
+  $('.js-a-check__update').prop('disabled', false);
   });
 
   // Collapse checkbox group, disable Update Results button, and change header styles if any checkboxes are already checked:
-  $('.js-check__update').click(function(){
-    $('.js-check__update').prop('disabled', true);
-  	$('.js-check__popdown').toggleClass('check__popdown check__popdown--selected');
-    $('.js-check__header-arrow-icon').toggleClass('fa-angle-up fa-angle-down');
+  $('.js-a-check__update').click(function(){
+    $('.js-a-check__update').prop('disabled', true);
+  	$('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $('.js-a-check__header-arrow-icon').toggleClass('fa-angle-up fa-angle-down');
     if ($('.check__input').is(':checked')) {
-  		$('.js-check__header').addClass('check__header--selected').removeClass('check__header');
-  		$('.js-check__header-text').addClass('check__header-text--selected').removeClass('check__header-text');
+  		$('.js-a-check__header').addClass('check__header--selected').removeClass('check__header');
+  		$('.js-a-check__header-text').addClass('check__header-text--selected').removeClass('check__header-text');
     } else {
-      $('.js-check__header').removeClass('check__header--selected').addClass('check__header');
-      $('.js-check__header-text').removeClass('check__header-text--selected').addClass('check__header-text');
+      $('.js-a-check__header').removeClass('check__header--selected').addClass('check__header');
+      $('.js-a-check__header-text').removeClass('check__header-text--selected').addClass('check__header-text');
   	}
   });
 
