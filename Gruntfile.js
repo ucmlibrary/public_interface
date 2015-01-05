@@ -350,7 +350,7 @@ module.exports = function (grunt) {
     modernizr: {
       dist: {
         // devFile: '<%= config.app %>/scripts/vendor/modernizr-dev.js',
-        devFile: 'remote',
+        devFile: 'bower_components/modernizr/modernizr.js',
         outputFile: '<%= config.dist %>/scripts/vendor/modernizr.js',
         files: {
           src: [
