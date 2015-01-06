@@ -1,7 +1,33 @@
 // ***** Checkbox Group ***** //
 
 .check {
+  
+}
+
+// The four checkbox IDs
+
+#check__type {
   position: relative;
+  border: $bblue;
+  z-index: 1;
+}
+
+#check__date {
+  position: relative;
+  border: $bred;
+  z-index: 1;
+}
+
+#check__inst {
+  position: relative;
+  border: $bgreen;
+  z-index: 1;
+}
+
+#check__coll {
+  position: relative;
+  border: $bblue;
+  z-index: 1;
 }
 
 .check__header {
