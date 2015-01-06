@@ -6,7 +6,7 @@
 
 .check__header {
   margin-top: 10px;
-  padding: 15px 0 15px $layout-edge-margin-xs;
+  padding: 10px 0 10px $layout-edge-margin-xs;
   background: $design-dark-gray-color;
   overflow: hidden;
   cursor: pointer;
@@ -37,7 +37,6 @@ html.no-js .check__header {
   float: left;
   margin: 0;
   font-size: 1.2em;
-  font-weight: bold;
   color: #fff;
 
   @include bp(md-screen) {
@@ -48,7 +47,7 @@ html.no-js .check__header {
 
 .check__header-text--selected {
   @extend .check__header-text;
-  color: $design-primary-color;
+  font-weight: bold;
 
   @include bp(md-screen) {
     color: #000;
@@ -204,6 +203,7 @@ html.svg .check__input {
 }
 
 html.svg .check__input:checked + .check__label {
+   font-weight: bold;
    background: #fff url("/images/checkbox-check.svg") no-repeat right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
    background-size: 18px 12px; // constrains SVG canvas for positioning
 }
