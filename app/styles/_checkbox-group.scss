@@ -11,7 +11,7 @@
   overflow: hidden;
   cursor: pointer;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     border: none;
     background: none;
     cursor: auto;
@@ -27,7 +27,7 @@ html.no-js .check__header {
   @extend .check__header;
   background: $design-dark-gray-color;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     background: none;
   }
 
@@ -40,7 +40,7 @@ html.no-js .check__header {
   font-weight: bold;
   color: #fff;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     color: #000;
   }
 
@@ -50,7 +50,7 @@ html.no-js .check__header {
   @extend .check__header-text;
   color: $design-primary-color;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     color: #000;
   }
 
@@ -62,7 +62,7 @@ html.no-js .check__header {
   font-size: 2.6em;
   color: #fff;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     display: none;
   }
 
@@ -76,7 +76,7 @@ html.no-js .check__header-links {
   display: none;
   float: right;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     display: block;
   }
   
@@ -84,7 +84,7 @@ html.no-js .check__header-links {
 
 .check__link-select-all--selected, .check__link-deselect-all--selected {
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     display: block;
     color: $design-primary-color;
   }
@@ -93,7 +93,7 @@ html.no-js .check__header-links {
 
 .check__link-select-all--not-selected, .check__link-deselect-all--not-selected {
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     display: none;
   }
   
@@ -105,7 +105,7 @@ html.no-js .check__header-links {
   left: 0;
   right: 0;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     position: relative;
     display: block;
   }
@@ -129,7 +129,7 @@ html.no-js .check__popdown {
   background: $design-light-gray-color;
   overflow: hidden;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     display: none;
   }
 
@@ -157,7 +157,7 @@ html.no-js .check__button-group {
   border-left: 1px solid $design-dark-gray-color;
   border-right: 1px solid $design-dark-gray-color;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     height: auto;
     border-top: 1px solid $design-dark-gray-color;
     border-bottom: 1px solid $design-dark-gray-color;
@@ -220,7 +220,7 @@ html.svg .check__input:checked + .check__label {
     background: #fff;
   }
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     display: none;
   }
 
