@@ -7,18 +7,27 @@
 }
 
 .alphanav__list-item {
+  float: left;
   margin: 0;
   padding: 0;
+  width: 50px;
+  border-right: 1px solid $design-dark-gray-color;
+
+  @include bp(sm-screen) {
+    float: none;
+    width: 60px;
+    border-right: none;
+    border-bottom: 1px solid $design-dark-gray-color;
+  }
+
 }
 
 .alphanav__list-link {
   display: block;
-  width: 60px;
   padding: 5px 0;
   color: #000;
   font-size: 1.4em;
   text-align: center;
-  border-bottom: 1px solid $design-dark-gray-color;
   background: #fff;
 
   &:hover {
