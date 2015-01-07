@@ -8,26 +8,38 @@
 
 #check__type {
   position: relative;
-  border: $bblue;
-  z-index: 1;
+
+  @include bp(sm-screen) {
+    z-index: 2;
+  }
+  
 }
 
 #check__date {
   position: relative;
-  border: $bred;
-  z-index: 1;
+  
+  @include bp(sm-screen) {
+    z-index: 2;
+  }
+
 }
 
 #check__inst {
   position: relative;
-  border: $bgreen;
-  z-index: 1;
+  
+  @include bp(sm-screen) {
+    z-index: 1;
+  }
+
 }
 
 #check__coll {
   position: relative;
-  border: $bblue;
-  z-index: 1;
+
+  @include bp(sm-screen) {
+    z-index: 1;
+  }
+
 }
 
 .check__header {
@@ -126,11 +138,14 @@ html.no-js .check__header-links {
 
 .check__popdown {
   display: none;
-  position: absolute;
-  left: 0;
-  right: 0;
 
-  @include bp(md-screen) {
+  @include bp(sm-screen) { // overlay checkbox groups that follow
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+
+  @include bp(md-screen) { // push down checkbox groups that follow
     position: relative;
     display: block;
   }
