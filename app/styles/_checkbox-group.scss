@@ -4,7 +4,7 @@
   position: relative;
 }
 
-// The four checkbox IDs
+// The following 4 IDs are only used to set stacking context for positioning. All other styles should be referenced as classes global to all 4 checkboxes.
 
 #check__type {
   
