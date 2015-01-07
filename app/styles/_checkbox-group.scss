@@ -1,14 +1,13 @@
 // ***** Checkbox Group ***** //
 
 .check {
-  
+  position: relative;
 }
 
 // The four checkbox IDs
 
 #check__type {
-  position: relative;
-
+  
   @include bp(sm-screen) {
     z-index: 2;
   }
@@ -16,30 +15,27 @@
 }
 
 #check__date {
-  position: relative;
   
   @include bp(sm-screen) {
     z-index: 2;
   }
-
+  
 }
 
 #check__inst {
-  position: relative;
   
   @include bp(sm-screen) {
     z-index: 1;
   }
-
+  
 }
 
 #check__coll {
-  position: relative;
-
+  
   @include bp(sm-screen) {
     z-index: 1;
   }
-
+  
 }
 
 .check__header {
