@@ -1,16 +1,21 @@
 // ***** Popover ***** //
 
-.popover__img-thumbnail {
+.popover__link {
 	display: block;
-	width: 200px;
-	height: 130px;
+	width: 200px; // set to size of generated thumbnail image
+	height: 130px; // set to size of generated thumbnail image
 }
 
 .popover__img-popover {
 	display: block;
-	width: 380px;
-	height: 280px;
+	width: 380px; // set to size of generated popover image
+	height: 280px; // set to size of generated popover image
 	margin-bottom: 1em;
+}
+
+.popover__img-thumbnail {
+	width: 100%;
+	height: 100%;
 }
 
 .popover { // Bootstrap popover class
