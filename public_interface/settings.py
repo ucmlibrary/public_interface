@@ -15,7 +15,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-THUMBNAIL_BASE = 'http://localhost:8888/'  # `python thumbnail.py`
+THUMBNAIL_BASE = os.getenv('THUMBNAIL_BASE', 'http://localhost:8888/')  # `python thumbnail.py`
 
 
 # Quick-start development settings - unsuitable for production
@@ -89,7 +89,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = 'http://localhost:9000/'  # `grunt serve`
+STATIC_URL = os.getenv('STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 
