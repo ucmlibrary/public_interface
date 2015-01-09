@@ -83,7 +83,7 @@ $(document).ready(function(){
 
 // ##### Popover ##### //
 
-$('.popover__link').popover({
+$('[data-toggle="popover"]').popover({
   trigger: 'hover',
   placement: 'auto',
   html: true
