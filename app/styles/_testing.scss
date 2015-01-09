@@ -13,6 +13,20 @@ body.column-test .row .row [class^="col-"] {
   border: 1px solid green;
 }
 
+// Set image thumbnail size
+
+.thumbnail__image {
+	width: 100px;
+	height: 100px;
+}
+
+// Set image popover size
+
+.popover__img-popover {
+	width: 380px;
+	height: 280px;
+}
+
 // Highlight image placeholders
 
 body.image-test img {
