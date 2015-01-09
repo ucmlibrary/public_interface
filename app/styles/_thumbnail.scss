@@ -1,11 +1,11 @@
 // ##### Thumbnail Component ##### //
 
-.thumbnail__container {
+.thumbnail__link {
 	display: block;
 }
 
-.thumbnail__container--no-image {
-	@extend .thumbnail__container;
+.thumbnail__link--no-image {
+	@extend .thumbnail__link;
 	width: 150px;
 	height: 150px;
 	border: 1px solid $design-primary-color;
@@ -14,7 +14,7 @@
 .thumbnail__image {
 	position: relative;
 	display: block;
-	z-index: -1;
+	z-index: -1; // for .thumbnail__icon
 }
 
 .thumbnail__icon {
@@ -35,4 +35,5 @@
 .thumbnail__caption {
   margin-top: 0.5em;
   line-height: normal;
+  border: $bblue;
 }
