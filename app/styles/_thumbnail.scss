@@ -1,5 +1,11 @@
 // ##### Thumbnail Component ##### //
 
+// The class "thumbnail" is reserved by Bootstrap
+
+.thumbnail__container {
+	width: 150px; // width of thumbnail image
+}
+
 .thumbnail__link {
 	display: block;
 }
@@ -33,7 +39,8 @@
 }
 
 .thumbnail__caption {
+  height: 2em; // reveal only 2 lines of text
   margin-top: 0.5em;
   line-height: normal;
-  border: $bblue;
+  overflow: hidden;
 }
