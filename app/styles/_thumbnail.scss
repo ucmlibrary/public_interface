@@ -3,24 +3,33 @@
 // The class "thumbnail" is reserved by Bootstrap
 
 .thumbnail__container {
-	width: 150px; // width of thumbnail image
+	margin: 0 20px 20px 0;
 }
 
 .thumbnail__link {
 	display: block;
 }
 
+.thumbnail__image {
+	position: relative;
+	display: block;
+	z-index: -1; // for .thumbnail__icon
+}
+
+.thumbnail__caption {
+  height: 2em; // reveal only 2 lines of text
+  margin-top: 0.5em;
+  line-height: normal;
+  overflow: hidden;
+}
+
+// ***** icon-only thumbnails ***** //
+
 .thumbnail__link--no-image {
 	@extend .thumbnail__link;
 	width: 150px;
 	height: 150px;
 	border: 1px solid $design-primary-color;
-}
-
-.thumbnail__image {
-	position: relative;
-	display: block;
-	z-index: -1; // for .thumbnail__icon
 }
 
 .thumbnail__icon {
@@ -36,11 +45,4 @@
 		color: #fff;
 	}
 
-}
-
-.thumbnail__caption {
-  height: 2em; // reveal only 2 lines of text
-  margin-top: 0.5em;
-  line-height: normal;
-  overflow: hidden;
 }

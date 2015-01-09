@@ -16,8 +16,8 @@ body.column-test .row .row [class^="col-"] {
 // Set image thumbnail size
 
 .thumbnail__image {
-	width: 150px;
-	height: 150px;
+	width: 100%;
+	height: auto;
 }
 
 // Set image popover size
