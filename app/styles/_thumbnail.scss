@@ -35,16 +35,28 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 60px;
-	height: 60px;
-	margin: -57px 0 0 -40px;
+	width: 45px;
+	height: 45px;
+	margin: -50px 0 0 -35px;
 	background-color: $design-primary-color;
 	z-index: 1;
 
+	@include bp(md-screen) {
+    width: 60px;
+		height: 60px;
+		margin: -57px 0 0 -40px;
+  }
+
 	.fa {
-		font-size: 2.5em;
+		font-size: 2em;
 		color: #fff;
-		padding: 15px;
+		padding: 10px;
+		
+		@include bp(md-screen) {
+    	font-size: 2.5em;
+    	padding: 15px;
+  	}
+		
 	}
 
 }
