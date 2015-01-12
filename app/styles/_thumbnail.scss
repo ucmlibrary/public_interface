@@ -8,8 +8,6 @@
 
 .thumbnail__link {
 	display: block;
-
-	border: $bred;
 }
 
 .thumbnail__image {
@@ -30,8 +28,6 @@
 
 .thumbnail__link--no-image {
 	@extend .thumbnail__link;
-	width: 140px;
-	height: 140px;
 	border: 1px solid $design-primary-color;
 }
 
