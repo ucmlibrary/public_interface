@@ -5,11 +5,14 @@
 }
 
 .listview__image {
-  @extend .thumbview__image;
+  position: relative;
+  display: block;
+  z-index: -1; // for .listview__icon
 }
 
 .listview__link--no-image {
-  @extend .thumbview__link--no-image;
+  display: block;
+  border: 1px solid $design-primary-color;
 }
 
 .listview__icon {

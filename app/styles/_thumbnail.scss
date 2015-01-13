@@ -1,6 +1,4 @@
-// ##### Thumbview Component ##### //
-
-// The class ".thumbnail" by itself is reserved by Bootstrap
+// ##### Thumbnail View Component ##### //
 
 .thumbview__container {
 	margin: 0 20px 20px 0;
@@ -24,10 +22,10 @@
   cursor: default;
 }
 
-// ***** icon-only thumbviews ***** //
+// ***** Icon-only thumbnails ***** //
 
 .thumbview__link--no-image {
-	@extend .thumbview__link;
+	display: block;
 	border: 1px solid $design-primary-color;
 }
 

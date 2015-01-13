@@ -50,7 +50,8 @@
 }
 
 .carousel__thumbnail-image {
-  @extend .thumbview__image;
+  position: relative;
+  display: block;
   opacity: 0.75;
 
   &:hover {
