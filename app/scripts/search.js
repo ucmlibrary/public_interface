@@ -47,9 +47,9 @@ function FacetQuery(params) {
     $(this).parents('.facet-type').find('.facet').prop('checked', true);
     $('#facet').submit();
   });
-
-  var repository_autocomplete = new Autocomplete($('#repository_name'));
-  var collection_autocomplete = new Autocomplete($('#collection_name'));
+  
+  // var repository_autocomplete = new Autocomplete($('#repository_name'));
+  // var collection_autocomplete = new Autocomplete($('#collection_name'));
   
   // ***********PAGINATION**********
   
@@ -57,21 +57,21 @@ function FacetQuery(params) {
     $('#rows').prop('value', '16'); 
     $('#facet').submit();
   });
-
+  
   $(document).on('click', '#view50', function() {
     $('#rows').prop('value', '50'); 
     $('#facet').submit();
   });
-
+  
   $(document).on('click', '#prev', function() {
     $('#start').val($(this).data('start')); 
     $('#facet').submit();
   });
-
+  
   $(document).on('change', '#start', function() {
     $('#facet').submit();
   });
-
+  
   $(document).on('click', '#next', function() {
     $('#start').val($(this).data('start')); 
     $('#facet').submit();
@@ -89,7 +89,6 @@ function FacetQuery(params) {
 }
 
 // takes two jquery selectors: search input, and pjax container for search results
-
 function Search(params) {
   this.search = params.search;
   this.container = params.container;
@@ -100,5 +99,9 @@ function Search(params) {
     }
   }(this.container));
   
-  // this.searchResults = new FacetQuery();
+  this.searchResults = new FacetQuery();
 }
+
+$(document).ready(function() {
+  var search = new Search({search: '#searchForm', container: '#searchResults'});
+});
