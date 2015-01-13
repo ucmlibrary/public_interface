@@ -2,7 +2,7 @@
 
 // ***** Global header search field ***** //
 
-.global-header__search-label {
+.global-search__label {
   display: block;
   color: #fff;
   font-size: 1.2em;
@@ -22,7 +22,7 @@
 
 }
 
-.global-header__search-field {
+.global-search__field {
   font-size: 1.2em;
 
   @include bp(md-screen) {
@@ -32,16 +32,7 @@
 
 }
 
-.global-header__search .input-group { // Bootstrap override
-  
-  @include bp(md-screen) {
-    margin: 0 35px;
-  }
-
-}
-
-.global-header__search-button {
-  
+.global-search__button {
   border: 1px solid $design-dark-gray-color;
   background: $design-primary-color;
   &:hover {
@@ -55,7 +46,7 @@
 
 }
 
-.global-header__search-button .fa { // fa-search icon
+.global-search__button .fa { // fa-search icon
   color: #fff;
   font-size: 1.1em;
 
@@ -64,3 +55,4 @@
   }
   
 }
+
