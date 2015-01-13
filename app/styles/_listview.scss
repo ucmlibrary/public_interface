@@ -1,26 +1,25 @@
 // ##### List View Component ##### //
 
 .listview__link {
-  @extend .thumbnail__link;
+  display: block;
+}
+
+.listview__image {
+  @extend .thumbnail__image;
 }
 
 .listview__link--no-image {
   @extend .thumbnail__link--no-image;
-  // temporary image resize for UI dev:
-  width: 230px !important;
-	height: 230px !important;
 }
 
 .listview__icon {
 	@extend .thumbnail__icon;
-	top: 80px !important;
-	left: 80px !important;
-}
+  margin: -25px 0 0 -23px !important;
 
-.listview__image {
-	@extend .thumbnail__image;
-	width: 230px !important;
-	height: 230px !important;
+  @include bp(md-screen) {
+    margin: -30px 0 0 -30px !important;
+  }
+
 }
 
 .listview__data-list {
