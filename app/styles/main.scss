@@ -1,62 +1,52 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
-// bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
-// endbower
+// ##### Main Sass ##### //
 
-.title {
-  position: absolute;
-  z-index: 1;
-  top: 30px;
-  left: 140px;
-  width: 200px;
-  padding: 5px 5px;
+// This file imports all Sass partials below and compiles result to main.css
 
-  background: rgba(256, 256, 256, 1);
-  border: 1px solid #DDD;
-  border-radius: 5px;
+// ***** Global Classes ***** //
 
-  visibility: hidden;
-  opacity:0;
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;
 }
 
-.imgWrap:hover .title {visibility: visible; opacity: 1;}
-.filter-pill {padding: 3px 6px !important; margin-bottom: 3px !important; font-size: 75% !important; font-weight: bold !important;}
-.options-container {max-height: 200px; overflow: auto; border: 1px solid #ddd; border-top: none; margin-bottom: 20px;}
-.options-container table {margin-bottom: 0px !important; }
+// ***** Global Settings ***** //
 
+@import "variables";
+@import "mixins";
+@import "fonts";
 
+// ***** Vendor Libraries ***** //
 
-/********************************************
-************CHOSEN STYLE OVERRIDES***********
-*********************************************
+@import "bootstrap-imports";
+@import "font-awesome-imports";
+@import "../../bower_components/slick.js/slick/slick.scss";
 
-.chosen-container-display-list .chosen-drop {
-    position: relative;
-    left: auto;
-}
+// ***** For Testing (comment out before compiling for production) ***** //
 
-.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
-    height: auto !important;
-}
-.chosen-container-multi .chosen-choices {
-    background-image: none !important;
-}
-.chosen-container .chosen-drop {
-    box-shadow: none !important;
-    height: 163px;
-}
-.chosen-container .chosen-results {
-    height: 163px;
-}
-.chosen-container .chosen-results li.highlighted {
-    background-color: #fff;
-    background-image: none;
-    color: inherit;
-}
-.chosen-container .chosen-results li {
-    border-bottom: 1px solid #ddd;
-    margin: 5px 0;
-    padding-left: 20px;
-}
+@import "testing";
 
-********************************************/
+// ***** Custom Elements ***** //
+
+@import "buttons";
+@import "form-elements";
+@import "icons";
+// @import "shapes";
+
+// ***** Custom Components ***** //
+
+@import "alpha-nav";
+@import "carousel";
+@import "checkbox-group";
+@import "footer";
+@import "header";
+@import "institutions-nav";
+@import "listview";
+@import "pagination";
+@import "popover";
+@import "thumbnail";
+
+// ***** Custom Layouts ***** //
+
+@import "collections";
+@import "grid-library";

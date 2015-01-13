@@ -1,0 +1,42 @@
+// ##### Alphabetical Navigation Component ##### //
+
+.alphanav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alphanav__list-item {
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 50px;
+  border-right: 1px solid $design-dark-gray-color;
+
+  @include bp(sm-screen) {
+    float: none;
+    width: 60px;
+    border-right: none;
+    border-bottom: 1px solid $design-dark-gray-color;
+  }
+
+}
+
+.alphanav__list-link {
+  display: block;
+  padding: 5px 0;
+  color: #000;
+  font-size: 1.4em;
+  text-align: center;
+  background: #fff;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.alphanav__list-link--selected {
+  @extend .alphanav__list-link;
+  color: #fff;
+  background: $design-secondary-color;
+}

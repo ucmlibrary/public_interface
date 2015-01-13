@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title>Calisphere UI Library</title>
+    <title>Institutions Navigation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -14,15 +14,10 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <!-- build:js scripts/amy-autocomplete.js -->
-    <script src="scripts/amy-autocomplete.js"></script>
-    <!-- endbuild -->
-    <!-- build:js scripts/search.js -->
-    <script src="scripts/search.js"></script>
-    <!-- endbuild -->
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="scripts/vendor/modernizr-dev.js"></script>
     <!-- endbuild -->
+    
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -33,36 +28,32 @@
 
       <h1>Calisphere UI Library</h1>
 
-      <h2>Elements</h2>
+      <h2>Institutions Navigation</h2>
 
-      <ul>
-        <li><a href="buttons.html">Buttons</a></li>
-        <li><a href="form-elements.html">Form Elements</a></li>
-        <li><a href="icons.html">Icons</a></li>
-        <!-- <li><a href="shapes.html">Shapes</a></li> -->
-      </ul>
+      <div class="row">
 
-      <h2>Components</h2>
+        <div class="col-xs-12 col-sm-4">
 
-      <ul>
-        <li><a href="alpha-nav.html">Alphabetical Navigation</a></li>
-        <li><a href="carousel.html">Carousel</a></li>
-        <li><a href="checkbox-group.html">Checkbox Group</a></li>
-        <li><a href="footer.html">Footer</a></li>
-        <li><a href="header.html">Header</a></li>
-        <li><a href="institutions-nav.html">Institutions Navigation</a></li>
-        <li><a href="listview.html">List View</a></li>
-        <li><a href="pagination.html">Pagination</a></li>
-        <li><a href="popover.html">Popover</a></li>
-        <li><a href="thumbnail.html">Thumbnail View</a></li>
-      </ul>
+        <!-- Begin Component -->
+        
+        <div class="inst-nav">
+          <ul class="inst-nav__list">
+            <li class="list-nav__list-item--selected"><a class="list-nav__link" href=""><i class="list-nav__object-icon fa fa-star fa-lg fa-fw"></i> Featured Content</a></li>
+            <li class="list-nav__list-item"><a class="list-nav__link" href=""><i class="list-nav__object-icon fa fa-th fa-lg fa-fw"></i> Collections (2)</a></li>
+            <li class="list-nav__list-item"><a class="list-nav__link" href=""><i class="list-nav__object-icon fa fa-picture-o fa-lg fa-fw"></i> Images (456)</a></li>
+            <li class="list-nav__list-item"><a class="list-nav__link" href=""><span class="fa-stack icon__image-set list-nav__object-icon"><i class="fa fa-picture-o fa-stack-1x"></i><i class="fa fa-picture-o fa-stack-1x"></i></span> Image Sets (213)</a></li>
+            <li class="list-nav__list-item"><a class="list-nav__link" href=""><i class="list-nav__object-icon fa fa-file-text-o fa-lg fa-fw"></i> Text Documents (4)</a></li>
+            <li class="list-nav__list-item"><a class="list-nav__link" href=""><i class="list-nav__object-icon fa fa-volume-up fa-lg fa-fw"></i>
+   Audio (2)</a></li>
+            <li class="list-nav__list-item"><a class="list-nav__link" href=""><i class="list-nav__object-icon fa fa-play-circle-o fa-lg fa-fw"></i> Video (1)</a></li>
+          </ul>
+        </div>
 
-      <!-- <h2>Page Layouts</h2>
+        <!-- End Component -->
 
-      <ul>
-        <li><a href="collections.html">Collections</a></li>
-        <li><a href="search-results.html">Search Results</a></li>
-      </ul> -->
+        </div>
+
+      </div>
 
     </div>
 
@@ -83,7 +74,6 @@
     <script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
     <script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
     <script src="../bower_components/underscore/underscore.js"></script>
-    <script src="../bower_components/jquery-pjax/jquery.pjax.js"></script>
     <script src="../bower_components/slick.js/slick/slick.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->

@@ -1,0 +1,19 @@
+// ***** Pagination ***** //
+
+.pag {
+	margin: 20px 0;
+}
+
+.pag__list {
+	padding: 0;
+}
+
+.pag__list-item {
+	margin: 0 0.1em;
+	display: inline;
+	list-style-type: none;
+}
+
+.pag__list-link--selected {
+	@extend .button__secondary;
+}

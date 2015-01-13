@@ -1,0 +1,58 @@
+// ***** For Testing Only ***** //
+
+// Highlight all Bootstrap grid columns
+
+body.column-test [class^="col-"] { 
+	border: 1px solid red;
+	// background: #eee;
+	// padding-top: 10px;
+	// padding-bottom: 10px;
+}
+
+body.column-test .row .row [class^="col-"] { 
+  border: 1px solid green;
+}
+
+// Set image thumbnail size
+
+.thumbview__image, .listview__image {
+	width: 100%;
+	height: auto;
+}
+
+// Set image popover size
+
+.popover__img-popover {
+	width: 380px;
+	height: 280px; 
+}
+
+// Highlight image placeholders
+
+body.image-test img {
+	display: block;
+	// width: 200px;
+	// height: 130px;
+	width: 100%;
+	height: auto;
+	border: 1px solid #ccc;
+	background: #fff;
+}
+
+// Set a fixed height on Bootstrap columns for shapes
+
+body.shapes-test [class^="col-"] { 
+	height: 100px;
+}
+
+// Increase size of Font Awesome icons to compare them
+
+body.icons-test .fa {
+	font-size: 2em !important;
+}
+
+// Highlight elements with border (ex: border: $bred;)
+
+$bred: 1px solid red;
+$bblue: 1px solid blue;
+$bgreen: 1px solid green;

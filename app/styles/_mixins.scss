@@ -1,0 +1,85 @@
+// ##### Custom Mixins ##### //
+
+// Abstract Bootstrap's responsive breakpoints for use in custom Sass.
+
+@mixin bp($point) {
+
+  @if $point == lg-screen {
+    @media (min-width: $screen-lg-min) { @content; }
+  }
+  @else if $point == md-screen {
+    @media (min-width: $screen-md-min) { @content; }
+  }
+  @else if $point == sm-screen {
+    @media (min-width: $screen-sm-min) { @content; }
+  }
+
+}
+
+// Placeholders for the mobile navbar using a <ul> <li> <a> structure
+
+%navbar__container { // to be used with <ul>
+	margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: normal;
+}
+
+%navbar__bar { // to be used with <a>
+	display: block;
+  padding: 15px $layout-edge-margin-xs;
+  color: #fff;
+  background: $design-dark-gray-color;
+  border-bottom: 1px solid #fff;
+  font-size: 1.1em;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+}
+
+// Placeholder for the horizontal nav using a <ul> <li> <a> structure
+
+%horizontal-nav__link { // to be used with <li>
+	display: inline;
+  border-left: 1px solid $design-dark-gray-color;
+  padding: 0 0.5em;
+
+  &:first-child {
+    border-left: none;
+  }
+
+}
+
+// Placeholders for thumbnail image icons
+
+%thumbnail__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 45px;
+  height: 45px;
+  background-color: $design-primary-color;
+  z-index: 1;
+  // margin is set here per component to align the icon over the image
+
+  @include bp(md-screen) {
+    width: 60px;
+    height: 60px;
+    // margin is set here per component to align the icon over the image
+  }
+
+  .fa { // Font Awesome icon class
+    font-size: 2em;
+    color: #fff;
+    padding: 10px;
+    
+    @include bp(md-screen) {
+      font-size: 2.5em;
+      padding: 15px;
+    }
+    
+  }
+
+}
