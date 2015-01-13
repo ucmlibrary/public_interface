@@ -8,14 +8,12 @@
     <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
     <script src="{% static "bower_components/underscore/underscore.js" %}"></script>
     <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
-    <script src="{% static "scripts/amy-autocomplete.js" %}"></script>
+
+    <!-- <script src="{% static "scripts/amy-autocomplete.js" %}"></script> -->
     <script src="{% static "scripts/search.js" %}"></script>
+
     {% block scripts %}{% endblock %}
     {% block inline-scripts %}{% endblock %}
-    <script type="text/javascript">
-      // $(document).pjax('a[data-pjax]', '#pjax-container');
-      var search = new Search({search: '#searchForm', container: '#searchResults'});
-    </script>
   </head>
   <body>
     {% include "calisphere/header.html" %}
