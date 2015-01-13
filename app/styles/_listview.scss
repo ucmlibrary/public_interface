@@ -1,0 +1,44 @@
+// ##### List View Component ##### //
+
+.listview__link {
+  display: block;
+}
+
+.listview__image {
+  position: relative;
+  display: block;
+  z-index: -1; // for .listview__icon
+}
+
+.listview__link--no-image {
+  display: block;
+  border: 1px solid $design-primary-color;
+}
+
+.listview__icon {
+	@extend %thumbnail__icon;
+  margin: -25px 0 0 -23px; // alignment for 'col-xs-3' sized Bootstrap column
+
+  @include bp(md-screen) {
+    margin: -30px 0 0 -30px; // alignment for 'col-xs-3' sized Bootstrap column
+  }
+
+}
+
+.listview__data-list {
+  margin-left: 1em;
+}
+
+.listview__data-type {
+  float: left;
+  clear: left;
+  text-align: right;
+  margin-right: 0.5em;
+  color: $design-dark-gray-color;
+  font-weight: normal;
+  line-height: $listview-text-line-height;
+}
+
+.listview__data-defin {
+  line-height: $listview-text-line-height;
+}

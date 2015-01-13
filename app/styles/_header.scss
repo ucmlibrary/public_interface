@@ -1,0 +1,271 @@
+// ##### Global Header ##### //
+
+.global-header {
+  
+}
+
+.global-header__bars-icon {
+  padding: 10px 0 0 $layout-edge-margin-xs;
+  cursor: pointer;
+  
+  @include bp(sm-screen) {
+    display: none;
+  }
+
+}
+
+.global-header__bars-icon .fa { // fa-bars icon
+  font-size: 2.8em;
+  color: $design-dark-gray-color;
+}
+
+.global-header__logo {
+  margin: 0 0 10px 0;
+  background: url(/images/logo-calisphere.svg) no-repeat;
+  background-position: center top;
+  background-size: $header-logo-xs-width $header-logo-xs-height;
+
+  @include bp(md-screen) {
+    margin: 0;
+    background-size: $header-logo-md-width $header-logo-md-height;
+    background-position: left top;
+  }
+
+}
+
+html.no-svg .global-header__logo {
+  background: url(/images/logo-calisphere.png) no-repeat;
+}
+
+.global-header__logo-link {
+  display: block;
+  margin: 0 auto;
+  width: $header-logo-xs-width;
+  height: $header-logo-xs-height;
+
+  @include bp(md-screen) {
+    margin: 0;
+    width: $header-logo-md-width;
+    height: $header-logo-md-height;
+  }
+
+}
+
+.global-header__search-icon {
+  padding: 10px $layout-edge-margin-xs 0 0;
+  text-align: right;
+  cursor: pointer;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
+}
+
+.global-header__search-icon .fa { // fa-search icon
+  font-size: 2.8em;
+  color: $design-primary-color;
+}
+
+.global-header__search {
+  display: none; // becomes 'block' on search-icon click
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+
+}
+
+html.no-js .global-header__search {
+  display: block;
+}
+
+.global-header__search--selected {
+  display: block;
+  background: $design-dark-gray-color;
+  padding: 15px $layout-edge-margin-xs;
+  border-bottom: 1px solid #fff;
+
+  @include bp(sm-screen) {
+    display: block;
+    background: none;
+    padding: 0;
+    border: none;
+  }
+
+}
+
+.global-header__search-label {
+  display: block;
+  color: #fff;
+  font-size: 1.2em;
+  text-align: left;
+  font-weight: normal;
+  line-height: normal;
+
+  @include bp(sm-screen) {
+    color: #000;
+    font-size: 1.3em;
+    text-align: center;
+  }
+
+  @include bp(md-screen) {
+    font-size: 1.5em;
+  }
+
+}
+
+.global-header__search-field {
+  font-size: 1.2em;
+
+  @include bp(md-screen) {
+    height: 45px;
+    font-size: 1.5em;
+  }
+
+}
+
+.global-header__search .input-group { // Bootstrap override
+  
+  @include bp(md-screen) {
+    margin: 0 35px;
+  }
+
+}
+
+.global-header__search-button {
+  
+  border: 1px solid $design-dark-gray-color;
+  background: $design-primary-color;
+  &:hover {
+    background: $link-hover-color;
+  }
+
+  @include bp(md-screen) {
+    width: 50px;
+    height: 45px;
+  }
+
+}
+
+.global-header__search-button .fa { // fa-search icon
+  color: #fff;
+  font-size: 1.1em;
+
+  @include bp(md-screen) {
+    font-size: 2em;
+  }
+  
+}
+
+.global-header__nav {
+  display: none;
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+
+}
+
+html.no-js .global-header__nav {
+  display: block;
+}
+
+.global-header__mobile-links--selected { // change to 'global-header__nav--selected'
+  display: block;
+}
+
+.global-header__nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: normal;
+
+  @include bp(md-screen) {
+    padding: 0 0 0 30px;
+  }
+
+}
+
+.global-header__nav-browse-options {
+  display: block;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
+}
+
+.global-header__nav-list-item {
+
+  @include bp(sm-screen) {
+    text-align: center;
+    float: left;
+    width: 25%;
+  }
+
+}
+
+.global-header__nav-link {
+  display: block;
+  padding: 15px $layout-edge-margin-xs;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  background: $design-dark-gray-color;
+  font-size: 1.1em;
+  &:hover {
+    text-decoration: none;
+  }
+
+  @include bp(sm-screen) {
+    display: inline;
+    padding: 0;
+    color: #000;
+    border: none;
+    background: none;
+    font-size: 1.2em;
+  }
+
+  @include bp(md-screen) {
+    font-size: 1.4em;
+  }
+
+}
+
+.global-header__collections--sm {
+  display: none;
+
+  @include bp(sm-screen) {
+    display: block;
+    margin: 20px 0;
+    padding: 0.6em 7em 0.6em 0;
+    background: $design-secondary-color;
+    text-align: right;
+  }
+
+}
+
+.global-header__collections--sm-list {
+  margin: 0;
+  padding: 0;
+}
+
+.global-header__collections--sm-list-item {
+  display: inline;
+  list-style: none;
+}
+
+.global-header__collections--sm-list-item:first-child .global-header__collections--sm-links {
+  border-right: 1px solid #fff;
+}
+
+.global-header__collections--sm-links {
+
+  @include bp(sm-screen) {
+    padding: 0.1em 3em;
+    color: #fff;
+    font-size: 1.4em;
+    line-height: normal;
+  }
+
+}

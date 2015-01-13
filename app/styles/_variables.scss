@@ -1,0 +1,44 @@
+// ##### Global Variables ##### //
+
+// ***** Design Variables ***** //
+
+$design-primary-color: rgb(255, 110, 27); // dark orange
+$design-secondary-color: rgb(0, 119, 139); // teal blue
+$design-light-gray-color: rgb(229, 229, 229);
+$design-dark-gray-color: rgb(139, 141, 142);
+$header-logo-xs-width: 200px;
+$header-logo-xs-height: 60px;
+$header-logo-md-width: 284px;
+$header-logo-md-height: 82px;
+$layout-edge-margin-xs: 10px;
+$listview-text-line-height: 1.5em;
+
+// ***** Bootstrap Variables ***** //
+
+$text-color: #000;
+$link-color: $design-primary-color;
+$font-family-sans-serif:  KievitWeb, Arial, sans-serif !default;
+$btn-default-border: $design-dark-gray-color;
+$input-border: $design-dark-gray-color;
+$grid-gutter-width: 0;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+$container-sm: 720px;
+$container-md: 940px;
+$container-lg: 1140px;
+$popover-bg: #eee;
+$popover-max-width: auto;
+$popover-arrow-color: $popover-bg;
+
+// ***** Font Awesome ***** //
+
+$fa-font-path: "/bower_components/fontawesome/fonts" !default;
+
+// ***** Slick Carousel ***** //
+
+$slick-font-family: "FontAwesome";
+$slick-arrow-color: $design-primary-color;
+$slick-prev-character: '\f104';
+$slick-next-character: '\f105';
+$slick-arrow-spacing: 30px;

@@ -1,0 +1,74 @@
+// ##### Carousel Component ##### //
+
+// ***** Extract Bootstrap's breakpoint variables for Slick's JavaScript ***** //
+
+.bs-lg-screen {
+  display: none;
+  width: $screen-lg-min;
+}
+
+.bs-md-screen {
+  display: none;
+  width: $screen-md-min;
+}
+
+.bs-sm-screen {
+  display: none;
+  width: $screen-sm-min;
+}
+
+// ***** Override preexisting Slick selectors ***** //
+
+.slick-slider {
+  margin: 0 $slick-arrow-spacing;
+}
+
+.slick-prev, .slick-next {
+  width: auto;
+  height: auto;
+  margin-top: -40px; // arrow vertical positioning
+}
+
+.slick-prev {
+  left: -$slick-arrow-spacing;
+}
+
+.slick-next {
+  right: -$slick-arrow-spacing;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-size: 50px; // arrow size
+}
+
+// ***** Custom Classes ***** //
+
+// temporary image resize for UI dev:
+.carousel img {
+  width: 120px;
+  height: auto;
+}
+
+.carousel__thumbnail-image {
+  position: relative;
+  display: block;
+  opacity: 0.75;
+
+  &:hover {
+    opacity: 1;
+  }
+
+}
+
+.carousel__thumbnail-image--selected {
+  border: 7px solid $design-dark-gray-color;
+}
+
+.carousel__thumbnail-caption {
+  width: 120px;
+  height: 3.3em; // constrain caption height to three text lines
+  margin-top: 0.5em;
+  overflow: hidden;
+  line-height: normal;
+  cursor: default;
+}

@@ -1,0 +1,40 @@
+// ##### Thumbnail View Component ##### //
+
+.thumbview__container {
+	margin: 0 20px 20px 0;
+}
+
+.thumbview__link {
+	display: block;
+}
+
+.thumbview__image {
+	position: relative;
+	display: block;
+	z-index: -1; // for .thumbview__icon
+}
+
+.thumbview__caption {
+  height: 2em; // reveal only 2 lines of text
+  margin-top: 0.5em;
+  line-height: normal;
+  overflow: hidden;
+  cursor: default;
+}
+
+// ***** Icon-only thumbnails ***** //
+
+.thumbview__link--no-image {
+	display: block;
+	border: 1px solid $design-primary-color;
+}
+
+.thumbview__icon {
+	@extend %thumbnail__icon;
+	margin: -50px 0 0 -35px; // alignment for 'col-xs-3' sized Bootstrap column
+
+	@include bp(md-screen) {
+		margin: -57px 0 0 -40px; // alignment for 'col-xs-3' sized Bootstrap column
+  }
+
+}

@@ -1,0 +1,264 @@
+// ***** Checkbox Group ***** //
+
+.check {
+  position: relative;
+}
+
+// The following 4 IDs are only used to set stacking context for positioning. All other styles should be referenced as classes global to all 4 checkboxes.
+
+#check__type {
+  
+  @include bp(sm-screen) {
+    z-index: 2;
+  }
+  
+}
+
+#check__date {
+  
+  @include bp(sm-screen) {
+    z-index: 2;
+  }
+  
+}
+
+#check__inst {
+  
+  @include bp(sm-screen) {
+    z-index: 1;
+  }
+  
+}
+
+#check__coll {
+  
+  @include bp(sm-screen) {
+    z-index: 1;
+  }
+  
+}
+
+.check__header {
+  margin-top: 10px;
+  padding: 10px 0 10px $layout-edge-margin-xs;
+  background: $design-dark-gray-color;
+  overflow: hidden;
+  cursor: pointer;
+
+  @include bp(md-screen) {
+    border: none;
+    background: none;
+    cursor: auto;
+  }
+
+}
+
+html.no-js .check__header {
+  cursor: auto;
+}
+
+.check__header--selected {
+  @extend .check__header;
+  background: $design-dark-gray-color;
+
+  @include bp(md-screen) {
+    background: none;
+  }
+
+}
+
+.check__header-text {
+  float: left;
+  margin: 0;
+  font-size: 1.2em;
+  color: #fff;
+
+  @include bp(md-screen) {
+    color: #000;
+  }
+
+}
+
+.check__header-text--selected {
+  @extend .check__header-text;
+  font-weight: bold;
+
+  @include bp(md-screen) {
+    color: #000;
+  }
+
+}
+
+.check__header-arrow-icon.fa {
+  float: right;
+  margin: -5px $layout-edge-margin-xs -20px 0;
+  font-size: 2.6em;
+  color: #fff;
+
+  @include bp(md-screen) {
+    display: none;
+  }
+
+}
+
+html.no-js .check__header-links {
+  display: none;
+}
+
+.check__header-links {
+  display: none;
+  float: right;
+
+  @include bp(md-screen) {
+    display: block;
+  }
+  
+}
+
+.check__link-select-all--selected, .check__link-deselect-all--selected {
+
+  @include bp(md-screen) {
+    display: block;
+    color: $design-primary-color;
+  }
+  
+}
+
+.check__link-select-all--not-selected, .check__link-deselect-all--not-selected {
+
+  @include bp(md-screen) {
+    display: none;
+  }
+  
+}
+
+.check__popdown {
+  display: none;
+
+  @include bp(sm-screen) { // overlay checkbox groups that follow
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+
+  @include bp(md-screen) { // push down checkbox groups that follow
+    position: relative;
+    display: block;
+  }
+
+}
+
+// If no JavaScript, then expand popdown and let content flow after component
+html.no-js .check__popdown {
+  position: relative;
+  display: block;
+}
+
+.check__popdown--selected {
+  @extend .check__popdown;
+  display: block;
+}
+
+.check__button-group {
+  margin: -1px 0 0 0;
+  border: 1px solid $design-dark-gray-color;
+  background: $design-light-gray-color;
+  overflow: hidden;
+
+  @include bp(md-screen) {
+    display: none;
+  }
+
+}
+
+html.no-js .check__button-group {
+  display: none;
+}
+
+.check__button {
+  float: right;
+  width: 45%;
+  margin: 10px $layout-edge-margin-xs;
+
+  &:first-of-type {
+    float: left;
+    margin-right: 0;
+  }
+
+}
+
+.check__group {
+  height: 150px;
+  overflow: auto; // turn on scroll bar
+  border-left: 1px solid $design-dark-gray-color;
+  border-right: 1px solid $design-dark-gray-color;
+
+  @include bp(md-screen) {
+    height: auto;
+    border-top: 1px solid $design-dark-gray-color;
+    border-bottom: 1px solid $design-dark-gray-color;
+  }
+
+}
+
+.check__label {
+  display: block;
+  margin: -1px 0 0 0;
+  padding: 10px 40px 10px $layout-edge-margin-xs;
+  background: #fff;
+  border-top: 1px solid $design-dark-gray-color;
+  border-bottom: 1px solid $design-dark-gray-color;
+  font-weight: normal;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+}
+
+html.svg .check__label {
+  background: #fff url("/images/checkbox-square.svg") no-repeat;
+  background-size: 18px 18px; // constrains SVG canvas for positioning
+  background-position: right 20px center;
+}
+
+html.no-bgpositionshorthand .check__label {
+  background-position: 96% center;
+}
+
+.check__input {
+  position: relative;
+  float: right;
+  top: 10px;
+  right: 20px;
+  width: 1.6em;
+  height: 1.6em;
+}
+
+html.svg .check__input {
+  opacity: 0; // hide generic checkboxes
+}
+
+html.svg .check__input:checked + .check__label {
+   font-weight: bold;
+   background: #fff url("/images/checkbox-check.svg") no-repeat right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
+   background-size: 18px 12px; // constrains SVG canvas for positioning
+}
+
+.check__update {
+  width: 100%;
+  border: 1px solid $design-dark-gray-color;
+  padding: 10px;
+  color: #fff;
+  background: $design-primary-color;
+
+  &:disabled {
+    color: #000;
+    background: #fff;
+  }
+
+  @include bp(md-screen) {
+    display: none;
+  }
+
+}
