@@ -1,0 +1,15 @@
+{% extends "calisphere/base.html"|pjax:request %}
+
+<title>pjaxHello</title>
+
+{% block content %}
+<div id="pjax-container">
+{{ context }} - <a href="{% url 'calisphere:pjaxTest' %}" data-pjax=true>hello world!</a>
+</div>
+{% endblock %}
+
+{% block inline-scripts %}
+<script type="text/javascript">
+  $(document).pjax('a[data-pjax]', '#pjax-container')
+</script>
+{% endblock %}
