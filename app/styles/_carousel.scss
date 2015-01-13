@@ -50,7 +50,7 @@
 }
 
 .carousel__thumbnail-image {
-  @extend .thumbnail__image;
+  @extend .thumbview__image;
   opacity: 0.75;
 
   &:hover {
@@ -64,8 +64,10 @@
 }
 
 .carousel__thumbnail-caption {
-  @extend .thumbnail__caption;
   width: 120px;
   height: 3.3em; // constrain caption height to three text lines
+  margin-top: 0.5em;
   overflow: hidden;
+  line-height: normal;
+  cursor: default;
 }

@@ -1,22 +1,22 @@
-// ##### Thumbnail Component ##### //
+// ##### Thumbview Component ##### //
 
 // The class ".thumbnail" by itself is reserved by Bootstrap
 
-.thumbnail__container {
+.thumbview__container {
 	margin: 0 20px 20px 0;
 }
 
-.thumbnail__link {
+.thumbview__link {
 	display: block;
 }
 
-.thumbnail__image {
+.thumbview__image {
 	position: relative;
 	display: block;
-	z-index: -1; // for .thumbnail__icon
+	z-index: -1; // for .thumbview__icon
 }
 
-.thumbnail__caption {
+.thumbview__caption {
   height: 2em; // reveal only 2 lines of text
   margin-top: 0.5em;
   line-height: normal;
@@ -24,14 +24,14 @@
   cursor: default;
 }
 
-// ***** icon-only thumbnails ***** //
+// ***** icon-only thumbviews ***** //
 
-.thumbnail__link--no-image {
-	@extend .thumbnail__link;
+.thumbview__link--no-image {
+	@extend .thumbview__link;
 	border: 1px solid $design-primary-color;
 }
 
-.thumbnail__icon {
+.thumbview__icon {
 	position: absolute;
 	top: 50%;
 	left: 50%;

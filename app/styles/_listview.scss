@@ -5,15 +5,15 @@
 }
 
 .listview__image {
-  @extend .thumbnail__image;
+  @extend .thumbview__image;
 }
 
 .listview__link--no-image {
-  @extend .thumbnail__link--no-image;
+  @extend .thumbview__link--no-image;
 }
 
 .listview__icon {
-	@extend .thumbnail__icon;
+	@extend .thumbview__icon;
   margin: -25px 0 0 -23px !important;
 
   @include bp(md-screen) {
