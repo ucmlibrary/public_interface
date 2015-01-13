@@ -20,7 +20,10 @@ def md5_to_http_url(md5):
 
 def process_media(item):
     if 'reference_image_md5' in item:
-        item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+        # md5_to_http_url(item['reference_image_md5'])
+        item['reference_image_http'] = settings.THUMBNAIL_BASE + 'clip/178x100/' + item['reference_image_md5']
+    elif 'url_item' in item:
+        item['reference_image_http'] = item['url_item']
 
 # concat query with 'AND'
 def concat_query(q, rq):
@@ -73,28 +76,107 @@ def process_facets(facets, filters, facet_counts=None):
     return display_facets
 
 
-
-def search(request):
+def itemView(request, item_id=''):
+    item_id = 'id:' + "\"" + item_id + "\""
     
+    if request.method == 'POST' and 'q' in request.POST:
+        q = request.POST['q']
+        rows = 6
+        start = request.POST['start'] if 'start' in request.POST else '0'
+        
+        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
+        fq = solrize_filters(filters)
+        
+        solr_search = SOLR.select(
+            q=q,
+            rows='6',
+            start=start,
+            fq=fq
+        )
+        
+        for item in solr_search.results:
+            process_media(item)
+            
+        carousel_items = solr_search.results
+        numFound = solr_search.numFound
+    else:
+        # MORE LIKE THIS RESULTS
+        q = ''
+        carousel_items = {}
+        numFound = 0
+        
+    solr_item = SOLR.select(q=item_id)
+    for item in solr_item.results:
+        process_media(item)
+        
+    context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
+    
+    return render(request, 'calisphere/item.html', context)
+
+def collectionsExplore(request):
+    s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
+    
+    collections_solr_query = SOLR.select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
+    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection']
+    
+    collections = []
+    for collection_url in solr_collections:
+        collection_api = urllib2.urlopen(collection_url + "?format=json")
+        collection_json = collection_api.read()
+        collection_details = json.loads(collection_json)
+        rows = '4' if collection_details['description'] != '' else '5'
+        display_items = SOLR.select(
+            q='*:*', 
+            fields='reference_image_md5, title, id', 
+            rows=rows, 
+            start=0, 
+            fq=['collection: \"' + collection_url + '\"']
+        )
+        
+        for item in display_items:
+            if 'reference_image_md5' in item:
+                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
+                
+        collection_url_pattern = re.compile('https://registry.cdlib.org/api/v1/collection/([0-9]+)[/]?')
+        collection_id = collection_url_pattern.match(collection_url)
+        
+        collections.append({
+            'name': collection_details['name'], 
+            'description': collection_details['description'], 
+            'slug': collection_details['slug'],
+            'collection_id': collection_id.group(1),
+            'display_items': display_items.results
+        })
+        
+    return render(request, 'calisphere/collections-explore.html', {'collections': collections})
+
+
+
+def search(request, collection_id='', institution_id=''):
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+        print request.GET
+        
         # concatenate query terms from refine query and query box
         q = reduce(concat_query, request.GET.getlist('q'))
-        # set rows to 16 by default, unless there is a different number specified
+        
+        # set defaults
         rows = request.GET['rows'] if 'rows' in request.GET else '16'
-        # set start to 0 by default, unless there is a different page specified
         start = request.GET['start'] if 'start' in request.GET else '0'
-        # set view format to thumbnails by default, unless list is specified
         view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
         
         # for each filter_type tuple ('solr_name', 'Display Name') in the list FACET_TYPES
         # create a dictionary with key solr_name of filter and value list of parameters for that filter
         filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
         
+        if collection_id != '':
+            filters['collection_name'] = [collection_id]
+        if institution_id != '':
+            filters['institution_name'] = [institution_id]
+        
         fq = solrize_filters(filters)
         
         facet_field = list(facet_type[0] for facet_type in FACET_TYPES)
         
-        # perform the search
         try: 
             solr_search = SOLR.select(
                 q=q,
@@ -114,15 +196,6 @@ def search(request):
         facets = {}
         for facet_type in FACET_TYPES:
             if len(filters[facet_type[0]]) > 0:
-                # tmp_solr_search = SOLR.select(
-                #     q=q,
-                #     rows=rows,
-                #     start=start,
-                #     facet='true',
-                #     facet_limit='-1',
-                #     facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
-                # )
-                
                 # All the filters except the ones of the current filter type
                 tmp_filters = {key: value for key, value in filters.items()
                     if key != facet_type[0]}
@@ -164,82 +237,9 @@ def search(request):
             'view_format': view_format
         })
         
-    return render (request, 'calisphere/base.html', {'q': ''})
-    
-
-def itemView(request, item_id=''):
-    item_id = 'id:' + "\"" + item_id + "\""
-    
-    if request.method == 'POST' and 'q' in request.POST:
-        q = request.POST['q']
-        rows = 6
-        start = request.POST['start'] if 'start' in request.POST else '0'
+        # return render (request, 'calisphere/home.html', {'q': q})
         
-        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        fq = solrize_filters(filters)
-        
-        solr_search = SOLR.select(
-            q=q,
-            rows='6',
-            start=start,
-            fq=fq
-        )
-        
-        for item in solr_search.results:
-            process_media(item)
-        
-        carousel_items = solr_search.results
-        numFound = solr_search.numFound
-    else:
-        # MORE LIKE THIS RESULTS
-        q = ''
-        carousel_items = {}
-        numFound = 0
-    
-    solr_item = SOLR.select(q=item_id)
-    for item in solr_item.results:
-        process_media(item)
-    
-    context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
-    
-    return render(request, 'calisphere/item.html', context)
-
-def collectionsExplore(request):
-    s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
-    
-    collections_solr_query = SOLR.select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
-    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection']
-    
-    collections = []
-    for collection_url in solr_collections:
-        collection_api = urllib2.urlopen(collection_url + "?format=json")
-        collection_json = collection_api.read()
-        collection_details = json.loads(collection_json)
-        rows = '4' if collection_details['description'] != '' else '5'
-        display_items = SOLR.select(
-            q='*:*', 
-            fields='reference_image_md5, title, id', 
-            rows=rows, 
-            start=0, 
-            fq=['collection: \"' + collection_url + '\"']
-        )
-        
-        for item in display_items:
-            if 'reference_image_md5' in item:
-                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
-        
-        collection_url_pattern = re.compile('https://registry.cdlib.org/api/v1/collection/([0-9]+)[/]?')
-        collection_id = collection_url_pattern.match(collection_url)
-        
-        collections.append({
-            'name': collection_details['name'], 
-            'description': collection_details['description'], 
-            'slug': collection_details['slug'],
-            'collection_id': collection_id.group(1),
-            'display_items': display_items.results
-        })
-    
-    return render(request, 'calisphere/collections-explore.html', {'collections': collections})
+    return render (request, 'calisphere/home.html', {'q': ''})
 
 def collectionView(request, collection_id):
     if request.method == 'GET':

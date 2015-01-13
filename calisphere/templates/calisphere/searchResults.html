@@ -2,10 +2,6 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block scripts %}
-<script src="{% static 'scripts/search.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 
 <div class="row">
@@ -41,6 +37,7 @@
       </div>
     </div>
 
+    <!-- TODO: rewrite this form, POST bad. maintain state through javascript object -->
     <form id="item-view" action="/" method="post">
       {% csrf_token %}
       <input type="hidden" name="item_id" id="item_id" value=""/>
