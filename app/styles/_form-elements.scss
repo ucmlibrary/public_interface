@@ -33,8 +33,10 @@
 }
 
 .global-search__button {
+  color: #fff;
   border: 1px solid $design-dark-gray-color;
   background: $design-primary-color;
+
   &:hover {
     background: $link-hover-color;
   }
@@ -47,7 +49,6 @@
 }
 
 .global-search__button .fa { // fa-search icon
-  color: #fff;
   font-size: 1.1em;
 
   @include bp(md-screen) {
@@ -56,3 +57,23 @@
   
 }
 
+// ***** Refine results search field ***** //
+
+.refine-search__label {
+	@extend .global-search__label;
+	color: #000;
+	font-size: 1em;
+
+	@include bp(sm-screen) {
+    text-align: left;
+  }
+
+}
+
+.refine-search__field {
+	@extend .global-search__field;
+}
+
+.refine-search__button {
+	@extend .global-search__button;
+}
