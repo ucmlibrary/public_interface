@@ -1,9 +1,13 @@
 // ##### Global Footer ##### //
 
 .global-footer {
-  margin: 1em 0 0 0;
-  padding: 1em 0 0 0;
-  border-top: 2px solid $design-dark-gray-color;
+
+  @include bp(sm-screen) {
+    margin: 1em 0 0 0;
+    padding: 1em 0 0 0;
+    border-top: 2px solid $design-dark-gray-color;
+  }
+
 }
 
 .global-footer__search {
