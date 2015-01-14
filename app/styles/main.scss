@@ -31,13 +31,14 @@
 @import "buttons";
 @import "form-elements";
 @import "icons";
-// @import "shapes";
+@import "text";
 
 // ***** Custom Components ***** //
 
 @import "alpha-nav";
 @import "carousel";
 @import "checkbox-group";
+@import "filter";
 @import "footer";
 @import "header";
 @import "institutions-nav";
@@ -48,5 +49,4 @@
 
 // ***** Custom Layouts ***** //
 
-@import "collections";
-@import "grid-library";
+// @import "collections";
