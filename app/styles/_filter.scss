@@ -12,10 +12,28 @@
 
 }
 
-.filter__links {
+.filter__clear-all {
 	float: right;
 }
 
-.filter__clear-all {
+.filter__more {
+	display: none;
+}
+
+.filter__more--show {
+	display: inline;
+}
+
+.filter__more-link {
+	display: inline;
+	float: right;
+}
+
+.filter__more-link--hide {
+	display: none;
+}
+
+.filter__less-link {
+	display: inline;
 	float: right;
 }
