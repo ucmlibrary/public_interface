@@ -4,6 +4,18 @@
 
 }
 
-.filter__more-link {
+.filter__note {
+
+	@include bp(md-screen) {
+    display: none;
+  }
+
+}
+
+.filter__links {
+	float: right;
+}
+
+.filter__clear-all {
 	float: right;
 }
