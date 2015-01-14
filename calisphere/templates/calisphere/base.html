@@ -7,14 +7,18 @@
 
     <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
     <script src="{% static "bower_components/underscore/underscore.js" %}"></script>
-    <script src="{% static "scripts/amy-autocomplete.js" %}"></script>
+    <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
+
+    <!-- <script src="{% static "scripts/amy-autocomplete.js" %}"></script> -->
+    <script src="{% static "scripts/search.js" %}"></script>
+
     {% block scripts %}{% endblock %}
     {% block inline-scripts %}{% endblock %}
   </head>
   <body>
-    {% include "public_interface/header.html" %}
+    {% include "calisphere/header.html" %}
 
-    <div class="container">
+    <div class="container" id="searchResults">
       {% block content %}{% endblock %}
     </div>
 

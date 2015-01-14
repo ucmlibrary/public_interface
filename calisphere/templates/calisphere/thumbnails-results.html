@@ -1,7 +1,7 @@
 <div class="row">
   {% for item in search_results %}
     <div class="col-md-3">
-      {% include "public_interface/item-thumb.html" %}
+      {% include "calisphere/item-thumb.html" %}
     </div>
     {% if forloop.counter|divisibleby:"4" %}
       <!-- Close 'row' div -->

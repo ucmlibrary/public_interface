@@ -15,7 +15,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-THUMBNAIL_BASE = 'http://localhost:8888/'  # `python thumbnail.py`
+THUMBNAIL_BASE = os.getenv('THUMBNAIL_BASE', 'http://localhost:8888/')  # `python thumbnail.py`
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,6 +30,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + (
+    'django.core.context_processors.request',
     'public_interface.context_processors.settings',
 )
 
@@ -45,7 +46,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'solrapi',
+    'easy_pjax',
+    'calisphere',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,7 +91,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = 'http://localhost:9000/'  # `grunt serve`
+STATIC_URL = os.getenv('STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 

@@ -1,48 +1,18 @@
-{% extends "public_interface/base.html" %}
-{% load solrapi-extras %}
+{% extends "calisphere/base.html"|pjax:request %}
+{% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block scripts %}
-<script src="{% static 'scripts/search.js' %}"></script>
-{% endblock %}
-
 {% block content %}
+
 <div class="row">
-  <div class="col-md-12 text-center">
-    <h1>{{ collection.name }}</h1>
-  </div>
-</div>
-<div class="row" style="height: 100px; background-color: #d7d7d7; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
   <div class="col-md-3">
-    <strong>Owning Institution: </strong>
-    {% for repository in collection.repository %}
-      {{ repository.name }}<br/>
-    {% endfor %}<br/>
-    {% for campus in collection.campus %}
-      {{ campus.name }}<br/>
-    {% endfor %}
+    {% include "calisphere/forms/refineQuery.html" %}
+    {% include "calisphere/forms/faceting.html" %}
   </div>
   <div class="col-md-9">
-    <p>{{ collection.description }}</p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-3">
-    <div style="background-color: #d7d7d7; border-radius: 10px; margin-bottom: 20px; padding: 10px;">
-      <button class="btn btn-default btn-block">Go to institution page</button>
-    </div>
-    <div style="background-color: #d7d7d7; border-radius: 10px; margin-bottom: 20px; padding: 10px;">
-      {% include "public_interface/forms/refineQuery.html" %}
-    </div>
-    <div style="background-color: #d7d7d7; border-radius: 10px; padding: 10px;">
-      {% include "public_interface/forms/faceting.html" %}
-    </div>
-  </div>
-  <div class="col-md-9" style="background-color: #d7d7d7; border-radius: 10px; margin-bottom: 20px; padding: 10px;">
     <div class="row" style="padding-bottom: 20px">
       <div class="col-md-4">
-        {{ numFound }} objects found in this collection<br>
+        {{ numFound }} objects found in {{ facets.collection_name|length }} collections<br>
       </div>
       <div class="col-md-4">
         <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
@@ -50,7 +20,7 @@
         <button id="list" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">List</button>
       </div>
       <div class="col-md-4">
-        {% include "public_interface/forms/paginate.html" %}
+        {% include "calisphere/forms/paginate.html" %}
       </div>
     </div>
 
@@ -67,7 +37,8 @@
       </div>
     </div>
 
-    <form id="item-view" action="/itemView/" method="post">
+    <!-- TODO: rewrite this form, POST bad. maintain state through javascript object -->
+    <form id="item-view" action="/" method="post">
       {% csrf_token %}
       <input type="hidden" name="item_id" id="item_id" value=""/>
       <input type="hidden" name="q" value="{{ q }}"/>
@@ -83,9 +54,9 @@
 
     <!-- search results -->
     {% if view_format == "thumbnails" %}
-      {% include "public_interface/thumbnails-results.html" %}
+      {% include "calisphere/thumbnails-results.html" %}
     {% elif view_format == "list" %}
-      {% include "public_interface/list-results.html" %}
+      {% include "calisphere/list-results.html" %}
     {% endif %}
   </div>
 </div>
