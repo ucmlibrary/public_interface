@@ -22,15 +22,17 @@
 
 }
 
-.global-search__field {
-  font-size: 1.2em;
+// The following commented out styles make the search box elements bigger on 'md' size. If not desired, then OK to delete this code.
 
-  @include bp(md-screen) {
-    height: 45px;
-    font-size: 1.5em;
-  }
+// .global-search__field {
+//   font-size: 1.2em;
 
-}
+//   @include bp(md-screen) {
+//     height: 45px;
+//     font-size: 1.5em;
+//   }
+
+// }
 
 .global-search__button {
   color: #fff;
@@ -41,17 +43,17 @@
     background: $link-hover-color;
   }
 
-  @include bp(md-screen) {
-    width: 50px;
-    height: 45px;
-  }
+  // @include bp(md-screen) {
+  //   width: 50px;
+  //   height: 45px;
+  // }
 
   .fa { // fa-search icon
   	font-size: 1.1em;
 
-	  @include bp(md-screen) {
-	    font-size: 2em;
-	  }
+	  // @include bp(md-screen) {
+	  //   font-size: 2em;
+	  // }
 
   }
 
@@ -79,9 +81,9 @@
 
 }
 
-.refine-search__field {
-	@extend .global-search__field;
-}
+// .refine-search__field {
+// 	@extend .global-search__field;
+// }
 
 .refine-search__button {
 	@extend .global-search__button;
