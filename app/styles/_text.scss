@@ -1,2 +1,16 @@
 // ##### Text Elements ##### //
 
+// These styles set margin and font styles for text objects within a page template. Styles for text within components should be set within their individual Sass files, not here.
+
+.text__page-heading {
+	
+}
+
+.text__breadcrumb {
+	
+}
+
+.text__collections-heading {
+	margin: 0;
+	font-size: 1.6em;
+}
