@@ -1,2 +1,9 @@
-// ##### Alignment ##### //
+// ##### Alignment for Page Layouts ##### //
 
+.global-footer {
+
+  @include bp(sm-screen) {
+    margin: 1em 0 0 0;
+  }
+
+}
