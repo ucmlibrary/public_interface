@@ -59,6 +59,15 @@
 
 // ***** Refine results search field ***** //
 
+.refine-search {
+  display: none;
+
+  @include bp(md-screen) {
+    display: block;
+  }
+
+}
+
 .refine-search__label {
 	@extend .global-search__label;
 	color: #000;
