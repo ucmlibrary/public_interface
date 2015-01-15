@@ -19,7 +19,11 @@
 }
 
 .text__collections-heading {
-  margin: 52px 0 0 $layout-component-margin;
+
+  @include bp(sm-screen) {
+    margin: 52px 0 0 $layout-component-margin;
+  }
+
 }
 
 .global-footer {
