@@ -1,8 +1,9 @@
 {% for item in search_results %}
   <div class="row" style="padding: 20px 10px">
-    <div class="item-thumb" style="cursor: pointer" data-item_id="{{item.id}}">
+    <div class="item-thumb" style="cursor: pointer">
       <div class="col-md-5" style="padding-left: 50px;">
-        <img src="{{ item.reference_image_http }}" height="200"/>
+        <img src="{{ item.reference_image_http }}" height="200"
+          data-reference_image_md5="{{ item.reference_image_md5 }}"/>
       </div>
       <div class="col-md-7">
         Title: {{ item.title.0 }}<br>

@@ -10,19 +10,25 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 import django.conf.global_settings as DEFAULT_SETTINGS  # http://stackoverflow.com/a/15446953/1763984
 
+from django.utils.crypto import get_random_string # http://stackoverflow.com/a/16630719/1763984
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 THUMBNAIL_BASE = os.getenv('THUMBNAIL_BASE', 'http://localhost:8888/')  # `python thumbnail.py`
-
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
+                       get_random_string(50,
+                                         'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+                       )
+             )
+STATIC_URL = os.getenv('STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7vyi*u+i(omc*t_t7*i2*+x(b+@*ue#_fxs5s-8%ot@n@p8)6c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -91,7 +97,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = os.getenv('STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 
