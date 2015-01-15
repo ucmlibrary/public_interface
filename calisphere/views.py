@@ -25,7 +25,7 @@ def process_media(item):
     elif 'url_item' in item:
         item['reference_image_http'] = "http://www.calisphere.universityofcalifornia.edu/images/misc/no_image1.gif"
 
-    item['href'] = '/itemView/{0}'.format( item['id'] )
+    item['href'] = '/itemView/{0}/'.format( item['id'] )
 
 # concat query with 'AND'
 def concat_query(q, rq):
