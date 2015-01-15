@@ -12,12 +12,12 @@
 
 }
 
-.filter__clear-all {
-	float: right;
-}
-
 .filter__more {
-	display: none;
+
+	@include bp(md-screen) {
+    display: none;
+  }
+
 }
 
 .filter__more--show {
@@ -25,8 +25,13 @@
 }
 
 .filter__more-link {
-	display: inline;
+	display: none;
 	float: right;
+
+	@include bp(md-screen) {
+    display: inline;
+  }
+
 }
 
 .filter__more-link--hide {
@@ -34,6 +39,20 @@
 }
 
 .filter__less-link {
-	display: inline;
+	display: none;
 	float: right;
+
+	@include bp(md-screen) {
+    display: inline;
+  }
+
+}
+
+.filter__clear-all {
+	float: right;
+
+	@include bp(md-screen) {
+    display: none;
+  }
+
 }

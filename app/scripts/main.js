@@ -15,6 +15,20 @@ $(document).ready(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
   });
 
+  // ##### Search Filters ##### //
+
+  // Show more filters
+  $('.js-filter__more-link').click(function(){
+    $('.js-filter__more').addClass('filter__more--show').removeClass('filter__more');
+    $('.js-filter__more-link').addClass('filter__more-link--hide').removeClass('filter__more-link');
+  });
+
+  // Show less filters
+  $('.js-filter__less-link').click(function(){
+    $('.js-filter__more').addClass('filter__more').removeClass('filter__more--show');
+    $('.js-filter__more-link').addClass('filter__more-link').removeClass('filter__more-link--hide');
+  });
+
   // ##### Checkbox Groups ##### //
 
   // Disable Update Results button upon document.ready
