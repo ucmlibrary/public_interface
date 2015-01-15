@@ -1,9 +1,35 @@
 // ##### Alignment for Page Layouts ##### //
 
+// These styles set the margin between components laid out within a page template's Bootstrap grid. Margin styles for components should be set within their individual Sass files, not here.
+
+.global-header {
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0 0 0;
+  }
+
+}
+
+.filter {
+
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-component-margin;
+  }
+
+}
+
 .global-footer {
 
   @include bp(sm-screen) {
-    margin: 1em 0 0 0;
+    margin: $layout-component-margin 0 0 0;
+  }
+
+}
+
+.thumbview {
+
+  @include bp(sm-screen) {
+    margin: 0 (-$layout-component-margin) 0 $layout-component-margin;
   }
 
 }
