@@ -20,13 +20,15 @@
         
     <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
       <label for="global-search__field" class="global-search__label">Search the digital library</label>
-      <div class="input-group">
-        <input id="global-search__field" type="search" class="form-control global-search__field">
-        <span class="input-group-btn">
-          <button class="btn btn-default global-search__button" type="button"><span class="fa fa-search"></span>
-          </button>
-        </span>
-      </div>
+      <form class="navbar-form" id="searchForm" role="search" action="{% url 'calisphere:search' %}" method="get">
+        <div class="input-group">
+          <input id="global-search__field" name="q" value="{{ q }}" type="search" class="form-control global-search__field">
+          <span class="input-group-btn">
+            <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
+            </button>
+          </span>
+        </div>
+      </form>
     </div>
     
     <div class="col-xs-12 col-sm-4 global-header__nav js-global-header__mobile-links">
