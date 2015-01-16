@@ -17,13 +17,15 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-THUMBNAIL_BASE = os.getenv('THUMBNAIL_BASE', 'http://localhost:8888/')  # `python thumbnail.py`
+THUMBNAIL_URL = os.getenv('UCLDC_THUMBNAIL_URL', 'http://localhost:8888/')  # `python thumbnail.py`
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
                        get_random_string(50,
                                          'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
                        )
              )
-STATIC_URL = os.getenv('STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
+STATIC_URL = os.getenv('UCLDC_STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
+STATIC_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8080/solr/dc-collection')
+STATIC_URL = os.getenv('UCLDC_SOLR_API_KEY', '')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/

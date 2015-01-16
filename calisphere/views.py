@@ -21,7 +21,7 @@ def md5_to_http_url(md5):
 def process_media(item):
     if 'reference_image_md5' in item:
         # md5_to_http_url(item['reference_image_md5'])
-        item['reference_image_http'] = settings.THUMBNAIL_BASE + 'clip/178x100/' + item['reference_image_md5']
+        item['reference_image_http'] = settings.THUMBNAIL_URL + 'clip/178x100/' + item['reference_image_md5']
     elif 'url_item' in item:
         item['reference_image_http'] = "http://www.calisphere.universityofcalifornia.edu/images/misc/no_image1.gif"
 
