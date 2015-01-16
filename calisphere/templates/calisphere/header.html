@@ -1,4 +1,65 @@
-<header class="container">
+<div class="container"> <!-- fix this tag in base.html and remove from here -->
+
+<header class="global-header">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="row">
+        <div class="col-xs-2 col-sm-12 global-header__bars-icon js-global-header__bars-icon">
+          <i class="fa fa-bars"></i>
+        </div>
+        <div class="col-xs-8 col-sm-12 global-header__logo">
+          <a class="global-header__logo-link" href="{% url 'calisphere:search' %}">
+          </a>
+        </div>
+        <div class="col-xs-2 col-sm-12 global-header__search-icon js-global-header__search-icon">
+          <i class="fa fa-search"></i>
+        </div>
+      </div>
+    </div>
+        
+    <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
+      <label for="global-search__field" class="global-search__label">Search the digital library</label>
+      <div class="input-group">
+        <input id="global-search__field" type="search" class="form-control global-search__field">
+        <span class="input-group-btn">
+          <button class="btn btn-default global-search__button" type="button"><span class="fa fa-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-4 global-header__nav js-global-header__mobile-links">
+      <ul class="global-header__nav-list">
+        <div class="global-header__nav-browse-options">
+          <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Collections</a></li>
+          <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Contributing Institutions</a></li>
+        </div>
+        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">About</a></li>
+        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Contact</a></li>
+        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Help</a></li>
+        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Donate</a></li>
+      </ul>
+    </div>
+    
+  </div>
+
+  <div class="global-header__collections--sm">
+    <ul class="global-header__collections--sm-list">
+      <li class="global-header__collections--sm-list-item">
+        <a class="global-header__collections--sm-links" href="">Contributing Institutions</a>
+      </li>
+      <li class="global-header__collections--sm-list-item">
+        <a class="global-header__collections--sm-links" href="">Collections</a>
+      </li>
+    </ul>
+  </div>
+
+</header>
+
+</div>
+
+<!-- <header class="container">
   <nav class="navbar navbar-default" role="navigation">
     <div class="row">
       <div class="col-md-4">
@@ -49,4 +110,4 @@
       </ul>
     </div>
   </nav>
-</header>
+</header> -->
