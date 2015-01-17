@@ -23,11 +23,11 @@
 // ***** Using Arrows and Form Fields ***** //
 
 .pag__view-number {
-
+	color: #000;
 }
 
 .pag__arrow-icon {
-	margin: 0 0 0 1em;
+	margin: 0 1em;
 	color: #000;
 }
 
@@ -37,8 +37,10 @@
 
 .pag__current-number {
 	display: inline;
-	width: 3em;
-	margin: 0 0 0 1em;
+	width: 3.5em;
+	margin: 0 0 0 0;
+	text-align: center;
+	color: #000;
 }
 
 .pag__total-number {
