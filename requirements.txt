@@ -1,5 +1,5 @@
 django==1.7
 simplejson          #latest OK? could use std lib?
-solrpy==0.9.6
+https://briantinglecdliborg-solrpyx.googlecode.com/archive/d83b854e3b301aa1f433e52c7c5e617c1b4b303e.tar.gz#egg=solrpy
 https://github.com/tingletech/md5s3stash/archive/master.zip#egg=md5s3stash
 django-easy-pjax
