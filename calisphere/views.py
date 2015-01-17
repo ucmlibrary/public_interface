@@ -12,7 +12,10 @@ import urllib2
 import simplejson as json
 
 FACET_TYPES = [('type', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
-SOLR = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
+SOLR = solr.Solr(
+    settings.SOLR_URL,
+    post_headers={'x-api-key': settings.SOLR_API_KEY},
+)
 
 
 def md5_to_http_url(md5):
@@ -116,8 +119,6 @@ def itemView(request, item_id=''):
     return render(request, 'calisphere/item.html', context)
 
 def collectionsExplore(request):
-    s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
-
     collections_solr_query = SOLR.select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
     solr_collections = collections_solr_query.facet_counts['facet_fields']['collection']
 
@@ -259,7 +260,6 @@ def collectionView(request, collection_id):
         fq = solrize_filters(filters)
 
         # perform the search
-        s = solr.Solr('http://107.21.228.130:8080/solr/dc-collection')
         solr_response = SOLR.select(
             q=q,
             rows=rows,
