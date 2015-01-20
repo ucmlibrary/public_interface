@@ -1,2 +1,65 @@
 // ##### Thumbnail/Listview Toggle Component ##### //
 
+.toggle__thumbnails {
+  display: block;
+  float: left;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  background: $design-dark-gray-color;
+  border: 1px solid $design-dark-gray-color;
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  @include bp(sm-screen) {
+    display: inline;
+    float: none;
+    width: auto;
+    padding: 0;
+    color: #000;
+    background: none;
+    border: none;
+
+    &:hover {
+    	color: $design-primary-color;
+    }
+
+  }
+
+}
+
+.toggle__list {
+  display: block;
+  float: right;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+  color: $design-dark-gray-color;
+  background: #fff;
+  border: 1px solid $design-dark-gray-color;
+
+  &:hover {
+    color: $design-dark-gray-color;
+    text-decoration: none;
+  }
+
+  @include bp(sm-screen) {
+    display: inline;
+    float: none;
+    width: auto;
+    padding: 0;
+    color: #000;
+    background: none;
+    border: none;
+
+    &:hover {
+    	color: $design-primary-color;
+    }
+    
+  }
+
+}
