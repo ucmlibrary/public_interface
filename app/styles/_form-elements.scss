@@ -35,6 +35,7 @@
 // }
 
 .global-search__button {
+  height: 34px; // match the height of Bootstrap's form field
   color: #fff;
   border: 1px solid $design-dark-gray-color;
   background: $design-primary-color;
