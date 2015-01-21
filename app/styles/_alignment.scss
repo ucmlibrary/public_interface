@@ -26,6 +26,23 @@
 
 }
 
+.pag {
+  border: $bgreen;
+  @include bp(sm-screen) {
+    float: right;
+    // margin: 52px -0.5em 0 0;
+  }
+
+}
+
+.thumblist-toggle {
+  border: $bred;
+  @include bp(sm-screen) {
+    // margin: 52px 0 0 0;
+  }
+
+}
+
 .global-footer {
 
   @include bp(sm-screen) {

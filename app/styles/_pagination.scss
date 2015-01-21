@@ -1,7 +1,7 @@
 // ##### Pagination ##### //
 
 .pag {
-	
+	// display: inline; // put component on the same line as the pagination component
 }
 
 // ***** Using Tabs ***** //
@@ -27,7 +27,7 @@
 }
 
 .pag__arrow-icon {
-	margin: 0 1em;
+	margin: 0 0.5em;
 	color: #000;
 }
 
