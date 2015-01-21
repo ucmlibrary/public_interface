@@ -2,9 +2,20 @@
 
 .check {
   position: relative;
+  border-top: 1px solid #fff;
+
+  @include bp(sm-screen) {
+    margin: 0 $layout-component-margin 0 0;
+  }
+
+  @include bp(md-screen) {
+    margin: 0;
+    border: none;
+  }
+
 }
 
-// The following 4 IDs are only used to set stacking context for positioning. All other styles should be referenced as classes global to all 4 checkboxes.
+// The following 4 IDs are only used to set the stacking order for positioning. All other styles should be referenced as classes.
 
 #check__type {
   
@@ -39,14 +50,12 @@
 }
 
 .check__header {
-  margin-top: 10px;
   padding: 10px 0 10px $layout-edge-margin-xs;
   background: $design-dark-gray-color;
   overflow: hidden;
   cursor: pointer;
 
   @include bp(md-screen) {
-    border: none;
     background: none;
     cursor: auto;
   }
