@@ -1,6 +1,6 @@
-// ##### Thumbnail/Listview Toggle Component ##### //
+// ##### Thumbnail/Listview thumblist-Toggle Component ##### //
 
-%toggle__base {
+%thumblist-toggle__base {
 	display: block;
   width: 50%;
   padding: 10px;
@@ -12,28 +12,13 @@
   }
 
   .fa {
-  	margin: 0 0.25em 0 0; // margin between icon and text
-  }
-
-  @include bp(sm-screen) {
-    display: inline !important;
-    float: none !important;
-    width: auto !important;
-    padding: 0 !important;
-    color: #000 !important;
-    background: none !important;
-    border: none;
-
-    &:hover {
-    	color: $design-primary-color !important;
-    }
-
+  	margin: 0 0.5em 0 0; // margin between icon and text
   }
 
 }
 
-.toggle__thumbnails {
-  @extend %toggle__base;
+.thumblist-toggle__thumbnails {
+  @extend %thumblist-toggle__base;
   float: left;
   color: #fff;
   background: $design-dark-gray-color;
@@ -43,13 +28,34 @@
   }
 
   @include bp(sm-screen) {
-		margin: 0 1.5em 0 0; // margin between buttons
+    display: inline;
+    float: none;
+    width: auto;
+    margin: 0 1.5em 0 0; // margin between buttons
+    padding: 0;
+    color: #000;
+    background: none;
+    border: none;
+
+    &:hover {
+    	color: $design-primary-color;
+    }
+
   }
 
 }
 
-.toggle__list {
-  @extend %toggle__base;
+.thumblist-toggle__thumbnails--selected {
+	@extend .thumblist-toggle__thumbnails;
+	
+	@include bp(sm-screen) {
+		color: $design-dark-gray-color;
+	}
+
+}
+
+.thumblist-toggle__list {
+  @extend %thumblist-toggle__base;
   float: right;
   color: $design-dark-gray-color;
   background: #fff;
@@ -57,5 +63,29 @@
   &:hover {
     color: $design-dark-gray-color;
   }
+
+  @include bp(sm-screen) {
+    display: inline;
+    float: none;
+    width: auto;
+    padding: 0;
+    color: #000;
+    background: none;
+    border: none;
+
+    &:hover {
+    	color: $design-primary-color;
+    }
+
+  }
+
+}
+
+.thumblist-toggle__list--selected {
+	@extend .thumblist-toggle__list;
+	
+	@include bp(sm-screen) {
+		color: $design-dark-gray-color;
+	}
 
 }
