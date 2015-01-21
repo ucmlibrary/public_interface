@@ -17,9 +17,9 @@
     {% block inline-scripts %}{% endblock %}
   </head>
   <body>
-    {% include "calisphere/header.html" %}
-
+    
     <div class="container" id="searchResults">
+      {% include "calisphere/header.html" %}
       {% block content %}{% endblock %}
     </div>
 
