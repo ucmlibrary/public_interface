@@ -19,7 +19,24 @@
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-9">
-        [filters]
+
+        <!-- Begin Filter Component -->
+        <div class="filter">
+
+          <span class="filter__note">Filters you've selected:</span>
+          
+          {% for facet_type in FACET_TYPES %}
+            {% for filter in filters|get_item:facet_type.0 %}
+              <button type="button" class="btn btn-default btn-xs button__close" data-slug="{{ filter|slugify }}">{{ filter }}<i class="fa fa-close button__close-icon"></i>
+              </button>
+            {% endfor %}
+          {% endfor %}
+
+          <a class="filter__clear-all" href="#">Clear All</a>
+
+        </div>
+        <!-- End Filter Component -->
+
       </div>
 
     </div>
