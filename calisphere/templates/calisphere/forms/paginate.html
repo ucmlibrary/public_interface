@@ -1,6 +1,6 @@
 {% load calisphere-extras %}
   
-<input form="facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
+<!-- <input form="facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
 {% if rows == '50' %}
   <button id="view16" class="btn btn-link" style="padding:0px; margin:0px; vertical-align:baseline;">View 16</button> | 
 {% else %}
@@ -24,4 +24,35 @@ of {{ pages }}
   <button id="next" class="btn btn-link" data-start="{{ start|add:rows }}" style="padding:0px; margin:0px; vertical-align:baseline;">next</button>
 {% else %}
   next
-{% endif %}
+{% endif %} -->
+
+<!-- new form -->
+
+<div class="pag">
+
+	<input form="facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
+
+	{% if rows == '50' %}
+		<button id="view16" class="btn btn-link pag__view-number">View 16</button>
+  {% else %}
+  	<button id="view50" class="btn btn-link pag__view-number">View 50</button>
+  {% endif %}
+
+  {% if start|subtract:rows >= 0 %}
+	  <button id="prev" class="btn btn-link pag__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
+  {% else %}
+  	<button id="prev" class="btn btn-link pag__arrow-icon"><span class="fa fa-caret-left fa-lg"></span></button>
+	{% endif %}
+
+  <label for="pag__current-number" class="sr-only">Current Number</label>
+  <input form="facet" id="pag__current-number" class="pag__current-number" type="text" placeholder="1">
+
+  <span class="pag__total-number">of {{ pages }}</span>
+
+  {% if start|add:rows < numFound %}
+	  <button id="next" class="btn btn-link pag__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
+  {% else %}
+    <button id="next" class="btn btn-link pag__arrow-icon"><span class="fa fa-caret-right fa-lg"></span></button>
+  {% endif %}
+
+</div>

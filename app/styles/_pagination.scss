@@ -1,8 +1,10 @@
-// ***** Pagination ***** //
+// ##### Pagination ##### //
 
 .pag {
-	margin: 20px 0;
+	
 }
+
+// ***** Using Tabs ***** //
 
 .pag__list {
 	padding: 0;
@@ -16,4 +18,37 @@
 
 .pag__list-link--selected {
 	@extend .button__secondary;
+}
+
+// ***** Using Arrows and Form Fields ***** //
+
+.pag__view-number {
+	color: #000;
+	padding: 0;
+}
+
+.pag__arrow-icon {
+	margin: 0 0.5em;
+	padding: 0;
+	color: #000;
+}
+
+.pag__form {
+	display: inline;
+}
+
+.pag__current-number {
+	display: inline;
+	width: 2.5em;
+	margin: 0;
+	text-align: center;
+
+	&::placeholder {
+		color: #000;
+	}
+
+}
+
+.pag__total-number {
+
 }

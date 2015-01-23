@@ -2,22 +2,38 @@
 
 .check {
   position: relative;
+  border-top: 1px solid #fff;
+
+  @include bp(md-screen) {
+    border: none;
+  }
+
 }
 
-// The following 4 IDs are only used to set stacking context for positioning. All other styles should be referenced as classes global to all 4 checkboxes.
+// The following 4 IDs are only used to set the stacking order for positioning. All other styles should be referenced as classes.
 
 #check__type {
   
   @include bp(sm-screen) {
+    margin: 0 ($layout-component-margin / 2) 0 0;
     z-index: 2;
+  }
+
+  @include bp(md-screen) {
+    margin: 0;
   }
   
 }
 
 #check__date {
-  
+
   @include bp(sm-screen) {
+    margin: 0 0 0 ($layout-component-margin / 2);
     z-index: 2;
+  }
+
+  @include bp(md-screen) {
+    margin: 0;
   }
   
 }
@@ -25,7 +41,12 @@
 #check__inst {
   
   @include bp(sm-screen) {
+    margin: 0 ($layout-component-margin / 2) 0 0;
     z-index: 1;
+  }
+
+  @include bp(md-screen) {
+    margin: 0;
   }
   
 }
@@ -33,20 +54,23 @@
 #check__coll {
   
   @include bp(sm-screen) {
+    margin: 0 0 0 ($layout-component-margin / 2);
     z-index: 1;
+  }
+
+  @include bp(md-screen) {
+    margin: 0;
   }
   
 }
 
 .check__header {
-  margin-top: 10px;
   padding: 10px 0 10px $layout-edge-margin-xs;
   background: $design-dark-gray-color;
   overflow: hidden;
   cursor: pointer;
 
   @include bp(md-screen) {
-    border: none;
     background: none;
     cursor: auto;
   }
@@ -135,14 +159,14 @@ html.no-js .check__header-links {
 .check__popdown {
   display: none;
 
-  @include bp(sm-screen) { // overlay checkbox groups that follow
-    position: absolute;
+  @include bp(sm-screen) {
+    position: absolute; // overlay checkbox groups that follow
     left: 0;
     right: 0;
   }
 
-  @include bp(md-screen) { // push down checkbox groups that follow
-    position: relative;
+  @include bp(md-screen) {
+    position: relative; // push down checkbox groups that follow
     display: block;
   }
 

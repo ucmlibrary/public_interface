@@ -30,6 +30,8 @@
 
       <h2>Pagination</h2>
 
+      <h3>Using Tabs</h3>
+
       <!-- Begin Component -->
 
       <div class="pag">
@@ -51,8 +53,32 @@
 
       <!-- End Component -->
 
-    </div>
+      <h3>Using Arrows and Form Field</h3>
 
+      <!-- Begin Component -->
+
+      <div class="pag">
+
+        <button class="btn btn-link pag__view-number">View 50</button>
+
+        <button class="btn btn-link pag__arrow-icon">
+          <span class="fa fa-caret-left fa-lg"></span>
+        </button>
+        
+        <label for="pag__current-number" class="sr-only">Current Number</label>
+        <input form="" id="pag__current-number" class="pag__current-number" type="text" placeholder="12">
+        
+        <span class="pag__total-number">of 7</span>
+
+        <button class="btn btn-link pag__arrow-icon">
+          <span class="fa fa-caret-right fa-lg"></span>
+        </button>
+
+      </div>
+
+    <!-- End Component -->
+
+    </div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
