@@ -29,6 +29,7 @@
 
   &:hover {
     color: #fff;
+    background: $design-dark-gray-color;
   }
 
   @include bp(sm-screen) {
@@ -43,6 +44,7 @@
 
     &:hover {
     	color: $design-primary-color;
+      background: none;
     }
 
   }
@@ -66,6 +68,7 @@
 
   &:hover {
     color: $design-dark-gray-color;
+    border: 1px solid $design-dark-gray-color;
   }
 
   @include bp(sm-screen) {
@@ -79,6 +82,7 @@
 
     &:hover {
     	color: $design-primary-color;
+      border: none;
     }
 
   }
