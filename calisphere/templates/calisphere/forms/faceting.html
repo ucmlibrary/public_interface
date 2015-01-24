@@ -7,13 +7,13 @@
   <!-- <button type="button" id="deselect-facets" class="btn btn-default btn-block">Deselect All</button> -->
   
   {% for facet_type, facet_type_display in FACET_TYPES %}
-        
-  <div class="row">
+
+  <div class="col-xs-12 col-sm-6 col-md-12">
 
     <div class="check" id="check__type">
 
       <div class="check__header js-a-check__header">
-        <p class="check__header-text js-a-check__header-text">{{ facet_type_display }} ({{ facets|get_item:facet_type|length }}) item {{forloop.counter}}</p>
+        <p class="check__header-text js-a-check__header-text">{{ facet_type_display }} ({{ facets|get_item:facet_type|length }})</p>
         <i class="check__header-arrow-icon js-a-check__header-arrow-icon fa fa-angle-down"></i>
         <div class="check__header-links">
           <a class="js-a-check__link-select-all check__link-select-all--selected" href="#">Select All</a>
@@ -47,8 +47,6 @@
       <div class="row">
     {% endif %}
   </div>
-
-
 
   {% endfor %}
 </form>
