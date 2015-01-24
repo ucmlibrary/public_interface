@@ -4,5 +4,5 @@ def settings(request):
     """
     from django.conf import settings
     return {
-        'thumbnailBase': settings.THUMBNAIL_BASE,
+        'thumbnailUrl': settings.THUMBNAIL_URL,
     }

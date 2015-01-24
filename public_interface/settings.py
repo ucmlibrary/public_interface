@@ -17,30 +17,28 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-THUMBNAIL_BASE = os.getenv('THUMBNAIL_BASE', 'http://localhost:8888/')  # `python thumbnail.py`
+THUMBNAIL_URL = os.getenv('UCLDC_THUMBNAIL_URL', 'http://localhost:8888/')  # `python thumbnail.py`
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
                        get_random_string(50,
                                          'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
                        )
              )
-STATIC_URL = os.getenv('STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
+STATIC_URL = os.getenv('UCLDC_STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
+SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
+SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + (
     'django.core.context_processors.request',
     'public_interface.context_processors.settings',
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
