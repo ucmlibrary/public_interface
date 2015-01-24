@@ -13,7 +13,7 @@
     <div class="check" id="check__type">
 
       <div class="check__header js-a-check__header">
-        <p class="check__header-text js-a-check__header-text">{{ facet_type_display }} ({{ facets|get_item:facet_type|length }})</p>
+        <p class="check__header-text js-a-check__header-text">{{ facet_type_display }} ({{ facets|get_item:facet_type|length }}) item {{forloop.counter}}</p>
         <i class="check__header-arrow-icon js-a-check__header-arrow-icon fa fa-angle-down"></i>
         <div class="check__header-links">
           <a class="js-a-check__link-select-all check__link-select-all--selected" href="#">Select All</a>
@@ -41,44 +41,14 @@
 
     </div>
 
+    {% if forloop.counter|divisibleby:"2" %}
+      </div>
+      <!-- start new row -->
+      <div class="row">
+    {% endif %}
   </div>
 
-  <!-- ##### Original Facet ##### -->
 
-  <!-- <div class="facet-type">
-    <div class="row">
-      <div class="col-md-8"><h5>{{ facet_type_display }} ({{ facets|get_item:facet_type|length }})</h5></div>
-      <div class="col-md-4 text-right">
-        <h6><button class="btn btn-link select-facets" style="font-size: 12px; padding: 0px; margin: 0px;">Select all</button></h6>
-      </div>
-    </div>
-    <div id="{{ facet_type }}">
-      {% if facet_type == 'repository_name' or facet_type == 'collection_name' %}
-      <div class="form-group" style="margin-bottom: 5px;">
-        <div class="input-group" style="width: 100%;">
-          <input id="{{ facet_type }}-autocomplete" placeholder="Enter {{ facet_type_display }} Name" class="form-control autocomplete" autocomplete="off" type=search/>
-        </div>
-      </div>
-      {% endif %}
-      <div class="options-container">
-        <table class="table" style="width: 100%">
-          {% for facet, count in facets|get_item:facet_type %}
-          <tr data-count="{{ count }}">
-            <td style="padding: 0px; width: 80%">
-              <div class="checkbox" style="font-size: 14px; margin: 5px 0">
-                <label>{{ facet }} ({{ count }})</label>
-              </div>
-            </td>
-            <td style="padding: 6px 0 0 20px;">
-              <input id="{{ facet|slugify }}" class="facet facet-{{ facet_type }}" form="facet" type="checkbox" 
-                name="{{ facet_type }}" value="{{ facet }}" {% if facet in filters|get_item:facet_type %}checked{% endif %}/>
-            </td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
-  </div> -->
 
   {% endfor %}
 </form>
