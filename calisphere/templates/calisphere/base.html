@@ -1,6 +1,7 @@
 {% load staticfiles %}
 
-<html>
+<!doctype html>
+<html lang="en" class="no-js">
   <head>
     <link rel="stylesheet" href="{% static "styles/main.css" %}"/>
     {% block styles %}{% endblock %}
@@ -8,6 +9,7 @@
     <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
     <script src="{% static "bower_components/underscore/underscore.js" %}"></script>
     <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
+    <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
 
     <!-- <script src="{% static "scripts/amy-autocomplete.js" %}"></script> -->
     <script src="{% static "scripts/search.js" %}"></script>

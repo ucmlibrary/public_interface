@@ -4,60 +4,88 @@
 
 {% block content %}
 
-<div class="row">
-  <div class="col-md-3">
-    {% include "calisphere/forms/refineQuery.html" %}
-    {% include "calisphere/forms/faceting.html" %}
-  </div>
-  <div class="col-md-9">
-    <div class="row" style="padding-bottom: 20px">
-      <div class="col-md-4">
-        {{ numFound }} objects found in {{ facets.collection_name|length }} collections<br>
-      </div>
-      <div class="col-md-4">
-        <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
-        <button id="thumbnails" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">Thumbnails</button> |
-        <button id="list" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">List</button>
-      </div>
-      <div class="col-md-4">
-        {% include "calisphere/forms/paginate.html" %}
-      </div>
-    </div>
+<p>Search > Orange County</p>
 
-    <!-- filter pills -->
+    <h2>Search Results / Orange County</h2>
+
+    <!-- Begin Refine Search Field and Filters -->
+
     <div class="row">
-      <div class="col-md-12">
-        {% for facet_type in FACET_TYPES %}
-          {% for filter in filters|get_item:facet_type.0 %}
-            <button type="button" class="btn btn-info filter-pill" data-slug="{{ filter|slugify }}">
-              {{ filter }} <span class="glyphicon glyphicon-remove" style="padding-left: 5px"></span>
-            </button>
-          {% endfor %}
-        {% endfor %}
+      
+      <div class="col-xs-12 col-sm-12 col-md-3">
+        <!-- Begin Refine Search Field -->
+        {% include "calisphere/forms/refineQuery.html" %}
+        <!-- End Refine Search Field -->
       </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-9">
+
+        <!-- Begin Filter Component -->
+        <div class="filter">
+
+          <span class="filter__note">Filters you've selected:</span>
+          
+          {% for facet_type in FACET_TYPES %}
+            {% for filter in filters|get_item:facet_type.0 %}
+              <button type="button" class="btn btn-default btn-xs button__close" data-slug="{{ filter|slugify }}">{{ filter }}<i class="fa fa-close button__close-icon"></i>
+              </button>
+            {% endfor %}
+          {% endfor %}
+
+          <a class="filter__clear-all" href="#">Clear All</a>
+
+        </div>
+        <!-- End Filter Component -->
+
+      </div>
+
     </div>
 
-    <!-- TODO: rewrite this form, POST bad. maintain state through javascript object -->
-    <form id="item-view" action="/" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="item_id" id="item_id" value=""/>
-      <input type="hidden" name="q" value="{{ q }}"/>
-      <input type="hidden" name="start" value="{{ start }}"/>
-      {% if filters %}
-        {% for facet_type in FACET_TYPES %}
-          {% for filter in filters|get_item:facet_type.0 %}
-            <input class="hidden" type="checkbox" name="{{ facet_type.0 }}" value="{{ filter }}" checked/>
-          {% endfor %}
-        {% endfor %}
-      {% endif %}
-    </form>
+    <!-- End Refine Search Field and Filters -->
 
-    <!-- search results -->
-    {% if view_format == "thumbnails" %}
-      {% include "calisphere/thumbnails-results.html" %}
-    {% elif view_format == "list" %}
-      {% include "calisphere/list-results.html" %}
-    {% endif %}
-  </div>
-</div>
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-12 col-md-3">
+        <!-- Begin Checkbox Groups -->
+        {% include "calisphere/forms/faceting.html" %}
+        <!-- End Checkbox Groups -->
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-9">
+              
+        <div class="row">
+
+          <div class="col-sm-6">
+            
+            <h3 class="text__collections-heading">{{ numFound }} Objects Found in {{ facets.collection_name|length }} Collections</h3>
+
+          </div>
+
+          <div class="col-sm-6">
+            <!-- Begin Toggle Component -->
+
+            <div class="thumblist-toggle">
+              <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
+              <button id="thumbnails" class="btn btn-link thumblist-toggle__thumbnails--selected" href=""><span class="fa fa-th-large"></span>Thumbnails</button>
+              <button id="list" class="btn btn-link thumblist-toggle__list" href=""><span class="fa fa-th-list"></span>List</button>
+            </div>
+
+            <!-- End Toggle Component -->
+
+            <!-- Begin Pagination Component -->
+            {% include "calisphere/forms/paginate.html" %}
+            <!-- End Pagination Component -->
+          </div>
+
+        </div>
+        
+        <!-- Begin Thumbnail Component -->
+        <div class="row thumbview">
+        
+        {% include "calisphere/item-thumb.html" %}
+
+        </div>
+        <!-- End Thumbnail Component -->
+    </div></div>
+    
 {% endblock %}
