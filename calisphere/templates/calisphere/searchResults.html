@@ -81,8 +81,12 @@
         
         <!-- Begin Thumbnail and List View Components -->
         
-        {% include "calisphere/item-thumb.html" %}
-
+        {% if view_format == "thumbnails" %}
+          {% include "calisphere/item-thumb.html" %}
+        {% elif view_format == "list" %}
+          {% include "calisphere/list-results.html" %}
+        {% endif %}
+        
         <!-- End Thumbnail and List View Components -->
 
     </div>
