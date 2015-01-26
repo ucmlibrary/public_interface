@@ -11,6 +11,19 @@
 }
 
 .text__collections-heading {
-	margin: 0;
+	margin: 0.75em 0;
+	padding: 0.75em 0 0 0;
+	border-top: 2px solid $design-dark-gray-color;
 	font-size: 1.6em;
+
+	@include bp(sm-screen) {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+}
+
+.text__collections-heading-highlight {
+	color: $design-primary-color;
 }
