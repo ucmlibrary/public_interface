@@ -19,6 +19,7 @@
 }
 
 .text__collections-heading {
+  margin: 0.5em 0;
 
   @include bp(sm-screen) {
     margin: 52px 0 0 $layout-component-margin;
