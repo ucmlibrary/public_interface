@@ -1,14 +1,16 @@
-{% for item in search_results %}
-<div class="col-xs-6 col-sm-3">
-  <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='{{ item.reference_image_http }}'> {{ item.title.0|truncatewords:7 }}">
-    <a class="thumbview__link" href="#">
-      <img class="thumbview__image" src="{{ item.reference_image_http }}" alt="{{ item.title.0|truncatewords:7 }}">
-    </a>
-    <figcaption class="thumbview__caption">{{ item.title.0|truncatewords:7 }}
-    </figcaption>
-  </figure>
+<div class="row thumbview">
+  {% for item in search_results %}
+  <div class="col-xs-6 col-sm-3">
+    <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='{{ item.reference_image_http }}'> {{ item.title.0|truncatewords:7 }}">
+      <a class="thumbview__link" href="#">
+        <img class="thumbview__image" src="{{ item.reference_image_http }}" alt="{{ item.title.0|truncatewords:7 }}">
+      </a>
+      <figcaption class="thumbview__caption">{{ item.title.0|truncatewords:7 }}
+      </figcaption>
+    </figure>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
 
 <!-- <a href="{{ item.href }}" text="{{ item.title.0 }}">
 <div class="item-thumb" style="padding: 10px; cursor: pointer">
