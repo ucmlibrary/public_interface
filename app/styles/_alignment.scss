@@ -46,18 +46,26 @@
 
 }
 
-.global-footer {
-
-  @include bp(sm-screen) {
-    margin: $layout-component-margin 0 0 0;
-  }
-
-}
-
 .thumbview {
 
   @include bp(sm-screen) {
     margin: $layout-component-margin (-$layout-component-margin) 0 $layout-component-margin;
+  }
+
+}
+
+.listview {
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin (-$layout-component-margin) 0 $layout-component-margin;
+  }
+  
+}
+
+.global-footer {
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0 0 0;
   }
 
 }
