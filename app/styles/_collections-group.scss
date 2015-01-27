@@ -27,8 +27,22 @@
 
 .collgroup__prev-button {
   float: left;
+  padding: 0;
+  color: #000;
+  
+  &:hover {
+    text-decoration: none;
+  }
+  
 }
 
 .collgroup__next-button {
   float: right;
+  padding: 0;
+  color: #000;
+  
+  &:hover {
+    text-decoration: none;
+  }
+
 }
