@@ -2,7 +2,7 @@
 
 .collgroup {
   @extend .clearfix; // Bootstrap class
-  padding: 20px;
+  padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
   background: $design-light-gray-color;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .collgroup__container {
-  margin: 0 20px 20px 0;
+  margin: 0 $layout-component-margin 0 0;
 }
 
 .collgroup__link {
@@ -31,6 +31,7 @@
 
 .collgroup__prev-button {
   float: left;
+  margin: $layout-component-margin 0 0 0;
   padding: 0;
   color: #000;
   
@@ -42,6 +43,7 @@
 
 .collgroup__next-button {
   float: right;
+  margin: $layout-component-margin $layout-component-margin 0 0;
   padding: 0;
   color: #000;
   
