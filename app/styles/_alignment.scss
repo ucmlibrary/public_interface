@@ -47,8 +47,9 @@
 }
 
 .thumbview {
+  margin: $layout-component-margin (-$layout-component-margin) 0 0;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     margin: $layout-component-margin (-$layout-component-margin) 0 $layout-component-margin;
   }
 
