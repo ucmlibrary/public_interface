@@ -12,7 +12,7 @@
 
 .filter {
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     margin: 0 0 0 $layout-component-margin;
   }
 
@@ -52,6 +52,10 @@
 
 .thumbview {
   margin: $layout-component-margin (-$layout-component-margin) 0 0;
+
+  @include bp(sm-screen) {
+    margin: 0 (-$layout-component-margin) 0 0;
+  }
 
   @include bp(md-screen) {
     margin: $layout-component-margin (-$layout-component-margin) 0 $layout-component-margin;
