@@ -20,15 +20,19 @@
 
 .text__collections-heading {
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     margin: 54px 0 0 $layout-component-margin;
   }
 
 }
 
 .thumblist-toggle {
-
   @include bp(sm-screen) {
+    float: right;
+    margin: $layout-component-margin 0 0 $layout-component-margin;
+  }
+
+  @include bp(md-screen) {
     float: left;
     margin: 57px 0 0 $layout-component-margin;
   }
@@ -38,7 +42,7 @@
 .pag {
   display: none;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     display: block;
     float: right;
     margin: 53px -0.5em 0 0;

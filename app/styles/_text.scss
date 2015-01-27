@@ -17,7 +17,6 @@
 	font-size: 1.5em;
 
 	@include bp(sm-screen) {
-    margin: 0;
     padding: 0;
     border: none;
   }
