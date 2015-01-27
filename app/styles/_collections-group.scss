@@ -2,16 +2,30 @@
 
 .collgroup {
   @extend .clearfix; // Bootstrap class
-  padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+  padding: $layout-component-margin 0;
   background: $design-light-gray-color;
+
+  @include bp(sm-screen) {
+    padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+  }
+
 }
 
 .collgroup__title {
-  margin: 0.5em 0 1em 0;
+  margin: 0.5em 0 1em $layout-component-margin;
+
+  @include bp(sm-screen) {
+    margin: 0.5em 0 1em 0;
+  }
+  
 }
 
 .collgroup__container {
-  margin: 0 $layout-component-margin 0 0;
+  
+  @include bp(sm-screen) {
+    margin: 0 $layout-component-margin 0 0;
+  }
+
 }
 
 .collgroup__link {
@@ -22,33 +36,55 @@
   display: block;
   width: 100%;
   height: auto;
+
 }
 
 .collgroup__caption {
-  margin-top: 0.5em;
+  margin: 0.5em $layout-component-margin ($layout-component-margin * 2) $layout-component-margin; 
   cursor: default;
+
+  @include bp(sm-screen) {
+    margin: 0.5em 0 0 0;
+  }
+
 }
 
 .collgroup__prev-button {
   float: left;
-  margin: $layout-component-margin 0 0 0;
+  margin: 0 0 0 $layout-component-margin;
   padding: 0;
   color: #000;
+
+  .fa {
+    margin: 0 0.5em 0 0;
+  }
   
   &:hover {
     text-decoration: none;
+  }
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0 0 0;
   }
   
 }
 
 .collgroup__next-button {
   float: right;
-  margin: $layout-component-margin $layout-component-margin 0 0;
+  margin: 0 $layout-component-margin 0 0;
   padding: 0;
   color: #000;
+
+  .fa {
+    margin: 0 0 0 0.5em;
+  }
   
   &:hover {
     text-decoration: none;
+  }
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin $layout-component-margin 0 0;
   }
 
 }
