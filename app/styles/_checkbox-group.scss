@@ -212,13 +212,13 @@ html.no-js .check__button-group {
 }
 
 .check__group {
-  height: 150px;
-  overflow: auto; // turn on scroll bar
+  height: 19em; // fix height for scrolling
+  overflow: auto; // allow scrolling via scroll bar
   border-left: 1px solid $design-dark-gray-color;
   border-right: 1px solid $design-dark-gray-color;
 
   @include bp(md-screen) {
-    height: auto;
+    // height: auto;
     border-top: 1px solid $design-dark-gray-color;
     border-bottom: 1px solid $design-dark-gray-color;
   }
