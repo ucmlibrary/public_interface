@@ -71,6 +71,14 @@
   
 }
 
+.collgroup {
+
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-component-margin;
+  }
+  
+}
+
 .global-footer {
 
   @include bp(sm-screen) {
