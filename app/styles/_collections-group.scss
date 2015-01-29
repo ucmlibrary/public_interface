@@ -66,6 +66,10 @@
   @include bp(sm-screen) {
     margin: $layout-component-margin 0 0 0;
   }
+
+  abbr {
+    border: none;
+  }
   
 }
 
