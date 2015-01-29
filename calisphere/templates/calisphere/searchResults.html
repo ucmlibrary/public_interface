@@ -76,9 +76,25 @@
             <!-- Begin Pagination Component -->
             {% include "calisphere/forms/paginate.html" %}
             <!-- End Pagination Component -->
+            
           </div>
 
         </div>
+
+        <!-- TODO: rewrite this form, POST bad. maintain state through javascript object -->
+        <form id="item-view" action="/" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="item_id" id="item_id" value=""/>
+          <input type="hidden" name="q" value="{{ q }}"/>
+          <input type="hidden" name="start" value="{{ start }}"/>
+          {% if filters %}
+            {% for facet_type in FACET_TYPES %}
+              {% for filter in filters|get_item:facet_type.0 %}
+                <input class="hidden" type="checkbox" name="{{ facet_type.0 }}" value="{{ filter }}" checked/>
+              {% endfor %}
+            {% endfor %}
+          {% endif %}
+        </form>
         
         <!-- Begin Thumbnail and List View Components -->
         
