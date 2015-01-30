@@ -24,17 +24,60 @@
 
 }
 
+.collect [class^="col-"] {
+  // padding: 10px;
+}
+
 // These selectors are for production
 
 .collect__page-intro {
-  font-size: 1.2em;
+  
+  @include bp(sm-screen) {
+    font-size: 1.2em;
+  }
+
+}
+
+.collect__buttons {
+  
+  @include bp(sm-screen) {
+    padding: $layout-component-margin / 2;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+  }
+
 }
 
 .collect__row {
-  border-top: 1px solid $design-dark-gray-color;
+  
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0 0 0;
+    padding: $layout-component-margin 0 0 0;
+    border-top: 1px solid $design-dark-gray-color;
+  }
+
 }
 
 .collect__title {
-  margin: 0 0 0.5em 0;
-  font-size: 1.2em;
+  
+  @include bp(sm-screen) {
+    margin: 0 0 0.5em 0;
+    font-size: 1.2em;
+  }
+  
+}
+
+.collect__thumbnail {
+  
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-component-margin;
+  }
+
 }
