@@ -10,7 +10,7 @@
 .collect__intro {
 
   @include bp(sm-screen) {
-    padding-bottom: 25px;
+    padding-bottom: 40px;
   }
 
 }
@@ -19,7 +19,18 @@
   
   @include bp(sm-screen) {
     clear: left;
-    margin-top: -25px;
+    margin-top: -40px;
   }
 
+}
+
+// These selectors are for production
+
+.collect__page-intro {
+  font-size: 1.2em;
+}
+
+.collect__title {
+  margin: 0 0 0.5em 0;
+  font-size: 1.2em;
 }
