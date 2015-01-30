@@ -8,16 +8,15 @@
 
 .alphanav__list-item {
   float: left;
-  margin: 0;
+  margin: $layout-component-margin / 2;
   padding: 0;
   width: 50px;
-  border-right: 1px solid $design-dark-gray-color;
 
   @include bp(sm-screen) {
     float: none;
     width: 60px;
-    border-right: none;
-    border-bottom: 1px solid $design-dark-gray-color;
+    // border-right: none;
+    // border-bottom: 1px solid $design-dark-gray-color;
   }
 
 }
@@ -29,10 +28,21 @@
   font-size: 1.4em;
   text-align: center;
   background: #fff;
+  border: 1px solid $design-dark-gray-color;
+  border-radius: 5px;
 
   &:hover {
     text-decoration: none;
   }
+
+  @include bp(sm-screen) {
+    float: none;
+    width: 60px;
+    border: none;
+    border-bottom: 1px solid $design-dark-gray-color;
+    border-radius: initial;
+  }
+
 }
 
 .alphanav__list-link--selected {
