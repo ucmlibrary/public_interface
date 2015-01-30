@@ -1,2 +1,25 @@
 // ##### Collections Layout ##### //
 
+// These selectors are currently for testing the Collections Grid layout only
+
+.collect img {
+  width: 100%;
+  height: auto;
+}
+
+.collect__intro {
+
+  @include bp(sm-screen) {
+    padding-bottom: 25px;
+  }
+
+}
+
+.collect__button {
+  
+  @include bp(sm-screen) {
+    clear: left;
+    margin-top: -25px;
+  }
+
+}
