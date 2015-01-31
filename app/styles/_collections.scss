@@ -33,15 +33,25 @@
 .collect__page-intro {
   
   @include bp(sm-screen) {
+    padding-right: $layout-component-margin / 2;
+    font-size: 1.2em;
+  }
+
+}
+
+.collect__page-desc {
+  
+  @include bp(sm-screen) {
+    padding-left: $layout-component-margin / 2;
     font-size: 1.2em;
   }
 
 }
 
 .collect__buttons {
-  
+  padding: $layout-component-margin / 2;
+
   @include bp(sm-screen) {
-    padding: $layout-component-margin / 2;
 
     &:first-child {
       padding-left: 0;
@@ -71,7 +81,7 @@
     margin: 0 0 0.5em 0;
     font-size: 1.2em;
   }
-  
+
 }
 
 .collect__thumbnail {
