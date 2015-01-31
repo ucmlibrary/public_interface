@@ -10,13 +10,10 @@
   float: left;
   margin: $layout-component-margin / 2;
   padding: 0;
-  width: 50px;
 
   @include bp(sm-screen) {
     float: none;
-    width: 60px;
-    // border-right: none;
-    // border-bottom: 1px solid $design-dark-gray-color;
+    margin: 0;
   }
 
 }
@@ -24,6 +21,7 @@
 .alphanav__list-link {
   display: block;
   padding: 5px 0;
+  width: 50px;
   color: #000;
   font-size: 1.4em;
   text-align: center;
@@ -37,7 +35,6 @@
 
   @include bp(sm-screen) {
     float: none;
-    width: 60px;
     border: none;
     border-bottom: 1px solid $design-dark-gray-color;
     border-radius: initial;
