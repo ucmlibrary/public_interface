@@ -10,7 +10,8 @@
 .thumbview,
 .listview,
 .collgroup,
-.global-footer {
+.global-footer,
+.alphanav {
 	float: none;
 	margin: 0;
 }
