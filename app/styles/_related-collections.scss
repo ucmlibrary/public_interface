@@ -1,6 +1,6 @@
 // ##### Related Collections Component ##### //
 
-.collgroup {
+.related-coll {
   @extend .clearfix; // Bootstrap class
   padding: $layout-component-margin 0;
   background: $design-light-gray-color;
@@ -11,7 +11,7 @@
 
 }
 
-.collgroup__title {
+.related-coll__title {
   margin: 0.5em 0 0 $layout-component-margin;
 
   @include bp(sm-screen) {
@@ -20,7 +20,7 @@
   
 }
 
-.collgroup__container {
+.related-coll__container {
   margin: $layout-component-margin 0 0 0;
 
   @include bp(sm-screen) {
@@ -29,17 +29,17 @@
 
 }
 
-.collgroup__link {
+.related-coll__link {
   display: block;
 }
 
-.collgroup__image {
+.related-coll__image {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.collgroup__caption {
+.related-coll__caption {
   margin: 0 $layout-component-margin; 
   cursor: default;
 
@@ -49,7 +49,7 @@
 
 }
 
-.collgroup__prev-button {
+.related-coll__prev-button {
   float: left;
   margin: $layout-component-margin 0 0 $layout-component-margin;
   padding: 0;
@@ -73,7 +73,7 @@
   
 }
 
-.collgroup__next-button {
+.related-coll__next-button {
   float: right;
   margin: $layout-component-margin $layout-component-margin 0 0;
   padding: 0;
