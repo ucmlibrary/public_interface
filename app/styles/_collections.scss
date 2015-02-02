@@ -1,36 +1,6 @@
 // ##### Collections Layout ##### //
 
-// These selectors are currently for testing the Collections Grid layout only
-
-.collect img {
-  width: 100%;
-  height: auto;
-}
-
-.collect__intro {
-
-  @include bp(sm-screen) {
-    padding-bottom: 40px;
-  }
-
-}
-
-.collect__button {
-  
-  @include bp(sm-screen) {
-    clear: left;
-    margin-top: -40px;
-  }
-
-}
-
-.collect [class^="col-"] {
-  // padding: 10px;
-}
-
-// These selectors are for production
-
-.collect__page-intro {
+.collect-intro__overview {
   
   @include bp(sm-screen) {
     padding-right: $layout-component-margin / 2;
@@ -39,7 +9,7 @@
 
 }
 
-.collect__page-desc {
+.collect-intro__description {
   
   @include bp(sm-screen) {
     padding-left: $layout-component-margin / 2;
@@ -48,7 +18,7 @@
 
 }
 
-.collect__buttons {
+.collect-intro__buttons {
   padding: $layout-component-margin / 2;
 
   @include bp(sm-screen) {
@@ -65,7 +35,22 @@
 
 }
 
-.collect__row {
+// Temporary img width set
+
+.collect-row__container img {
+  width: 100%;
+  height: auto;
+}
+
+.collect-row__summary {
+
+  @include bp(sm-screen) {
+    padding-bottom: 40px;
+  }
+
+}
+
+.collect-row__row {
   
   @include bp(sm-screen) {
     margin: $layout-component-margin 0 0 0;
@@ -75,7 +60,7 @@
 
 }
 
-.collect__title {
+.collect-row__title {
   
   @include bp(sm-screen) {
     margin: 0 0 0.5em 0;
@@ -84,7 +69,7 @@
 
 }
 
-.collect__thumbnail {
+.collect-row__thumbnail {
   
   @include bp(sm-screen) {
     margin: 0 0 0 $layout-component-margin;
@@ -92,6 +77,15 @@
 
 }
 
-.collect__caption {
+.collect-row__caption {
   line-height: normal;
+}
+
+.collect-row__button {
+  
+  @include bp(sm-screen) {
+    clear: left;
+    margin-top: -40px;
+  }
+
 }
