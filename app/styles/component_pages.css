@@ -1,6 +1,6 @@
 /* ##### Component Page Resets ##### */
 
-/* This stylesheet removes styles set in alignment.scss for component pages only. Use on component pages by linking it within the HTML <head>. Do not import these styles into main.scss */
+/* This stylesheet removes styles set in alignment.scss for component page display only. Use on component pages by linking it within the HTML <head>. Do not import these styles into main.scss */
 
 .global-header,
 .filter,
