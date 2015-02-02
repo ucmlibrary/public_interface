@@ -2,12 +2,12 @@
 
 // These styles set margin and font styles for text objects within a page template. Styles for text within components should be set within their individual Sass files, not here.
 
-.text__page-heading {
+.text__breadcrumb-nav {
 	
 }
 
-.text__breadcrumb {
-	
+.text__page-heading {
+	font-size: 2em;
 }
 
 .text__collections-heading {
