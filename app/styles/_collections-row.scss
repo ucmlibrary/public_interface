@@ -1,39 +1,4 @@
-// ##### Collections Layout ##### //
-
-.collect-intro__overview {
-  
-  @include bp(sm-screen) {
-    padding-right: $layout-component-margin / 2;
-    font-size: 1.2em;
-  }
-
-}
-
-.collect-intro__description {
-  
-  @include bp(sm-screen) {
-    padding-left: $layout-component-margin / 2;
-    font-size: 1.2em;
-  }
-
-}
-
-.collect-intro__buttons {
-  padding: $layout-component-margin / 2;
-
-  @include bp(sm-screen) {
-
-    &:first-child {
-      padding-left: 0;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
-
-  }
-
-}
+// ##### Collections Row ##### //
 
 // Temporary img width set
 
@@ -50,7 +15,7 @@
 
 }
 
-.collect-row__row {
+.collect-row__container {
   
   @include bp(sm-screen) {
     margin: $layout-component-margin 0 0 0;

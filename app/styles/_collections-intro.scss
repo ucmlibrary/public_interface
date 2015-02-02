@@ -1,0 +1,36 @@
+// ##### Collections Intro ##### //
+
+.collect-intro__overview {
+  
+  @include bp(sm-screen) {
+    padding-right: $layout-component-margin / 2;
+    font-size: 1.2em;
+  }
+
+}
+
+.collect-intro__description {
+  
+  @include bp(sm-screen) {
+    padding-left: $layout-component-margin / 2;
+    font-size: 1.2em;
+  }
+
+}
+
+.collect-intro__buttons {
+  padding: $layout-component-margin / 2;
+
+  @include bp(sm-screen) {
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+  }
+
+}
