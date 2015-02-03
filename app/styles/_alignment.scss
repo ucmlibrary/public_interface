@@ -51,10 +51,19 @@
 }
 
 .thumbview {
-  margin: $layout-component-margin 0 0 (-$layout-component-margin);
+  margin: 0 0 0 (-$layout-component-margin);
 
   @include bp(md-screen) {
-    margin: $layout-component-margin 0 0 0;
+    margin: 0;
+  }
+
+}
+
+.thumbview-collections {
+  margin: $layout-component-margin 0 0 (-$layout-component-margin);
+
+  @include bp(sm-screen) {
+    margin: 0;
   }
 
 }

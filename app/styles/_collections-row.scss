@@ -1,6 +1,6 @@
 // ##### Collections Row ##### //
 
-$collect-button-pos: 60px;
+$collect-button-pos: $layout-component-margin * 2;
 
 .collect-row__summary {
 
@@ -12,12 +12,12 @@ $collect-button-pos: 60px;
 
 .collect-row__container {
   margin: $layout-component-margin 0 0 0;
-  padding: $layout-component-margin 0 0 0;
+  padding: 0;
   border-top: 1px solid $design-dark-gray-color;
 }
 
 .collect-row__title {
-  margin: 0 0 0.5em 0;
+  margin: $layout-component-margin 0 0.5em 0;
   font-size: 1.2em;
 }
 
