@@ -26,17 +26,17 @@
   font-size: 1.2em;
 }
 
-.collect-row__thumbnail {
+// .collect-row__thumbnail {
   
-  @include bp(sm-screen) {
-    margin: 0 0 0 $layout-component-margin;
-  }
+//   @include bp(sm-screen) {
+//     margin: 0 0 0 $layout-component-margin;
+//   }
 
-}
+// }
 
-.collect-row__caption {
-  line-height: normal;
-}
+// .collect-row__caption {
+//   line-height: normal;
+// }
 
 .collect-row__button {
   margin: $layout-component-margin 0 0 0;
