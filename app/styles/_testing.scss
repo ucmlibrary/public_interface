@@ -15,7 +15,7 @@ body.column-test .row .row [class^="col-"] {
 
 // Set image thumbnail size
 
-.thumbview__image, .listview__image {
+.thumbview__image, .listview__image, .collect-row__thumbnail img {
 	width: 100%;
 	height: auto;
 }
