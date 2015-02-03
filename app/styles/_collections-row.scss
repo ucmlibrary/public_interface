@@ -1,16 +1,11 @@
 // ##### Collections Row ##### //
 
-// Temporary img width set
-
-.collect-row__container img {
-  width: 100%;
-  height: auto;
-}
+$collect-button-pos: 60px;
 
 .collect-row__summary {
 
   @include bp(sm-screen) {
-    padding-bottom: 40px;
+    padding-bottom: $collect-button-pos;
   }
 
 }
@@ -26,25 +21,13 @@
   font-size: 1.2em;
 }
 
-// .collect-row__thumbnail {
-  
-//   @include bp(sm-screen) {
-//     margin: 0 0 0 $layout-component-margin;
-//   }
-
-// }
-
-// .collect-row__caption {
-//   line-height: normal;
-// }
-
 .collect-row__button {
   margin: $layout-component-margin 0 0 0;
 
   @include bp(sm-screen) {
     margin: 0;
     clear: left;
-    margin-top: -40px;
+    margin-top: (-$collect-button-pos);
   }
 
 }
