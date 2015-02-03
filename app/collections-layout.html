@@ -26,6 +26,69 @@
 
     <div class="container">
 
+      <!-- Begin Global Header -->
+        
+      <header class="global-header">
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <div class="row">
+              <div class="col-xs-2 col-sm-12 global-header__bars-icon js-global-header__bars-icon">
+                <i class="fa fa-bars"></i>
+              </div>
+              <div class="col-xs-8 col-sm-12 global-header__logo">
+                <a class="global-header__logo-link" href="/">
+                </a>
+              </div>
+              <div class="col-xs-2 col-sm-12 global-header__search-icon js-global-header__search-icon">
+                <i class="fa fa-search"></i>
+              </div>
+            </div>
+          </div>
+              
+          <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
+            <label for="global-search__field" class="global-search__label">Search the digital library</label>
+            <form role="search" action="{% url 'calisphere:search' %}" method="get">
+              <div class="input-group">
+                <input id="global-search__field" name="q" value="" type="search" class="form-control global-search__field">
+                <span class="input-group-btn">
+                  <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+          
+          <div class="col-xs-12 col-sm-4 global-header__nav js-global-header__mobile-links">
+            <ul class="global-header__nav-list">
+              <div class="global-header__nav-browse-options">
+                <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Collections</a></li>
+                <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Contributing Institutions</a></li>
+              </div>
+              <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">About</a></li>
+              <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Contact</a></li>
+              <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Help</a></li>
+              <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Donate</a></li>
+            </ul>
+          </div>
+          
+        </div>
+
+        <div class="global-header__collections--sm">
+          <ul class="global-header__collections--sm-list">
+            <li class="global-header__collections--sm-list-item">
+              <a class="global-header__collections--sm-links" href="">Contributing Institutions</a>
+            </li>
+            <li class="global-header__collections--sm-list-item">
+              <a class="global-header__collections--sm-links" href="">Collections</a>
+            </li>
+          </ul>
+        </div>
+
+      </header>
+
+      <!-- End Global Header -->
+
       <p class="text__breadcrumb-nav"><a href="">Calisphere</a> > <a href="">Collections</a></p>
 
       <h1 class="text__page-heading">Collections in Calisphere</h1>
@@ -345,7 +408,49 @@
 
       </div>
 
-      <!-- End Component -->
+      <!-- Begin Footer Component -->
+
+      <footer class="global-footer">
+
+        <div class="global-footer__search">
+          <label for="global-footer__search-field" class="global-footer__search-label">Search the digital library</label>
+          <div class="input-group">
+            <input id="global-footer__search-field" type="search" class="form-control global-footer__search-field">
+            <span class="input-group-btn">
+              <button class="btn btn-default global-footer__search-button" type="button"><i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+              
+        <div class="global-footer__nav">
+          <ul class="global-footer__nav-list--mobile">
+            <li class="global-footer__nav-list-item--mobile"><a class="global-footer__nav-link--mobile" href="/">Home</a></li>
+            <li class="global-footer__nav-list-item--mobile"><a class="global-footer__nav-link--mobile" href="">About</a></li>
+            <li class="global-footer__nav-list-item--mobile"><a class="global-footer__nav-link--mobile" href="">Contact</a></li>
+            <li class="global-footer__nav-list-item--mobile"><a class="global-footer__nav-link--mobile" href="">Help</a></li>
+            <li class="global-footer__nav-list-item--mobile"><a class="global-footer__nav-link--mobile" href="">Donate</a></li>
+            <li class="global-footer__nav-list-item--mobile"><a class="global-footer__nav-link--mobile" href="">Contributing Institutions</a></li>
+            <li class="global-footer__nav-list-item--mobile"><a class="global-footer__nav-link--mobile" href="">Collections</a></li>
+          </ul>
+          <ul class="global-footer__nav-list">
+            <li class="global-footer__nav-list-item"><a class="global-footer__nav-link" href="">Terms of Use</a></li>
+            <li class="global-footer__nav-list-item"><a class="global-footer__nav-link" href="">Privacy Statement</a></li>
+            <li class="global-footer__nav-list-item"><a class="global-footer__nav-link" href="">Site Map</a></li>
+          </ul>
+        </div>
+
+        <div class="global-footer__copyright">
+          <p>Calisphere is a service of the <a href="">UC Libraries</a>, powered by the <a href="">California Digital Library</a>.</p>
+          <p>Copyright &copy; 2015 The Regents of The University of California</p>
+          <p>Connect with us:</p>
+          <a class="global-footer__twitter-icon" href=""><i class="fa fa-twitter-square"></i></a>
+          <a class="global-footer__facebook-icon"href=""><i class="fa fa-facebook-square"></i></a>
+        </div>
+    
+      </footer>
+
+      <!-- End Footer Component -->
 
     </div>
 
