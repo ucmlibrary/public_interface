@@ -16,22 +16,14 @@
 }
 
 .collect-row__container {
-  
-  @include bp(sm-screen) {
-    margin: $layout-component-margin 0 0 0;
-    padding: $layout-component-margin 0 0 0;
-    border-top: 1px solid $design-dark-gray-color;
-  }
-
+  margin: $layout-component-margin 0 0 0;
+  padding: $layout-component-margin 0 0 0;
+  border-top: 1px solid $design-dark-gray-color;
 }
 
 .collect-row__title {
-  
-  @include bp(sm-screen) {
-    margin: 0 0 0.5em 0;
-    font-size: 1.2em;
-  }
-
+  margin: 0 0 0.5em 0;
+  font-size: 1.2em;
 }
 
 .collect-row__thumbnail {
@@ -47,8 +39,10 @@
 }
 
 .collect-row__button {
-  
+  margin: $layout-component-margin 0 0 0;
+
   @include bp(sm-screen) {
+    margin: 0;
     clear: left;
     margin-top: -40px;
   }
