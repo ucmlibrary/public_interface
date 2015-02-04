@@ -174,7 +174,7 @@ html.no-js .check__header-links {
 }
 
 // If no JavaScript, then expand popdown and let content flow after component
-html.no-js .check__popdown {
+html.no-jquery .check__popdown {
   position: relative;
   display: block;
 }
@@ -196,7 +196,7 @@ html.no-js .check__popdown {
 
 }
 
-html.no-js .check__button-group {
+html.no-jquery .check__button-group {
   display: none;
 }
 
