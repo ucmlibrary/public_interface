@@ -79,6 +79,9 @@ $(document).ready(function(){
   $('.js-a-check__update').prop('disabled', false);
   });
 
+  // Collapse popdown upon document.ready
+  $('.js-a-check__popdown').removeClass('check__popdown--selected').addClass('check__popdown');
+
   // Collapse checkbox group, disable Update Results button, and change header styles if any checkboxes are already checked:
   $('.js-a-check__update').click(function(){
     $('.js-a-check__update').prop('disabled', true);
