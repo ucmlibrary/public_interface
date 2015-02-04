@@ -173,7 +173,7 @@ html.no-js .check__header-links {
 
 }
 
-// If no JavaScript, then expand popdown and let content flow after component
+// If jQuery doesn't load (as with IE8), then expand popdown and let content flow after component
 html.no-jquery .check__popdown {
   position: relative;
   display: block;
@@ -285,4 +285,8 @@ html.svg .check__input:checked + .check__label {
     display: none;
   }
 
+}
+
+html.no-jquery .check__update {
+  display: none;
 }
