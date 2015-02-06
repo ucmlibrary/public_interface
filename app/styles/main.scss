@@ -46,3 +46,17 @@
 // ***** Custom Layouts ***** //
 
 @import "alignment";
+
+// ***** Global Styles ***** //
+
+.container-fluid { // Bootstrap class
+	
+	@include bp(sm-screen) {
+    padding: $layout-component-margin / 2;
+  }
+
+	@include bp(md-screen) {
+    padding: $layout-component-margin;
+  }
+	
+}
