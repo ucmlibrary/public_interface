@@ -6,12 +6,11 @@
 
 .thumbview__link {
 	display: block;
+	position: relative;
 }
 
 .thumbview__image {
-	position: relative;
 	display: block;
-	z-index: -1; // for .thumbview__icon
 }
 
 .thumbview__caption {
@@ -30,11 +29,34 @@
 }
 
 .thumbview__icon {
-	@extend %thumbnail__icon;
-	margin: -50px 0 0 -35px; // alignment for 'col-xs-3' sized Bootstrap column
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 60px;
+	height: 60px;
+	margin: -30px 0 0 -30px;
+	line-height: 60px;
+	font-size: 2.5em;
+	background: $design-primary-color;
+	color: #fff;
+}
 
-	@include bp(md-screen) {
-		margin: -57px 0 0 -40px; // alignment for 'col-xs-3' sized Bootstrap column
-  }
+.thecontainer {
+	border: $bgreen;
+	position: relative;
+	height: 150px;
+}
 
+.theobject {
+	border: $bblue;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 60px;
+	height: 60px;
+	margin: -30px 0 0 -30px;
+	line-height: 60px;
+	font-size: 2.5em;
+	background: $design-primary-color;
+	color: #fff;
 }
