@@ -23,32 +23,13 @@
 
 // ***** Icon-only thumbnails ***** //
 
-.thumbview__link--no-image {
-	display: block;
+.thumbview__image--no-image {
+	width: 100%;
+	height: auto;
 	border: 1px solid $design-primary-color;
 }
 
 .thumbview__icon {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 60px;
-	height: 60px;
-	margin: -30px 0 0 -30px;
-	line-height: 60px;
-	font-size: 2.5em;
-	background: $design-primary-color;
-	color: #fff;
-}
-
-.thecontainer {
-	border: $bgreen;
-	position: relative;
-	height: 150px;
-}
-
-.theobject {
-	border: $bblue;
 	position: absolute;
 	top: 50%;
 	left: 50%;
