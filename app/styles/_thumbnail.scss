@@ -29,32 +29,36 @@
 	border: 1px solid $design-primary-color;
 }
 
+$thumbview-icon-size-xs: 40px;
+$thumbview-icon-size-sm: 50px;
+$thumbview-icon-size-md: 60px;
+
 .thumbview__icon {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 40px;
-	height: 40px;
-	margin: -20px 0 0 -20px;
-	line-height: 40px;
-	font-size: 1.5em;
+	width: $thumbview-icon-size-xs;
+	height: $thumbview-icon-size-xs;
+	margin: ((-$thumbview-icon-size-xs) / 2) 0 0 ((-$thumbview-icon-size-xs) / 2);
+	line-height: $thumbview-icon-size-xs;
+	font-size: $thumbview-icon-size-xs - 20;
 	background: $design-primary-color;
 	color: #fff;
 
 	@include bp(sm-screen) {
-    width: 50px;
-		height: 50px;
-		margin: -25px 0 0 -25px;
-		line-height: 50px;
-		font-size: 2em;
+    width: $thumbview-icon-size-sm;
+		height: $thumbview-icon-size-sm;
+		margin: ((-$thumbview-icon-size-sm) / 2) 0 0 ((-$thumbview-icon-size-sm) / 2);
+		line-height: $thumbview-icon-size-sm;
+		font-size: $thumbview-icon-size-sm - 20;
   }
 
   @include bp(md-screen) {
-	  width: 60px;
-		height: 60px;
-		margin: -30px 0 0 -30px;
-		line-height: 60px;
-		font-size: 2.5em;
+	  width: $thumbview-icon-size-md;
+		height: $thumbview-icon-size-md;
+		margin: ((-$thumbview-icon-size-md) / 2) 0 0 ((-$thumbview-icon-size-md) / 2);
+		line-height: $thumbview-icon-size-md;
+		font-size: $thumbview-icon-size-md - 20;
   }
 
 }
