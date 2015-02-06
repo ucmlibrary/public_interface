@@ -3,7 +3,7 @@
   <div class="col-xs-6 col-sm-3">
     <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='{{ item.reference_image_http }}'> {{ item.title.0|truncatewords:7 }}">
       <a class="thumbview__link" href="#">
-        <img class="thumbview__image" src="{{ item.reference_image_http }}" alt="{{ item.title.0|truncatewords:7 }}">
+        <img class="thumbview__image" src="{{ thumbnailUrl }}crop/100x100/{{ item.reference_image_md5 }}" alt="{{ item.title.0|truncatewords:7 }}">
       </a>
       <figcaption class="thumbview__caption">{{ item.title.0|truncatewords:7 }}
       </figcaption>
