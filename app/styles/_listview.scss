@@ -5,24 +5,17 @@
 }
 
 .listview__image {
-  position: relative;
   display: block;
-  z-index: -1; // for .listview__icon
 }
 
-.listview__link--no-image {
-  display: block;
+.listview__image--no-image {
+  width: 100%; // expand the 1px .png to its container
+  height: auto;
   border: 1px solid $design-primary-color;
 }
 
 .listview__icon {
-	@extend %thumbnail__icon;
-  margin: -25px 0 0 -23px; // alignment for 'col-xs-3' sized Bootstrap column
-
-  @include bp(md-screen) {
-    margin: -30px 0 0 -30px; // alignment for 'col-xs-3' sized Bootstrap column
-  }
-
+	@extend .thumbview__icon;
 }
 
 .listview__data-list {
