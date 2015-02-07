@@ -1,4 +1,4 @@
-// ***** Icons ***** //
+// ##### Icons ##### //
 
 .icon__image-set {
 	
@@ -21,5 +21,41 @@
 	.fa-arrow-down {
 		font-size: 0.7em;
 	}
+
+}
+
+// ***** Icon overlay used in thumbnail and list view components ***** //
+
+$icon-overlay-size-xs: 40px;
+$icon-overlay-size-sm: 50px;
+$icon-overlay-size-md: 60px;
+
+.icon__overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: $icon-overlay-size-xs;
+	height: $icon-overlay-size-xs;
+	margin: ((-$icon-overlay-size-xs) / 2) 0 0 ((-$icon-overlay-size-xs) / 2);
+	line-height: $icon-overlay-size-xs;
+	font-size: $icon-overlay-size-xs - 20;
+	background: $design-primary-color;
+	color: #fff;
+
+	@include bp(sm-screen) {
+    width: $icon-overlay-size-sm;
+		height: $icon-overlay-size-sm;
+		margin: ((-$icon-overlay-size-sm) / 2) 0 0 ((-$icon-overlay-size-sm) / 2);
+		line-height: $icon-overlay-size-sm;
+		font-size: $icon-overlay-size-sm - 20;
+  }
+
+  @include bp(md-screen) {
+	  width: $icon-overlay-size-md;
+		height: $icon-overlay-size-md;
+		margin: ((-$icon-overlay-size-md) / 2) 0 0 ((-$icon-overlay-size-md) / 2);
+		line-height: $icon-overlay-size-md;
+		font-size: $icon-overlay-size-md - 20;
+  }
 
 }

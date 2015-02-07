@@ -14,10 +14,6 @@
   border: 1px solid $design-primary-color;
 }
 
-.listview__icon {
-	@extend .thumbview__icon;
-}
-
 .listview__data-list {
   margin-left: 1em;
 }
