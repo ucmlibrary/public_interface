@@ -54,23 +54,23 @@
   height: auto;
 }
 
-.carousel__thumbnail-image {
-  position: relative;
+.carousel__link {
+  position: relative; // for icon__overlay
   display: block;
-  opacity: 0.75;
-
-  &:hover {
-    opacity: 1;
-  }
-
 }
 
-.carousel__thumbnail-image--selected {
+.carousel__link--selected {
+  @extend .carousel__link;
   border: 7px solid $design-dark-gray-color;
 }
 
+.carousel__thumbnail--no-image {
+  width: 100%; // expand the 1px .png to its container
+  height: auto;
+  border: 1px solid $design-primary-color;
+}
+
 .carousel__thumbnail-caption {
-  // width: 120px;
   height: 3.3em; // constrain caption height to three text lines
   margin-top: 0.5em;
   overflow: hidden;
