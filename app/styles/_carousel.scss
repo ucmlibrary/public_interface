@@ -44,8 +44,13 @@
 // ***** Custom Classes ***** //
 
 // temporary image resize for UI dev:
-.carousel img {
+.carousel__container {
   width: 120px;
+  margin: 20px;
+}
+
+.carousel img {
+  width: 100%;
   height: auto;
 }
 
@@ -65,7 +70,7 @@
 }
 
 .carousel__thumbnail-caption {
-  width: 120px;
+  // width: 120px;
   height: 3.3em; // constrain caption height to three text lines
   margin-top: 0.5em;
   overflow: hidden;
