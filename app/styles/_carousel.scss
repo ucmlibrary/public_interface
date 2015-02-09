@@ -38,7 +38,13 @@
 }
 
 .slick-prev:before, .slick-next:before {
+  display: none;
+  
+  @include bp(sm-screen) {
+    display: block;
     font-size: 50px; // arrow size
+  }
+
 }
 
 // ***** Custom Classes ***** //
