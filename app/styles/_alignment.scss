@@ -18,6 +18,14 @@
 
 }
 
+.check__header {
+
+  @include bp(md-screen) {
+    margin: $layout-component-margin 0 0 0;
+  }
+
+}
+
 .text__collections-heading {
 
   @include bp(md-screen) {

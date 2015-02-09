@@ -65,12 +65,13 @@
 }
 
 .check__header {
-  padding: 10px 0;
+  padding: 10px 0 10px 10px;
   background: $design-dark-gray-color;
   overflow: hidden;
   cursor: pointer;
 
   @include bp(md-screen) {
+    padding: 10px 0;
     background: none;
     cursor: auto;
   }
