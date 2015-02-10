@@ -28,36 +28,36 @@ of {{ pages }}
 
 <!-- new form -->
 
-<div class="pag">
+<div class="pag-dropdown">
 
 	<input form="facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
 
 	{% if rows == '50' %}
-		<button id="view16" class="btn btn-link pag__view-number">View 16</button>
+		<button id="view16" class="btn btn-link pag-dropdown__view-number">View 16</button>
   {% else %}
-  	<button id="view50" class="btn btn-link pag__view-number">View 50</button>
+  	<button id="view50" class="btn btn-link pag-dropdown__view-number">View 50</button>
   {% endif %}
 
   {% if start|subtract:rows >= 0 %}
-	  <button id="prev" class="btn btn-link pag__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
+	  <button id="prev" class="btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
   {% else %}
-  	<button id="prev" class="btn btn-link pag__arrow-icon"><span class="fa fa-caret-left fa-lg"></span></button>
+  	<button id="prev" class="btn btn-link pag-dropdown__arrow-icon"><span class="fa fa-caret-left fa-lg"></span></button>
 	{% endif %}
 
   <label for="start" class="sr-only">Current Number</label>
         
-  <select form="facet" name="start" id="start" class="pag__select">
+  <select form="facet" name="start" id="start" class="pag-dropdown__select">
     {% for page in pages|get_range %}
     <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
     {% endfor %}
   </select>
 
-  <span class="pag__total-number">of {{ pages }}</span>
+  <span class="pag-dropdown__total-number">of {{ pages }}</span>
 
   {% if start|add:rows < numFound %}
-	  <button id="next" class="btn btn-link pag__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
+	  <button id="next" class="btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
   {% else %}
-    <button id="next" class="btn btn-link pag__arrow-icon"><span class="fa fa-caret-right fa-lg"></span></button>
+    <button id="next" class="btn btn-link pag-dropdown__arrow-icon"><span class="fa fa-caret-right fa-lg"></span></button>
   {% endif %}
 
 </div>
