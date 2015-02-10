@@ -54,6 +54,7 @@
 }
 
 .pag-dropdown {
+  overflow: hidden;
   display: none;
 
   @include bp(md-screen) {
@@ -67,7 +68,7 @@
 .pag-buttons {
   margin: 0 0 0 $layout-component-margin;
   text-align: center;
-  
+
   @include bp(md-screen) {
     display: none;
   }
@@ -75,6 +76,7 @@
 }
 
 .thumbview {
+  border: $bred;
   margin: 0 0 0 (-$layout-component-margin);
 
   @include bp(md-screen) {
