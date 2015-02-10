@@ -49,18 +49,6 @@
 	-moz-appearance: none;
 }
 
-.pag__current-number {
-	display: inline;
-	width: 2.5em;
-	margin: 0;
-	text-align: center;
-
-	&::placeholder {
-		color: #000;
-	}
-
-}
-
 .pag__total-number {
 
 }
