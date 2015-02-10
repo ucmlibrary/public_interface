@@ -57,9 +57,9 @@
             
           <h3 class="text__collections-heading">{{ numFound }} Objects Found in <strong class="text__collections-heading-emphasis">{{ facets.collection_name|length }} Collections</strong></h3>
 
-          <!-- Begin Pagination Components -->
+          <!-- Begin Dropdown Pagination Component -->
           {% include "calisphere/forms/paginate.html" %}
-          <!-- End Pagination Components -->
+          <!-- End Dropdown Pagination Component -->
 
           <!-- Begin Toggle Component -->
 
@@ -99,9 +99,9 @@
 
         <!-- End Thumbnail and List View Components -->
 
-        <!-- Begin Pagination Components -->
-          {% include "calisphere/forms/paginate.html" %}
-        <!-- End Pagination Components -->
+        <!-- Begin Buttons Pagination Component -->
+          {% include "calisphere/forms/paginate-buttons.html" %}
+        <!-- End Buttons Pagination Component -->
 
     </div>
   </div>
