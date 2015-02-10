@@ -37,6 +37,16 @@
 	display: inline;
 }
 
+.pag__select {
+	padding: 0.05em;
+	width: auto;
+	border: 1px solid $design-dark-gray-color;
+	border-radius: 0;
+	background: #fff;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
 .pag__current-number {
 	display: inline;
 	width: 2.5em;
