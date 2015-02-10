@@ -6,13 +6,16 @@
 .filter,
 .text__collections-heading,
 .thumblist-toggle,
-.pag,
+.pag-buttons,
+.pag-dropdown,
 /*.thumbview,*/
 /*.thumbview__container,*/
 .listview,
 .related-coll,
 .global-footer,
 .alphanav {
+	display: block;
 	float: none;
 	margin: 0;
+	text-align: left;
 }
