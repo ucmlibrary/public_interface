@@ -18,10 +18,6 @@
 
 }
 
-// ."check-container" {
-//   border-bottom: 2px solid $design-dark-gray-color;
-// }
-
 .check__header {
 
   @include bp(md-screen) {
@@ -31,8 +27,12 @@
 }
 
 .text__collections-heading {
-  display: inline-block;
-  margin: $layout-component-margin 0 0 0;
+  margin: $layout-component-margin 0;
+
+  @include bp(sm-screen) {
+    display: inline-block;
+    margin: $layout-component-margin 0 0 0;
+  }
 
   @include bp(md-screen) {
     margin: 0 0 0 $layout-component-margin;
@@ -41,14 +41,14 @@
 }
 
 .thumblist-toggle {
+
   @include bp(sm-screen) {
     float: right;
     margin: $layout-component-margin 0 0 $layout-component-margin;
   }
 
   @include bp(md-screen) {
-    // float: left;
-    margin: 0 0 0 $layout-component-margin;
+    margin: 1px $layout-component-margin 0 0;
   }
 
 }
