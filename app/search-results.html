@@ -396,19 +396,19 @@
             
             <h3 class="text__collections-heading">16 Objects Found in <strong class="text__collections-heading-emphasis">4 Collections</strong></h3>
 
-    <!-- Begin Pagination Component -->
+    <!-- Begin Dropdown Pagination Component -->
 
-      <div class="pag">
+      <div class="pag-dropdown">
 
-        <button class="btn btn-link pag__view-number">View 50</button>
+        <button class="btn btn-link pag-dropdown__view-number">View 50</button>
 
-        <button class="btn btn-link pag__arrow-icon">
+        <button class="btn btn-link pag-dropdown__arrow-icon">
           <span class="fa fa-caret-left fa-lg"></span>
         </button>
         
-        <label for="pag__select" class="sr-only">Current Number</label>
+        <label for="pag-dropdown__select" class="sr-only">Current Number</label>
         
-        <select id="pag__select" class="pag__select" name="" id="">
+        <select id="pag-dropdown__select" class="pag-dropdown__select" name="" id="">
           <option value="">1</option>
           <option value="" selected>2</option>
           <option value="">3</option>
@@ -421,15 +421,15 @@
           <option value="">10</option>
         </select>
         
-        <span class="pag__total-number">of 10</span>
+        <span class="pag-dropdown__total-number">of 10</span>
 
-        <button class="btn btn-link pag__arrow-icon">
+        <button class="btn btn-link pag-dropdown__arrow-icon">
           <span class="fa fa-caret-right fa-lg"></span>
         </button>
 
       </div>
 
-      <!-- End Pagination Component -->
+      <!-- End Dropdown Pagination Component -->
 
       <!-- Begin Toggle Component -->
 
@@ -588,17 +588,38 @@
                 </figure>
               </div>
 
-              <div class="pag">
+              <!-- Begin Button Pagination Component -->
 
-                <button class="btn btn-link pag__view-number">View 50</button>
+              <div class="pag-buttons">
 
-                <button class="btn btn-link pag__arrow-icon">
+                <ul class="pag-buttons__list">
+                  <li class="pag-buttons__list-item"><a class="btn btn-default button__prev" href=""><i class="fa fa-caret-left fa-lg"></i> <abbr title="Previous">Prev</abbr></a></li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default pag-buttons__list-link--selected" href="">1</a></li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default" href="">2</a></li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default" href="">3</a></li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default" href="">4</a></li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default" href="">5</a></li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default" href="">6</a></li>
+                  <li class="pag-buttons__list-item">&#133;</li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default" href="">10</a></li>
+                  <li class="pag-buttons__list-item"><a class="btn btn-default button__next" href="">Next <i class="fa fa-caret-right fa-lg"></i></a></li>
+                </ul>
+
+              </div>
+
+              <!-- End Button Pagination Component -->
+
+              <div class="pag-dropdown">
+
+                <button class="btn btn-link pag-dropdown__view-number">View 50</button>
+
+                <button class="btn btn-link pag-dropdown__arrow-icon">
                   <span class="fa fa-caret-left fa-lg"></span>
                 </button>
                 
-                <label for="pag__select" class="sr-only">Current Number</label>
+                <label for="pag-dropdown__select" class="sr-only">Current Number</label>
                 
-                <select id="pag__select" class="pag__select" name="" id="">
+                <select id="pag-dropdown__select" class="pag-dropdown__select" name="" id="">
                   <option value="">1</option>
                   <option value="" selected>2</option>
                   <option value="">3</option>
@@ -611,9 +632,9 @@
                   <option value="">10</option>
                 </select>
                 
-                <span class="pag__total-number">of 7</span>
+                <span class="pag-dropdown__total-number">of 7</span>
 
-                <button class="btn btn-link pag__arrow-icon">
+                <button class="btn btn-link pag-dropdown__arrow-icon">
                   <span class="fa fa-caret-right fa-lg"></span>
                 </button>
 
