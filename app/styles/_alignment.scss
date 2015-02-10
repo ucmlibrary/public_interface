@@ -65,9 +65,9 @@
 }
 
 .pag-buttons {
-  border: $bred;
   margin: 0 0 0 $layout-component-margin;
   text-align: center;
+  
   @include bp(md-screen) {
     display: none;
   }
