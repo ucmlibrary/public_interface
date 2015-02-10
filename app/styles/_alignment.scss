@@ -55,7 +55,7 @@
 
 .pag-dropdown {
   overflow: hidden;
-  display: none;
+  display: none; // show only .pag-buttons
 
   @include bp(md-screen) {
     display: block;
@@ -66,21 +66,19 @@
 }
 
 .pag-buttons {
-  margin: 0 0 0 $layout-component-margin;
   text-align: center;
 
   @include bp(md-screen) {
-    display: none;
+    display: none; // show only .pag-dropdown
   }
 
 }
 
 .thumbview {
-  border: $bred;
-  margin: 0 0 0 (-$layout-component-margin);
+  margin: 0 0 $layout-component-margin (-$layout-component-margin);
 
   @include bp(md-screen) {
-    margin: 0;
+    margin: 0 0 $layout-component-margin 0;
   }
 
 }
