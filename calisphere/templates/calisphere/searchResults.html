@@ -54,30 +54,23 @@
       <div class="col-xs-12 col-sm-12 col-md-9">
               
         <div class="row">
-
-          <div class="col-sm-6">
             
-            <h3 class="text__collections-heading">{{ numFound }} Objects Found in <strong class="text__collections-heading-emphasis">{{ facets.collection_name|length }} Collections</strong></h3>
+          <h3 class="text__collections-heading">{{ numFound }} Objects Found in <strong class="text__collections-heading-emphasis">{{ facets.collection_name|length }} Collections</strong></h3>
 
+          <!-- Begin Dropdown Pagination Component -->
+          {% include "calisphere/forms/paginate.html" %}
+          <!-- End Dropdown Pagination Component -->
+
+          <!-- Begin Toggle Component -->
+
+          <div class="thumblist-toggle">
+            <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
+            <button id="thumbnails" class="btn btn-link thumblist-toggle__thumbnails
+            " href=""><span class="fa fa-th-large"></span>Thumbnails</button>
+            <button id="list" class="btn btn-link thumblist-toggle__list" href=""><span class="fa fa-th-list"></span>List</button>
           </div>
 
-          <div class="col-sm-6">
-            <!-- Begin Toggle Component -->
-
-            <div class="thumblist-toggle">
-              <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
-              <button id="thumbnails" class="btn btn-link thumblist-toggle__thumbnails
-              " href=""><span class="fa fa-th-large"></span>Thumbnails</button>
-              <button id="list" class="btn btn-link thumblist-toggle__list" href=""><span class="fa fa-th-list"></span>List</button>
-            </div>
-
-            <!-- End Toggle Component -->
-
-            <!-- Begin Pagination Component -->
-            {% include "calisphere/forms/paginate.html" %}
-            <!-- End Pagination Component -->
-            
-          </div>
+          <!-- End Toggle Component -->
 
         </div>
 
