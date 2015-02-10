@@ -44,8 +44,13 @@ of {{ pages }}
   	<button id="prev" class="btn btn-link pag__arrow-icon"><span class="fa fa-caret-left fa-lg"></span></button>
 	{% endif %}
 
-  <label for="pag__current-number" class="sr-only">Current Number</label>
-  <input form="facet" id="pag__current-number" class="pag__current-number" type="text" placeholder="1">
+  <label for="start" class="sr-only">Current Number</label>
+        
+  <select form="facet" name="start" id="start" class="pag__select">
+    {% for page in pages|get_range %}
+    <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
+    {% endfor %}
+  </select>
 
   <span class="pag__total-number">of {{ pages }}</span>
 
