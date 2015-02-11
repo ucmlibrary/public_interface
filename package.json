@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "bower": "^1.3.11",
-    "grunt": "^0.4.5"
+    "grunt": "^0.4.5",
+    "yeoman-include": "^0.2.3"
   }
 }
