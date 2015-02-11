@@ -8,10 +8,12 @@
 // If you want to recursively match all subfolders, use:
 // 'test/spec/**/*.js'
 
+
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+  grunt.loadNpmTasks('yeoman-include');
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -21,6 +23,8 @@ module.exports = function (grunt) {
     app: 'app',
     dist: 'dist'
   };
+
+  var includeMiddleware = require('yeoman-include/middleware')(__dirname+'/'+config.app);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -82,6 +86,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function(connect) {
             return [
+              includeMiddleware,     
               connect.static('.tmp'),
               connect().use('/bower_components', connect.static('./bower_components')),
               connect.static(config.app)
@@ -373,7 +378,24 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
+    },
+
+    //
+    include: {
+      build: '<%= config.app %>/*.html',
+      tmp: '.tmp/*.html'
+    },
+
+    'include:clean': {
+       build: '<%= config.app %>/*.html',
+       tmp: '.tmp/*.html'
+    },
+
+    'include:clean-dest': {
+       build: '<%= config.dist %>/*.html',
+       tmp: '.tmp/*.html'
     }
+    
   });
 
 
@@ -434,6 +456,9 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
-    'build'
+    'build',
+    'include:build',
+    'include:clean:build',
+    'include:clean-dest:build'
   ]);
 };
