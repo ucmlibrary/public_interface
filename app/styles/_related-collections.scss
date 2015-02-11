@@ -31,11 +31,33 @@
 
 .related-coll__link {
   display: block;
+  overflow: hidden;
 }
 
 .related-coll__image {
   display: block;
   width: 100%;
+  height: auto;
+}
+
+// 3-Image Composite
+
+.related-coll__image1 {
+  float: left;
+  width: 66%;
+  height: auto;
+}
+
+.related-coll__image2 {
+  float: right;
+  width: 32%;
+  height: auto;
+  margin: 0 0 2% 0;
+}
+
+.related-coll__image3 {
+  float: right;
+  width: 32%;
   height: auto;
 }
 
