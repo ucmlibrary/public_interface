@@ -86,7 +86,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function(connect) {
             return [
-              includeMiddleware,     
+              includeMiddleware,
               connect.static('.tmp'),
               connect().use('/bower_components', connect.static('./bower_components')),
               connect.static(config.app)
@@ -111,7 +111,12 @@ module.exports = function (grunt) {
       dist: {
         options: {
           base: '<%= config.dist %>',
-          livereload: false
+          livereload: false,
+          middleware: function() {
+            return [
+              includeMiddleware
+            ];
+          }
         }
       }
     },
