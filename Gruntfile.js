@@ -455,9 +455,7 @@ module.exports = function (grunt) {
     'modernizr',
     'rev',
     'usemin',
-    'htmlmin',
-    'include:clean:build',
-    'include:clean-dest:build'
+    'htmlmin'
   ]);
 
   grunt.registerTask('default', [
