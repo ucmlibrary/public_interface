@@ -451,19 +451,19 @@ module.exports = function (grunt) {
     'concat',
     'cssmin',
     'uglify',
+    'include:build',
     'copy:dist',
     'modernizr',
     'rev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'include:clean:build',
+    'include:clean-dest:build'
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
     'build',
-    'include:build',
-    'include:clean:build',
-    'include:clean-dest:build'
   ]);
 };
