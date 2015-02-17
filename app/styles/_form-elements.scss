@@ -63,7 +63,7 @@
 // ***** Refine results search field ***** //
 
 .refine-search {
-  display: none;
+  // display: none;
 
   @include bp(md-screen) {
     display: block;
