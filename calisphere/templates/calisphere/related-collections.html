@@ -1,0 +1,29 @@
+<div class="row">
+  {% for related_collection in related_collections %}
+    <div class="col-sm-4">
+      <h5>{{ related_collection.name }}</h5><br/>
+      
+      Institution: {{ related_collection.institution }}<br/><br/>
+      
+      <!-- GET IMAGE URLS USING EITHER THE FOR LOOP OR INDEX METHOD -->
+      <!--
+      {% for image_url in related_collection.image_urls %}
+        {{ image_url }}<br/>
+      {% endfor %}<br/>
+      -->
+      <!-- USING THE INDICES O, 1, and 2 -->
+      <!--
+      {{ related_collection.image_urls.0 }}<br/>
+      {{ related_collection.image_urls.1 }}<br/>
+      {{ related_collection.image_urls.2 }}<br/>
+      -->
+      
+      <!-- Do these images link to the object page for the image, or do they link to the collection's page or nothing at all? -->
+      <img src="{{ related_collection.image_urls.0 }}"><br/>
+      <img src="{{ related_collection.image_urls.1 }}"><br/>
+      <img src="{{ related_collection.image_urls.2 }}"><br/>
+      
+      Link to a collection using the collection id:<a href="{% url 'calisphere:collectionView' related_collection.collection_id %}">{{ related_collection.collection_id }}</a><br/>
+    </div>
+  {% endfor %}
+</div>
