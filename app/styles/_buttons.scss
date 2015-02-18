@@ -60,3 +60,8 @@
 .button__download-image {
   @extend .button__dark;
 }
+
+.button__back-to-institution {
+  @extend .button__primary;
+  text-align: left;
+}
