@@ -1,29 +1,34 @@
-<div class="row">
+
+<div class="related-coll">
+  <h3 class="related-coll__title">12 Collections Found with Similar Objects</h3>
   {% for related_collection in related_collections %}
-    <div class="col-sm-4">
-      <h5>{{ related_collection.name }}</h5><br/>
-      
-      Institution: {{ related_collection.institution }}<br/><br/>
-      
-      <!-- GET IMAGE URLS USING EITHER THE FOR LOOP OR INDEX METHOD -->
-      <!--
-      {% for image_url in related_collection.image_urls %}
-        {{ image_url }}<br/>
-      {% endfor %}<br/>
-      -->
-      <!-- USING THE INDICES O, 1, and 2 -->
-      <!--
-      {{ related_collection.image_urls.0 }}<br/>
-      {{ related_collection.image_urls.1 }}<br/>
-      {{ related_collection.image_urls.2 }}<br/>
-      -->
-      
-      <!-- Do these images link to the object page for the image, or do they link to the collection's page or nothing at all? -->
-      <img src="{{ related_collection.image_urls.0 }}"><br/>
-      <img src="{{ related_collection.image_urls.1 }}"><br/>
-      <img src="{{ related_collection.image_urls.2 }}"><br/>
-      
-      Link to a collection using the collection id:<a href="{% url 'calisphere:collectionView' related_collection.collection_id %}">{{ related_collection.collection_id }}</a><br/>
+    <div class="col-xs-12 col-sm-4">
+      <figure class="related-coll__container">
+        <div class="col-xs-6 col-sm-12">
+          <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">
+            <img class="related-coll__image1" src="{{ related_collection.image_urls.0 }}" alt="[TBD]">
+            <img class="related-coll__image2" src="{{ related_collection.image_urls.1 }}" alt="[TBD]">
+            <img class="related-coll__image3" src="{{ related_collection.image_urls.2 }}" alt="[TBD]">
+          </a>
+        </div>
+        <div class="col-xs-6 col-sm-12">
+          <figcaption class="related-coll__caption">
+            <p>{{ related_collection.name }}</p>
+            <p>Institution: {{ related_collection.institution }}</p>
+          </figcaption>
+        </div>
+      </figure>
     </div>
   {% endfor %}
+
+  <button class="btn btn-link related-coll__prev-button">
+    <span class="fa fa-caret-left fa-lg"></span>
+    <abbr title="Previous">Prev</abbr>
+  </button>
+
+  <button class="btn btn-link related-coll__next-button">
+    Next
+    <span class="fa fa-caret-right fa-lg"></span>
+  </button>
+
 </div>
