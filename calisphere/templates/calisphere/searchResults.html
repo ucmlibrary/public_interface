@@ -31,6 +31,12 @@
               </button>
             {% endfor %}
           {% endfor %}
+          
+          {% for refine in rq %}
+            <input form="facet" type="hidden" name="rq" value="{{ refine }}">
+            <button type="button" class="btn btn-default btn-xs refine-filter-pill button__close" data-slug="{{ refine }}">{{ refine }}<i class="fa fa-close button__close-icon"></i>
+            </button>
+          {% endfor %}
 
           <a class="filter__clear-all" href="#">Clear All</a>
 

@@ -9,6 +9,16 @@
 function FacetQuery(params) {
   $(document).on('submit', '#facet', function(container) {
     return function(event) {
+      // remove form elements with default values
+      var refineQueryFields = $('input[form="facet"][name="rq"]');
+      for (var i=0; i<refineQueryFields.length; i++) {
+        if ($(refineQueryFields[i]).val() == '') { $(refineQueryFields[i]).attr('name', ''); }
+      }
+      if ($('input[form="facet"][name="rows"]').val() == '16') { $('input[form="facet"][name="rows"]').attr('name', ''); }
+      if ($('select[form="facet"][name="start"]').val() == '0') { $('select[form="facet"][name="start"]').attr('name', ''); }
+      if ($('input[form="facet"][name="view_format"]').val() == 'thumbnails') { $('input[form="facet"][name="view_format"]').attr('name', ''); }
+      
+      // submit form via pjax
       $.pjax.submit(event, container);
     }
   }('#searchResults'));
@@ -26,7 +36,7 @@ function FacetQuery(params) {
     }(this));
     $('#item-view').submit();
   });
-
+  
   //*************FACETING*************//
   $(document).on('change', '.facet', function() {
     $('#facet').submit();
@@ -34,6 +44,11 @@ function FacetQuery(params) {
 
   $(document).on('click', '.filter-pill', function() {
     $("#" + $(this).data('slug')).prop('checked', false);
+    $('#facet').submit();
+  });
+  
+  $(document).on('click', '.refine-filter-pill', function() {
+    $('input[form="facet"][name="rq"][value="' + $(this).data('slug') + '"]').val("");
     $('#facet').submit();
   });
   
