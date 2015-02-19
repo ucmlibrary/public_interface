@@ -92,6 +92,13 @@ function FacetQuery(params) {
     $('#facet').submit();
   });
   
+  // ***********BUTTON PAGINATION **********
+  
+  $(document).on('click', 'a[data-start]', function() {
+    $('#start').val($(this).data('start'));
+    $('#facet').submit();
+  });
+  
   // ***************VIEW FORMAT*************
   
   $(document).on('click', '#thumbnails', function() {

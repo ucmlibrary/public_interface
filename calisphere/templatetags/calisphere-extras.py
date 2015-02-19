@@ -36,3 +36,11 @@ def multiply( a, b ):
 @register.filter
 def subtract( a, b ):
     return int(a) - int(b)
+
+@register.filter
+def divide( a, b ):
+    return int(int(a) / int(b))
+
+@register.filter
+def current_page( start, rows ):
+    return int(int(start) / int(rows)) + 1

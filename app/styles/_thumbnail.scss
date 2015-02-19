@@ -7,6 +7,12 @@
 .thumbview__link {
 	display: block;
 	position: relative;
+	color: #000;
+	
+	&:hover {
+  	color: $design-primary-color;
+  }
+
 }
 
 .thumbview__image {
@@ -18,7 +24,6 @@
   margin-top: 0.5em;
   line-height: normal;
   overflow: hidden;
-  cursor: default;
 }
 
 // ***** Icon-only thumbnails ***** //

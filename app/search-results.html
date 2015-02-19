@@ -12,20 +12,7 @@
       
       <div class="col-xs-12 col-sm-12 col-md-3">
         
-        <!-- Begin Refine Search Field -->
-
-          <div class="refine-search">
-            <label for="refine-search__field" class="refine-search__label">Search within results</label>
-            <div class="input-group">
-              <input id="refine-search__field" type="search" class="form-control refine-search__field">
-              <span class="input-group-btn">
-                <button class="btn btn-default refine-search__button" type="button">Refine
-                </button>
-              </span>
-            </div>
-          </div>
-
-          <!-- End Refine Search Field -->
+        <!-- [include:components/searchfield-within-component.html] -->
           
       </div>
 
@@ -49,177 +36,85 @@
             
             <h3 class="text__collections-heading">8888 Objects Found in <strong class="text__collections-heading-emphasis">888 Collections</strong></h3>
 
-      <!-- [include:components/pagination-dropdown-component.html] -->
+            <!-- Begin Dropdown Pagination Component -->
 
-      <!-- Begin Toggle Component -->
+      <div class="pag-dropdown">
 
-      <div class="thumblist-toggle">
-        <button class="btn btn-link thumblist-toggle__thumbnails" href=""><span class="fa fa-th-large"></span>Thumbnails</button>
-        <button class="btn btn-link thumblist-toggle__list" href=""><span class="fa fa-th-list"></span>List</button>
+        <button class="btn btn-link pag-dropdown__view-number">View 50</button>
+
+        <button class="btn btn-link pag-dropdown__arrow-icon">
+          <span class="fa fa-caret-left fa-lg"></span>
+        </button>
+        
+        <label for="pag-dropdown__select" class="sr-only">Current Number</label>
+        
+        <select id="pag-dropdown__select" class="pag-dropdown__select" name="" id="">
+          <option value="">1</option>
+          <option value="" selected>2</option>
+          <option value="">3</option>
+          <option value="">4</option>
+          <option value="">5</option>
+          <option value="">6</option>
+          <option value="">7</option>
+          <option value="">8</option>
+          <option value="">9</option>
+          <option value="">10</option>
+        </select>
+        
+        <span class="pag-dropdown__total-number">of 7</span>
+
+        <button class="btn btn-link pag-dropdown__arrow-icon">
+          <span class="fa fa-caret-right fa-lg"></span>
+        </button>
+
       </div>
 
-      <!-- End Toggle Component -->
+    <!-- End Dropdown Pagination Component -->
+
+      <!-- [include:components/toggle-component.html] -->
 
         </div>
               
-            <!-- Begin Thumbview Component -->
-
-            <div class="row thumbview">
-
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-xs-6 col-sm-3">
-                <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='images/birds1.jpg'> Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.">
-                  <a class="thumbview__link" href="#">
-                    <img class="thumbview__image" src="images/birds1-thumb.jpg" alt="bird">
-                  </a>
-                  <figcaption class="thumbview__caption">Here is a colorful bird. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga eos pariatur perspiciatis et assumenda tenetur dignissimos ipsa recusandae quae adipisci! Dolorem, vitae consequatur nihil sed nemo accusamus amet, voluptas quaerat.
-                  </figcaption>
-                </figure>
-              </div>
-
-            </div>
-
-            <!-- End Thumbview Component -->
+            <!-- [include:components/thumbnail-component.html] -->
 
             <div class="row">
 
               <!-- [include:components/pagination-buttons-component.html] -->
 
-              <!-- [include:components/pagination-dropdown-component.html] -->
+                <!-- Begin Dropdown Pagination Component -->
+
+                <div class="pag-dropdown">
+
+                  <button class="btn btn-link pag-dropdown__view-number">View 50</button>
+
+                  <button class="btn btn-link pag-dropdown__arrow-icon">
+                    <span class="fa fa-caret-left fa-lg"></span>
+                  </button>
+                  
+                  <label for="pag-dropdown__select" class="sr-only">Current Number</label>
+                  
+                  <select id="pag-dropdown__select" class="pag-dropdown__select" name="" id="">
+                    <option value="">1</option>
+                    <option value="" selected>2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                  
+                  <span class="pag-dropdown__total-number">of 7</span>
+
+                  <button class="btn btn-link pag-dropdown__arrow-icon">
+                    <span class="fa fa-caret-right fa-lg"></span>
+                  </button>
+
+                </div>
+
+              <!-- End Dropdown Pagination Component -->
 
             </div>
 

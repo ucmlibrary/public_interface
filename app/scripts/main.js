@@ -102,7 +102,7 @@ $(document).ready(function(){
 
 $('[data-toggle="popover"]').popover({
   trigger: 'hover',
-  placement: 'bottom',
+  placement: 'auto',
   html: true
 });
 
