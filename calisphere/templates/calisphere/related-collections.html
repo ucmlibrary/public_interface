@@ -1,14 +1,15 @@
+{% load calisphere-extras %}
 
 <div class="related-coll">
-  <h3 class="related-coll__title">12 Collections Found with Similar Objects</h3>
+  <h3 class="related-coll__title">{{ facets|get_item:'collection_name'|length }} Collections Found with Similar Objects</h3>
   {% for related_collection in related_collections %}
     <div class="col-xs-12 col-sm-4">
       <figure class="related-coll__container">
         <div class="col-xs-6 col-sm-12">
           <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">
-            <img class="related-coll__image1" src="{{ related_collection.image_urls.0 }}" alt="[TBD]">
-            <img class="related-coll__image2" src="{{ related_collection.image_urls.1 }}" alt="[TBD]">
-            <img class="related-coll__image3" src="{{ related_collection.image_urls.2 }}" alt="[TBD]">
+            <img class="related-coll__image1" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.0.reference_image_md5 }}" alt="{{ related_collection.image_urls.0.title.0 }}">
+            <img class="related-coll__image2" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.1.reference_image_md5 }}" alt="{{ related_collection.image_urls.1.title.0 }}">
+            <img class="related-coll__image3" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.2.reference_image_md5 }}" alt="{{ related_collection.image_urls.2.title.0 }}">
           </a>
         </div>
         <div class="col-xs-6 col-sm-12">

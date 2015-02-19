@@ -231,7 +231,7 @@ def search(request, collection_id='', institution_id=''):
         for i in range(3):
             if len(facets['collection_name']) > i:
                 facet = ["collection_name: \"" + facets['collection_name'][i][0] + "\""]
-                collection_solr_search = SOLR.select(q=query_terms, rows='3', fq=facet, fields='collection, reference_image_md5, url_item, id')
+                collection_solr_search = SOLR.select(q=query_terms, rows='3', fq=facet, fields='collection, reference_image_md5, url_item, id, title')
                 
                 # assume first hit has a collection, assume the correct collection is the first one
                 collection = collection_solr_search.results[0]['collection'][0]
@@ -239,9 +239,12 @@ def search(request, collection_id='', institution_id=''):
                 # assume the collection has three objects, and all three have an image
                 if len(collection_solr_search.results) >= 3:
                     collection_data = {'image_urls': []}
-                    for i, item in enumerate(collection_solr_search.results):
+                    for item in collection_solr_search.results:
                         process_media(item)
-                        collection_data['image_urls'].append(item['reference_image_http'])
+                        collection_data['image_urls'].append({
+                            'title': item['title'], 
+                            'reference_image_http': item['reference_image_http'], 
+                            'reference_image_md5': item['reference_image_md5']})
                 
                 collection_url = collection_solr_search.results[0]['collection'][0] + "?format=json"
                 collection_json = urllib2.urlopen(collection_url).read()
