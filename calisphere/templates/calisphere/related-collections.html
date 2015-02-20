@@ -1,6 +1,6 @@
 {% load calisphere-extras %}
 
-<div class="related-coll">
+<div class="related-coll" id="related-coll">
   <h3 class="related-coll__title">{{ facets|get_item:'collection_name'|length }} Collections Found with Similar Objects</h3>
   {% for related_collection in related_collections %}
     <div class="col-xs-12 col-sm-4">
