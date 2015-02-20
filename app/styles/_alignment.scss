@@ -10,6 +10,14 @@
 
 }
 
+.refine-search {
+  margin: 0 0 $layout-component-margin 0;
+  @include bp(md-screen) {
+    
+  }
+
+}
+
 .filter {
 
   @include bp(md-screen) {
