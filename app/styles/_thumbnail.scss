@@ -5,8 +5,8 @@
 }
 
 .thumbview__link {
-	display: block;
-	position: relative;
+	display: block; // for icon__overlay
+	position: relative; // for icon__overlay
 	color: #000;
 	
 	&:hover {

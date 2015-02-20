@@ -30,6 +30,10 @@ $icon-overlay-size-xs: 60px;
 $icon-overlay-size-sm: 50px;
 $icon-overlay-size-md: 45px;
 
+.icon__overlay-container {
+	position: relative;
+}
+
 .icon__overlay {
 	position: absolute;
 	top: 50%;
