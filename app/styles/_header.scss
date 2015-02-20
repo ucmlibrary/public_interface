@@ -174,10 +174,14 @@ html.no-jquery .global-header__nav {
 
   @include bp(sm-screen) {
     display: block;
-    margin: 20px 0;
+    margin: $layout-component-margin (-$layout-container-margin-sm);
     padding: 0.6em 7em 0.6em 0;
     background: $design-secondary-color;
     text-align: right;
+  }
+
+  @include bp(md-screen) {
+    margin: $layout-component-margin (-$layout-container-margin-md);
   }
 
 }

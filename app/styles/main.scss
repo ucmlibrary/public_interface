@@ -65,11 +65,11 @@
 .container-fluid { // Bootstrap class
 	
 	@include bp(sm-screen) {
-    padding: $layout-component-margin / 2;
+    padding: $layout-container-margin-sm;
   }
 
 	@include bp(md-screen) {
-    padding: $layout-component-margin;
+    padding: $layout-container-margin-md;
   }
 	
 }
