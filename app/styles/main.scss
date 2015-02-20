@@ -46,8 +46,21 @@
 // ***** Custom Layouts ***** //
 
 @import "alignment";
+@import "print";
 
 // ***** Global Styles ***** //
+
+// Reset Bootstrap grid media queries by adding print media (located in _grid.scss in Bootstrap Bower package)
+
+@media (min-width: $screen-sm-min), print and (min-width: $print-sm-min)  {
+  @include make-grid(sm);
+}
+
+@media (min-width: $screen-md-min), print and (min-width: $print-md-min)  {
+  @include make-grid(md);
+}
+
+// Add padding around container
 
 .container-fluid { // Bootstrap class
 	

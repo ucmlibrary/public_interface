@@ -8,10 +8,10 @@
     @media (min-width: $screen-lg-min) { @content; }
   }
   @else if $point == md-screen {
-    @media (min-width: $screen-md-min) { @content; }
+    @media (min-width: $screen-md-min), print and (min-width: $print-md-min) { @content; }
   }
   @else if $point == sm-screen {
-    @media (min-width: $screen-sm-min) { @content; }
+    @media (min-width: $screen-sm-min), print and (min-width: $print-sm-min) { @content; }
   }
 
 }
