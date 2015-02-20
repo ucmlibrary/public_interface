@@ -1,7 +1,7 @@
 // ##### Thumbnail View Component ##### //
 
 .thumbview__container {
-	margin: $layout-component-margin 0 0 $layout-component-margin;
+	margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 }
 
 .thumbview__link {
