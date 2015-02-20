@@ -14,7 +14,10 @@
         </div>
         <div class="col-xs-6 col-sm-12">
           <figcaption class="related-coll__caption">
-            <p>{{ related_collection.name }}</p>
+            <p>
+              <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">{{ related_collection.name }}
+              </a>
+            </p>
             <p>Institution: {{ related_collection.institution }}</p>
           </figcaption>
         </div>
