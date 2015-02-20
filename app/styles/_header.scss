@@ -160,11 +160,11 @@ html.no-jquery .global-header__nav {
     color: #000;
     border: none;
     background: none;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   @include bp(md-screen) {
-    font-size: 1.4em;
+    font-size: 1.2em;
   }
 
 }
@@ -205,13 +205,17 @@ html.no-jquery .global-header__nav {
   @include bp(sm-screen) {
     padding: 0.1em 3em;
     color: #fff;
-    font-size: 1.4em;
+    font-size: 1.3em;
     line-height: normal;
 
     &:hover {
       color: #fff;
     }
 
+  }
+
+  @include bp(md-screen) {
+    font-size: 1.4em;
   }
 
 }
