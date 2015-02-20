@@ -1,61 +1,21 @@
 #!/bin/env bash
-if [[ -n "$DEBUG" ]]; then 
-  set -x
-fi
 
-set -o pipefail  # trace ERR through pipes
-set -o errtrace  # trace ERR through 'time command' and other functions
-set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
-set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+set -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
-cd $DIR
-
-usage(){
-    ./beanstalk-describe.sh
-    echo "deploy-version.sh version-label environment-name"
-    exit 1
-}
-
-if [ $# -ne 2 ];
-  then
-    usage
-fi
-
-set -u
-
-ZIP=ucldc-django-ebs.zip
-DIR=ucldc-django-beanstalk
-BUCKET=xtf.dsc.cdlib.org
-
-# make sure environment actually exists
-env_exists=$(aws elasticbeanstalk describe-environments \
-  --environment-name "$2" \
+echo ""
+echo "'--version-label's (last 20 version names already used)"
+aws elasticbeanstalk describe-application-versions \
   --region us-east-1 \
-  | jq '.Environments | length')
-
-if [[ env_exists -ne 1 ]]
-  then
-    echo "environment $2 does not exist"
-    usage    
-fi
-
-exit
-
-# package app and upload
-zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/
-aws s3 cp $ZIP s3://$BUCKET/$DIR/$ZIP
-aws elasticbeanstalk create-application-version \
   --application-name ucldc-django \
-  --region us-east-1 \
-  --source-bundle S3Bucket=$BUCKET,S3Key=$DIR/$ZIP \
-  --version-label "$1"
+  | jq '.ApplicationVersions[] | .VersionLabel' \
+  | head -20
 
-# deploy app to a running environment
-aws elasticbeanstalk update-environment \
-  --environment-name "$2" \
+echo ""
+echo "'--environment-names's"
+aws elasticbeanstalk describe-environments \
   --region us-east-1 \
-  --version-label "$1"
+  --application-name ucldc-django \
+  | jq '.Environments[] | .EnvironmentName' 
 
 # Copyright (c) 2015, Regents of the University of California
 # 
