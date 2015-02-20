@@ -40,8 +40,6 @@ if [[ env_exists -ne 1 ]]
     usage    
 fi
 
-exit
-
 # package app and upload
 zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/
 aws s3 cp $ZIP s3://$BUCKET/$DIR/$ZIP
