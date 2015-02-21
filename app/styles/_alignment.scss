@@ -27,7 +27,15 @@
 
 }
 
-.check__header {
+.facets {
+  
+  @include bp(md-screen) {
+    margin: (-$layout-component-margin) 0 0 0;
+  }
+
+}
+
+.check__header { // refactor to use facet container
 
   @include bp(md-screen) {
     margin: $layout-component-margin 0 0 0;
