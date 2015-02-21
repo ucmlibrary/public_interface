@@ -14,7 +14,7 @@
   margin: 0 0 $layout-component-margin 0;
   
   @include bp(md-screen) {
-    
+    margin: 0;
   }
 
 }
@@ -22,7 +22,7 @@
 .filter {
 
   @include bp(md-screen) {
-    margin: 0 0 $layout-component-margin $layout-component-margin;
+    margin: 0 0 0 $layout-component-margin;
   }
 
 }
@@ -52,7 +52,7 @@
   }
 
   @include bp(md-screen) {
-    margin: 0 0 0 $layout-component-margin;
+    margin: 45px 0 0 $layout-component-margin;
   }
 
 }
@@ -65,7 +65,7 @@
   }
 
   @include bp(md-screen) {
-    margin: 1px $layout-component-margin 0 0;
+    margin: 45px $layout-component-margin 0 0;
   }
 
 }
@@ -77,7 +77,7 @@
   @include bp(md-screen) {
     display: block;
     float: right;
-    margin: 0 -0.5em 0 0;
+    margin: 45px -0.5em 0 0;
   }
 
 }
