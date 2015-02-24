@@ -63,6 +63,8 @@
 // Add padding around container
 
 .container-fluid { // Bootstrap class
+
+  max-width: 1400px;
 	
 	@include bp(sm-screen) {
     padding: $layout-container-margin-sm;
