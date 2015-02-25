@@ -30,8 +30,9 @@
 }
 
 .related-coll__link {
+  @extend .clearfix; // Bootstrap class
   display: block;
-  overflow: hidden;
+  color: #000;
 }
 
 .related-coll__image {
@@ -63,7 +64,7 @@
 
 .related-coll__caption {
   margin: 0 $layout-component-margin; 
-  cursor: default;
+  // cursor: default;
 
   @include bp(sm-screen) {
     margin: 0.5em 0 0 0;
