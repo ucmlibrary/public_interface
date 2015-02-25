@@ -60,8 +60,9 @@
       <div class="col-xs-12 col-sm-12 col-md-9">
               
         <div class="row">
-            
-          <h3 class="text__collections-heading">{{ numFound }} Objects Found in <a href="#related-coll">{{ facets.collection_name|length }} Collections</a></h3>
+          
+          <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
+          <h3 class="text__collections-heading">{{ numFound }} Objects Found in <a href="#related-coll">{{ filters|get_item:'collection_name'|length }} OR {{ facets.collection_name|length }} Collections</a></h3>
 
           <!-- Begin Dropdown Pagination Component -->
           {% include "calisphere/forms/paginate.html" %}
