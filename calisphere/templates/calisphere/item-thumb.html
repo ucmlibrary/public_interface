@@ -1,24 +1,13 @@
 <div class="row thumbview">
   {% for item in search_results %}
-  <div class="col-xs-6 col-sm-3">
-    <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='{{ item.reference_image_http }}'> {{ item.title.0|truncatewords:7 }}">
+  <div class="col-xs-6 col-sm-3 col-md-3">
+    <figure class="thumbview__container" data-toggle="popover" data-content="<img class='popover__img-popover' src='{{ thumbnailUrl }}crop/380x280/{{ item.reference_image_md5 }}'> {{ item.title.0|truncatewords:7 }}">
       <a class="thumbview__link" href="#">
         <img class="thumbview__image" src="{{ thumbnailUrl }}crop/100x100/{{ item.reference_image_md5 }}" alt="{{ item.title.0|truncatewords:7 }}">
+        <figcaption class="thumbview__caption">{{ item.title.0|truncatewords:7 }}
+        </figcaption>
       </a>
-      <figcaption class="thumbview__caption">{{ item.title.0|truncatewords:7 }}
-      </figcaption>
     </figure>
   </div>
   {% endfor %}
 </div>
-
-<!-- <a href="{{ item.href }}" text="{{ item.title.0 }}">
-<div class="item-thumb" style="padding: 10px; cursor: pointer">
-  <div class="imgWrap text-center">
-    <img src="{{ item.reference_image_http }}" height=100/>
-  </div>
-  <span style="width: 100%; display:inline-block; padding-top: 4px; margin-bottom: 10px;" class="text-center">
-    {{ item.title.0|truncatewords:7 }}<br/>
-  </span><br>
-</div>
-</a> -->

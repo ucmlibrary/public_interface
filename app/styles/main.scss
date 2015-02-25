@@ -21,7 +21,6 @@
 // ***** Custom Elements ***** //
 
 @import "buttons";
-@import "form-elements";
 @import "icons";
 @import "text";
 
@@ -29,10 +28,10 @@
 
 @import "alpha-nav";
 @import "carousel";
-@import "checkbox-group";
 @import "collections-intro";
 @import "collections-row";
 @import "related-collections";
+@import "facets";
 @import "filter";
 @import "footer";
 @import "header";
@@ -40,6 +39,7 @@
 @import "listview";
 @import "pagination";
 @import "popover";
+@import "searchfields";
 @import "thumbnail";
 @import "toggle";
 
@@ -63,13 +63,15 @@
 // Add padding around container
 
 .container-fluid { // Bootstrap class
+
+  max-width: 1400px;
 	
 	@include bp(sm-screen) {
-    padding: $layout-component-margin / 2;
+    padding: $layout-container-margin-sm;
   }
 
 	@include bp(md-screen) {
-    padding: $layout-component-margin;
+    padding: $layout-container-margin-md;
   }
 	
 }

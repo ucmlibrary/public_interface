@@ -5,7 +5,7 @@
 }
 
 .global-header__bars-icon {
-  padding: 10px 0 0 $layout-edge-margin-xs;
+  padding: 10px 0 0 $layout-box-padding;
   cursor: pointer;
   
   @include bp(sm-screen) {
@@ -52,7 +52,7 @@ html.no-svg .global-header__logo {
 }
 
 .global-header__search-icon {
-  padding: 10px $layout-edge-margin-xs 0 0;
+  padding: 10px $layout-box-padding 0 0;
   text-align: right;
   cursor: pointer;
 
@@ -83,7 +83,7 @@ html.no-jquery .global-header__search {
 .global-header__search--selected {
   display: block;
   background: $design-dark-gray-color;
-  padding: 15px $layout-edge-margin-xs;
+  padding: 15px $layout-box-padding;
   border-bottom: 1px solid #fff;
 
   @include bp(sm-screen) {
@@ -145,7 +145,7 @@ html.no-jquery .global-header__nav {
 
 .global-header__nav-link {
   display: block;
-  padding: 15px $layout-edge-margin-xs;
+  padding: 15px $layout-box-padding;
   color: #fff;
   border-bottom: 1px solid #fff;
   background: $design-dark-gray-color;
@@ -160,11 +160,11 @@ html.no-jquery .global-header__nav {
     color: #000;
     border: none;
     background: none;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   @include bp(md-screen) {
-    font-size: 1.4em;
+    font-size: 1.2em;
   }
 
 }
@@ -174,10 +174,14 @@ html.no-jquery .global-header__nav {
 
   @include bp(sm-screen) {
     display: block;
-    margin: 20px 0;
-    padding: 0.6em 7em 0.6em 0;
+    margin: $layout-component-margin (-$layout-container-margin-sm);
+    padding: 0.7em 7em 0.5em 0;
     background: $design-secondary-color;
     text-align: right;
+  }
+
+  @include bp(md-screen) {
+    margin: $layout-component-margin (-$layout-container-margin-md);
   }
 
 }
@@ -201,13 +205,17 @@ html.no-jquery .global-header__nav {
   @include bp(sm-screen) {
     padding: 0.1em 3em;
     color: #fff;
-    font-size: 1.4em;
+    font-size: 1.3em;
     line-height: normal;
 
     &:hover {
       color: #fff;
     }
 
+  }
+
+  @include bp(md-screen) {
+    font-size: 1.4em;
   }
 
 }

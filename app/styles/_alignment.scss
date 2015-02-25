@@ -10,18 +10,43 @@
 
 }
 
-.filter {
-
+.refine-search {
+  margin: 0 0 $layout-component-margin 0;
+  
   @include bp(md-screen) {
-    margin: 0 0 $layout-component-margin $layout-component-margin;
+    margin: 0;
   }
 
 }
 
-.check__header {
+.filter {
+
+  @include bp(md-screen) {
+    margin: 5px 0 0 $layout-component-margin;
+  }
+
+}
+
+.facets {
+  
+  @include bp(md-screen) {
+    
+  }
+
+}
+
+.check__header { // refactor to use facet container
 
   @include bp(md-screen) {
     margin: $layout-component-margin 0 0 0;
+  }
+
+}
+
+.object-view-row {
+
+  @include bp(md-screen) {
+    margin: $layout-component-margin 0 0 $layout-component-margin;
   }
 
 }
@@ -35,7 +60,7 @@
   }
 
   @include bp(md-screen) {
-    margin: 0 0 0 $layout-component-margin;
+    margin: 0;
   }
 
 }
@@ -48,7 +73,7 @@
   }
 
   @include bp(md-screen) {
-    margin: 1px $layout-component-margin 0 0;
+    margin: 0 $layout-component-margin 0 0;
   }
 
 }
@@ -76,11 +101,6 @@
 
 .thumbview {
   margin: 0 0 $layout-component-margin (-$layout-component-margin);
-
-  @include bp(md-screen) {
-    margin: 0 0 $layout-component-margin 0;
-  }
-
 }
 
 .thumbview-collections {
@@ -120,7 +140,7 @@
 .global-footer {
 
   @include bp(sm-screen) {
-    margin: $layout-component-margin 0 0 0;
+    
   }
 
 }

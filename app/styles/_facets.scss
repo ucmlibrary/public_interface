@@ -1,4 +1,4 @@
-// ***** Checkbox Group ***** //
+// ***** Facets ***** //
 
 .check {
   position: relative;
@@ -116,7 +116,7 @@ html.no-jquery .check__header {
 
 .check__header-arrow-icon.fa {
   float: right;
-  margin: -5px $layout-edge-margin-xs -20px 0;
+  margin: -5px $layout-box-padding -20px 0;
   font-size: 2.6em;
   color: #fff;
 
@@ -204,7 +204,7 @@ html.no-jquery .check__button-group {
 .check__button {
   float: right;
   width: 45%;
-  margin: 10px $layout-edge-margin-xs;
+  margin: 10px $layout-box-padding;
 
   &:first-of-type {
     float: left;
@@ -229,7 +229,7 @@ html.no-jquery .check__button-group {
 .check__label {
   display: block;
   margin: -1px 0 0 0;
-  padding: 10px 40px 10px $layout-edge-margin-xs;
+  padding: 10px 40px 10px $layout-box-padding;
   background: #fff;
   border-top: 1px solid $design-dark-gray-color;
   border-bottom: 1px solid $design-dark-gray-color;

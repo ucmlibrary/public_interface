@@ -12,7 +12,7 @@
 .global-footer__search {
   display: block;
   background: $design-dark-gray-color;
-  padding: 15px $layout-edge-margin-xs;
+  padding: 15px $layout-box-padding;
   border-bottom: 1px solid #fff;
 
   @include bp(sm-screen) {

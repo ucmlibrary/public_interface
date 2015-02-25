@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<p>Search > Orange County</p>
+<p>Search > {{ q }}</p>
 
-    <h2>Search Results / {{ q }}</h2>
+    <h2>Search Results / <strong>{{ q }}</strong></h2>
 
     <!-- Begin Refine Search Field and Filters -->
 
@@ -58,12 +58,12 @@
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-9">
-              
-        <div class="row">
+          
+        <div class="row object-view-row">
           
           <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
           <h3 class="text__collections-heading">{{ numFound }} Objects Found in <a href="#related-coll">{{ filters|get_item:'collection_name'|length }} OR {{ facets.collection_name|length }} Collections</a></h3>
-
+          
           <!-- Begin Dropdown Pagination Component -->
           {% include "calisphere/forms/paginate.html" %}
           <!-- End Dropdown Pagination Component -->

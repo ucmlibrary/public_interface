@@ -1,6 +1,6 @@
-// ##### Form Elements ##### //
+// ##### Search Fields ##### //
 
-// ***** Global header search field ***** //
+// ***** Global Header Search Field ***** //
 
 .global-search__label {
   display: block;
@@ -22,18 +22,6 @@
 
 }
 
-// The following commented out styles make the search box elements bigger on 'md' size. If not desired, then OK to delete this code.
-
-// .global-search__field {
-//   font-size: 1.2em;
-
-//   @include bp(md-screen) {
-//     height: 45px;
-//     font-size: 1.5em;
-//   }
-
-// }
-
 .global-search__button {
   height: 34px; // match the height of Bootstrap's form field
   color: #fff;
@@ -44,32 +32,14 @@
     background: $link-hover-color;
   }
 
-  // @include bp(md-screen) {
-  //   width: 50px;
-  //   height: 45px;
-  // }
-
   .fa { // fa-search icon
   	font-size: 1.1em;
 
-	  // @include bp(md-screen) {
-	  //   font-size: 2em;
-	  // }
-
   }
 
 }
 
-// ***** Refine results search field ***** //
-
-.refine-search {
-  // display: none;
-
-  @include bp(md-screen) {
-    display: block;
-  }
-
-}
+// ***** Refine Results Search Field ***** //
 
 .refine-search__label {
 	@extend .global-search__label;
@@ -81,10 +51,6 @@
   }
 
 }
-
-// .refine-search__field {
-// 	@extend .global-search__field;
-// }
 
 .refine-search__button {
 	@extend .global-search__button;
