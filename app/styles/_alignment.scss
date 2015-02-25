@@ -101,6 +101,11 @@
 
 .thumbview {
   margin: 0 0 $layout-component-margin (-$layout-component-margin);
+
+  @include bp(md-screen) {
+    margin: 0 0 $layout-component-margin 0;
+  }
+
 }
 
 .thumbview-collections {

@@ -4,21 +4,15 @@
 
 {% block content %}
 
-<p>Search > {{ q }}</p>
+    <p class="text__breadcrumb">Search > {{ q }}</p>
 
-    <h2>Search Results / <strong>{{ q }}</strong></h2>
+    <h2 class="text__page-heading">Search Results / <strong>{{ q }}</strong></h2>
 
     <!-- Begin Refine Search Field and Filters -->
 
-    <div class="row">
-      
-      <div class="col-xs-12 col-sm-12 col-md-3">
-        <!-- Begin Refine Search Field -->
-        {% include "calisphere/forms/refineQuery.html" %}
-        <!-- End Refine Search Field -->
-      </div>
+    <!-- <div class="row" style="border: 1px solid red"> -->
 
-      <div class="col-xs-12 col-sm-12 col-md-9">
+      <div class="col-md-9 pull-right">
 
         <!-- Begin Filter Component -->
         <div class="filter">
@@ -45,19 +39,21 @@
 
       </div>
 
-    </div>
-
     <!-- End Refine Search Field and Filters -->
 
-    <div class="row">
+    <!-- <div class="row"> -->
 
-      <div class="col-xs-12 col-sm-12 col-md-3">
+      <div class="col-md-3">
+        <!-- Begin Refine Search Field -->
+        {% include "calisphere/forms/refineQuery.html" %}
+        <!-- End Refine Search Field -->
+
         <!-- Begin Checkbox Groups -->
         {% include "calisphere/forms/faceting.html" %}
         <!-- End Checkbox Groups -->
       </div>
 
-      <div class="col-xs-12 col-sm-12 col-md-9">
+      <div class="col-md-9 pull-right">
           
         <div class="row object-view-row">
           
