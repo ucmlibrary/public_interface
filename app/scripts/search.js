@@ -17,6 +17,7 @@ function FacetQuery(params) {
       if ($('input[form="facet"][name="rows"]').val() == '16') { $('input[form="facet"][name="rows"]').attr('name', ''); }
       if ($('select[form="facet"][name="start"]').val() == '0') { $('select[form="facet"][name="start"]').attr('name', ''); }
       if ($('input[form="facet"][name="view_format"]').val() == 'thumbnails') { $('input[form="facet"][name="view_format"]').attr('name', ''); }
+      if ($('input[form="facet"][name="rc_page"]').val() == '0') { $('input[form="facet"][name="rc_page"]').attr('name', ''); }
       
       // submit form via pjax
       $.pjax.submit(event, container);
@@ -108,6 +109,14 @@ function FacetQuery(params) {
   $(document).on('click', '#list', function() {
     $('#view_format').prop('value', 'list'); $('#facet').submit();
   });
+  
+  // ******RELATED COLLECTION PAGINATION*******
+  
+  $(document).on('click', '.js-rc_page', function() {
+    $('#rc_page').val($(this).data('rc_page'));
+    $('#facet').submit();
+  });
+  
 }
 
 // takes two jquery selectors: search input, and pjax container for search results

@@ -24,15 +24,21 @@
       </figure>
     </div>
   {% endfor %}
-
-  <button class="btn btn-link related-coll__prev-button">
-    <span class="fa fa-caret-left fa-lg"></span>
-    <abbr title="Previous">Prev</abbr>
-  </button>
-
-  <button class="btn btn-link related-coll__next-button">
+  
+  <input form="facet" type="hidden" id="rc_page" name="rc_page" value="{{ rc_page }}">
+  
+  {% if rc_page > 0 %}
+    <button class="btn btn-link related-coll__prev-button js-rc_page" data-rc_page="{{ rc_page|subtract:1 }}">
+      <span class="fa fa-caret-left fa-lg"></span>
+      <abbr title="Previous">Prev</abbr>
+    </button>
+  {% endif %}
+  
+  {% if rc_page < facets|get_item:'collection_name'|length %}
+  <button class="btn btn-link related-coll__next-button js-rc_page" data-rc_page="{{ rc_page|add:1 }}">
     Next
     <span class="fa fa-caret-right fa-lg"></span>
   </button>
+  {% endif %}
 
 </div>
