@@ -22,7 +22,7 @@
 .filter {
 
   @include bp(md-screen) {
-    margin: 0 0 0 $layout-component-margin;
+    margin: 5px 0 0 $layout-component-margin;
   }
 
 }
@@ -30,7 +30,7 @@
 .facets {
   
   @include bp(md-screen) {
-    margin: (-$layout-component-margin) 0 0 0;
+    
   }
 
 }
@@ -46,7 +46,7 @@
 .object-view-row {
 
   @include bp(md-screen) {
-    margin: 45px 0 0 $layout-component-margin;
+    margin: $layout-component-margin 0 0 $layout-component-margin;
   }
 
 }
@@ -101,11 +101,6 @@
 
 .thumbview {
   margin: 0 0 $layout-component-margin (-$layout-component-margin);
-
-  @include bp(md-screen) {
-    margin: 0 0 $layout-component-margin 0;
-  }
-
 }
 
 .thumbview-collections {
@@ -145,7 +140,7 @@
 .global-footer {
 
   @include bp(sm-screen) {
-    margin: $layout-component-margin 0 0 0;
+    
   }
 
 }
