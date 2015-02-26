@@ -72,12 +72,9 @@
 
 }
 
-.related-coll__button-row {
-  clear: left;
-}
-
 .related-coll__prev-button {
   float: left;
+  clear: left; // clear right float of .related-coll__image3
   margin: $layout-component-margin 0 0 $layout-component-margin;
   padding: 0;
   color: #000;
