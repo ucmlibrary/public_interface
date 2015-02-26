@@ -1,9 +1,5 @@
 // ##### Global Header ##### //
 
-.global-header {
-  
-}
-
 .global-header__bars-icon {
   padding: 10px 0 0 $layout-box-padding;
   cursor: pointer;
@@ -118,8 +114,12 @@ html.no-jquery .global-header__nav {
   list-style: none;
   line-height: normal;
 
+  @include bp(sm-screen) {
+    margin: 2px (-$layout-container-margin-sm) 0 0;
+  }
+
   @include bp(md-screen) {
-    padding: 0 0 0 30px;
+    margin: 2px (-$layout-container-margin-md) 0 30px;
   }
 
 }
@@ -160,11 +160,10 @@ html.no-jquery .global-header__nav {
     color: #000;
     border: none;
     background: none;
-    font-size: 1.1em;
   }
 
   @include bp(md-screen) {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
 }
