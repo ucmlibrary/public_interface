@@ -35,7 +35,7 @@
 
 }
 
-.check__header { // refactor to use facet container
+.check__header { // rename 'check' to 'facet'
 
   @include bp(md-screen) {
     margin: $layout-component-margin 0 0 0;
