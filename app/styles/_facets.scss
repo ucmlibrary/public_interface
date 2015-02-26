@@ -10,9 +10,7 @@
 
 }
 
-// The following 4 IDs are only used to set the stacking order for positioning. All other styles should be referenced as classes.
-
-#check__type {
+.facets .row:nth-child(odd) .col-xs-12:first-child .check { // Type of Object
   
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
@@ -25,7 +23,7 @@
   
 }
 
-#check__date {
+.facets .row:nth-child(odd) .col-xs-12:last-child .check { // Date Range
 
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
@@ -38,7 +36,7 @@
   
 }
 
-#check__inst {
+.facets .row:nth-child(even) .col-xs-12:first-child .check { // Institution Owner
   
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
@@ -51,7 +49,7 @@
   
 }
 
-#check__coll {
+.facets .row:nth-child(even) .col-xs-12:last-child .check { // Collection
   
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
