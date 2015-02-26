@@ -5,22 +5,19 @@
   {% for related_collection in related_collections %}
     <div class="col-xs-12 col-sm-4">
       <figure class="related-coll__container">
-        <div class="col-xs-6 col-sm-12">
-          <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">
+        <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">
+          <div class="col-xs-6 col-sm-12">
             <img class="related-coll__image1" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.0.reference_image_md5 }}" alt="{{ related_collection.image_urls.0.title.0 }}">
             <img class="related-coll__image2" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.1.reference_image_md5 }}" alt="{{ related_collection.image_urls.1.title.0 }}">
             <img class="related-coll__image3" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.2.reference_image_md5 }}" alt="{{ related_collection.image_urls.2.title.0 }}">
-          </a>
-        </div>
-        <div class="col-xs-6 col-sm-12">
-          <figcaption class="related-coll__caption">
-            <p>
-              <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">{{ related_collection.name }}
-              </a>
-            </p>
-            <p>Institution: {{ related_collection.institution }}</p>
-          </figcaption>
-        </div>
+          </div>
+          <div class="col-xs-6 col-sm-12">
+            <figcaption class="related-coll__caption">
+              <p>{{ related_collection.name }}</p>
+              <p>Institution: {{ related_collection.institution }}</p>
+            </figcaption>
+          </div>
+        </a>
       </figure>
     </div>
   {% endfor %}
@@ -29,7 +26,7 @@
   
   {% if rc_page > 0 %}
     <button class="btn btn-link related-coll__prev-button js-rc_page" data-rc_page="{{ rc_page|subtract:1 }}">
-      <span class="fa fa-caret-left fa-lg"></span>
+      <span class="fa fa-caret-left"></span>
       <abbr title="Previous">Prev</abbr>
     </button>
   {% endif %}
@@ -37,7 +34,7 @@
   {% if rc_page < facets|get_item:'collection_name'|length %}
   <button class="btn btn-link related-coll__next-button js-rc_page" data-rc_page="{{ rc_page|add:1 }}">
     Next
-    <span class="fa fa-caret-right fa-lg"></span>
+    <span class="fa fa-caret-right"></span>
   </button>
   {% endif %}
 
