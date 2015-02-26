@@ -22,7 +22,7 @@
 .filter {
 
   @include bp(md-screen) {
-    margin: 5px 0 0 $layout-component-margin;
+    margin: 5px 0 $layout-component-margin $layout-component-margin;
   }
 
 }
@@ -46,7 +46,7 @@
 .object-view-row {
 
   @include bp(md-screen) {
-    margin: $layout-component-margin 0 0 $layout-component-margin;
+    margin: 0 0 0 $layout-component-margin;
   }
 
 }

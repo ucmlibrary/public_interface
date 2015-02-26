@@ -15,6 +15,8 @@ $layout-container-margin-sm: 10px;
 $layout-container-margin-md: 20px;
 $layout-box-padding: 10px;
 $listview-text-line-height: 1.5em;
+$print-sm-min: 5in;
+$print-md-min: 7.5in;
 
 // ***** Bootstrap Variables ***** //
 
@@ -23,6 +25,7 @@ $link-color: $design-primary-color;
 $font-family-sans-serif:  KievitWeb, Arial, sans-serif !default;
 $btn-default-border: $design-dark-gray-color;
 $input-border: $design-dark-gray-color;
+$input-border-focus: $design-primary-color;
 $grid-gutter-width: 0;
 $screen-sm-min: 650px;
 $screen-md-min: 900px;
@@ -30,8 +33,6 @@ $screen-lg-min: 1200px;
 $container-sm: $screen-sm-min;
 $container-md: $screen-md-min;
 $container-lg: $screen-lg-min;
-$print-sm-min: 5in;
-$print-md-min: 7.5in;
 $popover-bg: #eee;
 $popover-max-width: auto;
 $popover-arrow-color: $popover-bg;
