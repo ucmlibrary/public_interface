@@ -51,17 +51,16 @@
 }
 
 .global-footer__nav {
-  
+  // not being used
 }
 
 .global-footer__nav-list {
   @extend %navbar__container;
   text-align: center;
-  
   margin: 1em 0 0 0;
 
   @include bp(sm-screen) {
-    margin: 0;
+    margin: 0.5em 0 0 0;
   }
 
 }
@@ -88,11 +87,13 @@
 }
 
 .global-footer__nav-list-item--mobile {
+  font-size: 1.1em;
 
   @include bp(sm-screen) {
     display: inline;
     border-left: 1px solid $design-dark-gray-color;
     padding: 0 0.5em;
+    font-size: 1em;
 
     &:first-child {
       border-left: none;
@@ -118,10 +119,6 @@
   margin: 1em 0 0 0;
   color: $design-dark-gray-color;
   text-align: center;
-
-  @include bp(sm-screen) {
-    
-  }
 
 }
 
