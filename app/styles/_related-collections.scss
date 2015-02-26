@@ -72,6 +72,10 @@
 
 }
 
+.related-coll__button-row {
+  clear: left;
+}
+
 .related-coll__prev-button {
   float: left;
   margin: $layout-component-margin 0 0 $layout-component-margin;
@@ -92,6 +96,7 @@
 
   abbr {
     border: none;
+    cursor: pointer;
   }
   
 }
