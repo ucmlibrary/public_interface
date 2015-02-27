@@ -60,6 +60,10 @@
   @include make-grid(md);
 }
 
+@media (min-width: $screen-lg-min), print and (min-width: $print-lg-min)  {
+  @include make-grid(lg);
+}
+
 // Add padding around container
 
 .container-fluid { // Bootstrap class

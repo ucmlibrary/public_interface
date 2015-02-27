@@ -5,7 +5,7 @@
 @mixin bp($point) {
 
   @if $point == lg-screen {
-    @media (min-width: $screen-lg-min) { @content; }
+    @media (min-width: $screen-lg-min), print and (min-width: $print-lg-min) { @content; }
   }
   @else if $point == md-screen {
     @media (min-width: $screen-md-min), print and (min-width: $print-md-min) { @content; }
