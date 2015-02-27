@@ -2,18 +2,18 @@
 
 $collect-button-pos: 4em;
 
+.collect-row__container {
+  margin: $layout-component-margin 0 0 0;
+  padding: 0;
+  border-top: 1px solid $design-dark-gray-color;
+}
+
 .collect-row__summary {
 
   @include bp(sm-screen) {
     padding-bottom: $collect-button-pos;
   }
 
-}
-
-.collect-row__container {
-  margin: $layout-component-margin 0 0 0;
-  padding: 0;
-  border-top: 1px solid $design-dark-gray-color;
 }
 
 .collect-row__title {
