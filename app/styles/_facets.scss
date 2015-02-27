@@ -160,13 +160,13 @@ html.no-jquery .check__header-links {
   display: none;
 
   @include bp(sm-screen) {
-    position: absolute; // overlay checkbox groups that follow
+    position: absolute; // overlay facet groups that follow
     left: 0;
     right: 0;
   }
 
   @include bp(md-screen) {
-    position: relative; // push down checkbox groups that follow
+    position: relative; // push down facet groups that follow
     display: block;
   }
 
@@ -232,6 +232,7 @@ html.no-jquery .check__button-group {
   border-top: 1px solid $design-dark-gray-color;
   border-bottom: 1px solid $design-dark-gray-color;
   font-weight: normal;
+  cursor: pointer;
 
   &:last-of-type {
     border-bottom: none;
@@ -259,7 +260,8 @@ html.no-bgpositionshorthand .check__label {
 }
 
 html.svg .check__input {
-  opacity: 0; // hide generic checkboxes
+  opacity: 0; // hide generic checkboxes, but keep accessible to screen readers
+  cursor: pointer;
 }
 
 html.svg .check__input:checked + .check__label {
