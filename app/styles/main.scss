@@ -64,11 +64,11 @@
   @include make-grid(lg);
 }
 
-// Add padding around container
+// Bootstrap container
 
-.container-fluid { // Bootstrap class
-
+.container-fluid {
   max-width: 1400px;
+  padding: $layout-container-margin-xs;
 	
 	@include bp(sm-screen) {
     padding: $layout-container-margin-sm;
