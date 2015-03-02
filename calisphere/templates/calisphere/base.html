@@ -3,29 +3,29 @@
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
-    <link rel="stylesheet" href="{% static "styles/main.css" %}"/>
-    {% block styles %}{% endblock %}
+    {% block styles %}
+      <link rel="stylesheet" href="{% static "styles/main.css" %}"/>
+    {% endblock %}
+    {% block scripts %}
+      <script src="{% static "scripts/vendor/modernizr.js" %}"></script>
+    {% endblock %}
 
-    <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
-    <script src="{% static "bower_components/underscore/underscore.js" %}"></script>
-    <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
-    <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
-
-    <!-- <script src="{% static "scripts/amy-autocomplete.js" %}"></script> -->
-    <script src="{% static "scripts/search.js" %}"></script>
-    <script src="{% static "scripts/main.js" %}"></script>
-
-    {% block scripts %}{% endblock %}
-    {% block inline-scripts %}{% endblock %}
+    {% block inline-scripts %}
+      <script></script>
+    {% endblock %}
   </head>
   <body>
-    
+
     <div class="container-fluid" id="searchResults">
       {% include "calisphere/header.html" %}
       {% block content %}{% endblock %}
       {% include "calisphere/footer.html" %}
     </div>
 
-    {% block footerScripts %}{% endblock %}
+
+    {% block footerScripts %}
+      <script src="{% static "scripts/vendor.js" %}"></script>
+      <script src="{% static "scripts/main.js" %}"></script>
+    {% endblock %}
   </body>
 </html>
