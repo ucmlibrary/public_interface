@@ -1,0 +1,19 @@
+// ##### Metadata Component ##### //
+
+.metadata__list {
+  margin-left: 1em;
+}
+
+.metadata__type {
+  float: left;
+  clear: left;
+  text-align: right;
+  margin-right: 0.5em;
+  color: $design-dark-gray-color;
+  font-weight: normal;
+  line-height: $listview-text-line-height;
+}
+
+.metadata__defin {
+  line-height: $listview-text-line-height;
+}
