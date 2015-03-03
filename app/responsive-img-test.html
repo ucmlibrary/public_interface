@@ -35,11 +35,20 @@
 
       <h2>Responsive Image Test</h2>
 
-      <img
+      <!-- <img
         src=""
         srcset="images/thumb-1-small.jpeg 400w, images/thumb-1-large.jpeg 800w"
         sizes="100vw"
-        alt="">
+        alt=""> -->
+
+        <!-- <img sizes="(min-width: 40em) 80vw, 100vw"
+srcset="images/thumb-1-small.jpeg 375w, examples/images/medium.jpg 480w, images/thumb-1-large.jpeg 768w" alt=""> -->
+
+<article>
+    <img class="responsiveimg" srcset="images/thumb-1-large.jpeg 700w, images/thumb-1-small.jpeg 400w"
+         sizes="(min-width: 700px) 700px, 100vw"
+         alt="">
+</article>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

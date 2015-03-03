@@ -56,3 +56,15 @@ body.icons-test .fa {
 $bred: 1px solid red;
 $bblue: 1px solid blue;
 $bgreen: 1px solid green;
+
+// Responsive image test
+
+article {
+    margin: 0 auto;
+    max-width: 700px;
+    border: $bred;
+}
+
+.responsiveimg {
+    max-width: 100%;
+}
