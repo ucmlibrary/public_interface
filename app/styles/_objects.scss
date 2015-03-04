@@ -14,19 +14,42 @@
 	padding: 20px;
 	height: 400px;
 	background: #ccc;
+
+	@include bp(sm-screen) {
+    order: 2;
+  }
+
 }
 
 .object__buttons {
 	order: 2;
-	padding: 0 0 0 60px;
-	border-bottom: 1px solid $design-primary-color;
+	text-align: center;
+
+	@include bp(sm-screen) {
+    order: 3;
+    padding: 0 0 0 60px;
+		text-align: left;
+		border-bottom: 1px solid $design-primary-color;
+  }
+	
 }
 
 .object__contact-button {
 	order: 3;
-	// float: right;
+	text-align: center;
+
+	@include bp(sm-screen) {
+    order: 1;
+    margin: -3em 60px 20px 0;
+    text-align: right;
+  }
+	
 }
 
 .object__metadata {
-	padding: 0 0 0 60px;
+	
+	@include bp(sm-screen) {
+    padding: 0 0 0 60px;
+  }
+
 }
