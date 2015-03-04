@@ -74,3 +74,12 @@
   color: #fff;
   background: $design-primary-color;
 }
+
+.button__citation {
+  position: relative;
+  top: -0.5em; // vertically align with social icons
+  margin: 0 0.4em;
+  font-size: 1em;
+  color: #fff;
+  background: $design-dark-gray-color;
+}
