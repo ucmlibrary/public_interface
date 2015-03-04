@@ -65,3 +65,12 @@
   @extend .button__primary;
   text-align: left;
 }
+
+.button__envelope {
+  position: relative;
+  top: -0.5em; // vertically align with social icons
+  margin: 0 0.1em;
+  font-size: 1em;
+  color: #fff;
+  background: $design-primary-color;
+}
