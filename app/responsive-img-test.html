@@ -35,20 +35,39 @@
 
       <h2>Responsive Image Test</h2>
 
-      <!-- <img
-        src=""
-        srcset="images/thumb-1-small.jpeg 400w, images/thumb-1-large.jpeg 800w"
-        sizes="100vw"
-        alt=""> -->
+      <p>Note: On Chrome, after the biggest img listed in srcset is selected, it will cache it and won't pick the smaller images in srcset after resizing the browser (a feature, not a bug). Firefox and Safari will swap out each image on browser resize.</p>
 
-        <!-- <img sizes="(min-width: 40em) 80vw, 100vw"
-srcset="images/thumb-1-small.jpeg 375w, examples/images/medium.jpg 480w, images/thumb-1-large.jpeg 768w" alt=""> -->
+        <div class="res__container">
+            
+            <img
+            src="http://placehold.it/400x400"
+            class="res__img"
+            srcset="http://placehold.it/400x400 400w, http://placehold.it/600x600 600w,
+            http://placehold.it/800x800 800w"
+            sizes="(min-width: 800px) 800px, (min-width: 600px) 600px, 100vw"
+            alt="responsive image">
 
-<article>
-    <img class="responsiveimg" srcset="images/thumb-1-large.jpeg 700w, images/thumb-1-small.jpeg 400w"
-         sizes="(min-width: 700px) 700px, 100vw"
-         alt="">
-</article>
+        </div>
+
+        <!-- Note: the 'sizes' attribute is not needed if images are to scale to 100% of container. The number preceeding the 'w' should equal the breakpoints in the responsive design. -->
+
+        <div class="container-fluid">
+            
+            <div class="col-xs-4">
+                
+                <img
+                src="http://placehold.it/400x400"
+                class="res__img"
+                srcset="http://placehold.it/600x600 600w, http://placehold.it/800x800 800w,
+                http://placehold.it/1000x1000 1000w"
+                alt="responsive image">
+
+            </div>
+
+        </div>
+
+        
+
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
