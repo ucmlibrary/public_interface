@@ -11,7 +11,7 @@ import re
 import urllib2
 import simplejson as json
 
-FACET_TYPES = [('type', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
+FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
 SOLR = solr.Solr(
     settings.SOLR_URL,
     post_headers={'x-api-key': settings.SOLR_API_KEY},
