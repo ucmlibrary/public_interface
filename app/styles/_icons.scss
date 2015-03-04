@@ -24,6 +24,18 @@
 
 }
 
+.icon__twitter {
+	margin: 0 0.1em;
+	font-size: 2em;
+  color: rgb(41, 138, 201);
+}
+
+.icon__facebook {
+	margin: 0 0.1em;
+  font-size: 2em;
+  color: rgb(46, 71, 124);
+}
+
 // ***** Icon overlay used in thumbnail and list view components ***** //
 
 $icon-overlay-size-xs: 60px;
