@@ -1,14 +1,30 @@
 // ##### Object Components ##### //
 
+.text__page-heading {
+	// float: left;
+}
+
+.object__object-buttons-container {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
 .object__image {
+	order: 1;
 	padding: 20px;
 	height: 400px;
 	background: #ccc;
 }
 
 .object__buttons {
+	order: 2;
 	padding: 0 0 0 60px;
 	border-bottom: 1px solid $design-primary-color;
+}
+
+.object__contact-button {
+	order: 3;
+	// float: right;
 }
 
 .object__metadata {
