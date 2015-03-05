@@ -1,12 +1,12 @@
 // ##### Object Components ##### //
 
-.object__page-heading {
-	@extend .text__page-heading;
-}
-
 .object__container {
 	display: flex;
 	flex-flow: column nowrap;
+}
+
+.object__page-heading {
+	@extend .text__page-heading;
 }
 
 .object__image {
