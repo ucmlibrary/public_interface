@@ -29,7 +29,6 @@
     order: 3;
     padding: 0 0 0 60px;
 		text-align: left;
-		border-bottom: 1px solid $design-primary-color;
   }
 	
 }
@@ -85,7 +84,8 @@
 .object__metadata {
 	
 	@include bp(sm-screen) {
-    padding: 0 0 0 60px;
+    padding: 20px 0 0 60px;
+    border-top: 1px solid $design-primary-color;
   }
 
 }
