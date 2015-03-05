@@ -53,8 +53,14 @@
 
 .object-button__download-image {
   @extend .button__dark;
-  float: right;
-  margin: 0.6em 60px 0 0;
+  display: none;
+
+  @include bp(sm-screen) {
+	  display: block;
+	  float: right;
+	  margin: 0.6em 60px 0 0;
+	}
+
 }
 
 .object__contact-button {
