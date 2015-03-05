@@ -18,3 +18,11 @@
   margin-left: 1em;
 }
 
+dt:nth-of-type(n+4), dd:nth-of-type(n+4) { // select each line of metadata after the 3rd one
+  display: none;
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+
+}
