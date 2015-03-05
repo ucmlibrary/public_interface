@@ -58,21 +58,28 @@
   @include bp(sm-screen) {
 	  display: block;
 	  float: right;
-	  margin: 0.6em 60px 0 0;
+	  margin: 0.6em 80px 0 0;
 	}
 
 }
 
 .object__contact-button {
 	order: 3;
-	text-align: center;
+	align-self: center;
 
 	@include bp(sm-screen) {
     order: 1;
-    margin: -3em 60px 20px 0;
-    text-align: right;
+    align-self: flex-end;
+    width: 200px;
+    margin: -6em 0 20px 0;
   }
 	
+}
+
+.object__contact-button-text {
+	display: block;
+	margin: 0.25em 0;
+	font-size: 0.8em;
 }
 
 .object__metadata {
