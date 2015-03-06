@@ -104,7 +104,7 @@
 }
 
 .thumbview {
-  margin: 0 (-$layout-container-margin-xs) $layout-component-margin ((-$layout-component-margin) + (-$layout-container-margin-xs));
+  margin: 0 0 $layout-component-margin (-$layout-component-margin);
 
   @include bp(sm-screen) {
     margin: 0 0 0 (-$layout-component-margin);
