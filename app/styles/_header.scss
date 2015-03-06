@@ -1,7 +1,6 @@
 // ##### Global Header ##### //
 
 .global-header__bars-icon {
-  padding: 10px 0 0 $layout-box-padding;
   cursor: pointer;
   
   @include bp(sm-screen) {
@@ -11,7 +10,7 @@
 }
 
 .global-header__bars-icon .fa { // fa-bars icon
-  font-size: 2.8em;
+  font-size: 2.4em;
   color: $design-dark-gray-color;
 }
 
@@ -48,7 +47,6 @@ html.no-svg .global-header__logo {
 }
 
 .global-header__search-icon {
-  padding: 10px $layout-box-padding 0 0;
   text-align: right;
   cursor: pointer;
 
@@ -59,7 +57,7 @@ html.no-svg .global-header__logo {
 }
 
 .global-header__search-icon .fa { // fa-search icon
-  font-size: 2.8em;
+  font-size: 2.4em;
   color: $design-primary-color;
 }
 
