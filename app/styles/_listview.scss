@@ -1,5 +1,15 @@
 // ##### List View Component ##### //
 
+.listview {
+  border-top: 1px solid $design-dark-gray-color;
+  margin: $layout-component-margin 0 0 0;
+  padding: $layout-component-margin 0 0 0;
+}
+
+.row:first-of-type .listview {
+  border: none;
+}
+
 .listview__link {
   display: block;
 }
