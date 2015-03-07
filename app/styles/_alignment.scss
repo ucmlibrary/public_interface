@@ -133,7 +133,7 @@
   
 }
 
-.related-coll {
+.related-coll--search-results-page {
   margin: $layout-component-margin (-$layout-container-margin-xs) (-$layout-container-margin-xs) (-$layout-container-margin-xs);
 
   @include bp(sm-screen) {
@@ -144,6 +144,10 @@
     margin: $layout-component-margin 0 0 $layout-component-margin;
   }
   
+}
+
+.related-coll--object-page {
+  margin: $layout-component-margin 0 0 0;
 }
 
 .alphanav {
