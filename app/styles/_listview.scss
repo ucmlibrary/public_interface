@@ -1,5 +1,15 @@
 // ##### List View Component ##### //
 
+.listview {
+  border-top: 1px solid $design-dark-gray-color;
+  margin: $layout-component-margin 0 0 0;
+  padding: $layout-component-margin 0 0 0;
+}
+
+.row:first-of-type .listview {
+  border: none;
+}
+
 .listview__link {
   display: block;
 }
@@ -15,19 +25,14 @@
 }
 
 .listview__metadata {
-  margin-left: 1em;
+  margin: 0 0 0 $layout-component-margin;
 }
 
-.listview__data-type {
-  float: left;
-  clear: left;
-  text-align: right;
-  margin-right: 0.5em;
-  color: $design-dark-gray-color;
-  font-weight: normal;
-  line-height: $listview-text-line-height;
-}
+.listview .metadata__type:nth-of-type(n+4), .listview .metadata__defin:nth-of-type(n+4) { // select each line of metadata after the 3rd one
+  display: none;
 
-.listview__data-defin {
-  line-height: $listview-text-line-height;
+  @include bp(sm-screen) {
+    display: block;
+  }
+
 }

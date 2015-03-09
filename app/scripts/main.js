@@ -141,8 +141,8 @@ $('.carousel').slick({
     {
       breakpoint: md, // Bootstrap breakpoint pixel variable
       settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5
+        slidesToShow: 4,
+        slidesToScroll: 4
       }
     },
     {

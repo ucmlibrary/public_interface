@@ -57,29 +57,7 @@
 
 }
 
-.button__download-image {
-  @extend .button__dark;
-}
-
 .button__back-to-institution {
   @extend .button__primary;
   text-align: left;
-}
-
-.button__envelope {
-  position: relative;
-  top: -0.5em; // vertically align with social icons
-  margin: 0 0.1em;
-  font-size: 1em;
-  color: #fff;
-  background: $design-primary-color;
-}
-
-.button__citation {
-  position: relative;
-  top: -0.5em; // vertically align with social icons
-  margin: 0 0.4em;
-  font-size: 1em;
-  color: #fff;
-  background: $design-dark-gray-color;
 }

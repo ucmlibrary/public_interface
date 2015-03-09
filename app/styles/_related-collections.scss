@@ -2,17 +2,21 @@
 
 .related-coll {
   @extend .clearfix; // Bootstrap class
-  padding: $layout-component-margin 0;
+  padding: $layout-container-margin-xs;
   background: $design-light-gray-color;
 
   @include bp(sm-screen) {
-    padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+    padding: $layout-container-margin-sm 0 $layout-container-margin-sm $layout-container-margin-sm;
+  }
+
+  @include bp(sm-screen) {
+    padding: $layout-container-margin-md 0 $layout-container-margin-md $layout-container-margin-md;
   }
 
 }
 
 .related-coll__title {
-  margin: 0.5em 0 0 $layout-component-margin;
+  margin: 0.5em 0 0 0;
 
   @include bp(sm-screen) {
     margin: 0.5em 0 0 0;
@@ -63,12 +67,7 @@
 }
 
 .related-coll__caption {
-  margin: 0 $layout-component-margin; 
-  // cursor: default;
-
-  @include bp(sm-screen) {
-    margin: 0.5em 0 0 0;
-  }
+  margin: 0.5em 0 0 0;
 
 }
 
