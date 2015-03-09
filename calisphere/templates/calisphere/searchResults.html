@@ -15,8 +15,8 @@
       <div class="col-md-9 pull-right">
 
         <!-- Begin Filter Component -->
-        <div class="filter">
-
+        {% if filters|dictionary_length > 0 or rq|length > 0 %}<div class="filter">
+          
           <span class="filter__note">Filters you've selected:</span>
           
           {% for facet_type in FACET_TYPES %}
@@ -34,7 +34,7 @@
 
           <a class="filter__clear-all" href="#">Clear All</a>
 
-        </div>
+        </div>{% endif %}
         <!-- End Filter Component -->
 
       </div>

@@ -7,7 +7,7 @@
  **/
 
 function FacetQuery(params) {
-  this.q = params.q || sessionStorage['q'] || "";
+  this.q = params['q'] || sessionStorage['q'] || "";
   
   this.refineQuery = params.refineQuery || sessionStorage['refineQuery'] || '';
   this.queryRows = params.queryRows || sessionStorage['queryRows'] || '16';
@@ -136,23 +136,21 @@ FacetQuery.prototype.bindHandlers = function() {
 
 // takes two jquery selectors: search input, and pjax container for search results
 function Query(params) {
-  this.q = params.q || localStorage['q'] || "";
+  this.q = params['q'] || sessionStorage['q'] || "";
   this.searchForm = params.searchForm;
   this.resultsContainer = params.resultsContainer;
-  // this.searchResults = new FacetQuery();
+  
+  if (this.q != "") {
+    this.searchResults = new FacetQuery({});
+  }
   
   this.bindHandlers();
-  
-  console.log(this);
 }
 
 Query.prototype.bindHandlers = function() {
-  // PJAX HANDLING
   $(document).on('submit', this.searchForm, function(that) {
     return function(event) {
-      event.preventDefault();
-      
-      // set query parameter in Query obj, save query parameter in local storage
+      // set query parameter in query obj, save query parameter in local session storage
       that.q = $('input[name="q"]').val();
       sessionStorage['q'] = that.q;
       that.searchResults = new FacetQuery({});
@@ -161,11 +159,9 @@ Query.prototype.bindHandlers = function() {
     }
   }(this));
   
-  
   $(document).on('click', '.js-item-link', function(that) {
     return function(event) {
       $.pjax.click(event, {container: that.resultsContainer})
-      console.log(that);
     }
   }(this));
 }
