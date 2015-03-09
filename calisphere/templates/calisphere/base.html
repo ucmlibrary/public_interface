@@ -17,14 +17,13 @@
     {% endblock %}
   </head>
   <body>
-
-    <div class="container-fluid" id="searchResults">
+    
+    <div class="container-fluid">
       {% include "calisphere/header.html" %}
-      {% block content %}{% endblock %}
+      <div id="js-pageContent">{% block content %}{% endblock %}</div>
       {% include "calisphere/footer.html" %}
     </div>
-
-
+    
     {% block footerScripts %}
       <script src="{% static "scripts/vendor.js" %}"></script>
       <script src="{% static "scripts/main.js" %}"></script>

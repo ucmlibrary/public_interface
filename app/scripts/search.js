@@ -7,15 +7,15 @@
  **/
 
 function FacetQuery(params) {
-  this.q = params.q || localStorage['q'] || "";
+  this.q = params.q || sessionStorage['q'] || "";
   
-  this.refineQuery = params.refineQuery || localStorage['refineQuery'] || '';
-  this.queryRows = params.queryRows || localStorage['queryRows'] || '16';
-  this.queryStart = params.queryStart || localStorage['queryStart'] || '0';
-  this.viewFormat = params.viewFormat || localStorage['viewFormat'] || 'thumbnails';
+  this.refineQuery = params.refineQuery || sessionStorage['refineQuery'] || '';
+  this.queryRows = params.queryRows || sessionStorage['queryRows'] || '16';
+  this.queryStart = params.queryStart || sessionStorage['queryStart'] || '0';
+  this.viewFormat = params.viewFormat || sessionStorage['viewFormat'] || 'thumbnails';
   
   this.searchForm = "#facet";
-  this.resultsContainer = "#searchResults";
+  this.resultsContainer = "#js-pageContent";
   
   this.bindHandlers();
 }
@@ -150,18 +150,26 @@ Query.prototype.bindHandlers = function() {
   // PJAX HANDLING
   $(document).on('submit', this.searchForm, function(that) {
     return function(event) {
+      event.preventDefault();
+      
       // set query parameter in Query obj, save query parameter in local storage
       that.q = $('input[name="q"]').val();
-      that.searchResults = new FacetQuery();
-      localStorage["q"] = that.q;
+      sessionStorage['q'] = that.q;
+      that.searchResults = new FacetQuery({});
       
       $.pjax.submit(event, that.resultsContainer);
     }
   }(this));
   
-  $(document).on('click', )
+  
+  $(document).on('click', '.js-item-link', function(that) {
+    return function(event) {
+      $.pjax.click(event, {container: that.resultsContainer})
+      console.log(that);
+    }
+  }(this));
 }
 
 $(document).ready(function() {
-  var query = new Query({searchForm: '#js-searchForm', resultsContainer: '#searchResults'});
+  var query = new Query({searchForm: '#js-searchForm', resultsContainer: '#js-pageContent'});
 });
