@@ -7,7 +7,22 @@
  **/
 
 function FacetQuery(params) {
-  $(document).on('submit', '#facet', function(container) {
+  this.q = params['q'] || sessionStorage['q'] || "";
+  
+  this.refineQuery = params.refineQuery || sessionStorage['refineQuery'] || '';
+  this.queryRows = params.queryRows || sessionStorage['queryRows'] || '16';
+  this.queryStart = params.queryStart || sessionStorage['queryStart'] || '0';
+  this.viewFormat = params.viewFormat || sessionStorage['viewFormat'] || 'thumbnails';
+  
+  this.searchForm = "#facet";
+  this.resultsContainer = "#js-pageContent";
+  
+  this.bindHandlers();
+}
+
+FacetQuery.prototype.bindHandlers = function() {
+  
+  $(document).on('submit', this.searchForm, function(container) {
     return function(event) {
       // remove form elements with default values
       var refineQueryFields = $('input[form="facet"][name="rq"]');
@@ -22,7 +37,7 @@ function FacetQuery(params) {
       // submit form via pjax
       $.pjax.submit(event, container);
     }
-  }('#searchResults'));
+  }(this.resultsContainer));
   
   
   //***********ITEM VIEW**************//
@@ -120,19 +135,37 @@ function FacetQuery(params) {
 }
 
 // takes two jquery selectors: search input, and pjax container for search results
-function Search(params) {
-  this.search = params.search;
-  this.container = params.container;
+function Query(params) {
+  this.q = params['q'] || sessionStorage['q'] || "";
+  this.searchForm = params.searchForm;
+  this.resultsContainer = params.resultsContainer;
   
-  $(document).on('submit', this.search, function(container) {
+  if (this.q != "") {
+    this.searchResults = new FacetQuery({});
+  }
+  
+  this.bindHandlers();
+}
+
+Query.prototype.bindHandlers = function() {
+  $(document).on('submit', this.searchForm, function(that) {
     return function(event) {
-      $.pjax.submit(event, container);
+      // set query parameter in query obj, save query parameter in local session storage
+      that.q = $('input[name="q"]').val();
+      sessionStorage['q'] = that.q;
+      that.searchResults = new FacetQuery({});
+      
+      $.pjax.submit(event, that.resultsContainer);
     }
-  }(this.container));
+  }(this));
   
-  this.searchResults = new FacetQuery();
+  $(document).on('click', '.js-item-link', function(that) {
+    return function(event) {
+      $.pjax.click(event, {container: that.resultsContainer})
+    }
+  }(this));
 }
 
 $(document).ready(function() {
-  var search = new Search({search: '#searchForm', container: '#searchResults'});
+  var query = new Query({searchForm: '#js-searchForm', resultsContainer: '#js-pageContent'});
 });

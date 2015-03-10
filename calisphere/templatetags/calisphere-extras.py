@@ -26,6 +26,13 @@ def get_range( value ):
   return range( value )
 
 @register.filter
+def dictionary_length(dictionary):
+    length = 0
+    for key in dictionary:
+        length = length + len(dictionary[key])
+    return length
+
+@register.filter
 def get_item(dictionary, key):
   return dictionary.get(key)
 
