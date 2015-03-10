@@ -10,19 +10,28 @@
 
 }
 
-.refine-search {
-  margin: 0 0 $layout-component-margin 0;
-  
+.filter {
+
+  @include bp(md-screen) {
+    margin: 5px 0 $layout-component-margin $layout-component-margin;
+  }
+
+}
+
+.text__breadcrumb-nav {
+  margin: $layout-container-margin-xs 0 0 0;
+
   @include bp(md-screen) {
     margin: 0;
   }
 
 }
 
-.filter {
-
+.refine-search {
+  margin: 0 0 $layout-component-margin 0;
+  
   @include bp(md-screen) {
-    margin: 5px 0 $layout-component-margin $layout-component-margin;
+    margin: 0;
   }
 
 }
