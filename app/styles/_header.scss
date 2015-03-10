@@ -85,8 +85,9 @@ html.no-jquery .global-header__search {
   border-bottom: 1px solid #fff;
 
   @include bp(sm-screen) {
-    background: none;
+    margin: 0;
     padding: 0;
+    background: none;
     border: none;
   }
 
