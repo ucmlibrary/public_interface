@@ -18,8 +18,8 @@
     </div>
         
     <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
-      <label for="global-search__field" class="global-search__label">Search the digital library</label>
-      <form role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
+      <form class="global-header__search-form" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
+        <label for="global-search__field" class="global-search__label">Search the digital library</label>
         <div class="input-group">
           <input id="global-search__field" form="js-searchForm" name="q" value="{{ q }}" type="search" class="form-control global-search__field">
           <span class="input-group-btn">
