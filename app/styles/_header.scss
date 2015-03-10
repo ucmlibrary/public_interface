@@ -76,12 +76,15 @@ html.no-jquery .global-header__search {
 
 .global-header__search--selected {
   display: block;
-  background: $design-dark-gray-color;
+}
+
+.global-header__search-form {
+  margin: 0 (-$layout-container-margin-xs);
   padding: 15px $layout-box-padding;
+  background: $design-dark-gray-color;
   border-bottom: 1px solid #fff;
 
   @include bp(sm-screen) {
-    display: block;
     background: none;
     padding: 0;
     border: none;
