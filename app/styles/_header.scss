@@ -111,7 +111,7 @@ html.no-jquery .global-header__nav {
 }
 
 .global-header__nav-list {
-  margin: 0 (-$layout-container-margin-xs);
+  margin: 0 (-$layout-container-margin-xs) $layout-container-margin-xs (-$layout-container-margin-xs);
   padding: 0;
   list-style: none;
   line-height: normal;
