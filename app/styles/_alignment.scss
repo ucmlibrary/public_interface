@@ -143,7 +143,7 @@
 }
 
 .related-coll--search-results-page {
-  margin: $layout-component-margin (-$layout-container-margin-xs) (-$layout-container-margin-xs) (-$layout-container-margin-xs);
+  margin: $layout-component-margin (-$layout-container-margin-xs) 0 (-$layout-container-margin-xs);
 
   @include bp(sm-screen) {
     margin: 0;
@@ -168,9 +168,14 @@
 }
 
 .global-footer {
+ margin: 0 (-$layout-container-margin-xs);
 
   @include bp(sm-screen) {
-    
+    margin: $layout-container-margin-sm 0 0 0;
+  }
+
+  @include bp(md-screen) {
+    margin: $layout-container-margin-md 0 0 0;
   }
 
 }
