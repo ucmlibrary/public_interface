@@ -63,14 +63,25 @@
 }
 
 .object__contact-button {
-	order: 3;
+  width: 100%;
+  margin: 0 0 $layout-component-margin 0;
+  order: 3;
 	align-self: center;
 
+  .button__contact-owner {
+    width: 100%;
+
+    @include bp(sm-screen) {
+      width: auto;
+    }
+
+  }
+
 	@include bp(sm-screen) {
-    order: 1;
-    align-self: flex-end;
     width: 200px;
     margin: -6em 0 20px 0;
+    order: 1;
+    align-self: flex-end;
   }
 	
 }
