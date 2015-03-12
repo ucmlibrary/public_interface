@@ -15,6 +15,10 @@
   line-height: $listview-text-line-height;
   border-top: 1px solid $design-dark-gray-color;
 
+  &:first-of-type {
+  	border: none;
+  }
+
   @include bp(sm-screen) {
     padding: 0;
     border: none;
@@ -26,6 +30,10 @@
   padding: 0.5em 0;
   line-height: $listview-text-line-height;
   border-top: 1px solid $design-dark-gray-color;
+
+  &:first-of-type {
+  	border: none;
+  }
 
   @include bp(sm-screen) {
     padding: 0;
