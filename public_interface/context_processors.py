@@ -5,4 +5,5 @@ def settings(request):
     from django.conf import settings
     return {
         'thumbnailUrl': settings.THUMBNAIL_URL,
+        'devMode': settings.UCLDC_DEVEL,
     }
