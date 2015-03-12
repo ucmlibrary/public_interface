@@ -6,12 +6,12 @@
     <div class="col-xs-12 col-sm-4">
       <figure class="related-coll__container">
         <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">
-          <div class="col-xs-6 col-sm-12">
-            <img class="related-coll__image1" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.0.reference_image_md5 }}" alt="{{ related_collection.image_urls.0.title.0 }}">
-            <img class="related-coll__image2" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.1.reference_image_md5 }}" alt="{{ related_collection.image_urls.1.title.0 }}">
-            <img class="related-coll__image3" src="{{ thumbnailUrl }}crop/100x100/{{ related_collection.image_urls.2.reference_image_md5 }}" alt="{{ related_collection.image_urls.2.title.0 }}">
+          <div class="col-xs-12 col-sm-12">
+            <img class="related-coll__image1" src="{{ thumbnailUrl }}crop/300x300/{{ related_collection.image_urls.0.reference_image_md5 }}" alt="{{ related_collection.image_urls.0.title.0 }}">
+            <img class="related-coll__image2" src="{{ thumbnailUrl }}crop/200x200/{{ related_collection.image_urls.1.reference_image_md5 }}" alt="{{ related_collection.image_urls.1.title.0 }}">
+            <img class="related-coll__image3" src="{{ thumbnailUrl }}crop/200x200/{{ related_collection.image_urls.2.reference_image_md5 }}" alt="{{ related_collection.image_urls.2.title.0 }}">
           </div>
-          <div class="col-xs-6 col-sm-12">
+          <div class="col-xs-12 col-sm-12">
             <figcaption class="related-coll__caption">
               <p>{{ related_collection.name }}</p>
               <p>Institution: {{ related_collection.institution }}</p>
