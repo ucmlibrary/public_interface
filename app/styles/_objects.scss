@@ -1,6 +1,6 @@
 // ##### Object Components ##### //
 
-.object__container {
+.object__base {
 	display: flex;
 	flex-flow: column nowrap;
 }
@@ -9,7 +9,7 @@
 	@extend .text__page-heading;
 }
 
-.object__image {
+.object__container {
 	order: 1;
 	padding: 20px;
 	height: 400px;
