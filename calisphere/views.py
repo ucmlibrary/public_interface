@@ -14,7 +14,10 @@ import simplejson as json
 FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
 SOLR = solr.Solr(
     settings.SOLR_URL,
-    post_headers={'x-api-key': settings.SOLR_API_KEY},
+    post_headers={
+      'x-api-key': settings.SOLR_API_KEY,
+      'X-Authentication-Token': settings.SOLR_API_KEY,
+    },
 )
 
 
