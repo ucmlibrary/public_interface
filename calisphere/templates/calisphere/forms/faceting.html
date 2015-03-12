@@ -1,8 +1,8 @@
 {% load calisphere-extras %}
 
-<form id="facet" action="{% url 'calisphere:search' %}" method="get">
+<form id="js-facet" action="{% url 'calisphere:search' %}" method="get">
   <!-- value of the search query from the header form -->
-  <input type="hidden" name="q" value="{{ q }}" form="facet">
+  <input type="hidden" name="q" value="{{ q }}" form="js-facet">
   
   <!-- <button type="button" id="deselect-facets" class="btn btn-default btn-block">Deselect All</button> -->
 
@@ -35,7 +35,7 @@
             
             <div class="check__group">
               {% for facet, count in facets|get_item:facet_type %}
-              <input id="{{ facet|slugify }}" class="check__input facet facet-{{ facet_type }}" form="facet" type="checkbox" name="{{ facet_type }}" value="{{ facet }}" {% if facet in filters|get_item:facet_type %}checked{% endif %}>
+              <input id="{{ facet|slugify }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet }}" {% if facet in filters|get_item:facet_type %}checked{% endif %}>
               <label class="check__label" for="{{ facet|slugify }}">{{ facet }} ({{ count }})</label>
               {% endfor %}
             </div>

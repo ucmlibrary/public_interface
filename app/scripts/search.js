@@ -9,146 +9,13 @@
 function FacetQuery(params) {
   this.q = params['q'] || sessionStorage['q'] || "";
   
-  this.refineQuery = params.refineQuery || sessionStorage['refineQuery'] || '';
-  this.queryRows = params.queryRows || sessionStorage['queryRows'] || '16';
-  this.queryStart = params.queryStart || sessionStorage['queryStart'] || '0';
-  this.viewFormat = params.viewFormat || sessionStorage['viewFormat'] || 'thumbnails';
-  
-  this.searchForm = "#facet";
   this.resultsContainer = "#js-pageContent";
   
   this.bindHandlers();
 }
 
 FacetQuery.prototype.bindHandlers = function() {
-  
-  $(document).on('submit', this.searchForm, function(container) {
-    return function(event) {
-      // remove form elements with default values
-      var refineQueryFields = $('input[form="facet"][name="rq"]');
-      for (var i=0; i<refineQueryFields.length; i++) {
-        if ($(refineQueryFields[i]).val() == '') { $(refineQueryFields[i]).attr('name', ''); }
-      }
-      if ($('input[form="facet"][name="rows"]').val() == '16') { $('input[form="facet"][name="rows"]').attr('name', ''); }
-      if ($('select[form="facet"][name="start"]').val() == '0') { $('select[form="facet"][name="start"]').attr('name', ''); }
-      if ($('input[form="facet"][name="view_format"]').val() == 'thumbnails') { $('input[form="facet"][name="view_format"]').attr('name', ''); }
-      if ($('input[form="facet"][name="rc_page"]').val() == '0') { $('input[form="facet"][name="rc_page"]').attr('name', ''); }
-      
-      // submit form via pjax
-      $.pjax.submit(event, container);
-    }
-  }(this.resultsContainer));
-  
-  
-  //***********ITEM VIEW**************//
-  $(document).on('click', '.item-thumb', function() {
-    $('#item_id').prop('value', $(this).data('item_id'));
-    $('#item-view > input[name=start]').prop('value', $('.item-thumb').index(this));
-    $('#item-view').submit(function(that) {
-      return function(e) {
-        $(this).prop('action', '/' + $(that).data('item_id') + "/");
-        return;
-      }
-    }(this));
-    $('#item-view').submit();
-  });
-  
-  //*************FACETING*************//
-  $(document).on('change', '.facet', function() {
-    $('#facet').submit();
-  });
-
-  $(document).on('click', '.filter-pill', function() {
-    $("#" + $(this).data('slug')).prop('checked', false);
-    $('#facet').submit();
-  });
-  
-  $(document).on('click', '.refine-filter-pill', function() {
-    $('input[form="facet"][name="rq"][value="' + $(this).data('slug') + '"]').val("");
-    $('#facet').submit();
-  });
-  
-  $(document).on('click', '#deselect-facets', function() {
-    $('.facet').prop('checked', false);
-    $('#facet').submit();
-  });
-  
-  $(document).on('click', '.select-facets', function() {
-    // $('.facet-{{ facet_type }}').prop('checked', true); 
-    $(this).parents('.facet-type').find('.facet').prop('checked', true);
-    $('#facet').submit();
-  });
-  
-  // var repository_autocomplete = new Autocomplete($('#repository_name'));
-  // var collection_autocomplete = new Autocomplete($('#collection_name'));
-  
-  // ***********PAGINATION**********
-  
-  $(document).on('click', '#view16', function() {
-    $('#rows').prop('value', '16'); 
-    $('#facet').submit();
-  });
-  
-  $(document).on('click', '#view50', function() {
-    $('#rows').prop('value', '50'); 
-    $('#facet').submit();
-  });
-  
-  $(document).on('click', '#prev', function() {
-    $('#start').val($(this).data('start')); 
-    $('#facet').submit();
-  });
-  
-  $(document).on('change', '#start', function() {
-    $('#facet').submit();
-  });
-  
-  $(document).on('click', '#next', function() {
-    $('#start').val($(this).data('start')); 
-    $('#facet').submit();
-  });
-  
-  // ***********BUTTON PAGINATION **********
-  
-  $(document).on('click', 'a[data-start]', function() {
-    $('#start').val($(this).data('start'));
-    $('#facet').submit();
-  });
-  
-  // ***************VIEW FORMAT*************
-  
-  $(document).on('click', '#thumbnails', function() {
-    $('#view_format').prop('value', 'thumbnails'); $('#facet').submit();
-  });
-  
-  $(document).on('click', '#list', function() {
-    $('#view_format').prop('value', 'list'); $('#facet').submit();
-  });
-  
-  // ******RELATED COLLECTION PAGINATION*******
-  
-  $(document).on('click', '.js-rc_page', function() {
-    $('#rc_page').val($(this).data('rc_page'));
-    $('#facet').submit();
-  });
-  
-}
-
-// takes two jquery selectors: search input, and pjax container for search results
-function Query(params) {
-  this.q = params['q'] || sessionStorage['q'] || "";
-  this.searchForm = params.searchForm;
-  this.resultsContainer = params.resultsContainer;
-  
-  if (this.q != "") {
-    this.searchResults = new FacetQuery({});
-  }
-  
-  this.bindHandlers();
-}
-
-Query.prototype.bindHandlers = function() {
-  $(document).on('submit', this.searchForm, function(that) {
+  $(document).on('submit', "#js-searchForm", function(that) {
     return function(event) {
       // set query parameter in query obj, save query parameter in local session storage
       that.q = $('input[name="q"]').val();
@@ -159,13 +26,161 @@ Query.prototype.bindHandlers = function() {
     }
   }(this));
   
+  $(document).on('submit', "#js-facet", function(container) {
+    return function(event) {
+      // remove form elements with default values
+      var refineQueryFields = $('input[form="js-facet"][name="rq"]');
+      for (var i=0; i<refineQueryFields.length; i++) {
+        if ($(refineQueryFields[i]).val() == '') { $(refineQueryFields[i]).attr('name', ''); }
+      }
+      if ($('input[form="js-facet"][name="rows"]').val() == '16') { $('input[form="js-facet"][name="rows"]').attr('name', ''); }
+      if ($('select[form="js-facet"][name="start"]').val() == '0') { $('select[form="js-facet"][name="start"]').attr('name', ''); }
+      if ($('input[form="js-facet"][name="view_format"]').val() == 'thumbnails') { $('input[form="js-facet"][name="view_format"]').attr('name', ''); }
+      if ($('input[form="js-facet"][name="rc_page"]').val() == '0') { $('input[form="js-facet"][name="rc_page"]').attr('name', ''); }
+      
+      // submit form via pjax
+      $.pjax.submit(event, container);
+    }
+  }(this.resultsContainer));
+  
+  
+  //***********ITEM VIEW**************//
+  // $(document).on('click', '.item-thumb', function() {
+  //   $('#item_id').prop('value', $(this).data('item_id'));
+  //   $('#item-view > input[name=start]').prop('value', $('.item-thumb').index(this));
+  //   $('#item-view').submit(function(that) {
+  //     return function(e) {
+  //       $(this).prop('action', '/' + $(that).data('item_id') + "/");
+  //       return;
+  //     }
+  //   }(this));
+  //   $('#item-view').submit();
+  // });
+  
+  // TODO: add search context to pjax - look at how $.pjax.submit works. 
+  // we basically want to do the same as $.pjax.submit but hide the GET parameters in the URL. 
+  // potentially use the options $.pjax.submit parameter to override the URL so it doesn't display GET params?
   $(document).on('click', '.js-item-link', function(that) {
     return function(event) {
       $.pjax.click(event, {container: that.resultsContainer})
     }
   }(this));
+  
+  //*************FACETING*************//
+  $(document).on('change', '.js-facet', function() {
+    $('#js-facet').submit();
+  });
+
+  $(document).on('click', '.js-filter-pill', function() {
+    $("#" + $(this).data('slug')).prop('checked', false);
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '.js-refine-filter-pill', function() {
+    $('input[form="js-facet"][name="rq"][value="' + $(this).data('slug') + '"]').val("");
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '#deselect-facets', function() {
+    $('.js-facet').prop('checked', false);
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '.select-facets', function() {
+    // $('.facet-{{ facet_type }}').prop('checked', true); 
+    $(this).parents('.facet-type').find('.js-facet').prop('checked', true);
+    $('#js-facet').submit();
+  });
+  
+  // var repository_autocomplete = new Autocomplete($('#repository_name'));
+  // var collection_autocomplete = new Autocomplete($('#collection_name'));
+  
+  // ***********PAGINATION**********
+  
+  $(document).on('click', '#view16', function() {
+    $('#rows').prop('value', '16'); 
+    sessionStorage['queryRows'] = '16';
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '#view50', function() {
+    $('#rows').prop('value', '50'); 
+    sessionStorage['queryRows'] = '50';
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '#prev', function() {
+    $('#start').val($(this).data('start')); 
+    sessionStorage['queryStart'] = $(this).data('start');
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('change', '#start', function() {
+    sessionStorage['queryStart'] = $(this).val();
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '#next', function() {
+    $('#start').val($(this).data('start')); 
+    sessionStorage['queryStart'] = $(this).data('start');
+    $('#js-facet').submit();
+  });
+  
+  // ***********BUTTON PAGINATION **********
+  
+  $(document).on('click', 'a[data-start]', function() {
+    $('#start').val($(this).data('start'));
+    sessionStorage['queryStart'] = $(this).data('start');
+    $('#js-facet').submit();
+  });
+  
+  // ***************VIEW FORMAT*************
+  
+  $(document).on('click', '#thumbnails', function() {
+    $('#view_format').prop('value', 'thumbnails'); 
+    sessionStorage['viewFormat'] = 'thumbnails';
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '#list', function() {
+    $('#view_format').prop('value', 'list'); 
+    sessionStorage['viewFormat'] = 'list';
+    $('#js-facet').submit();
+  });
+  
+  // ******RELATED COLLECTION PAGINATION*******
+  
+  // TODO: add search context to AJAX call
+  // add one or subtract one from rc_page pending ID of "this" from the click event
+  // write callback function to place the html in the correct place in the DOM (replacing initial related collections)
+  $(document).on('click', '.js-rc-page', function(that) {
+    return function(event) {
+      $.ajax({data: {q: that.query, rq: that.refine_query, rc_page: '1'}, url: '/relatedCollections/'});
+    }
+  }(this));
+  
+}
+
+// TODO: .val() only returns the value of the FIRST in the set of matched elements, instead we need to create an array here
+FacetQuery.prototype.getValuesFromDom = function() {
+  this.query = $("[form='js-facet'][name='q']").val();
+  this.refine_query = $("[form='js-facet'][name='rq']").val();
+  this.query_start = $("[form='js-facet'][name='start']").val();
+  this.query_rows = $("[form='js-facet'][name='rows']").val();
+  this.view_format = $("[form='js-facet'][name='view_format']").val();
+  this.rc_page = $(".js-rc-page").data('rc_page');
+  
+  if (typeof($("[form='js-facet'][name='type_ss']:checked").val()) !== 'undefined') {
+    this.filters['type_ss'] = $("[form='js-facet'][name='type_ss']:checked").val();
+  }
+  if (typeof($("[form='js-facet'][name='collection_name']:checked").val()) !== 'undefined') {
+    this.filters['collection_name'] = $("[form='js-facet'][name='collection_name']:checked").val();
+  }
+  if (typeof($("[form='js-facet'][name='repository_name']:checked").val()) !== 'undefined') {
+    this.filters['repository_name'] = $("[form='js-facet'][name='repository_name']:checked").val();
+  }
 }
 
 $(document).ready(function() {
-  var query = new Query({searchForm: '#js-searchForm', resultsContainer: '#js-pageContent'});
+  var query = new FacetQuery({});
 });
