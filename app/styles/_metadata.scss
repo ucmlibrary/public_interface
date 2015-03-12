@@ -7,13 +7,29 @@
 .metadata__type {
   float: left;
   clear: left;
-  text-align: right;
   margin-right: 0.5em;
+  padding: 0.5em 0;
   color: $design-dark-gray-color;
+  text-align: right;
   font-weight: normal;
   line-height: $listview-text-line-height;
+  border-top: 1px solid $design-dark-gray-color;
+
+  @include bp(sm-screen) {
+    padding: 0;
+    border: none;
+  }
+
 }
 
 .metadata__defin {
+  padding: 0.5em 0;
   line-height: $listview-text-line-height;
+  border-top: 1px solid $design-dark-gray-color;
+
+  @include bp(sm-screen) {
+    padding: 0;
+    border: none;
+  }
+
 }
