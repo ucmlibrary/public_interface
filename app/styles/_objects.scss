@@ -10,15 +10,20 @@
 }
 
 .object__container {
-	order: 1;
-	padding: 20px;
-	height: 400px;
-	background: $design-light-gray-color;
+	@include aspect-ratio(16, 9); // sets a sample box until media object is placed here 
+
+  order: 1;
+	border: 1px solid $design-dark-gray-color;
+  background: $design-light-gray-color;
 
 	@include bp(sm-screen) {
     order: 2;
   }
 
+}
+
+.aspect-ratio-container { // sets a sample box until media object is placed here 
+  padding: 20px;
 }
 
 .object__buttons {
