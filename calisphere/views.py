@@ -167,7 +167,7 @@ def search(request, collection_id='', institution_id=''):
         
         # define facet fields to retrieve
         facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
-        facet_fields.append('collection')
+        facet_fields.append('collection_data')
         
         solr_search = SOLR.select(
             q=query_terms,
