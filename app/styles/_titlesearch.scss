@@ -1,13 +1,26 @@
 // ##### Collections Title Search Component ##### //
 
-.titlesearch__list {
+.titlesearch__recommended {
+  margin: $layout-component-margin 0 0 0;
+  padding: 20px;
+  background: $design-dark-gray-color;
+}
 
+.titlesearch__list-heading {
+  margin: 0 0 $layout-component-margin 0;
+  font-size: 1.8em;
+}
+
+.titlesearch__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .titlesearch__listitem {
-  
+  display: inline;
 }
 
 .titlesearch__link {
-  
+  color: #000;
 }
