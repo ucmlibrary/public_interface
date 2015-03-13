@@ -1,9 +1,10 @@
 // ##### Collections Title Search Component ##### //
 
 .titlesearch__recommended {
+  @extend .clearfix;
   margin: $layout-component-margin 0 0 0;
   padding: 20px;
-  background: $design-dark-gray-color;
+  background: $design-light-gray-color;
 }
 
 .titlesearch__list-heading {
@@ -18,7 +19,10 @@
 }
 
 .titlesearch__listitem {
-  display: inline;
+  // display: inline;
+  float: left;
+  margin: 1em 5em 0 0;
+  white-space: nowrap;
 }
 
 .titlesearch__link {
