@@ -1,6 +1,6 @@
 // ##### Object Components ##### //
 
-.object__container {
+.object__base {
 	display: flex;
 	flex-flow: column nowrap;
 }
@@ -9,16 +9,21 @@
 	@extend .text__page-heading;
 }
 
-.object__image {
-	order: 1;
-	padding: 20px;
-	height: 400px;
-	background: $design-light-gray-color;
+.object__container {
+	@include aspect-ratio(16, 9); // sets a sample box until media object is placed here 
+
+  order: 1;
+	border: 1px solid $design-dark-gray-color;
+  background: $design-light-gray-color;
 
 	@include bp(sm-screen) {
     order: 2;
   }
 
+}
+
+.aspect-ratio-container { // sets a sample box until media object is placed here 
+  padding: 20px;
 }
 
 .object__buttons {
@@ -63,14 +68,25 @@
 }
 
 .object__contact-button {
-	order: 3;
+  width: 100%;
+  margin: 0 0 $layout-component-margin 0;
+  order: 3;
 	align-self: center;
 
+  .button__contact-owner {
+    width: 100%;
+
+    @include bp(sm-screen) {
+      width: auto;
+    }
+
+  }
+
 	@include bp(sm-screen) {
-    order: 1;
-    align-self: flex-end;
     width: 200px;
     margin: -6em 0 20px 0;
+    order: 1;
+    align-self: flex-end;
   }
 	
 }
@@ -82,10 +98,11 @@
 }
 
 .object__metadata {
+	border-top: 1px solid $design-primary-color;
 	
-	@include bp(sm-screen) {
+  @include bp(sm-screen) {
     padding: 20px 0 0 60px;
-    border-top: 1px solid $design-primary-color;
+    
   }
 
 }

@@ -19,7 +19,7 @@
 }
 
 .collect-intro__buttons {
-  padding: $layout-component-margin / 2;
+  padding: 0 ($layout-component-margin / 2);
 
   @include bp(sm-screen) {
 

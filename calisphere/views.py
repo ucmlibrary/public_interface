@@ -14,7 +14,10 @@ import simplejson as json
 FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
 SOLR = solr.Solr(
     settings.SOLR_URL,
-    post_headers={'x-api-key': settings.SOLR_API_KEY},
+    post_headers={
+      'x-api-key': settings.SOLR_API_KEY,
+      'X-Authentication-Token': settings.SOLR_API_KEY,
+    },
 )
 
 
@@ -141,7 +144,7 @@ def search(request):
         
         # define facet fields to retrieve
         facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
-        facet_fields.append('collection')
+        facet_fields.append('collection_data')
         
         solr_search = SOLR.select(
             q=queryParams['query_terms'],

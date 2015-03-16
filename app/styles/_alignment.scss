@@ -10,19 +10,28 @@
 
 }
 
-.refine-search {
-  margin: 0 0 $layout-component-margin 0;
-  
+.filter {
+
+  @include bp(md-screen) {
+    margin: 5px 0 $layout-component-margin $layout-component-margin;
+  }
+
+}
+
+.text__breadcrumb-nav {
+  margin: $layout-container-margin-xs 0 0 0;
+
   @include bp(md-screen) {
     margin: 0;
   }
 
 }
 
-.filter {
-
+.refine-search {
+  margin: 0 0 $layout-component-margin 0;
+  
   @include bp(md-screen) {
-    margin: 5px 0 $layout-component-margin $layout-component-margin;
+    margin: 0;
   }
 
 }
@@ -134,7 +143,7 @@
 }
 
 .related-coll--search-results-page {
-  margin: $layout-component-margin (-$layout-container-margin-xs) (-$layout-container-margin-xs) (-$layout-container-margin-xs);
+  margin: $layout-component-margin (-$layout-container-margin-xs) 0 (-$layout-container-margin-xs);
 
   @include bp(sm-screen) {
     margin: 0;
@@ -147,7 +156,12 @@
 }
 
 .related-coll--object-page {
-  margin: $layout-component-margin 0 0 0;
+  margin: $layout-component-margin (-$layout-container-margin-xs) 0 (-$layout-container-margin-xs);
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0 0 0;
+  }
+
 }
 
 .alphanav {
@@ -159,9 +173,14 @@
 }
 
 .global-footer {
+ margin: 0 (-$layout-container-margin-xs);
 
   @include bp(sm-screen) {
-    
+    margin: $layout-container-margin-sm 0 0 0;
+  }
+
+  @include bp(md-screen) {
+    margin: $layout-container-margin-md 0 0 0;
   }
 
 }
