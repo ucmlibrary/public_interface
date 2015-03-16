@@ -1,7 +1,8 @@
 // ##### Collections Intro ##### //
 
-.collect-intro__overview {
-  
+.inst-intro__overview {
+  margin: 0 0 $layout-component-margin 0;
+
   @include bp(sm-screen) {
     padding-right: $layout-component-margin / 2;
     font-size: 1.2em;
@@ -9,7 +10,8 @@
 
 }
 
-.collect-intro__description {
+.inst-intro__description {
+  margin: 0 0 $layout-component-margin 0;
   
   @include bp(sm-screen) {
     padding-left: $layout-component-margin / 2;
@@ -18,19 +20,27 @@
 
 }
 
-.collect-intro__buttons {
-  padding: 0 ($layout-component-margin / 2);
+.inst-intro__text {
+  margin: 0;
+}
+
+.col-xs-12:first-child .inst-intro__buttons {
+  width: 50%;
+  margin: 0 auto $layout-component-margin auto;
 
   @include bp(sm-screen) {
+    float: right;
+    margin: 0 ($layout-component-margin / 2) 0 0;
+  }
 
-    &:first-child {
-      padding-left: 0;
-    }
+}
 
-    &:last-child {
-      padding-right: 0;
-    }
+.col-xs-12:last-child .inst-intro__buttons {
+  width: 50%;
+  margin: 0 auto;
 
+  @include bp(sm-screen) {
+    margin: 0 0 0 ($layout-component-margin / 2);
   }
 
 }
