@@ -1,5 +1,11 @@
 // ##### Institutions Textboxes Component ##### //
 
 .inst-textboxes {
-  
+  column-count: 2;
+}
+
+.inst-textboxes__text {
+  padding: $layout-component-margin;
+  border-radius: 5px;
+  background: $design-light-gray-color;
 }
