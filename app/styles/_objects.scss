@@ -9,24 +9,48 @@
 
 // ***** Harvest Image ***** //
 
-.obj-harvest__{
-  
-}
-
 .obj-harvest__link {
   display: block;
+  width: 50%;
   margin: 0 auto;
+  color: #000;
+  
+  &:hover {
+    color: $design-primary-color;
+  }
+
 }
 
-.obj-harvest__figure {
-  
+.obj-harvest__img-container {
+  position: relative;
 }
 
 .obj-harvest__image { // temp styles to set image size for UI work
-  width: auto; 
-  height: 400px;
+  width: 100%;
+  height: auto;
+}
+
+.obj-harvest__icon-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  height: 1.3em;
+  line-height: 1.4;
+  font-size: 2em;
+  background: #fff;
+  color: #000;
+
+  @include bp(sm-screen) {
+    
+  }
+
+  @include bp(md-screen) {
+    
+  }
+
 }
 
 .obj-harvest__caption {
-  
+  margin: 0.5em 0 0 0;
+  text-align: center;
 }
