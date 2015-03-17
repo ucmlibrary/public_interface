@@ -10,11 +10,7 @@
 }
 
 .object__container {
-	@include aspect-ratio(16, 9); // sets a sample box until media object is placed here 
-
   order: 1;
-	border: 1px solid $design-dark-gray-color;
-  background: $design-light-gray-color;
 
 	@include bp(sm-screen) {
     order: 2;
@@ -22,8 +18,41 @@
 
 }
 
-.aspect-ratio-container { // sets a sample box until media object is placed here 
+.aspect-ratio-container {
+  @include aspect-ratio(16, 9); // sets a sample box until media object is placed here
+}
+
+.aspect-ratio-content { // sets a sample box until replaced by media 
   padding: 20px;
+}
+
+// Object-specific styles
+
+.object__hosted-simple-image {
+  border: 1px solid $design-dark-gray-color;
+  background: $design-light-gray-color;
+}
+
+.object__harvest {
+  
+}
+
+.object__harvest-link {
+  display: block;
+  margin: 0 auto;
+}
+
+.object__harvest-figure {
+  
+}
+
+.object__harvest-image { // temp styles to set image size for UI work
+  width: auto; 
+  height: 400px;
+}
+
+.object__harvest-caption {
+  
 }
 
 .object__buttons {
