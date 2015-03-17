@@ -1,7 +1,11 @@
 // ##### Institutions Textboxes Component ##### //
 
 .inst-textboxes {
-  column-count: 2;
+
+	@include bp(sm-screen) {
+    column-count: 2;
+  }
+  
 }
 
 .inst-textboxes__box {
