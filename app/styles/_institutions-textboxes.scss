@@ -4,8 +4,28 @@
   column-count: 2;
 }
 
-.inst-textboxes__text {
-  padding: $layout-component-margin;
+.inst-textboxes__box {
+	margin: 10px 0;
+	padding: $layout-component-margin;
   border-radius: 5px;
   background: $design-light-gray-color;
+}
+
+.inst-textboxes__box-heading {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.inst-textboxes__list {
+	margin: 0;
+	padding: 0;
+}
+
+.inst-textboxes__list-item {
+	list-style: none;
+}
+
+.inst-textboxes__link {
+	color: #000;
 }
