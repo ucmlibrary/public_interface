@@ -144,7 +144,6 @@ def search(request):
         
         # define facet fields to retrieve
         facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
-        facet_fields.append('collection_data')
         
         solr_search = SOLR.select(
             q=queryParams['query_terms'],
@@ -228,27 +227,30 @@ def relatedCollections(request, queryParams={}):
     else:
         ajaxRequest = False
     
-    # get list of related collections
-    if 'collection_name' in queryParams['filters'] and len(queryParams['filters']['collection_name']) > 0:
-        related_collections_filters = {key: value for key, value in queryParams['filters'].items()
-            if key != 'collection_name'}
-        related_collections_filters['collection_name'] = []
-    else:
-        related_collections_filters = queryParams['filters']
-        
+    # #####################
+    # get list of related collections 
+    # uncomment to get list of related collections disregarding any selected collection filters
+    # #####################
+    # if 'collection_name' in queryParams['filters'] and len(queryParams['filters']['collection_name']) > 0:
+    #     related_collections_filters = {key: value for key, value in queryParams['filters'].items()
+    #         if key != 'collection_name'}
+    #     related_collections_filters['collection_name'] = []
+    # else:
+    related_collections_filters = queryParams['filters']
+    
     related_collections_solr_search = SOLR.select(
         q=queryParams['query_terms'],
         rows='0',
         fq=solrize_filters(related_collections_filters),
         facet='true',
         facet_limit='-1',
-        facet_field=['collection_name']
+        facet_field=['collection_data']
     )
     
     # remove collections with a count of 0 and sort by count
     related_collections_counts = process_facets(
-        related_collections_solr_search.facet_counts['facet_fields']['collection_name'],
-        queryParams['filters']['collection_name'] if 'collection_name' in queryParams['filters'] else []
+        related_collections_solr_search.facet_counts['facet_fields']['collection_data'],
+        queryParams['filters']['collection_data'] if 'collection_data' in queryParams['filters'] else []
     )
     
     # remove 'count'
@@ -257,12 +259,12 @@ def relatedCollections(request, queryParams={}):
     three_related_collections = []
     for i in range(queryParams['rc_page']*3, queryParams['rc_page']*3+3):
         if len(related_collections) > i:
-            facet = ["collection_name: \"" + related_collections[i] + "\""]
-            collection_solr_search = SOLR.select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection, reference_image_md5, url_item, id, title')
+            facet = ["collection_data: \"" + related_collections[i] + "\""]
+            collection_solr_search = SOLR.select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title')
             
             if len(collection_solr_search.results) > 0:
-                if 'collection' in collection_solr_search.results[0] and len(collection_solr_search.results[0]['collection']) > 0:
-                    collection = collection_solr_search.results[0]['collection'][0]
+                if 'collection_data' in collection_solr_search.results[0] and len(collection_solr_search.results[0]['collection_data']) > 0:
+                    collection = collection_solr_search.results[0]['collection_data'][0]
                     
                     collection_data = {'image_urls': []}
                     for item in collection_solr_search.results:
@@ -279,7 +281,8 @@ def relatedCollections(request, queryParams={}):
                                 'reference_image_http': item['reference_image_http']
                             })
                         
-                    collection_url = collection_solr_search.results[0]['collection'][0] + "?format=json"
+                    collection_match = re.match(r'(?P<collection_url>https://registry\.cdlib\.org/api/v1/collection/\d+)::(?P<collection_name>.+)', collection)
+                    collection_url = collection_match.group('collection_url') + "?format=json"
                     collection_json = urllib2.urlopen(collection_url).read()
                     collection_details = json.loads(collection_json)
                     
@@ -288,7 +291,9 @@ def relatedCollections(request, queryParams={}):
                     col_id = re.match(r'^/api/v1/collection/(?P<collection_id>\d+)/$', collection_details['resource_uri'])
                     collection_data['collection_id'] = col_id.group('collection_id')
                     
+                    # TODO: get this from repository_data in solr rather than from the registry API
                     collection_data['institution'] = ''
+                    print collection_details
                     for repository in collection_details['repository']:
                         for campus in repository['campus']:
                             collection_data['institution'] = collection_data['institution'] + campus['name'] + ', '
