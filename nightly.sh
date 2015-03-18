@@ -13,7 +13,7 @@ cd $DIR
 
 git pull origin ui
 release=$(date +'%GW%VD%u')
-./deploy-version.sh "$release" ucldcDjango-env2
+./deploy-version.sh "$release" ucldcDjangoWest-env
 
 # Copyright (c) 2015, Regents of the University of California
 # 

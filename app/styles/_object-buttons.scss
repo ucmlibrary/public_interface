@@ -1,0 +1,82 @@
+// ##### Object Buttons ##### //
+
+.object__buttons {
+	order: 2;
+	text-align: center;
+
+	@include bp(sm-screen) {
+    order: 3;
+    padding: 0 0 0 60px;
+		text-align: left;
+  }
+	
+}
+
+.object-button__envelope {
+  @extend .button__primary;
+  position: relative;
+  top: -0.6em; // vertically align with social icons
+  margin: 0 0.1em;
+  padding: 2px 5px;
+  font-size: 1em;
+}
+
+.object-button__citation {
+  @extend .button__dark;
+  position: relative;
+  top: -0.6em; // vertically align with social icons
+  margin: 0 0.4em;
+  padding: 4px 10px;
+}
+
+.object-button__download-image {
+  @extend .button__dark;
+  display: none;
+
+  @include bp(sm-screen) {
+	  display: block;
+	  float: right;
+	  margin: 0.6em 80px 0 0;
+	}
+
+}
+
+.object__contact-button {
+  width: 100%;
+  margin: 0 0 $layout-component-margin 0;
+  order: 3;
+	align-self: center;
+
+  .button__contact-owner {
+    width: 100%;
+
+    @include bp(sm-screen) {
+      width: auto;
+    }
+
+  }
+
+	@include bp(sm-screen) {
+    width: 200px;
+    margin: -6em 0 20px 0;
+    order: 1;
+    align-self: flex-end;
+  }
+	
+}
+
+.object__contact-button-text {
+	display: block;
+	margin: 0.25em 0;
+	font-size: 0.8em;
+}
+
+.object__metadata {
+	border-top: 1px solid $design-primary-color;
+	
+  @include bp(sm-screen) {
+    padding: 20px 0 0 60px;
+    
+  }
+
+}

@@ -1,108 +1,73 @@
-// ##### Object Components ##### //
+// ##### Objects ##### //
 
-.object__base {
-	display: flex;
-	flex-flow: column nowrap;
-}
+// ***** Simple Hosted Image ***** //
 
-.object__page-heading {
-	@extend .text__page-heading;
-}
-
-.object__container {
-	@include aspect-ratio(16, 9); // sets a sample box until media object is placed here 
-
-  order: 1;
-	border: 1px solid $design-dark-gray-color;
+.obj__hosted-simple-image {
+  border: 1px solid $design-dark-gray-color;
   background: $design-light-gray-color;
+}
 
-	@include bp(sm-screen) {
-    order: 2;
+// ***** Harvest Image ***** //
+
+.obj-harvest__link {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  color: #000;
+  
+  &:hover {
+    color: $design-primary-color;
   }
 
 }
 
-.aspect-ratio-container { // sets a sample box until media object is placed here 
-  padding: 20px;
-}
-
-.object__buttons {
-	order: 2;
-	text-align: center;
-
-	@include bp(sm-screen) {
-    order: 3;
-    padding: 0 0 0 60px;
-		text-align: left;
-  }
-	
-}
-
-.object-button__envelope {
-  @extend .button__primary;
+.obj-harvest__img-container {
   position: relative;
-  top: -0.6em; // vertically align with social icons
-  margin: 0 0.1em;
-  padding: 2px 5px;
-  font-size: 1em;
 }
 
-.object-button__citation {
-  @extend .button__dark;
-  position: relative;
-  top: -0.6em; // vertically align with social icons
-  margin: 0 0.4em;
-  padding: 4px 10px;
-}
-
-.object-button__download-image {
-  @extend .button__dark;
-  display: none;
-
-  @include bp(sm-screen) {
-	  display: block;
-	  float: right;
-	  margin: 0.6em 80px 0 0;
-	}
-
-}
-
-.object__contact-button {
+.obj-harvest__image { // temp styles to set image size for UI work
   width: 100%;
-  margin: 0 0 $layout-component-margin 0;
-  order: 3;
-	align-self: center;
-
-  .button__contact-owner {
-    width: 100%;
-
-    @include bp(sm-screen) {
-      width: auto;
-    }
-
-  }
-
-	@include bp(sm-screen) {
-    width: 200px;
-    margin: -6em 0 20px 0;
-    order: 1;
-    align-self: flex-end;
-  }
-	
+  height: auto;
 }
 
-.object__contact-button-text {
-	display: block;
-	margin: 0.25em 0;
-	font-size: 0.8em;
-}
+.obj-harvest__icon-overlay {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 1.4em;
+  height: 1.3em;
+  line-height: 1.5;
+  font-size: 1.4em;
+  background: #fff;
+  border-radius: 0.2em;
+  color: #000;
 
-.object__metadata {
-	border-top: 1px solid $design-primary-color;
-	
   @include bp(sm-screen) {
-    padding: 20px 0 0 60px;
-    
+    font-size: 1.8em;
+  }
+
+  @include bp(md-screen) {
+    font-size: 2.2em;
   }
 
 }
+
+.obj-harvest__caption {
+  margin: 0.5em 0 0 0;
+  text-align: center;
+}
+
+// ***** Hosted Audio ***** //
+
+.obj-hosted-audio__player {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+
+  @include bp(sm-screen) {
+    width: 50%;
+  }
+
+}
+
+

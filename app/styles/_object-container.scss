@@ -1,0 +1,28 @@
+// ##### Object Container ##### //
+
+.object__base {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.object__page-heading {
+	@extend .text__page-heading;
+}
+
+.object__container {
+  margin: 0 0 15px 0;
+  order: 1;
+
+	@include bp(sm-screen) {
+    order: 2;
+  }
+
+}
+
+.aspect-ratio-container {
+  @include aspect-ratio(16, 9); // sets a sample box until media object is placed here
+}
+
+.aspect-ratio-content { // sets a sample box until replaced by media 
+  padding: 20px;
+}
