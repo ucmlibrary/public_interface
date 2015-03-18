@@ -19,8 +19,8 @@ FacetQuery.prototype.bindHandlers = function() {
   $(document).on('submit', "#js-searchForm", function(that) {
     return function(event) {
       // set query parameter in query obj, save query parameter in local session storage
-      that.q = $('input[name="q"]').val();
-      sessionStorage['q'] = that.q;
+      that.query = $('input[name="q"]').val();
+      sessionStorage['q'] = that.query;
       that.searchResults = new FacetQuery({});
       
       $.pjax.submit(event, that.resultsContainer);
@@ -44,26 +44,23 @@ FacetQuery.prototype.bindHandlers = function() {
     }
   }(this.resultsContainer));
   
-  
-  //***********ITEM VIEW**************//
-  // $(document).on('click', '.item-thumb', function() {
-  //   $('#item_id').prop('value', $(this).data('item_id'));
-  //   $('#item-view > input[name=start]').prop('value', $('.item-thumb').index(this));
-  //   $('#item-view').submit(function(that) {
-  //     return function(e) {
-  //       $(this).prop('action', '/' + $(that).data('item_id') + "/");
-  //       return;
-  //     }
-  //   }(this));
-  //   $('#item-view').submit();
-  // });
-  
-  // TODO: add search context to pjax - look at how $.pjax.submit works. 
-  // we basically want to do the same as $.pjax.submit but hide the GET parameters in the URL. 
-  // potentially use the options $.pjax.submit parameter to override the URL so it doesn't display GET params?
+  // TODO: hide the GET parameters in the URL by pushing a URL state that is the URL without GET params
   $(document).on('click', '.js-item-link', function(that) {
     return function(event) {
-      $.pjax.click(event, {container: that.resultsContainer})
+      
+      that.getValuesFromDom();
+      var data_params = {};
+      data_params['q'] = that.query;
+      data_params['rq'] = that.refine_query;
+      data_params['rc_page'] = $(this).data('rc_page');
+      
+      for (var i in that.filters) {
+        if (that.filters.hasOwnProperty(i)) {
+          data_params[i] = that.filters[i];
+        }
+      }
+      
+      $.pjax.click(event, {container: that.resultsContainer, data: data_params});
     }
   }(this));
   
@@ -151,8 +148,6 @@ FacetQuery.prototype.bindHandlers = function() {
   
   // ******RELATED COLLECTION PAGINATION*******
   
-  // TODO: add search context to AJAX call
-  // write callback function to place the html in the correct place in the DOM (replacing initial related collections)
   $(document).on('click', '.js-rc-page', function(that) {
     return function(event) {
       that.getValuesFromDom();
@@ -160,7 +155,6 @@ FacetQuery.prototype.bindHandlers = function() {
       data_params['q'] = that.query;
       data_params['rq'] = that.refine_query;
       data_params['rc_page'] = $(this).data('rc_page');
-      // this.rc_page = $(".js-rc-page").data('rc_page');
       
       for (var i in that.filters) {
         if (that.filters.hasOwnProperty(i)) {
@@ -178,6 +172,7 @@ FacetQuery.prototype.bindHandlers = function() {
 }
 
 // TODO: .val() only returns the value of the FIRST in the set of matched elements, instead we need to create an array here
+// TODO: return object literal with packaged variables, remove from package if empty/null
 FacetQuery.prototype.getValuesFromDom = function() {
   this.query = $("[form='js-facet'][name='q']").val();
   this.refine_query = $("[form='js-facet'][name='rq']").val();

@@ -102,40 +102,58 @@ def processQueryRequest(request):
 
 def itemView(request, item_id=''):
     item_id = 'id:' + "\"" + item_id + "\""
-    
-    if request.method == 'POST' and 'q' in request.POST:
-        q = request.POST['q']
-        rows = 6
-        start = request.POST['start'] if 'start' in request.POST else '0'
-        
-        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        fq = solrize_filters(filters)
-        
-        solr_search = SOLR.select(
-            q=q,
-            rows='6',
-            start=start,
-            fq=fq
-        )
-        
-        for item in solr_search.results:
-            process_media(item)
-        
-        carousel_items = solr_search.results
-        numFound = solr_search.numFound
-    else:
-        # MORE LIKE THIS RESULTS
-        q = ''
-        carousel_items = {}
-        numFound = 0
-    
-    solr_item = SOLR.select(q=item_id)
-    for item in solr_item.results:
+    item_solr_search = SOLR.select(q=item_id)
+    for item in item_solr_search.results:
         process_media(item)
     
-    context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
+    # TODO: write related objects version (else)
+    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+        queryParams = processQueryRequest(request)
+        queryParams['rows'] = 6
+        # TODO: WHERE TO START!?
+        
+        carousel_solr_search = SOLR.select(
+            q=queryParams['query_terms'],
+            rows='6',
+            start=queryParams['start'],
+            fq=solrize_filters(queryParams['filters'])
+        )
+        
+        # except solr.SolrException:
+            # TODO: better error handling
+            # print solr.SolrException.reason
+            # print solr.SolrException.httpcode
+            # print solr.SolrException.body
+        
+        # search performed, process the results
+        
+        # TODO: create a no results found page
+        if len(carousel_solr_search.results) == 0:
+            print 'no results found'
+        
+        for item in carousel_solr_search.results:
+            process_media(item)
+        
+        return render(request, 'calisphere/item.html', {
+            'items': item_solr_search.results,
+            'q': queryParams['q'],
+            'rq': queryParams['rq'],
+            'filters': queryParams['filters'],
+            'rows': queryParams['rows'],
+            'start': queryParams['start'],
+            'search_results': carousel_solr_search.results,
+            # 'facets': facets,
+            'FACET_TYPES': FACET_TYPES,
+            'numFound': carousel_solr_search.numFound,
+            'pages': int(math.ceil(float(carousel_solr_search.numFound)/int(queryParams['rows']))),
+            # 'view_format': queryParams['view_format'],
+            # 'related_collections': relatedCollections(request, queryParams),
+            # 'rc_page': queryParams['rc_page']
+        })
+        
+        # return render (request, 'calisphere/home.html', {'q': q})
     
-    return render(request, 'calisphere/item.html', context)
+    return render(request, 'calisphere/item.html', {'q': '', 'item': item_solr_search.results})
 
 
 def search(request):
@@ -293,7 +311,7 @@ def relatedCollections(request, queryParams={}):
                     
                     # TODO: get this from repository_data in solr rather than from the registry API
                     collection_data['institution'] = ''
-                    print collection_details
+                    # print collection_details
                     for repository in collection_details['repository']:
                         for campus in repository['campus']:
                             collection_data['institution'] = collection_data['institution'] + campus['name'] + ', '
