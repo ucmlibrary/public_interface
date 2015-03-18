@@ -27,11 +27,13 @@ set -u
 ZIP=ucldc-django-ebs.zip
 DIR=ucldc-django-beanstalk
 BUCKET=xtf.dsc.cdlib.org
+REGION=us-west-2
+APPNAME=ucldc-django-west
 
 # make sure environment actually exists
 env_exists=$(aws elasticbeanstalk describe-environments \
   --environment-name "$2" \
-  --region us-east-1 \
+  --region $REGION \
   | jq '.Environments | length')
 
 if [[ env_exists -ne 1 ]]
@@ -44,15 +46,15 @@ fi
 zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/
 aws s3 cp $ZIP s3://$BUCKET/$DIR/$ZIP
 aws elasticbeanstalk create-application-version \
-  --application-name ucldc-django \
-  --region us-east-1 \
+  --application-name $APPNAME \
+  --region $REGION \
   --source-bundle S3Bucket=$BUCKET,S3Key=$DIR/$ZIP \
   --version-label "$1"
 
 # deploy app to a running environment
 aws elasticbeanstalk update-environment \
   --environment-name "$2" \
-  --region us-east-1 \
+  --region $REGION \
   --version-label "$1"
 
 # Copyright (c) 2015, Regents of the University of California

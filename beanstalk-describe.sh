@@ -2,19 +2,22 @@
 
 set -e
 
+region='us-west-2'
+appname='ucldc-django-west'
+
 echo ""
 echo "'--version-label's (last 20 version names already used)"
 aws elasticbeanstalk describe-application-versions \
-  --region us-east-1 \
-  --application-name ucldc-django \
+  --region $region \
+  --application-name $appname \
   | jq '.ApplicationVersions[] | .VersionLabel' \
   | head -20
 
 echo ""
 echo "'--environment-names's"
 aws elasticbeanstalk describe-environments \
-  --region us-east-1 \
-  --application-name ucldc-django \
+  --region $region \
+  --application-name $appname \
   | jq '.Environments[] | .EnvironmentName' 
 
 # Copyright (c) 2015, Regents of the University of California
