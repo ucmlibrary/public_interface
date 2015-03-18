@@ -7,9 +7,10 @@
  **/
 
 function FacetQuery(params) {
-  this.q = params['q'] || sessionStorage['q'] || "";
+  this.query = params['q'] || sessionStorage['q'] || "";
   
   this.resultsContainer = "#js-pageContent";
+  this.relatedCollectionsContainer = "#js-relatedCollections"
   
   this.bindHandlers();
 }
@@ -151,11 +152,26 @@ FacetQuery.prototype.bindHandlers = function() {
   // ******RELATED COLLECTION PAGINATION*******
   
   // TODO: add search context to AJAX call
-  // add one or subtract one from rc_page pending ID of "this" from the click event
   // write callback function to place the html in the correct place in the DOM (replacing initial related collections)
   $(document).on('click', '.js-rc-page', function(that) {
     return function(event) {
-      $.ajax({data: {q: that.query, rq: that.refine_query, rc_page: '1'}, url: '/relatedCollections/'});
+      that.getValuesFromDom();
+      var data_params = {};
+      data_params['q'] = that.query;
+      data_params['rq'] = that.refine_query;
+      data_params['rc_page'] = $(this).data('rc_page');
+      // this.rc_page = $(".js-rc-page").data('rc_page');
+      
+      for (var i in that.filters) {
+        if (that.filters.hasOwnProperty(i)) {
+          data_params[i] = that.filters[i];
+        }
+      }
+      $.ajax({data: data_params, url: '/relatedCollections/', success: function(rc_container) {
+        return function(data, status, jqXHR) {
+          $(rc_container).html(data);
+        }
+      }(that.relatedCollectionsContainer) });
     }
   }(this));
   
@@ -168,8 +184,8 @@ FacetQuery.prototype.getValuesFromDom = function() {
   this.query_start = $("[form='js-facet'][name='start']").val();
   this.query_rows = $("[form='js-facet'][name='rows']").val();
   this.view_format = $("[form='js-facet'][name='view_format']").val();
-  this.rc_page = $(".js-rc-page").data('rc_page');
   
+  this.filters = {}
   if (typeof($("[form='js-facet'][name='type_ss']:checked").val()) !== 'undefined') {
     this.filters['type_ss'] = $("[form='js-facet'][name='type_ss']:checked").val();
   }
