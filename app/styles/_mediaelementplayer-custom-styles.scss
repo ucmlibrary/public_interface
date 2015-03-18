@@ -1,2 +1,29 @@
 // ##### Custom Styles for MediaElement.js ##### //
 
+// These styles override the default CSS in mediaelementplayer.css
+
+.mejs-container .mejs-controls {
+  background: $design-dark-gray-color;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-total {
+  
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-buffering {
+  
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-loaded {
+  background: $design-dark-gray-color;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-current {
+  background: $design-primary-color;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
