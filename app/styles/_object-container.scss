@@ -10,6 +10,7 @@
 }
 
 .object__container {
+  margin: 0 0 15px 0;
   order: 1;
 
 	@include bp(sm-screen) {
