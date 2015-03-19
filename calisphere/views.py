@@ -76,9 +76,9 @@ def process_facets(facets, filters):
 
 def processQueryRequest(request):
     # concatenate query terms from refine query and query box, set defaults
-    q = request.GET['q']
+    q = request.GET['q'] if 'q' in request.GET else ''
     rq = request.GET.getlist('rq')
-    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq'))
+    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '16'
     start = request.GET['start'] if 'start' in request.GET else '0'
     view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
@@ -364,53 +364,45 @@ def collectionsExplore(request):
     return render(request, 'calisphere/collections-explore.html', {'collections': collections})
 
 def collectionView(request, collection_id):
-    if request.method == 'GET':
-        q = reduce(concat_query, request.GET.getlist('q')) if 'q' in request.GET else '*:*'
-        rows = request.GET['rows'] if 'rows' in request.GET else '16'
-        start = request.GET['start'] if 'start' in request.GET else '0'
-        view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
-        
-        collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
-        collection_json = urllib2.urlopen(collection_url).read()
-        collection_details = json.loads(collection_json)
-        
-        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        filters['collection_name'] = [collection_details['name']]
-        fq = solrize_filters(filters)
-        
-        # perform the search
-        solr_response = SOLR.select(
-            q=q,
-            rows=rows,
-            start=start,
-            fq=fq,
-            facet='true',
-            facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
+    collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
+    collection_json = urllib2.urlopen(collection_url).read()
+    collection_details = json.loads(collection_json)
+    
+    # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+    queryParams = processQueryRequest(request)
+    queryParams['filters']['collection_name'] = [collection_details['name']]
+    
+    # perform the search
+    solr_response = SOLR.select(
+        q=queryParams['query_terms'],
+        rows=queryParams['rows'],
+        start=queryParams['start'],
+        fq=solrize_filters(queryParams['filters']),
+        facet='true',
+        facet_limit='-1',
+        facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
+    )
+    
+    for item in solr_response.results:
+        process_media(item)
+    
+    facets = {}
+    for facet_type in FACET_TYPES:
+        facets[facet_type[0]] = process_facets(
+            solr_response.facet_counts['facet_fields'][facet_type[0]],
+            queryParams['filters'][facet_type[0]]
         )
         
-        for item in solr_response.results:
-            if 'reference_image_md5' in item:
-                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
-                
-        facets = {}
-        for facet_type in FACET_TYPES:
-            facets[facet_type[0]] = process_facets(
-                solr_response.facet_counts['facet_fields'][facet_type[0]],
-                filters[facet_type[0]]
-            )
-            
-        return render(request, 'calisphere/collectionResults.html', {
-            'q': q,
-            'filters': filters,
-            'rows': rows,
-            'start': start,
-            'search_results': solr_response.results,
-            'facets': facets,
-            'FACET_TYPES': FACET_TYPES,
-            'numFound': solr_response.numFound,
-            'pages': int(math.ceil(float(solr_response.numFound)/int(rows))),
-            'view_format': view_format,
-            'collection': collection_details
-        })
-        
-    return render(request, 'calisphere/searchResults.html', {'yay': 'yamy'})
+    return render(request, 'calisphere/collectionResults.html', {
+        'q': queryParams['q'],
+        'filters': queryParams['filters'],
+        'rows': queryParams['rows'],
+        'start': queryParams['start'],
+        'search_results': solr_response.results,
+        'facets': facets,
+        'FACET_TYPES': FACET_TYPES,
+        'numFound': solr_response.numFound,
+        'pages': int(math.ceil(float(solr_response.numFound)/int(queryParams['rows']))),
+        'view_format': queryParams['view_format'],
+        'collection': collection_details
+    })

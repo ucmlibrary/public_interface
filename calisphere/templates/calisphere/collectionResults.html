@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <form id="item-view" action="/" method="post">
+    <!-- <form id="item-view" action="/" method="post">
       {% csrf_token %}
       <input type="hidden" name="item_id" id="item_id" value=""/>
       <input type="hidden" name="q" value="{{ q }}"/>
@@ -79,11 +79,11 @@
           {% endfor %}
         {% endfor %}
       {% endif %}
-    </form>
+    </form> -->
 
     <!-- search results -->
     {% if view_format == "thumbnails" %}
-      {% include "calisphere/thumbnails-results.html" %}
+      {% include "calisphere/item-thumb.html" %}
     {% elif view_format == "list" %}
       {% include "calisphere/list-results.html" %}
     {% endif %}
