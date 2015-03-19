@@ -60,12 +60,9 @@
 // ***** Hosted Audio ***** //
 
 .obj-hosted-audio__player {
-  display: block;
-  width: 100%;
-  margin: 0 auto;
-
+  
   @include bp(sm-screen) {
-    width: 50%;
+    
   }
 
 }
