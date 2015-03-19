@@ -22,10 +22,12 @@
 
 }
 
+// ***** These classes make a fluid box with a set aspect ratio. To be used to set an empty placeholder box in-place of real <img> <audio> <video> media objects ***** //
+
 .aspect-ratio-container {
-  @include aspect-ratio(16, 9); // sets a sample box until media object is placed here
+  @include aspect-ratio(16, 9);
 }
 
-.aspect-ratio-content { // sets a sample box until replaced by media 
+.aspect-ratio-content {
   padding: 20px;
 }
