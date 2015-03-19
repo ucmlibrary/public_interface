@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 import md5s3stash
 import operator
@@ -101,8 +102,8 @@ def processQueryRequest(request):
     }
 
 def itemView(request, item_id=''):
-    item_id = 'id:' + "\"" + item_id + "\""
-    item_solr_search = SOLR.select(q=item_id)
+    item_id_search_term = 'id:' + "\"" + item_id + "\""
+    item_solr_search = SOLR.select(q=item_id_search_term)
     for item in item_solr_search.results:
         process_media(item)
     
