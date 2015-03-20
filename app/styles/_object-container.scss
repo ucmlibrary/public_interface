@@ -9,7 +9,7 @@
 	@extend .text__page-heading;
 }
 
-.object__container {
+.object__container-generic {
   order: 1;
   display: block;
   width: 100%;
@@ -22,12 +22,13 @@
 
 }
 
-// ***** These classes make a fluid box with a set aspect ratio. To be used to set an empty placeholder box in-place of real <img> <audio> <video> media objects ***** //
+.object__container-osd {
+  order: 1;
+  @include aspect-ratio(6, 4); // For this mixin, .aspect-ratio-content should be the child <div>
+  margin: 0 0 15px 0;
 
-.aspect-ratio-container {
-  @include aspect-ratio(16, 9);
-}
+  @include bp(sm-screen) {
+    order: 2;
+  }
 
-.aspect-ratio-content {
-  padding: 20px;
 }

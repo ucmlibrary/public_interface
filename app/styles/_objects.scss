@@ -7,10 +7,9 @@
   background: $design-light-gray-color;
 }
 
-#obj__openseadragon {
-  background: #eee;
-  width: auto;
-  height: 600px;
+#obj__osd {
+  @extend .aspect-ratio-content;
+  background: $design-light-gray-color;
 }
 
 // ***** Harvest Image ***** //
