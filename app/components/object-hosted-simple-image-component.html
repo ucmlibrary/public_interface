@@ -5,10 +5,19 @@
 
 	<h2 class="object__page-heading">Image / <strong>Walther League Picnic</strong></h2>
   
-  <div class="object__container aspect-ratio-container">
-    <div class="obj__hosted-simple-image aspect-ratio-content">
-    [OpenSeadragon Component Will Go Here]
-    </div>
+  <div class="object__container">
+    
+    <div id="openseadragon1" style="width: 800px; height: 600px;"></div>
+
+    <script src="bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js"></script>
+    
+    <script type="text/javascript">
+        var viewer = OpenSeadragon({
+            id: "openseadragon1",
+            tileSources: [{"profile": ["http://iiif.io/api/image/2/level2.json", {"supports": ["canonicalLinkHeader", "profileLinkHeader", "mirroring", "rotationArbitrary", "sizeAboveFull"], "qualities": ["default", "bitonal", "gray", "color"], "formats": ["jpg", "png", "gif", "webp"]}], "tiles": [{"width": 1024, "scaleFactors": [1, 2, 4, 8, 16, 32, 64, 128]}], "protocol": "http://iiif.io/api/image", "sizes": [{"width": 35, "height": 48}, {"width": 70, "height": 95}, {"width": 140, "height": 189}, {"width": 280, "height": 377}, {"width": 559, "height": 753}, {"width": 1117, "height": 1506}, {"width": 2233, "height": 3011}, {"width": 4466, "height": 6022}], "height": 6022, "width": 4466, "@context": "http://iiif.io/api/image/2/context.json", "@id": "http://ucldciiifwest-env.elasticbeanstalk.com/001687cd-e327-4ed1-9788-da3899715794"}]
+        });
+    </script>
+
 	</div>
 
   <div class="object__buttons">
