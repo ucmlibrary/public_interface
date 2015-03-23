@@ -9,7 +9,7 @@
 	@extend .text__page-heading;
 }
 
-.object__container-generic {
+.object__container-generic, .object__container-video {
   order: 1;
   display: block;
   width: 100%;
