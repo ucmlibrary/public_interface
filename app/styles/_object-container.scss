@@ -9,20 +9,26 @@
 	@extend .text__page-heading;
 }
 
-.object__container {
-  margin: 0 0 15px 0;
+.object__container-generic, .object__container-video {
   order: 1;
+  display: block;
+  width: 100%;
+  margin: 0 auto 15px auto;
 
 	@include bp(sm-screen) {
     order: 2;
+    width: 50%;
   }
 
 }
 
-.aspect-ratio-container {
-  @include aspect-ratio(16, 9); // sets a sample box until media object is placed here
-}
+.object__container-osd {
+  order: 1;
+  @include aspect-ratio(6, 4); // For this mixin, .aspect-ratio-content should be the child <div>
+  margin: 0 0 15px 0;
 
-.aspect-ratio-content { // sets a sample box until replaced by media 
-  padding: 20px;
+  @include bp(sm-screen) {
+    order: 2;
+  }
+
 }

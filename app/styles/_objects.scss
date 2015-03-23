@@ -7,12 +7,14 @@
   background: $design-light-gray-color;
 }
 
+#obj__osd {
+  @extend .aspect-ratio-content;
+  background: $design-light-gray-color;
+}
+
 // ***** Harvest Image ***** //
 
 .obj-harvest__link {
-  display: block;
-  width: 50%;
-  margin: 0 auto;
   color: #000;
   
   &:hover {
@@ -59,12 +61,5 @@
 
 // ***** Hosted Audio ***** //
 
-.obj-hosted-audio__player {
-  
-  @include bp(sm-screen) {
-    
-  }
-
-}
-
+// (no styles thus far)
 

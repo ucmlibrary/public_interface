@@ -1,6 +1,24 @@
 // ##### Custom Styles for MediaElement.js ##### //
 
-// These styles override the default CSS in mediaelementplayer.css
+// ***** Reset mediaelementplayer.css container and children to make fluid (see: https://css-tricks.com/rundown-of-handling-flexible-media ) ***** //
+
+.object__container-video .mejs-container {
+  width: 100% !important;
+  height: auto !important;
+  padding-top: 75%; // adjusts aspect ratio of container box
+}
+.object__container-video .mejs-overlay, .mejs-poster {
+  width: 100% !important;
+  height: 100% !important;
+}
+.object__container-video .mejs-mediaelement video {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+// ***** Reset the default mediaelementplayer.css skin colors ***** //
 
 .mejs-container .mejs-controls {
   background: $design-dark-gray-color;
@@ -29,4 +47,3 @@
   border-bottom: 1px solid #fff;
   border-left: 1px solid #fff;
 }
-

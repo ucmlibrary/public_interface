@@ -1,0 +1,60 @@
+
+<!-- Object - Hosted Video Component -->
+
+<div class="object__base">
+
+	<h2 class="object__page-heading">Video / <strong>Ampex Videofile Information System</strong></h2>
+  
+  <div class="object__container-video">
+
+    <video controls="controls" width="100%" class="mejs-player" preload="none">
+      <source src="http://av-cdn.calisphere.org/cst_00002_access_1500Kbps.mpeg4" type="video/mp4">
+    </video>
+  
+    <script>
+    <!--
+    /*
+    var opts = {
+      // http://stackoverflow.com/questions/9113633/replacing-media-source-http-with-rtmp-in-mediaelementsjs-based-on-browser-capa
+      success: function(media, node, player) {
+        if (media.pluginType == 'flash' && node.getAttribute('data-rtmp')) {
+          media.setSrc(node.getAttribute('data-rtmp'));
+          media.load();
+          media.play();
+        }
+      }, 
+      features: ['playpause','progress','current','duration','tracks','volume','fullscreen' ,'googleanalytics'],
+      pauseOtherPlayers: true,
+    };
+    if(FlashDetect.installed){
+      opts.mode='shim';
+    }
+    $($('video').mediaelementplayer(opts));
+    */
+    -->
+    </script>
+
+  </div>
+
+  <div class="object__buttons">
+    <a class="btn btn-xs object-button__envelope" href=""><span class="fa fa-envelope-o fa-fw"></span></a>
+    <a class="icon__twitter" href=""><span class="fa fa-twitter-square"></span></a>
+    <a class="icon__facebook" href=""><span class="fa fa-facebook-square"></span></a>
+    <a class="btn btn-xs object-button__citation" href="">
+      Get Citation
+    </a>
+    <a class="btn btn-sm object-button__download-image" href="">
+      <span class="icon__download-image">
+        <i class="fa fa-arrow-circle-o-down"></i>
+      </span> Download Image
+    </a>
+  </div>
+
+  <div class="object__contact-button">
+    <span class="object__contact-button-text">Need more information about this object? Contact the owning institution.</span>
+    <a class="btn btn-sm button__contact-owner" href=""><i class="fa fa-envelope"></i> Contact Owner </a>
+  </div>
+
+</div>
+
+<!-- Object - Hosted Video Component -->
