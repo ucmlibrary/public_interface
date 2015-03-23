@@ -12,7 +12,7 @@ import re
 import urllib2
 import simplejson as json
 
-FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
+FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
 SOLR = solr.Solr(
     settings.SOLR_URL,
     post_headers={
