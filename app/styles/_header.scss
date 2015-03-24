@@ -173,7 +173,7 @@ html.no-flexbox .global-header__nav-list-item {
 
 }
 
-.global-header__collections--sm {
+.global-header__bar {
   display: none;
 
   @include bp(sm-screen) {
@@ -191,21 +191,21 @@ html.no-flexbox .global-header__nav-list-item {
 
 }
 
-.global-header__collections--sm-list {
+.global-header__bar-list {
   margin: 0;
   padding: 0;
 }
 
-.global-header__collections--sm-list-item {
+.global-header__bar-list-item {
   display: inline;
   list-style: none;
 }
 
-.global-header__collections--sm-list-item:first-child .global-header__collections--sm-links {
+.global-header__bar-list-item:first-child .global-header__bar-links {
   border-right: 1px solid #fff;
 }
 
-.global-header__collections--sm-links {
+.global-header__bar-links {
 
   @include bp(sm-screen) {
     padding: 0.1em 3em;
