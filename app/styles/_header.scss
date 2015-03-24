@@ -106,7 +106,7 @@ html.no-jquery .global-header__nav {
   display: block;
 }
 
-.global-header__mobile-links--selected { // change to 'global-header__nav--selected'
+.global-header__mobile-links--selected { 
   display: block;
 }
 
@@ -117,6 +117,8 @@ html.no-jquery .global-header__nav {
   line-height: normal;
 
   @include bp(sm-screen) {
+    display: flex;
+    justify-content: flex-end;
     margin: 2px (-$layout-container-margin-sm) 0 0;
   }
 
@@ -126,10 +128,10 @@ html.no-jquery .global-header__nav {
 
 }
 
-.global-header__nav-list-item {
+html.no-flexbox .global-header__nav-list-item {
 
   @include bp(sm-screen) {
-    float: right;
+    float: left;
   }
 
 }
