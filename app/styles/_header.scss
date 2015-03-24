@@ -136,7 +136,7 @@ html.no-flexbox .global-header__nav-list-item {
 
 }
 
- .global-header__nav-list-item:not(:nth-child(n+3)) {
+ .global-header__nav-list-item:not(:nth-child(n+3)) { // select first two list items
   display: block;
 
   @include bp(sm-screen) {
