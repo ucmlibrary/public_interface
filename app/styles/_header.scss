@@ -126,19 +126,19 @@ html.no-jquery .global-header__nav {
 
 }
 
-.global-header__nav-browse-options {
-  display: block;
-
-  @include bp(sm-screen) {
-    display: none;
-  }
-
-}
-
 .global-header__nav-list-item {
 
   @include bp(sm-screen) {
     float: right;
+  }
+
+}
+
+ .global-header__nav-list-item:not(:nth-child(n+3)) {
+  display: block;
+
+  @include bp(sm-screen) {
+    display: none;
   }
 
 }
