@@ -13,9 +13,14 @@
 
 .obj-buttons__group1 {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  width: 180px;
+  
+  @include bp(sm-screen) {
+    justify-content: space-between;
+    width: 180px;
+  }
+
 }
 
 html.no-flexbox .obj-buttons__group1 {
@@ -24,9 +29,18 @@ html.no-flexbox .obj-buttons__group1 {
 
 .obj-buttons__group2 {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 440px;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  margin: 20px 0;
+  
+  @include bp(sm-screen) {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 440px;
+    margin: 0;
+  }
+
 }
 
 html.no-flexbox .obj-buttons__group2 {
@@ -54,10 +68,17 @@ html.no-flexbox .obj-buttons__group2 {
 }
 
 .obj-buttons__contact-text {
-  width: 200px;
+  margin: 0 0 0.5em 0;
   font-size: 0.8em;
   line-height: normal;
   text-align: right;
+
+  @include bp(sm-screen) {
+    width: 200px;
+    margin: 0;
+    text-align: left;
+  }
+
 }
 
 html.no-flexbox .obj-buttons__contact-text {
@@ -66,9 +87,10 @@ html.no-flexbox .obj-buttons__contact-text {
 }
 
 .button__contact-owner {
+  width: 100%;
 
   @include bp(sm-screen) {
-    
+    width: auto;
   }
 	
 }
