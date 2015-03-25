@@ -10,6 +10,7 @@ import math
 import solr
 import re
 import urllib2
+import copy
 import simplejson as json
 
 FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
@@ -75,6 +76,51 @@ def process_facets(facets, filters):
     
     return display_facets
 
+def getCollectionData(collection_data=None, collection_id=None):
+    collection = {}
+    if collection_data:
+        collection['url'] = collection_data.split('::')[0] if len(collection_data.split('::')) >= 1 else ''
+        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)', collection['url'])
+        if collection_api_url is None:
+            print 'no collection api url'
+            collection['id'] = ''
+        else:
+            collection['id'] = collection_api_url.group('url')
+        collection['name'] = collection_data.split('::')[1] if len(collection_data.split('::')) >= 2 else ''
+    elif collection_id:
+        collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id
+        collection_url = collection['url'] + "?format=json"
+        collection_json = urllib2.urlopen(collection_url).read()
+        collection_details = json.loads(collection_json)
+        collection['id'] = collection_id
+        collection['name'] = collection_details['name']
+    return collection
+
+def getRepositoryData(repository_data=None, repository_id=None):
+    repository = {}
+    if repository_data:
+        repository['url'] = repository_data.split('::')[0] if len(repository_data.split('::')) >= 1 else ''
+        repository['name'] = repository_data.split('::')[1] if len(repository_data.split('::')) >= 2 else ''
+        repository['campus'] = repository_data.split('::')[2] if len(repository_data.split('::')) >= 3 else ''
+        
+        repository_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/repository/(?P<url>\d*)/', repository['url'])
+        if repository_api_url is None:
+            print 'no repository api url'
+            repository['id'] = ''
+        else:
+            repository['id'] = repository_api_url.group('url')
+    elif repository_id:
+        repository['url'] = "https://registry.cdlib.org/api/v1/repository/" + repository_id + "/"
+        repository['id'] = repository_id
+        
+        repository_url = repository['url'] + "?format=json"
+        repository_json = urllib2.urlopen(repository_url).read()
+        repository_details = json.loads(repository_json)
+        repository['name'] = repository_details['name']
+        # TODO - don't know how to properly reverse engineer repository_data if there is a campus
+        repository['campus'] = ''
+    return repository
+
 def processQueryRequest(request):
     # concatenate query terms from refine query and query box, set defaults
     q = request.GET['q'] if 'q' in request.GET else ''
@@ -89,6 +135,16 @@ def processQueryRequest(request):
     # create a dictionary with key solr_name of filter and value list of parameters for that filter
     # {'type': ['image', 'audio'], 'repository_name': [...]}
     filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
+    
+    # use collection_id and repository_id to retrieve collection_data and repository_data filter values
+    for i, filter_item in enumerate(filters['collection_data']):
+        collection = getCollectionData(collection_id=filter_item)
+        filters['collection_data'][i] = collection['url'] + "::" + collection['name']
+    for i, filter_item in enumerate(filters['repository_data']):
+        repository = getRepositoryData(repository_id=filter_item)
+        filters['repository_data'][i] = repository['url'] + "::" + repository['name']
+        if repository['campus'] != '':
+            repository = repository + "::" + repository['campus']
     
     return {
         'q': q, 
@@ -219,10 +275,33 @@ def search(request):
                     queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else []
                 )
         
+        for i, facet_item in enumerate(facets['collection_data']):
+            collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
+            facets['collection_data'][i] = collection
+        for i, facet_item in enumerate(facets['repository_data']):
+            repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
+            facets['repository_data'][i] = repository
+        
+        filter_display = {}
+        for filter_type in queryParams['filters']:
+            if filter_type == 'collection_data':
+                filter_display['collection_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    collection = getCollectionData(collection_data=filter_item)
+                    filter_display['collection_data'].append(collection)
+            elif filter_type == 'repository_data':
+                filter_display['repository_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    repository = getRepositoryData(repository_data=filter_item)
+                    filter_display['repository_data'].append(repository)
+            else:
+                filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
+            
+        
         return render(request, 'calisphere/searchResults.html', {
             'q': queryParams['q'],
             'rq': queryParams['rq'],
-            'filters': queryParams['filters'],
+            'filters': filter_display,
             'rows': queryParams['rows'],
             'start': queryParams['start'],
             'search_results': solr_search.results,
