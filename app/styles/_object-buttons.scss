@@ -54,7 +54,8 @@
 .obj-buttons__contact-text {
   width: 200px;
   font-size: 0.8em;
-  border: $bgreen;
+  line-height: normal;
+  text-align: right;
 }
 
 .button__contact-owner {
