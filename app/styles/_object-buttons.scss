@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-between;
     margin: 0 60px;
-    // border: $bred;
+    overflow: hidden;
   }
 	
 }
@@ -16,7 +16,10 @@
   justify-content: space-between;
   align-items: center;
   width: 180px;
-  // border: $bblue;
+}
+
+html.no-flexbox .obj-buttons__group1 {
+  float: left;
 }
 
 .obj-buttons__group2 {
@@ -24,23 +27,23 @@
   justify-content: space-between;
   align-items: center;
   width: 440px;
-  // border: $bgreen;
+}
+
+html.no-flexbox .obj-buttons__group2 {
+  float: right;
 }
 
 .obj-buttons__envelope {
   @extend .button__primary;
-  // margin: 0 0.1em;
 }
 
 .obj-buttons__twitter {
-  // margin: 0 0.2em;
   font-size: 1.9em;
   line-height: 0.1;
   color: rgb(41, 138, 201);
 }
 
 .obj-buttons__facebook {
-  // margin: 0 0.08em;
   font-size: 1.9em;
   line-height: 0.1;
   color: rgb(46, 71, 124);
@@ -48,7 +51,6 @@
 
 .obj-buttons__citation {
   @extend .button__dark;
-  // margin: 0 0.4em;
 }
 
 .obj-buttons__contact-text {
@@ -56,6 +58,11 @@
   font-size: 0.8em;
   line-height: normal;
   text-align: right;
+}
+
+html.no-flexbox .obj-buttons__contact-text {
+  display: block;
+  float: left;
 }
 
 .button__contact-owner {
@@ -71,7 +78,7 @@
   display: none;
 
   @include bp(sm-screen) {
-    display: block;
+    display: inline-block;
   }
 
 }
