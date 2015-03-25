@@ -12,18 +12,18 @@
 }
 
 .obj-buttons__group1 {
-  width: 220px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 180px;
   // border: $bblue;
 }
 
 .obj-buttons__group2 {
-  width: 470px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 440px;
   // border: $bgreen;
 }
 
@@ -34,14 +34,14 @@
 
 .obj-buttons__twitter {
   // margin: 0 0.2em;
-  font-size: 2.3em;
+  font-size: 1.9em;
   line-height: 0.1;
   color: rgb(41, 138, 201);
 }
 
 .obj-buttons__facebook {
   // margin: 0 0.08em;
-  font-size: 2.3em;
+  font-size: 1.9em;
   line-height: 0.1;
   color: rgb(46, 71, 124);
 }
