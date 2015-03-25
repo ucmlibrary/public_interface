@@ -4,12 +4,27 @@
 
 	@include bp(sm-screen) {
     display: flex;
-    align-items: center;
-    // justify-content: space-between;
+    justify-content: space-between;
     margin: 0 60px;
-    border: $bred;
+    // border: $bred;
   }
 	
+}
+
+.obj-buttons__group1 {
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // border: $bblue;
+}
+
+.obj-buttons__group2 {
+  width: 470px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // border: $bgreen;
 }
 
 .obj-buttons__envelope {
