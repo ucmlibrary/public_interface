@@ -12,19 +12,12 @@
 
 .object-button__envelope {
   @extend .button__primary;
-  // position: relative;
-  // top: -0.6em; // vertically align with social icons
-  margin: 0 0.1em;
-  padding: 2px 5px;
-  font-size: 1em;
+  // margin: 0 0.1em;
 }
 
 .object-button__citation {
   @extend .button__dark;
-  // position: relative;
-  // top: -0.6em; // vertically align with social icons
-  margin: 0 0.4em;
-  padding: 4px 10px;
+  // margin: 0 0.4em;
 }
 
 .object__contact-button-text {
