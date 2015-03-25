@@ -1,9 +1,11 @@
 // ##### Object Buttons ##### //
 
 .obj-buttons {
+  display: flex;
+  flex-flow: column nowrap;
 
 	@include bp(sm-screen) {
-    display: flex;
+    flex-flow: row nowrap;
     justify-content: space-between;
     margin: 0 60px;
     overflow: hidden;
@@ -71,12 +73,12 @@ html.no-flexbox .obj-buttons__group2 {
   margin: 0 0 0.5em 0;
   font-size: 0.8em;
   line-height: normal;
-  text-align: right;
+  text-align: left;
 
   @include bp(sm-screen) {
     width: 200px;
     margin: 0;
-    text-align: left;
+    text-align: right;
   }
 
 }
