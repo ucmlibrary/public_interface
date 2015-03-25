@@ -1,6 +1,6 @@
 // ##### Object Buttons ##### //
 
-.object__buttons {
+.obj-buttons {
 
 	@include bp(sm-screen) {
     display: flex;
@@ -12,31 +12,31 @@
 	
 }
 
-.object-button__envelope {
+.obj-buttons__envelope {
   @extend .button__primary;
   // margin: 0 0.1em;
 }
 
-.object-button__twitter {
+.obj-buttons__twitter {
   // margin: 0 0.2em;
   font-size: 2.3em;
   line-height: 0.1;
   color: rgb(41, 138, 201);
 }
 
-.object-button__facebook {
+.obj-buttons__facebook {
   // margin: 0 0.08em;
   font-size: 2.3em;
   line-height: 0.1;
   color: rgb(46, 71, 124);
 }
 
-.object-button__citation {
+.obj-buttons__citation {
   @extend .button__dark;
   // margin: 0 0.4em;
 }
 
-.object__contact-button-text {
+.obj-buttons__contact-text {
   width: 200px;
   font-size: 0.8em;
   border: $bgreen;
@@ -50,7 +50,7 @@
 	
 }
 
-.object-button__download-image {
+.obj-buttons__download-image {
   @extend .button__dark;
   display: none;
 
