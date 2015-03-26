@@ -176,6 +176,14 @@
   margin: $layout-component-margin 0 0 0;
 }
 
+.object__metadata {
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0 0 0;
+  }
+  
+}
+
 .global-footer {
  margin: 0 (-$layout-container-margin-xs);
 
