@@ -156,8 +156,6 @@ FacetQuery.prototype.bindHandlers = function() {
       data_params['rq'] = that.refine_query;
       data_params['rc_page'] = $(this).data('rc_page');
       
-      console.log(that.filters);
-      
       for (var i in that.filters) {
         if (that.filters.hasOwnProperty(i)) {
           data_params[i] = that.filters[i];
