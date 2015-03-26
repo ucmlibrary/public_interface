@@ -475,6 +475,28 @@ def collectionView(request, collection_id):
             solr_response.facet_counts['facet_fields'][facet_type[0]],
             queryParams['filters'][facet_type[0]]
         )
+    
+    for i, facet_item in enumerate(facets['collection_data']):
+        collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
+        facets['collection_data'][i] = collection
+    for i, facet_item in enumerate(facets['repository_data']):
+        repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
+        facets['repository_data'][i] = repository
+    
+    filter_display = {}
+    for filter_type in queryParams['filters']:
+        if filter_type == 'collection_data':
+            filter_display['collection_data'] = []
+            for filter_item in queryParams['filters'][filter_type]:
+                collection = getCollectionData(collection_data=filter_item)
+                filter_display['collection_data'].append(collection)
+        elif filter_type == 'repository_data':
+            filter_display['repository_data'] = []
+            for filter_item in queryParams['filters'][filter_type]:
+                repository = getRepositoryData(repository_data=filter_item)
+                filter_display['repository_data'].append(repository)
+        else:
+            filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
         
     return render(request, 'calisphere/collectionResults.html', {
         'q': queryParams['q'],

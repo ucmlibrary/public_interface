@@ -60,7 +60,7 @@ FacetQuery.prototype.bindHandlers = function() {
         }
       }
       
-      $.pjax.click(event, {container: that.resultsContainer, data: data_params});
+      $.pjax.click(event, {container: that.resultsContainer, data: data_params, traditional: true});
     }
   }(this));
   
