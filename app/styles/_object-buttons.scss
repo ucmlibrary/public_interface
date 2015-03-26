@@ -114,12 +114,3 @@ html.no-flexbox .obj-buttons__contact-text {
   }
 
 }
-
-.object__metadata {
-	border-top: 1px solid $design-primary-color;
-	
-  @include bp(sm-screen) {
-    padding: 20px 0 0 60px;
-  }
-
-}
