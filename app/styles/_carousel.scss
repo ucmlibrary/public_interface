@@ -1,51 +1,80 @@
 // ##### Carousel Component ##### //
 
-// ***** Extract Bootstrap's breakpoint variables for Slick's JavaScript ***** //
+// ***** Flickity Carousel Customizations ***** //
 
-.bs-lg-screen {
-  display: none;
-  width: $screen-lg-min;
+.flickity-prev-next-button {
+  width: 60px;
+  height: 60px;
+  background: transparent;
+}
+.flickity-prev-next-button:hover {
+  background: transparent;
 }
 
-.bs-md-screen {
-  display: none;
-  width: $screen-md-min;
+.flickity-prev-next-button .arrow {
+  fill: $design-primary-color;
+}
+.flickity-prev-next-button.no-svg {
+  color: $design-primary-color;
 }
 
-.bs-sm-screen {
-  display: none;
-  width: $screen-sm-min;
-}
+.gallery-cell {
+  width: 100%;
+  height: 160px;
+  border: $bred;
 
-// ***** Override preexisting Slick selectors ***** //
-
-.slick-slider {
-  margin: 0 $slick-arrow-spacing;
-}
-
-.slick-prev, .slick-next {
-  width: auto;
-  height: auto;
-  margin-top: -40px; // arrow vertical positioning
-}
-
-.slick-prev {
-  left: -$slick-arrow-spacing;
-}
-
-.slick-next {
-  right: -$slick-arrow-spacing;
-}
-
-.slick-prev:before, .slick-next:before {
-  display: none;
-  
   @include bp(sm-screen) {
-    display: block;
-    font-size: 50px; // arrow size
+    width: 20%;
   }
 
 }
+
+// ***** Extract Bootstrap's breakpoint variables for Slick's JavaScript ***** //
+
+// .bs-lg-screen {
+//   display: none;
+//   width: $screen-lg-min;
+// }
+
+// .bs-md-screen {
+//   display: none;
+//   width: $screen-md-min;
+// }
+
+// .bs-sm-screen {
+//   display: none;
+//   width: $screen-sm-min;
+// }
+
+// // ***** Override preexisting Slick selectors ***** //
+
+// .slick-slider {
+//   margin: 0 $slick-arrow-spacing;
+// }
+
+// .slick-prev, .slick-next {
+//   width: auto;
+//   height: auto;
+//   margin-top: -40px; // arrow vertical positioning
+// }
+
+// .slick-prev {
+//   left: -$slick-arrow-spacing;
+// }
+
+// .slick-next {
+//   right: -$slick-arrow-spacing;
+// }
+
+// .slick-prev:before, .slick-next:before {
+//   display: none;
+  
+//   @include bp(sm-screen) {
+//     display: block;
+//     font-size: 50px; // arrow size
+//   }
+
+// }
 
 // ***** Custom Classes ***** //
 
