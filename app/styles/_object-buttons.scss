@@ -54,12 +54,14 @@ html.no-flexbox .obj-buttons__group2 {
 }
 
 .obj-buttons__twitter {
+  display: block; // needed for IE 10
   font-size: 1.9em;
   line-height: 0.1;
   color: rgb(41, 138, 201);
 }
 
 .obj-buttons__facebook {
+  display: block; // needed for IE 10
   font-size: 1.9em;
   line-height: 0.1;
   color: rgb(46, 71, 124);
@@ -70,6 +72,7 @@ html.no-flexbox .obj-buttons__group2 {
 }
 
 .obj-buttons__contact-text {
+  display: block; // needed for IE 10
   margin: 0 0 0.5em 0;
   font-size: 0.8em;
   line-height: normal;
