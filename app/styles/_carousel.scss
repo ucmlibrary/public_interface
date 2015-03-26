@@ -1,6 +1,6 @@
 // ##### Carousel Component ##### //
 
-// ***** Flickity Carousel Customizations***** //
+// ***** Flickity Carousel Customizations ***** //
 
 .flickity-prev-next-button {
   display: none;
@@ -34,53 +34,6 @@
 .flickity-prev-next-button.next {
   right: -60px;
 }
-
-// ***** Extract Bootstrap's breakpoint variables for Slick's JavaScript ***** //
-
-// .bs-lg-screen {
-//   display: none;
-//   width: $screen-lg-min;
-// }
-
-// .bs-md-screen {
-//   display: none;
-//   width: $screen-md-min;
-// }
-
-// .bs-sm-screen {
-//   display: none;
-//   width: $screen-sm-min;
-// }
-
-// // ***** Override preexisting Slick selectors ***** //
-
-// .slick-slider {
-//   margin: 0 $slick-arrow-spacing;
-// }
-
-// .slick-prev, .slick-next {
-//   width: auto;
-//   height: auto;
-//   margin-top: -40px; // arrow vertical positioning
-// }
-
-// .slick-prev {
-//   left: -$slick-arrow-spacing;
-// }
-
-// .slick-next {
-//   right: -$slick-arrow-spacing;
-// }
-
-// .slick-prev:before, .slick-next:before {
-//   display: none;
-  
-//   @include bp(sm-screen) {
-//     display: block;
-//     font-size: 50px; // arrow size
-//   }
-
-// }
 
 // ***** Custom Classes ***** //
 
