@@ -1,9 +1,9 @@
 // ##### Object Container ##### //
 
-.object__base {
-	display: flex;
-	flex-flow: column nowrap;
-}
+// .object__base {
+// 	display: flex;
+// 	flex-flow: column nowrap;
+// }
 
 .object__page-heading {
 	@extend .text__page-heading;
@@ -29,6 +29,7 @@
 
   @include bp(sm-screen) {
     order: 2;
+    margin: 0 60px 15px 60px;
   }
 
 }

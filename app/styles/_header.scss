@@ -106,7 +106,7 @@ html.no-jquery .global-header__nav {
   display: block;
 }
 
-.global-header__mobile-links--selected { // change to 'global-header__nav--selected'
+.global-header__mobile-links--selected { 
   display: block;
 }
 
@@ -117,6 +117,8 @@ html.no-jquery .global-header__nav {
   line-height: normal;
 
   @include bp(sm-screen) {
+    display: flex;
+    justify-content: flex-end;
     margin: 2px (-$layout-container-margin-sm) 0 0;
   }
 
@@ -126,21 +128,19 @@ html.no-jquery .global-header__nav {
 
 }
 
-.global-header__nav-browse-options {
-  display: block;
+html.no-flexbox .global-header__nav-list-item {
 
   @include bp(sm-screen) {
-    display: none;
+    float: left;
   }
 
 }
 
-.global-header__nav-list-item {
+ .global-header__nav-list-item:not(:nth-child(n+3)) { // select first two list items
+  display: block;
 
   @include bp(sm-screen) {
-    text-align: center;
-    float: left;
-    width: 25%;
+    display: none;
   }
 
 }
@@ -152,12 +152,14 @@ html.no-jquery .global-header__nav {
   border-bottom: 1px solid #fff;
   background: $design-dark-gray-color;
   font-size: 1.1em;
+
   &:hover {
     text-decoration: none;
   }
 
   @include bp(sm-screen) {
     display: inline;
+    margin: 0 0.3em;
     padding: 0;
     color: #000;
     border: none;
@@ -165,12 +167,13 @@ html.no-jquery .global-header__nav {
   }
 
   @include bp(md-screen) {
+    margin: 0 0.7em;
     font-size: 1.1em;
   }
 
 }
 
-.global-header__collections--sm {
+.global-header__bar {
   display: none;
 
   @include bp(sm-screen) {
@@ -188,21 +191,21 @@ html.no-jquery .global-header__nav {
 
 }
 
-.global-header__collections--sm-list {
+.global-header__bar-list {
   margin: 0;
   padding: 0;
 }
 
-.global-header__collections--sm-list-item {
+.global-header__bar-list-item {
   display: inline;
   list-style: none;
 }
 
-.global-header__collections--sm-list-item:first-child .global-header__collections--sm-links {
+.global-header__bar-list-item:first-child .global-header__bar-links {
   border-right: 1px solid #fff;
 }
 
-.global-header__collections--sm-links {
+.global-header__bar-links {
 
   @include bp(sm-screen) {
     padding: 0.1em 3em;

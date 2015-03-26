@@ -1,74 +1,110 @@
 // ##### Object Buttons ##### //
 
-.object__buttons {
-	order: 2;
-	text-align: center;
+.obj-buttons {
+  display: flex;
+  flex-flow: column nowrap;
 
 	@include bp(sm-screen) {
-    order: 3;
-    padding: 0 0 0 60px;
-		text-align: left;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 0 60px;
+    overflow: hidden;
   }
 	
 }
 
-.object-button__envelope {
+.obj-buttons__group1 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  @include bp(sm-screen) {
+    justify-content: space-between;
+    width: 180px;
+  }
+
+}
+
+html.no-flexbox .obj-buttons__group1 {
+  float: left;
+}
+
+.obj-buttons__group2 {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  margin: 20px 0;
+  
+  @include bp(sm-screen) {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 440px;
+    margin: 0;
+  }
+
+}
+
+html.no-flexbox .obj-buttons__group2 {
+  float: right;
+}
+
+.obj-buttons__envelope {
   @extend .button__primary;
-  position: relative;
-  top: -0.6em; // vertically align with social icons
-  margin: 0 0.1em;
-  padding: 2px 5px;
-  font-size: 1em;
 }
 
-.object-button__citation {
+.obj-buttons__twitter {
+  font-size: 1.9em;
+  line-height: 0.1;
+  color: rgb(41, 138, 201);
+}
+
+.obj-buttons__facebook {
+  font-size: 1.9em;
+  line-height: 0.1;
+  color: rgb(46, 71, 124);
+}
+
+.obj-buttons__citation {
   @extend .button__dark;
-  position: relative;
-  top: -0.6em; // vertically align with social icons
-  margin: 0 0.4em;
-  padding: 4px 10px;
 }
 
-.object-button__download-image {
+.obj-buttons__contact-text {
+  margin: 0 0 0.5em 0;
+  font-size: 0.8em;
+  line-height: normal;
+  text-align: left;
+
+  @include bp(sm-screen) {
+    width: 200px;
+    margin: 0;
+    text-align: right;
+  }
+
+}
+
+html.no-flexbox .obj-buttons__contact-text {
+  display: block;
+  float: left;
+}
+
+.button__contact-owner {
+  width: 100%;
+
+  @include bp(sm-screen) {
+    width: auto;
+  }
+	
+}
+
+.obj-buttons__download-image {
   @extend .button__dark;
   display: none;
 
   @include bp(sm-screen) {
-	  display: block;
-	  float: right;
-	  margin: 0.6em 80px 0 0;
-	}
-
-}
-
-.object__contact-button {
-  width: 100%;
-  margin: 0 0 $layout-component-margin 0;
-  order: 3;
-	align-self: center;
-
-  .button__contact-owner {
-    width: 100%;
-
-    @include bp(sm-screen) {
-      width: auto;
-    }
-
+    display: inline-block;
   }
 
-	@include bp(sm-screen) {
-    width: 200px;
-    margin: -6em 0 20px 0;
-    order: 1;
-    align-self: flex-end;
-  }
-	
-}
-
-.object__contact-button-text {
-	display: block;
-	margin: 0.25em 0;
-	font-size: 0.8em;
 }
 
 .object__metadata {
@@ -76,7 +112,6 @@
 	
   @include bp(sm-screen) {
     padding: 20px 0 0 60px;
-    
   }
 
 }
