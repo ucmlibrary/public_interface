@@ -6,9 +6,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     {% block styles %}
-      <link rel="stylesheet" href="{% static "bower_components/mediaelement/build/mediaelementplayer.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/slick.js/slick/slick.css" %}" />
-      <link rel="stylesheet" href="{% static "styles/main.css" %}"/>
+      <link rel="stylesheet" href="{% static "bower_components/fontawesome/css/font-awesome.css" %}" />
+      <link rel="stylesheet" href="{% static "bower_components/mediaelement/build/mediaelementplayer.css" %}" />
+      <link rel="stylesheet" href="{% static "bower_components/flickity/css/flickity.css" %}" />
+      <link rel="stylesheet" href="{% static "styles/main.css" %}" />
     {% endblock %}
     {% block scripts %}
     {% endblock %}
@@ -37,6 +39,17 @@
         <script src="{% static "bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js" %}"></script>
         <script src="{% static "bower_components/slick.js/slick/slick.min.js" %}"></script>
         <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
+        <script src="{% static "bower_components/get-size/get-size.js" %}"></script>
+        <script src="{% static "bower_components/matches-selector/matches-selector.js" %}"></script>
+        <script src="{% static "bower_components/eventEmitter/EventEmitter.js" %}"></script>
+        <script src="{% static "bower_components/eventie/eventie.js" %}"></script>
+        <script src="{% static "bower_components/doc-ready/doc-ready.js" %}"></script>
+        <script src="{% static "bower_components/classie/classie.js" %}"></script>
+        <script src="{% static "bower_components/unipointer/unipointer.js" %}"></script>
+        <script src="{% static "bower_components/unidragger/unidragger.js" %}"></script>
+        <script src="{% static "bower_components/fizzy-ui-utils/utils.js" %}"></script>
+        <script src="{% static "bower_components/tap-listener/tap-listener.js" %}"></script>
+        <script src="{% static "bower_components/flickity/js/index.js" %}"></script>
       {% else %}
         <script src="{% static "scripts/vendor.js" %}"></script>
       {% endif %}
