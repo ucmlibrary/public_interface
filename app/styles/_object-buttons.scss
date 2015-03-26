@@ -13,6 +13,11 @@
 	
 }
 
+html.no-flexbox .obj-buttons a {
+  display: inline-block;
+  margin: 0 2px;
+}
+
 .obj-buttons__group1 {
   display: flex;
   justify-content: space-around;
