@@ -39,8 +39,8 @@ $(document).ready(function(){
 
   // Expand checkbox group and switch arrow icon when clicking on header (small and medium screens):
   $('.js-a-check__header').click(function(){
-    $('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
-    $('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
+    $(this).next('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $(this).children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
   });
 
   // Select all or deselect all checkboxes (small and medium screens):
