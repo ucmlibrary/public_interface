@@ -2,11 +2,7 @@
 
 <div class="related-coll" id="related-coll">
   <h3 class="related-coll__title">
-    {% if filters|get_item:'collection_data'|length == 0 %}
-      {{ facets.collection_data|length }}
-    {% else %}
-      {{ filters|get_item:'collection_data'|length }}
-    {% endif %}
+    {{ num_related_collections }}
     
      Collections Found with Similar Objects</h3>
   {% for related_collection in related_collections %}
@@ -36,7 +32,7 @@
     </button>
   {% endif %}
   
-  {% if rc_page|multiply:3|add:3 < facets|get_item:'collection_name'|length %}
+  {% if rc_page|multiply:3|add:3 < num_related_collections %}
   <button class="btn btn-link related-coll__next-button js-rc-page" data-rc_page="{{ rc_page|add:1 }}">
     Next
     <span class="fa fa-caret-right"></span>

@@ -156,12 +156,14 @@ FacetQuery.prototype.bindHandlers = function() {
       data_params['rq'] = that.refine_query;
       data_params['rc_page'] = $(this).data('rc_page');
       
+      console.log(that.filters);
+      
       for (var i in that.filters) {
         if (that.filters.hasOwnProperty(i)) {
           data_params[i] = that.filters[i];
         }
       }
-      $.ajax({data: data_params, url: '/relatedCollections/', success: function(rc_container) {
+      $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(rc_container) {
         return function(data, status, jqXHR) {
           $(rc_container).html(data);
         }
@@ -182,13 +184,21 @@ FacetQuery.prototype.getValuesFromDom = function() {
   
   this.filters = {}
   if (typeof($("[form='js-facet'][name='type_ss']:checked").val()) !== 'undefined') {
-    this.filters['type_ss'] = $("[form='js-facet'][name='type_ss']:checked").val();
+    this.filters['type_ss'] = []
+    for (var i=0; i < $("[form='js-facet'][name='type_ss']:checked").length; i++) {
+      this.filters['type_ss'].push($($("[form='js-facet'][name='type_ss']:checked")[i]).val());
+    }
+    // this.filters['type_ss'] = $("[form='js-facet'][name='type_ss']:checked").val();
   }
-  if (typeof($("[form='js-facet'][name='collection_name']:checked").val()) !== 'undefined') {
-    this.filters['collection_name'] = $("[form='js-facet'][name='collection_name']:checked").val();
+  if (typeof($("[form='js-facet'][name='collection_data']:checked").val()) !== 'undefined') {
+    this.filters['collection_data'] = $("[form='js-facet'][name='collection_data']:checked").val();
   }
-  if (typeof($("[form='js-facet'][name='repository_name']:checked").val()) !== 'undefined') {
-    this.filters['repository_name'] = $("[form='js-facet'][name='repository_name']:checked").val();
+  if (typeof($("[form='js-facet'][name='repository_data']:checked").val()) !== 'undefined') {
+    this.filters['repository_data'] = []
+    for (var i=0; i < $("[form='js-facet'][name='repository_data']:checked").length; i++) {
+      this.filters['repository_data'].push($($("[form='js-facet'][name='repository_data']:checked")[i]).val());
+    }
+    // this.filters['repository_data'] = $("[form='js-facet'][name='repository_data']:checked").val();
   }
 }
 

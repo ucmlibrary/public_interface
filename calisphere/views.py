@@ -32,6 +32,8 @@ def process_media(item):
         item['reference_image_http'] = settings.THUMBNAIL_URL + 'clip/178x100/' + item['reference_image_md5']
     elif 'url_item' in item:
         item['reference_image_http'] = "http://www.calisphere.universityofcalifornia.edu/images/misc/no_image1.gif"
+    else:
+        item['reference_image_http'] = ""
     
     item['href'] = '/itemView/{0}/'.format( item['id'] )
 
@@ -311,6 +313,7 @@ def search(request):
             'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
             'view_format': queryParams['view_format'],
             'related_collections': relatedCollections(request, queryParams),
+            'num_related_collections': len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data']),
             'rc_page': queryParams['rc_page']
         })
         
@@ -403,7 +406,7 @@ def relatedCollections(request, queryParams={}):
         return three_related_collections
     else:
         return render(request, 'calisphere/related-collections.html', {
-            'facets': {'collection_name': related_collections_counts},
+            'num_related_collections': len(related_collections),
             'related_collections': three_related_collections,
             'rc_page': queryParams['rc_page']
         })
