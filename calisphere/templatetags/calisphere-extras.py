@@ -1,4 +1,5 @@
 from django.template import Library
+import re
 
 register = Library()
 
@@ -34,7 +35,7 @@ def dictionary_length(dictionary):
 
 @register.filter
 def get_item(dictionary, key):
-  return dictionary.get(key)
+  return dictionary.get(key, '')
 
 @register.filter
 def multiply( a, b ):

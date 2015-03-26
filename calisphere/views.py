@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 import md5s3stash
 import operator
@@ -9,9 +10,10 @@ import math
 import solr
 import re
 import urllib2
+import copy
 import simplejson as json
 
-FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_name', 'Institution Owner'), ('collection_name', 'Collection')]
+FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
 SOLR = solr.Solr(
     settings.SOLR_URL,
     post_headers={
@@ -30,6 +32,8 @@ def process_media(item):
         item['reference_image_http'] = settings.THUMBNAIL_URL + 'clip/178x100/' + item['reference_image_md5']
     elif 'url_item' in item:
         item['reference_image_http'] = "http://www.calisphere.universityofcalifornia.edu/images/misc/no_image1.gif"
+    else:
+        item['reference_image_http'] = ""
     
     item['href'] = '/itemView/{0}/'.format( item['id'] )
 
@@ -74,42 +78,338 @@ def process_facets(facets, filters):
     
     return display_facets
 
-def itemView(request, item_id=''):
-    item_id = 'id:' + "\"" + item_id + "\""
-    
-    if request.method == 'POST' and 'q' in request.POST:
-        q = request.POST['q']
-        rows = 6
-        start = request.POST['start'] if 'start' in request.POST else '0'
+def getCollectionData(collection_data=None, collection_id=None):
+    collection = {}
+    if collection_data:
+        collection['url'] = collection_data.split('::')[0] if len(collection_data.split('::')) >= 1 else ''
+        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)', collection['url'])
+        if collection_api_url is None:
+            print 'no collection api url'
+            collection['id'] = ''
+        else:
+            collection['id'] = collection_api_url.group('url')
+        collection['name'] = collection_data.split('::')[1] if len(collection_data.split('::')) >= 2 else ''
+    elif collection_id:
+        collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id
+        collection_url = collection['url'] + "?format=json"
+        collection_json = urllib2.urlopen(collection_url).read()
+        collection_details = json.loads(collection_json)
+        collection['id'] = collection_id
+        collection['name'] = collection_details['name']
+    return collection
+
+def getRepositoryData(repository_data=None, repository_id=None):
+    repository = {}
+    if repository_data:
+        repository['url'] = repository_data.split('::')[0] if len(repository_data.split('::')) >= 1 else ''
+        repository['name'] = repository_data.split('::')[1] if len(repository_data.split('::')) >= 2 else ''
+        repository['campus'] = repository_data.split('::')[2] if len(repository_data.split('::')) >= 3 else ''
         
-        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        fq = solrize_filters(filters)
+        repository_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/repository/(?P<url>\d*)/', repository['url'])
+        if repository_api_url is None:
+            print 'no repository api url'
+            repository['id'] = ''
+        else:
+            repository['id'] = repository_api_url.group('url')
+    elif repository_id:
+        repository['url'] = "https://registry.cdlib.org/api/v1/repository/" + repository_id + "/"
+        repository['id'] = repository_id
+        
+        repository_url = repository['url'] + "?format=json"
+        repository_json = urllib2.urlopen(repository_url).read()
+        repository_details = json.loads(repository_json)
+        repository['name'] = repository_details['name']
+        # TODO - don't know how to properly reverse engineer repository_data if there is a campus
+        repository['campus'] = ''
+    return repository
+
+def processQueryRequest(request):
+    # concatenate query terms from refine query and query box, set defaults
+    q = request.GET['q'] if 'q' in request.GET else ''
+    rq = request.GET.getlist('rq')
+    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
+    rows = request.GET['rows'] if 'rows' in request.GET else '16'
+    start = request.GET['start'] if 'start' in request.GET else '0'
+    view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
+    rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
+    
+    # for each filter_type tuple ('solr_name', 'Display Name') in the list FACET_TYPES
+    # create a dictionary with key solr_name of filter and value list of parameters for that filter
+    # {'type': ['image', 'audio'], 'repository_name': [...]}
+    filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
+    
+    # use collection_id and repository_id to retrieve collection_data and repository_data filter values
+    for i, filter_item in enumerate(filters['collection_data']):
+        collection = getCollectionData(collection_id=filter_item)
+        filters['collection_data'][i] = collection['url'] + "::" + collection['name']
+    for i, filter_item in enumerate(filters['repository_data']):
+        repository = getRepositoryData(repository_id=filter_item)
+        filters['repository_data'][i] = repository['url'] + "::" + repository['name']
+        if repository['campus'] != '':
+            repository = repository + "::" + repository['campus']
+    
+    return {
+        'q': q, 
+        'rq': rq, 
+        'query_terms': query_terms, 
+        'rows': rows, 
+        'start': start, 
+        'view_format': view_format, 
+        'filters': filters,
+        'rc_page': rc_page
+    }
+
+def itemView(request, item_id=''):
+    item_id_search_term = 'id:' + "\"" + item_id + "\""
+    item_solr_search = SOLR.select(q=item_id_search_term)
+    for item in item_solr_search.results:
+        process_media(item)
+    
+    # TODO: write related objects version (else)
+    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+        queryParams = processQueryRequest(request)
+        queryParams['rows'] = 6
+        # TODO: WHERE TO START!?
+        
+        carousel_solr_search = SOLR.select(
+            q=queryParams['query_terms'],
+            rows='6',
+            start=queryParams['start'],
+            fq=solrize_filters(queryParams['filters'])
+        )
+        
+        # except solr.SolrException:
+            # TODO: better error handling
+            # print solr.SolrException.reason
+            # print solr.SolrException.httpcode
+            # print solr.SolrException.body
+        
+        # search performed, process the results
+        
+        # TODO: create a no results found page
+        if len(carousel_solr_search.results) == 0:
+            print 'no results found'
+        
+        for item in carousel_solr_search.results:
+            process_media(item)
+        
+        return render(request, 'calisphere/item.html', {
+            'items': item_solr_search.results,
+            'q': queryParams['q'],
+            'rq': queryParams['rq'],
+            'filters': queryParams['filters'],
+            'rows': queryParams['rows'],
+            'start': queryParams['start'],
+            'search_results': carousel_solr_search.results,
+            # 'facets': facets,
+            'FACET_TYPES': FACET_TYPES,
+            'numFound': carousel_solr_search.numFound,
+            'pages': int(math.ceil(float(carousel_solr_search.numFound)/int(queryParams['rows']))),
+            # 'view_format': queryParams['view_format'],
+            # 'related_collections': relatedCollections(request, queryParams),
+            # 'rc_page': queryParams['rc_page']
+        })
+        
+        # return render (request, 'calisphere/home.html', {'q': q})
+    
+    return render(request, 'calisphere/item.html', {'q': '', 'item': item_solr_search.results})
+
+
+def search(request):
+    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+        queryParams = processQueryRequest(request)
+        
+        # define facet fields to retrieve
+        facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
         
         solr_search = SOLR.select(
-            q=q,
-            rows='6',
-            start=start,
-            fq=fq
+            q=queryParams['query_terms'],
+            rows=queryParams['rows'],
+            start=queryParams['start'],
+            fq=solrize_filters(queryParams['filters']),
+            facet='true',
+            facet_limit='-1',
+            facet_field=facet_fields
         )
+        
+        # except solr.SolrException:
+            # TODO: better error handling
+            # print solr.SolrException.reason
+            # print solr.SolrException.httpcode
+            # print solr.SolrException.body
+        
+        # search performed, process the results
+        
+        # TODO: create a no results found page
+        if len(solr_search.results) == 0:
+            print 'no results found'
         
         for item in solr_search.results:
             process_media(item)
         
-        carousel_items = solr_search.results
-        numFound = solr_search.numFound
+        # get facet counts
+        facets = {}
+        for facet_type in facet_fields:
+            if facet_type in queryParams['filters'] and len(queryParams['filters'][facet_type]) > 0:
+                # other_filters is all the filters except the ones of the current filter type
+                other_filters = {key: value for key, value in queryParams['filters'].items()
+                    if key != facet_type}
+                other_filters[facet_type] = []
+                
+                # perform the exact same search, but as though no filters of this type have been selected
+                # to obtain the counts for facets for this facet type
+                facet_solr_search = SOLR.select(
+                    q=queryParams['query_terms'],
+                    rows='0',
+                    fq=solrize_filters(other_filters),
+                    facet='true',
+                    facet_limit='-1',
+                    facet_field=[facet_type]
+                )
+                
+                facets[facet_type] = process_facets(
+                    facet_solr_search.facet_counts['facet_fields'][facet_type],
+                    queryParams['filters'][facet_type]
+                )
+            else:
+                facets[facet_type] = process_facets(
+                    solr_search.facet_counts['facet_fields'][facet_type],
+                    queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else []
+                )
+        
+        for i, facet_item in enumerate(facets['collection_data']):
+            collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
+            facets['collection_data'][i] = collection
+        for i, facet_item in enumerate(facets['repository_data']):
+            repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
+            facets['repository_data'][i] = repository
+        
+        filter_display = {}
+        for filter_type in queryParams['filters']:
+            if filter_type == 'collection_data':
+                filter_display['collection_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    collection = getCollectionData(collection_data=filter_item)
+                    filter_display['collection_data'].append(collection)
+            elif filter_type == 'repository_data':
+                filter_display['repository_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    repository = getRepositoryData(repository_data=filter_item)
+                    filter_display['repository_data'].append(repository)
+            else:
+                filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
+            
+        
+        return render(request, 'calisphere/searchResults.html', {
+            'q': queryParams['q'],
+            'rq': queryParams['rq'],
+            'filters': filter_display,
+            'rows': queryParams['rows'],
+            'start': queryParams['start'],
+            'search_results': solr_search.results,
+            'facets': facets,
+            'FACET_TYPES': FACET_TYPES,
+            'numFound': solr_search.numFound,
+            'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
+            'view_format': queryParams['view_format'],
+            'related_collections': relatedCollections(request, queryParams),
+            'num_related_collections': len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data']),
+            'rc_page': queryParams['rc_page']
+        })
+        
+        # return render (request, 'calisphere/home.html', {'q': q})
+    
+    return render (request, 'calisphere/home.html', {'q': ''})
+
+def relatedCollections(request, queryParams={}):
+    if not queryParams: 
+        queryParams = processQueryRequest(request)
+        ajaxRequest = True
     else:
-        # MORE LIKE THIS RESULTS
-        q = ''
-        carousel_items = {}
-        numFound = 0
+        ajaxRequest = False
     
-    solr_item = SOLR.select(q=item_id)
-    for item in solr_item.results:
-        process_media(item)
+    # #####################
+    # get list of related collections 
+    # uncomment to get list of related collections disregarding any selected collection filters
+    # #####################
+    # if 'collection_name' in queryParams['filters'] and len(queryParams['filters']['collection_name']) > 0:
+    #     related_collections_filters = {key: value for key, value in queryParams['filters'].items()
+    #         if key != 'collection_name'}
+    #     related_collections_filters['collection_name'] = []
+    # else:
+    related_collections_filters = queryParams['filters']
     
-    context = {'q': q, 'docs': solr_item.results, 'carousel': carousel_items, 'numFound': numFound}
+    related_collections_solr_search = SOLR.select(
+        q=queryParams['query_terms'],
+        rows='0',
+        fq=solrize_filters(related_collections_filters),
+        facet='true',
+        facet_limit='-1',
+        facet_field=['collection_data']
+    )
     
-    return render(request, 'calisphere/item.html', context)
+    # remove collections with a count of 0 and sort by count
+    related_collections_counts = process_facets(
+        related_collections_solr_search.facet_counts['facet_fields']['collection_data'],
+        queryParams['filters']['collection_data'] if 'collection_data' in queryParams['filters'] else []
+    )
+    
+    # remove 'count'
+    related_collections = list(facet for facet, count in related_collections_counts)
+    
+    three_related_collections = []
+    for i in range(queryParams['rc_page']*3, queryParams['rc_page']*3+3):
+        if len(related_collections) > i:
+            facet = ["collection_data: \"" + related_collections[i] + "\""]
+            collection_solr_search = SOLR.select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title')
+            
+            if len(collection_solr_search.results) > 0:
+                if 'collection_data' in collection_solr_search.results[0] and len(collection_solr_search.results[0]['collection_data']) > 0:
+                    collection = collection_solr_search.results[0]['collection_data'][0]
+                    
+                    collection_data = {'image_urls': []}
+                    for item in collection_solr_search.results:
+                        process_media(item)
+                        if 'reference_image_md5' in item:
+                            collection_data['image_urls'].append({
+                                'title': item['title'], 
+                                'reference_image_http': item['reference_image_http'], 
+                                'reference_image_md5': item['reference_image_md5']
+                            })
+                        else:
+                            collection_data['image_urls'].append({
+                                'title': item['title'],
+                                'reference_image_http': item['reference_image_http']
+                            })
+                        
+                    collection_match = re.match(r'(?P<collection_url>https://registry\.cdlib\.org/api/v1/collection/\d+)::(?P<collection_name>.+)', collection)
+                    collection_url = collection_match.group('collection_url') + "?format=json"
+                    collection_json = urllib2.urlopen(collection_url).read()
+                    collection_details = json.loads(collection_json)
+                    
+                    collection_data['name'] = collection_details['name']
+                    collection_data['resource_uri'] = collection_details['resource_uri']
+                    col_id = re.match(r'^/api/v1/collection/(?P<collection_id>\d+)/$', collection_details['resource_uri'])
+                    collection_data['collection_id'] = col_id.group('collection_id')
+                    
+                    # TODO: get this from repository_data in solr rather than from the registry API
+                    collection_data['institution'] = ''
+                    # print collection_details
+                    for repository in collection_details['repository']:
+                        for campus in repository['campus']:
+                            collection_data['institution'] = collection_data['institution'] + campus['name'] + ', '
+                            collection_data['institution'] = collection_data['institution'] + repository['name'] + ', '
+                    
+                    three_related_collections.append(collection_data)
+    
+    if not ajaxRequest:
+        return three_related_collections
+    else:
+        return render(request, 'calisphere/related-collections.html', {
+            'num_related_collections': len(related_collections),
+            'related_collections': three_related_collections,
+            'rc_page': queryParams['rc_page']
+        })
 
 def collectionsExplore(request):
     collections_solr_query = SOLR.select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
@@ -132,7 +432,7 @@ def collectionsExplore(request):
         for item in display_items:
             if 'reference_image_md5' in item:
                 item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
-            
+                
         collection_url_pattern = re.compile('https://registry.cdlib.org/api/v1/collection/([0-9]+)[/]?')
         collection_id = collection_url_pattern.match(collection_url)
         
@@ -143,214 +443,71 @@ def collectionsExplore(request):
             'collection_id': collection_id.group(1),
             'display_items': display_items.results
         })
-    
+        
     return render(request, 'calisphere/collections-explore.html', {'collections': collections})
 
-def search(request, collection_id='', institution_id=''):
-    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-        # concatenate query terms from refine query and query box, set defaults
-        query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq'))
-        rows = request.GET['rows'] if 'rows' in request.GET else '16'
-        start = request.GET['start'] if 'start' in request.GET else '0'
-        view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
-        related_collections_page_number = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
-        
-        # for each filter_type tuple ('solr_name', 'Display Name') in the list FACET_TYPES
-        # create a dictionary with key solr_name of filter and value list of parameters for that filter
-        # {'type': ['image', 'audio'], 'repository_name': [...]}
-        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        
-        # if collection_id != '':
-        #     filters['collection_name'] = [collection_id]
-        # if institution_id != '':
-        #     filters['institution_name'] = [institution_id]
-        
-        # define facet fields to retrieve
-        facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
-        facet_fields.append('collection_data')
-        
-        solr_search = SOLR.select(
-            q=query_terms,
-            rows=rows,
-            start=start,
-            fq=solrize_filters(filters),
-            facet='true',
-            facet_limit='-1',
-            facet_field=facet_fields
-        )
-        
-        # except solr.SolrException:
-            # TODO: better error handling
-            # print solr.SolrException.reason
-            # print solr.SolrException.httpcode
-            # print solr.SolrException.body
-        
-        # search performed, process the results
-        
-        # TODO: no results found page
-        if len(solr_search.results) == 0:
-            print 'no results found'
-        
-        for item in solr_search.results:
-            process_media(item)
-        
-        # get facet counts
-        facets = {}
-        for facet_type in facet_fields:
-            if facet_type in filters and len(filters[facet_type]) > 0:
-                # other_filters is all the filters except the ones of the current filter type
-                other_filters = {key: value for key, value in filters.items()
-                    if key != facet_type}
-                other_filters[facet_type] = []
-                
-                # perform the exact same search, but as though no filters of this type have been selected
-                # to obtain the counts for facets for this facet type
-                facet_solr_search = SOLR.select(
-                    q=query_terms,
-                    rows='0',
-                    fq=solrize_filters(other_filters),
-                    facet='true',
-                    facet_limit='-1',
-                    facet_field=[facet_type]
-                )
-                
-                facets[facet_type] = process_facets(
-                    facet_solr_search.facet_counts['facet_fields'][facet_type],
-                    filters[facet_type]
-                )
-            else:
-                facets[facet_type] = process_facets(
-                    solr_search.facet_counts['facet_fields'][facet_type],
-                    filters[facet_type] if facet_type in filters else []
-                )
-        
-        # get first three related collections
-        related_collections = list(facet for facet, count in facets['collection_name'])
-        
-        return render(request, 'calisphere/searchResults.html', {
-            'q': request.GET['q'],
-            'rq': request.GET.getlist('rq'),
-            'filters': filters,
-            'rows': rows,
-            'start': start,
-            'search_results': solr_search.results,
-            'facets': facets,
-            'FACET_TYPES': FACET_TYPES,
-            'numFound': solr_search.numFound,
-            'pages': int(math.ceil(float(solr_search.numFound)/int(rows))),
-            'view_format': view_format,
-            'related_collections': relatedCollections(query_terms, related_collections, filters, related_collections_page_number),
-            'rc_page': related_collections_page_number
-        })
-        
-        # return render (request, 'calisphere/home.html', {'q': q})
-    
-    return render (request, 'calisphere/home.html', {'q': ''})
-
-def relatedCollections(query_terms, related_collections, filters=[], page=0):
-    print filters
-    filters = {key: value for key, value in filters.items()
-        if key != 'collection_name'}
-    
-    three_related_collections = []
-    for i in range(page*3, page*3+3):
-        if len(related_collections) > i:
-            facet = ["collection_name: \"" + related_collections[i] + "\""]
-            collection_solr_search = SOLR.select(q=query_terms, rows='3', fq=facet, fields='collection, reference_image_md5, url_item, id, title')
-            
-            if len(collection_solr_search.results) > 0:
-                if 'collection' in collection_solr_search.results[0] and len(collection_solr_search.results[0]['collection']) > 0:
-                    collection = collection_solr_search.results[0]['collection'][0]
-                    
-                    collection_data = {'image_urls': []}
-                    for item in collection_solr_search.results:
-                        process_media(item)
-                        if 'reference_image_md5' in item:
-                            collection_data['image_urls'].append({
-                                'title': item['title'], 
-                                'reference_image_http': item['reference_image_http'], 
-                                'reference_image_md5': item['reference_image_md5']
-                            })
-                        else:
-                            collection_data['image_urls'].append({
-                                'title': item['title'],
-                                'reference_image_http': item['reference_image_http']
-                            })
-                        
-                    collection_url = collection_solr_search.results[0]['collection'][0] + "?format=json"
-                    collection_json = urllib2.urlopen(collection_url).read()
-                    collection_details = json.loads(collection_json)
-                    
-                    collection_data['name'] = collection_details['name']
-                    collection_data['resource_uri'] = collection_details['resource_uri']
-                    col_id = re.match(r'^/api/v1/collection/(?P<collection_id>\d+)/$', collection_details['resource_uri'])
-                    collection_data['collection_id'] = col_id.group('collection_id')
-                    
-                    collection_data['institution'] = ''
-                    for repository in collection_details['repository']:
-                        for campus in repository['campus']:
-                            collection_data['institution'] = collection_data['institution'] + campus['name'] + ', '
-                            collection_data['institution'] = collection_data['institution'] + repository['name'] + ', '
-                    
-                    three_related_collections.append(collection_data)
-    
-    return three_related_collections
-
 def collectionView(request, collection_id):
-    if request.method == 'GET':
-        q = reduce(concat_query, request.GET.getlist('q')) if 'q' in request.GET else '*:*'
-        rows = request.GET['rows'] if 'rows' in request.GET else '16'
-        start = request.GET['start'] if 'start' in request.GET else '0'
-        view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
-        
-        collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
-        collection_json = urllib2.urlopen(collection_url).read()
-        collection_details = json.loads(collection_json)
-        
-        filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
-        filters['collection_name'] = [collection_details['name']]
-        fq = solrize_filters(filters)
-        
-        # perform the search
-        solr_response = SOLR.select(
-            q=q,
-            rows=rows,
-            start=start,
-            fq=fq,
-            facet='true',
-            facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
-        )
-        
-        for item in solr_response.results:
-            if 'reference_image_md5' in item:
-                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
-            
-        facets = {}
-        for facet_type in FACET_TYPES:
-            facets[facet_type[0]] = process_facets(
-                solr_response.facet_counts['facet_fields'][facet_type[0]],
-                filters[facet_type[0]]
-            )
-        
-        return render(request, 'calisphere/collectionResults.html', {
-            'q': q,
-            'filters': filters,
-            'rows': rows,
-            'start': start,
-            'search_results': solr_response.results,
-            'facets': facets,
-            'FACET_TYPES': FACET_TYPES,
-            'numFound': solr_response.numFound,
-            'pages': int(math.ceil(float(solr_response.numFound)/int(rows))),
-            'view_format': view_format,
-            'collection': collection_details
-        })
+    collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
+    collection_json = urllib2.urlopen(collection_url).read()
+    collection_details = json.loads(collection_json)
     
-    return render(request, 'calisphere/searchResults.html', {'yay': 'yamy'})
-
-
-def pjaxTest(request):
-    return render(request, 'calisphere/pjaxTest.html', {'context': 'test'})
-
-def pjaxHello(request):
-    return render(request, 'calisphere/pjaxHello.html', {'context': 'hello'})
+    # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+    queryParams = processQueryRequest(request)
+    queryParams['filters']['collection_name'] = [collection_details['name']]
+    
+    # perform the search
+    solr_response = SOLR.select(
+        q=queryParams['query_terms'],
+        rows=queryParams['rows'],
+        start=queryParams['start'],
+        fq=solrize_filters(queryParams['filters']),
+        facet='true',
+        facet_limit='-1',
+        facet_field=list(facet_type[0] for facet_type in FACET_TYPES)
+    )
+    
+    for item in solr_response.results:
+        process_media(item)
+    
+    facets = {}
+    for facet_type in FACET_TYPES:
+        facets[facet_type[0]] = process_facets(
+            solr_response.facet_counts['facet_fields'][facet_type[0]],
+            queryParams['filters'][facet_type[0]]
+        )
+    
+    for i, facet_item in enumerate(facets['collection_data']):
+        collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
+        facets['collection_data'][i] = collection
+    for i, facet_item in enumerate(facets['repository_data']):
+        repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
+        facets['repository_data'][i] = repository
+    
+    filter_display = {}
+    for filter_type in queryParams['filters']:
+        if filter_type == 'collection_data':
+            filter_display['collection_data'] = []
+            for filter_item in queryParams['filters'][filter_type]:
+                collection = getCollectionData(collection_data=filter_item)
+                filter_display['collection_data'].append(collection)
+        elif filter_type == 'repository_data':
+            filter_display['repository_data'] = []
+            for filter_item in queryParams['filters'][filter_type]:
+                repository = getRepositoryData(repository_data=filter_item)
+                filter_display['repository_data'].append(repository)
+        else:
+            filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
+        
+    return render(request, 'calisphere/collectionResults.html', {
+        'q': queryParams['q'],
+        'filters': queryParams['filters'],
+        'rows': queryParams['rows'],
+        'start': queryParams['start'],
+        'search_results': solr_response.results,
+        'facets': facets,
+        'FACET_TYPES': FACET_TYPES,
+        'numFound': solr_response.numFound,
+        'pages': int(math.ceil(float(solr_response.numFound)/int(queryParams['rows']))),
+        'view_format': queryParams['view_format'],
+        'collection': collection_details
+    })

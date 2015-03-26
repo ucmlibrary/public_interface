@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     {% block styles %}
+      <link rel="stylesheet" href="{% static "bower_components/mediaelement/build/mediaelementplayer.css" %}" />
+      <link rel="stylesheet" href="{% static "bower_components/slick.js/slick/slick.css" %}" />
       <link rel="stylesheet" href="{% static "styles/main.css" %}"/>
     {% endblock %}
     {% block scripts %}
@@ -33,6 +35,7 @@
         <script src="{% static "bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js" %}"></script>
         <script src="{% static "bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js" %}"></script>
         <script src="{% static "bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js" %}"></script>
+        <script src="{% static "bower_components/slick.js/slick/slick.min.js" %}"></script>
         <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
       {% else %}
         <script src="{% static "scripts/vendor.js" %}"></script>

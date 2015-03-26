@@ -45,7 +45,7 @@
         {{ numFound }} objects found in this collection<br>
       </div>
       <div class="col-md-4">
-        <input form="facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
+        <input form="js-facet" type="hidden" id="view_format" name="view_format" value="{{ view_format }}">
         <button id="thumbnails" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">Thumbnails</button> |
         <button id="list" class="btn btn-link" style="margin:0px; padding:0px; vertical-align:baseline;">List</button>
       </div>
@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <form id="item-view" action="/" method="post">
+    <!-- <form id="item-view" action="/" method="post">
       {% csrf_token %}
       <input type="hidden" name="item_id" id="item_id" value=""/>
       <input type="hidden" name="q" value="{{ q }}"/>
@@ -79,11 +79,11 @@
           {% endfor %}
         {% endfor %}
       {% endif %}
-    </form>
+    </form> -->
 
     <!-- search results -->
     {% if view_format == "thumbnails" %}
-      {% include "calisphere/thumbnails-results.html" %}
+      {% include "calisphere/item-thumb.html" %}
     {% elif view_format == "list" %}
       {% include "calisphere/list-results.html" %}
     {% endif %}

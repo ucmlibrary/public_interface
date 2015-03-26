@@ -1,6 +1,6 @@
 {% load calisphere-extras %}
   
-<!-- <input form="facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
+<!-- <input form="js-facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
 {% if rows == '50' %}
   <button id="view16" class="btn btn-link" style="padding:0px; margin:0px; vertical-align:baseline;">View 16</button> | 
 {% else %}
@@ -13,7 +13,7 @@
   prev
 {% endif %}
 
-<select form="facet" name="start" id="start">
+<select form="js-facet" name="start" id="start">
   {% for page in pages|get_range %}
     <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
   {% endfor %}
@@ -28,7 +28,7 @@ of {{ pages }}
 
 <div class="pag-dropdown">
 
-	<input form="facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
+	<input form="js-facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
 
 	{% if rows == '50' %}
 		<button id="view16" class="btn btn-link pag-dropdown__view-number">View 16</button>
@@ -44,7 +44,7 @@ of {{ pages }}
 
   <label for="start" class="sr-only">Current Number</label>
         
-  <select form="facet" name="start" id="start" class="pag-dropdown__select">
+  <select form="js-facet" name="start" id="start" class="pag-dropdown__select">
     {% for page in pages|get_range %}
     <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
     {% endfor %}

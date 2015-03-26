@@ -39,8 +39,8 @@ $(document).ready(function(){
 
   // Expand checkbox group and switch arrow icon when clicking on header (small and medium screens):
   $('.js-a-check__header').click(function(){
-    $('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
-    $('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
+    $(this).next('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $(this).children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
   });
 
   // Select all or deselect all checkboxes (small and medium screens):
@@ -114,43 +114,43 @@ $('[data-toggle="popover"]').popover({
 // ##### Carousel ##### //
 
 // Get Bootstrap CSS breakpoints:
-var lg = $('.bs-lg-screen').css('width');
-var md = $('.bs-md-screen').css('width');
-var sm = $('.bs-sm-screen').css('width');
-
-lg = lg.replace('px', '');
-md = md.replace('px', '');
-sm = sm.replace('px', '');
+// var lg = $('.bs-lg-screen').css('width');
+// var md = $('.bs-md-screen').css('width');
+// var sm = $('.bs-sm-screen').css('width');
+// 
+// lg = lg.replace('px', '');
+// md = md.replace('px', '');
+// sm = sm.replace('px', '');
 
 // To display a Bootstrap breakpoint value for testing, uncomment next line, set the breakpoint variable, then add <div id="bp-test"></div> to HTML:
 // document.getElementById('bp-test').innerHTML = lg;
 
 // Slick settings (see http://kenwheeler.github.io/slick/):
-$('.carousel').slick({
-  infinite: false,
-  slidesToShow: 6,
-  slidesToScroll: 6,
-  responsive: [
-    {
-      breakpoint: lg, // Bootstrap breakpoint pixel variable
-      settings: {
-        slidesToShow: 6,
-        slidesToScroll: 6,
-      }
-    },
-    {
-      breakpoint: md, // Bootstrap breakpoint pixel variable
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 4
-      }
-    },
-    {
-      breakpoint: sm, // Bootstrap breakpoint pixel variable
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    }
-  ]
-});
+// $('.carousel').slick({
+//   infinite: false,
+//   slidesToShow: 6,
+//   slidesToScroll: 6,
+//   responsive: [
+//     {
+//       breakpoint: lg, // Bootstrap breakpoint pixel variable
+//       settings: {
+//         slidesToShow: 6,
+//         slidesToScroll: 6,
+//       }
+//     },
+//     {
+//       breakpoint: md, // Bootstrap breakpoint pixel variable
+//       settings: {
+//         slidesToShow: 4,
+//         slidesToScroll: 4
+//       }
+//     },
+//     {
+//       breakpoint: sm, // Bootstrap breakpoint pixel variable
+//       settings: {
+//         slidesToShow: 2,
+//         slidesToScroll: 2
+//       }
+//     }
+//   ]
+// });
