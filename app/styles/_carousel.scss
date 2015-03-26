@@ -1,12 +1,20 @@
 // ##### Carousel Component ##### //
 
-// ***** Flickity Carousel Customizations ***** //
+// ***** Flickity Carousel Customizations***** //
 
 .flickity-prev-next-button {
-  width: 60px;
-  height: 60px;
-  background: transparent;
+  display: none;
+
+  @include bp(sm-screen) {
+    display: block;
+    top: 42%;
+    width: 60px;
+    height: 60px;
+    background: transparent;
+  }
+
 }
+
 .flickity-prev-next-button:hover {
   background: transparent;
 }
@@ -14,19 +22,17 @@
 .flickity-prev-next-button .arrow {
   fill: $design-primary-color;
 }
+
 .flickity-prev-next-button.no-svg {
   color: $design-primary-color;
 }
 
-.gallery-cell {
-  width: 100%;
-  height: 160px;
-  border: $bred;
+.flickity-prev-next-button.previous {
+  left: -60px;
+}
 
-  @include bp(sm-screen) {
-    width: 20%;
-  }
-
+.flickity-prev-next-button.next {
+  right: -60px;
 }
 
 // ***** Extract Bootstrap's breakpoint variables for Slick's JavaScript ***** //
@@ -78,15 +84,27 @@
 
 // ***** Custom Classes ***** //
 
-// temporary image resize for UI dev:
-.carousel__container {
-  width: 120px;
-  margin: 20px;
+.carousel {
+  
+  @include bp(sm-screen) {
+    margin: 0 45px;
+  }
+
 }
 
-.carousel img {
+.carousel img { // temporary image resize for UI dev:
   width: 100%;
   height: auto;
+}
+
+.carousel__container {
+  width: 120px;
+  margin: 10px;
+
+  @include bp(sm-screen) {
+    margin: 20px;
+  }
+
 }
 
 .carousel__link {
