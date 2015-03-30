@@ -3,7 +3,22 @@
 
       <div class="pag-dropdown">
 
-        <button class="btn btn-link pag-dropdown__view-number">View 50</button>
+        <label for="pag-dropdown__view" class="sr-only">View Per Page</label>
+
+        <select id="pag-dropdown__view" class="pag-dropdown__select" name="">
+          <option value="View 50" selected>View 50</option>
+          <option value="View 10">View 10</option>
+        </select>
+
+        <label for="pag-dropdown__sort" class="sr-only">Sort</label>
+
+        <select id="pag-dropdown__sort" class="pag-dropdown__select" name="">
+          <option value="Relevance" selected>Relevance</option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+          <option value="Date - Oldest First">Oldest First</option>
+          <option value="Date - Newest First">Newest First</option>
+        </select>
 
         <button class="btn btn-link pag-dropdown__arrow-icon">
           <span class="fa fa-caret-left fa-lg"></span>
