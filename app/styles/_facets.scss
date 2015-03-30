@@ -1,5 +1,16 @@
 // ***** Facets ***** //
 
+.check__clear-filters {
+  @extend .button__primary;
+  display: none;
+
+  @include bp(md-screen) {
+    display: block;
+    margin: $layout-component-margin 0 0 0;
+  }
+
+}
+
 .check {
   position: relative;
   border-top: 1px solid #fff;
