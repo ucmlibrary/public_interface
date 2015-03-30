@@ -37,8 +37,17 @@
 
 // ***** Custom Classes ***** //
 
+.carousel__search-results {
+  float: left;
+}
+
+.carousel__items-number {
+  float: right;
+}
+
 .carousel {
-  
+  clear: right;
+
   @include bp(sm-screen) {
     margin: 0 45px;
   }
