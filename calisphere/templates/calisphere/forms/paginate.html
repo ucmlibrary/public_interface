@@ -28,7 +28,24 @@ of {{ pages }}
 
 <div class="pag-dropdown">
 
-	<input form="js-facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
+	<label for="pag-dropdown__view" class="sr-only">View Per Page</label>
+
+  <select id="pag-dropdown__view" class="pag-dropdown__select" name="">
+    <option value="View 50" selected>View 50</option>
+    <option value="View 10">View 10</option>
+  </select>
+
+  <label for="pag-dropdown__sort" class="sr-only">Sort</label>
+
+  <select id="pag-dropdown__sort" class="pag-dropdown__select" name="">
+    <option value="Relevance" selected>Relevance</option>
+    <option value="A-Z">A-Z</option>
+    <option value="Z-A">Z-A</option>
+    <option value="Date - Oldest First">Oldest First</option>
+    <option value="Date - Newest First">Newest First</option>
+  </select>
+
+  <input form="js-facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
 
 	{% if rows == '50' %}
 		<button id="view16" class="btn btn-link pag-dropdown__view-number">View 16</button>
