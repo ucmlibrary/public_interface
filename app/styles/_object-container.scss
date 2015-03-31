@@ -1,34 +1,25 @@
 // ##### Object Container ##### //
 
-// .object__base {
-// 	display: flex;
-// 	flex-flow: column nowrap;
-// }
-
 .object__page-heading {
 	@extend .text__page-heading;
 }
 
 .object__container-generic, .object__container-video {
-  order: 1;
   display: block;
   width: 100%;
   margin: 0 auto 15px auto;
 
 	@include bp(sm-screen) {
-    order: 2;
     width: 50%;
   }
 
 }
 
 .object__container-osd {
-  order: 1;
   @include aspect-ratio(6, 4); // For this mixin, .aspect-ratio-content should be the child <div>
   margin: 0 0 15px 0;
 
   @include bp(sm-screen) {
-    order: 2;
     margin: 0 60px 15px 60px;
   }
 
