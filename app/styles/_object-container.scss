@@ -15,6 +15,17 @@
 
 }
 
+.object__container-harvest-non-image {
+  display: block;
+  width: 100%;
+  margin: 0 auto 15px auto;
+
+  @include bp(sm-screen) {
+    width: 25%;
+  }
+
+}
+
 .object__container-osd {
   @include aspect-ratio(6, 4); // For this mixin, .aspect-ratio-content should be the child <div>
   margin: 0 0 15px 0;
