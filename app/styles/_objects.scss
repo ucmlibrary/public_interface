@@ -32,6 +32,10 @@
   height: auto;
 }
 
+.obj-harvest__file-icon-overlay {
+  @include icon__overlay-test(80px, 70px, 80px);
+}
+
 .obj-harvest__external-link-icon-overlay {
   position: absolute;
   bottom: 5%;

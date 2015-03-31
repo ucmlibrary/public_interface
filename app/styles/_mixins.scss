@@ -51,6 +51,38 @@
 
 }
 
+// Sets an icon vertically and horizontally centered within container
+
+@mixin icon__overlay-test($icon-overlay-size-xs: 60px, $icon-overlay-size-sm: 50px, $icon-overlay-size-md: 45px) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $icon-overlay-size-xs;
+  height: $icon-overlay-size-xs;
+  margin: ((-$icon-overlay-size-xs) / 2) 0 0 ((-$icon-overlay-size-xs) / 2);
+  line-height: $icon-overlay-size-xs;
+  font-size: $icon-overlay-size-xs - 30;
+  background: $design-primary-color;
+  color: #fff;
+
+  @include bp(sm-screen) {
+    width: $icon-overlay-size-sm;
+    height: $icon-overlay-size-sm;
+    margin: ((-$icon-overlay-size-sm) / 2) 0 0 ((-$icon-overlay-size-sm) / 2);
+    line-height: $icon-overlay-size-sm;
+    font-size: $icon-overlay-size-sm - 30;
+  }
+
+  @include bp(md-screen) {
+    width: $icon-overlay-size-md;
+    height: $icon-overlay-size-md;
+    margin: ((-$icon-overlay-size-md) / 2) 0 0 ((-$icon-overlay-size-md) / 2);
+    line-height: $icon-overlay-size-md;
+    font-size: $icon-overlay-size-md - 30;
+  }
+
+}
+
 // Sets an aspect ratio on a container div
 
 @mixin aspect-ratio($width, $height) {
