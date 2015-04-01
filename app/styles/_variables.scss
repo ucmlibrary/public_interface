@@ -38,15 +38,3 @@ $container-lg: $screen-lg-min;
 $popover-bg: #eee;
 $popover-max-width: auto;
 $popover-arrow-color: $popover-bg;
-
-// ***** Font Awesome ***** //
-
-$fa-font-path: "/bower_components/fontawesome/fonts" !default;
-
-// ***** Slick Carousel ***** //
-
-$slick-font-family: "FontAwesome";
-$slick-arrow-color: $design-primary-color;
-$slick-prev-character: '\f104';
-$slick-next-character: '\f105';
-$slick-arrow-spacing: 30px;
