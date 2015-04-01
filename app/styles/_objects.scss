@@ -67,6 +67,10 @@
   border-top: 1px solid $design-primary-color;
   
   @include bp(sm-screen) {
+    padding: 20px 0 0 30px;
+  }
+
+  @include bp(md-screen) {
     padding: 20px 0 0 60px;
   }
 
