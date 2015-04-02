@@ -4,6 +4,18 @@
 	@extend .text__page-heading;
 }
 
+.object__container-audio {
+  display: block;
+  width: 100%;
+  margin: 0 auto 15px auto;
+
+  @include bp(sm-screen) {
+    width: 50%;
+    margin: 50px auto 65px auto;
+  }
+
+}
+
 .object__container-generic, .object__container-video {
   display: block;
   width: 100%;
