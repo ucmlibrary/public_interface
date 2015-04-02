@@ -6,8 +6,10 @@
   <div class="amy-carousel" style="height: 200px; padding: 20px; font-size: 11px;">
     {% for item in search_results %}
       <div class="text-center col-md-2">
-        <img src="{{ thumbnailUrl }}clip/119x80/{{ item.reference_image_md5 }}" height="80px" style="margin: auto;"><br/>
-        {{ item.title.0|truncatewords:7 }}
+        <a class="js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
+          <img src="{{ thumbnailUrl }}clip/119x80/{{ item.reference_image_md5 }}" height="80px" style="margin: auto;"><br/>
+          {{ item.title.0|truncatewords:7 }}
+        </a>
       </div>
     {% endfor %}
   </div>
