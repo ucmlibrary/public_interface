@@ -169,7 +169,6 @@ def itemView(request, item_id=''):
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
         queryParams['rows'] = 6
-        # TODO: WHERE TO START!?
         
         carousel_solr_search = SOLR.select(
             q=queryParams['query_terms'],
@@ -212,7 +211,7 @@ def itemView(request, item_id=''):
         
         # return render (request, 'calisphere/home.html', {'q': q})
     
-    return render(request, 'calisphere/item.html', {'q': '', 'item': item_solr_search.results})
+    return render(request, 'calisphere/item.html', {'q': '', 'items': item_solr_search.results})
 
 
 def search(request):
@@ -383,6 +382,7 @@ def relatedCollections(request, queryParams={}):
                             })
                         
                     collection_match = re.match(r'(?P<collection_url>https://registry\.cdlib\.org/api/v1/collection/\d+)::(?P<collection_name>.+)', collection)
+                    # TODO: ERROR ON .group with q=women, rc_page=2
                     collection_url = collection_match.group('collection_url') + "?format=json"
                     collection_json = urllib2.urlopen(collection_url).read()
                     collection_details = json.loads(collection_json)
