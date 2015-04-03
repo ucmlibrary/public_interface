@@ -98,12 +98,11 @@ $(document).ready(function(){
 
 }); // End of $(document).ready(function()
 
-// ##### Popover ##### //
+// ##### Tooltip ##### //
 
-$('[data-toggle="popover"]').popover({
-  trigger: 'hover',
-  placement: 'auto',
-  html: true
+
+  $('[data-toggle="tooltip"]').tooltip({
+    placement: 'auto',
 });
 
 // Alternative JavaScript method (instead of CSS method) for disabling popover via breakpoint:
