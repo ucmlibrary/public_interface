@@ -31,8 +31,13 @@ of {{ pages }}
 	<label for="pag-dropdown__view" class="sr-only">View Per Page</label>
 
   <select id="pag-dropdown__view" class="pag-dropdown__select" name="">
-    <option value="View 50" selected>View 50</option>
-    <option value="View 10">View 10</option>
+  {% if rows == '50' %}
+    <option id="view16" value="View 16">View 16</option>
+    <option id="view50" value="View 50" selected>View 50</option>
+  {% else %}
+    <option id="view16" value="View 16" selected>View 16</option>
+    <option id="view50" value="View 50">View 50</option>
+  {% endif %}
   </select>
 
   <label for="pag-dropdown__sort" class="sr-only">Sort</label>
@@ -46,12 +51,6 @@ of {{ pages }}
   </select>
 
   <input form="js-facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
-
-	{% if rows == '50' %}
-		<button id="view16" class="btn btn-link pag-dropdown__view-number">View 16</button>
-  {% else %}
-  	<button id="view50" class="btn btn-link pag-dropdown__view-number">View 50</button>
-  {% endif %}
 
   {% if start|subtract:rows >= 0 %}
 	  <button id="prev" class="btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
