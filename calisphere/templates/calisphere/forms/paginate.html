@@ -60,7 +60,7 @@ of {{ pages }}
 
   <label for="start" class="sr-only">Current Number</label>
         
-  <select form="js-facet" name="start" id="start" class="pag-dropdown__select">
+  <select form="js-facet" name="start" id="start" class="pag-dropdown__select--unstyled">
     {% for page in pages|get_range %}
     <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
     {% endfor %}
