@@ -56,23 +56,24 @@
 .object-view-row {
 
   @include bp(md-screen) {
-    margin: 0 0 0 $layout-component-margin;
+    float: right;
+    margin: $layout-component-margin 0 0 $layout-component-margin;
   }
 
 }
 
 .text__collections-heading {
-  margin: $layout-component-margin (-$layout-container-margin-xs);
+
+  margin: 0 (-$layout-container-margin-xs) $layout-container-margin-xs (-$layout-container-margin-xs);
   padding: 0.75em 0 0 $layout-container-margin-xs;
 
   @include bp(sm-screen) {
-    display: inline-block;
     margin: $layout-component-margin 0 0 0;
     padding: 0;
   }
 
   @include bp(md-screen) {
-    margin: 0;
+    margin: 0 0 0 $layout-container-margin-md;
   }
 
 }
