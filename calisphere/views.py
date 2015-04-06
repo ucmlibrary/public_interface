@@ -164,34 +164,12 @@ def itemView(request, item_id=''):
     item_solr_search = SOLR.select(q=item_id_search_term)
     for item in item_solr_search.results:
         process_media(item)
-
+    
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
-        queryParams['rows'] = 6
+        carousel_items = itemViewCarousel(request, queryParams)
         
-        carousel_solr_search = SOLR.select(
-            q=queryParams['query_terms'],
-            rows='6',
-            start=queryParams['start'],
-            fq=solrize_filters(queryParams['filters'])
-        )
-
-        # except solr.SolrException:
-            # TODO: better error handling
-            # print solr.SolrException.reason
-            # print solr.SolrException.httpcode
-            # print solr.SolrException.body
-
-        # search performed, process the results
-
-        # TODO: create a no results found page
-        if len(carousel_solr_search.results) == 0:
-            print 'no results found'
-
-        for item in carousel_solr_search.results:
-            process_media(item)
-
         return render(request, 'calisphere/item.html', {
             'items': item_solr_search.results,
             'q': queryParams['q'],
@@ -199,28 +177,27 @@ def itemView(request, item_id=''):
             'filters': queryParams['filters'],
             'rows': queryParams['rows'],
             'start': queryParams['start'],
-            'search_results': carousel_solr_search.results,
+            'search_results': carousel_items['results'],
             # 'facets': facets,
             'FACET_TYPES': FACET_TYPES,
-            'numFound': carousel_solr_search.numFound,
-            'pages': int(math.ceil(float(carousel_solr_search.numFound)/int(queryParams['rows']))),
+            'numFound': carousel_items['numFound'],
+            'pages': int(math.ceil(float(carousel_items['numFound'])/int(queryParams['rows']))),
             # 'view_format': queryParams['view_format'],
             # 'related_collections': relatedCollections(request, queryParams),
             # 'rc_page': queryParams['rc_page']
         })
-
+        
         # return render (request, 'calisphere/home.html', {'q': q})
     
     return render(request, 'calisphere/item.html', {'q': '', 'items': item_solr_search.results})
 
-
 def search(request):
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
-
+        
         # define facet fields to retrieve
         facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
-
+        
         solr_search = SOLR.select(
             q=queryParams['query_terms'],
             rows=queryParams['rows'],
@@ -230,22 +207,22 @@ def search(request):
             facet_limit='-1',
             facet_field=facet_fields
         )
-
+        
         # except solr.SolrException:
             # TODO: better error handling
             # print solr.SolrException.reason
             # print solr.SolrException.httpcode
             # print solr.SolrException.body
-
+            
         # search performed, process the results
-
+        
         # TODO: create a no results found page
         if len(solr_search.results) == 0:
             print 'no results found'
-
+        
         for item in solr_search.results:
             process_media(item)
-
+        
         # get facet counts
         facets = {}
         for facet_type in facet_fields:
@@ -254,7 +231,7 @@ def search(request):
                 other_filters = {key: value for key, value in queryParams['filters'].items()
                     if key != facet_type}
                 other_filters[facet_type] = []
-
+                
                 # perform the exact same search, but as though no filters of this type have been selected
                 # to obtain the counts for facets for this facet type
                 facet_solr_search = SOLR.select(
@@ -265,7 +242,7 @@ def search(request):
                     facet_limit='-1',
                     facet_field=[facet_type]
                 )
-
+                
                 facets[facet_type] = process_facets(
                     facet_solr_search.facet_counts['facet_fields'][facet_type],
                     queryParams['filters'][facet_type]
@@ -275,14 +252,14 @@ def search(request):
                     solr_search.facet_counts['facet_fields'][facet_type],
                     queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else []
                 )
-
+        
         for i, facet_item in enumerate(facets['collection_data']):
             collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
             facets['collection_data'][i] = collection
         for i, facet_item in enumerate(facets['repository_data']):
             repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
             facets['repository_data'][i] = repository
-
+        
         filter_display = {}
         for filter_type in queryParams['filters']:
             if filter_type == 'collection_data':
@@ -297,8 +274,7 @@ def search(request):
                     filter_display['repository_data'].append(repository)
             else:
                 filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
-
-
+        
         return render(request, 'calisphere/searchResults.html', {
             'q': queryParams['q'],
             'rq': queryParams['rq'],
@@ -315,10 +291,53 @@ def search(request):
             'num_related_collections': len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data']),
             'rc_page': queryParams['rc_page']
         })
-
+        
         # return render (request, 'calisphere/home.html', {'q': q})
-
+    
     return render (request, 'calisphere/home.html', {'q': ''})
+
+def itemViewCarousel(request, queryParams={}):
+    if not queryParams:
+        if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+            queryParams = processQueryRequest(request)
+        
+        ajaxRequest = True
+        queryParams['rows'] = 6
+    else:
+        ajaxRequest = False
+    
+    # TODO: getting back way more fields than I really need
+    carousel_solr_search = SOLR.select(
+        q=queryParams['query_terms'],
+        rows='6',
+        start=queryParams['start'],
+        fq=solrize_filters(queryParams['filters'])
+    )
+    
+    # except solr.SolrException:
+        # TODO: better error handling
+        # print solr.SolrException.reason
+        # print solr.SolrException.httpcode
+        # print solr.SolrException.body
+        
+    # search performed, process the results
+    
+    # TODO: create a no results found page
+    if len(carousel_solr_search.results) == 0:
+        print 'no results found'
+        
+    for item in carousel_solr_search.results:
+        process_media(item)
+    
+    if ajaxRequest:
+        return render(request, 'calisphere/carousel.html', {
+            'q': queryParams['q'],
+            'start': queryParams['start'],
+            'numFound': carousel_solr_search.numFound,
+            'search_results': carousel_solr_search.results,
+        })
+        
+    return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
 
 def relatedCollections(request, queryParams={}):
     if not queryParams:
