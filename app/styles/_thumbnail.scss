@@ -1,5 +1,9 @@
 // ##### Thumbnail View Component ##### //
 
+.thumbview {
+	clear: right; // clear .object-view-row
+}
+
 .thumbview__container {
 	margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 }

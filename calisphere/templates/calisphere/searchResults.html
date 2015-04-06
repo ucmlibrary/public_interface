@@ -56,19 +56,19 @@
 
       <div class="col-md-9 pull-right">
           
+        <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
+        <h3 class="text__collections-heading">{{ numFound }} Objects Found in 
+          <a href="#related-coll">
+            {% if filters|get_item:'collection_data'|length == 0 %}
+              {{ facets.collection_data|length }}
+            {% else %}
+              {{ filters|get_item:'collection_data'|length }}
+            {% endif %}
+            Collections
+          </a>
+        </h3>
+
         <div class="row object-view-row">
-          
-          <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
-          <h3 class="text__collections-heading">{{ numFound }} Objects Found in 
-            <a href="#related-coll">
-              {% if filters|get_item:'collection_data'|length == 0 %}
-                {{ facets.collection_data|length }}
-              {% else %}
-                {{ filters|get_item:'collection_data'|length }}
-              {% endif %}
-              Collections
-            </a>
-          </h3>
           
           <!-- Begin Dropdown Pagination Component -->
           {% include "calisphere/forms/paginate.html" %}

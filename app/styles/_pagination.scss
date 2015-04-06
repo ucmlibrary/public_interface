@@ -41,11 +41,11 @@
 	border-radius: 0;
 	background: #fff;
 	line-height: 1;
-	-webkit-appearance: none;
-	-moz-appearance: none;
 	cursor: pointer;
 }
 
-.pag-dropdown__total-number {
-
+.pag-dropdown__select--unstyled {
+	@extend .pag-dropdown__select;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
