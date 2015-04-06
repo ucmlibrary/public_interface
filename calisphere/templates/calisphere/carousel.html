@@ -1,10 +1,28 @@
 {% load calisphere-extras %}
 
-<div class="row">
-  <div class="col-md-6">Search results for <strong>{{ q }}</strong></div>
-  <div class="col-md-6 text-right">Displaying {{ start|add:1 }} - {{ start|add:6 }} of {{ numFound }} | Start over</div>
+<div class="carousel__search-results">
+  Search results > {{ q }}
 </div>
-<div class="amy-carousel" style="height: 200px; padding: 20px; font-size: 11px;">
+
+<div class="carousel__items-number">
+  Displaying {{ start|add:1 }} - {{ start|add:6 }} of {{ numFound }}
+</div>
+
+<div class="carousel js-flickity" data-flickity-options='{ "cellAlign": "left", "contain": true, "pageDots": false, "percentPosition": false }'>
+  
+  {% for item in search_results %}
+  <figure class="carousel__item">
+    <a class="js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}">
+      <img src="{{ thumbnailUrl }}clip/119x80/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+    </a>
+    <figcaption class="carousel__thumbnail-caption">{{ item.title.0|truncatewords:7 }}
+    </figcaption>
+  </figure>
+  {% endfor %}
+
+</div>
+
+<div style="display: none;">
   <div class="col-md-1">
     {% if start|subtract:6 > 0 %}
       <button class="btn btn-link carousel__prev-button js-carousel-page" data-carousel_start="{{ start|subtract:6 }}">
@@ -18,16 +36,7 @@
       </button>
     {% endif %}
   </div>
-  <div class="col-md-10">
-    {% for item in search_results %}
-      <div class="text-center col-md-2">
-        <a class="js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}">
-          <img src="{{ thumbnailUrl }}clip/119x80/{{ item.reference_image_md5 }}" height="80px" style="margin: auto;"><br/>
-          {{ item.title.0|truncatewords:7 }}
-        </a>
-      </div>
-    {% endfor %}
-  </div>
+  
   <div class="col-md-1">
     {% if start|add:6 < numFound %}
       <button class="btn btn-link carousel__next-button js-carousel-page" data-carousel_start="{{ start|add:6 }}">
