@@ -35,6 +35,11 @@ $screen-lg-min: 1200px;
 $container-sm: $screen-sm-min;
 $container-md: $screen-md-min;
 $container-lg: $screen-lg-min;
-$popover-bg: #eee;
-$popover-max-width: auto;
-$popover-arrow-color: $popover-bg;
+$tooltip-color: #000;
+$tooltip-bg: $design-light-gray-color;
+$tooltip-opacity: 1;
+
+.tooltip.top { // center tooltip and hide from pointer
+  margin-top: 50%;
+  pointer-events: none;
+}
