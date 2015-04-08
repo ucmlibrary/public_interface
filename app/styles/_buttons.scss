@@ -59,5 +59,6 @@
 
 .button__back-to-institution {
   @extend .button__primary;
+  margin: 0 0 $layout-component-margin 0;
   text-align: left;
 }
