@@ -6,11 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     {% block styles %}
+    {% if devMode %}
       <link rel="stylesheet" href="{% static "bower_components/slick.js/slick/slick.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/fontawesome/css/font-awesome.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/mediaelement/build/mediaelementplayer.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/flickity/css/flickity.css" %}" />
       <link rel="stylesheet" href="{% static "styles/main.css" %}" />
+    {% else %}
+      <link rel="stylesheet" href="styles/vendor.css">
+      <link rel="stylesheet" href="styles/main.css">
+    {% endif %}
     {% endblock %}
     {% block scripts %}
     {% endblock %}
