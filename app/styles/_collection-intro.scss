@@ -3,29 +3,34 @@
 .collection-intro {
   
   @include bp(sm-screen) {
-    
+    border: 1px solid #000;
+    overflow: hidden;
   }
 
 }
 
 .collection-intro__institution {
-  
+  margin: $layout-component-margin;
 }
 
 .collection-intro__institution-heading-link {
-  
+  color: #000;
 }
 
 .collection-intro__institution-heading {
-  
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 .collection-intro__about {
-  
+  margin: $layout-component-margin;
 }
 
 .collection-intro__about-heading {
-  
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 .collection-intro__about-description {
