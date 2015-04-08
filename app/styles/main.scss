@@ -91,7 +91,10 @@
 // Bootstrap Overrides
 
 .tooltip.top { // center tooltip and hide from pointer
-  margin-top: 50%;
+  margin: 55% 5% 0 5%;
   pointer-events: none;
 }
 
+.tooltip-arrow {
+  display: none;
+}
