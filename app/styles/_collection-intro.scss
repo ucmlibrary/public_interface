@@ -3,14 +3,14 @@
 .collection-intro {
   
   @include bp(sm-screen) {
-    border: 1px solid #000;
+    border: 1px solid $design-dark-gray-color;
     overflow: hidden;
   }
 
 }
 
 .collection-intro__institution {
-  margin: $layout-component-margin;
+  margin: $layout-container-margin-sm;
 }
 
 .collection-intro__institution-heading-link {
@@ -24,7 +24,7 @@
 }
 
 .collection-intro__about {
-  margin: $layout-component-margin;
+  margin: $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-md;
 }
 
 .collection-intro__about-heading {
