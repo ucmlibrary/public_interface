@@ -4,9 +4,11 @@
 
 {% block content %}
 
-    <p class="text__breadcrumb">Search > {{ q }}</p>
+    {% block breadcrumbs %}<p class="text__breadcrumb">Search > {{ q }}</p>{% endblock %}
 
-    <h2 class="text__page-heading">Search Results for "<strong>{{ q }}</strong>"</h2>
+    {% block pageTitle %}<h2 class="text__page-heading">Search Results for "<strong>{{ q }}</strong>"</h2>{% endblock %}
+    
+    {% block additionalInfo %}{% endblock %}
 
     <!-- Begin Refine Search Field and Filters -->
 
@@ -57,7 +59,7 @@
       <div class="col-md-9 pull-right">
           
         <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
-        <h3 class="text__collections-heading">{{ numFound }} Objects Found in 
+        <h3 class="text__collections-heading">{% block objectsFound %}{{ numFound }} Objects Found in 
           <a href="#related-coll">
             {% if filters|get_item:'collection_data'|length == 0 %}
               {{ facets.collection_data|length }}
@@ -65,7 +67,7 @@
               {{ filters|get_item:'collection_data'|length }}
             {% endif %}
             Collections
-          </a>
+          </a>{% endblock %}
         </h3>
 
         <div class="row object-view-row">
@@ -104,9 +106,11 @@
         <!-- End Buttons Pagination Component -->
 
         <!-- Begin Related Collections Component -->
+        {% block relatedCollections %}
         <div class="related-coll--search-results-page" id="js-relatedCollections">
           {% include "calisphere/related-collections.html" %}
         </div>
+        {% endblock %}
         <!-- End Related Collections Component -->
 
       </div>

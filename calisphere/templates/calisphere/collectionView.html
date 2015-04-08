@@ -1,0 +1,31 @@
+{% extends "calisphere/searchResults.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block pageTitle %}<h2 class="text__page-heading">{{ collection.name }}</h2>{% endblock %}
+
+{% block additionalInfo %}
+<div class="row" style="height: 100px; background-color: #d7d7d7; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+  <div class="col-md-3">
+    <strong>Owning Institution: </strong>
+    {% for repository in collection.repository %}
+      {{ repository.name }}<br/>
+    {% endfor %}<br/>
+    {% for campus in collection.campus %}
+      {{ campus.name }}<br/>
+    {% endfor %}
+  </div>
+  <div class="col-md-9">
+    <p>{{ collection.description }}</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block objectsFound %}
+{{ numFound }} Objects Found in this collection
+{% endblock %}
+
+{% block relatedCollections %}
+{% endblock %}

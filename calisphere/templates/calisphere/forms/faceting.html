@@ -1,7 +1,7 @@
 {% load calisphere-extras %}
 
 <!-- TODO: add disambiguation for faceting search results, collection page, institution page -->
-<form id="js-facet" action="{% url 'calisphere:search' %}" method="get">
+<form id="js-facet" action="{{ form_action }}" method="get">
   <!-- value of the search query from the header form -->
   <input type="hidden" name="q" value="{{ q }}" form="js-facet">
   
