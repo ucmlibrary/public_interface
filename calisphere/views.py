@@ -299,9 +299,9 @@ def itemViewCarousel(request, queryParams={}):
     if not queryParams:
         if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
             queryParams = processQueryRequest(request)
-            queryParams['rows'] = 6
         
         ajaxRequest = True
+        queryParams['rows'] = 6
     else:
         ajaxRequest = False
     
@@ -332,6 +332,7 @@ def itemViewCarousel(request, queryParams={}):
         return render(request, 'calisphere/carousel.html', {
             'q': queryParams['q'],
             'start': queryParams['start'],
+            'numFound': carousel_solr_search.numFound,
             'search_results': carousel_solr_search.results,
         })
         
