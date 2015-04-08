@@ -10,7 +10,11 @@
 }
 
 .collection-intro__institution {
-  margin: $layout-container-margin-sm;
+  
+  @include bp(sm-screen) {
+    margin: $layout-container-margin-sm;
+  }
+
 }
 
 .collection-intro__institution-heading-link {
@@ -24,7 +28,16 @@
 }
 
 .collection-intro__about {
-  margin: $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-md;
+  margin: $layout-container-margin-sm 0;
+
+  @include bp(sm-screen) {
+    margin: 0 $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm;
+  }
+
+  @include bp(md-screen) {
+    margin: $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-md;
+  }
+
 }
 
 .collection-intro__about-heading {
