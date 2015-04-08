@@ -1,7 +1,6 @@
 // ***** Facets ***** //
 
 .check__clear-filters {
-  @extend .button__primary;
   display: none;
 
   @include bp(md-screen) {
@@ -9,6 +8,11 @@
     margin: $layout-component-margin 0 0 0;
   }
 
+}
+
+.check__clear-filters--selected {
+  @extend .check__clear-filters;
+  @extend .button__primary;
 }
 
 .check {
