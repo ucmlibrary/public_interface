@@ -38,8 +38,3 @@ $container-lg: $screen-lg-min;
 $tooltip-color: #000;
 $tooltip-bg: $design-light-gray-color;
 $tooltip-opacity: 1;
-
-.tooltip.top { // center tooltip and hide from pointer
-  margin-top: 50%;
-  pointer-events: none;
-}

@@ -87,3 +87,11 @@
   }
 	
 }
+
+// Bootstrap Overrides
+
+.tooltip.top { // center tooltip and hide from pointer
+  margin-top: 50%;
+  pointer-events: none;
+}
+
