@@ -6,11 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     {% block styles %}
+    {% if devMode %}
       <link rel="stylesheet" href="{% static "bower_components/slick.js/slick/slick.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/fontawesome/css/font-awesome.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/mediaelement/build/mediaelementplayer.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/flickity/css/flickity.css" %}" />
       <link rel="stylesheet" href="{% static "styles/main.css" %}" />
+    {% else %}
+      <link rel="stylesheet" href="styles/vendor.css">
+      <link rel="stylesheet" href="styles/main.css">
+    {% endif %}
     {% endblock %}
     {% block scripts %}
     {% endblock %}
@@ -47,8 +52,7 @@
       <script src="{% static "bower_components/unidragger/unidragger.js" %}"></script>
       <script src="{% static "bower_components/fizzy-ui-utils/utils.js" %}"></script>
       <script src="{% static "bower_components/tap-listener/tap-listener.js" %}"></script>
-      <script src="{% static "bower_components/flickity/js/index.js" %}"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.min.js"></script>
+      <script src="{% static "bower_components/flickity/dist/flickity.pkgd.js" %}"></script>
     {% else %}
       <script src="{% static "scripts/vendor.js" %}"></script>
       <script src="{% static "scripts/vendor/modernizr.js" %}"></script>
