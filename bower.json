@@ -11,6 +11,6 @@
     "picturefill": "~2.2.0",
     "mediaelement": "~2.16.4",
     "openseadragon": "~1.2.1",
-    "flickity": "https://github.com/kukac7/flickity.git#~1.0.0"
+    "flickity": "https://github.com/kukac7/flickity.git#master"
   }
 }
