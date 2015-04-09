@@ -29,9 +29,9 @@ SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('UCLDC_DEVEL'))
+DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
 
-UCLDC_DEVEL = TEMPLATE_DEBUG = DEBUG
+UCLDC_DEVEL = TEMPLATE_DEBUG = bool(os.environ.get('UCLDC_DEVEL'))
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + (
     'django.core.context_processors.request',
