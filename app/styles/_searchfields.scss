@@ -41,6 +41,10 @@
 
 // ***** Refine Results Search Field ***** //
 
+.refine-search {
+  clear: right; // clear filter buttons in .col-md-9
+}
+
 .refine-search__label {
 	@extend .global-search__label;
 	color: #000;
