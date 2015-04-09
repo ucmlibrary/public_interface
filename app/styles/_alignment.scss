@@ -11,6 +11,7 @@
 }
 
 .filter {
+  margin: 0 0 $layout-component-margin 0;
 
   @include bp(md-screen) {
     margin: 0 0 $layout-component-margin $layout-component-margin;
