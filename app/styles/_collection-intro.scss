@@ -1,0 +1,51 @@
+// ##### Collection Intro ##### //
+
+.collection-intro {
+  
+  @include bp(sm-screen) {
+    border: 1px solid $design-dark-gray-color;
+    overflow: hidden;
+  }
+
+}
+
+.collection-intro__institution {
+  
+  @include bp(sm-screen) {
+    margin: $layout-container-margin-sm;
+  }
+
+}
+
+.collection-intro__institution-heading-link {
+  color: #000;
+}
+
+.collection-intro__institution-heading {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.collection-intro__about {
+  margin: $layout-container-margin-sm 0;
+
+  @include bp(sm-screen) {
+    margin: 0 $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm;
+  }
+
+  @include bp(md-screen) {
+    margin: $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-md;
+  }
+
+}
+
+.collection-intro__about-heading {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.collection-intro__about-description {
+  
+}
