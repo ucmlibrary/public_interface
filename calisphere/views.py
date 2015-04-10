@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from cache_utils.decorators import cached
 
 import md5s3stash
 import operator
@@ -23,9 +24,19 @@ SOLR = solr.Solr(
     },
 )
 
+class SolrCache(object):
+    pass
+
+@cached(60 * 15)
 @retry(stop_max_delay=10000)
 def SOLR_select(**kwargs):
-    return SOLR.select(**kwargs)
+    # only return that which can be pickled
+    sc = SolrCache()
+    sr = SOLR.select(**kwargs)
+    sc.results = sr.results
+    sc.facet_counts = getattr(sr, 'facet_counts', None)
+    sc.numFound = sr.numFound
+    return sc
 
 def md5_to_http_url(md5):
     return md5s3stash.md5_to_http_url(md5, 'ucldc')
