@@ -122,8 +122,15 @@ html.no-flexbox .obj-buttons__contact-text {
 
 // ***** Open SeaDragon Control Buttons ***** //
 
+.obj__osd-buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-end;
+  margin: 0 $layout-component-margin 0 0;
+}
+
 .obj-buttons__osd-controls {
-  overflow: hidden;
+  margin: 5px 0;
 }
 
 #obj__osd-button-home {
@@ -140,6 +147,7 @@ html.no-flexbox .obj-buttons__contact-text {
 
 #obj__osd-button-fullscreen {
   @extend .obj-buttons__osd-controls;
+  margin-bottom: $layout-component-margin;
 }
 
 
