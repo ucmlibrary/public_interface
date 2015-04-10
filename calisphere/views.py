@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from cache_utils.decorators import cached
+from django.core.cache import cache
 
 import md5s3stash
 import operator
@@ -14,6 +14,8 @@ import urllib2
 import copy
 import simplejson as json
 from retrying import retry
+import pickle
+import hashlib
 
 FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
 SOLR = solr.Solr(
@@ -27,15 +29,25 @@ SOLR = solr.Solr(
 class SolrCache(object):
     pass
 
-@cached(60 * 15)
-@retry(stop_max_delay=10000)
+def kwargs_md5(**kwargs):
+    m = hashlib.md5()
+    m.update(pickle.dumps(kwargs))
+    return m.hexdigest()
+
+@retry(stop_max_delay=15)
 def SOLR_select(**kwargs):
-    # only return that which can be pickled
-    sc = SolrCache()
-    sr = SOLR.select(**kwargs)
-    sc.results = sr.results
-    sc.facet_counts = getattr(sr, 'facet_counts', None)
-    sc.numFound = sr.numFound
+    # look in the cache
+    key = kwargs_md5(**kwargs)
+    sc = cache.get(key)
+    if not sc:
+        # do the solr look up
+        sr = SOLR.select(**kwargs)
+        # copy attributes that can be pickled to new object
+        sc = SolrCache()
+        sc.results = sr.results
+        sc.facet_counts = getattr(sr, 'facet_counts', None)
+        sc.numFound = sr.numFound
+        cache.set(key, sc, 60*15)
     return sc
 
 def md5_to_http_url(md5):
