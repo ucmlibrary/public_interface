@@ -122,4 +122,26 @@ html.no-flexbox .obj-buttons__contact-text {
 
 // ***** Open SeaDragon Control Buttons ***** //
 
+.obj-buttons__osd-controls {
+  overflow: hidden;
+}
+
+#obj__osd-button-home {
+  @extend .obj-buttons__osd-controls;
+}
+
+#obj__osd-button-zoom-in {
+  @extend .obj-buttons__osd-controls;
+}
+
+#obj__osd-button-zoom-out {
+  @extend .obj-buttons__osd-controls;
+}
+
+#obj__osd-button-fullscreen {
+  @extend .obj-buttons__osd-controls;
+}
+
+
+
 
