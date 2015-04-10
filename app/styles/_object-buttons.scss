@@ -1,5 +1,7 @@
 // ##### Object Buttons ##### //
 
+// ***** Buttons Below Object Container ***** //
+
 .obj-buttons {
   display: flex;
   flex-flow: column nowrap;
@@ -117,3 +119,37 @@ html.no-flexbox .obj-buttons__contact-text {
   }
 
 }
+
+// ***** Open SeaDragon Control Buttons ***** //
+
+.obj__osd-buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-end;
+  margin: 0 $layout-component-margin 0 0;
+}
+
+.obj-buttons__osd-controls {
+  margin: 5px 0;
+}
+
+#obj__osd-button-home {
+  @extend .obj-buttons__osd-controls;
+}
+
+#obj__osd-button-zoom-in {
+  @extend .obj-buttons__osd-controls;
+}
+
+#obj__osd-button-zoom-out {
+  @extend .obj-buttons__osd-controls;
+}
+
+#obj__osd-button-fullscreen {
+  @extend .obj-buttons__osd-controls;
+  margin-bottom: $layout-component-margin;
+}
+
+
+
+
