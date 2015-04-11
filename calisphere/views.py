@@ -34,7 +34,7 @@ def kwargs_md5(**kwargs):
     m.update(pickle.dumps(kwargs))
     return m.hexdigest()
 
-@retry(stop_max_delay=15)
+@retry(stop_max_delay=3000)  # milliseconds
 def SOLR_select(**kwargs):
     # look in the cache
     key = kwargs_md5(**kwargs)
@@ -47,7 +47,7 @@ def SOLR_select(**kwargs):
         sc.results = sr.results
         sc.facet_counts = getattr(sr, 'facet_counts', None)
         sc.numFound = sr.numFound
-        cache.set(key, sc, 60*15)
+        cache.set(key, sc, 60*15)  # seconds
     return sc
 
 def md5_to_http_url(md5):
