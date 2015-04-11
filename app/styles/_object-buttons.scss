@@ -122,33 +122,21 @@ html.no-flexbox .obj-buttons__contact-text {
 
 // ***** Open SeaDragon Control Buttons ***** //
 
-.obj__osd-buttons {
+.obj__osd-button-group {
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-end;
   margin: 0 $layout-component-margin 0 0;
 }
 
-.obj-buttons__osd-controls {
-  margin: 5px 0;
+html.no-flexbox .obj__osd-button-group {
+  margin: 0 0 0 10px;
 }
 
-#obj__osd-button-home {
-  @extend .obj-buttons__osd-controls;
+.obj__osd-button {
+  margin: 0 0 10px 0;
 }
 
-#obj__osd-button-zoom-in {
-  @extend .obj-buttons__osd-controls;
-}
-
-#obj__osd-button-zoom-out {
-  @extend .obj-buttons__osd-controls;
-}
-
-#obj__osd-button-fullscreen {
-  @extend .obj-buttons__osd-controls;
-  margin-bottom: $layout-component-margin;
-}
 
 
 
