@@ -18,12 +18,14 @@ import pickle
 import hashlib
 
 FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
-SOLR = solr.Solr(
-    settings.SOLR_URL,
-    post_headers={
-      'x-api-key': settings.SOLR_API_KEY,
-      'X-Authentication-Token': settings.SOLR_API_KEY,
-    },
+SOLR = solr.SearchHandler(
+    solr.Solr(
+        settings.SOLR_URL,
+        post_headers = {
+          'X-Authentication-Token': settings.SOLR_API_KEY,
+        },
+    ),
+    "/query"
 )
 
 class SolrCache(object):
@@ -41,7 +43,7 @@ def SOLR_select(**kwargs):
     sc = cache.get(key)
     if not sc:
         # do the solr look up
-        sr = SOLR.select(**kwargs)
+        sr = SOLR(**kwargs)
         # copy attributes that can be pickled to new object
         sc = SolrCache()
         sc.results = sr.results
