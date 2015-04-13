@@ -14,7 +14,7 @@
     <li>{{ q }}</li>
     <li class="active">{{ item.title.0|truncatewords:7 }}</li>
   </ol>
-  
+
   <h1 style="margin-bottom: 20px">
     <span style="text-transform: capitalize">{{ item.type.0 }}</span> /
     {{ item.title.0|truncatewords:7 }}
@@ -22,7 +22,7 @@
 </div>
 
 <div style="width: 100%; background-color: #f8f8f8; margin-bottom: 20px;" class="text-center">
-  <img src="{{ thumbnailUrl }}crop/500x500/{{ item.reference_image_md5 }}" style="margin: auto;"/>
+  <img src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" style="margin: auto;"/>
 </div>
 
 <div class="container">
