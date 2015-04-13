@@ -39,7 +39,7 @@
 }
 
 .object__container-osd {
-  @include aspect-ratio(6, 4); // For this mixin, .aspect-ratio-content should be the child <div>
+  position: relative; // for absolutely positioned 'osd-button-group' child
   margin: 0 0 15px 0;
 
   @include bp(sm-screen) {

@@ -8,8 +8,21 @@
 }
 
 #obj__osd {
-  @extend .aspect-ratio-content;
+  height: 400px;
   background: $design-light-gray-color;
+
+  @include bp(sm-screen) {
+    height: 500px;
+  }
+
+  @include bp(md-screen) {
+    height: 600px;
+  }
+
+  @include bp(lg-screen) {
+    height: 700px;
+  }
+
 }
 
 // ***** Harvest Image ***** //
