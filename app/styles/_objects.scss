@@ -10,6 +10,7 @@
 #obj__osd {
   height: 400px;
   background: $design-light-gray-color;
+  cursor: move;
 
   @include bp(sm-screen) {
     height: 500px;
