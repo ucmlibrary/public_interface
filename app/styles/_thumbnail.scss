@@ -4,19 +4,14 @@
 	clear: right; // clear .object-view-row
 }
 
-.thumbview__container {
+.thumbview__link {
+	display: block;
 	margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+	color: #000;
 }
 
-.thumbview__link {
-	display: block; // for icon__overlay
-	position: relative; // for icon__overlay
-	color: #000;
-	
-	&:hover {
-  	text-decoration: none;
-  }
-
+.thumbview__container {
+	position: relative; // for 'icon__overlay' child
 }
 
 .thumbview__image {
