@@ -4,7 +4,7 @@
     <a class="thumbview__link js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
       <figure class="thumbview__container" data-toggle="tooltip" title="{{ item.title.0 }}">
         <img class="thumbview__image"
-          src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
+          src="{{ thumbnailUrl }}fill/210x210/{{ item.reference_image_md5 }}"
           srcset="{{ thumbnailUrl }}fill/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}fill/310x310/{{ item.reference_image_md5 }} 50w"
           sizes="100%"
           alt="{{ item.title.0|truncatewords:8 }}">
