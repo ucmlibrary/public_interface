@@ -32,7 +32,15 @@
   margin: 0 0 $layout-component-margin 0;
 }
 
-.refine-search {
+.search-collection {
+
+  @include bp(md-screen) {
+    
+  }
+
+}
+
+.search-within {
   margin: 0 0 $layout-component-margin 0;
   
   @include bp(md-screen) {

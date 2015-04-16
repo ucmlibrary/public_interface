@@ -39,13 +39,13 @@
 
 }
 
-// ***** Refine Results Search Field ***** //
+// ***** Search Within Results Search Field ***** //
 
-.refine-search {
+.search-within {
   clear: right; // clear filter buttons in .col-md-9
 }
 
-.refine-search__label {
+.search-within__label {
 	@extend .global-search__label;
 	color: #000;
 	font-size: 1em;
@@ -56,6 +56,27 @@
 
 }
 
-.refine-search__button {
+.search-within__button {
 	@extend .global-search__button;
+}
+
+// ***** Search Collection Results Search Field ***** //
+
+.search-collection {
+  clear: right; // clear filter buttons in .col-md-9
+}
+
+.search-collection__label {
+  @extend .global-search__label;
+  color: #000;
+  font-size: 1em;
+
+  @include bp(sm-screen) {
+    text-align: left;
+  }
+
+}
+
+.search-collection__button {
+  @extend .global-search__button;
 }
