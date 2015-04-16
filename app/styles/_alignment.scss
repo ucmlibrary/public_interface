@@ -30,12 +30,26 @@
 
 .button__back-to-institution {
   margin: 0 0 $layout-component-margin 0;
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin ($layout-component-margin / 2) 0 0;
+  }
+
+  @include bp(md-screen) {
+    margin: 0 0 $layout-component-margin 0;
+  }
+
 }
 
 .search-collection {
+  margin: 0 0 $layout-component-margin 0;
+
+  @include bp(sm-screen) {
+    margin: 0 0 $layout-component-margin ($layout-component-margin / 2);
+  }
 
   @include bp(md-screen) {
-    
+    margin: 0;
   }
 
 }
