@@ -59,6 +59,7 @@
 
 .button__back-to-institution {
   @extend .button__primary;
+  display: block;
   clear: right; // clear filter buttons in .col-md-9
   text-align: left;
 }
