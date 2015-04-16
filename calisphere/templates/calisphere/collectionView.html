@@ -12,16 +12,16 @@
 
   <div class="col-md-3">
     <div class="collection-intro__institution">
-      <a href="" class="collection-intro__institution-heading-link">
-        <h2 class="collection-intro__institution-heading">Owning Institution:
+      <h2 class="collection-intro__institution-heading">Owning Institution:
+        <a href="" class="collection-intro__institution-heading-link">
         {% for repository in collection.repository %}
           {{ repository.name }},
         {% endfor %}
         {% for campus in collection.campus %}
           {{ campus.name }}
         {% endfor %}
-        </h2>
-      </a>
+        </a>
+      </h2>
     </div>
   </div>
 
