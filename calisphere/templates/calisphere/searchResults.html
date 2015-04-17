@@ -30,7 +30,7 @@
               {% endif %}
             {% endfor %}
           {% endfor %}
-          
+
           {% for refine in rq %}
             <input form="js-facet" type="hidden" name="rq" value="{{ refine }}">
             <button type="button" class="btn btn-default btn-xs js-refine-filter-pill button__close" data-slug="{{ refine }}">{{ refine }}<i class="fa fa-close button__close-icon"></i>
@@ -47,9 +47,23 @@
     <!-- End Refine Search Field and Filters -->
 
       <div class="col-md-3">
-        <!-- Begin Refine Search Field -->
-        {% include "calisphere/forms/refineQuery.html" %}
-        <!-- End Refine Search Field -->
+        
+        {% block refineSearch %}
+
+        <!-- Begin Search Within Field -->
+        <div class="search-within">
+          <label for="search-within__field" class="search-within__label">Search within results</label>
+          <div class="input-group">
+            <input id="search-within__field" type="search" name="rq" class="form-control search-within__field" form="js-facet">
+            <span class="input-group-btn">
+              <button class="btn btn-default search-within__button" type="submit" form="js-facet">Search
+              </button>
+            </span>
+          </div>
+        </div>
+        <!-- End Search Within Field -->
+
+        {% endblock %}
 
         <!-- Begin Checkbox Groups -->
         {% include "calisphere/forms/faceting.html" %}
