@@ -111,7 +111,7 @@ def getCollectionData(collection_data=None, collection_id=None):
     collection = {}
     if collection_data:
         collection['url'] = collection_data.split('::')[0] if len(collection_data.split('::')) >= 1 else ''
-        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)', collection['url'])
+        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/', collection['url'])
         if collection_api_url is None:
             print 'no collection api url'
             collection['id'] = ''
@@ -119,7 +119,7 @@ def getCollectionData(collection_data=None, collection_id=None):
             collection['id'] = collection_api_url.group('url')
         collection['name'] = collection_data.split('::')[1] if len(collection_data.split('::')) >= 2 else ''
     elif collection_id:
-        collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id
+        collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id + "/"
         collection_url = collection['url'] + "?format=json"
         collection_json = urllib2.urlopen(collection_url).read()
         collection_details = json.loads(collection_json)
