@@ -34,8 +34,10 @@
       <dt>Contributor</dt>                <dd>{% for contributor in item.contributor %}{{ contributor }}              <br/>{% endfor %}<br/></dd>
       <dt>Date</dt>                       <dd>{% for date in item.date %}{{ date }}                                   <br/>{% endfor %}<br/></dd>
       <dt>Contributing Institution</dt>   <dd>{% for repository in item.repository_name %}{{ repository }}            <br/>{% endfor %}<br/></dd>
+      <dt>Repository Data</dt>            <dd>{% for repository_data in item.repository_data %}{{ repository_data }}  <br/>{% endfor %}<br/></dd>
       <dt>Campus</dt>                     <dd>{% for campus in item.campus_name %}{{ campus }}                        <br/>{% endfor %}<br/></dd>
       <dt>Collection</dt>                 <dd>{% for collection_name in item.collection_name %}{{ collection_name }}  <br/>{% endfor %}<br/></dd>
+      <dt>Collection Data                 <dd>{% for collection_data in item.collection_data %}{{ collection_data }}  <br/>{% endfor %}<br/></dd>
       <dt>Identifier</dt>                 <dd>{% for identifier in item.identifier %}{{ identifier }}                 <br/>{% endfor %}<br/></dd>
       <dt>Format</dt>                     <dd>{% for format in item.format %}{{ format }}                             <br/>{% endfor %}<br/></dd>
       <dt>Notes</dt>                      <dd>{% for description in item.description %}{{ description }}              <br/>{% endfor %}<br/></dd>
@@ -72,7 +74,4 @@
   </p>
 {% endfor %}
 
-{% endblock %}
-
-{% block footerScripts %}
 {% endblock %}
