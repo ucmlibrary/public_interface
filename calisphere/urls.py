@@ -7,6 +7,8 @@ urlpatterns = patterns('calisphere',
     url(r'^collections/$', 'views.collectionsExplore', name='collectionsExplore'),
     url(r'^collections/(?P<collection_id>.*)/', 'views.collectionView', name='collectionView'),
     
+    url(r'^repository/(?P<repository_id>.*)/', 'views.repositoryView', name='repositoryView'),
+    
     # AJAX HELPERS
     url(r'^relatedCollections/', 'views.relatedCollections', name='relatedCollections'),
     url(r'^carousel/', 'views.itemViewCarousel', name='carousel'),

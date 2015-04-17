@@ -4,7 +4,7 @@
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block pageTitle %}<h2 class="text__page-heading">{{ collection.name }}</h2>{% endblock %}
+{% block pageTitle %}<h2 class="text__page-heading">{{ repository.name }}</h2>{% endblock %}
 
 {% block additionalInfo %}
 
@@ -12,23 +12,14 @@
 
   <div class="col-md-3">
     <div class="collection-intro__institution">
-      <h2 class="collection-intro__institution-heading">Owning Institution:
-        <a href="" class="collection-intro__institution-heading-link">
-        {% for repository in collection.repository %}
-          {{ repository.name }},
-        {% endfor %}
-        {% for campus in collection.campus %}
-          {{ campus.name }}
-        {% endfor %}
-        </a>
-      </h2>
+      {{ repository }}
     </div>
   </div>
 
   <div class="col-md-9">
     <div class="collection-intro__about">
-      <h3 class="collection-intro__about-heading">About this Collection</h3>
-      <span class="collection-intro__about-description">{{ collection.description }}
+      <h3 class="collection-intro__about-heading">About this Institution</h3>
+      <span class="collection-intro__about-description">{{ repository.description }}
       </span>
     </div>
   </div>

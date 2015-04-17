@@ -149,7 +149,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
         repository_details = json.loads(repository_json)
         repository['name'] = repository_details['name']
         # TODO - don't know how to properly reverse engineer repository_data if there is a campus
-        repository['campus'] = ''
+        repository['campus'] = repository_details['campus'][0]['name']
     return repository
 
 def processQueryRequest(request):
@@ -580,3 +580,91 @@ def collectionView(request, collection_id):
         'collection': collection_details,
         'form_action': reverse('calisphere:collectionView', kwargs={'collection_id': collection_id})
     })
+
+def repositoryView(request, repository_id):
+    repository_url = 'https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json'
+    repository_json = urllib2.urlopen(repository_url).read()
+    repository_details = json.loads(repository_json)
+
+    # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+    queryParams = processQueryRequest(request)
+    repository = getRepositoryData(repository_id=repository_id)
+    queryParams['filters']['repository_data'] = [repository['url'] + "::" + repository['name'] + "::" + repository['campus']]
+
+    facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
+
+    # perform the search
+    solr_search = SOLR_select(
+        q=queryParams['query_terms'],
+        rows=queryParams['rows'],
+        start=queryParams['start'],
+        fq=solrize_filters(queryParams['filters']),
+        facet='true',
+        facet_limit='-1',
+        facet_field=facet_fields
+    )
+
+    for item in solr_search.results:
+        process_media(item)
+
+    facets = {}
+    for facet_type in facet_fields:
+        if facet_type in queryParams['filters'] and len(queryParams['filters'][facet_type]) > 0:
+            # other_filters is all the filters except the ones of the current filter type
+            other_filters = {key: value for key, value in queryParams['filters'].items()
+                if key != facet_type}
+            other_filters[facet_type] = []
+
+            # perform the exact same search, but as though no filters of this type have been selected
+            # to obtain the counts for facets for this facet type
+            facet_solr_search = SOLR_select(
+                q=queryParams['query_terms'],
+                rows='0',
+                fq=solrize_filters(other_filters),
+                facet='true',
+                facet_limit='-1',
+                facet_field=[facet_type]
+            )
+
+            facets[facet_type] = process_facets(
+                facet_solr_search.facet_counts['facet_fields'][facet_type],
+                queryParams['filters'][facet_type]
+            )
+        else:
+            facets[facet_type] = process_facets(
+                solr_search.facet_counts['facet_fields'][facet_type],
+                queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else []
+            )
+
+    for i, facet_item in enumerate(facets['collection_data']):
+        collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
+        facets['collection_data'][i] = collection
+
+    filter_display = {}
+    for filter_type in queryParams['filters']:
+        if filter_type == 'repository_data':
+            filter_display['repository_data'] = []
+        elif filter_type == 'collection_data':
+            filter_display['collection_data'] = []
+            for filter_item in queryParams['filters'][filter_type]:
+                collection = getCollectionData(collection_data=filter_item)
+                filter_display['collection_data'].append(collection)
+        else:
+            filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
+
+    return render(request, 'calisphere/repositoryView.html', {
+        'q': queryParams['q'],
+        'rq': queryParams['rq'],
+        'filters': filter_display,
+        'rows': queryParams['rows'],
+        'start': queryParams['start'],
+        'search_results': solr_search.results,
+        'facets': facets,
+        'FACET_TYPES': list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'repository_data'),
+        'numFound': solr_search.numFound,
+        'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
+        'view_format': queryParams['view_format'],
+        'repository': repository_details,
+        'form_action': reverse('calisphere:repositoryView', kwargs={'repository_id': repository_id})
+    })
+    
