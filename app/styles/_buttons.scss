@@ -31,6 +31,17 @@
   color: $design-primary-color;
 }
 
+.button__clear {
+  margin: 0 5px 5px 0;
+  color: #fff;
+  background: $design-primary-color;
+}
+
+.button__clear-icon {
+  margin-left: 1em;
+  color: #fff;
+}
+
 .button__prev {
 
   .fa {
