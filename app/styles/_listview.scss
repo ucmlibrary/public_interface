@@ -6,7 +6,8 @@
   padding: $layout-component-margin 0 0 0;
 }
 
-.row:first-of-type .listview {
+.listview:first-of-type {
+  clear: right; // clear .object-view-row
   border: none;
 }
 
