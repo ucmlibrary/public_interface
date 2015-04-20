@@ -27,7 +27,6 @@
 .filter__more-link {
 	display: none;
 	float: right;
-	padding: 1px 0;
 
 	@include bp(md-screen) {
     display: inline;
@@ -51,7 +50,6 @@
 
 .filter__clear-all {
 	float: right;
-	padding: 1px 0;
 
 	@include bp(md-screen) {
     display: none;
