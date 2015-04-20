@@ -7,6 +7,7 @@
 }
 
 .listview:first-of-type {
+  clear: right; // clear .object-view-row
   border: none;
 }
 
