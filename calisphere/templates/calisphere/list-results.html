@@ -1,63 +1,41 @@
 {% for item in search_results %}
-  <div class="row">
-    <figure class="listview">
-      <div class="col-xs-3">
-        <a class="listview__link" href="">
-          <img class="listview__image" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" data-reference_image_md5="{{ item.reference_image_md5 }}" alt="bird">
-        </a>
-      </div>
-      <div class="col-xs-9">
-        <div class="listview__metadata">
-          <dl class="metadata__list">
-            <dt class="metadata__type">Title:</dt>
-            <dd class="metadata__defin">{{ item.title.0 }}</dd>
+  <figure class="row listview">
+    <div class="col-xs-3">
+      <a class="listview__link" href="">
+        <img class="listview__image" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" data-reference_image_md5="{{ item.reference_image_md5 }}" alt="bird">
+      </a>
+    </div>
+    <div class="col-xs-9">
+      <div class="listview__metadata">
+        <dl class="metadata__list">
+          <dt class="metadata__type">Title:</dt>
+          <dd class="metadata__defin">{{ item.title.0 }}</dd>
 
-            <dt class="metadata__type">Creator:</dt>
-            <dd class="metadata__defin">{{ item.creator.0 }}</dd>
+          <dt class="metadata__type">Creator:</dt>
+          <dd class="metadata__defin">{{ item.creator.0 }}</dd>
 
-            <dt class="metadata__type">Date:</dt>
-            <dd class="metadata__defin">{{ item.date.0 }}</dd>
+          <dt class="metadata__type">Date:</dt>
+          <dd class="metadata__defin">{{ item.date.0 }}</dd>
 
-            <dt class="metadata__type">Contributing Institution:</dt>
-            <dd class="metadata__defin"><a href="">{{ item.repository_name.0 }}</a></dd>
+          <dt class="metadata__type">Contributing Institution:</dt>
+          <dd class="metadata__defin"><a href="">{{ item.repository_name.0 }}</a></dd>
 
-            <dt class="metadata__type">Collection:</dt>
-            <dd class="metadata__defin"><a href="">{{ item.collection_name.0 }}</a></dd>
+          <dt class="metadata__type">Collection:</dt>
+          <dd class="metadata__defin"><a href="">{{ item.collection_name.0 }}</a></dd>
 
-            <dt class="metadata__type">Identifier:</dt>
-            <dd class="metadata__defin">{{ item.identifier.0 }}</dd>
+          <dt class="metadata__type">Identifier:</dt>
+          <dd class="metadata__defin">{{ item.identifier.0 }}</dd>
 
-            <dt class="metadata__type">Format:</dt>
-            <dd class="metadata__defin">{{ item.format.0 }}</dd>
+          <dt class="metadata__type">Format:</dt>
+          <dd class="metadata__defin">{{ item.format.0 }}</dd>
 
-            <dt class="metadata__type">Notes:</dt>
-            <dd class="metadata__defin">{{ item.description.0 }}</dd>
+          <dt class="metadata__type">Notes:</dt>
+          <dd class="metadata__defin">{{ item.description.0 }}</dd>
 
-            <dt class="metadata__type">Subject:</dt>
-            <dd class="metadata__defin">[TBD]</dd>
-          </dl>
-        </div>
-      </div>
-    </figure>
-  </div>
-  <!-- <div class="row" style="padding: 20px 10px">
-    <div class="item-thumb" style="cursor: pointer">
-      <div class="col-md-5" style="padding-left: 50px;">
-        <img src="{{ item.reference_image_http }}" height="200"
-          data-reference_image_md5="{{ item.reference_image_md5 }}"/>
-      </div>
-      <div class="col-md-7">
-        Title: {{ item.title.0 }}<br>
-        Creator/Contributor: {{ item.creator.0 }}<br>
-        Date: {{ item.date.0 }}<br>
-        Identifier: {{ item.identifier.0 }}<br>
-        Format: {{ item.format.0 }}<br>
-        Notes: {{ item.description.0 }}<br>
-        Subject: <br>
-        Collection: {{ item.collection_name.0 }}<br>
-        Contributing Institution: {{ item.repository_name.0 }}<br>
+          <dt class="metadata__type">Subject:</dt>
+          <dd class="metadata__defin">[TBD]</dd>
+        </dl>
       </div>
     </div>
-  </div>
-  <hr> -->
+  </figure>
 {% endfor %}
