@@ -12,15 +12,17 @@
 
   <div class="col-md-3">
     <div class="collection-intro__institution">
-      <h2 class="collection-intro__institution-heading">Owning Institution:
-        <a href="" class="collection-intro__institution-heading-link">
+      <h2 class="collection-intro__institution-heading">Owning Institution{{ collection.repository|pluralize }}:
         {% for repository in collection.repository %}
-          {{ repository.name }},
+          <a href="{% url 'calisphere:repositoryView' repository.resource_id %}" class="collection-intro__institution-heading-link">
+            {{ repository.name }}
+            {% if repository.campus|length > 0 %}
+              {% for campus in repository.campus %}
+                {{ campus.name }}
+              {% endfor %}
+            {% endif %}
+          </a>
         {% endfor %}
-        {% for campus in collection.campus %}
-          {{ campus.name }}
-        {% endfor %}
-        </a>
       </h2>
     </div>
   </div>
@@ -38,22 +40,35 @@
 {% endblock %}
 
 {% block refineSearch %}
+<div class="row">
 
-<!-- Begin Search Collection Field -->
-
-<div class="search-collection">
-  <label for="search-collection__field" class="search-collection__label">Search collection</label>
-  <div class="input-group">
-    <input id="search-collection__field" type="search" name="rq" class="form-control search-collection__field" form="js-facet">
-    <span class="input-group-btn">
-      <button class="btn btn-default search-collection__button" type="submit" form="js-facet">Search
-      </button>
-    </span>
+  <div class="col-sm-6 col-md-12">
+    {% for repository in collection.repository %}
+      <a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:repositoryView' repository.resource_id %}">
+        <span class="fa fa-angle-left fa-lg fa-fw"></span>
+        Go to {{ repository.name }} Page
+      </a>
+    {% endfor %}
   </div>
+
+  <div class="col-sm-6 col-md-12">
+    <!-- Begin Search Collection Field -->
+
+    <div class="search-collection">
+      <label for="search-collection__field" class="search-collection__label">Search collection</label>
+      <div class="input-group">
+        <input id="search-collection__field" type="search" name="rq" class="form-control search-collection__field" form="js-facet">
+        <span class="input-group-btn">
+          <button class="btn btn-default search-collection__button" type="submit" form="js-facet">Search
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- End Search Collection Field -->
+  </div>
+
 </div>
-
-<!-- End Search Collection Field -->
-
 {% endblock %}
 
 {% block objectsFound %}
