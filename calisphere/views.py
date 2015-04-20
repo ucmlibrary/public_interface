@@ -111,19 +111,20 @@ def getCollectionData(collection_data=None, collection_id=None):
     collection = {}
     if collection_data:
         collection['url'] = collection_data.split('::')[0] if len(collection_data.split('::')) >= 1 else ''
-        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/', collection['url'])
+        collection['name'] = collection_data.split('::')[1] if len(collection_data.split('::')) >= 2 else ''
+        
+        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection['url'])
         if collection_api_url is None:
-            print 'no collection api url'
+            print 'no collection api url:'
+            print collection_data
             collection['id'] = ''
         else:
             collection['id'] = collection_api_url.group('url')
-        collection['name'] = collection_data.split('::')[1] if len(collection_data.split('::')) >= 2 else ''
     elif collection_id:
         collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id + "/"
-        collection_url = collection['url'] + "?format=json"
-        collection_json = urllib2.urlopen(collection_url).read()
-        collection_details = json.loads(collection_json)
         collection['id'] = collection_id
+        
+        collection_details = json.loads(urllib2.urlopen(collection['url'] + "?format=json").read())
         collection['name'] = collection_details['name']
     return collection
 
@@ -143,12 +144,9 @@ def getRepositoryData(repository_data=None, repository_id=None):
     elif repository_id:
         repository['url'] = "https://registry.cdlib.org/api/v1/repository/" + repository_id + "/"
         repository['id'] = repository_id
-
-        repository_url = repository['url'] + "?format=json"
-        repository_json = urllib2.urlopen(repository_url).read()
-        repository_details = json.loads(repository_json)
+        
+        repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
         repository['name'] = repository_details['name']
-        # TODO - don't know how to properly reverse engineer repository_data if there is a campus
         repository['campus'] = repository_details['campus'][0]['name']
     return repository
 
@@ -175,7 +173,7 @@ def processQueryRequest(request):
         repository = getRepositoryData(repository_id=filter_item)
         filters['repository_data'][i] = repository['url'] + "::" + repository['name']
         if repository['campus'] != '':
-            repository = repository + "::" + repository['campus']
+            filters['repository_data'][i] = filters['repository_data'][i] + "::" + repository['campus']
 
     return {
         'q': q,
@@ -667,4 +665,3 @@ def repositoryView(request, repository_id):
         'repository': repository_details,
         'form_action': reverse('calisphere:repositoryView', kwargs={'repository_id': repository_id})
     })
-    
