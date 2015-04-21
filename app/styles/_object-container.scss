@@ -28,11 +28,16 @@
 }
 
 .object__container-harvest-non-image {
-  display: block;
+  display: flex;
+  flex-flow: row nowrap;
   margin: 0 0 15px 0;
 
   @include bp(sm-screen) {
-    
+    margin: 40px 0 55px 0;
+  }
+
+  @include bp(md-screen) {
+    margin: 40px 60px 55px 60px;
   }
 
 }

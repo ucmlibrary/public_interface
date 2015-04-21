@@ -84,9 +84,21 @@
 
 // ***** Harvest Non-Image ***** //
 
+.obj-harvest-non-image__text {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 0 0 0 $layout-component-margin;
+}
+
 .obj-harvest-non-image__object-icon {
   color: $design-dark-gray-color;
   font-size: 4em;
+}
+
+html.no-flexbox .obj-harvest-non-image__object-icon {
+  float: left;
+  margin: 0 20px 0 0;
 }
 
 .obj-harvest-non-image__link {
