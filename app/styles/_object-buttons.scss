@@ -47,7 +47,7 @@ html.no-flexbox .obj-buttons__group1 {
   
   @include bp(sm-screen) {
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     width: 440px;
     margin: 0;
@@ -106,6 +106,7 @@ html.no-flexbox .obj-buttons__contact-text {
 
   @include bp(sm-screen) {
     width: auto;
+    margin: 0 0 0 10px;
   }
 	
 }
@@ -116,6 +117,7 @@ html.no-flexbox .obj-buttons__contact-text {
 
   @include bp(sm-screen) {
     display: inline-block;
+    margin: 0 0 0 10px;
   }
 
 }
