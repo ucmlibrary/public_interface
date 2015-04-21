@@ -82,6 +82,19 @@
   color: #000;
 }
 
+// ***** Harvest Non-Image ***** //
+
+.obj-harvest-non-image__object-icon {
+  color: $design-dark-gray-color;
+  font-size: 4em;
+}
+
+.obj-harvest-non-image__link-icon {
+  margin: 0 0 0 0.5em;
+}
+
+// ***** Object Metadata ***** //
+
 .object__metadata {
   border-top: 1px solid $design-primary-color;
   
