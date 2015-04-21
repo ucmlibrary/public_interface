@@ -27,6 +27,17 @@
 
 }
 
+.object__container-hosted-file {
+  display: block;
+  width: 100%;
+  margin: 0 auto 15px auto;
+
+  @include bp(sm-screen) {
+    width: 25%;
+  }
+
+}
+
 .object__container-harvest-non-image {
   display: flex;
   flex-flow: row nowrap;
