@@ -15,11 +15,7 @@
     <li class="active">{{ item.title.0|truncatewords:7 }}</li>
   </ol>
 
-  <h1 style="margin-bottom: 20px">
-    <span style="text-transform: capitalize">{{ item.type.0 }}</span> /
-    {{ item.title.0|truncatewords:7 }}
-  </h1>
-</div>
+  <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
 <div style="width: 100%; background-color: #f8f8f8; margin-bottom: 20px;" class="text-center">
   <img src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" style="margin: auto;"/>
