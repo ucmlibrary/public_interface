@@ -17,9 +17,20 @@
 
   <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
-<div style="width: 100%; background-color: #f8f8f8; margin-bottom: 20px;" class="text-center">
-  <img src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" style="margin: auto;"/>
-</div>
+  <div class="object__container-generic">
+
+    <a class="obj-harvest__link" href="" target="_blank">
+      <figure>
+        <div class="obj-harvest__img-container">
+          <span class="fa fa-external-link fa-fw obj-harvest__external-link-icon-overlay"></span>
+          <img class="obj-harvest__image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="">
+        </div>
+        <figcaption class="obj-harvest__caption">Preview. View on contributor's website.<span class="fa fa-external-link fa-fw obj-harvest__caption-icon"></span>
+        </figcaption>
+      </figure>
+    </a>
+
+  </div>
 
 <div class="container">
   <p>
