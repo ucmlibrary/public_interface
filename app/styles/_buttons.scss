@@ -31,6 +31,17 @@
   color: $design-primary-color;
 }
 
+.button__clear {
+  margin: 0 5px 5px 0;
+  color: #fff;
+  background: $design-primary-color;
+}
+
+.button__clear-icon {
+  margin-left: 1em;
+  color: #fff;
+}
+
 .button__prev {
 
   .fa {
@@ -58,7 +69,7 @@
 }
 
 .button__back-to-institution {
-  @extend .button__primary;
+  @extend .button__secondary;
   display: block;
   clear: right; // clear filter buttons in .col-md-9
   text-align: left;

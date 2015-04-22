@@ -77,6 +77,41 @@
   text-align: center;
 }
 
+.obj-harvest__caption-icon {
+  margin: 0 0 0 0.5em;
+  color: #000;
+}
+
+// ***** Harvest Non-Image ***** //
+
+.obj-harvest-non-image__text {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 0 0 0 $layout-component-margin;
+}
+
+.obj-harvest-non-image__object-icon {
+  color: $design-dark-gray-color;
+  font-size: 4em;
+}
+
+html.no-flexbox .obj-harvest-non-image__object-icon {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+.obj-harvest-non-image__link {
+  display: block;
+}
+
+.obj-harvest-non-image__link-icon {
+  margin: 0 0 0 0.5em;
+  color: #000;
+}
+
+// ***** Object Metadata ***** //
+
 .object__metadata {
   border-top: 1px solid $design-primary-color;
   
