@@ -11,13 +11,13 @@
 <div class="carousel js-flickity" data-flickity-options='{ "cellAlign": "left", "contain": true, "pageDots": false, "percentPosition": false }'>
   
   {% for item in search_results %}
-  <figure class="carousel__item">
+  <div class="carousel__item">
     <a class="js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}">
       <img src="{{ thumbnailUrl }}crop/120x120/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
     </a>
-    <figcaption class="carousel__thumbnail-caption">{{ item.title.0|truncatewords:7 }}
-    </figcaption>
-  </figure>
+    <div class="carousel__thumbnail-caption">{{ item.title.0|truncatewords:7 }}
+    </div>
+  </div>
   {% endfor %}
 
 </div>

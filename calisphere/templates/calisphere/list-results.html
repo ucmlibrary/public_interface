@@ -1,5 +1,5 @@
 {% for item in search_results %}
-  <figure class="row listview">
+  <div class="row listview">
     <div class="col-xs-3">
       <a class="listview__link" href="">
         <img class="listview__image" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" data-reference_image_md5="{{ item.reference_image_md5 }}" alt="bird">
@@ -37,5 +37,5 @@
         </dl>
       </div>
     </div>
-  </figure>
+  </div>
 {% endfor %}
