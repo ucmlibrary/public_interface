@@ -490,12 +490,28 @@ def collectionsDirectory(request):
             'display_items': display_items.results
         })
     
-    return render(request, 'calisphere/collectionsDirectory.html', {'collections': collections})
+    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections})
 
 # TODO: doesn't handle non-letter characters
 def collectionsAZ(request, collection_letter):
-    collections_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection_data'], facet_limit='-1')
+    # print "======================================================================================="
+    collections_solr_query = SOLR_select(
+        q='*:*', 
+        rows=0, 
+        start=0, 
+        facet='true', 
+        facet_field=['collection_name', 'collection_data'],
+        facet_limit='-1'
+    )
     solr_collections = collections_solr_query.facet_counts['facet_fields']['collection_data']
+    solr_collection_names = collections_solr_query.facet_counts['facet_fields']['collection_name']
+    
+    # print 'solr_collections'
+    # print solr_collections
+    # print 'solr_collection_names'
+    # print solr_collection_names
+    
+    # print solr_collections
     
     collections_list = []
     for collection_data, count in solr_collections.iteritems():
@@ -528,10 +544,15 @@ def collectionsAZ(request, collection_letter):
             'name': collection_info['name'], 
             'description': collection_details['description'], 
             'collection_id': collection_id,
-            'display_items': display_items.results
+            'display_items': display_items.results, 
         })
     
-    return render(request, 'calisphere/collectionsDirectory.html', {'collections': collections})
+    return render(request, 'calisphere/collectionsAZ.html', {'collections': collections, 
+        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    })
+
+def collectionsSearch(request):
+    return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': ''})
 
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
