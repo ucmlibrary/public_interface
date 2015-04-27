@@ -29,7 +29,7 @@
           </a>
         </li>
         {% endfor %}
-        <li class="pag-buttons__list-item">&#133;</li>
+        <li class="pag-buttons__list-item">&#8230;</li>
         <li class="pag-buttons__list-item">
           <a class="btn btn-default" href="" data-start="{{ pages|subtract:1|multiply:rows }}">{{ pages }}</a>
         </li>
@@ -38,7 +38,7 @@
         <li class="pag-buttons__list-item">
           <a class="btn btn-default" href="" data-start="0">1</a>
         </li>
-        <li class="pag-buttons__list-item">&#133;</li>
+        <li class="pag-buttons__list-item">&#8230;</li>
           {% for page in 5|get_range %}
           <li class="pag-buttons__list-item">
             <a class="btn btn-default {% if start|current_page:rows == pages|subtract:5|add:page|add:1 %}pag-buttons__list-link--selected{% endif %}" href="" data-start="{{ pages|subtract:5|add:page|multiply:rows }}">
@@ -51,7 +51,7 @@
         <li class="pag-buttons__list-item">
           <a class="btn btn-default" href="" data-start="0">1</a>
         </li>
-        <li class="pag-buttons__list-item">&#133;</li>
+        <li class="pag-buttons__list-item">&#8230;</li>
         
         <li class="pag-buttons__list-item">
           <a class="btn btn-default" href="" data-start="{{ start|subtract:16 }}">
@@ -69,7 +69,7 @@
           </a>
         </li>
         
-        <li class="pag-buttons__list-item">&#133;</li>
+        <li class="pag-buttons__list-item">&#8230;</li>
         <li class="pag-buttons__list-item">
           <a class="btn btn-default" href="" data-start="{{ pages|subtract:1|multiply:rows }}">{{ pages }}</a>
         </li>
@@ -90,7 +90,7 @@
     <li class="pag-buttons__list-item"><a class="btn btn-default" href="">4</a></li>
     <li class="pag-buttons__list-item"><a class="btn btn-default" href="">5</a></li>
     <li class="pag-buttons__list-item"><a class="btn btn-default" href="">6</a></li>
-    <li class="pag-buttons__list-item">&#133;</li>
+    <li class="pag-buttons__list-item">&#8230;</li>
     <li class="pag-buttons__list-item"><a class="btn btn-default" href="">10</a></li> -->
   </ul>
 
