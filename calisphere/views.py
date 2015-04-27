@@ -643,6 +643,51 @@ def collectionView(request, collection_id):
         'form_action': reverse('calisphere:collectionView', kwargs={'collection_id': collection_id})
     })
 
+def campusDirectory(request):
+    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
+    solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
+    
+    repositories = []
+    for repository_data in solr_repositories:
+        repository = getRepositoryData(repository_data=repository_data)
+        if repository['campus']: 
+            repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
+            repository_api_url = re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url'])
+            repository_id = repository_api_url.group('repository_id')
+            
+            repositories.append({
+                'name': repository['name'],
+                'campus': repository['campus'], 
+                'repository_id': repository_id
+            })
+    
+    repositories = sorted(repositories, key=lambda repository: repository['campus'])
+    
+    return render(request, 'calisphere/campusDirectory.html', {'repositories': repositories, 
+        'campuses': ['UC Berkeley', 'UC Davis', 'UC Irvine', 'UCLA', 'UC Merced', 'UC Riverside', 'UC San Diego', 'UC San Francisco', 'UC Santa Barbara', 'UC Santa Cruz']})
+    
+def statewideDirectory(request):
+    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
+    solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
+    
+    repositories = []
+    for repository_data in solr_repositories:
+        repository = getRepositoryData(repository_data=repository_data)
+        if repository['campus'] == '': 
+            repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
+            repository_api_url = re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url'])
+            repository_id = repository_api_url.group('repository_id')
+            
+            repositories.append({
+                'name': repository['name'],
+                'repository_id': repository_id
+            })
+    
+    repositories = sorted(repositories, key=lambda repository: repository['name'])
+    
+    return render(request, 'calisphere/statewideDirectory.html', {'repositories': repositories, 
+        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']})
+    
 def repositoryView(request, repository_id):
     repository_url = 'https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json'
     repository_json = urllib2.urlopen(repository_url).read()
@@ -653,7 +698,7 @@ def repositoryView(request, repository_id):
     repository = getRepositoryData(repository_id=repository_id)
     queryParams['filters']['repository_data'] = [repository['url'] + "::" + repository['name']]
     if 'campus' in repository:
-        queryParams['filters']['repository_data'] = queryParams['filters']['repository_data'] + "::" + repository['campus']
+        queryParams['filters']['repository_data'][0] = queryParams['filters']['repository_data'][0] + "::" + repository['campus']
 
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
 

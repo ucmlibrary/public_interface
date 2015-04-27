@@ -1,0 +1,18 @@
+{% extends "calisphere/base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% include "calisphere/institutionsHeader.html" %}
+
+{% for campus in campuses %}
+  {{ campus }}<br/>
+  {% for repository in repositories %}
+    {% if repository.campus == campus %}
+      <a href="{% url 'calisphere:repositoryView' repository.repository_id %}">{{ repository.name }}</a><br/>
+    {% endif %}
+  {% endfor %}<br/>
+{% endfor %}
+
+{% endblock %}

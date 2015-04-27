@@ -11,6 +11,8 @@ urlpatterns = patterns('calisphere',
     url(r'^collections/', 'views.collectionsSearch', name='collectionsSearch'),
     
     url(r'^repository/(?P<repository_id>.*)/', 'views.repositoryView', name='repositoryView'),
+    url(r'^institutions/uc-partners/$', 'views.campusDirectory', name='campusDirectory'),
+    url(r'^institutions/statewide-partners/$', 'views.statewideDirectory', name='statewideDirectory'),
     
     # AJAX HELPERS
     url(r'^relatedCollections/', 'views.relatedCollections', name='relatedCollections'),
