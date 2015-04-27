@@ -1,12 +1,16 @@
 // ##### List View Component ##### //
 
 .listview {
+  
+}
+
+.listview__container {
   border-top: 1px solid $design-dark-gray-color;
   margin: $layout-component-margin 0 0 0;
   padding: $layout-component-margin 0 0 0;
 }
 
-.listview:first-of-type {
+.listview__container:first-of-type {
   clear: right; // clear .object-view-row
   border: none;
 }
