@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% include "calisphere/collectionHeader.html" %}
+{% include "calisphere/collectionsHeader.html" %}
 
 {% if collection_q or collection_q = '' %}
   <form action="{% url 'calisphere:collectionsSearch' %}" method="get" id="js-collectionSearch">
