@@ -2,15 +2,15 @@
   {% for item in search_results %}
   <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
     <a class="thumbview__link js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
-      <figure class="thumbview__container" data-toggle="tooltip" title="{{ item.title.0 }}">
+      <div class="thumbview__container" data-toggle="tooltip" title="{{ item.title.0 }}">
         <img class="thumbview__image"
           src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
           srcset="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.reference_image_md5 }} 50w"
           sizes="100%"
           alt="{{ item.title.0|truncatewords:8 }}">
-        <figcaption class="thumbview__caption">{{ item.title.0|truncatewords:8 }}
-        </figcaption>
-      </figure>
+        <div class="thumbview__caption">{{ item.title.0|truncatewords:8 }}
+        </div>
+      </div>
     </a>
   </div>
   {% endfor %}

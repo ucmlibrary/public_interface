@@ -70,11 +70,21 @@ html.no-flexbox .obj-buttons__group2 {
   color: rgb(41, 138, 201);
 }
 
+html.no-flexbox .obj-buttons__twitter {
+  position: relative;
+  top: 6px;
+}
+
 .obj-buttons__facebook {
   display: block; // needed for IE 10
   font-size: 1.9em;
   line-height: 0.1;
   color: rgb(46, 71, 124);
+}
+
+html.no-flexbox .obj-buttons__facebook {
+  position: relative;
+  top: 6px;
 }
 
 .obj-buttons__citation {
@@ -99,6 +109,7 @@ html.no-flexbox .obj-buttons__group2 {
 html.no-flexbox .obj-buttons__contact-text {
   display: block;
   float: left;
+  margin: 0 0.5em 0 0;
 }
 
 .button__contact-owner {
@@ -106,7 +117,7 @@ html.no-flexbox .obj-buttons__contact-text {
 
   @include bp(sm-screen) {
     width: auto;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 1em;
   }
 	
 }
@@ -117,7 +128,7 @@ html.no-flexbox .obj-buttons__contact-text {
 
   @include bp(sm-screen) {
     display: inline-block;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 0.5em;
   }
 
 }
@@ -139,11 +150,11 @@ html.no-flexbox .obj-buttons__contact-text {
 }
 
 .obj__osd-button {
-  margin: 0 0 10px 0;
+  margin: 0 0 0.5em 0;
 }
 
 html.no-flexbox .obj__osd-button {
-  margin: 0 0 0 10px;
+  margin: 0 0 0 0.5em;
 }
 
 

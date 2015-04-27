@@ -15,63 +15,104 @@
     <li class="active">{{ item.title.0|truncatewords:7 }}</li>
   </ol>
 
-  <h1 style="margin-bottom: 20px">
-    <span style="text-transform: capitalize">{{ item.type.0 }}</span> /
-    {{ item.title.0|truncatewords:7 }}
-  </h1>
-</div>
+  <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
-<div style="width: 100%; background-color: #f8f8f8; margin-bottom: 20px;" class="text-center">
-  <img src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" style="margin: auto;"/>
-</div>
+  <div class="object__container-generic">
 
-<div class="container">
-  <p>
-    <dl class="dl-horizontal">
-      <dt>Image</dt>                      <dd>{{ item.reference_image_http }}</dd><br/><br/>
-      <dt>Title</dt>                      <dd>{% for title in item.title %}{{ title }}                                <br/>{% endfor %}<br/></dd>
-      <dt>Creator</dt>                    <dd>{% for creator in item.creator %}{{ creator }}                          <br/>{% endfor %}<br/></dd>
-      <dt>Contributor</dt>                <dd>{% for contributor in item.contributor %}{{ contributor }}              <br/>{% endfor %}<br/></dd>
-      <dt>Date</dt>                       <dd>{% for date in item.date %}{{ date }}                                   <br/>{% endfor %}<br/></dd>
-      <dt>Contributing Institution</dt>   <dd>{% for repository in item.repository_name %}{{ repository }}            <br/>{% endfor %}<br/></dd>
-      <dt>Repository Data</dt>            <dd>{% for repository_data in item.repository_data %}{{ repository_data }}  <br/>{% endfor %}<br/></dd>
-      <dt>Campus</dt>                     <dd>{% for campus in item.campus_name %}{{ campus }}                        <br/>{% endfor %}<br/></dd>
-      <dt>Collection</dt>                 <dd>{% for collection_name in item.collection_name %}{{ collection_name }}  <br/>{% endfor %}<br/></dd>
-      <dt>Collection Data                 <dd>{% for collection_data in item.collection_data %}{{ collection_data }}  <br/>{% endfor %}<br/></dd>
-      <dt>Identifier</dt>                 <dd>{% for identifier in item.identifier %}{{ identifier }}                 <br/>{% endfor %}<br/></dd>
-      <dt>Format</dt>                     <dd>{% for format in item.format %}{{ format }}                             <br/>{% endfor %}<br/></dd>
-      <dt>Notes</dt>                      <dd>{% for description in item.description %}{{ description }}              <br/>{% endfor %}<br/></dd>
-      <dt>Subject</dt>                    <dd>{% for subject in item.subject %}{{ subject }}                          <br/>{% endfor %}<br/></dd>
-      <dt>Rights</dt>                     <dd>{% for rights in item.rights %}{{ rights }}                             <br/>{% endfor %}<br/></dd>
-      <dt>Publisher</dt>                  <dd>{% for publisher in item.publisher %}{{ publisher }}                    <br/>{% endfor %}<br/></dd>
+    <a class="obj-harvest__link" href="" target="_blank">
+      <div>
+        <div class="obj-harvest__img-container">
+          <span class="fa fa-external-link fa-fw obj-harvest__external-link-icon-overlay"></span>
+          <img class="obj-harvest__image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="">
+        </div>
+        <div class="obj-harvest__caption">Preview. View on contributor's website.<span class="fa fa-external-link fa-fw obj-harvest__caption-icon"></span>
+        </div>
+      </div>
+    </a>
 
+  </div>
+
+  <div class="obj-buttons">
+
+    <div class="obj-buttons__group1">
+
+      <a class="btn btn-xs obj-buttons__envelope" title="Email" href="">
+        <span class="fa fa-envelope-o fa-fw"></span>
+      </a>
+
+      <a class="obj-buttons__twitter" title="Twitter" href="">
+        <span class="fa fa-twitter-square"></span>
+      </a>
+
+      <a class="obj-buttons__facebook" title="Facebook" href="">
+        <span class="fa fa-facebook-square"></span>
+      </a>
+
+      <a class="btn btn-xs obj-buttons__citation" href="">
+        Get Citation
+      </a>
+
+    </div>
+
+    <div class="obj-buttons__group2">
+    
+      <span class="obj-buttons__contact-text">Need more information about this object? Contact the owning institution:</span>
+
+      <a class="btn btn-xs button__contact-owner" href="">
+        <span class="fa fa-envelope"></span>
+        Contact Owner 
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="object__metadata">
+
+    <h3 class="metadata__heading">Metadata Preview. <a href="">View complete record.<span class="fa fa-external-link fa-fw metadata__heading-icon"></span></a></h3>
+
+    <dl class="metadata__list">
+      <dt class="metadata__type">Image</dt>                      <dd class="metadata__defin">{{ item.reference_image_http }}</dd>
+      <dt class="metadata__type">Title</dt>                      <dd class="metadata__defin">{% for title in item.title %}{{ title }}                                | {% endfor %}</dd>
+      <dt class="metadata__type">Creator</dt>                    <dd class="metadata__defin">{% for creator in item.creator %}{{ creator }}                          | {% endfor %}</dd>
+      <dt class="metadata__type">Contributor</dt>                <dd class="metadata__defin">{% for contributor in item.contributor %}{{ contributor }}              | {% endfor %}</dd>
+      <dt class="metadata__type">Date</dt>                       <dd class="metadata__defin">{% for date in item.date %}{{ date }}                                   | {% endfor %}</dd>
+      <dt class="metadata__type">Contributing Institution</dt>   <dd class="metadata__defin">{% for repository in item.repository_name %}{{ repository }}            | {% endfor %}</dd>
+      <dt class="metadata__type">Repository Data</dt>            <dd class="metadata__defin">{% for repository_data in item.repository_data %}{{ repository_data }}  | {% endfor %}</dd>
+      <dt class="metadata__type">Campus</dt>                     <dd class="metadata__defin">{% for campus in item.campus_name %}{{ campus }}                        | {% endfor %}</dd>
+      <dt class="metadata__type">Collection</dt>                 <dd class="metadata__defin">{% for collection_name in item.collection_name %}{{ collection_name }}  | {% endfor %}</dd>
+      <dt class="metadata__type">Collection Data                 <dd class="metadata__defin">{% for collection_data in item.collection_data %}{{ collection_data }}  | {% endfor %}</dd>
+      <dt class="metadata__type">Identifier</dt>                 <dd class="metadata__defin">{% for identifier in item.identifier %}{{ identifier }}                 | {% endfor %}</dd>
+      <dt class="metadata__type">Format</dt>                     <dd class="metadata__defin">{% for format in item.format %}{{ format }}                             | {% endfor %}</dd>
+      <dt class="metadata__type">Notes</dt>                      <dd class="metadata__defin">{% for description in item.description %}{{ description }}              | {% endfor %}</dd>
+      <dt class="metadata__type">Subject</dt>                    <dd class="metadata__defin">{% for subject in item.subject %}{{ subject }}                          | {% endfor %}</dd>
+      <dt class="metadata__type">Rights</dt>                     <dd class="metadata__defin">{% for rights in item.rights %}{{ rights }}                             | {% endfor %}</dd>
+      <dt class="metadata__type">Publisher</dt>                  <dd class="metadata__defin">{% for publisher in item.publisher %}{{ publisher }}                    | {% endfor %}</dd>
+
+      <dt class="metadata__type">Timestamp</dt>                  <dd class="metadata__defin">{{ item.timestamp }}</dd>
+      <dt class="metadata__type">Id</dt>                         <dd class="metadata__defin">{{ item.id }}</dd>
+      <dt class="metadata__type">Created</dt>                    <dd class="metadata__defin">{{ item.created }}</dd>
+      <dt class="metadata__type">Last Modified</dt>              <dd class="metadata__defin">{{ item.last_modified }}</dd>
+      
+      <dt class="metadata__type">Campus</dt>                     <dd class="metadata__defin">{{ item.campus }}</dd>
+      <dt class="metadata__type">Repository</dt>                 <dd class="metadata__defin">{{ item.repository }}</dd>
+      <dt class="metadata__type">Collection</dt>                 <dd class="metadata__defin">{{ item.collection }}</dd>
+      
+      <dt class="metadata__type">Coverage</dt>                   <dd class="metadata__defin">{{ item.coverage }}</dd>
+      <dt class="metadata__type">Language</dt>                   <dd class="metadata__defin">{{ item.language }}</dd>
+      <dt class="metadata__type">Source</dt>                     <dd class="metadata__defin">{{ item.source }}</dd>
+      <dt class="metadata__type">Type</dt>                       <dd class="metadata__defin">{{ item.type }}</dd>
+      <dt class="metadata__type">Date Facet</dt>                 <dd class="metadata__defin">{{ item.date_facet }}</dd>
+      <dt class="metadata__type">url_item</dt>                   <dd class="metadata__defin">{{ item.url_item }}</dd>
+      <dt class="metadata__type">reference_image_md5</dt>        <dd class="metadata__defin">{{ item.reference_image_md5 }}</dd>
+      
+      <dt class="metadata__type">Relation</dt>                   <dd class="metadata__defin">{{ item.relation }}</dd>
+      <dt class="metadata__type">payloads</dt>                   <dd class="metadata__defin">{{ item.payloads }}</dd>
+      <dt class="metadata__type">Score</dt>                      <dd class="metadata__defin">{{ item.score }}</dd>
     </dl>
-  </p>
-  <hr>
-  <p>
-    <dl class="dl-horizontal">
-      <dt>Timestamp</dt>                  <dd>{{ item.timestamp }}</dd>
-      <dt>Id</dt>                         <dd>{{ item.id }}</dd>
-      <dt>Created</dt>                    <dd>{{ item.created }}</dd>
-      <dt>Last Modified</dt>              <dd>{{ item.last_modified }}</dd>
-      <hr>
-      <dt>Campus</dt>                     <dd>{{ item.campus }}</dd>
-      <dt>Repository</dt>                 <dd>{{ item.repository }}</dd>
-      <dt>Collection</dt>                 <dd>{{ item.collection }}</dd>
-      <hr>
-      <dt>Coverage</dt>                   <dd>{{ item.coverage }}</dd>
-      <dt>Language</dt>                   <dd>{{ item.language }}</dd>
-      <dt>Source</dt>                     <dd>{{ item.source }}</dd>
-      <dt>Type</dt>                       <dd>{{ item.type }}</dd>
-      <dt>Date Facet</dt>                 <dd>{{ item.date_facet }}</dd>
-      <dt>url_item</dt>                   <dd>{{ item.url_item }}</dd>
-      <dt>reference_image_md5</dt>        <dd>{{ item.reference_image_md5 }}</dd>
-      <hr>
-      <dt>Relation</dt>                   <dd>{{ item.relation }}</dd>
-      <dt>payloads</dt>                   <dd>{{ item.payloads }}</dd>
-      <dt>Score</dt>                      <dd>{{ item.score }}</dd>
-    </dl>
-  </p>
+
+  </div>
+
 {% endfor %}
 
 {% endblock %}

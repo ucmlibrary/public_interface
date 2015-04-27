@@ -89,6 +89,16 @@
 	
 }
 
+// Layout Column Floats
+
+.layout-col__1 {
+  
+  @include bp(md-screen) {
+    float: right;
+  }
+
+}
+
 // Bootstrap Overrides
 
 .tooltip {
