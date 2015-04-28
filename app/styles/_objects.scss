@@ -29,12 +29,11 @@
 // ***** Harvest Image ***** //
 
 .obj-harvest__link {
-  color: #000;
+  // color: #000;
   
-  &:hover {
-    color: $design-primary-color;
-  }
-
+  // &:hover {
+  //   color: $design-primary-color;
+  // }
 }
 
 .obj-harvest__img-container {
@@ -73,13 +72,10 @@
 }
 
 .obj-harvest__caption {
+  @extend .icon__external-link;
+  display: block;
   margin: 0.5em 0 0 0;
   text-align: center;
-}
-
-.obj-harvest__caption-icon {
-  margin: 0 0 0 0.5em;
-  color: #000;
 }
 
 // ***** Harvest Non-Image ***** //
@@ -102,12 +98,7 @@ html.no-flexbox .obj-harvest-non-image__object-icon {
 }
 
 .obj-harvest-non-image__link {
-  display: block;
-}
-
-.obj-harvest-non-image__link-icon {
-  margin: 0 0 0 0.5em;
-  color: #000;
+  @extend .icon__external-link;
 }
 
 // ***** Object Metadata ***** //

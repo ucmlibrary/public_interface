@@ -5,9 +5,8 @@
   font-size: 1.4em;
 }
 
-.metadata__heading-icon {
-  margin: 0 0 0 0.25em;
-  color: #000;
+.metadata__heading-link {
+  @extend .icon__external-link;
 }
 
 .metadata__list {
