@@ -1,5 +1,12 @@
 // ##### Icons ##### //
 
+.icon__external-link:after {
+  font-family: FontAwesome;
+  content: '\f08e'; // same as .fa-external-link
+  color: #000;
+  margin: 0 0 0 0.5em;
+}
+
 .icon__image-set {
 	
 	.fa-picture-o:last-child {
