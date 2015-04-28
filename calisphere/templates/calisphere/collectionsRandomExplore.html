@@ -1,0 +1,13 @@
+{% extends "calisphere/base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% include "calisphere/collectionsHeader.html" %}
+
+{% for collection in collections %}
+  {% include "calisphere/collectionPreview.html" %}
+{% endfor %}
+
+{% endblock %}

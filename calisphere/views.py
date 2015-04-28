@@ -460,40 +460,99 @@ def relatedCollections(request, queryParams={}):
             'rc_page': queryParams['rc_page']
         })
 
-def collectionsExplore(request):
-    collections_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection'], facet_limit='10')
-    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection']
-
+def collectionsDirectory(request):
+    # TODO: limits at 10 currently, eventually will want to fetch all, randomize, and then only return some and lazy load the rest? 
+    collections_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection_url'], facet_limit='10')
+    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection_url']
+    
     collections = []
     for collection_url in solr_collections:
-        collection_api = urllib2.urlopen(collection_url + "?format=json")
-        collection_json = collection_api.read()
-        collection_details = json.loads(collection_json)
-        rows = '4' if collection_details['description'] != '' else '5'
+        collection_details = json.loads(urllib2.urlopen(collection_url + "?format=json").read())
+        
+        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection_url)
+        collection_id = collection_api_url.group('url')
+        
         display_items = SOLR_select(
             q='*:*',
-            fields='reference_image_md5, title, id',
-            rows=rows,
+            fields='reference_image_md5, url_item, id, title, collection_url',
+            rows=4,
             start=0,
-            fq=['collection: \"' + collection_url + '\"']
+            fq=['collection_url: \"' + collection_url + '\"']
         )
-
-        for item in display_items:
-            if 'reference_image_md5' in item:
-                item['reference_image_http'] = md5_to_http_url(item['reference_image_md5'])
-
-        collection_url_pattern = re.compile('https://registry.cdlib.org/api/v1/collection/([0-9]+)[/]?')
-        collection_id = collection_url_pattern.match(collection_url)
-
+        
+        for item in display_items.results:
+            process_media(item)
+        
         collections.append({
-            'name': collection_details['name'],
-            'description': collection_details['description'],
-            'slug': collection_details['slug'],
-            'collection_id': collection_id.group(1),
+            'name': collection_details['name'], 
+            'description': collection_details['description'], 
+            'collection_id': collection_id,
             'display_items': display_items.results
         })
+    
+    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections})
 
-    return render(request, 'calisphere/collections-explore.html', {'collections': collections})
+# TODO: doesn't handle non-letter characters
+def collectionsAZ(request, collection_letter):
+    # print "======================================================================================="
+    collections_solr_query = SOLR_select(
+        q='*:*', 
+        rows=0, 
+        start=0, 
+        facet='true', 
+        facet_field=['collection_name', 'collection_data'],
+        facet_limit='-1'
+    )
+    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection_data']
+    solr_collection_names = collections_solr_query.facet_counts['facet_fields']['collection_name']
+    
+    # print 'solr_collections'
+    # print solr_collections
+    # print 'solr_collection_names'
+    # print solr_collection_names
+    
+    # print solr_collections
+    
+    collections_list = []
+    for collection_data, count in solr_collections.iteritems():
+        if count !=0:
+            if collection_data.split('::')[1][0] == collection_letter or collection_data.split('::')[1][0] == collection_letter.upper():
+                collections_list.append(collection_data)
+    
+    collections_list = sorted(collections_list, key=lambda collection_data: collection_data.split('::')[1])
+    
+    collections = []
+    for collection_data in collections_list:
+        collection_info = getCollectionData(collection_data=collection_data)
+        collection_details = json.loads(urllib2.urlopen(collection_info['url'] + "?format=json").read())
+        
+        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection_info['url'])
+        collection_id = collection_api_url.group('url')
+        
+        display_items = SOLR_select(
+            q='*:*',
+            fields='reference_image_md5, url_item, id, title, collection_url',
+            rows=4,
+            start=0,
+            fq=['collection_url: \"' + collection_info['url'] + '\"']
+        )
+        
+        for item in display_items.results:
+            process_media(item)
+        
+        collections.append({
+            'name': collection_info['name'], 
+            'description': collection_details['description'], 
+            'collection_id': collection_id,
+            'display_items': display_items.results, 
+        })
+    
+    return render(request, 'calisphere/collectionsAZ.html', {'collections': collections, 
+        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    })
+
+def collectionsSearch(request):
+    return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': ''})
 
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
@@ -584,6 +643,51 @@ def collectionView(request, collection_id):
         'form_action': reverse('calisphere:collectionView', kwargs={'collection_id': collection_id})
     })
 
+def campusDirectory(request):
+    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
+    solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
+    
+    repositories = []
+    for repository_data in solr_repositories:
+        repository = getRepositoryData(repository_data=repository_data)
+        if repository['campus']: 
+            repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
+            repository_api_url = re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url'])
+            repository_id = repository_api_url.group('repository_id')
+            
+            repositories.append({
+                'name': repository['name'],
+                'campus': repository['campus'], 
+                'repository_id': repository_id
+            })
+    
+    repositories = sorted(repositories, key=lambda repository: repository['campus'])
+    
+    return render(request, 'calisphere/campusDirectory.html', {'repositories': repositories, 
+        'campuses': ['UC Berkeley', 'UC Davis', 'UC Irvine', 'UCLA', 'UC Merced', 'UC Riverside', 'UC San Diego', 'UC San Francisco', 'UC Santa Barbara', 'UC Santa Cruz']})
+    
+def statewideDirectory(request):
+    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
+    solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
+    
+    repositories = []
+    for repository_data in solr_repositories:
+        repository = getRepositoryData(repository_data=repository_data)
+        if repository['campus'] == '': 
+            repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
+            repository_api_url = re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url'])
+            repository_id = repository_api_url.group('repository_id')
+            
+            repositories.append({
+                'name': repository['name'],
+                'repository_id': repository_id
+            })
+    
+    repositories = sorted(repositories, key=lambda repository: repository['name'])
+    
+    return render(request, 'calisphere/statewideDirectory.html', {'repositories': repositories, 
+        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']})
+    
 def repositoryView(request, repository_id):
     repository_url = 'https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json'
     repository_json = urllib2.urlopen(repository_url).read()
@@ -594,7 +698,7 @@ def repositoryView(request, repository_id):
     repository = getRepositoryData(repository_id=repository_id)
     queryParams['filters']['repository_data'] = [repository['url'] + "::" + repository['name']]
     if 'campus' in repository:
-        queryParams['filters']['repository_data'] = queryParams['filters']['repository_data'] + "::" + repository['campus']
+        queryParams['filters']['repository_data'][0] = queryParams['filters']['repository_data'][0] + "::" + repository['campus']
 
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
 

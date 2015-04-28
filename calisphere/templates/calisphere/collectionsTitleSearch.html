@@ -1,0 +1,28 @@
+{% extends "calisphere/base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% include "calisphere/collectionsHeader.html" %}
+
+{% if collection_q or collection_q = '' %}
+  <form action="{% url 'calisphere:collectionsSearch' %}" method="get" id="js-collectionSearch">
+    <label>Search for keywords within the titles of Calisphere's collections</label>
+    <!-- <div class="input-group"> -->
+      <input form="js-collectionSearch" name="q" value="{{ q }}">
+      <!-- <span class="input-group-btn"> -->
+        <button class="btn btn-default" type="submit"><span class="fa fa-search"></span>
+        </button>
+      <!-- </span> -->
+    <!-- </div> -->
+  </form>
+  
+  Recommended Searches: Not sure where these are coming from...
+{% endif %}
+
+{% for collection in collections %}
+  {% include "calisphere/collectionPreview.html" %}
+{% endfor %}
+
+{% endblock %}

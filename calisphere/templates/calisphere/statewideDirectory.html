@@ -1,0 +1,18 @@
+{% extends "calisphere/base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% include "calisphere/institutionsHeader.html" %}
+
+{% for letter in alphabet %}
+  {{ letter }}<br/>
+  {% for repository in repositories %}
+    {% if repository.name.0|lower == letter %}
+      <a href="{% url 'calisphere:repositoryView' repository.repository_id %}">{{ repository.name }}</a><br/>
+    {% endif %}
+  {% endfor %}<br/>
+{% endfor %}
+
+{% endblock %}
