@@ -6,13 +6,28 @@
 
 {% include "calisphere/collectionsHeader.html" %}
 
-{% for char in alphabet %}
-  <a href="{% url 'calisphere:collectionsAZ' char %}">{{ char }}</a> - 
-{% endfor %}
-<br/>
+<div class="row">
 
-{% for collection in collections %}
-  {% include "calisphere/collectionPreview.html" %}
-{% endfor %}
+  <div class="col-xs-12 col-sm-1">
+
+		<div class="alphanav">
+		  <ul class="alphanav__list">
+			{% for char in alphabet %}
+			  <li class="alphanav__list-item"><a class="alphanav__list-link" href="{% url 'calisphere:collectionsAZ' char %}">{{ char }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+
+	</div>
+
+  <div class="col-xs-12 col-sm-11">
+
+		{% for collection in collections %}
+		  {% include "calisphere/collectionPreview.html" %}
+		{% endfor %}
+
+	</div>
+
+</div>
 
 {% endblock %}

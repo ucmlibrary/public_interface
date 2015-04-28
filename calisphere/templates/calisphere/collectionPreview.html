@@ -1,7 +1,40 @@
-{{ collection.name }}<br/>
+<div class="row collect-row__container">
+	
+	<div class="col-xs-12 col-sm-4 collect-row__summary">
+    <h3 class="collect-row__title">{{ collection.name }}</h3>
+    <p>{{ collection.description }}</p>
+  </div>
+
+  <div class="thumbview-collections">
+
+	  {% for item in collection.display_items %}
+
+		  <div class="col-xs-6 col-sm-2">
+		    <a class="thumbview__link" href="#">
+		    	<div class="thumbview__container" data-toggle="tooltip" title="{{ item.title.0 }}">
+		        <img class="thumbview__image" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" alt="">
+		        <div class="thumbview__caption">{{ item.title.0|truncatewords:8 }}
+		        </div>
+		    	</div>
+		    </a>
+		  </div>
+
+	  {% endfor %}
+
+  </div>
+
+  <div class="col-xs-12 col-sm-4 collect-row__button">
+    <a class="btn btn-default button__dark" href="{% url 'calisphere:collectionView' collection.collection_id %}">View Collections</a>
+  </div>
+
+</div>
+
+<!-- {{ collection.name }}<br/>
 {{ collection.description }}<br/>
+
 {% for item in collection.display_items %}
   <img src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}">
-{% endfor %}
-<a href="{% url 'calisphere:collectionView' collection.collection_id %}">View Collection</a><br/>
-<hr>
+{% endfor %} -->
+
+<!-- <a href="{% url 'calisphere:collectionView' collection.collection_id %}">View Collection</a><br/>
+<hr> -->
