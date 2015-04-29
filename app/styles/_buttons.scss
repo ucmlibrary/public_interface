@@ -32,14 +32,13 @@
 }
 
 .button__clear {
-  margin: 0 5px 5px 0;
+  margin: 0 0 5px 0;
   color: #fff;
   background: $design-primary-color;
 }
 
-.button__clear-icon {
-  margin-left: 1em;
-  color: #fff;
+.button__view {
+  padding: 2px 5px;
 }
 
 .button__prev {
