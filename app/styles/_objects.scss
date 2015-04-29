@@ -81,8 +81,13 @@
 // ***** Harvest Non-Image ***** //
 
 .obj-harvest-non-image__object-icons {
-  font-size: 4em;
+  font-size: 3em;
   font-weight: bold;
+
+  @include bp(sm-screen) {
+    font-size: 4em;
+  }
+
 }
 
 .obj-harvest-non-image__object-icon1 {
@@ -98,11 +103,13 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  align-content: center;
   margin: 0 0 0 $layout-container-margin-md;
-  font-size: 1.4em;
+  font-size: 1.2em;
 
   @include bp(sm-screen) {
     margin: 0 0 0 $layout-container-margin-sm;
+    font-size: 1.4em;
   }
 
 }
