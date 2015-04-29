@@ -80,25 +80,40 @@
 
 // ***** Harvest Non-Image ***** //
 
-.obj-harvest-non-image__text {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  margin: 0 0 0 $layout-component-margin;
-}
-
-.obj-harvest-non-image__object-icon {
-  color: $design-dark-gray-color;
+.obj-harvest-non-image__object-icons {
   font-size: 4em;
+  font-weight: bold;
 }
 
-html.no-flexbox .obj-harvest-non-image__object-icon {
-  float: left;
-  margin: 0 20px 0 0;
+.obj-harvest-non-image__object-icon1 {
+  color: $design-dark-gray-color;
+}
+
+.obj-harvest-non-image__object-icon2 {
+  color: #A94442;
+  opacity: 0.7;
+}
+
+.obj-harvest-non-image__object {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin: 0 0 0 $layout-container-margin-md;
+  font-size: 1.4em;
+
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-container-margin-sm;
+  }
+
+}
+
+.obj-harvest-non-image__text {
+  margin: 0.1em 0.5em 0 0;
 }
 
 .obj-harvest-non-image__link {
   @extend .icon__external-link;
+  
 }
 
 // ***** Object Metadata ***** //
