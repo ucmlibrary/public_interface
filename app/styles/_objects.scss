@@ -103,10 +103,10 @@ html.no-flexbox .obj-harvest-non-image__object-icon {
 
 // ***** Object Metadata ***** //
 
-.object__metadata {
-  border-top: 1px solid $design-primary-color;
+.object__metadata { // this class is in the object layouts, not within metadata component
   
   @include bp(sm-screen) {
+    border-top: 1px solid $design-primary-color;
     padding: 20px 0 0 0;
   }
 
