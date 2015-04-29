@@ -51,7 +51,15 @@
 
 }
 
-// Sets an icon vertically and horizontally centered within container
+// Set the attributes for a non-image thumbnail
+
+@mixin thumbview__no-image($thumb-border: $design-primary-color) {
+  width: 100%; // expand the 1px .png to its container
+  height: auto;
+  border: 1px solid $thumb-border;
+}
+
+// Set an icon vertically and horizontally centered within container
 
 @mixin icon__overlay-test($icon-overlay-size-xs: 60px, $icon-overlay-size-sm: 50px, $icon-overlay-size-md: 45px) {
   position: absolute;

@@ -125,6 +125,10 @@
 
 // ***** Hosted File ***** //
 
+.obj-hosted__no-image {
+  @include thumbview__no-image($thumb-border: $design-dark-gray-color);
+}
+
 .obj-hosted__caption {
   display: block;
   margin: 0.5em 0 0 0;

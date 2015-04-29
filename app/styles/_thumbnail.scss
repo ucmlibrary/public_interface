@@ -28,7 +28,5 @@
 // ***** Icon-only thumbnails ***** //
 
 .thumbview__image--no-image {
-	width: 100%; // expand the 1px .png to its container
-	height: auto;
-	border: 1px solid $design-primary-color;
+	@include thumbview__no-image();
 }
