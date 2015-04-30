@@ -61,7 +61,7 @@
 
 // Set an icon vertically and horizontally centered within a container
 
-@mixin centered-icon-overlay($size-xs: 60px, $size-sm: 50px, $size-md: 45px, $icon-color: #fff, $icon-bg: $design-primary-color) {
+@mixin icon__centered-overlay($size-xs: 60px, $size-sm: 50px, $size-md: 45px, $icon-color: #fff, $icon-bg: $design-primary-color) {
   position: absolute;
   top: 50%;
   left: 50%;
