@@ -59,34 +59,34 @@
   border: 1px solid $thumb-border;
 }
 
-// Set an icon vertically and horizontally centered within container
+// Set an icon vertically and horizontally centered within a container
 
-@mixin icon__overlay-test($icon-overlay-size-xs: 60px, $icon-overlay-size-sm: 50px, $icon-overlay-size-md: 45px) {
+@mixin centered-icon-overlay($size-xs: 60px, $size-sm: 50px, $size-md: 45px, $icon-color: #fff, $icon-bg: $design-primary-color) {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: $icon-overlay-size-xs;
-  height: $icon-overlay-size-xs;
-  margin: ((-$icon-overlay-size-xs) / 2) 0 0 ((-$icon-overlay-size-xs) / 2);
-  line-height: $icon-overlay-size-xs;
-  font-size: $icon-overlay-size-xs - 30;
-  background: $design-primary-color;
-  color: #fff;
+  width: $size-xs;
+  height: $size-xs;
+  margin: ((-$size-xs) / 2) 0 0 ((-$size-xs) / 2);
+  line-height: $size-xs;
+  font-size: $size-xs - 30;
+  color: $icon-color;
+  background: $icon-bg;
 
   @include bp(sm-screen) {
-    width: $icon-overlay-size-sm;
-    height: $icon-overlay-size-sm;
-    margin: ((-$icon-overlay-size-sm) / 2) 0 0 ((-$icon-overlay-size-sm) / 2);
-    line-height: $icon-overlay-size-sm;
-    font-size: $icon-overlay-size-sm - 30;
+    width: $size-sm;
+    height: $size-sm;
+    margin: ((-$size-sm) / 2) 0 0 ((-$size-sm) / 2);
+    line-height: $size-sm;
+    font-size: $size-sm - 30;
   }
 
   @include bp(md-screen) {
-    width: $icon-overlay-size-md;
-    height: $icon-overlay-size-md;
-    margin: ((-$icon-overlay-size-md) / 2) 0 0 ((-$icon-overlay-size-md) / 2);
-    line-height: $icon-overlay-size-md;
-    font-size: $icon-overlay-size-md - 30;
+    width: $size-md;
+    height: $size-md;
+    margin: ((-$size-md) / 2) 0 0 ((-$size-md) / 2);
+    line-height: $size-md;
+    font-size: $size-md - 30;
   }
 
 }
