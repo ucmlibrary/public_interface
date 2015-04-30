@@ -77,11 +77,11 @@
 // ***** Harvest Non-Image ***** //
 
 .obj-harvest-non-image__file-icon-overlay {
-  @include icon__centered-overlay(40px, 45px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+  @include icon__centered-overlay(55px, 65px, 70px, $design-dark-gray-color, #fff); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
 
 .obj-harvest-non-image__object-icon {
-  width: 100px;
+  width: 80px;
   height: auto;
 }
 
