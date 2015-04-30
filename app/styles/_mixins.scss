@@ -69,7 +69,7 @@
   height: $size-xs;
   margin: ((-$size-xs) / 2) 0 0 ((-$size-xs) / 2);
   line-height: $size-xs;
-  font-size: $size-xs - 30;
+  font-size: $size-xs - 20;
   color: $icon-color;
   background: $icon-bg;
 
@@ -78,7 +78,7 @@
     height: $size-sm;
     margin: ((-$size-sm) / 2) 0 0 ((-$size-sm) / 2);
     line-height: $size-sm;
-    font-size: $size-sm - 30;
+    font-size: $size-sm - 20;
   }
 
   @include bp(md-screen) {
@@ -86,7 +86,7 @@
     height: $size-md;
     margin: ((-$size-md) / 2) 0 0 ((-$size-md) / 2);
     line-height: $size-md;
-    font-size: $size-md - 30;
+    font-size: $size-md - 20;
   }
 
 }

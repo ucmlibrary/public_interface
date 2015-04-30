@@ -76,6 +76,17 @@
 
 // ***** Harvest Non-Image ***** //
 
+.obj-harvest-non-image__file-icon-overlay {
+  @include icon__centered-overlay(40px, 45px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+}
+
+.obj-harvest-non-image__object-icon {
+  width: 100px;
+  height: auto;
+}
+
+/*
+
 .obj-harvest-non-image__object-icons {
   font-size: 3em;
   font-weight: bold;
@@ -94,6 +105,8 @@
   color: #A94442;
   opacity: 0.7;
 }
+
+*/
 
 .obj-harvest-non-image__object {
   display: flex;
