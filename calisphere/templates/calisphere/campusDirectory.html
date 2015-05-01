@@ -6,13 +6,19 @@
 
 {% include "calisphere/institutionsHeader.html" %}
 
+<div class="inst-textboxes">
 {% for campus in campuses %}
-  {{ campus }}<br/>
+	<div class="inst-textboxes__box">
+		<h3 class="inst-textboxes__box-heading">{{ campus }}</h3>
+		<ul class="inst-textboxes__list">
   {% for repository in repositories %}
     {% if repository.campus == campus %}
-      <a href="{% url 'calisphere:repositoryView' repository.repository_id %}">{{ repository.name }}</a><br/>
+      <li class="inst-textboxes__list-item"><a class="inst-textboxes__link" href="{% url 'calisphere:repositoryView' repository.repository_id %}">{{ repository.name }}</a></li>
     {% endif %}
-  {% endfor %}<br/>
+  {% endfor %}
+  	</ul>
+  </div>
 {% endfor %}
+</div>
 
 {% endblock %}
