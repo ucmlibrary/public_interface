@@ -1,4 +1,4 @@
-// ##### Alphabetical Navigation Component ##### //
+// ##### Alphabetical (A to Z) Navigation Component ##### //
 
 .alphanav__list {
   margin: 0;
@@ -30,12 +30,13 @@
   color: #000;
   font-size: 1.4em;
   text-align: center;
-  background: #fff;
   border: 1px solid $design-dark-gray-color;
   border-radius: 5px;
 
   &:hover {
+    color: #000;
     text-decoration: none;
+    background: $design-light-gray-color;
   }
 
   @include bp(sm-screen) {
