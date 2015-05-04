@@ -9,11 +9,7 @@
 
 {% for item in items %}
 
-  <ol class="breadcrumb">
-    <li>Search</li>
-    <li>{{ q }}</li>
-    <li class="active">{{ item.title.0|truncatewords:7 }}</li>
-  </ol>
+  <p class="text__breadcrumb-nav">Search > {{ q }} > {{ item.title.0|truncatewords:7 }}</p>
 
   <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
