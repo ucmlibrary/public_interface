@@ -46,7 +46,7 @@
     {% for repository in collection.repository %}
       <a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:repositoryView' repository.resource_id %}">
         <span class="fa fa-angle-left fa-lg fa-fw"></span>
-        Go to {{ repository.name }} Page
+        Go to Institution Page
       </a>
     {% endfor %}
   </div>
