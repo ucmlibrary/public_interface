@@ -42,7 +42,7 @@
 }
 
 .obj-harvest__file-icon-overlay {
-  @include icon__centered-overlay(80px, 70px, 80px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+  @include icon__centered-overlay(55px, 60px, 70px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
 
 .obj-harvest__external-link-icon-overlay {
