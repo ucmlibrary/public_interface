@@ -198,7 +198,7 @@ def itemView(request, item_id=''):
         queryParams = processQueryRequest(request)
         carousel_items = itemViewCarousel(request, queryParams)
 
-        return render(request, 'calisphere/item.html', {
+        return render(request, 'calisphere/itemView.html', {
             'items': item_solr_search.results,
             'q': queryParams['q'],
             'rq': queryParams['rq'],
@@ -217,7 +217,7 @@ def itemView(request, item_id=''):
 
         # return render (request, 'calisphere/home.html', {'q': q})
 
-    return render(request, 'calisphere/item.html', {'q': '', 'items': item_solr_search.results})
+    return render(request, 'calisphere/itemView.html', {'q': '', 'items': item_solr_search.results})
 
 
 def search(request):
