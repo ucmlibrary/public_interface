@@ -49,22 +49,14 @@
   position: absolute;
   bottom: 5%;
   right: 5%;
-  width: 1.4em;
-  height: 1.3em;
-  line-height: 1.5;
-  font-size: 1.4em;
+  width: 1.6em;
+  height: 1.5em;
+  line-height: 1.6;
+  font-size: 1.8em;
   background: #fff;
-  border-radius: 0.2em;
+  border: 1px solid $design-dark-gray-color;
+  border-radius: 4px;
   color: #000;
-
-  @include bp(sm-screen) {
-    font-size: 1.8em;
-  }
-
-  @include bp(md-screen) {
-    font-size: 2.2em;
-  }
-
 }
 
 .obj-harvest__caption {
