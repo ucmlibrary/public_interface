@@ -27,16 +27,16 @@
 // ***** Set the image paths ***** //
 
 .mejs-controls .mejs-button button {
-  background: url("/bower_components/mediaelement/build/controls.svg") no-repeat scroll 0% 0% transparent;
+  background-image: url("/bower_components/mediaelement/build/controls.svg");
 }
 
-.mejs-controls .mejs-play button {
-  background-position: 0px 0px;
-}
+// .mejs-controls .mejs-play button {
+//   background-position: 0px 0px;
+// }
 
-.mejs-controls .mejs-mute button {
-  background-position: -16px -16px;
-}
+// .mejs-controls .mejs-mute button {
+//   background-position: -16px -16px;
+// }
 
 // ***** Reset the default mediaelementplayer.css skin colors ***** //
 
