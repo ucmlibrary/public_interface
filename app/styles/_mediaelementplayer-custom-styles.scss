@@ -30,6 +30,10 @@
   background-image: url("/bower_components/mediaelement/build/controls.svg");
 }
 
+.mejs-overlay-button {
+  background-image: url("/bower_components/mediaelement/build/bigplay.svg")
+}
+
 // ***** Reset the default mediaelementplayer.css skin colors ***** //
 
 .mejs-container .mejs-controls {
