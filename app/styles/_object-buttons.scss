@@ -99,9 +99,13 @@ html.no-flexbox .obj-buttons__facebook {
   text-align: left;
 
   @include bp(sm-screen) {
-    width: 200px;
+    // width: 200px;
     margin: 0;
     text-align: right;
+  }
+
+  @include bp(md-screen) {
+    font-size: 1em;
   }
 
 }
