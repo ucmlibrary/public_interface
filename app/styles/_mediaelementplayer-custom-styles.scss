@@ -24,19 +24,11 @@
   height: 100% !important;
 }
 
-// ***** Set the image paths ***** //
+// ***** Set the button image paths ***** //
 
 .mejs-controls .mejs-button button {
   background-image: url("/bower_components/mediaelement/build/controls.svg");
 }
-
-// .mejs-controls .mejs-play button {
-//   background-position: 0px 0px;
-// }
-
-// .mejs-controls .mejs-mute button {
-//   background-position: -16px -16px;
-// }
 
 // ***** Reset the default mediaelementplayer.css skin colors ***** //
 
