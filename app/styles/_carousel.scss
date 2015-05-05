@@ -28,11 +28,11 @@
 }
 
 .flickity-prev-next-button.previous {
-  left: -60px;
+  left: -20px;
 }
 
 .flickity-prev-next-button.next {
-  right: -60px;
+  right: -20px;
 }
 
 // ***** Custom Classes ***** //
@@ -47,9 +47,10 @@
 
 .carousel {
   clear: right;
+  border-bottom: 1px solid $design-primary-color;
 
   @include bp(sm-screen) {
-    margin: 0 45px;
+    padding: 0 45px;
   }
 
 }
