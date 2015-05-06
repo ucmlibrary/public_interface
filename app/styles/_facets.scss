@@ -29,7 +29,7 @@
   
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
-    z-index: 2;
+    z-index: 1;
   }
 
   @include bp(md-screen) {
@@ -39,10 +39,10 @@
 }
 
 .facets .row:nth-child(odd) .col-xs-12:last-child .check { // Date Range
-
+  
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
-    z-index: 2;
+    z-index: 1;
   }
 
   @include bp(md-screen) {
@@ -55,7 +55,7 @@
   
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
-    z-index: 1;
+    z-index: 2;
   }
 
   @include bp(md-screen) {
@@ -68,7 +68,7 @@
   
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
-    z-index: 1;
+    z-index: 2;
   }
 
   @include bp(md-screen) {
