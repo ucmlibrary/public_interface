@@ -4,6 +4,7 @@ from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from django.http import Http404
 
 import md5s3stash
 import operator
@@ -191,6 +192,9 @@ def processQueryRequest(request):
 def itemView(request, item_id=''):
     item_id_search_term = 'id:"{0}"'.format(_fixid(item_id))
     item_solr_search = SOLR_select(q=item_id_search_term)
+    if not item_solr_search.numFound:
+        raise Http404("{0} does not exist".format(item_id))
+
     for item in item_solr_search.results:
         process_media(item)
 
