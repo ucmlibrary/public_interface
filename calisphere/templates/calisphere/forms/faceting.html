@@ -61,14 +61,21 @@
 
       </div>
 
-  {% if forloop.counter|divisibleby:"2" %}
+    {% if forloop.counter|divisibleby:"2" %}
     </div> <!-- end row -->
     
     <div class="row"> <!-- start new row -->
-  {% endif %}
+    {% endif %}
    
+      {% if forloop.counter|divisibleby:"3" %}
 
-    {% endfor %}
+      <div class="col-xs-12 col-sm-6 col-md-12">
+        <!-- (empty 4th facet) -->
+      </div>
+
+      {% endif %}
+
+      {% endfor %}
 
     </div> <!-- .row -->
 
