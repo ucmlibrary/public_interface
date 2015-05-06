@@ -21,6 +21,10 @@
 
 }
 
+html.no-jquery .global-footer__search {
+  display: none;
+}
+
 .global-footer__search-label {
   display: block;
   color: #fff;
@@ -50,8 +54,8 @@
   font-size: 1.1em;
 }
 
-.global-footer__nav {
-  // not being used
+html.no-jquery .global-footer__nav {
+  display: none;
 }
 
 .global-footer__nav-list {
