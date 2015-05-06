@@ -24,23 +24,23 @@
   margin: 0;
 }
 
-.col-xs-12:first-child .inst-intro__buttons {
-  width: 50%;
-  margin: 0 auto $layout-component-margin auto;
+.inst-intro__button-uc {
+  float: right;
+  width: 97%; // hack for now
+  margin: 0 6px 0 6px;
 
   @include bp(sm-screen) {
-    float: right;
-    margin: 0 ($layout-component-margin / 2) 0 0;
+    width: 50%;
   }
 
 }
 
-.col-xs-12:last-child .inst-intro__buttons {
-  width: 50%;
-  margin: 0 auto;
+.inst-intro__button-state {
+  width: 97%; // hack for now
+  margin: 0 7px 0 7px;
 
   @include bp(sm-screen) {
-    margin: 0 0 0 ($layout-component-margin / 2);
+    width: 50%;
   }
 
 }

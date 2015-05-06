@@ -12,11 +12,11 @@
   <!-- Add 'button__secondary' class to <a> element below for active state -->
 
   <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <a class="btn btn-default btn-block inst-intro__buttons {% if campuses %}button__secondary{% endif %}" href="{% url 'calisphere:campusDirectory' %}">UC Partners</a>
+    <div class="col-xs-6">
+      <a class="btn btn-default inst-intro__button-uc {% if campuses %}button__secondary{% endif %}" href="{% url 'calisphere:campusDirectory' %}">UC Partners</a>
     </div>
-    <div class="col-xs-12 col-sm-6">
-      <a class="btn btn-default btn-block inst-intro__buttons {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:statewideDirectory' %}">Statewide Partners</a>
+    <div class="col-xs-6">
+      <a class="btn btn-default inst-intro__button-state {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:statewideDirectory' %}">Statewide Partners</a>
     </div>
   </div>
 
