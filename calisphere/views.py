@@ -189,7 +189,7 @@ def processQueryRequest(request):
     }
 
 def itemView(request, item_id=''):
-    item_id_search_term = 'id:' + "\"" + urllib2.unquote(item_id) + "\""
+    item_id_search_term = 'id:"{0}"'.format(_fixid(item_id))
     item_solr_search = SOLR_select(q=item_id_search_term)
     for item in item_solr_search.results:
         process_media(item)
@@ -782,3 +782,6 @@ def repositoryView(request, repository_id):
         'repository': repository_details,
         'form_action': reverse('calisphere:repositoryView', kwargs={'repository_id': repository_id})
     })
+
+def _fixid(id):
+    return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)
