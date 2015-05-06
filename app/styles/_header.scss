@@ -114,7 +114,7 @@ html.no-jquery .global-header__nav {
   margin: 0 (-$layout-container-margin-xs);
   padding: 0;
   list-style: none;
-  line-height: normal;
+  line-height: 1;
 
   @include bp(sm-screen) {
     display: flex;
@@ -211,7 +211,7 @@ html.no-flexbox .global-header__nav-list-item {
     padding: 0.1em 3em;
     color: #fff;
     font-size: 1.3em;
-    line-height: normal;
+    line-height: 1;
 
     &:hover {
       color: #fff;

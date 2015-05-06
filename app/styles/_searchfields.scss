@@ -8,7 +8,7 @@
   font-size: 1.2em;
   text-align: left;
   font-weight: normal;
-  line-height: normal;
+  line-height: 1;
 
   @include bp(sm-screen) {
     color: #000;
