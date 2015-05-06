@@ -9,6 +9,10 @@
 
 }
 
+html.no-jquery .global-header__bars-icon {
+  display: none;
+}
+
 .global-header__bars-icon .fa { // fa-bars icon
   font-size: 2.4em;
   color: $design-dark-gray-color;
@@ -54,6 +58,10 @@ html.no-svg .global-header__logo {
     display: none;
   }
 
+}
+
+html.no-jquery .global-header__search-icon {
+  display: none;
 }
 
 .global-header__search-icon .fa { // fa-search icon
