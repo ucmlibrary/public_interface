@@ -13,10 +13,10 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-6">
-      <a class="btn btn-default btn-block inst-intro__buttons" href="{% url 'calisphere:campusDirectory' %}">UC Partners</a>
+      <a class="btn btn-default btn-block inst-intro__buttons {% if campuses %}button__secondary{% endif %}" href="{% url 'calisphere:campusDirectory' %}">UC Partners</a>
     </div>
     <div class="col-xs-12 col-sm-6">
-      <a class="btn btn-default btn-block inst-intro__buttons" href="{% url 'calisphere:statewideDirectory' %}">Statewide Partners</a>
+      <a class="btn btn-default btn-block inst-intro__buttons {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:statewideDirectory' %}">Statewide Partners</a>
     </div>
   </div>
 
