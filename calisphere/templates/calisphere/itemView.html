@@ -49,12 +49,12 @@
     </div>
 
     <div class="obj-buttons__group2">
-    
+
       <span class="obj-buttons__contact-text">Need more information about this object? Contact the owning institution:</span>
 
       <a class="btn btn-xs button__contact-owner" href="">
         <span class="fa fa-envelope"></span>
-        Contact Owner 
+        Contact Owner
       </a>
 
     </div>
@@ -87,11 +87,11 @@
       <dt class="metadata__type">Id</dt>                         <dd class="metadata__defin">{{ item.id }}</dd>
       <dt class="metadata__type">Created</dt>                    <dd class="metadata__defin">{{ item.created }}</dd>
       <dt class="metadata__type">Last Modified</dt>              <dd class="metadata__defin">{{ item.last_modified }}</dd>
-      
+
       <dt class="metadata__type">Campus</dt>                     <dd class="metadata__defin">{{ item.campus }}</dd>
       <dt class="metadata__type">Repository</dt>                 <dd class="metadata__defin">{{ item.repository }}</dd>
       <dt class="metadata__type">Collection</dt>                 <dd class="metadata__defin">{{ item.collection }}</dd>
-      
+
       <dt class="metadata__type">Coverage</dt>                   <dd class="metadata__defin">{{ item.coverage }}</dd>
       <dt class="metadata__type">Language</dt>                   <dd class="metadata__defin">{{ item.language }}</dd>
       <dt class="metadata__type">Source</dt>                     <dd class="metadata__defin">{{ item.source }}</dd>
@@ -99,7 +99,7 @@
       <dt class="metadata__type">Date Facet</dt>                 <dd class="metadata__defin">{{ item.date_facet }}</dd>
       <dt class="metadata__type">url_item</dt>                   <dd class="metadata__defin">{{ item.url_item }}</dd>
       <dt class="metadata__type">reference_image_md5</dt>        <dd class="metadata__defin">{{ item.reference_image_md5 }}</dd>
-      
+
       <dt class="metadata__type">Relation</dt>                   <dd class="metadata__defin">{{ item.relation }}</dd>
       <dt class="metadata__type">payloads</dt>                   <dd class="metadata__defin">{{ item.payloads }}</dd>
       <dt class="metadata__type">Score</dt>                      <dd class="metadata__defin">{{ item.score }}</dd>
@@ -108,5 +108,8 @@
   </div>
 
 {% endfor %}
-
+<!--
+  header returned from solr; for debugging
+  {{ item_solr_search.header|safe }}
+  -->
 {% endblock %}
