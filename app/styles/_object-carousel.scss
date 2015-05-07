@@ -37,17 +37,14 @@
 
 // ***** Custom Classes ***** //
 
-.obj-carousel__search-results {
-  float: left;
-}
-
-.obj-carousel__items-number {
-  float: right;
+.obj-carousel-metadata {
+  display: block;
+  text-align: center;
 }
 
 .obj-carousel {
   clear: right;
-  border-bottom: 1px solid $design-primary-color;
+  background: $design-light-gray-color;
 
   @include bp(sm-screen) {
     padding: 0 45px;
