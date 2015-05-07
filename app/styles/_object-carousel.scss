@@ -1,50 +1,17 @@
 // ##### Carousel Component ##### //
 
-// ***** Flickity Carousel Customizations ***** //
-
-.flickity-prev-next-button {
-  display: none;
-
-  @include bp(sm-screen) {
-    display: block;
-    top: 42%;
-    width: 60px;
-    height: 60px;
-    background: transparent;
-  }
-
-}
-
-.flickity-prev-next-button:hover {
-  background: transparent;
-}
-
-.flickity-prev-next-button .arrow {
-  fill: $design-primary-color;
-}
-
-.flickity-prev-next-button.no-svg {
-  color: $design-primary-color;
-}
-
-.flickity-prev-next-button.previous {
-  left: -20px;
-}
-
-.flickity-prev-next-button.next {
-  right: -20px;
-}
-
-// ***** Custom Classes ***** //
-
-.obj-carousel-metadata {
-  display: block;
+.obj-carousel__metadata-header {
   text-align: center;
+  font-size: 1.4em;
+}
+
+.obj-carousel__metadata {
+  background: $design-light-gray-color;
 }
 
 .obj-carousel {
   clear: right;
-  background: $design-light-gray-color;
+  background: $design-dark-gray-color;
 
   @include bp(sm-screen) {
     padding: 0 45px;
@@ -67,26 +34,7 @@
 
 }
 
-.obj-carousel__link {
-  position: relative; // for icon__overlay
-  display: block;
-}
-
 .obj-carousel__link--selected {
   @extend .carousel__link;
-  border: 7px solid $design-dark-gray-color;
-}
-
-.obj-carousel__thumbnail--no-image {
-  width: 100%; // expand the 1px .png to its container
-  height: auto;
-  border: 1px solid $design-primary-color;
-}
-
-.obj-carousel__thumbnail-caption {
-  height: 2em; // reveal only 2 lines of text
-  margin-top: 0.5em;
-  overflow: hidden;
-  line-height: 1;
-  cursor: default;
+  border: 7px solid $design-primary-color;
 }
