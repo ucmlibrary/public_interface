@@ -5,22 +5,12 @@
   font-size: 1.4em;
 }
 
-.metadata__heading-complex {
-  text-align: center;
-  font-size: 1.4em;
-}
-
 .metadata__heading-link {
   @extend .icon__external-link;
 }
 
 .metadata__list {
 	margin: 0;
-}
-
-.metadata__list-complex {
-  @extend .metadata__list;
-  background: $design-light-gray-color;
 }
 
 .metadata__type {
