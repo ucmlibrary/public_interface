@@ -9,7 +9,8 @@
 }
 
 .meta-complex__list {
-	margin: 0;
+	display: none; // toggle open via js-meta-complex__heading
+  margin: 0;
   padding: $layout-container-margin-md;
   background: $design-light-gray-color;
 }
