@@ -1,0 +1,52 @@
+// ##### Metadata Block Component ##### //
+
+.meta-block__heading {
+  margin: 0 0 0.5em 0;
+  font-size: 1.4em;
+}
+
+.meta-block__heading-link {
+  @extend .icon__external-link;
+}
+
+.meta-block__list {
+	margin: 0;
+}
+
+.meta-block__type {
+  float: left;
+  clear: left;
+  margin-right: 0.5em;
+  padding: 0.5em 0;
+  color: $design-dark-gray-color;
+  text-align: right;
+  font-weight: normal;
+  line-height: $listview-text-line-height;
+  border-top: 1px solid $design-dark-gray-color;
+
+  &:first-of-type {
+  	border: none;
+  }
+
+  @include bp(sm-screen) {
+    padding: 0;
+    border: none;
+  }
+
+}
+
+.meta-block__defin {
+  padding: 0.5em 0;
+  line-height: $listview-text-line-height;
+  border-top: 1px solid $design-dark-gray-color;
+
+  &:first-of-type {
+  	border: none;
+  }
+
+  @include bp(sm-screen) {
+    padding: 0;
+    border: none;
+  }
+
+}
