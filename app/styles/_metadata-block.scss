@@ -16,10 +16,11 @@
 .meta-block__type {
   float: left;
   clear: left;
-  margin-right: 0.5em;
+  width: 15%;
+  margin: 0 0.5em 0 0;
   padding: 0.5em 0;
-  color: $design-dark-gray-color;
   text-align: right;
+  color: $design-dark-gray-color;
   font-weight: normal;
   line-height: $listview-text-line-height;
   border-top: 1px solid $design-dark-gray-color;
@@ -36,6 +37,9 @@
 }
 
 .meta-block__defin {
+  float: left;
+  width: 80%;
+  margin: 0 0 1em 0;
   padding: 0.5em 0;
   line-height: $listview-text-line-height;
   border-top: 1px solid $design-dark-gray-color;
