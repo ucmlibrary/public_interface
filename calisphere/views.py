@@ -151,6 +151,8 @@ def getRepositoryData(repository_data=None, repository_id=None):
         repository['name'] = repository_details['name']
         if repository_details['campus']:
             repository['campus'] = repository_details['campus'][0]['name']
+        else: 
+            repository['campus'] = ''
     return repository
 
 def processQueryRequest(request):
