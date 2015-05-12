@@ -17,12 +17,8 @@
   float: left;
   clear: left;
   width: 15%;
-  margin: 0 0.5em 0 0;
-  padding: 0.5em 0;
-  text-align: right;
+  margin: 0 2em 2em 0;
   color: $design-dark-gray-color;
-  font-weight: normal;
-  line-height: $listview-text-line-height;
   border-top: 1px solid $design-dark-gray-color;
 
   &:first-of-type {
@@ -39,9 +35,7 @@
 .meta-block__defin {
   float: left;
   width: 80%;
-  margin: 0 0 1em 0;
-  padding: 0.5em 0;
-  line-height: $listview-text-line-height;
+  margin: 0 0 2em 0;
   border-top: 1px solid $design-dark-gray-color;
 
   &:first-of-type {
