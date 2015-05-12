@@ -1,0 +1,37 @@
+// ##### Complex Carousel Component ##### //
+
+.carousel-complex {
+  margin: 0 $object-leftright-margin;
+  display: flex;
+  justify-content: center;
+  background: $design-dark-gray-color;
+
+  @include bp(sm-screen) {
+    
+  }
+
+}
+
+.carousel-complex__item {
+  width: 100px;
+  margin: 10px;
+
+  @include bp(sm-screen) {
+    
+  }
+
+}
+
+.carousel-complex__link {
+  
+}
+
+.carousel-complex__link--selected {
+  @extend .carousel__link;
+  border: 7px solid $design-primary-color;
+}
+
+.carousel-complex img { // temporary image resize for UI dev:
+  width: 100%;
+  height: auto;
+}

@@ -1,16 +1,7 @@
 // ##### Metadata Complex Image Component ##### //
 
-.meta-complex__heading {
-  margin: 0;
-  padding: $layout-container-margin-md;
-  text-align: center;
-  font-size: 1.4em;
-  background: $design-light-gray-color;
-  cursor: pointer;
-}
-
 .meta-complex__list {
-	display: none; // toggle open via js-meta-complex__heading
+	display: none;
   margin: 0;
   padding: $layout-container-margin-md;
   background: $design-light-gray-color;

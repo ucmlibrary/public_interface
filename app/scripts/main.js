@@ -96,12 +96,6 @@ $(document).ready(function(){
   	}
   });
 
-  // Toggle meta-complex__list
-
-  $('.js-meta-complex__heading').click(function(){
-    $('.js-meta-complex__list').toggle();
-  }); 
-
 }); // End of $(document).ready(function()
 
 // ##### Tooltip ##### //
