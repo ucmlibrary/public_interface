@@ -5,6 +5,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.http import Http404
+from calisphere.collection_data import CollectionManager
+from collections import namedtuple
 
 import md5s3stash
 import operator
@@ -473,12 +475,10 @@ def relatedCollections(request, queryParams={}):
         })
 
 def collectionsDirectory(request):
-    # TODO: limits at 10 currently, eventually will want to fetch all, randomize, and then only return some and lazy load the rest?
-    collections_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['collection_url'], facet_limit='10')
-    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection_url']
+    solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
 
     collections = []
-    for collection_url in solr_collections:
+    for collection_url, collection_label in solr_collections.shuffled[0:10]:
         collection_details = json.loads(urllib2.urlopen(collection_url + "?format=json").read())
 
         collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection_url)
@@ -506,39 +506,18 @@ def collectionsDirectory(request):
 
 # TODO: doesn't handle non-letter characters
 def collectionsAZ(request, collection_letter):
-    # print "======================================================================================="
-    collections_solr_query = SOLR_select(
-        q='*:*',
-        rows=0,
-        start=0,
-        facet='true',
-        facet_field=['collection_name', 'collection_data'],
-        facet_limit='-1'
-    )
-    solr_collections = collections_solr_query.facet_counts['facet_fields']['collection_data']
-    solr_collection_names = collections_solr_query.facet_counts['facet_fields']['collection_name']
-
-    # print 'solr_collections'
-    # print solr_collections
-    # print 'solr_collection_names'
-    # print solr_collection_names
-
-    # print solr_collections
+    solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
 
     collections_list = []
-    for collection_data, count in solr_collections.iteritems():
-        if count !=0:
-            if collection_data.split('::')[1][0] == collection_letter or collection_data.split('::')[1][0] == collection_letter.upper():
-                collections_list.append(collection_data)
-
-    collections_list = sorted(collections_list, key=lambda collection_data: collection_data.split('::')[1])
+    for collection_link in solr_collections.parsed:
+        if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
+            collections_list.append(collection_link)
 
     collections = []
-    for collection_data in collections_list:
-        collection_info = getCollectionData(collection_data=collection_data)
-        collection_details = json.loads(urllib2.urlopen(collection_info['url'] + "?format=json").read())
+    for collection_link in collections_list:
+        collection_details = json.loads(urllib2.urlopen(collection_link.url + "?format=json").read())
 
-        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection_info['url'])
+        collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection_link.url)
         collection_id = collection_api_url.group('url')
 
         display_items = SOLR_select(
@@ -546,21 +525,22 @@ def collectionsAZ(request, collection_letter):
             fields='reference_image_md5, url_item, id, title, collection_url',
             rows=4,
             start=0,
-            fq=['collection_url: \"' + collection_info['url'] + '\"']
+            fq=['collection_url: \"' + collection_link.url + '\"']
         )
 
         for item in display_items.results:
             process_media(item)
 
         collections.append({
-            'name': collection_info['name'],
+            'name': collection_link.label,
             'description': collection_details['description'],
             'collection_id': collection_id,
             'display_items': display_items.results,
         })
 
     return render(request, 'calisphere/collectionsAZ.html', {'collections': collections,
-        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+        'collection_letter': collection_letter
     })
 
 def collectionsSearch(request):
@@ -663,17 +643,15 @@ def campusDirectory(request):
     for repository_data in solr_repositories:
         repository = getRepositoryData(repository_data=repository_data)
         if repository['campus']:
-            repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
-            repository_api_url = re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url'])
-            repository_id = repository_api_url.group('repository_id')
-
             repositories.append({
                 'name': repository['name'],
                 'campus': repository['campus'],
-                'repository_id': repository_id
+                'repository_id': re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url']).group('repository_id')
             })
 
-    repositories = sorted(repositories, key=lambda repository: repository['campus'])
+    repositories = sorted(repositories, key=lambda repository: (repository['campus'], repository['name']))
+    # Use hard-coded campus list so UCLA ends up in the correct order
+    # campuses = sorted(list(set([repository['campus'] for repository in repositories])))
 
     return render(request, 'calisphere/campusDirectory.html', {'repositories': repositories,
         'campuses': ['UC Berkeley', 'UC Davis', 'UC Irvine', 'UCLA', 'UC Merced', 'UC Riverside', 'UC San Diego', 'UC San Francisco', 'UC Santa Barbara', 'UC Santa Cruz']})
