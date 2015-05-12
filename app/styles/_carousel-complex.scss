@@ -1,9 +1,10 @@
 // ##### Carousel Component ##### //
 
 .carousel-complex {
-  background: $design-dark-gray-color;
+  margin: 0 $object-leftright-margin;
   display: flex;
   justify-content: center;
+  background: $design-dark-gray-color;
 
   @include bp(sm-screen) {
     // padding: 0 45px;
