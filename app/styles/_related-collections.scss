@@ -2,6 +2,7 @@
 
 .related-coll {
   @extend .clearfix; // Bootstrap class
+  clear: left; // clear meta-block container
   padding: $layout-container-margin-xs;
   background: $design-light-gray-color;
 
