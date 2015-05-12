@@ -502,7 +502,7 @@ def collectionsDirectory(request):
             'display_items': display_items.results
         })
 
-    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections})
+    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections, 'random': True})
 
 # TODO: doesn't handle non-letter characters
 def collectionsAZ(request, collection_letter):
@@ -564,7 +564,7 @@ def collectionsAZ(request, collection_letter):
     })
 
 def collectionsSearch(request):
-    return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': ''})
+    return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
 
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'

@@ -13,11 +13,11 @@
     </div>
   </div>
 
-  <!-- Dynamically add class 'button-secondary' to <a> elements below for selected state -->
+  <!-- Dynamically add class 'button__secondary' to <a> elements below for selected state -->
 
   <div class="row">
     <div class="col-xs-6 col-sm-3 collect-intro__buttons">
-      <a class="btn btn-default btn-block {% if not alphabet and not collection_q %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsDirectory' %}">Random Explore</a>
+      <a class="btn btn-default btn-block {% if random %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsDirectory' %}">Random Explore</a>
     </div>
     <div class="col-xs-6 col-sm-3 collect-intro__buttons">
       <a class="btn btn-default btn-block {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsAZ' 'a' %}">A - Z</a>
