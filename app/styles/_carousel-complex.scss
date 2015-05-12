@@ -1,4 +1,4 @@
-// ##### Carousel Component ##### //
+// ##### Complex Carousel Component ##### //
 
 .carousel-complex {
   margin: 0 $object-leftright-margin;
@@ -7,23 +7,17 @@
   background: $design-dark-gray-color;
 
   @include bp(sm-screen) {
-    // padding: 0 45px;
+    
   }
 
 }
 
-.carousel-complex {
-
-}
-
 .carousel-complex__item {
-  float: left;
-  width: 120px;
+  width: 100px;
   margin: 10px;
-  overflow: hidden;
 
   @include bp(sm-screen) {
-    margin: 20px;
+    
   }
 
 }
