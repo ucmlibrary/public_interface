@@ -1,6 +1,6 @@
 // ##### Carousel Component ##### //
 
-.obj-carousel {
+.carousel-complex {
   clear: right;
   background: $design-dark-gray-color;
 
@@ -10,12 +10,12 @@
 
 }
 
-.obj-carousel img { // temporary image resize for UI dev:
+.carousel-complex img { // temporary image resize for UI dev:
   width: 100%;
   height: auto;
 }
 
-.obj-carousel__item {
+.carousel-complex__item {
   width: 120px;
   margin: 10px;
 
@@ -25,7 +25,7 @@
 
 }
 
-.obj-carousel__link--selected {
+.carousel-complex__link--selected {
   @extend .carousel__link;
   border: 7px solid $design-primary-color;
 }
