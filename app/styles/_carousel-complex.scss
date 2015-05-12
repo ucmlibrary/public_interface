@@ -1,23 +1,25 @@
 // ##### Carousel Component ##### //
 
 .carousel-complex {
-  clear: right;
   background: $design-dark-gray-color;
+  display: flex;
+  justify-content: center;
 
   @include bp(sm-screen) {
-    padding: 0 45px;
+    // padding: 0 45px;
   }
 
 }
 
-.carousel-complex img { // temporary image resize for UI dev:
-  width: 100%;
-  height: auto;
+.carousel-complex {
+
 }
 
 .carousel-complex__item {
+  float: left;
   width: 120px;
   margin: 10px;
+  overflow: hidden;
 
   @include bp(sm-screen) {
     margin: 20px;
@@ -25,7 +27,16 @@
 
 }
 
+.carousel-complex__link {
+  
+}
+
 .carousel-complex__link--selected {
   @extend .carousel__link;
   border: 7px solid $design-primary-color;
+}
+
+.carousel-complex img { // temporary image resize for UI dev:
+  width: 100%;
+  height: auto;
 }
