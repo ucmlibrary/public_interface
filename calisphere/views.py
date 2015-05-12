@@ -709,7 +709,7 @@ def repositoryView(request, repository_id):
     queryParams = processQueryRequest(request)
     repository = getRepositoryData(repository_id=repository_id)
     queryParams['filters']['repository_data'] = [repository['url'] + "::" + repository['name']]
-    if 'campus' in repository:
+    if 'campus' in repository and repository['campus']:
         queryParams['filters']['repository_data'][0] = queryParams['filters']['repository_data'][0] + "::" + repository['campus']
 
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
