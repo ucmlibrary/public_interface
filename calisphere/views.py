@@ -194,6 +194,9 @@ def processQueryRequest(request):
         'rc_page': rc_page
     }
 
+def home(request):
+    return render (request, 'calisphere/home.html', {'q': ''})
+
 def itemView(request, item_id=''):
     item_id_search_term = 'id:"{0}"'.format(_fixid(item_id))
     item_solr_search = SOLR_select(q=item_id_search_term)

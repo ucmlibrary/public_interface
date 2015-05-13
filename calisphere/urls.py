@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('calisphere',
-    url(r'^$', 'views.search', name='search'),
+    url(r'^$', 'views.home', name='home'),
+    url(r'^search/$', 'views.search', name='search'),
     url(r'^itemView/(?P<item_id>.*)/', 'views.itemView', name='itemView'),
     
     url(r'^collections/$', 'views.collectionsDirectory', name='collectionsDirectory'),
