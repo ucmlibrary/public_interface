@@ -63,10 +63,10 @@
 
 .object__container-osd {
   position: relative; // for absolutely positioned 'osd-button-group' child
-  margin: 0 0 15px 0;
+  margin: 0;
 
   @include bp(sm-screen) {
-    margin: 0 $object-leftright-margin 15px $object-leftright-margin;
+    margin: 0 $object-leftright-margin 0 $object-leftright-margin;
   }
 
 }

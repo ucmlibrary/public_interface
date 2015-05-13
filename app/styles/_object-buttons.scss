@@ -5,6 +5,7 @@
 .obj-buttons {
   display: flex;
   flex-flow: column nowrap;
+  margin: $layout-component-margin 0 0 0;
 
 	@include bp(sm-screen) {
     flex-flow: row nowrap;
@@ -13,7 +14,7 @@
   }
 
   @include bp(md-screen) {
-    padding: 0 $object-leftright-margin$layout-component-margin $object-leftright-margin;
+    padding: 0 $object-leftright-margin $layout-component-margin $object-leftright-margin;
     border-bottom: 1px solid $design-primary-color;
   }
 	
@@ -26,8 +27,14 @@ html.no-flexbox .obj-buttons a {
 
 .obj-buttons--complex {
   @extend .obj-buttons;
-  border: none;
-  // background: $design-light-gray-color;
+  
+  @include bp(md-screen) {
+    margin: 0 $object-leftright-margin;
+    padding: 0 $layout-component-margin;
+    border: none;
+    background: $design-light-gray-color;
+  }
+
 }
 
 .obj-buttons__group1 {

@@ -5,8 +5,10 @@
 }
 
 .meta-block__heading {
-  margin: 20px $object-leftright-margin 0 $object-leftright-margin;
+  margin: 0 $object-leftright-margin;
+  padding: $layout-component-margin;
   font-size: 1.4em;
+  background: $design-light-gray-color;
 }
 
 .meta-block__heading-link {
