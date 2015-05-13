@@ -11,17 +11,6 @@
   overflow: hidden;
 }
 
-.meta-block__heading {
-  margin: 0 $object-leftright-margin;
-  padding: $layout-component-margin;
-  font-size: 1.4em;
-  background: $design-light-gray-color;
-}
-
-.meta-block__heading-link {
-  @extend .icon__external-link;
-}
-
 .meta-block__list {
 	margin: 0;
 }
