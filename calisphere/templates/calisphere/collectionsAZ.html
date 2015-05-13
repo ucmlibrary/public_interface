@@ -13,7 +13,7 @@
 		<div class="alphanav">
 		  <ul class="alphanav__list">
 			{% for char in alphabet %}
-			  <li class="alphanav__list-item"><a class="{% if char == collection_letter %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' char %}">{{ char|upper }}</a></li>
+			  <li class="alphanav__list-item"><a class="{% if char == collection_letter|upper %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' char|lower %}">{{ char }}</a></li>
 			{% endfor %}
 			</ul>
 		</div>

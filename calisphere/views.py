@@ -19,6 +19,7 @@ import simplejson as json
 from retrying import retry
 import pickle
 import hashlib
+import string
 
 FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
 SOLR = solr.SearchHandler(
@@ -539,7 +540,7 @@ def collectionsAZ(request, collection_letter):
         })
 
     return render(request, 'calisphere/collectionsAZ.html', {'collections': collections,
-        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+        'alphabet': list(string.ascii_uppercase),
         'collection_letter': collection_letter
     })
 
@@ -664,19 +665,28 @@ def statewideDirectory(request):
     for repository_data in solr_repositories:
         repository = getRepositoryData(repository_data=repository_data)
         if repository['campus'] == '':
-            repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
-            repository_api_url = re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url'])
-            repository_id = repository_api_url.group('repository_id')
-
             repositories.append({
                 'name': repository['name'],
-                'repository_id': repository_id
+                'repository_id': re.match(r'https://registry\.cdlib\.org/api/v1/repository/(?P<repository_id>\d*)/?', repository['url']).group('repository_id')
             })
 
-    repositories = sorted(repositories, key=lambda repository: repository['name'])
+    binned_repositories = []
+    bin = []
+    for repository in repositories:
+        if repository['name'][0] in string.punctuation:
+            bin.append(repository)
+    if len(bin) > 0:
+        binned_repositories.append({'punctuation': bin})
 
-    return render(request, 'calisphere/statewideDirectory.html', {'repositories': repositories,
-        'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']})
+    for char in string.ascii_uppercase:
+        bin = []
+        for repository in repositories:
+            if repository['name'][0] == char or repository['name'][0] == char.upper:
+                bin.append(repository)
+        if len(bin) > 0:
+            binned_repositories.append({char: bin})
+
+    return render(request, 'calisphere/statewideDirectory.html', {'state_repositories': binned_repositories})
 
 def repositoryView(request, repository_id):
     repository_url = 'https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json'
