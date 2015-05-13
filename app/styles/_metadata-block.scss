@@ -4,6 +4,10 @@
   padding: 20px $object-leftright-margin 0 $object-leftright-margin;
 }
 
+.meta-block--complex {
+  background: $design-light-gray-color;
+}
+
 .meta-block__heading {
   margin: 0 $object-leftright-margin;
   padding: $layout-component-margin;
