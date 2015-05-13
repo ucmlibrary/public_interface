@@ -1,7 +1,11 @@
 // ##### Metadata Block Component ##### //
 
+.meta-block {
+  padding: 20px $object-leftright-margin 0 $object-leftright-margin;
+}
+
 .meta-block__heading {
-  margin: 0 0 0.5em 0;
+  margin: 20px $object-leftright-margin 0 $object-leftright-margin;
   font-size: 1.4em;
 }
 
