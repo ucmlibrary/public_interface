@@ -27,12 +27,16 @@ html.no-flexbox .obj-buttons a {
 
 .obj-buttons--complex {
   @extend .obj-buttons;
-  
-  @include bp(md-screen) {
-    margin: 0 $object-leftright-margin;
+
+  @include bp(sm-screen) {
+    margin: 0;
     padding: 0 $layout-component-margin;
     border: none;
     background: $design-light-gray-color;
+  }
+  
+  @include bp(md-screen) {
+    margin: 0 $object-leftright-margin;
   }
 
 }

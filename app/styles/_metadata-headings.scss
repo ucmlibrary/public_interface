@@ -10,15 +10,28 @@
 }
 
 .meta-heading__complex-item {
-  margin: 0 $object-leftright-margin;
+  margin: 0;
   padding: $layout-component-margin;
   font-size: 1.4em;
   background: $design-light-gray-color;
+
+  @include bp(sm-screen) {
+    padding: $layout-component-margin;
+  }
+
+  @include bp(md-screen) {
+    margin: 0 $object-leftright-margin;
+  }
+
 }
 
 .meta-heading__complex-set {
-  margin: $layout-component-margin 0 0 0;
-  padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
   font-size: 1.4em;
-  border-top: 1px solid $design-primary-color;
+
+  @include bp(md-screen) {
+    margin: $layout-component-margin 0 0 0;
+    padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
+    border-top: 1px solid $design-primary-color;
+  }
+
 }
