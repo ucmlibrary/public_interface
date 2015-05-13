@@ -1,16 +1,14 @@
 // ##### Metadata Block Component ##### //
 
 .meta-block {
-  padding: 20px $object-leftright-margin 0 $object-leftright-margin;
+  padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
 }
 
-.meta-block__heading {
-  margin: 20px $object-leftright-margin 0 $object-leftright-margin;
-  font-size: 1.4em;
-}
-
-.meta-block__heading-link {
-  @extend .icon__external-link;
+.meta-block--complex {
+  margin: 0 $object-leftright-margin;
+  padding: 0 $layout-component-margin;
+  background: $design-light-gray-color;
+  overflow: hidden;
 }
 
 .meta-block__list {

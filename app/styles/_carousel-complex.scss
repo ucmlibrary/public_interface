@@ -4,7 +4,7 @@
   margin: 0 $object-leftright-margin;
   display: flex;
   justify-content: center;
-  background: $design-dark-gray-color;
+  background: $design-light-gray-color;
 
   @include bp(sm-screen) {
     
