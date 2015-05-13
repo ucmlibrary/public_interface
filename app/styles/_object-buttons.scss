@@ -13,7 +13,8 @@
   }
 
   @include bp(md-screen) {
-    margin: 0 $object-leftright-margin;
+    padding: 0 $object-leftright-margin$layout-component-margin $object-leftright-margin;
+    border-bottom: 1px solid $design-primary-color;
   }
 	
 }
@@ -21,6 +22,12 @@
 html.no-flexbox .obj-buttons a {
   display: inline-block;
   margin: 0 2px;
+}
+
+.obj-buttons--complex {
+  @extend .obj-buttons;
+  border: none;
+  // background: $design-light-gray-color;
 }
 
 .obj-buttons__group1 {
