@@ -658,7 +658,7 @@ def campusDirectory(request):
     # campuses = sorted(list(set([repository['campus'] for repository in repositories])))
 
     return render(request, 'calisphere/campusDirectory.html', {'repositories': repositories,
-        'campuses': ['UC Berkeley', 'UC Davis', 'UC Irvine', 'UCLA', 'UC Merced', 'UC Riverside', 'UC San Diego', 'UC San Francisco', 'UC Santa Barbara', 'UC Santa Cruz']})
+        'campuses': [('UC Berkeley', '1'), ('UC Davis', '2'), ('UC Irvine', '3'), ('UCLA', '4'), ('UC Merced', '5'), ('UC Riverside', '6'), ('UC San Diego', '7'), ('UC San Francisco', '8'), ('UC Santa Barbara', '9'), ('UC Santa Cruz', '10')]})
 
 def statewideDirectory(request):
     repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
@@ -690,6 +690,99 @@ def statewideDirectory(request):
             binned_repositories.append({char: bin})
 
     return render(request, 'calisphere/statewideDirectory.html', {'state_repositories': binned_repositories})
+
+def campusView(request, campus_id):
+    campus_url = 'https://registry.cdlib.org/api/v1/campus/' + campus_id + '/?format=json'
+    campus_json = urllib2.urlopen(campus_url).read()
+    campus_details = json.loads(campus_json)
+
+    queryParams = processQueryRequest(request)
+
+    fq = solrize_filters(queryParams['filters'])
+    fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/1/"')
+
+    facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
+
+    solr_search = SOLR_select(
+        q=queryParams['query_terms'],
+        rows=queryParams['rows'],
+        start=queryParams['start'], 
+        fq=fq,
+        facet='true',
+        facet_limit='-1',
+        facet_field=facet_fields
+    )
+
+    for item in solr_search.results:
+        process_media(item)
+
+    facets = {}
+    for facet_type in facet_fields:
+        if facet_type in queryParams['filters'] and len(queryParams['filters'][facet_type]) > 0:
+            # other_filters is all the filters except the ones of the current filter type
+            other_filters = {key: value for key, value in queryParams['filters'].items()
+                if key!= facet_type}
+            other_filters[facet_type] = []
+
+            # perform the exact same search, but as though no filters of this type have been selected
+            # to obtain the counts for facets for this facet type
+            facet_solr_search = SOLR_select(
+                q=queryParams['query_terms'],
+                rows='0',
+                fq=solrize_filters(other_filters),
+                facet='true',
+                facet_limit='-1',
+                facet_field=[facet_type]
+            )
+
+            facets[facet_type] = process_facets(
+                facet_solr_search.facet_counts['facet_fields'][facet_type],
+                queryParams['filters'][facet_type]
+            )
+        else:
+            facets[facet_type] = process_facets(
+                solr_search.facet_counts['facet_fields'][facet_type],
+                queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else []
+            )
+
+    for i, facet_item in enumerate(facets['collection_data']):
+        collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
+        facets['collection_data'][i] = collection
+
+    for i, facet_item in enumerate(facets['repository_data']):
+        repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
+        facets['repository_data'][i] = repository
+
+    filter_display = {}
+    for filter_type in queryParams['filters']:
+        if filter_type == 'repository_data':
+            filter_display['repository_data'] = []
+            for filter_item in queryParams['filters'][filter_type]:
+                repository = getRepositoryData(repository_data=filter_item)
+                filter_display['repository_data'].append(repository)
+        elif filter_type == 'collection_data':
+            filter_display['collection_data'] = []
+            for filter_item in queryParams['filters'][filter_type]:
+                collection = getCollectionData(collection_data=filter_item)
+                filter_display['collection_data'].append(collection)
+        else:
+            filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
+
+    return render(request, 'calisphere/campusView.html', {
+        'q': queryParams['q'],
+        'rq': queryParams['rq'],
+        'filters': filter_display,
+        'rows': queryParams['rows'],
+        'start': queryParams['start'],
+        'search_results': solr_search.results,
+        'facets': facets,
+        'FACET_TYPES': list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES),
+        'numFound': solr_search.numFound,
+        'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
+        'view_format': queryParams['view_format'],
+        'campus': campus_details,
+        'form_action': reverse('calisphere:campusView', kwargs={'campus_id': campus_id})
+    })
 
 def repositoryView(request, repository_id):
     repository_url = 'https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json'

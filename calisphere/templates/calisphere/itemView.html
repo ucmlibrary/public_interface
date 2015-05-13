@@ -74,6 +74,7 @@
       <dt class="metadata__type">Contributing Institution</dt>   <dd class="metadata__defin">{% for repository in item.repository_name %}{{ repository }}            | {% endfor %}</dd>
       <dt class="metadata__type">Repository Data</dt>            <dd class="metadata__defin">{% for repository_data in item.repository_data %}{{ repository_data }}  | {% endfor %}</dd>
       <dt class="metadata__type">Campus</dt>                     <dd class="metadata__defin">{% for campus in item.campus_name %}{{ campus }}                        | {% endfor %}</dd>
+      <dt class="metadata__type">campus_url</dt>                 <dd class="metadata__defin">{% for campus_url in item.campus_url %}{{ campus_url }}                 | {% endfor %}</dd>
       <dt class="metadata__type">Collection</dt>                 <dd class="metadata__defin">{% for collection_name in item.collection_name %}{{ collection_name }}  | {% endfor %}</dd>
       <dt class="metadata__type">Collection Data                 <dd class="metadata__defin">{% for collection_data in item.collection_data %}{{ collection_data }}  | {% endfor %}</dd>
       <dt class="metadata__type">Identifier</dt>                 <dd class="metadata__defin">{% for identifier in item.identifier %}{{ identifier }}                 | {% endfor %}</dd>
