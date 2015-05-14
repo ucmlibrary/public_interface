@@ -513,9 +513,16 @@ def collectionsAZ(request, collection_letter):
     solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
 
     collections_list = []
-    for collection_link in solr_collections.parsed:
-        if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
-            collections_list.append(collection_link)
+    if collection_letter == 'num':
+        for collection_link in solr_collections.parsed:
+            if collection_link.label[0] not in list(string.ascii_letters):
+                collections_list.append(collection_link)
+            else:
+                break
+    else: 
+        for collection_link in solr_collections.parsed:
+            if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
+                collections_list.append(collection_link)
 
     collections = []
     for collection_link in collections_list:
