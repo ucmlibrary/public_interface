@@ -699,7 +699,7 @@ def campusView(request, campus_id):
     queryParams = processQueryRequest(request)
 
     fq = solrize_filters(queryParams['filters'])
-    fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/1/"')
+    fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '1/"')
 
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
 
