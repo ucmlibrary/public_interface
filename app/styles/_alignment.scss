@@ -153,15 +153,6 @@
 
 }
 
-.thumbview-collections {
-  margin: $layout-component-margin 0 0 (-$layout-component-margin);
-
-  @include bp(sm-screen) {
-    margin: 0;
-  }
-
-}
-
 .listview {
 
   @include bp(sm-screen) {
