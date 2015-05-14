@@ -480,9 +480,11 @@ def relatedCollections(request, queryParams={}):
 
 def collectionsDirectory(request):
     solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
-
     collections = []
-    for collection_url, collection_label in solr_collections.shuffled[0:10]:
+
+    page = int(request.GET['page']) if 'page' in request.GET else 1
+
+    for collection_url, collection_label in solr_collections.shuffled[(page*10)-10:page*10]:
         collection_details = json.loads(urllib2.urlopen(collection_url + "?format=json").read())
 
         collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection_url)
@@ -506,7 +508,10 @@ def collectionsDirectory(request):
             'display_items': display_items.results
         })
 
-    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections, 'random': True})
+    if 'page' in request.GET:
+        return render(request, 'calisphere/collectionList.html', {'collections': collections, 'random': True, 'next_page': page+1})
+
+    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections, 'random': True, 'next_page': page+1})
 
 # TODO: doesn't handle non-letter characters
 def collectionsAZ(request, collection_letter):
