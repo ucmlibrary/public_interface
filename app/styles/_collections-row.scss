@@ -21,6 +21,64 @@ $collect-button-pos: 4em;
   font-size: 1.2em;
 }
 
+// ***** Begin Image Mozaic ***** //
+
+.thumbview-collections {
+  overflow: hidden;
+}
+
+.collect-row__image1 {
+  float: left;
+  width: 66%;
+  height: auto;
+}
+
+.collect-row__image2 {
+  float: right;
+  width: 32%;
+  height: auto;
+  margin: 0 0 2% 0;
+}
+
+.collect-row__image3 {
+  float: right;
+  width: 32%;
+  height: auto;
+}
+
+.collect-row__image4 {
+  float: left;
+  clear: both;
+  width: 32%;
+  margin: 0 2% 2% 2%;
+  height: auto;
+}
+
+.collect-row__image5 {
+  float: left;
+  width: 32%;
+  height: auto;
+  // border: $bred;
+}
+
+.collect-row__image6 {
+  float: left;
+  clear: left;
+  width: 32%;
+  height: auto;
+  margin: 0 2% 0 2%;
+  // border: $bblue;
+}
+
+.collect-row__image7 {
+  float: left;
+  width: 32%;
+  height: auto;
+  // border: $bgreen;
+}
+
+// ***** End Image Mozaic ***** //
+
 .collect-row__button {
   margin: $layout-component-margin 0 0 0;
 
