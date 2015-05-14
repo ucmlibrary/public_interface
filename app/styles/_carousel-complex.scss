@@ -1,23 +1,26 @@
 // ##### Complex Carousel Component ##### //
 
 .carousel-complex {
-  margin: 0 $object-leftright-margin;
   display: flex;
   justify-content: center;
   background: $design-light-gray-color;
 
-  @include bp(sm-screen) {
-    
+  @include bp(md-screen) {
+    margin: 0 $object-leftright-margin;
   }
 
 }
 
 .carousel-complex__item {
-  height: 80px;
-  margin: 10px 5px;
+  height: 50px;
+  margin: $layout-component-margin ($layout-component-margin / 4);
 
   @include bp(sm-screen) {
-    
+    height: 60px;
+  }
+
+  @include bp(md-screen) {
+    height: 80px;
   }
 
 }

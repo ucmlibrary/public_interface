@@ -65,7 +65,7 @@
   position: relative; // for absolutely positioned 'osd-button-group' child
   margin: 0;
 
-  @include bp(sm-screen) {
+  @include bp(md-screen) {
     margin: 0 $object-leftright-margin 0 $object-leftright-margin;
   }
 

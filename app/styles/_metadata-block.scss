@@ -1,14 +1,31 @@
 // ##### Metadata Block Component ##### //
 
 .meta-block {
-  padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
+
+  // use margin instead of padding? ...
+
+  @include bp(sm-screen) {
+    padding: $layout-component-margin 0 0 0;
+  }
+
+  @include bp(md-screen) {
+    padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
+  }
+
 }
 
 .meta-block--complex {
-  margin: 0 $object-leftright-margin;
-  padding: 0 $layout-component-margin;
   background: $design-light-gray-color;
   overflow: hidden;
+
+  @include bp(sm-screen) {
+    padding: 0 $layout-component-margin;
+  }
+
+  @include bp(md-screen) {
+    margin: 0 $object-leftright-margin;
+  }
+
 }
 
 .meta-block__list {
