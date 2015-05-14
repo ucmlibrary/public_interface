@@ -25,6 +25,7 @@ $collect-button-pos: 4em;
 
 .collect-row__item-number {
   margin: 0;
+  -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }
 
 .collect-row__mozaic {
