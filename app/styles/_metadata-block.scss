@@ -2,6 +2,12 @@
 
 .meta-block {
 
+  // use margin instead of padding? ...
+
+  @include bp(sm-screen) {
+    padding: $layout-component-margin 0 0 0;
+  }
+
   @include bp(md-screen) {
     padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
   }
