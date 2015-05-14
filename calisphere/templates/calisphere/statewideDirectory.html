@@ -7,17 +7,17 @@
 {% include "calisphere/institutionsHeader.html" %}
 
 <div class="inst-textboxes">
-{% for letter in alphabet %}
-	<div class="inst-textboxes__box">
-		<h3 class="inst-textboxes__box-heading">{{ letter }}</h3>
-		<ul class="inst-textboxes__list">
-  {% for repository in repositories %}
-    {% if repository.name.0|lower == letter %}
-      <li class="inst-textboxes__list-item"><a class="inst-textboxes__link" href="{% url 'calisphere:repositoryView' repository.repository_id %}">{{ repository.name }}</a></li>
-    {% endif %}
+{% for bin in state_repositories %}
+  {% for char, repos in bin.items %}
+  	<div class="inst-textboxes__box">
+  		<h3 class="inst-textboxes__box-heading">{{ char }}</h3>
+  		<ul class="inst-textboxes__list">
+      {% for repository in repos %}
+          <li class="inst-textboxes__list-item"><a class="inst-textboxes__link" href="{% url 'calisphere:repositoryView' repository.repository_id %}">{{ repository.name }}</a></li>
+      {% endfor %}
+    	</ul>
+    </div>
   {% endfor %}
-  	</ul>
-  </div>
 {% endfor %}
 </div>
 
