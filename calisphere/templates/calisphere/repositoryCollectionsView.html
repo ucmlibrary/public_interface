@@ -1,0 +1,30 @@
+{% extends "calisphere/repositoryView.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block sidebar %}
+<a class="btn btn-default button__back-to-institution" 
+	href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
+	Collections
+</a>
+<a class="btn btn-default button__back-to-institution" 
+	href="{% url 'calisphere:repositoryView' repository_id %}">
+	Search
+</a>
+{% endblock %}
+
+{% block mainContent %}
+
+<div class="row">
+
+  <div class="col-xs-12 col-sm-11">
+
+		{% for collection in collections %}
+		  {% include "calisphere/collectionPreview.html" %}
+		{% endfor %}
+
+	</div>
+
+</div>
+
+{% endblock %}

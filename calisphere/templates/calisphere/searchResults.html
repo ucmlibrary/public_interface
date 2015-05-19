@@ -10,7 +10,8 @@
     
     {% block additionalInfo %}{% endblock %}
 
-    <!-- Begin Refine Search Field and Filters -->
+    <!-- Begin Filters -->
+
 
       <div class="col-md-9 layout-col__1">
 
@@ -45,33 +46,36 @@
 
       </div>
 
-    <!-- End Refine Search Field and Filters -->
+    <!-- End Filters -->
 
       <div class="col-md-3 layout-col__2">
+        {% block sidebar %}
         
-        {% block refineSearch %}
+          {% block refineSearch %}
 
-        <!-- Begin Search Within Field -->
-        <div class="search-within">
-          <label for="search-within__field" class="search-within__label">Search within results</label>
-          <div class="input-group">
-            <input id="search-within__field" type="search" name="rq" class="form-control search-within__field" form="js-facet">
-            <span class="input-group-btn">
-              <button class="btn btn-default search-within__button" type="submit" form="js-facet">Search
-              </button>
-            </span>
-          </div>
-        </div>
-        <!-- End Search Within Field -->
+            <!-- Begin Search Within Field -->
+            <div class="search-within">
+              <label for="search-within__field" class="search-within__label">Search within results</label>
+              <div class="input-group">
+                <input id="search-within__field" type="search" name="rq" class="form-control search-within__field" form="js-facet">
+                <span class="input-group-btn">
+                  <button class="btn btn-default search-within__button" type="submit" form="js-facet">Search
+                  </button>
+                </span>
+              </div>
+            </div>
+            <!-- End Search Within Field -->
 
+          {% endblock %}
+
+          <!-- Begin Checkbox Groups -->
+          {% include "calisphere/forms/faceting.html" %}
+          <!-- End Checkbox Groups -->
         {% endblock %}
-
-        <!-- Begin Checkbox Groups -->
-        {% include "calisphere/forms/faceting.html" %}
-        <!-- End Checkbox Groups -->
       </div>
 
       <div class="col-md-9 layout-col__3">
+        {% block mainContent %}
           
         <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
         <h3 class="text__collections-heading">{% block objectsFound %}{{ numFound }} Objects Found in 
@@ -127,7 +131,6 @@
         </div>
         {% endblock %}
         <!-- End Related Collections Component -->
-
+      {% endblock %}
       </div>
-    
 {% endblock %}
