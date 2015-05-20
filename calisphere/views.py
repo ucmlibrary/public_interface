@@ -131,7 +131,7 @@ def getCollectionMosaic(collection_url):
 
     collection_repositories = []
     for repository in collection_details['repository']:
-        if 'campus' in repository and len(repository['campus'] > 0):
+        if 'campus' in repository and len(repository['campus']) > 0:
             collection_repositories.append(repository['name'] + " - " + repository['campus'][0]['name'])
         else:
             collection_repositories.append(repository['name'])
