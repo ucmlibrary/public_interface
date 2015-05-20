@@ -12,15 +12,17 @@
 
   <div class="col-md-3">
     <div class="collection-intro__institution">
-      {{ campus }}
+      {{ campus.name }}<br>
+      Phone: {{ contact_information.phone }}<br>
+      Email: {{ contact_information.email }}<br>
+      Website: {{ contact_information.url }}<br>
     </div>
   </div>
 
   <div class="col-md-9">
     <div class="collection-intro__about">
       <h3 class="collection-intro__about-heading">About this Institution</h3>
-      <span class="collection-intro__about-description">{{ campus.description }} <br/>
-        {{ campus }}
+      <span class="collection-intro__about-description">{{ contact_information.description }}
       </span>
     </div>
   </div>

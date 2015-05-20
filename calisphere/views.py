@@ -661,6 +661,9 @@ def campusView(request, campus_id):
     campus_json = urllib2.urlopen(campus_url).read()
     campus_details = json.loads(campus_json)
 
+    contact_information = json.loads(
+        urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + campus_details['ark']).read())
+
     queryParams = processQueryRequest(request)
 
     fq = solrize_filters(queryParams['filters'])
@@ -719,6 +722,7 @@ def campusView(request, campus_id):
         'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
         'view_format': queryParams['view_format'],
         'campus': campus_details,
+        'contact_information': contact_information,
         'form_action': reverse('calisphere:campusView', kwargs={'campus_id': campus_id})
     })
 
@@ -726,6 +730,9 @@ def repositoryView(request, repository_id, collections=False):
     repository_url = 'https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json'
     repository_json = urllib2.urlopen(repository_url).read()
     repository_details = json.loads(repository_json)
+
+    contact_information = json.loads(
+        urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + repository_details['ark']).read())
 
     queryParams = processQueryRequest(request)
     repository = getRepositoryData(repository_id=repository_id)
@@ -760,6 +767,7 @@ def repositoryView(request, repository_id, collections=False):
             'repository_id': repository_id,
             'collections': related_collections,
             'repository': repository_details,
+            'contact_information': contact_information
         })
 
     else:
@@ -811,6 +819,7 @@ def repositoryView(request, repository_id, collections=False):
             'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
             'view_format': queryParams['view_format'],
             'repository': repository_details,
+            'contact_information': contact_information,
             'repository_id': repository_id,
             'form_action': reverse('calisphere:repositoryView', kwargs={'repository_id': repository_id})
         })    
