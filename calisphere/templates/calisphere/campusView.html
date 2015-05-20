@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block refineSearch %}
-<a class="btn btn-default button__back-to-institution" href>
+<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_id 'institutions' %}">
   Institutions
 </a>
 <a class="btn btn-default button__back-to-institution" href>

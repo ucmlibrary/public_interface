@@ -131,7 +131,7 @@ def getCollectionMosaic(collection_url):
 
     collection_repositories = []
     for repository in collection_details['repository']:
-        if 'campus' in repository:
+        if 'campus' in repository and len(repository['campus'] > 0):
             collection_repositories.append(repository['name'] + " - " + repository['campus'][0]['name'])
         else:
             collection_repositories.append(repository['name'])
@@ -656,13 +656,65 @@ def statewideDirectory(request):
 
     return render(request, 'calisphere/statewideDirectory.html', {'state_repositories': binned_repositories})
 
-def campusView(request, campus_id):
-    campus_url = 'https://registry.cdlib.org/api/v1/campus/' + campus_id + '/?format=json'
-    campus_json = urllib2.urlopen(campus_url).read()
+def campusView(request, campus_id, subnav=False):
+    campus_url = 'https://registry.cdlib.org/api/v1/campus/' + campus_id + '/'
+    campus_json = urllib2.urlopen(campus_url + "?format=json").read()
     campus_details = json.loads(campus_json)
 
     contact_information = json.loads(
         urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + campus_details['ark']).read())
+
+    if subnav == 'institutions':
+        campus_fq = ['campus_url: "' + campus_url + '"']
+
+        institutions_solr_search = SOLR_select(
+            q='',
+            rows=0,
+            start=0,
+            fq=campus_fq,
+            facet='true',
+            facet_limit='-1',
+            facet_field = ['collection_data', 'repository_data']
+        )
+
+        related_institutions = list(institution[0] for institution in process_facets(institutions_solr_search.facet_counts['facet_fields']['repository_data'], []))
+
+        for i, related_institution in enumerate(related_institutions):
+            related_institutions[i] = getRepositoryData(repository_data=related_institution)
+
+        return render(request, 'calisphere/campusInstitutionsView.html', {
+            'campus_id': campus_id,
+            'institutions': related_institutions,
+            'campus': campus_details,
+            'contact_information': contact_information
+        })
+
+    elif subnav == 'collections':
+        campus_fq = ['campus_url: "' + campus_url + '"']
+
+        collections_solr_search = SOLR_select(
+            q='',
+            rows=0,
+            start=0,
+            fq=campus_fq,
+            facet='true',
+            facet_limit='-1',
+            facet_field = ['collection_data', 'repository_data']
+        )
+
+        related_collections = list(collection[0] for collection in process_facets(collections_solr_search.facet_counts['facet_fields']['collection_data'], []))
+
+        for i, related_collection in enumerate(related_collections):
+            collection_data = getCollectionData(collection_data=related_collection)
+
+            related_collections[i] = getCollectionMosaic(collection_data['url'])
+
+        return render(request, 'calisphere/campusCollectionsView.html', {
+            'campus_id': campus_id,
+            'collections': related_collections,
+            'campus': campus_details,
+            'contact_information': contact_information
+        })
 
     queryParams = processQueryRequest(request)
 
@@ -723,12 +775,12 @@ def campusView(request, campus_id):
         'view_format': queryParams['view_format'],
         'campus': campus_details,
         'contact_information': contact_information,
-        'form_action': reverse('calisphere:campusView', kwargs={'campus_id': campus_id})
+        'form_action': reverse('calisphere:campusView', kwargs={'campus_id': campus_id}),
+        'campus_id': campus_id
     })
 
 def repositoryView(request, repository_id, collections=False):
-    repository_url = 'https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json'
-    repository_json = urllib2.urlopen(repository_url).read()
+    repository_json = urllib2.urlopen('https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json').read()
     repository_details = json.loads(repository_json)
 
     contact_information = json.loads(
