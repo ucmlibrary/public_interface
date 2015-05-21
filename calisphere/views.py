@@ -22,6 +22,19 @@ import hashlib
 import string
 
 FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
+
+def get_campus_list():
+    campus_list = json.loads(urllib2.urlopen("https://registry.cdlib.org/api/v1/campus/?format=json").read())
+    campus_list = sorted(list(campus_list['objects']), key=lambda campus: (campus['position']))
+    campuses = []
+    for campus in campus_list:
+        campus_id = campus['resource_uri'].split('/')[-2]
+        campuses.append({'name': campus['name'], 'slug': campus['slug'], 'id': campus_id})
+
+    return campuses
+
+CAMPUS_LIST = get_campus_list()
+
 SOLR = solr.SearchHandler(
     solr.Solr(
         settings.SOLR_URL,
@@ -119,7 +132,7 @@ def getCollectionData(collection_data=None, collection_id=None):
         else:
             collection['id'] = collection_api_url.group('url')
     elif collection_id:
-        collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id + "/"
+        collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id
         collection['id'] = collection_id
 
         collection_details = json.loads(urllib2.urlopen(collection['url'] + "?format=json").read())
@@ -623,7 +636,7 @@ def campusDirectory(request):
     # campuses = sorted(list(set([repository['campus'] for repository in repositories])))
 
     return render(request, 'calisphere/campusDirectory.html', {'repositories': repositories,
-        'campuses': [('UC Berkeley', '1'), ('UC Davis', '2'), ('UC Irvine', '3'), ('UCLA', '4'), ('UC Merced', '5'), ('UC Riverside', '6'), ('UC San Diego', '7'), ('UC San Francisco', '8'), ('UC Santa Barbara', '9'), ('UC Santa Cruz', '10')]})
+        'campuses': CAMPUS_LIST})
 
 def statewideDirectory(request):
     repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
@@ -656,7 +669,14 @@ def statewideDirectory(request):
 
     return render(request, 'calisphere/statewideDirectory.html', {'state_repositories': binned_repositories})
 
-def campusView(request, campus_id, subnav=False):
+def campusView(request, campus_slug, subnav=False):
+    campus_id = ''
+    for campus in CAMPUS_LIST:
+        if campus_slug == campus['slug']:
+            campus_id = campus['id']
+    if campus_id == '':
+        print "Campus registry ID not found"
+
     campus_url = 'https://registry.cdlib.org/api/v1/campus/' + campus_id + '/'
     campus_json = urllib2.urlopen(campus_url + "?format=json").read()
     campus_details = json.loads(campus_json)
@@ -683,7 +703,7 @@ def campusView(request, campus_id, subnav=False):
             related_institutions[i] = getRepositoryData(repository_data=related_institution)
 
         return render(request, 'calisphere/campusInstitutionsView.html', {
-            'campus_id': campus_id,
+            'campus_slug': campus_slug,
             'institutions': related_institutions,
             'campus': campus_details,
             'contact_information': contact_information
@@ -710,7 +730,7 @@ def campusView(request, campus_id, subnav=False):
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
         return render(request, 'calisphere/campusCollectionsView.html', {
-            'campus_id': campus_id,
+            'campus_slug': campus_slug,
             'collections': related_collections,
             'campus': campus_details,
             'contact_information': contact_information
@@ -775,8 +795,8 @@ def campusView(request, campus_id, subnav=False):
         'view_format': queryParams['view_format'],
         'campus': campus_details,
         'contact_information': contact_information,
-        'form_action': reverse('calisphere:campusView', kwargs={'campus_id': campus_id}),
-        'campus_id': campus_id
+        'form_action': reverse('calisphere:campusView', kwargs={'campus_slug': campus_slug}),
+        'campus_slug': campus_slug
     })
 
 def repositoryView(request, repository_id, collections=False):

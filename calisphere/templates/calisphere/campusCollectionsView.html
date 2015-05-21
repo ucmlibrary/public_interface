@@ -3,13 +3,13 @@
 {% load staticfiles %}
 
 {% block sidebar %}
-<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_id 'institutions' %}">
+<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
   Institutions
 </a>
-<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_id 'collections' %}">
+<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
   Collections
 </a>
-<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_id %}">
+<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_slug %}">
 	Search
 </a>
 {% endblock %}
