@@ -70,6 +70,7 @@ def SOLR_select(**kwargs):
         cache.set(key, sc, 60*15)  # seconds
     return sc
 
+# [bt: is this still really used?]
 def process_media(item):
     if 'reference_image_md5' in item:
         item['reference_image_http'] = settings.THUMBNAIL_URL + 'clip/178x100/' + item['reference_image_md5']
@@ -556,7 +557,6 @@ def collectionsSearch(request):
     return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
 
 def collectionView(request, collection_id):
-    print('hello');
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
     collection_json = urllib2.urlopen(collection_url).read()
     collection_details = json.loads(collection_json)
@@ -569,8 +569,6 @@ def collectionView(request, collection_id):
     queryParams['filters']['collection_data'] = [collection['url'] + "::" + collection['name']]
 
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'collection_data')
-
-    print(queryParams)
 
     # perform the search
     solr_search = SOLR_select(
