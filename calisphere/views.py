@@ -132,7 +132,7 @@ def getCollectionData(collection_data=None, collection_id=None):
         else:
             collection['id'] = collection_api_url.group('url')
     elif collection_id:
-        collection['url'] = "https://registry.cdlib.org/api/v1/collection/" + collection_id
+        collection['url'] = "https://registry.cdlib.org/api/v1/collection/{0}/".format(collection_id)
         collection['id'] = collection_id
 
         collection_details = json.loads(urllib2.urlopen(collection['url'] + "?format=json").read())
@@ -193,7 +193,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
         repository['name'] = repository_details['name']
         if repository_details['campus']:
             repository['campus'] = repository_details['campus'][0]['name']
-        else: 
+        else:
             repository['campus'] = ''
     return repository
 
@@ -537,7 +537,7 @@ def collectionsAZ(request, collection_letter):
                 collections_list.append(collection_link)
             else:
                 break
-    else: 
+    else:
         for collection_link in solr_collections.parsed:
             # TODO - diregard punctuation in position [0] of string, ie, when first character is a parens
             if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
@@ -556,6 +556,7 @@ def collectionsSearch(request):
     return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
 
 def collectionView(request, collection_id):
+    print('hello');
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
     collection_json = urllib2.urlopen(collection_url).read()
     collection_details = json.loads(collection_json)
@@ -568,6 +569,8 @@ def collectionView(request, collection_id):
     queryParams['filters']['collection_data'] = [collection['url'] + "::" + collection['name']]
 
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'collection_data')
+
+    print(queryParams)
 
     # perform the search
     solr_search = SOLR_select(
@@ -746,7 +749,7 @@ def campusView(request, campus_slug, subnav=False):
     solr_search = SOLR_select(
         q=queryParams['query_terms'],
         rows=queryParams['rows'],
-        start=queryParams['start'], 
+        start=queryParams['start'],
         fq=fq,
         facet='true',
         facet_limit='-1',
@@ -894,7 +897,7 @@ def repositoryView(request, repository_id, collections=False):
             'contact_information': contact_information,
             'repository_id': repository_id,
             'form_action': reverse('calisphere:repositoryView', kwargs={'repository_id': repository_id})
-        })    
+        })
 
 def _fixid(id):
     return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)
