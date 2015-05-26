@@ -1,6 +1,5 @@
 
 <header class="global-header">
-
   <div class="row">
     <div class="col-xs-12 col-sm-4">
       <div class="row">
@@ -16,7 +15,7 @@
         </div>
       </div>
     </div>
-        
+
     <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
       <form class="global-header__search-form" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
         <label for="global-search__field" class="global-search__label">Search the collections</label>
@@ -29,18 +28,30 @@
         </div>
       </form>
     </div>
-    
+
     <div class="col-xs-12 col-sm-4 global-header__nav js-global-header__mobile-links">
       <ul class="global-header__nav-list">
-        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Collections</a></li>
-        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Contributing Institutions</a></li>
-        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">About</a></li>
-        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Contact</a></li>
-        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Help</a></li>
-        <li class="global-header__nav-list-item"><a class="global-header__nav-link" href="">Donate</a></li>
+        <li class="global-header__nav-list-item">
+          <a class="global-header__nav-link" href="{% url 'calisphere:collectionsDirectory' %}">Collections</a>
+        </li>
+        <li class="global-header__nav-list-item">
+          <a class="global-header__nav-link" href="{% url 'calisphere:campusDirectory' %}">Contributing Institutions</a>
+        </li>
+        <li class="global-header__nav-list-item">
+          <a class="global-header__nav-link" href="{% url 'calisphere:about' %}">About</a>
+        </li>
+        <li class="global-header__nav-list-item">
+          <a class="global-header__nav-link" href="{% url 'calisphere:contact' %}">Contact</a>
+        </li>
+        <li class="global-header__nav-list-item">
+          <a class="global-header__nav-link" href="{% url 'calisphere:help' %}">Help</a>
+        </li>
+        <!-- li class="global-header__nav-list-item">
+          <a class="global-header__nav-link" href="">Donate</a>
+        </li -->
       </ul>
     </div>
-    
+
   </div>
 
   <div class="global-header__bar">
