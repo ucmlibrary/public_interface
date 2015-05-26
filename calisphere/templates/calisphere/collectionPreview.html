@@ -1,30 +1,28 @@
-<div class="row collect-row__container">
+<a href="{% url 'calisphere:collectionView' collection.collection_id %}" class="row collect-row__container">
 	
 	<div class="col-xs-12 col-sm-4 collect-row__summary">
     <h3 class="collect-row__title">{{ collection.name }}</h3>
     <p>{{ collection.description }}</p>
+    <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
+    <p class="collect-row__item-number"><strong>{{ collection.numFound }} Items</strong></p>
   </div>
 
-  <div class="thumbview-collections">
-
-	  {% for item in collection.display_items %}
-
-		  <div class="col-xs-6 col-sm-2">
-		    <a class="thumbview__link" href="#">
-		    	<div class="thumbview__container" data-toggle="tooltip" title="{{ item.title.0 }}">
-		        <img class="thumbview__image" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" alt="">
-		        <div class="thumbview__caption">{{ item.title.0|truncatewords:8 }}
-		        </div>
-		    	</div>
-		    </a>
-		  </div>
-
-	  {% endfor %}
-
+  <div class="col-xs-12 col-sm-8">
+  	<div class="collect-row__mozaic">
+  		<div class="col-sm-6">
+	  		{% for item in collection.display_items %}
+		    	<img class="collect-row__image{{ forloop.counter }}" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" alt="">
+		    	{% if forloop.counter = 3 %}
+		    		</div>
+		    		<div class="col-sm-6">
+		    	{% endif %}
+      		{% endfor %}
+      		<div class="collect-row__button">
+        		<div class="aspect-ratio-content">
+          			View Collection
+        		</div>
+      		</div>
+    	</div>
+    </div>
   </div>
-
-  <div class="col-xs-12 col-sm-4 collect-row__button">
-    <a class="btn btn-default button__dark" href="{% url 'calisphere:collectionView' collection.collection_id %}">View Collection</a>
-  </div>
-
-</div>
+</a>

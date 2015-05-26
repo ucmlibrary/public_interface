@@ -9,10 +9,10 @@
 <div class="inst-textboxes">
 {% for campus in campuses %}
 	<div class="inst-textboxes__box">
-		<h3 class="inst-textboxes__box-heading"><a href="{% url 'calisphere:campusView' campus.1 %}">{{ campus.0 }}</a></h3>
+		<h3 class="inst-textboxes__box-heading"><a href="{% url 'calisphere:campusView' campus.slug %}">{{ campus.name }}</a></h3>
 		<ul class="inst-textboxes__list">
   {% for repository in repositories %}
-    {% if repository.campus == campus.0 %}
+    {% if repository.campus == campus.name %}
       <li class="inst-textboxes__list-item"><a class="inst-textboxes__link" href="{% url 'calisphere:repositoryView' repository.repository_id %}">{{ repository.name }}</a></li>
     {% endif %}
   {% endfor %}

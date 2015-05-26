@@ -12,15 +12,18 @@
 
   <div class="col-md-3">
     <div class="collection-intro__institution">
-      {{ repository }}
+      {{ repository.name }}<br>
+      {{ repository.campus.0.name }}<br>
+      Phone: {{ contact_information.phone }}<br>
+      Email: {{ contact_information.email }}<br>
+      Website: {{ contact_information.url }}<br>
     </div>
   </div>
 
   <div class="col-md-9">
     <div class="collection-intro__about">
       <h3 class="collection-intro__about-heading">About this Institution</h3>
-      <span class="collection-intro__about-description">{{ repository.description }} <br/>
-        {{ repository }}
+      <span class="collection-intro__about-description">{{ contact_information.description }} <br/>
       </span>
     </div>
   </div>
@@ -32,6 +35,11 @@
 {% block refineSearch %}
 
 <!-- Begin Search Collection Field -->
+
+<a class="btn btn-default button__back-to-institution" 
+  href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
+  Collections
+</a>
 
 <div class="search-collection">
   <label for="search-collection__field" class="search-collection__label">Search collection</label>

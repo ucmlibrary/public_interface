@@ -1,0 +1,31 @@
+{% extends "calisphere/campusView.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block sidebar %}
+<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
+  Institutions
+</a>
+<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
+  Collections
+</a>
+<a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:campusView' campus_slug %}">
+	Search
+</a>
+{% endblock %}
+
+{% block mainContent %}
+
+<div class="row">
+
+  <div class="col-xs-12 col-sm-11">
+
+		{% for institution in institutions %}
+		  <a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:repositoryView' institution.id %}">{{ institution.name }}</a>
+		{% endfor %}
+
+	</div>
+
+</div>
+
+{% endblock %}
