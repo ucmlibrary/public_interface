@@ -9,49 +9,26 @@
 
 }
 
-.institution-intro__institution {
-  
-  @include bp(sm-screen) {
-    margin: $layout-container-margin-sm;
-  }
-
+.institution-logo {
+  margin: $layout-component-margin;
 }
 
-.institution-intro__institution-heading-link {
-  
-}
-
-.institution-intro__institution-heading {
-  margin: 0;
+.institution-intro__heading {
+  margin: $layout-component-margin 0 0 0;
   font-size: 1em;
   font-weight: bold;
 }
 
-.institution-intro__about {
-  margin: $layout-container-margin-sm 0;
-
-  @include bp(sm-screen) {
-    margin: 0 $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm;
-  }
-
-  @include bp(md-screen) {
-    margin: $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-md;
-  }
-
+.institutional-intro__list {
+  margin: 1em 0 0 0;
+  padding: 0;
 }
 
-.institution-intro__about-heading {
-  margin: 0;
-  font-size: 1em;
-  font-weight: bold;
+.institutional-intro__list-item {
+  list-style: none;
 }
 
-.institution-intro__about-description {
-  display: block;
-  margin: 0 0 1em 0;
-}
-
-.institution-intro__about-link {
+.institution-intro__web-link {
   display: block;
   @extend .icon__external-link;
 }
