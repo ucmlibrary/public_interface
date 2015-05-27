@@ -1,0 +1,43 @@
+// ##### Institution Intro Component ##### //
+
+.institution-intro {
+  
+  @include bp(sm-screen) {
+    border: 1px solid $design-dark-gray-color;
+    overflow: hidden;
+  }
+
+}
+
+.institution-logo {
+  margin: $layout-component-margin;
+}
+
+.institution-intro__heading {
+  margin: $layout-component-margin 0 0 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.institutional-intro__list {
+  margin: 1em 0;
+  padding: 0;
+}
+
+.institutional-intro__list-item {
+  list-style: none;
+}
+
+.institution-intro__web-link {
+  display: block;
+  @extend .icon__external-link;
+}
+
+.institutional-intro__description {
+  margin: $layout-component-margin $layout-component-margin 0 0;
+}
+
+.institutional-intro__description-link {
+  display: block;
+  margin: 1em 0 $layout-component-margin 0;
+}

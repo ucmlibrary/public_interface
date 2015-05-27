@@ -1,6 +1,6 @@
-// ##### Collections Intro ##### //
+// ##### Institutions Intro Component ##### //
 
-.inst-intro__overview {
+.institutions-intro__overview {
   margin: 0 0 $layout-component-margin 0;
 
   @include bp(sm-screen) {
@@ -10,7 +10,7 @@
 
 }
 
-.inst-intro__description {
+.institutions-intro__description {
   margin: 0 0 $layout-component-margin 0;
   
   @include bp(sm-screen) {
@@ -20,11 +20,11 @@
 
 }
 
-.inst-intro__text {
+.institutions-intro__text {
   margin: 0;
 }
 
-.inst-intro__button-uc {
+.institutions-intro__button-uc {
   float: right;
   width: 97%; // hack for now
   margin: 0 6px 0 6px;
@@ -35,7 +35,7 @@
 
 }
 
-.inst-intro__button-state {
+.institutions-intro__button-state {
   width: 97%; // hack for now
   margin: 0 7px 0 7px;
 
