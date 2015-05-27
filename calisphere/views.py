@@ -214,6 +214,7 @@ def facetQuery(facet_fields, queryParams, solr_search):
                 rows='0',
                 fq=solrize_filters(other_filters),
                 facet='true',
+                facet_mincount=1,
                 facet_limit='-1',
                 facet_field=[facet_type]
             )
@@ -323,6 +324,7 @@ def search(request):
             start=queryParams['start'],
             fq=solrize_filters(queryParams['filters']),
             facet='true',
+            facet_mincount=1,
             facet_limit='-1',
             facet_field=facet_fields
         )
@@ -443,6 +445,7 @@ def relatedCollections(request, queryParams={}):
         rows='0',
         fq=solrize_filters(related_collections_filters),
         facet='true',
+        facet_mincount=1,
         facet_limit='-1',
         facet_field=['collection_data']
     )
@@ -577,6 +580,7 @@ def collectionView(request, collection_id):
         start=queryParams['start'],
         fq=solrize_filters(queryParams['filters']),
         facet='true',
+        facet_mincount=1,
         facet_limit='-1',
         facet_field=facet_fields
     )
@@ -619,7 +623,7 @@ def collectionView(request, collection_id):
     })
 
 def campusDirectory(request):
-    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
+    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_mincount=1, facet_field=['repository_data'], facet_limit='-1')
     solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
 
     repositories = []
@@ -640,7 +644,7 @@ def campusDirectory(request):
         'campuses': CAMPUS_LIST})
 
 def statewideDirectory(request):
-    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_field=['repository_data'], facet_limit='-1')
+    repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_mincount=1, facet_field=['repository_data'], facet_limit='-1')
     solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
 
     repositories = []
@@ -694,6 +698,7 @@ def campusView(request, campus_slug, subnav=False):
             start=0,
             fq=campus_fq,
             facet='true',
+            facet_mincount=1,
             facet_limit='-1',
             facet_field = ['collection_data', 'repository_data']
         )
@@ -719,6 +724,7 @@ def campusView(request, campus_slug, subnav=False):
             start=0,
             fq=campus_fq,
             facet='true',
+            facet_mincount=1,
             facet_limit='-1',
             facet_field = ['collection_data', 'repository_data']
         )
@@ -750,6 +756,7 @@ def campusView(request, campus_slug, subnav=False):
         start=queryParams['start'],
         fq=fq,
         facet='true',
+        facet_mincount=1,
         facet_limit='-1',
         facet_field=facet_fields
     )
@@ -825,6 +832,7 @@ def repositoryView(request, repository_id, collections=False):
             start=0,
             fq=collections_fq,
             facet='true',
+            facet_mincount=1,
             facet_limit='-1',
             facet_field = ['collection_data', 'repository_data']
         )
@@ -854,6 +862,7 @@ def repositoryView(request, repository_id, collections=False):
             start=queryParams['start'],
             fq=solrize_filters(queryParams['filters']),
             facet='true',
+            facet_mincount=1,
             facet_limit='-1',
             facet_field=facet_fields
         )
