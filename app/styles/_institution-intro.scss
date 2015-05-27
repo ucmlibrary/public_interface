@@ -20,7 +20,7 @@
 }
 
 .institutional-intro__list {
-  margin: 1em 0 0 0;
+  margin: 1em 0;
   padding: 0;
 }
 
@@ -31,4 +31,13 @@
 .institution-intro__web-link {
   display: block;
   @extend .icon__external-link;
+}
+
+.institutional-intro__description {
+  margin: $layout-component-margin $layout-component-margin 0 0;
+}
+
+.institutional-intro__description-link {
+  display: block;
+  margin: 1em 0 $layout-component-margin 0;
 }
