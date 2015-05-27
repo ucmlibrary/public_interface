@@ -219,6 +219,14 @@
 
 }
 
+.institution-intro {
+  
+  @include bp(sm-screen) {
+    margin: 0 0 $layout-component-margin 0;
+  }
+  
+}
+
 .global-footer {
  margin: 0 (-$layout-container-margin-xs);
 
