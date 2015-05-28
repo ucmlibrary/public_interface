@@ -154,6 +154,11 @@ FacetQuery.prototype.bindHandlers = function() {
     return false;
   });
   
+  $(document).on('click', '.js-clear-filters', function() {
+    $('.js-facet').prop('checked', false);
+    $('#js-facet').submit();
+  });
+  
   //***********REFINE QUERY*************//
   $(document).on('click', '.js-refine-filter-pill', function(that) {
     return function(event) {
