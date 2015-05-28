@@ -6,17 +6,22 @@ $design-primary-color: rgb(255, 110, 27); // dark orange
 $design-secondary-color: rgb(0, 119, 139); // teal blue
 $design-light-gray-color: rgb(229, 229, 229);
 $design-dark-gray-color: rgb(139, 141, 142);
+
 $header-logo-xs-width: 200px;
 $header-logo-xs-height: 60px;
 $header-logo-md-width: 284px;
 $header-logo-md-height: 82px;
+
 $layout-component-margin: 20px;
 $layout-container-margin-xs: 10px;
 $layout-container-margin-sm: 10px;
 $layout-container-margin-md: 20px;
 $layout-box-padding: 10px;
+
 $listview-text-line-height: 1.5em;
+
 $object-leftright-margin: 80px;
+
 $print-sm-min: 5in;
 $print-md-min: 7.5in;
 $print-lg-min: $print-md-min;
@@ -24,18 +29,34 @@ $print-lg-min: $print-md-min;
 // ***** Bootstrap Variables ***** //
 
 $text-color: #000;
+
 $link-color: $design-primary-color;
+
 $font-family-sans-serif:  KievitWeb, Arial, sans-serif !default;
+
+$font-size-base: 14px;
+$font-size-h1: floor(($font-size-base * 2.2));
+$font-size-h2: floor(($font-size-base * 1.8));
+$font-size-h3: ceil(($font-size-base * 1.4));
+$font-size-h4: ceil(($font-size-base * 1.25));
+$font-size-h5: $font-size-base;
+$font-size-h6: ceil(($font-size-base * 0.85));
+
 $btn-default-border: $design-dark-gray-color;
+
 $input-border: $design-dark-gray-color;
 $input-border-focus: $design-primary-color;
+
 $grid-gutter-width: 0;
+
 $screen-sm-min: 650px;
 $screen-md-min: 900px;
 $screen-lg-min: 1200px;
+
 $container-sm: $screen-sm-min;
 $container-md: $screen-md-min;
 $container-lg: $screen-lg-min;
+
 $tooltip-color: #000;
 $tooltip-bg: $design-light-gray-color;
 $tooltip-opacity: 1;
