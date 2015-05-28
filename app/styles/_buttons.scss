@@ -73,3 +73,19 @@
   clear: right; // clear filter buttons in .col-md-9
   text-align: left;
 }
+
+.button__collections {
+  @extend .button__secondary;
+  display: block;
+  margin: 0 0 $layout-component-margin 0;
+  text-align: left;
+}
+
+.button__collections:after {
+  position: absolute;
+  top: 0.2em;
+  right: 20px;
+  font-family: FontAwesome;
+  font-size: 1.4em;
+  content: "\f105"; // 'fa-angle-right' Fontawesome icon
+}
