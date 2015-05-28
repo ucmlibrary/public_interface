@@ -177,14 +177,16 @@ FacetQuery.prototype.bindHandlers = function() {
   
   // ***********PAGINATION**********
   
-  $(document).on('click', '#view16', function() {
-    $('#rows').prop('value', '16'); 
-    $('#js-facet').submit();
-  });
-  
-  $(document).on('click', '#view50', function() {
-    $('#rows').prop('value', '50'); 
-    $('#js-facet').submit();
+  $(document).on('change', '#pag-dropdown__view', function(event) {
+    console.log();
+    if ($("#pag-dropdown__view option:selected").attr('id') == 'view16') {
+      $('#rows').prop('value', '16')
+      $('#js-facet').submit();
+    }
+    else if ($("#pag-dropdown__view option:selected").attr('id') == 'view50') {
+      $('#rows').prop('value', '50')
+      $('#js-facet').submit();
+    }
   });
   
   $(document).on('click', '#prev', function(that) {
