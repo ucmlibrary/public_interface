@@ -227,6 +227,22 @@
   
 }
 
+.institution-list {
+  
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-component-margin;
+  }
+  
+}
+
+.text__institution-main-heading {
+  
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-component-margin;
+  }
+
+}
+
 .mozaic-row--inst-non-uc {
 
   @include bp(sm-screen) {
