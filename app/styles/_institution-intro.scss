@@ -10,7 +10,9 @@
 }
 
 .institution-logo {
-  margin: $layout-component-margin;
+  max-width: 100%; // default img width is 250px
+  height: auto;
+  padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 }
 
 .institution-intro__heading {
