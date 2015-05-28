@@ -227,6 +227,14 @@
   
 }
 
+.mozaic-row--inst-non-uc {
+
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-component-margin;
+  }
+
+}
+
 .global-footer {
  margin: 0 (-$layout-container-margin-xs);
 
