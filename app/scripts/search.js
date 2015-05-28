@@ -42,12 +42,31 @@ FacetQuery.prototype.cleanForm = function() {
   if ($('input[form="js-facet"][name="rc_page"]').val() == '0') { $('input[form="js-facet"][name="rc_page"]').attr('name', ''); }
 }
 
+FacetQuery.prototype.selectDeselectAll = function() {
+  var facetTypes = $('.check');
+  for(var i=0; i<facetTypes.length; i++) {
+    var allSelected = !($($(facetTypes[i]).find('.js-facet')).is(':not(:checked)'));
+    if (allSelected == true) {
+      $(facetTypes[i]).find('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
+      $(facetTypes[i]).find('.js-a-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
+      $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
+      $(facetTypes[i]).find('.js-a-check__update').prop('disabled', false);
+    }
+  }
+}
+
 FacetQuery.prototype.bindHandlers = function() {
   $(document).on('submit', "#js-searchForm", function(that) {
     return function(event) {
       that.query = $('input[name="q"]').val();
       that.saveValuesToSession();
       $.pjax.submit(event, that.resultsContainer);
+    }
+  }(this));
+  
+  $(document).on('pjax:success', this.resultsContainer, function(that) {
+    return function(event) {
+      that.selectDeselectAll();
     }
   }(this));
   
@@ -123,16 +142,16 @@ FacetQuery.prototype.bindHandlers = function() {
     }
   }(this));
   
-  // TODO: NEEDS REWORKING WITH JOEL'S WORK
-  $(document).on('click', '#deselect-facets', function() {
-    $('.js-facet').prop('checked', false);
+  $(document).on('click', '.js-a-check__link-deselect-all', function() {
+    $(this).parents('.check').find('.js-facet').prop('checked', false);
     $('#js-facet').submit();
+    return false;
   });
-  // TODO: NEEDS REWORKING WITH JOEL'S WORK
-  $(document).on('click', '.select-facets', function() {
-    // $('.facet-{{ facet_type }}').prop('checked', true); 
-    $(this).parents('.facet-type').find('.js-facet').prop('checked', true);
+  
+  $(document).on('click', '.js-a-check__link-select-all', function() {
+    $(this).parents('.check').find('.js-facet').prop('checked', true);
     $('#js-facet').submit();
+    return false;
   });
   
   //***********REFINE QUERY*************//
@@ -322,4 +341,5 @@ FacetQuery.prototype.getValuesFromDom = function() {
 
 $(document).ready(function() {
   var query = new FacetQuery();
+  query.selectDeselectAll();
 });
