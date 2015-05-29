@@ -15,7 +15,6 @@
   
   @include bp(sm-screen) {
     padding-left: $layout-component-margin / 2;
-    font-size: 1.2em;
   }
 
 }
@@ -30,9 +29,4 @@
 
 .institutions-intro__button-state {
   padding: 0 0 0 10px;
-
-  @include bp(md-screen) {
-    padding: 0 7px 0 10px;
-  }
-
 }

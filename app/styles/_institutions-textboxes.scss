@@ -4,23 +4,22 @@
 
 	@include bp(sm-screen) {
     column-count: 2;
+    column-gap: $layout-container-margin-md * 2;
+    column-rule: 1px solid $design-dark-gray-color;
   }
   
 }
 
 .inst-textboxes__box {
 	break-inside: avoid;
-	margin: 0 0 10px 0;
-	padding: $layout-component-margin;
-  border-radius: 5px;
-  background: $design-light-gray-color;
+	margin: 0 0 $layout-container-margin-md 0;
 }
 
 .inst-textboxes__box-heading {
   margin: 0;
   font-size: 1em;
   font-weight: bold;
-  -webkit-font-smoothing: antialiased; // small fonts in Chrome on iOS don't appear bold without this
+  -webkit-font-smoothing: antialiased; // small fonts in Chrome on OS X don't appear bold without this
 }
 
 .inst-textboxes__list {
