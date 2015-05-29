@@ -1,5 +1,17 @@
 // ##### Collections - Themed Component ##### //
 
 .themed {
-  
+
+}
+
+.themed__triangle {
+  position: relative;
+  left: 87%;
+}
+
+.themed__subnav {
+  display: flex;
+  justify-content: space-around;
+  padding: $layout-component-margin 0;
+  border: 1px solid $design-primary-color;
 }
