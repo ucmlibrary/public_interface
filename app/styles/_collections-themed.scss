@@ -4,14 +4,60 @@
 
 }
 
-.themed__triangle {
-  position: relative;
-  left: 87%;
-}
-
 .themed__subnav {
   display: flex;
   justify-content: space-around;
   padding: $layout-component-margin 0;
   border: 1px solid $design-primary-color;
+}
+
+.themed__triangle { // inspired by: http://output.jsbin.com/maqimaqozi/1/edit?html,css,output
+  position: relative;
+  left: 85%;
+  width: 80px;
+  height: $layout-component-margin;
+}
+
+.themed__triangle:before, .themed__triangle:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-top: 0;
+}
+
+/* stroke */
+.themed__triangle:before {
+  bottom: -1px;
+  left: 21px;
+  border-bottom-color: $design-primary-color;
+  border-width: 16px;
+}
+
+/* fill */
+.themed__triangle:after {
+  bottom: -1px;
+  left: 22px;
+  border-bottom-color: #fff;
+  border-width: 15px;
+}
+
+.themed__hosted-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: $layout-component-margin 0 $layout-component-margin 0;
+  padding: $layout-component-margin;
+  color: #fff;
+  background: $design-primary-color;
+}
+
+.themed__hosted-button {
+  margin: 0 0 0 $layout-component-margin;
+}
+
+.themed__hosted-text {
+  font-size: 1.1em;
 }
