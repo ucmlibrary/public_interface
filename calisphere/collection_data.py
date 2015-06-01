@@ -10,7 +10,7 @@ import random
 class CollectionManager(object):
     
     def __init__(self, solr_url, solr_key):
-        url = '{0}?facet.field=collection_data&facet=on&rows=0&facet.limit=-1&facet.mincount=1'.format(
+        url = '{0}/query?facet.field=collection_data&facet=on&rows=0&facet.limit=-1&facet.mincount=1'.format(
             solr_url
         )
         req = urllib2.Request(url, None, { 'X-Authentication-Token': solr_key  })
