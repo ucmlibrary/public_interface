@@ -905,8 +905,10 @@ def repositoryView(request, repository_id, subnav=False):
     else:
         if 'campus' in repository and repository['campus']:
             collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '::' + repository['campus'] + '"']
+            campus_image = repository['campus']
         else:
             collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '"']
+            campus_image = False
 
         collections_solr_search = SOLR_select(
             q='',
@@ -930,7 +932,8 @@ def repositoryView(request, repository_id, subnav=False):
             'repository_id': repository_id,
             'collections': related_collections,
             'repository': repository_details,
-            'contact_information': contact_information
+            'contact_information': contact_information,
+            'campus_image': campus_image
         })
 
 def _fixid(id):
