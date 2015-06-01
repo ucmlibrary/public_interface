@@ -12,11 +12,6 @@ $collect-button-pos: 4em;
 
 .collect-row__summary {
   color: #000;
-
-  // @include bp(sm-screen) {
-  //   padding-bottom: $collect-button-pos;
-  // }
-
 }
 
 .collect-row__title {
@@ -75,7 +70,6 @@ $collect-button-pos: 4em;
   float: left;
   width: 32%;
   height: auto;
-  // border: $bred;
 }
 
 .collect-row__image6 {
@@ -84,14 +78,12 @@ $collect-button-pos: 4em;
   width: 32%;
   height: auto;
   margin: 0 2% 0 2%;
-  // border: $bblue;
 }
 
 .collect-row__image7 {
   float: left;
   width: 32%;
   height: auto;
-  // border: $bgreen;
 }
 
 // ***** End Image Mozaic ***** //
@@ -119,7 +111,3 @@ $collect-button-pos: 4em;
   }
 
 }
-
-// .collect-row__bottom-text {
-//   color: #000;
-// }
