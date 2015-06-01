@@ -10,6 +10,14 @@
 
 }
 
+.layout-col__3 {
+
+  @include bp(md-screen) {
+    padding: 0 0 0 $layout-component-margin;
+  }
+
+}
+
 .filter {
   margin: 0 0 $layout-component-margin 0;
 
@@ -84,12 +92,12 @@
 
   @include bp(md-screen) {
     float: right;
-    margin: $layout-component-margin 0 0 $layout-component-margin;
+    margin: $layout-component-margin 0 0 0;
   }
 
 }
 
-.text__collections-heading {
+.text__collections-heading { // fix reduntant styles from _text.scss
 
   margin: 0 (-$layout-container-margin-xs) $layout-container-margin-xs (-$layout-container-margin-xs);
   padding: 0.75em 0 0 $layout-container-margin-xs;
@@ -100,7 +108,7 @@
   }
 
   @include bp(md-screen) {
-    margin: 0 0 0 $layout-container-margin-md;
+    margin: 0;
   }
 
 }
@@ -147,10 +155,6 @@
     margin: 0 0 0 (-$layout-component-margin);
   }
 
-  @include bp(md-screen) {
-    margin: 0 0 $layout-component-margin 0;
-  }
-
 }
 
 .listview {
@@ -169,7 +173,7 @@
   }
 
   @include bp(md-screen) {
-    margin: $layout-component-margin 0 0 $layout-component-margin;
+    margin: $layout-component-margin 0 0 0;
   }
   
 }
@@ -225,6 +229,18 @@
     margin: 0 0 $layout-component-margin 0;
   }
   
+}
+
+.text__institutions-heading1 {
+  
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0;
+  }
+
+}
+
+.text__institution-heading2 {
+  margin: 0 0 $layout-component-margin 0;
 }
 
 .global-footer {

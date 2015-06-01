@@ -1,0 +1,18 @@
+// ##### Static Page Styles ##### //
+
+.static__main {
+
+	@include bp(sm-screen) {
+    padding: 0 $layout-component-margin 0 0;
+  }
+
+}
+
+.static__sidebar {
+	padding: $layout-component-margin;
+	border: 1px solid $design-dark-gray-color;
+}
+
+.static__sidebar-heading {
+	margin: 0 0 $layout-component-margin 0;
+}

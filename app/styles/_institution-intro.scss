@@ -10,17 +10,19 @@
 }
 
 .institution-logo {
-  margin: $layout-component-margin;
+  max-width: 100%; // default img width is 250px
+  height: auto;
+  padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 }
 
 .institution-intro__heading {
-  margin: $layout-component-margin 0 0 0;
+  margin: $layout-component-margin 0 0 $layout-component-margin;
   font-size: 1em;
   font-weight: bold;
 }
 
 .institutional-intro__list {
-  margin: 1em 0;
+  margin: $layout-component-margin 0 1em $layout-component-margin;
   padding: 0;
 }
 
@@ -34,10 +36,10 @@
 }
 
 .institutional-intro__description {
-  margin: $layout-component-margin $layout-component-margin 0 0;
+  margin: $layout-component-margin $layout-component-margin 0 $layout-component-margin;
 }
 
 .institutional-intro__description-link {
   display: block;
-  margin: 1em 0 $layout-component-margin 0;
+  margin: 1em 0 $layout-component-margin $layout-component-margin;
 }

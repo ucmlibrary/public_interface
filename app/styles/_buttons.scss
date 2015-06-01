@@ -73,3 +73,24 @@
   clear: right; // clear filter buttons in .col-md-9
   text-align: left;
 }
+
+.button__institution-tabs {
+  position: relative; // allows absolute positioning of Fontawesome icon for eac tab below
+}
+
+.button__institution-tab {
+  
+  display: block;
+  margin: 0 0 $layout-component-margin 0;
+  text-align: left;
+
+  &:after {
+    position: absolute;
+    top: 0.2em;
+    right: 20px;
+    font-family: FontAwesome;
+    font-size: 1.4em;
+    content: "\f105"; // 'fa-angle-right' Fontawesome icon
+  }
+
+}

@@ -15,7 +15,6 @@
   
   @include bp(sm-screen) {
     padding-left: $layout-component-margin / 2;
-    font-size: 1.2em;
   }
 
 }
@@ -25,22 +24,9 @@
 }
 
 .institutions-intro__button-uc {
-  float: right;
-  width: 97%; // hack for now
-  margin: 0 6px 0 6px;
-
-  @include bp(sm-screen) {
-    width: 50%;
-  }
-
+  padding: 0 10px 0 0;
 }
 
 .institutions-intro__button-state {
-  width: 97%; // hack for now
-  margin: 0 7px 0 7px;
-
-  @include bp(sm-screen) {
-    width: 50%;
-  }
-
+  padding: 0 0 0 10px;
 }
