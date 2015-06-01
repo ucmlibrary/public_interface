@@ -9,14 +9,17 @@
 {% block additionalInfo %}
 
 <div class="collection-intro">
-
+  {% if campus_image %}
+    <!-- <a href="{% url 'calisphere:campusView' repository.campus.0.slug 'collections' %}">{{ repository.campus.0.name }}</a><br> -->
+  {% endif %}
+  
   <div class="col-md-3">
     <div class="collection-intro__institution">
       {{ repository.name }}<br>
-      {{ repository.campus.0.name }}<br>
+      {{ contact_information.city }}, CA<br><br>
       Phone: {{ contact_information.phone }}<br>
       Email: {{ contact_information.email }}<br>
-      Website: {{ contact_information.url }}<br>
+      Website: <a href="{{ contact_information.url }}" target="_blank">{{ contact_information.url }}</a><br>
     </div>
   </div>
 
