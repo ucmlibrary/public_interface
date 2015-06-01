@@ -109,6 +109,19 @@ def solrize_filters(filters):
 
     return fq
 
+def solrize_sort(sort):
+    return 'score desc'
+    # if sort == 'relevance':
+    #     return 'score desc'
+    # if sort == 'a':
+    #     return 'title_s desc'
+    # if sort == 'z':
+    #     return 'title_s asc'
+    # if sort == 'oldest':
+    #     return 'facet_decade_s asc'
+    # if sort == 'newest':
+    #     return 'facet_decade_s desc'
+
 def process_facets(facets, filters):
     display_facets = dict((facet, count) for facet, count in facets.iteritems() if count != 0)
     display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(1), reverse=True)
@@ -238,6 +251,7 @@ def processQueryRequest(request):
     query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '16'
     start = request.GET['start'] if 'start' in request.GET else '0'
+    sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'
     view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
     rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
 
@@ -262,6 +276,7 @@ def processQueryRequest(request):
         'query_terms': query_terms,
         'rows': rows,
         'start': start,
+        'sort': sort,
         'view_format': view_format,
         'filters': filters,
         'rc_page': rc_page
@@ -322,6 +337,7 @@ def search(request):
             q=queryParams['query_terms'],
             rows=queryParams['rows'],
             start=queryParams['start'],
+            sort=solrize_sort(queryParams['sort']),
             fq=solrize_filters(queryParams['filters']),
             facet='true',
             facet_mincount=1,
@@ -365,6 +381,7 @@ def search(request):
             'filters': filter_display,
             'rows': queryParams['rows'],
             'start': queryParams['start'],
+            'sort': queryParams['sort'],
             'search_results': solr_search.results,
             'facets': facets,
             'FACET_TYPES': FACET_TYPES,
@@ -578,6 +595,7 @@ def collectionView(request, collection_id):
         q=queryParams['query_terms'],
         rows=queryParams['rows'],
         start=queryParams['start'],
+        sort=solrize_sort(queryParams['sort']),
         fq=solrize_filters(queryParams['filters']),
         facet='true',
         facet_mincount=1,
@@ -612,6 +630,7 @@ def collectionView(request, collection_id):
         'filters': filter_display,
         'rows': queryParams['rows'],
         'start': queryParams['start'],
+        'sort': queryParams['sort'],
         'search_results': solr_search.results,
         'facets': facets,
         'FACET_TYPES': list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'collection_data'),
@@ -685,7 +704,7 @@ def campusView(request, campus_slug, subnav=False):
     campus_url = 'https://registry.cdlib.org/api/v1/campus/' + campus_id + '/'
     campus_json = urllib2.urlopen(campus_url + "?format=json").read()
     campus_details = json.loads(campus_json)
-
+    
     contact_information = json.loads(
         urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + campus_details['ark']).read())
 
@@ -754,6 +773,7 @@ def campusView(request, campus_slug, subnav=False):
         q=queryParams['query_terms'],
         rows=queryParams['rows'],
         start=queryParams['start'],
+        sort=solrize_sort(queryParams['sort']),
         fq=fq,
         facet='true',
         facet_mincount=1,
@@ -795,6 +815,7 @@ def campusView(request, campus_slug, subnav=False):
         'filters': filter_display,
         'rows': queryParams['rows'],
         'start': queryParams['start'],
+        'sort': queryParams['sort'],
         'search_results': solr_search.results,
         'facets': facets,
         'FACET_TYPES': list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES),
@@ -807,12 +828,15 @@ def campusView(request, campus_slug, subnav=False):
         'campus_slug': campus_slug
     })
 
-def repositoryView(request, repository_id, collections=False):
+def repositoryView(request, repository_id, subnav=False):
     repository_json = urllib2.urlopen('https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json').read()
     repository_details = json.loads(repository_json)
 
-    contact_information = json.loads(
-        urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + repository_details['ark']).read())
+    if 'ark' in repository_details and repository_details['ark'] != '':
+        contact_information = json.loads(
+            urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + repository_details['ark']).read())
+    else:
+        contact_information = ''
 
     queryParams = processQueryRequest(request)
     repository = getRepositoryData(repository_id=repository_id)
@@ -820,38 +844,7 @@ def repositoryView(request, repository_id, collections=False):
     if 'campus' in repository and repository['campus']:
         queryParams['filters']['repository_data'][0] = queryParams['filters']['repository_data'][0] + "::" + repository['campus']
 
-    if collections == 'collections':
-        if 'campus' in repository and repository['campus']:
-            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '::' + repository['campus'] + '"']
-        else:
-            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '"']
-
-        collections_solr_search = SOLR_select(
-            q='',
-            rows=0,
-            start=0,
-            fq=collections_fq,
-            facet='true',
-            facet_mincount=1,
-            facet_limit='-1',
-            facet_field = ['collection_data', 'repository_data']
-        )
-
-        related_collections = list(collection[0] for collection in process_facets(collections_solr_search.facet_counts['facet_fields']['collection_data'], []))
-
-        for i, related_collection in enumerate(related_collections):
-            collection_data = getCollectionData(collection_data=related_collection)
-
-            related_collections[i] = getCollectionMosaic(collection_data['url'])
-
-        return render(request, 'calisphere/repositoryCollectionsView.html', {
-            'repository_id': repository_id,
-            'collections': related_collections,
-            'repository': repository_details,
-            'contact_information': contact_information
-        })
-
-    else:
+    if 'subnav' == 'items':
         # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
 
@@ -860,6 +853,7 @@ def repositoryView(request, repository_id, collections=False):
             q=queryParams['query_terms'],
             rows=queryParams['rows'],
             start=queryParams['start'],
+            sort=solrize_sort(queryParams['sort']),
             fq=solrize_filters(queryParams['filters']),
             facet='true',
             facet_mincount=1,
@@ -894,6 +888,7 @@ def repositoryView(request, repository_id, collections=False):
             'filters': filter_display,
             'rows': queryParams['rows'],
             'start': queryParams['start'],
+            'sort': queryParams['sort'],
             'search_results': solr_search.results,
             'facets': facets,
             'FACET_TYPES': list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'repository_data'),
@@ -904,6 +899,37 @@ def repositoryView(request, repository_id, collections=False):
             'contact_information': contact_information,
             'repository_id': repository_id,
             'form_action': reverse('calisphere:repositoryView', kwargs={'repository_id': repository_id})
+        })
+    
+    else:
+        if 'campus' in repository and repository['campus']:
+            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '::' + repository['campus'] + '"']
+        else:
+            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '"']
+
+        collections_solr_search = SOLR_select(
+            q='',
+            rows=0,
+            start=0,
+            fq=collections_fq,
+            facet='true',
+            facet_mincount=1,
+            facet_limit='-1',
+            facet_field = ['collection_data', 'repository_data']
+        )
+
+        related_collections = list(collection[0] for collection in process_facets(collections_solr_search.facet_counts['facet_fields']['collection_data'], []))
+
+        for i, related_collection in enumerate(related_collections):
+            collection_data = getCollectionData(collection_data=related_collection)
+
+            related_collections[i] = getCollectionMosaic(collection_data['url'])
+
+        return render(request, 'calisphere/repositoryCollectionsView.html', {
+            'repository_id': repository_id,
+            'collections': related_collections,
+            'repository': repository_details,
+            'contact_information': contact_information
         })
 
 def _fixid(id):

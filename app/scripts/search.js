@@ -40,6 +40,7 @@ FacetQuery.prototype.cleanForm = function() {
   if ($('select[form="js-facet"][name="start"]').val() == '0') { $('select[form="js-facet"][name="start"]').attr('name', ''); }
   if ($('input[form="js-facet"][name="view_format"]').val() == 'thumbnails') { $('input[form="js-facet"][name="view_format"]').attr('name', ''); }
   if ($('input[form="js-facet"][name="rc_page"]').val() == '0') { $('input[form="js-facet"][name="rc_page"]').attr('name', ''); }
+  if ($('input[form="js-facet"][name="sort"]').val() == 'relevance') { $('input[form="js-facet"][name="sort"]').attr('name', ''); }
 }
 
 FacetQuery.prototype.selectDeselectAll = function() {
@@ -95,6 +96,7 @@ FacetQuery.prototype.bindHandlers = function() {
       } else {
         data_params['start'] = that.queryStart;
       }
+      data_params['sort'] = that.querySort;
       
       for (var i in that.filters) {
         data_params[i] = that.filters[i];
@@ -178,7 +180,6 @@ FacetQuery.prototype.bindHandlers = function() {
   // ***********PAGINATION**********
   
   $(document).on('change', '#pag-dropdown__view', function(event) {
-    console.log();
     if ($("#pag-dropdown__view option:selected").attr('id') == 'view16') {
       $('#rows').prop('value', '16')
       $('#js-facet').submit();
@@ -237,6 +238,15 @@ FacetQuery.prototype.bindHandlers = function() {
     $('#js-facet').submit();
   });
   
+  // *************RELEVANCE********************
+  
+  $(document).on('change', '#pag-dropdown__sort', function(that){
+    return function(event) {
+      that.querySort = $(this).val();
+      $('#js-facet').submit();
+    }
+  }(this));
+  
   // ******RELATED COLLECTION PAGINATION*******
   
   $(document).on('click', '.js-rc-page', function(that) {
@@ -289,6 +299,9 @@ FacetQuery.prototype.saveValuesToSession = function() {
   if (this.queryStart !== undefined) {
     sessionStorage.setItem('queryStart', this.queryStart);
   }
+  if (this.querySort !== undefined) {
+    sessionStorage.setItem('querySort', this.querySort);
+  }
   if (this.refineQuery.length !== 0) {
     sessionStorage.setItem('refineQuery', JSON.stringify(this.refineQuery));
   }
@@ -303,6 +316,9 @@ FacetQuery.prototype.getValuesFromSession = function() {
     if (sessionStorage.getItem('queryStart') !== null) {
       this.queryStart = sessionStorage.getItem('queryStart');
     }
+    if (sessionStorage.getItem('querySort') !== null) {
+      this.querySort = sessionStorage.getItem('querySort');
+    }
     if (sessionStorage.getItem('refineQuery') !== null) {
       this.refineQuery = JSON.parse(sessionStorage.getItem('refineQuery'));
     }
@@ -315,6 +331,7 @@ FacetQuery.prototype.getValuesFromSession = function() {
 FacetQuery.prototype.getValuesFromDom = function() {
   this.query = $("[form='js-facet'][name='q']").val();
   this.queryStart = $("[form='js-facet'][name='start']").val();
+  this.querySort = $("[form='js-facet'][name='sort']").val();
   
   var refineQueries = $("[form='js-facet'][name='rq']");
   for (var i=0; i<refineQueries.length; i++) {
