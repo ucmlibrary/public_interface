@@ -89,7 +89,7 @@
   clear: left;
   width: 32%;
   height: auto;
-  margin: 0 2% 0 2%;
+  margin: 0 0 0 2%;
 }
 
 .collect-row__image7 {
@@ -104,6 +104,7 @@
   @include aspect-ratio(1, 1);
   float: left;
   width: 32%;
+  margin: 0 0 0 2%;
   font-size: 0.9em;
   text-align: center;
   color: #000;
