@@ -70,16 +70,6 @@ def SOLR_select(**kwargs):
         cache.set(key, sc, 60*15)  # seconds
     return sc
 
-# [bt: is this still really used?]
-def process_media(item):
-    if 'reference_image_md5' in item:
-        item['reference_image_http'] = settings.THUMBNAIL_URL + 'clip/178x100/' + item['reference_image_md5']
-    elif 'url_item' in item:
-        item['reference_image_http'] = "http://www.calisphere.universityofcalifornia.edu/images/misc/no_image1.gif"
-    else:
-        item['reference_image_http'] = ""
-
-    item['href'] = '/itemView/{0}/'.format( item['id'] )
 
 # concat query with 'AND'
 def concat_query(q, rq):
@@ -173,9 +163,6 @@ def getCollectionMosaic(collection_url):
         start=0,
         fq=['collection_url: \"' + collection_url + '\"']
     )
-
-    for item in display_items.results:
-        process_media(item)
 
     return {
         'name': collection_details['name'],
@@ -291,9 +278,6 @@ def itemView(request, item_id=''):
     if not item_solr_search.numFound:
         raise Http404("{0} does not exist".format(item_id))
 
-    for item in item_solr_search.results:
-        process_media(item)
-
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
@@ -347,8 +331,6 @@ def search(request):
 
         # TODO: create a no results found page
         if len(solr_search.results) == 0: print 'no results found'
-
-        for item in solr_search.results: process_media(item)
 
         # get facet counts
         facets = facetQuery(facet_fields, queryParams, solr_search)
@@ -426,9 +408,6 @@ def itemViewCarousel(request, queryParams={}):
     if len(carousel_solr_search.results) == 0:
         print 'no results found'
 
-    for item in carousel_solr_search.results:
-        process_media(item)
-
     if ajaxRequest:
         return render(request, 'calisphere/carousel.html', {
             'q': queryParams['q'],
@@ -487,19 +466,6 @@ def relatedCollections(request, queryParams={}):
                     collection = collection_solr_search.results[0]['collection_data'][0]
 
                     collection_data = {'image_urls': []}
-                    for item in collection_solr_search.results:
-                        process_media(item)
-                        if 'reference_image_md5' in item:
-                            collection_data['image_urls'].append({
-                                'title': item['title'],
-                                'reference_image_http': item['reference_image_http'],
-                                'reference_image_md5': item['reference_image_md5']
-                            })
-                        else:
-                            collection_data['image_urls'].append({
-                                'title': item['title'],
-                                'reference_image_http': item['reference_image_http']
-                            })
                     collection_url = ''.join([
                         collection.rsplit('::')[0],
                         '?format=json'
@@ -602,9 +568,6 @@ def collectionView(request, collection_id):
         facet_limit='-1',
         facet_field=facet_fields
     )
-
-    for item in solr_search.results:
-        process_media(item)
 
     facets = facetQuery(facet_fields, queryParams, solr_search)
 
@@ -754,9 +717,6 @@ def campusView(request, campus_slug, subnav=False):
             facet_field=facet_fields
         )
 
-        for item in solr_search.results:
-            process_media(item)
-
         facets = facetQuery(facet_fields, queryParams, solr_search)
 
         for i, facet_item in enumerate(facets['collection_data']):
@@ -861,9 +821,6 @@ def repositoryView(request, repository_id, subnav=False):
             facet_limit='-1',
             facet_field=facet_fields
         )
-
-        for item in solr_search.results:
-            process_media(item)
 
         facets = facetQuery(facet_fields, queryParams, solr_search)
 
