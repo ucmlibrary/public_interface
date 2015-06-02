@@ -20,7 +20,7 @@
       <a class="btn btn-default btn-block {% if random %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsDirectory' %}">Random Explore</a>
     </div>
     <div class="col-xs-6 col-sm-3 collect-intro__buttons">
-      <a class="btn btn-default btn-block {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsAZ' 'a' %}">A - Z</a>
+      <a class="btn btn-default btn-block {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsAZ' 'num' %}">A - Z</a>
     </div>
     <div class="col-xs-6 col-sm-3 collect-intro__buttons">
       <a class="btn btn-default btn-block {% if collection_q %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsTitleSearch' %}">Title Search</a>
