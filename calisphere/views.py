@@ -4,12 +4,11 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from calisphere.collection_data import CollectionManager
 from constants import *
-from cache_retry import SOLR_select
+from cache_retry import SOLR_select, json_loads_url
 
 import operator
 import math
 import re
-import urllib2
 import copy
 import simplejson as json
 import string
@@ -82,12 +81,12 @@ def getCollectionData(collection_data=None, collection_id=None):
         collection['url'] = "https://registry.cdlib.org/api/v1/collection/{0}/".format(collection_id)
         collection['id'] = collection_id
 
-        collection_details = json.loads(urllib2.urlopen(collection['url'] + "?format=json").read())
+        collection_details = json_loads_url("{0}?format=json".format(collection['url']))
         collection['name'] = collection_details['name']
     return collection
 
 def getCollectionMosaic(collection_url):
-    collection_details = json.loads(urllib2.urlopen(collection_url + "?format=json").read())
+    collection_details = json_loads_url(collection_url + "?format=json")
 
     collection_repositories = []
     for repository in collection_details['repository']:
@@ -133,7 +132,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
         repository['url'] = "https://registry.cdlib.org/api/v1/repository/" + repository_id + "/"
         repository['id'] = repository_id
 
-        repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
+        repository_details = json_loads_url(repository['url'] + "?format=json")
         repository['name'] = repository_details['name']
         if repository_details['campus']:
             repository['campus'] = repository_details['campus'][0]['name']
@@ -413,8 +412,7 @@ def relatedCollections(request, queryParams={}):
                         collection.rsplit('::')[0],
                         '?format=json'
                     ])
-                    collection_json = urllib2.urlopen(collection_url).read()
-                    collection_details = json.loads(collection_json)
+                    collection_details = json_loads_url(collection_url)
 
                     collection_data['name'] = collection_details['name']
                     collection_data['resource_uri'] = collection_details['resource_uri']
@@ -487,8 +485,7 @@ def collectionsSearch(request):
 
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
-    collection_json = urllib2.urlopen(collection_url).read()
-    collection_details = json.loads(collection_json)
+    collection_details = json_loads_url(collection_url)
     for repository in collection_details['repository']:
         repository['resource_id'] = repository['resource_uri'].split('/')[-2]
 
@@ -608,11 +605,9 @@ def campusView(request, campus_slug, subnav=False):
         print "Campus registry ID not found"
 
     campus_url = 'https://registry.cdlib.org/api/v1/campus/' + campus_id + '/'
-    campus_json = urllib2.urlopen(campus_url + "?format=json").read()
-    campus_details = json.loads(campus_json)
+    campus_details = json_loads_url(campus_url + "?format=json")
     
-    contact_information = json.loads(
-        urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + campus_details['ark']).read())
+    contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + campus_details['ark'])
 
     if subnav == 'institutions':
         campus_fq = ['campus_url: "' + campus_url + '"']
@@ -733,12 +728,10 @@ def campusView(request, campus_slug, subnav=False):
 
 
 def repositoryView(request, repository_id, subnav=False):
-    repository_json = urllib2.urlopen('https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json').read()
-    repository_details = json.loads(repository_json)
+    repository_details = json_loads_url('https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json')
 
     if 'ark' in repository_details and repository_details['ark'] != '':
-        contact_information = json.loads(
-            urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + repository_details['ark']).read())
+        contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + repository_details['ark'])
     else:
         contact_information = ''
 
