@@ -4,8 +4,9 @@
     <h3 class="collect-row__title">{{ collection.name }}</h3>
     <p>{{ collection.description }}</p>
     <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
-    <p class="collect-row__item-number"><strong>{{ collection.numFound }} Items</strong></p>
   </div>
+
+  <p class="collect-row__item-number"><strong>{{ collection.numFound }} Items</strong></p>
 
   <div class="col-xs-12 col-sm-8">
   	<div class="collect-row__mozaic">

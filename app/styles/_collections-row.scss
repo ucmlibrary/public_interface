@@ -8,10 +8,12 @@
 
 .collect-row__link {
   clear: both;
+  position: relative; // relative to .collect-row__item-number
   display: block;
   margin: $layout-component-margin 0 0 0;
   padding: $layout-component-margin 0 0 0;
   border-top: 1px solid $design-dark-gray-color;
+  color: #000;
 }
 
 [class^="col-"] .collect-row__link:first-of-type {
@@ -21,6 +23,7 @@
 }
 
 .collect-row__summary {
+  margin: 0 0 $layout-component-margin 0;
   color: #000;
 }
 
@@ -30,7 +33,11 @@
 }
 
 .collect-row__item-number {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   margin: 0;
+  color: #000;
   -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }
 
