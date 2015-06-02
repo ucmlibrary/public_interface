@@ -9,7 +9,7 @@
   <p class="collect-row__item-number"><strong>{{ collection.numFound }} Items</strong></p>
 
   <div class="col-xs-12 col-sm-8">
-  	<div class="collect-row__mozaic">
+  	<div class="collect-row__mosaic">
   		<div class="col-sm-6">
 	  		{% for item in collection.display_items %}
 		    	<img class="collect-row__image{{ forloop.counter }}" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" alt="">

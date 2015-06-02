@@ -41,7 +41,7 @@
   -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }
 
-.collect-row__mozaic {
+.collect-row__mosaic {
 
   @include bp(sm-screen) {
     margin: 0 0 0 $layout-component-margin;
@@ -49,7 +49,7 @@
 
 }
 
-// ***** Begin Image Mozaic ***** //
+// ***** Begin Image Mosaic ***** //
 
 .collect-row__image1 {
   float: left;
@@ -127,8 +127,6 @@
 
 }
 
-// ***** End Image Mozaic ***** //
-
 .collect-row__button {
   @include aspect-ratio(1, 1);
   float: left;
@@ -153,3 +151,5 @@
   }
 
 }
+
+// ***** End Image Mosaic ***** //
