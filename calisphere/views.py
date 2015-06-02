@@ -7,6 +7,7 @@ from django.core.cache import cache
 from django.http import Http404
 from calisphere.collection_data import CollectionManager
 from collections import namedtuple
+from constants import *
 
 import md5s3stash
 import operator
@@ -21,19 +22,6 @@ import pickle
 import hashlib
 import string
 
-FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
-
-def get_campus_list():
-    campus_list = json.loads(urllib2.urlopen("https://registry.cdlib.org/api/v1/campus/?format=json").read())
-    campus_list = sorted(list(campus_list['objects']), key=lambda campus: (campus['position']))
-    campuses = []
-    for campus in campus_list:
-        campus_id = campus['resource_uri'].split('/')[-2]
-        campuses.append({'name': campus['name'], 'slug': campus['slug'], 'id': campus_id})
-
-    return campuses
-
-CAMPUS_LIST = get_campus_list()
 
 SOLR = solr.SearchHandler(
     solr.Solr(
