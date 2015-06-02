@@ -19,10 +19,12 @@
 }
 
 .collect-intro__buttons {
+  margin: 0 0 $layout-component-margin 0;
   padding: 0 ($layout-component-margin / 2);
 
   @include bp(sm-screen) {
-
+    margin: 0;
+    
     &:first-child {
       padding-left: 0;
     }
