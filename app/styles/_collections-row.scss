@@ -53,49 +53,78 @@
 
 .collect-row__image1 {
   float: left;
-  width: 66%;
+  width: 100%;
   height: auto;
+
+  @include bp(sm-screen) {
+    width: 66%;
+  }
+
 }
 
 .collect-row__image2 {
+  display: none;
   float: right;
   width: 32%;
   height: auto;
   margin: 0 0 2% 0;
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+
 }
 
 .collect-row__image3 {
+  display: none;
   float: right;
   width: 32%;
   height: auto;
+
+  @include bp(sm-screen) {
+    display: block;
+  }
+
 }
 
 .collect-row__image4 {
   float: left;
   clear: both;
-  width: 32%;
-  margin: 0 2% 2% 2%;
+  width: 49%;
+  margin: 2% 2% 2% 0;
   height: auto;
+
+  @include bp(sm-screen) {
+    width: 32%;
+    margin: 0 2% 2% 2%;
+  }
+
 }
 
 .collect-row__image5 {
   float: left;
-  width: 32%;
+  width: 49%;
   height: auto;
+  margin: 2% 0 0 0;
+
+  @include bp(sm-screen) {
+    width: 32%;
+    margin: 0;
+  }
+
 }
 
 .collect-row__image6 {
   float: left;
   clear: left;
-  width: 32%;
+  width: 49%;
   height: auto;
-  margin: 0 0 0 2%;
-}
 
-.collect-row__image7 {
-  float: left;
-  width: 32%;
-  height: auto;
+  @include bp(sm-screen) {
+    width: 32%;
+    margin: 0 0 0 2%;
+  }
+
 }
 
 // ***** End Image Mozaic ***** //
@@ -103,7 +132,7 @@
 .collect-row__button {
   @include aspect-ratio(1, 1);
   float: left;
-  width: 32%;
+  width: 49%;
   margin: 0 0 0 2%;
   font-size: 0.9em;
   text-align: center;
@@ -115,6 +144,7 @@
   }
 
   @include bp(sm-screen) {
+    width: 32%;
     font-size: 1.1em;
   }
 
