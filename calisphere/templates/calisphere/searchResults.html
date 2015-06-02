@@ -118,8 +118,31 @@
           {% include "calisphere/list-results.html" %}
         {% endif %}
 
-        <!-- End Thumbnail and List View Components -->
+        <input form="js-facet" type="hidden" id="start" name="start" value="{{ start }}">
 
+        <!-- End Thumbnail and List View Components -->
+          {% if start|subtract:rows >= 0 %}
+        	  <button id="prev" class="btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
+          {% else %}
+          	<button id="prev" class="btn btn-link pag-dropdown__arrow-icon"><span class="fa fa-caret-left fa-lg"></span></button>
+        	{% endif %}
+
+          <label for="start" class="sr-only">Current Number</label>
+        
+          <select class="pag-dropdown__select--unstyled">
+            {% for page in pages|get_range %}
+            <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
+            {% endfor %}
+          </select>
+
+          <span class="pag-dropdown__total-number">of {{ pages }}</span>
+
+          {% if start|add:rows < numFound %}
+        	  <button id="next" class="btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
+          {% else %}
+            <button id="next" class="btn btn-link pag-dropdown__arrow-icon"><span class="fa fa-caret-right fa-lg"></span></button>
+          {% endif %}
+          
         <!-- Begin Buttons Pagination Component -->
           {% include "calisphere/forms/paginate-buttons.html" %}
         <!-- End Buttons Pagination Component -->

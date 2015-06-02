@@ -199,8 +199,10 @@ FacetQuery.prototype.bindHandlers = function() {
     }
   }(this));
   
-  $(document).on('change', '#start', function(that) {
+  $(document).on('change', '.pag-dropdown__select--unstyled', function(that) {
     return function(event) {
+      var start = $(this).children('option:selected').attr('value');
+      $('#start').val(start);
       that.queryStart = $(this).val();
       $('#js-facet').submit();
     }
