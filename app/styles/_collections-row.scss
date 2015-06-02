@@ -1,13 +1,23 @@
 // ##### Collections Row ##### //
 
-$collect-button-pos: 4em;
+.collect-row__container-border {
+  margin: $layout-component-margin 0 0 0;
+  padding: $layout-component-margin 0 0 0;
+  border-top: 1px solid $design-dark-gray-color;
+}
 
 .collect-row__link {
   clear: both;
   display: block;
   margin: $layout-component-margin 0 0 0;
-  padding: 0;
+  padding: $layout-component-margin 0 0 0;
   border-top: 1px solid $design-dark-gray-color;
+}
+
+[class^="col-"] .collect-row__link:first-of-type {
+  margin: 0;
+  padding: 0;
+  border: none;
 }
 
 .collect-row__summary {
@@ -15,7 +25,7 @@ $collect-button-pos: 4em;
 }
 
 .collect-row__title {
-  margin: $layout-component-margin 0 0.5em 0;
+  margin: 0 0 0.5em 0;
   font-size: 1.4em;
 }
 
@@ -27,7 +37,7 @@ $collect-button-pos: 4em;
 .collect-row__mozaic {
 
   @include bp(sm-screen) {
-    margin: $layout-component-margin 0 0 $layout-component-margin;
+    margin: 0 0 0 $layout-component-margin;
   }
 
 }
@@ -90,7 +100,6 @@ $collect-button-pos: 4em;
   font-size: 0.9em;
   text-align: center;
   color: #000;
-  // border: $bgreen;
   background: $design-light-gray-color;
 
   .aspect-ratio-content {
