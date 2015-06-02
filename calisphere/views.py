@@ -1,85 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 from django.http import Http404
 from calisphere.collection_data import CollectionManager
-from collections import namedtuple
+from constants import *
+from cache_retry import SOLR_select, json_loads_url
 
-import md5s3stash
 import operator
 import math
-import solr
 import re
-import urllib2
 import copy
 import simplejson as json
-from retrying import retry
-import pickle
-import hashlib
 import string
-
-FACET_TYPES = [('type_ss', 'Type of Object'), ('repository_data', 'Institution Owner'), ('collection_data', 'Collection')]
-
-def get_campus_list():
-    campus_list = json.loads(urllib2.urlopen("https://registry.cdlib.org/api/v1/campus/?format=json").read())
-    campus_list = sorted(list(campus_list['objects']), key=lambda campus: (campus['position']))
-    campuses = []
-    for campus in campus_list:
-        campus_id = campus['resource_uri'].split('/')[-2]
-        campuses.append({'name': campus['name'], 'slug': campus['slug'], 'id': campus_id})
-
-    return campuses
-
-CAMPUS_LIST = get_campus_list()
-
-SOLR = solr.SearchHandler(
-    solr.Solr(
-        settings.SOLR_URL,
-        post_headers = {
-          'X-Authentication-Token': settings.SOLR_API_KEY,
-        },
-    ),
-    "/query"
-)
-
-class SolrCache(object):
-    pass
-
-def kwargs_md5(**kwargs):
-    m = hashlib.md5()
-    m.update(pickle.dumps(kwargs))
-    return m.hexdigest()
-
-@retry(stop_max_delay=3000)  # milliseconds
-def SOLR_select(**kwargs):
-    # look in the cache
-    key = kwargs_md5(**kwargs)
-    sc = cache.get(key)
-    if not sc:
-        # do the solr look up
-        sr = SOLR(**kwargs)
-        # copy attributes that can be pickled to new object
-        sc = SolrCache()
-        sc.results = sr.results
-        sc.header = sr.header
-        sc.facet_counts = getattr(sr, 'facet_counts', None)
-        sc.numFound = sr.numFound
-        cache.set(key, sc, 60*15)  # seconds
-    return sc
-
-# [bt: is this still really used?]
-def process_media(item):
-    if 'reference_image_md5' in item:
-        item['reference_image_http'] = settings.THUMBNAIL_URL + 'clip/178x100/' + item['reference_image_md5']
-    elif 'url_item' in item:
-        item['reference_image_http'] = "http://www.calisphere.universityofcalifornia.edu/images/misc/no_image1.gif"
-    else:
-        item['reference_image_http'] = ""
-
-    item['href'] = '/itemView/{0}/'.format( item['id'] )
 
 # concat query with 'AND'
 def concat_query(q, rq):
@@ -149,12 +81,12 @@ def getCollectionData(collection_data=None, collection_id=None):
         collection['url'] = "https://registry.cdlib.org/api/v1/collection/{0}/".format(collection_id)
         collection['id'] = collection_id
 
-        collection_details = json.loads(urllib2.urlopen(collection['url'] + "?format=json").read())
+        collection_details = json_loads_url("{0}?format=json".format(collection['url']))
         collection['name'] = collection_details['name']
     return collection
 
 def getCollectionMosaic(collection_url):
-    collection_details = json.loads(urllib2.urlopen(collection_url + "?format=json").read())
+    collection_details = json_loads_url(collection_url + "?format=json")
 
     collection_repositories = []
     for repository in collection_details['repository']:
@@ -173,9 +105,6 @@ def getCollectionMosaic(collection_url):
         start=0,
         fq=['collection_url: \"' + collection_url + '\"']
     )
-
-    for item in display_items.results:
-        process_media(item)
 
     return {
         'name': collection_details['name'],
@@ -203,7 +132,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
         repository['url'] = "https://registry.cdlib.org/api/v1/repository/" + repository_id + "/"
         repository['id'] = repository_id
 
-        repository_details = json.loads(urllib2.urlopen(repository['url'] + "?format=json").read())
+        repository_details = json_loads_url(repository['url'] + "?format=json")
         repository['name'] = repository_details['name']
         if repository_details['campus']:
             repository['campus'] = repository_details['campus'][0]['name']
@@ -291,9 +220,6 @@ def itemView(request, item_id=''):
     if not item_solr_search.numFound:
         raise Http404("{0} does not exist".format(item_id))
 
-    for item in item_solr_search.results:
-        process_media(item)
-
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
@@ -347,8 +273,6 @@ def search(request):
 
         # TODO: create a no results found page
         if len(solr_search.results) == 0: print 'no results found'
-
-        for item in solr_search.results: process_media(item)
 
         # get facet counts
         facets = facetQuery(facet_fields, queryParams, solr_search)
@@ -426,9 +350,6 @@ def itemViewCarousel(request, queryParams={}):
     if len(carousel_solr_search.results) == 0:
         print 'no results found'
 
-    for item in carousel_solr_search.results:
-        process_media(item)
-
     if ajaxRequest:
         return render(request, 'calisphere/carousel.html', {
             'q': queryParams['q'],
@@ -487,25 +408,11 @@ def relatedCollections(request, queryParams={}):
                     collection = collection_solr_search.results[0]['collection_data'][0]
 
                     collection_data = {'image_urls': []}
-                    for item in collection_solr_search.results:
-                        process_media(item)
-                        if 'reference_image_md5' in item:
-                            collection_data['image_urls'].append({
-                                'title': item['title'],
-                                'reference_image_http': item['reference_image_http'],
-                                'reference_image_md5': item['reference_image_md5']
-                            })
-                        else:
-                            collection_data['image_urls'].append({
-                                'title': item['title'],
-                                'reference_image_http': item['reference_image_http']
-                            })
                     collection_url = ''.join([
                         collection.rsplit('::')[0],
                         '?format=json'
                     ])
-                    collection_json = urllib2.urlopen(collection_url).read()
-                    collection_details = json.loads(collection_json)
+                    collection_details = json_loads_url(collection_url)
 
                     collection_data['name'] = collection_details['name']
                     collection_data['resource_uri'] = collection_details['resource_uri']
@@ -578,8 +485,7 @@ def collectionsSearch(request):
 
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
-    collection_json = urllib2.urlopen(collection_url).read()
-    collection_details = json.loads(collection_json)
+    collection_details = json_loads_url(collection_url)
     for repository in collection_details['repository']:
         repository['resource_id'] = repository['resource_uri'].split('/')[-2]
 
@@ -602,9 +508,6 @@ def collectionView(request, collection_id):
         facet_limit='-1',
         facet_field=facet_fields
     )
-
-    for item in solr_search.results:
-        process_media(item)
 
     facets = facetQuery(facet_fields, queryParams, solr_search)
 
@@ -702,11 +605,9 @@ def campusView(request, campus_slug, subnav=False):
         print "Campus registry ID not found"
 
     campus_url = 'https://registry.cdlib.org/api/v1/campus/' + campus_id + '/'
-    campus_json = urllib2.urlopen(campus_url + "?format=json").read()
-    campus_details = json.loads(campus_json)
+    campus_details = json_loads_url(campus_url + "?format=json")
     
-    contact_information = json.loads(
-        urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + campus_details['ark']).read())
+    contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + campus_details['ark'])
 
     if subnav == 'institutions':
         campus_fq = ['campus_url: "' + campus_url + '"']
@@ -753,9 +654,6 @@ def campusView(request, campus_slug, subnav=False):
             facet_limit='-1',
             facet_field=facet_fields
         )
-
-        for item in solr_search.results:
-            process_media(item)
 
         facets = facetQuery(facet_fields, queryParams, solr_search)
 
@@ -830,12 +728,10 @@ def campusView(request, campus_slug, subnav=False):
 
 
 def repositoryView(request, repository_id, subnav=False):
-    repository_json = urllib2.urlopen('https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json').read()
-    repository_details = json.loads(repository_json)
+    repository_details = json_loads_url('https://registry.cdlib.org/api/v1/repository/' + repository_id + '/?format=json')
 
     if 'ark' in repository_details and repository_details['ark'] != '':
-        contact_information = json.loads(
-            urllib2.urlopen("http://dsc.cdlib.org/institution-json/" + repository_details['ark']).read())
+        contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + repository_details['ark'])
     else:
         contact_information = ''
 
@@ -861,9 +757,6 @@ def repositoryView(request, repository_id, subnav=False):
             facet_limit='-1',
             facet_field=facet_fields
         )
-
-        for item in solr_search.results:
-            process_media(item)
 
         facets = facetQuery(facet_fields, queryParams, solr_search)
 
