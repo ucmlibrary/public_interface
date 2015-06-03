@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic import TemplateView
 
 urlpatterns = patterns('calisphere',
-    url(r'^$', 'views.home', name='home'),
+    url(r'^$', TemplateView.as_view(template_name='calisphere/home.html'), name='home'),
     url(r'^search/$', 'views.search', name='search'),
     url(r'^item/(?P<item_id>.*)/', 'views.itemView', name='itemView'),
 
@@ -17,12 +18,12 @@ urlpatterns = patterns('calisphere',
     url(r'^institutions/uc-partners/$', 'views.campusDirectory', name='campusDirectory'),
     url(r'^institutions/statewide-partners/$', 'views.statewideDirectory', name='statewideDirectory'),
 
-    url(r'about/$', 'views.home', name='about'),
-    url(r'contact/$', 'views.home', name='contact'),
-    url(r'help/$', 'views.home', name='help'),
-    url(r'terms/$', 'views.home', name='termsOfUse'),
-    url(r'privacy/$', 'views.home', name='privacyStatement'),
-    url(r'siteMap/$', 'views.home', name='siteMap'),
+    url(r'about/$', TemplateView.as_view(template_name='calisphere/about.html'), name='about'),
+    url(r'contact/$', TemplateView.as_view(template_name='calisphere/contact.html'), name='contact'),
+    url(r'help/$', TemplateView.as_view(template_name='calisphere/help.html'), name='help'),
+    url(r'terms/$', TemplateView.as_view(template_name='calisphere/termsOfUse.html'), name='termsOfUse'),
+    url(r'privacy/$', TemplateView.as_view(template_name='calisphere/privacyStatement.html'), name='privacyStatement'),
+    url(r'siteMap/$', TemplateView.as_view(template_name='calisphere/siteMap.html'), name='siteMap'),
 
     # AJAX HELPERS
     url(r'^relatedCollections/', 'views.relatedCollections', name='relatedCollections'),
