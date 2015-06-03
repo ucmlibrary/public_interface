@@ -190,7 +190,7 @@ FacetQuery.prototype.bindHandlers = function() {
     }
   });
   
-  $(document).on('click', '#prev', function(that) {
+  $(document).on('click', '.js-prev', function(that) {
     return function(event) {
       var start = $(this).data('start');
       that.queryStart = start;
@@ -208,7 +208,7 @@ FacetQuery.prototype.bindHandlers = function() {
     }
   }(this));
   
-  $(document).on('click', '#next', function(that) {
+  $(document).on('click', '.js-next', function(that) {
     return function(event) {
       var start = $(this).data('start');
       that.queryStart = start;
