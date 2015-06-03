@@ -24,9 +24,20 @@
 }
 
 .institutions-intro__button-uc {
-  padding: 0 10px 0 0;
+  margin: 0 0 $layout-component-margin 0;
+
+  @include bp(sm-screen) {
+    margin: 0;
+    padding: 0 10px 0 0;
+  }
+
 }
 
 .institutions-intro__button-state {
-  padding: 0 0 0 10px;
+  
+
+  @include bp(sm-screen) {
+    padding: 0 0 0 10px;
+  }
+
 }
