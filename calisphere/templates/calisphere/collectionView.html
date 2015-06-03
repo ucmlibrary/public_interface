@@ -32,6 +32,12 @@
       <h3 class="collection-intro__about-heading">About this Collection</h3>
       <span class="collection-intro__about-description">{{ collection.description }}
       </span>
+      {% if collection.url_local|length > 0 %}
+        <a href="{{ collection.url_local }}" target="_blank">View this collection on the contributor's website.</a><br/>
+      {% endif %}
+      {% if collection.url_oac|length > 0 %}
+        <a href="{{ collection.url_oac }}" target="_blank">View finding aid.</a>
+      {% endif %}
     </div>
   </div>
 
