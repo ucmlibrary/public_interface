@@ -12,18 +12,8 @@
   text-align: right;
   font-weight: normal;
   line-height: $listview-text-line-height;
-
-  &:first-of-type {
-  	border: none;
-  }
-
 }
 
 .meta-inline__defin {
   line-height: $listview-text-line-height;
-
-  &:first-of-type {
-  	border: none;
-  }
-
 }
