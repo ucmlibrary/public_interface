@@ -6,6 +6,7 @@ from collections import namedtuple
 import string
 import random
 from cache_retry import json_loads_url
+import time
 
 
 class CollectionManager(object):
@@ -30,7 +31,7 @@ class CollectionManager(object):
             key=sort_key
         )
 
-        random.seed('seed')
+        random.seed(time.strftime("%d/%m/%Y"))
 
         self.shuffled = random.sample(self.parsed, len(self.parsed))
 
