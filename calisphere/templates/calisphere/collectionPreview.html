@@ -6,7 +6,7 @@
     <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
   </div>
 
-  <p class="collect-row__item-number"><strong>{{ collection.numFound }} Items</strong></p>
+  <p class="collect-row__item-number"><strong>{{ collection.numFound }} Item{{ collection.numFound|pluralize }}</strong></p>
 
   <div class="col-xs-12 col-sm-8">
   	<div class="collect-row__mosaic">
