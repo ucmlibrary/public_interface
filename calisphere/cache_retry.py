@@ -8,7 +8,7 @@ import solr
 from retrying import retry
 import pickle
 import hashlib
-import simplejson
+import json
 
 
 # create a hash for a cache key
@@ -20,12 +20,12 @@ def kwargs_md5(**kwargs):
 
 # wrapper function for json.loads(urllib2.urlopen)
 @retry(stop_max_delay=3000)  # milliseconds
-def json_loads_url(url):
-    key = kwargs_md5(key='json_loads_url', url=url)
-    json = cache.get(key)
-    if not json:
-        json = simplejson.loads(urllib2.urlopen(url).read())
-    return json
+def json_loads_url(url_or_req):
+    key = kwargs_md5(key='json_loads_url', url=url_or_req)
+    data = cache.get(key)
+    if not data:
+        data = json.loads(urllib2.urlopen(url_or_req).read())
+    return data
 
 
 # dummy class for holding cached data
