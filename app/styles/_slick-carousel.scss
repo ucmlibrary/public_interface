@@ -1,0 +1,27 @@
+// ##### Slick Carousel ##### //
+
+// ***** Vendor Variables ***** //
+
+$slick-font-path: "../../bower_components/fontawesome/fonts/";
+$slick-font-family: "fontawesome";
+$slick-loader-path: "./";
+$slick-arrow-color: $design-primary-color;
+
+$slick-prev-character: "\f104"; // fa-angle-left
+$slick-next-character: "\f105"; // fa-angle-right
+
+$slick-opacity-default: 0.75;
+$slick-opacity-on-hover: 1;
+$slick-opacity-not-active: 0.25;
+
+// ***** Vendor Libraries ***** //
+
+@import "../../bower_components/slick.js/slick/slick.scss";
+@import "../../bower_components/slick.js/slick/slick-theme.scss";
+
+// ***** Vendor Overrides ***** //
+
+.slick-prev,
+.slick-next {
+	
+}
