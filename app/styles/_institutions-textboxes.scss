@@ -5,7 +5,7 @@
 	@include bp(sm-screen) {
     column-count: 2;
     column-gap: $layout-container-margin-md * 2;
-    column-rule: 1px solid $design-dark-gray-color;
+    column-rule: 1px dotted $design-dark-gray-color;
   }
   
 }
