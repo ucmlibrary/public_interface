@@ -30,7 +30,7 @@ html.no-flexbox .obj-buttons a {
 
   @include bp(sm-screen) {
     margin: 0;
-    padding: 0 $layout-component-margin;
+    padding: 0 $layout-component-margin $layout-component-margin $layout-component-margin;
     border: none;
     background: $design-light-gray-color;
   }
