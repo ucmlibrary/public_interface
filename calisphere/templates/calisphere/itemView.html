@@ -12,19 +12,29 @@
   <p class="text__breadcrumb-nav">Search > {{ q }} > {{ item.title.0|truncatewords:7 }}</p>
 
   <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
-
-  <div class="object__container-generic">
-    <a class="obj-harvest__link" href="{{ item.url_item }}" target="_blank">
-      <div class="icon__overlay-container">
-        <span class="fa fa-external-link fa-fw obj-harvest__external-link-icon-overlay"></span>
-        <img class="obj-harvest__image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="">
-      </div>
-      <div class="obj-harvest__caption">Preview. View on contributor's website.
-      </div>
-    </a>
-
-  </div>
-
+  
+  {% if item.structmap_url != '' %}
+    Hey I'm a Complex Object, amy hasn't see one of these before in the index! <br>
+    {{ item.structmap_url }} <br>
+    {{ item.structmap_text }} <br>
+    {{ item.type_ss.0 }} <br>
+  {% endif %} 
+  
+  {% if item.harvest_type.0 == 'harvested' %}
+    {% if item.type_ss.0 == 'image' %}
+      {% include 'calisphere/objectViewer/harvestedImage.html' %}
+    {% else %}
+      {% include 'calisphere/objectViewer/harvestedNonImage.html' %}
+    {% endif %}
+  {% elif item.harvest_type.0 == 'hosted' %}
+    {% if item.type_ss.0 == 'image' %}
+    {% elif item.type_ss.0 == 'moving image' %}
+    {% elif item.type_ss.0 == 'sound' %}
+    {% elif item.type_ss.0 == "text"%}
+    {% elif item.type_ss.0 == "physical object"%}
+    {% endif %}
+  {% endif %}
+  
   <div class="obj-buttons">
 
     <div class="obj-buttons__group1">

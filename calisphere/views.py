@@ -220,6 +220,16 @@ def itemView(request, item_id=''):
     if not item_solr_search.numFound:
         raise Http404("{0} does not exist".format(item_id))
 
+    for item in item_solr_search.results:
+        if len(item['collection_url']) >= 1:
+            item['harvest_type'] = []
+            for collection_url in item['collection_url']:
+                collection_details = json_loads_url(collection_url + "?format=json")
+                if (collection_details['harvest_type'] == 'NUX'):
+                    item['harvest_type'].append('hosted')
+                else:
+                    item['harvest_type'].append('harvested')
+
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
