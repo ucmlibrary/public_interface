@@ -368,4 +368,45 @@ FacetQuery.prototype.getValuesFromDom = function() {
 $(document).ready(function() {
   var query = new FacetQuery();
   query.selectDeselectAll();
+  
+  // ##### Slick Carousel ##### //
+
+  $('.carousel').slick({
+    infinite: true,
+    speed: 300,
+    slidesToShow: 10,
+    slidesToScroll: 6,
+    variableWidth: true,
+    lazyLoad: 'ondemand',
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          infinite: true,
+          // slidesToShow: 8,
+          slidesToScroll: 8,
+          variableWidth: true
+        }
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          infinite: true,
+          // slidesToShow: 6,
+          slidesToScroll: 6,
+          variableWidth: true
+        }
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          infinite: true,
+          // slidesToShow: 4,
+          slidesToScroll: 4,
+          variableWidth: true
+        }
+      }
+    ]
+  });
+  
 });

@@ -220,6 +220,16 @@ def itemView(request, item_id=''):
     if not item_solr_search.numFound:
         raise Http404("{0} does not exist".format(item_id))
 
+    for item in item_solr_search.results:
+        if len(item['collection_url']) >= 1:
+            item['harvest_type'] = []
+            for collection_url in item['collection_url']:
+                collection_details = json_loads_url(collection_url + "?format=json")
+                if (collection_details['harvest_type'] == 'NUX'):
+                    item['harvest_type'].append('hosted')
+                else:
+                    item['harvest_type'].append('harvested')
+
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
@@ -471,13 +481,18 @@ def collectionsAZ(request, collection_letter):
             if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
                 collections_list.append(collection_link)
 
+    page = int(request.GET['page']) if 'page' in request.GET else 0
+    numPages = int(math.ceil(len(collections_list)/10))
+    
     collections = []
-    for collection_link in collections_list:
+    for collection_link in collections_list[page*10:(page*10)+10]:
         collections.append(getCollectionMosaic(collection_link.url))
 
     return render(request, 'calisphere/collectionsAZ.html', {'collections': collections,
         'alphabet': list(string.ascii_uppercase),
-        'collection_letter': collection_letter
+        'collection_letter': collection_letter, 
+        'page': page,
+        'numPages': numPages,
     })
 
 def collectionsSearch(request):
@@ -699,6 +714,8 @@ def campusView(request, campus_slug, subnav=False):
             'campus_slug': campus_slug
         })
     else:
+        page = int(request.GET['page']) if 'page' in request.GET else 0
+        
         campus_fq = ['campus_url: "' + campus_url + '"']
 
         collections_solr_search = SOLR_select(
@@ -709,6 +726,19 @@ def campusView(request, campus_slug, subnav=False):
             facet='true',
             facet_mincount=1,
             facet_limit='-1',
+            facet_field=['collection_data']
+        )
+        
+        numPages = int(math.ceil(len(collections_solr_search.facet_counts['facet_fields']['collection_data'])/10))
+
+        collections_solr_search = SOLR_select(
+            q='',
+            rows=0,
+            start=0,
+            fq=campus_fq,
+            facet='true',
+            facet_mincount=1,
+            facet_limit='10',
             facet_field = ['collection_data', 'repository_data']
         )
 
@@ -720,6 +750,8 @@ def campusView(request, campus_slug, subnav=False):
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
         return render(request, 'calisphere/campusCollectionsView.html', {
+            'page': page,
+            'numPages': numPages,
             'campus_slug': campus_slug,
             'collections': related_collections,
             'campus': campus_details,
@@ -796,13 +828,15 @@ def repositoryView(request, repository_id, subnav=False):
         })
     
     else:
+        page = int(request.GET['page']) if 'page' in request.GET else 0
+        
         if 'campus' in repository and repository['campus']:
             collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '::' + repository['campus'] + '"']
             uc_institution = repository['campus']
         else:
             collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '"']
             uc_institution = False
-
+        
         collections_solr_search = SOLR_select(
             q='',
             rows=0,
@@ -811,6 +845,20 @@ def repositoryView(request, repository_id, subnav=False):
             facet='true',
             facet_mincount=1,
             facet_limit='-1',
+            facet_field=['collection_data']
+        )
+        
+        numPages = int(math.ceil(len(collections_solr_search.facet_counts['facet_fields']['collection_data'])/10))
+
+        collections_solr_search = SOLR_select(
+            q='',
+            rows=0,
+            start=0,
+            fq=collections_fq,
+            facet='true',
+            facet_mincount=1,
+            facet_limit='10',
+            facet_offset=page*10,
             facet_field = ['collection_data', 'repository_data']
         )
 
@@ -822,6 +870,8 @@ def repositoryView(request, repository_id, subnav=False):
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
         return render(request, 'calisphere/repositoryCollectionsView.html', {
+            'page': page,
+            'numPages': numPages,
             'repository_id': repository_id,
             'collections': related_collections,
             'repository': repository_details,

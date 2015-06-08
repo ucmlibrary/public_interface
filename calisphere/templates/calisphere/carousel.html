@@ -8,12 +8,13 @@
   Displaying {{ start|add:1 }} - {{ start|add:6 }} of {{ numFound }}
 </div>
 
-<div class="carousel js-flickity" data-flickity-options='{ "cellAlign": "left", "contain": true, "pageDots": false, "percentPosition": false }'>
+<div class="carousel">
   
   {% for item in search_results %}
   <div class="carousel__item">
-    <a class="js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}">
-      <img src="{{ thumbnailUrl }}crop/120x120/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+    <a class="carousel__link js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}">
+      <img data-lazy="{{ thumbnailUrl }}crop/120x120/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+      <!-- {{ item.reference_image_md5 }} -->
     </a>
     <div class="carousel__thumbnail-caption">{{ item.title.0|truncatewords:7 }}
     </div>
@@ -22,7 +23,7 @@
 
 </div>
 
-<div style="display: none;">
+<!-- <div style="display: none;">
   <div class="col-md-1">
     {% if start|subtract:6 > 0 %}
       <button class="btn btn-link carousel__prev-button js-carousel-page" data-carousel_start="{{ start|subtract:6 }}">
@@ -36,7 +37,7 @@
       </button>
     {% endif %}
   </div>
-  
+
   <div class="col-md-1">
     {% if start|add:6 < numFound %}
       <button class="btn btn-link carousel__next-button js-carousel-page" data-carousel_start="{{ start|add:6 }}">
@@ -45,4 +46,4 @@
       </button>
     {% endif %}
   </div>
-</div>
+</div> -->
