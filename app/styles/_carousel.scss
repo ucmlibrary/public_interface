@@ -1,42 +1,5 @@
 // ##### Carousel Component ##### //
 
-// ***** Flickity Carousel Customizations ***** //
-
-.flickity-prev-next-button {
-  display: none;
-
-  @include bp(sm-screen) {
-    display: block;
-    top: 42%;
-    width: 60px;
-    height: 60px;
-    background: transparent;
-  }
-
-}
-
-.flickity-prev-next-button:hover {
-  background: transparent;
-}
-
-.flickity-prev-next-button .arrow {
-  fill: $design-primary-color;
-}
-
-.flickity-prev-next-button.no-svg {
-  color: $design-primary-color;
-}
-
-.flickity-prev-next-button.previous {
-  left: -20px;
-}
-
-.flickity-prev-next-button.next {
-  right: -20px;
-}
-
-// ***** Custom Classes ***** //
-
 .carousel__search-results {
   float: left;
 }
