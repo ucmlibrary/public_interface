@@ -3,14 +3,36 @@
 {% load staticfiles %}
 
 {% block sidebar %}
-<a class="btn btn-default button__back-to-institution" 
-	href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
-	Collections
-</a>
-<a class="btn btn-default button__back-to-institution" 
-	href="{% url 'calisphere:repositoryView' repository_id 'items' %}">
-	Search
-</a>
+
+<div class="row">
+
+  <div class="col-sm-6 col-md-12">
+
+    <div class="button__institution-tabs">
+      <a class="btn btn-default button__institution-tab button__secondary" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
+        Collections
+      </a>
+    </div>
+
+  </div>
+
+  <div class="col-sm-6 col-md-12">
+
+    <div class="search-collection">
+		  <label for="search-collection__field" class="search-collection__label">Search UC Merced, Library & Special Collections</label>
+		  <div class="input-group">
+		    <input id="search-collection__field" type="search" name="q" class="form-control search-collection__field">
+		    <span class="input-group-btn">
+		      <button class="btn btn-default search-collection__button" type="submit">Search
+		      </button>
+		    </span>
+		  </div>
+		</div>
+
+  </div>
+
+</div>
+
 {% endblock %}
 
 {% block mainContent %}
