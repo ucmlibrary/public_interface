@@ -15,16 +15,10 @@
 
 {% block mainContent %}
 
-<div class="row">
+<h2 class="text__institution-heading2">Collections</h2>
 
-  <div class="col-xs-12 col-sm-11">
-
-		{% for collection in collections %}
-		  {% include "calisphere/collectionPreview.html" %}
-		{% endfor %}
-
-	</div>
-
-</div>
+	{% for collection in collections %}
+	  {% include "calisphere/collectionPreview.html" %}
+	{% endfor %}
 
 {% endblock %}
