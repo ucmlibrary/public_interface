@@ -21,15 +21,21 @@
 }
 
 .thumbview__image {
-	@include aspect-ratio(1, 1);
+	// @include aspect-ratio(1, 1);
 	display: block;
 	z-index: 1;
 	background: $design-light-gray-color; // revealed if no image
+	@extend .aspect-ratio-content;
+}
+
+.thumbview__image-container {
+	@include aspect-ratio(1, 1);
+	background: $design-light-gray-color;
 }
 
 .thumbview__image:after {
-  @extend .aspect-ratio-content;
-  content: "";
+  // @extend .aspect-ratio-content;
+  // content: "";
 }
 
 .thumbview__caption {
