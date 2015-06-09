@@ -39,12 +39,12 @@
 
   <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
   
-  {% if item.structmap_url != '' %}
-    Hey I'm a Complex Object, amy hasn't see one of these before in the index! <br>
-    {{ item.structmap_url }} <br>
-    {{ item.structmap_text }} <br>
-    {{ item.type_ss.0 }} <br>
-  {% endif %} 
+  {# {% if item.structmap_url != '' %} #}
+    <!-- Hey I'm a Complex Object, amy hasn't see one of these before in the index! <br> -->
+    {# {{ item.structmap_url }} #}
+    {# {{ item.structmap_text }} #}
+    {# {{ item.type_ss.0 }} #}
+  {# {% endif %} #}
   
   {% if item.harvest_type.0 == 'harvested' %}
     {% if item.type_ss.0 == 'image' %}
