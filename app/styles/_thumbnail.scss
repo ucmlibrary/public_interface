@@ -14,6 +14,10 @@
 	position: relative; // for 'icon__overlay' child
 }
 
+.thumbview__icon-overlay {
+	@include icon__centered-overlay(60px, 50px, 45px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+}
+
 .thumbview__image {
 	display: block;
 }
@@ -30,3 +34,9 @@
 .thumbview__image--no-image {
 	@include thumbview__no-image();
 }
+
+// Testing:
+
+// .thumbview [class^="col-"] {
+// 	border: $bblue;
+// }

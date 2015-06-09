@@ -7,13 +7,13 @@
         {% if item.type_ss.0 != "image" %}
         <div class="icon__overlay-container">
           {% if item.type_ss.0 == "moving image" %}
-          <span class="fa fa-play-circle-o fa-fw icon__overlay"></span>
+          <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
           {% elif item.type_ss.0 == "sound"%}
-          <span class="fa fa-volume-up fa-fw icon__overlay"></span>
+          <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
           {% elif item.type_ss.0 == "text"%}
-          <span class="fa fa-file-text-o fa-fw icon__overlay"></span>
+          <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
           {% elif item.type_ss.0 == "physical object"%}
-          <span class="fa fa-cubes fa-fw icon__overlay"></span>
+          <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
           {% endif %}
         {% endif %}
         {% if item.type_ss.0 == "text" or item.type_ss.0 == "sound" %}
