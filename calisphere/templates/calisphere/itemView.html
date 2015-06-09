@@ -4,7 +4,33 @@
 {% block content %}
 
 <div id="js-carouselContainer">
-  {% include "calisphere/carousel.html" %}
+  <div class="carousel__search-results">
+    Search results > {{ q }} 
+  </div>
+
+  <div class="carousel__items-number">
+    Displaying {{ start|add:1 }} - {{ start|add:6 }} of {{ numFound }}
+  </div>
+
+  <form id="js-carousel" data-numfound="{{ numFound }}">
+    <input type="hidden" name="q" value="{{ q }}" form="js-carousel">
+    {% for refine in rq %}
+    <input type="hidden" name="rq" value="{{ refine }}" form="js-carousel">
+    {% endfor %}
+    {% for filter_type in filters %}
+      {% for filter in filters|get_item:filter_type %}
+        {% if filter_type == 'collection_data' or filter_type == 'repository_data' %}
+          <input type="hidden" class="js-filterType" name="{{ filter_type }}" value="{{ filter.id }}" form="js-carousel">
+        {% else %}
+          <input type="hidden" class="js-filterType" name="{{ filter_type }}" value="{{ filter|slugify }}" form="js-carousel">
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </form>
+    
+  <div class="carousel" data-carousel_start="{{ start }}">
+    {% include "calisphere/carousel.html" %}
+  </div>
 </div>
 
 {% for item in items %}
