@@ -5,13 +5,22 @@
 }
 
 .home__mast {
-	height: 200px;
+	height: 250px;
 	margin: 0 0 $layout-component-margin 0;
-	background: #ccc;
+	background: url(/images/homepage/mast-sample1.jpg) center center;
 }
 
 .home__mast-heading {
+	padding: 20px 0;
+	color: #fff;
 	font-size: 2em;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.home__search {
+	margin: 50px auto 0 auto;
+	max-width: 400px;
 }
 
 .home__search-button {
