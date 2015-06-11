@@ -1,2 +1,44 @@
 // ##### Home Page ##### //
 
+.home [class^="col-"] {
+	// border: $bblue;
+}
+
+.home__mast {
+	height: 200px;
+	margin: 0 0 $layout-component-margin 0;
+	background: #ccc;
+}
+
+.home__mast-heading {
+	font-size: 2em;
+}
+
+.home__search-button {
+  height: 34px; // match the height of Bootstrap's form field
+  color: #fff;
+  border: 1px solid $design-dark-gray-color;
+  background: $design-primary-color;
+
+  &:hover {
+    background: $link-hover-color;
+  }
+
+  .fa { // fa-search icon
+  	font-size: 1.1em;
+
+  }
+
+}
+
+.home__img-main1 {
+	height: 150px;
+	margin: 0 10px 0 0;
+	background: #eee;
+}
+
+.home__img-main2 {
+	height: 150px;
+	margin: 0 0 0 10px;
+	background: #eee;
+}
