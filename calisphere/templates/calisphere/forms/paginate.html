@@ -1,36 +1,10 @@
 {% load calisphere-extras %}
-  
-<!-- <input form="js-facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
-{% if rows == '50' %}
-  <button id="view16" class="btn btn-link" style="padding:0px; margin:0px; vertical-align:baseline;">View 16</button> | 
-{% else %}
-  <button id="view50" class="btn btn-link" style="padding:0px; margin:0px; vertical-align:baseline;">View 50</button> | 
-{% endif %}
-
-{% if start|subtract:rows >= 0 %}
-  <button id="prev" class="btn btn-link" data-start="{{ start|subtract:rows }}" style="padding:0px; margin:0px; vertical-align:baseline;">prev</button>
-{% else %}
-  prev
-{% endif %}
-
-<select form="js-facet" name="start" id="start">
-  {% for page in pages|get_range %}
-    <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
-  {% endfor %}
-</select>
-of {{ pages }} 
-
-{% if start|add:rows < numFound %}
-  <button id="next" class="btn btn-link" data-start="{{ start|add:rows }}" style="padding:0px; margin:0px; vertical-align:baseline;">next</button>
-{% else %}
-  next
-{% endif %} -->
 
 <div class="pag-dropdown">
 
 	<label for="pag-dropdown__view" class="sr-only">View Per Page</label>
 
-  <select id="pag-dropdown__view" class="pag-dropdown__select">
+  <select id="pag-dropdown__view" class="pag-dropdown__select" name="rows" form="js-facet">
   {% if rows == '50' %}
     <option id="view16" value="16">View 16</option>
     <option id="view50" value="50" selected>View 50</option>
@@ -40,7 +14,7 @@ of {{ pages }}
   {% endif %}
   </select>
   
-  <input form="js-facet" type="hidden" id="rows" name="rows" value="{{ rows }}">
+  <!-- <input form="js-facet" type="text" style="display:none;" id="rows" name="rows" value="{{ rows }}"> -->
 
   <label for="pag-dropdown__sort" class="sr-only">Sort</label>
 
@@ -68,7 +42,7 @@ of {{ pages }}
 
   <label for="start" class="sr-only">Current Number</label>
         
-  <select class="pag-dropdown__select--unstyled" name="start">
+  <select class="pag-dropdown__select--unstyled" form="js-facet">
     {% for page in pages|get_range %}
     <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
     {% endfor %}
