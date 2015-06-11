@@ -13,36 +13,85 @@ function FacetQuery() {
   this.filters = {}
   this.refineQuery = []
   
-  // incase a pjax request failed and we already have search context 
-  // but it isn't saved due to re-init of FacetQuery instance
-  var url = window.location.href;
-  if (url.indexOf('?') > -1) {
-    this.getValuesFromSession();
+  if ($('#js-facet').length > 0) {
+    $('#js-facet')[0].reset();
+    this.getFormValuesFromDOM();
+    this.saveValuesToSession();
+
+    this.bindDomManipulators();
   }
-  
-  // instead of getting values from dom, potentially scrap values from URL? 
-  // if (typeof this.query == 'undefined') {
-  //   if (url.indexOf('?q=') > -1 || url.indexOf('&q=') > -1) {
-  //     this.query = $("[form='js-searchForm'][name='q']").val();
-  //   }
-  // }
-  
-  this.bindHandlers();
+
+  this.bindSubmitHandlers();
 }
 
-FacetQuery.prototype.cleanForm = function() {
-  // remove form elements with default values
+FacetQuery.prototype.clearDefaultFormValues = function() {
+  // remove form elements with default values so they don't clutter up the URL path
   var refineQueryFields = $('input[form="js-facet"][name="rq"]');
   for (var i=0; i<refineQueryFields.length; i++) {
     if ($(refineQueryFields[i]).val() == '') { $(refineQueryFields[i]).attr('name', ''); }
   }
-  if ($('input[form="js-facet"][name="rows"]').val() == '16') { $('input[form="js-facet"][name="rows"]').attr('name', ''); }
-  if ($('select[form="js-facet"][name="start"]').val() == '0') { $('select[form="js-facet"][name="start"]').attr('name', ''); }
+  if ($('select[form="js-facet"][name="rows"]').val() == '16') { $('select[form="js-facet"][name="rows"]').attr('name', ''); }
+  if ($('input[form="js-facet"][name="start"]').val() == '0') { $('input[form="js-facet"][name="start"]').attr('name', ''); }
   if ($('input[form="js-facet"][name="view_format"]').val() == 'thumbnails') { $('input[form="js-facet"][name="view_format"]').attr('name', ''); }
+  if ($('select[form="js-facet"][name="sort"]').val() == 'relevance') { $('select[form="js-facet"][name="sort"]').attr('name', ''); }
   if ($('input[form="js-facet"][name="rc_page"]').val() == '0') { $('input[form="js-facet"][name="rc_page"]').attr('name', ''); }
-  if ($('input[form="js-facet"][name="sort"]').val() == 'relevance') { $('input[form="js-facet"][name="sort"]').attr('name', ''); }
 }
 
+// retrieve current state
+FacetQuery.prototype.getFormValuesFromDOM = function() {
+  if (typeof $('input[form="js-facet"][name="q"]').val() !== 'undefined') { this.query = $('input[form="js-facet"][name="q"]').val(); } 
+  if (typeof $('input[form="js-facet"][name="view_format"]').val() !== 'undefined') { this.view_format = $('input[form="js-facet"][name="view_format"]').val(); } 
+  if (typeof $('select[form="js-facet"][name="sort"]').val() !== 'undefined') { this.sort = $('select[form="js-facet"][name="sort"]').val(); }
+  if (typeof $('select[form="js-facet"][name="rows"]').val() !== 'undefined') { this.rows = $('select[form="js-facet"][name="rows"]').val(); }
+  if (typeof $('input[form="js-facet"][name="start"]').val() !== 'undefined') { this.start = $('input[form="js-facet"][name="start"]').val(); }
+  
+  this.refineQuery = [];
+  var queryRefinements = $('input[form="js-facet"][name="rq"]');
+  
+  for (var i=0; i<queryRefinements.length; i++) {
+    var queryRefinement = $(queryRefinements[i]).val();
+    if (queryRefinement !== "") {
+      this.refineQuery.push(queryRefinement);
+    }
+  }
+  
+  this.filters = {};
+  var appliedFilters = $('.js-facet:checked');
+  for (var i=0; i<appliedFilters.length; i++) {
+    var filterType = $(appliedFilters[i]).attr('name');
+    var filter = $(appliedFilters[i]).val();
+    if (typeof this.filters[filterType] == 'undefined') {
+      this.filters[filterType] = [filter];
+    } else {
+      this.filters[filterType].push(filter);
+    }
+  }
+}
+
+FacetQuery.prototype.saveValuesToSession = function() {
+  sessionStorage.clear();
+  sessionStorage.setItem('query', this.query);
+  if (this.view_format) { sessionStorage.setItem('view_format', this.view_format); }
+  if (this.sort) { sessionStorage.setItem('sort', this.sort); }
+  if (this.rows) { sessionStorage.setItem('rows', this.rows); }
+  if (this.start) { sessionStorage.setItem('start', this.start); }
+  if (this.refineQuery.length > 0) { sessionStorage.setItem('refineQuery', JSON.stringify(this.refineQuery)); }
+  if (!$.isEmptyObject(this.filters)) { sessionStorage.setItem('filters', JSON.stringify(this.filters)); }
+}
+
+FacetQuery.prototype.getValuesFromSession = function() {
+  if (sessionStorage.length > 0) {
+    this.query = sessionStorage.getItem('query');
+    if (sessionStorage.getItem('view_format') !== null) { this.view_format = sessionStorage.getItem('view_format'); }
+    if (sessionStorage.getItem('sort') !== null) { this.sort = sessionStorage.getItem('sort'); }
+    if (sessionStorage.getItem('rows') !== null) { this.rows = sessionStorage.getItem('rows'); }
+    if (sessionStorage.getItem('start') !== null) { this.start = sessionStorage.getItem('start'); }
+    if (sessionStorage.getItem('refineQuery') !== null) { this.refineQuery = JSON.parse(sessionStorage.getItem('refineQuery')); }
+    if (sessionStorage.getItem('filters') !== null) { this.filters = JSON.parse(sessionStorage.getItem('filters')); }
+  }
+}
+
+// ********************************
 FacetQuery.prototype.selectDeselectAll = function() {
   var facetTypes = $('.check');
   for(var i=0; i<facetTypes.length; i++) {
@@ -134,8 +183,9 @@ FacetQuery.prototype.initCarousel = function() {
     }
   }(this));
 }
+// ********************************
 
-FacetQuery.prototype.bindHandlers = function() {
+FacetQuery.prototype.bindSubmitHandlers = function() {
   $(document).on('submit', "#js-searchForm", function(that) {
     return function(event) {
       that.query = $('input[name="q"]').val();
@@ -144,26 +194,25 @@ FacetQuery.prototype.bindHandlers = function() {
     }
   }(this));
   
-  $(document).on('pjax:success', this.resultsContainer, function(that) {
+  $(document).on('pjax:end', this.resultsContainer, function(that) {
     return function(event) {
-      that.selectDeselectAll();
-      that.initCarousel();
+      // that.selectDeselectAll();
+      // that.initCarousel();
+      $('#js-facet')[0].reset();
+      that.getFormValuesFromDOM();
+      that.saveValuesToSession();
     }
   }(this));
   
   $(document).on('submit', "#js-facet", function(that) {
     return function(event) {
-      that.cleanForm();
-      // add to refineQuery
-      if ($('input[form="js-facet"][type="search"][name="rq"]').val() !== undefined) {
-        that.refineQuery.push($('input[form="js-facet"][type="search"][name="rq"]').val());
-      }
-      
+      that.getFormValuesFromDOM();
       that.saveValuesToSession();
+      that.clearDefaultFormValues();
       $.pjax.submit(event, that.resultsContainer);
     }
   }(this));
-  
+    
   // TODO: hide the GET parameters in the URL by pushing a URL state that is the URL without GET params
   $(document).on('click', '.js-item-link', function(that) {
     return function(event) {
@@ -195,150 +244,12 @@ FacetQuery.prototype.bindHandlers = function() {
       // $.pjax.click(event, {container: that.resultsContainer, data: data_params, traditional: true, success: that.itemViewLoadSuccess()});
     }
   }(this));
-    
-  //*************FACETING*************//
-  $(document).on('change', '.js-facet', function(that) {
-    return function(event) {
-      var filterType = $(this).attr('name');
-      var filter = $(this).val();
-      if ($(this).prop('checked')) {
-        // add to filters
-        if (typeof that.filters[filterType] == 'undefined') {
-          that.filters[filterType] = [filter];
-        } else {
-          that.filters[filterType].push(filter);
-        }
-      } else {
-        // remove from filters
-        if (typeof that.filters[filterType] != 'undefined' && that.filters[filterType].indexOf(filter) > -1) {
-          that.filters[filterType].splice(that.filters[filterType].indexOf(filter), 1)
-        }
-      }
-      
-      $('#js-facet').submit();
-    }
-  }(this));
+  
+}
 
-  $(document).on('click', '.js-filter-pill', function(that) {
-    return function(event) {
-      var filter = $(this).data('slug');
-      var filterType = $("#" + filter).attr('name');
-      // remove from filters
-      if (typeof that.filters[filterType] != 'undefined' && that.filters[filterType].indexOf(filter) > -1) {
-        that.filters[filterType].splice(that.filters[filterType].indexOf(filter), 1);
-      }
-      
-      $("#" + filter).prop('checked', false);
-      $('#js-facet').submit();
-    }
-  }(this));
-  
-  $(document).on('click', '.js-a-check__link-deselect-all', function() {
-    $(this).parents('.check').find('.js-facet').prop('checked', false);
-    $('#js-facet').submit();
-    return false;
-  });
-  
-  $(document).on('click', '.js-a-check__link-select-all', function() {
-    $(this).parents('.check').find('.js-facet').prop('checked', true);
-    $('#js-facet').submit();
-    return false;
-  });
-  
-  $(document).on('click', '.js-clear-filters', function() {
-    $('.js-facet').prop('checked', false);
-    $('#js-facet').submit();
-  });
-  
-  //***********REFINE QUERY*************//
-  $(document).on('click', '.js-refine-filter-pill', function(that) {
-    return function(event) {
-      var txtFilter = $(this).data('slug');
-      // remove from refineQuery
-      if (that.refineQuery.indexOf(txtFilter) > -1) {
-        that.refineQuery.splice(that.refineQuery.indexOf(txtFilter), 1);
-      }
-      
-      $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val("");
-      
-      $('#js-facet').submit();
-      
-    }
-  }(this));
-  
-  // ***********PAGINATION**********
-  
-  $(document).on('change', '#pag-dropdown__view', function(event) {
-    if ($("#pag-dropdown__view option:selected").attr('id') == 'view16') {
-      $('#rows').prop('value', '16')
-      $('#js-facet').submit();
-    }
-    else if ($("#pag-dropdown__view option:selected").attr('id') == 'view50') {
-      $('#rows').prop('value', '50')
-      $('#js-facet').submit();
-    }
-  });
-  
-  $(document).on('click', '.js-prev', function(that) {
-    return function(event) {
-      var start = $(this).data('start');
-      that.queryStart = start;
-      $('#start').val(start);
-      $('#js-facet').submit();
-    }
-  }(this));
-  
-  $(document).on('change', '.pag-dropdown__select--unstyled', function(that) {
-    return function(event) {
-      var start = $(this).children('option:selected').attr('value');
-      $('#start').val(start);
-      that.queryStart = $(this).val();
-      $('#js-facet').submit();
-    }
-  }(this));
-  
-  $(document).on('click', '.js-next', function(that) {
-    return function(event) {
-      var start = $(this).data('start');
-      that.queryStart = start;
-      $('#start').val(start); 
-      $('#js-facet').submit();
-    }
-  }(this));
-  
-  // ***********BUTTON PAGINATION **********
-  
-  $(document).on('click', 'a[data-start]', function(that) {
-    return function(event) {
-      var start = $(this).data('start');
-      that.queryStart = start;
-      $('#start').val(start);
-      $('#js-facet').submit();
-    }
-  }(this));
-  
-  // ***************VIEW FORMAT*************
-  
-  $(document).on('click', '#thumbnails', function() {
-    $('#view_format').prop('value', 'thumbnails'); 
-    $('#js-facet').submit();
-  });
-  
-  $(document).on('click', '#list', function() {
-    $('#view_format').prop('value', 'list'); 
-    $('#js-facet').submit();
-  });
-  
-  // *************RELEVANCE********************
-  
-  $(document).on('change', '#pag-dropdown__sort', function(that){
-    return function(event) {
-      that.querySort = $(this).val();
-      $('#js-facet').submit();
-    }
-  }(this));
-  
+FacetQuery.prototype.relatedCollectionHandler = function() {
   // ******RELATED COLLECTION PAGINATION*******
+  // ONLY RELEVANT IN ONE INSTANCE OF SEARCH RESULTS
   
   $(document).on('click', '.js-rc-page', function(that) {
     return function(event) {
@@ -379,83 +290,123 @@ FacetQuery.prototype.bindHandlers = function() {
     }
   }(this));
   
+}
+
+// These click and change handlers simply modify the DOM's 
+// form elements appropriately and then call submit on js-facet
+// see submit handler for js-facet for more details about how 
+// these values are stored in the object and in sessionStorage
+FacetQuery.prototype.bindDomManipulators = function() {
+  // ***************VIEW FORMAT*************
+  // change the value in the DOM - this is a hidden input changed programmatically
+  $(document).on('click', '#thumbnails', function() {
+    $('#view_format').prop('value', 'thumbnails'); 
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '#list', function() {
+    $('#view_format').prop('value', 'list'); 
+    $('#js-facet').submit();
+  });
+    
+  // ****************SORT********************
+  // don't need to change the DOM value - this is changed by the user via the select dropdown
+  $(document).on('change', '#pag-dropdown__sort', function() {
+    $('#js-facet').submit();
+  });
+
+  // ***************ROWS***********************
+  // change the value in the DOM - this is a hidden input changed programmatically
+  $(document).on('change', '#pag-dropdown__view', function() {
+    $('#js-facet').submit();
+    // if ($("#pag-dropdown__view option:selected").attr('id') == 'view16') {
+    //   $('#rows').prop('value', '16')
+    //   $('#js-facet').submit();
+    // }
+    // else if ($("#pag-dropdown__view option:selected").attr('id') == 'view50') {
+    //   $('#rows').prop('value', '50')
+    //   $('#js-facet').submit();
+    // }
+  });
+  
+  // ***********PAGINATION**********
+  // change the value in the DOM - this is a hidden input changed programmatically
+  $(document).on('click', '.js-prev', function() {
+    var start = $(this).data('start');
+    $('#start').val(start);
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('click', '.js-next', function() {
+    var start = $(this).data('start');
+    $('#start').val(start); 
+    $('#js-facet').submit();
+  });
+  
+  $(document).on('change', '.pag-dropdown__select--unstyled', function() {
+    var start = $(this).children('option:selected').attr('value');
+    $('#start').val(start);
+    $('#js-facet').submit();
+  });
+  
+  // ***********BUTTON PAGINATION **********
+  // change the value in the DOM - this is a hidden input changed programmatically
+  $(document).on('click', 'a[data-start]', function() {
+    var start = $(this).data('start');
+    $('#start').val(start);
+    $('#js-facet').submit();
+  });
+
+  //***********REFINE QUERY*************//
+  // change the value in the DOM - this is a hidden input changed programmatically  
+  $(document).on('click', '.js-refine-filter-pill', function() {
+    var txtFilter = $(this).data('slug');
+    $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val("");
+    $('#js-facet').submit();
+  });  
+
+  //*************FACETING*************//
+  // don't need to change in the DOM - this is changed by the user via checkboxes
+  $(document).on('change', '.js-facet', function() {
+    $('#js-facet').submit();
+  });
+
+  // change the value in the DOM - the filter buttons refer to the sidebar checkbox form elements
+  $(document).on('click', '.js-filter-pill', function() {
+    var filter = $(this).data('slug');
+    $("#" + filter).prop('checked', false);
+    $('#js-facet').submit();
+  });
+  
+  // change the value in the DOM - the deselect all button refers to the sidebar checkbox form elements
+  $(document).on('click', '.js-a-check__link-deselect-all', function() {
+    var filterElements = $(this).parents('.check').find('.js-facet');
+    filterElements.prop('checked', false);
+    $('#js-facet').submit();
+    return false;
+  });
+  
+  // change the value in the DOM - the select all button refers to the sidebar checkbox form elements
+  $(document).on('click', '.js-a-check__link-select-all', function() {
+    var filterElements = $(this).parents('.check').find('.js-facet');
+    filterElements.prop('checked', true);    
+    $('#js-facet').submit();
+    return false;
+  });
+  
+  // change the value in the DOM - the clear filters button refers to the sidebar checkbox form elements
+  $(document).on('click', '.js-clear-filters', function() {
+    $('.js-facet').prop('checked', false);
+    $('#js-facet').submit();
+  });
+  
   // var repository_autocomplete = new Autocomplete($('#repository_name'));
   // var collection_autocomplete = new Autocomplete($('#collection_name'));
-  
-}
-
-FacetQuery.prototype.saveValuesToSession = function() {
-  sessionStorage.clear();
-  sessionStorage.setItem('query', this.query);
-  if (this.queryStart !== undefined) {
-    sessionStorage.setItem('queryStart', this.queryStart);
-  }
-  if (this.querySort !== undefined) {
-    sessionStorage.setItem('querySort', this.querySort);
-  }
-  if (this.refineQuery.length !== 0) {
-    sessionStorage.setItem('refineQuery', JSON.stringify(this.refineQuery));
-  }
-  if (!$.isEmptyObject(this.filters)) {
-    sessionStorage.setItem('filters', JSON.stringify(this.filters));
-  }
-}
-
-FacetQuery.prototype.getValuesFromSession = function() {
-  if (sessionStorage.length > 0) {
-    this.query = sessionStorage.getItem('query');
-    if (sessionStorage.getItem('queryStart') !== null) {
-      this.queryStart = sessionStorage.getItem('queryStart');
-    }
-    if (sessionStorage.getItem('querySort') !== null) {
-      this.querySort = sessionStorage.getItem('querySort');
-    }
-    if (sessionStorage.getItem('refineQuery') !== null) {
-      this.refineQuery = JSON.parse(sessionStorage.getItem('refineQuery'));
-    }
-    if (sessionStorage.getItem('filters') !== null) {
-      this.filters = JSON.parse(sessionStorage.getItem('filters'));
-    }
-  }
-}
-
-FacetQuery.prototype.getValuesFromDom = function() {
-  this.query = $("[form='js-facet'][name='q']").val();
-  this.queryStart = $("[form='js-facet'][name='start']").val();
-  this.querySort = $("[form='js-facet'][name='sort']").val();
-  
-  var refineQueries = $("[form='js-facet'][name='rq']");
-  for (var i=0; i<refineQueries.length; i++) {
-    if ($(refineQueries[i]).val() !== '') {
-      this.refineQuery.push($(refineQueries[i]).val());
-    }
-  }
-  
-  var filters = $("[form='js-facet'][name='type_ss']:checked");
-  if (typeof(filters.val()) !== 'undefined') {
-    this.filters['type_ss'] = []
-    for (var i=0; i < filters.length; i++) {
-      this.filters['type_ss'].push($(filters[i]).val());
-    }
-  }
-  filters = $("[form='js-facet'][name='collection_data']:checked");
-  if (typeof(filters.val()) !== 'undefined') {
-    this.filters['collection_data'] = []
-    for (var i=0; i < filters.length; i++) {
-      this.filters['collection_data'].push($(filters[i]).val());
-    }
-  }
-  filters = $("[form='js-facet'][name='repository_data']:checked");
-  if (typeof(filters.val()) !== 'undefined') {
-    this.filters['repository_data'] = []
-    for (var i=0; i < filters.length; i++) {
-      this.filters['repository_data'].push($(filters[i]).val());
-    }
-  }
 }
 
 $(document).ready(function() {
+  // $.pjax.disable();
   var query = new FacetQuery();
-  query.selectDeselectAll(); 
-  query.initCarousel(); 
+  // query.selectDeselectAll();
+  // query.initCarousel();
 });
