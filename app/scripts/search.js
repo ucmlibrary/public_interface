@@ -13,6 +13,8 @@ function FacetQuery() {
   this.filters = {}
   this.refineQuery = []
   
+  // these two conditionals need to happen not only on document.ready, 
+  // but also look for when these elements get added to the page via pjax
   if ($('#js-facet').length > 0) {
     $('#js-facet')[0].reset();
     this.getFormValuesFromDOM();
@@ -20,12 +22,15 @@ function FacetQuery() {
 
     this.bindDomManipulators();
   }
+  if ($('#js-relatedCollections').length > 0) {
+    this.relatedCollections();
+  }
 
   this.bindSubmitHandlers();
 }
 
+// Remove form elements with default values so they don't clutter up the URL path
 FacetQuery.prototype.clearDefaultFormValues = function() {
-  // remove form elements with default values so they don't clutter up the URL path
   var refineQueryFields = $('input[form="js-facet"][name="rq"]');
   for (var i=0; i<refineQueryFields.length; i++) {
     if ($(refineQueryFields[i]).val() == '') { $(refineQueryFields[i]).attr('name', ''); }
@@ -37,7 +42,7 @@ FacetQuery.prototype.clearDefaultFormValues = function() {
   if ($('input[form="js-facet"][name="rc_page"]').val() == '0') { $('input[form="js-facet"][name="rc_page"]').attr('name', ''); }
 }
 
-// retrieve current state
+// Helpers for retrieving and setting the current state
 FacetQuery.prototype.getFormValuesFromDOM = function() {
   if (typeof $('input[form="js-facet"][name="q"]').val() !== 'undefined') { this.query = $('input[form="js-facet"][name="q"]').val(); } 
   if (typeof $('input[form="js-facet"][name="view_format"]').val() !== 'undefined') { this.view_format = $('input[form="js-facet"][name="view_format"]').val(); } 
@@ -185,6 +190,7 @@ FacetQuery.prototype.initCarousel = function() {
 }
 // ********************************
 
+// Submit event handlers save state, clean form, etc. 
 FacetQuery.prototype.bindSubmitHandlers = function() {
   $(document).on('submit', "#js-searchForm", function(that) {
     return function(event) {
@@ -247,28 +253,9 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
   
 }
 
-FacetQuery.prototype.relatedCollectionHandler = function() {
+FacetQuery.prototype.carouselHandler = function() {
   // ******RELATED COLLECTION PAGINATION*******
   // ONLY RELEVANT IN ONE INSTANCE OF SEARCH RESULTS
-  
-  $(document).on('click', '.js-rc-page', function(that) {
-    return function(event) {
-      var data_params = {};
-      data_params['q'] = that.query;
-      data_params['rq'] = that.refineQuery;
-      data_params['rc_page'] = $(this).data('rc_page');
-      
-      for (var i in that.filters) {
-        data_params[i] = that.filters[i];
-      }
-      
-      $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(rc_container) {
-        return function(data, status, jqXHR) {
-          $(rc_container).html(data);
-        }
-      }(that.relatedCollectionsContainer) });
-    }
-  }(this));
   
   $(document).on('click', '.js-carousel-page', function(that) {
     return function(event) {
@@ -292,10 +279,8 @@ FacetQuery.prototype.relatedCollectionHandler = function() {
   
 }
 
-// These click and change handlers simply modify the DOM's 
-// form elements appropriately and then call submit on js-facet
-// see submit handler for js-facet for more details about how 
-// these values are stored in the object and in sessionStorage
+// Event handlers modify form element values & call submit on js-facet
+// DOM is always maintained at most 'current' form values
 FacetQuery.prototype.bindDomManipulators = function() {
   // ***************VIEW FORMAT*************
   // change the value in the DOM - this is a hidden input changed programmatically
@@ -316,17 +301,9 @@ FacetQuery.prototype.bindDomManipulators = function() {
   });
 
   // ***************ROWS***********************
-  // change the value in the DOM - this is a hidden input changed programmatically
+  // don't need to change the DOM value - this is changed by the user via the select dropdown
   $(document).on('change', '#pag-dropdown__view', function() {
     $('#js-facet').submit();
-    // if ($("#pag-dropdown__view option:selected").attr('id') == 'view16') {
-    //   $('#rows').prop('value', '16')
-    //   $('#js-facet').submit();
-    // }
-    // else if ($("#pag-dropdown__view option:selected").attr('id') == 'view50') {
-    //   $('#rows').prop('value', '50')
-    //   $('#js-facet').submit();
-    // }
   });
   
   // ***********PAGINATION**********
@@ -402,6 +379,27 @@ FacetQuery.prototype.bindDomManipulators = function() {
   
   // var repository_autocomplete = new Autocomplete($('#repository_name'));
   // var collection_autocomplete = new Autocomplete($('#collection_name'));
+}
+
+FacetQuery.prototype.relatedCollections = function() {
+  $(document).on('click', '.js-rc-page', function(that) {
+    return function(event) {
+      var data_params = {};
+      data_params['q'] = that.query;
+      data_params['rq'] = that.refineQuery;
+      data_params['rc_page'] = $(this).data('rc_page');
+      
+      for (var i in that.filters) {
+        data_params[i] = that.filters[i];
+      }
+      
+      $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(rc_container) {
+        return function(data, status, jqXHR) {
+          $(rc_container).html(data);
+        }
+      }(that.relatedCollectionsContainer) });
+    }
+  }(this));
 }
 
 $(document).ready(function() {

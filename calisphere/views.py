@@ -436,6 +436,9 @@ def relatedCollections(request, queryParams={}):
                     collection = collection_solr_search.results[0]['collection_data'][0]
 
                     collection_data = {'image_urls': []}
+                    for item in collection_solr_search.results:
+                        collection_data['image_urls'].append(item)
+                        
                     collection_url = ''.join([
                         collection.rsplit('::')[0],
                         '?format=json'
@@ -449,7 +452,6 @@ def relatedCollections(request, queryParams={}):
 
                     # TODO: get this from repository_data in solr rather than from the registry API
                     collection_data['institution'] = ''
-                    # print collection_details
                     for repository in collection_details['repository']:
                         collection_data['institution'] = repository['name']
                         if repository['campus']:
