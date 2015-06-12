@@ -9,7 +9,6 @@
 .collect-row__link {
   clear: both;
   position: relative; // relative to .collect-row__item-number
-  display: block;
   margin: $layout-component-margin 0 0 0;
   padding: $layout-component-margin 0 0 0;
   border-top: 1px solid $design-dark-gray-color;
