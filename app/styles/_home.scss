@@ -103,3 +103,29 @@
 	background: rgba(255, 110, 27, 0.8);
 }
 
+.home__contributing-block {
+	padding: 0 ($layout-component-margin * 2) 0 0;
+}
+
+.home__contributing-link {
+	display: block;
+	margin: 0 (-$layout-component-margin) 0 0;
+	padding: 0 0 50% 0;
+	border: 1px solid $design-primary-color;
+}
+
+.home__contributing-content {
+	position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+	margin: 0 $layout-component-margin 0 0;
+	padding: 21% 0 0 0;
+	text-align: center;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+}
