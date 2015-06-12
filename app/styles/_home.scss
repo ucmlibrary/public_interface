@@ -6,7 +6,6 @@
 
 .home__mast {
 	position: relative; // relative to .home__img-credit
-	height: 250px;
 	margin: 0 0 $layout-component-margin 0;
 	background: url(/images/homepage/mast-sample1.jpg) center center;
 }
@@ -20,8 +19,8 @@
 }
 
 .home__search {
-	margin: 50px auto 0 auto;
-	max-width: 400px;
+	margin: 0 auto 0 auto;
+	padding: 10% 30%; // .home__mast width & height is responsive to this element
 }
 
 .home__search-button {
@@ -50,12 +49,14 @@
 }
 
 .home__img-main1 {
-	height: 150px;
+	position: relative; // relative to .home__img-main1-text
 	margin: 0 10px 0 0;
+	padding: 0 0 25% 0; // sets a responsive container size ratio of 1:4
 	background: url(/images/homepage/sample1.jpg) center center;
 }
 
 .home__img-main1-text {
+	position: absolute;
 	padding: 10px 20px;
 	color: #fff;
 	font-size: 1.2em;
@@ -64,7 +65,7 @@
 
 .home__img-main2 {
 	position: relative; // relative to .home__img-credit
-	height: 150px;
 	margin: 0 0 0 10px;
+	padding: 0 0 50% 0; // sets a responsive container size ratio of 1:2
 	background: url(/images/homepage/sample2.jpg) center center;
 }
