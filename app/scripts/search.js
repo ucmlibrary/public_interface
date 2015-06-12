@@ -337,14 +337,13 @@ FacetQuery.prototype.carousel = function() {
       var numLoaded = $('.carousel').slick('getSlick').slideCount;
       var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
 
-      if (numLoaded < numFound && nextSlide + slidesPerPage >= numLoaded) {
-        that.start = parseInt(that.start) + numLoaded;
+      if (numLoaded < numFound && nextSlide > currentSlide) {
         var data_params = {
           'q': that.query,
           'rq': that.refineQuery,
-          'start': that.start,
+          'start': parseInt(that.start) + numLoaded,
           'sort': that.sort,
-          'rows': '6'
+          'rows': '8'
         };
         for (var i in that.filters) { data_params[i] = that.filters[i]; }
       
