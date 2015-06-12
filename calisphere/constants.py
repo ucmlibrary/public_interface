@@ -1,7 +1,8 @@
 FACET_TYPES = [
     ('type_ss', 'Type of Object'),
     ('repository_data', 'Institution Owner'),
-    ('collection_data', 'Collection')
+    ('collection_data', 'Collection'),
+    ('facet_decade', 'Decade'),
 ]
 
 
@@ -15,5 +16,5 @@ CAMPUS_LIST = [
     {'id': '6', 'name': 'UC San Diego', 'slug': 'UCSD'},
     {'id': '7', 'name': 'UC San Francisco', 'slug': 'UCSF'},
     {'id': '8', 'name': 'UC Santa Barbara', 'slug': 'UCSB'},
-    {'id': '9', 'name': 'UC Santa Cruz', 'slug': 'UCSC'}
+    {'id': '9', 'name': 'UC Santa Cruz', 'slug': 'UCSC'},
 ]

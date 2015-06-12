@@ -68,4 +68,11 @@
 	margin: 0 0 0 10px;
 	padding: 0 0 70% 0; // sets a responsive container size ratio
 	background: url(/images/homepage/sample2.jpg) center center;
+	background-size: cover; // temp style for sample image
+	background-position: top; // temp style for sample image
+}
+
+.home__heading2 {
+	margin: $layout-component-margin 0;
+	font-size: 1.4em;
 }
