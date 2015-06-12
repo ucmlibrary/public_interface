@@ -74,6 +74,7 @@
 }
 
 .home__heading2 {
+	clear: left; // clear bootstrap grid
 	margin: $layout-component-margin 0;
 	font-size: 1.4em;
 }
@@ -101,6 +102,11 @@
 	padding: 5px;
 	color: #fff;
 	background: rgba(255, 110, 27, 0.8);
+}
+
+.home__thumbnail-caption--inst {
+	@extend .home__thumbnail-caption--uc;
+	background: rgba(0, 72, 115, 0.85);
 }
 
 .home__contributing-block {
