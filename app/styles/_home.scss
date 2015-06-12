@@ -1,5 +1,6 @@
 // ##### Home Page ##### //
 
+// for testing grids:
 .home [class^="col-"] {
 	// border: $bblue;
 }
@@ -76,3 +77,29 @@
 	margin: $layout-component-margin 0;
 	font-size: 1.4em;
 }
+
+.home__thumbnail {
+	margin: 0 (-$layout-component-margin) 0 0;
+}
+
+.home__thumbnail-link {
+	position: relative; // relative to .home__thumbnail-caption
+	display: block;
+	margin: 0 $layout-component-margin $layout-component-margin 0;
+}
+
+.home__thumbnail-image {
+	width: 100%;
+	height: auto;
+}
+
+.home__thumbnail-caption--uc {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 5px;
+	color: #fff;
+	background: rgba(255, 110, 27, 0.8);
+}
+
