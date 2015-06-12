@@ -229,18 +229,35 @@ def itemView(request, item_id=''):
                     item['harvest_type'].append('hosted')
                 else:
                     item['harvest_type'].append('harvested')
+                    
 
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
         queryParams = processQueryRequest(request)
+        queryParams['rows'] = 12
         carousel_items = itemViewCarousel(request, queryParams)
+        
+        filter_display = {}
+        for filter_type in queryParams['filters']:
+            if filter_type == 'collection_data':
+                filter_display['collection_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    collection = getCollectionData(collection_data=filter_item)
+                    filter_display['collection_data'].append(collection)
+            elif filter_type == 'repository_data':
+                filter_display['repository_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    repository = getRepositoryData(repository_data=filter_item)
+                    filter_display['repository_data'].append(repository)
+            else:
+                filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
 
         return render(request, 'calisphere/itemView.html', {
             'item_solr_search': item_solr_search,
             'items': item_solr_search.results,
             'q': queryParams['q'],
             'rq': queryParams['rq'],
-            'filters': queryParams['filters'],
+            'filters': filter_display,
             'rows': queryParams['rows'],
             'start': queryParams['start'],
             'search_results': carousel_items['results'],
@@ -339,6 +356,7 @@ def itemViewCarousel(request, queryParams={}):
         queryParams['rows'] = 6
     else:
         ajaxRequest = False
+    
 
     # TODO: getting back way more fields than I really need
     carousel_solr_search = SOLR_select(
@@ -359,7 +377,7 @@ def itemViewCarousel(request, queryParams={}):
     # TODO: create a no results found page
     if len(carousel_solr_search.results) == 0:
         print 'no results found'
-
+    
     if ajaxRequest:
         return render(request, 'calisphere/carousel.html', {
             'q': queryParams['q'],
@@ -418,6 +436,9 @@ def relatedCollections(request, queryParams={}):
                     collection = collection_solr_search.results[0]['collection_data'][0]
 
                     collection_data = {'image_urls': []}
+                    for item in collection_solr_search.results:
+                        collection_data['image_urls'].append(item)
+                        
                     collection_url = ''.join([
                         collection.rsplit('::')[0],
                         '?format=json'
@@ -431,7 +452,6 @@ def relatedCollections(request, queryParams={}):
 
                     # TODO: get this from repository_data in solr rather than from the registry API
                     collection_data['institution'] = ''
-                    # print collection_details
                     for repository in collection_details['repository']:
                         collection_data['institution'] = repository['name']
                         if repository['campus']:

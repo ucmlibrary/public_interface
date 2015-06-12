@@ -1,27 +1,16 @@
 {% load calisphere-extras %}
-
-<div class="carousel__search-results">
-  Search results > {{ q }}
-</div>
-
-<div class="carousel__items-number">
-  Displaying {{ start|add:1 }} - {{ start|add:6 }} of {{ numFound }}
-</div>
-
-<div class="carousel">
-  
-  {% for item in search_results %}
-  <div class="carousel__item">
-    <a class="carousel__link js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}">
-      <img data-lazy="{{ thumbnailUrl }}crop/120x120/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
-      <!-- {{ item.reference_image_md5 }} -->
+    
+  {% for carousel_item in search_results %}
+  <div class="{% if carousel_item.id == items.0.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
+    <a class="{% if carousel_item.id == items.0.id %}carousel__link--selected{% else %}carousel__link{% endif %} js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}">
+      <img data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}" alt="{{ carousel_item.title.0 }}">
+      <!-- {{ carousel_item.reference_image_md5 }} -->
     </a>
-    <div class="carousel__thumbnail-caption">{{ item.title.0|truncatewords:7 }}
+    <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:7 }}
     </div>
   </div>
   {% endfor %}
 
-</div>
 
 <!-- <div style="display: none;">
   <div class="col-md-1">
