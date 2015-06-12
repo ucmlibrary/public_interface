@@ -25,6 +25,10 @@ function FacetQuery() {
   if ($('#js-relatedCollections').length > 0) {
     this.relatedCollections();
   }
+  if ($(this.carouselContainer).length > 0) {
+    this.getValuesFromSession();
+    this.carousel();
+  }
 
   this.bindSubmitHandlers();
 }
@@ -96,100 +100,6 @@ FacetQuery.prototype.getValuesFromSession = function() {
   }
 }
 
-// ********************************
-FacetQuery.prototype.selectDeselectAll = function() {
-  var facetTypes = $('.check');
-  for(var i=0; i<facetTypes.length; i++) {
-    var allSelected = !($($(facetTypes[i]).find('.js-facet')).is(':not(:checked)'));
-    if (allSelected == true) {
-      $(facetTypes[i]).find('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
-      $(facetTypes[i]).find('.js-a-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
-      $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
-      $(facetTypes[i]).find('.js-a-check__update').prop('disabled', false);
-    }
-  }
-}
-
-FacetQuery.prototype.initCarousel = function() {
-  // ##### Slick Carousel ##### //
-
-  $('.carousel').slick({
-    infinite: false,
-    speed: 300,
-    slidesToShow: 10,
-    slidesToScroll: 6,
-    variableWidth: true,
-    lazyLoad: 'ondemand',
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          infinite: true,
-          // slidesToShow: 8,
-          slidesToScroll: 6,
-          variableWidth: true
-        }
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          infinite: true,
-          // slidesToShow: 6,
-          slidesToScroll: 5,
-          variableWidth: true
-        }
-      },
-      {
-        breakpoint: 650,
-        settings: {
-          infinite: true,
-          // slidesToShow: 4,
-          slidesToScroll: 4,
-          variableWidth: true
-        }
-      }
-    ]
-  });
-
-  $('.carousel').on('beforeChange', function(that) {
-    return function(event, slick, currentSlide, nextSlide){
-      var numFound = $('#js-carousel').data('numfound');      
-      var numLoaded = $('.carousel').slick('getSlick').slideCount;
-      var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
-
-      if (numLoaded < numFound && nextSlide + slidesPerPage >= numLoaded) {
-        var data_params = {};
-        data_params['q'] = $('input[form="js-carousel"][name="q"]').val();
-        data_params['rq'] = $('input[form="js-carousel"][name="rq"]').val();;
-        data_params['start'] = $('.carousel').slick('getSlick').slideCount;
-        that.queryStart = data_params['start'];
-      
-        var allFilters = $('input[form="js-carousel"].js-filterType');
-        for (var i=0; i<allFilters.length; i++) {
-          if ($(allFilters[i]).attr('name') in data_params){
-            data_params[$(allFilters[i]).attr('name')].push($(allFilters[i]).val());
-          } else {
-            data_params[$(allFilters[i]).attr('name')] = [$(allFilters[i]).val()];
-          }
-        }
-      
-        $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(carouselContainer, data_params) {
-          return function(data, status, jqXHR) {
-            $('.carousel').slick('slickAdd', data);
-          }
-        }(that.carouselContainer, data_params) });
-      }
-      
-      if (nextSlide+slidesPerPage > numFound){ var slideRange = (nextSlide+slidesPerPage) - numFound} 
-      else { var slideRange = nextSlide+slidesPerPage }
-        
-      $('.carousel__items-number').text('Displaying ' + (parseInt(nextSlide)+1) + ' - ' + slideRange + ' of ' + numFound);
-      
-    }
-  }(this));
-}
-// ********************************
-
 // Submit event handlers save state, clean form, etc. 
 FacetQuery.prototype.bindSubmitHandlers = function() {
   $(document).on('submit', "#js-searchForm", function(that) {
@@ -222,24 +132,17 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
   // TODO: hide the GET parameters in the URL by pushing a URL state that is the URL without GET params
   $(document).on('click', '.js-item-link', function(that) {
     return function(event) {
-      var data_params = {};
-      data_params['q'] = that.query;
-      data_params['rq'] = that.refineQuery;
-      if ($(this).data('item_number') !== undefined) {
-        data_params['start'] = $(this).data('item_number');
-        that.queryStart = data_params['start'];
-      } else {
-        data_params['start'] = that.queryStart;
-      }
-      data_params['sort'] = that.querySort;
-      
-      for (var i in that.filters) {
-        data_params[i] = that.filters[i];
-      }
+      if ($(this).data('item_number') !== undefined) { that.start = $(this).data('item_number'); }
+      var data_params = {
+        'q': that.query,
+        'rq': that.refineQuery,
+        'sort': that.sort,
+        'start': that.start,
+      };
+      for (var i in that.filters) { data_params[i] = that.filters[i]; }
       
       that.saveValuesToSession();
       event.preventDefault();
-      console.log($(this).attr('href'));
       $.pjax({
         type: 'GET',
         url: $(this).attr('href'),
@@ -247,33 +150,6 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
         data: data_params,
         traditional: true
       });
-      // $.pjax.click(event, {container: that.resultsContainer, data: data_params, traditional: true, success: that.itemViewLoadSuccess()});
-    }
-  }(this));
-  
-}
-
-FacetQuery.prototype.carouselHandler = function() {
-  // ******RELATED COLLECTION PAGINATION*******
-  // ONLY RELEVANT IN ONE INSTANCE OF SEARCH RESULTS
-  
-  $(document).on('click', '.js-carousel-page', function(that) {
-    return function(event) {
-      var data_params = {};
-      data_params['q'] = that.query;
-      data_params['rq'] = that.refineQuery;
-      data_params['start'] = $(this).data('carousel_start');
-      that.queryStart = data_params['start'];
-      
-      for (var i in that.filters) {
-        data_params[i] = that.filters[i];
-      }
-      
-      $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(carouselContainer) {
-        return function(data, status, jqXHR) {
-          $(carouselContainer).html(data);
-        }
-      }(that.carouselContainer) });
     }
   }(this));
   
@@ -377,6 +253,19 @@ FacetQuery.prototype.bindDomManipulators = function() {
     $('#js-facet').submit();
   });
   
+  // set up select/deselect all buttons on facet form
+
+  var facetTypes = $('.check');
+  for(var i=0; i<facetTypes.length; i++) {
+    var allSelected = !($($(facetTypes[i]).find('.js-facet')).is(':not(:checked)'));
+    if (allSelected == true) {
+      $(facetTypes[i]).find('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
+      $(facetTypes[i]).find('.js-a-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
+      $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
+      $(facetTypes[i]).find('.js-a-check__update').prop('disabled', false);
+    }
+  }
+
   // var repository_autocomplete = new Autocomplete($('#repository_name'));
   // var collection_autocomplete = new Autocomplete($('#collection_name'));
 }
@@ -398,6 +287,77 @@ FacetQuery.prototype.relatedCollections = function() {
           $(rc_container).html(data);
         }
       }(that.relatedCollectionsContainer) });
+    }
+  }(this));
+}
+
+FacetQuery.prototype.carousel = function() {
+  // ##### Slick Carousel ##### //
+  $('.carousel').slick({
+    infinite: true,
+    speed: 300,
+    slidesToShow: 10,
+    slidesToScroll: 6,
+    variableWidth: true,
+    lazyLoad: 'ondemand',
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          infinite: true,
+          // slidesToShow: 8,
+          slidesToScroll: 8,
+          variableWidth: true
+        }
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          infinite: true,
+          // slidesToShow: 6,
+          slidesToScroll: 6,
+          variableWidth: true
+        }
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          infinite: true,
+          // slidesToShow: 4,
+          slidesToScroll: 4,
+          variableWidth: true
+        }
+      }
+    ]
+  });
+  
+  $('.carousel').on('beforeChange', function(that) {
+    return function(event, slick, currentSlide, nextSlide){
+      var numFound = $('#js-carousel').data('numfound');      
+      var numLoaded = $('.carousel').slick('getSlick').slideCount;
+      var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
+
+      if (numLoaded < numFound && nextSlide + slidesPerPage >= numLoaded) {
+        that.start = parseInt(that.start) + numLoaded;
+        var data_params = {
+          'q': that.query,
+          'rq': that.refineQuery,
+          'start': that.start,
+          'sort': that.sort,
+          'rows': '6'
+        };
+        for (var i in that.filters) { data_params[i] = that.filters[i]; }
+      
+        $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(data, status, jqXHR) {
+            $('.carousel').slick('slickAdd', data);
+        }});
+      }
+      
+      if (nextSlide+slidesPerPage > numFound){ var slideRange = (nextSlide+slidesPerPage) - numFound} 
+      else { var slideRange = nextSlide+slidesPerPage }
+        
+      $('.carousel__items-number').text('Displaying ' + (parseInt(nextSlide)+1) + ' - ' + slideRange + ' of ' + numFound);
+      
     }
   }(this));
 }
