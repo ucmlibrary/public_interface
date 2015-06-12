@@ -1,0 +1,71 @@
+// ##### Home Page ##### //
+
+.home [class^="col-"] {
+	// border: $bblue;
+}
+
+.home__mast {
+	position: relative; // relative to .home__img-credit
+	margin: 0 0 $layout-component-margin 0;
+	background: url(/images/homepage/mast-sample1.jpg) center center;
+}
+
+.home__mast-heading {
+	padding: 20px 0;
+	color: #fff;
+	font-size: 2em;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.home__search {
+	margin: 0 auto 0 auto;
+	padding: 10% 30%; // .home__mast width & height is responsive to this element
+}
+
+.home__search-button {
+  height: 34px; // match the height of Bootstrap's form field
+  color: #fff;
+  border: 1px solid $design-dark-gray-color;
+  background: $design-primary-color;
+
+  &:hover {
+    background: $link-hover-color;
+  }
+
+  .fa { // fa-search icon
+  	font-size: 1.1em;
+
+  }
+
+}
+
+.home__img-credit {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	color: #fff;
+	font-size: 0.9em;
+}
+
+.home__img-main1 {
+	position: relative; // relative to .home__img-main1-text
+	margin: 0 10px 0 0;
+	padding: 0 0 35% 0; // sets a responsive container size ratio
+	background: url(/images/homepage/sample1.jpg) center center;
+}
+
+.home__img-main1-text {
+	position: absolute;
+	padding: 10px 20px;
+	color: #fff;
+	font-size: 1.2em;
+	background: rgba(0, 72, 115, 0.85);
+}
+
+.home__img-main2 {
+	position: relative; // relative to .home__img-credit
+	margin: 0 0 0 10px;
+	padding: 0 0 70% 0; // sets a responsive container size ratio
+	background: url(/images/homepage/sample2.jpg) center center;
+}

@@ -8,18 +8,28 @@
 	display: block;
 	margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 	color: #000;
+
 }
 
 .thumbview__container {
-	position: relative; // for 'icon__overlay' child
+	position: relative; // for .thumbview__icon-overlay
 }
 
 .thumbview__icon-overlay {
 	@include icon__centered-overlay(60px, 50px, 45px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+	z-index: 2; // stack over .thumbview__image
+}
+
+.thumbview__image-container {
+	@include aspect-ratio(1, 1);
+	background: $design-light-gray-color;
 }
 
 .thumbview__image {
 	display: block;
+	z-index: 1;
+	background: $design-light-gray-color; // revealed if no image
+	@extend .aspect-ratio-content;
 }
 
 .thumbview__caption {
@@ -34,9 +44,3 @@
 .thumbview__image--no-image {
 	@include thumbview__no-image();
 }
-
-// Testing:
-
-// .thumbview [class^="col-"] {
-// 	border: $bblue;
-// }

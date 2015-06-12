@@ -29,11 +29,7 @@
 // ***** Harvest Image ***** //
 
 .obj-harvest__link {
-  // color: #000;
   
-  // &:hover {
-  //   color: $design-primary-color;
-  // }
 }
 
 .obj-harvest__image { // temp styles to set image size for UI work
@@ -81,29 +77,6 @@
   width: 80px;
   height: auto;
 }
-
-/*
-
-.obj-harvest-non-image__object-icons {
-  font-size: 3em;
-  font-weight: bold;
-
-  @include bp(sm-screen) {
-    font-size: 4em;
-  }
-
-}
-
-.obj-harvest-non-image__object-icon1 {
-  color: $design-dark-gray-color;
-}
-
-.obj-harvest-non-image__object-icon2 {
-  color: #A94442;
-  opacity: 0.7;
-}
-
-*/
 
 .obj-harvest-non-image__object {
   display: flex;

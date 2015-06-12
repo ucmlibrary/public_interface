@@ -19,11 +19,13 @@
         {% if item.type_ss.0 == "text" or item.type_ss.0 == "sound" %}
           <img class="thumbview__image--no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
         {% else %}
-          <img class="thumbview__image"
-          src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
-          srcset="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.reference_image_md5 }} 50w"
-          sizes="100%"
-          alt="{{ item.title.0|truncatewords:8 }}">
+          <div class="thumbview__image-container">
+            <img class="thumbview__image"
+            src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
+            srcset="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.reference_image_md5 }} 50w"
+            sizes="100%"
+            alt="{{ item.title.0|truncatewords:8 }}">
+          </div>
         {% endif %}
         {% if item.type_ss.0 != "image" %}
         </div>
