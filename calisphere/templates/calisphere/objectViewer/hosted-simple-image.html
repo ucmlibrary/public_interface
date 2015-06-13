@@ -1,0 +1,37 @@
+{% load staticfiles %}
+
+<div class="object__container-osd">
+  
+  <div id="obj__osd"></div>
+
+  <div class="obj__osd-button-group">
+    
+    <a id="obj__osd-button-home" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-refresh fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-zoom-in" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-plus fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-zoom-out" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-minus fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-fullscreen" class="btn btn-default obj__osd-button" href="">
+      <span class="fa fa-expand fa-fw"></span>
+    </a>
+
+  </div>
+
+  <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
+  
+  <script type="text/javascript">
+      var viewer = OpenSeadragon({
+          id: "obj__osd",
+          tileSources: [{{ item.titleSources|safe }}],
+          zoomInButton:   "obj__osd-button-zoom-in",
+          zoomOutButton:  "obj__osd-button-zoom-out",
+          homeButton:     "obj__osd-button-home",
+          fullPageButton: "obj__osd-button-fullscreen"
+      });
+  </script>
+
+</div>

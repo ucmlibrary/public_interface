@@ -221,15 +221,15 @@ def itemView(request, item_id=''):
         raise Http404("{0} does not exist".format(item_id))
 
     for item in item_solr_search.results:
-        if len(item['collection_url']) >= 1:
-            item['harvest_type'] = []
-            for collection_url in item['collection_url']:
-                collection_details = json_loads_url(collection_url + "?format=json")
-                if (collection_details['harvest_type'] == 'NUX'):
-                    item['harvest_type'].append('hosted')
-                else:
-                    item['harvest_type'].append('harvested')
-                    
+        if len(item['structmap_url']) >= 1:
+            item['harvest_type'] = 'hosted'
+            if (item['type_ss'][0] == 'image'):
+                item['structmap_url'] = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
+                item['iiif_id'] = json_loads_url(item['structmap_url'])['id']
+                # hard-coded IIIF ID that works: 001687cd-e327-4ed1-9788-da3899715794
+                item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + item['iiif_id'] + '/info.json'))
+        else:
+            item['harvest_type'] = 'harvested'
 
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
@@ -254,7 +254,7 @@ def itemView(request, item_id=''):
 
         return render(request, 'calisphere/itemView.html', {
             'item_solr_search': item_solr_search,
-            'items': item_solr_search.results,
+            'item': item_solr_search.results[0],
             'q': queryParams['q'],
             'rq': queryParams['rq'],
             'filters': filter_display,
