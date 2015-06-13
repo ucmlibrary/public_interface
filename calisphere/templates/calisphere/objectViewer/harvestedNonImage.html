@@ -5,14 +5,12 @@
 {% elif item.type_ss.0 == "text"%}
   Text Icon
 {% elif item.type_ss.0 == "complex object"%}
-  Physical Object Icon
+  Complex Object Icon
 {% endif %}
 <br>
 <!-- TODO: change 'contributor' to 'OAC' when applicable - will require some logic -->
-Preview unavailable on Calisphere. <a href="{{ item.url_item }}" target="_blank">Play {{ item.type_ss.0 }} on 
-  {% if item.oac == True %}
-    the OAC.
-  {% else %}
-    contributor's website.
-  {% endif %} </a>
+Preview unavailable on Calisphere. <a href="{{ item.url_item }}" target="_blank">
+  {% if item.type_ss.0 == 'moving image' or item.type_ss.0 == 'sound' %}Play{% elif item.type_ss.0 == "text"%}Read{% endif %}
+  {{ item.type_ss.0 }} on 
+  {% if item.oac == True %}the OAC.{% else %}contributor's website.{% endif %} </a>
 <br><br>
