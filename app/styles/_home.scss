@@ -1,5 +1,6 @@
 // ##### Home Page ##### //
 
+// for testing grids:
 .home [class^="col-"] {
 	// border: $bblue;
 }
@@ -73,6 +74,65 @@
 }
 
 .home__heading2 {
+	clear: left; // clear bootstrap grid
 	margin: $layout-component-margin 0;
 	font-size: 1.4em;
+}
+
+.home__thumbnail {
+	margin: 0 (-$layout-component-margin) 0 0;
+}
+
+.home__thumbnail-link {
+	position: relative; // relative to .home__thumbnail-caption
+	display: block;
+	margin: 0 $layout-component-margin $layout-component-margin 0;
+}
+
+.home__thumbnail-image {
+	width: 100%;
+	height: auto;
+}
+
+.home__thumbnail-caption--uc {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 5px;
+	color: #fff;
+	background: rgba(255, 110, 27, 0.8);
+}
+
+.home__thumbnail-caption--inst {
+	@extend .home__thumbnail-caption--uc;
+	background: rgba(0, 72, 115, 0.85);
+}
+
+.home__contributing-block {
+	padding: 0 ($layout-component-margin * 2) 0 0;
+}
+
+.home__contributing-link {
+	display: block;
+	margin: 0 (-$layout-component-margin) 0 0;
+	padding: 0 0 50% 0;
+	border: 1px solid $design-primary-color;
+}
+
+.home__contributing-content {
+	position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+	margin: 0 $layout-component-margin 0 0;
+	padding: 20% 0 0 0;
+	text-align: center;
+	font-size: 1.4em;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
 }
