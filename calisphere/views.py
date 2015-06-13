@@ -221,7 +221,7 @@ def itemView(request, item_id=''):
         raise Http404("{0} does not exist".format(item_id))
 
     for item in item_solr_search.results:
-        if len(item['structmap_url']) >= 1:
+        if 'structmap_url' in item and len(item['structmap_url']) >= 1:
             item['harvest_type'] = 'hosted'
             if (item['type_ss'][0] == 'image'):
                 item['structmap_url'] = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
@@ -230,6 +230,12 @@ def itemView(request, item_id=''):
                 item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + item['iiif_id'] + '/info.json'))
         else:
             item['harvest_type'] = 'harvested'
+            if item['url_item'].startswith('http://ark.cdlib.org/ark:'):
+                item['oac'] = True
+                item['url_item'] = string.replace(item['url_item'], 'http://ark.cdlib.org/ark:', 'http://oac.cdlib.org/ark:')
+                item['url_item'] = item['url_item'] + '/?brand=oac4'
+            else:
+                item['oac'] = False
 
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
