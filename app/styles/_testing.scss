@@ -73,7 +73,49 @@ article {
     max-width: 100%;
 }
 
-// Testing centering via flexbox
+// Testing centering methods. First uses flexbox w/o needing a 3rd child. Second uses a 3rd child with a transform
+
+.center1__parent {
+	@include aspect-ratio(2, 1);
+	margin: 0 25%;
+
+  border: $bblue;
+}
+
+.center1__child {
+	@extend .aspect-ratio-content;
+	display: flex;
+  align-items: center;
+  margin: 0 25%;
+}
+
+.center1__content {
+	border: $bred;
+}
+
+
+
+.center2__parent {
+	@include aspect-ratio(2, 1);
+	margin: 0 25%;
+
+	border: $bblue;
+}
+
+.center2__child {
+	@extend .aspect-ratio-content;
+	margin: 0 25%;
+}
+
+.center2__content {
+	display: block;
+	position: absolute;
+	top: 50%;
+  transform: translateY(-50%);
+
+	border: $bred;
+}
+
 
 
 
