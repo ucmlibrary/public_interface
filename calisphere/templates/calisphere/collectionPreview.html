@@ -1,7 +1,9 @@
-<a href="{% url 'calisphere:collectionView' collection.collection_id %}" class="row collect-row__link">
-	
+<div class="row collect-row__link">
+
 	<div class="col-xs-12 col-sm-4 collect-row__summary">
-    <h3 class="collect-row__title">{{ collection.name }}</h3>
+    <a href="{% url 'calisphere:collectionView' collection.collection_id %}">
+      <h3 class="collect-row__title">{{ collection.name }}</h3>
+    </a>
     <p>{{ collection.description }}</p>
     <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
   </div>
@@ -9,7 +11,7 @@
   <p class="collect-row__item-number"><strong>{{ collection.numFound }} Item{{ collection.numFound|pluralize }}</strong></p>
 
   <div class="col-xs-12 col-sm-8">
-  	<div class="collect-row__mosaic">
+  	<a href="{% url 'calisphere:collectionView' collection.collection_id %}" class="collect-row__mosaic">
   		<div class="col-sm-6">
 	  		{% for item in collection.display_items %}
 		    	<img class="collect-row__image{{ forloop.counter }}" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" alt="">
@@ -24,6 +26,6 @@
         		</div>
       		</div>
     	</div>
-    </div>
+    </a>
   </div>
-</a>
+</div>
