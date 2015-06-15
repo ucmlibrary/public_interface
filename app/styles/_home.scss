@@ -8,7 +8,7 @@
 .home__mast {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-component-margin 0;
-	background: url(/images/homepage/colorado-street-bridge.jpg) center;
+	background: url(/images/homepage/colorado-street-bridge.jpg) center -60px;
 	background-size: cover;
 }
 
@@ -17,7 +17,7 @@
 	color: #fff;
 	font-size: 2em;
 	text-align: center;
-	background: rgba(0, 0, 0, 0.5);
+	background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
 }
 
 .home__search {
