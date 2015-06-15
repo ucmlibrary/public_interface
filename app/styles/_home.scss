@@ -8,7 +8,7 @@
 .home__mast {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-component-margin 0;
-	background: url(/images/homepage/mast-sample1.jpg) center center;
+	background: url(/images/homepage/colorado-street-bridge.jpg) center center;
 }
 
 .home__mast-heading {
@@ -53,7 +53,7 @@
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 10px 0 0;
 	padding: 0 0 35% 0; // sets a responsive container size ratio
-	background: url(/images/homepage/sample1.jpg) center center;
+	background: url(/images/homepage/oranges.jpg) center center;
 }
 
 .home__img-main1-text {
@@ -68,7 +68,7 @@
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 0 10px;
 	padding: 0 0 70% 0; // sets a responsive container size ratio
-	background: url(/images/homepage/sample2.jpg) center center;
+	background: url(/images/homepage/hirahara-portrait.jpg) center center;
 	background-size: cover; // temp style for sample image
 	background-position: top; // temp style for sample image
 }
