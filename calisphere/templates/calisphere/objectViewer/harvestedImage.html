@@ -4,7 +4,12 @@
         <span class="fa fa-external-link fa-fw obj-harvest__external-link-icon-overlay"></span>
         <img class="obj-harvest__image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="">
       </div>
-      <div class="obj-harvest__caption">Preview. View on contributor's website.
+      <div class="obj-harvest__caption">Preview. View on 
+        {% if item.oac == True %}
+          the OAC.
+        {% else%} 
+          contributor's website.
+        {% endif %}
       </div>
     </a>
 
