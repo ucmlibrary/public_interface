@@ -69,6 +69,13 @@
 	font-size: 0.9em;
 }
 
+// ***** 8 by 4 image mosaic ***** //
+
+.home__mosaic {
+	position: relative;
+	z-index: 1;
+}
+
 .home__img-main1 {
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 10px 0 0;
@@ -78,11 +85,20 @@
 }
 
 .home__img-main1-text {
-	position: absolute;
-	padding: 10px 20px;
+	position: relative;
+	z-index: 2;
+	margin: 0 0 $layout-component-margin 0;
+	padding: 10px;
 	color: #fff;
 	font-size: 1.2em;
 	background: rgba(0, 72, 115, 0.85);
+
+	@include bp(sm-screen) {
+    position: absolute;
+    margin: 0 10px 0 0;
+		padding: 10px 20px;
+  }
+
 }
 
 .home__img-main2 {
