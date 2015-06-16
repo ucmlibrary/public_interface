@@ -137,6 +137,7 @@
 	font-size: 1.4em;
 
 	&:after {
+		display: inline-block; // removes the :hover underline
 		content: "\f105"; // fa-angle-right Font Awesome icon
     font-family: FontAwesome;
     margin: 0 0 0 0.5em;
