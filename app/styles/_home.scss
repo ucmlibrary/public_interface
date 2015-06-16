@@ -9,20 +9,39 @@
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-component-margin 0;
 	background: url(/images/homepage/colorado-street-bridge.jpg) center -60px;
-	background-size: cover;
+	background-size: center;
+
+	@include bp(sm-screen) {
+    background-size: cover;
+  }
+
 }
 
 .home__mast-heading {
-	padding: 20px 0;
+	padding: 20px 10px;
 	color: #fff;
-	font-size: 2.4em;
+	font-size: 2em;
 	text-align: center;
 	background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+
+	@include bp(sm-screen) {
+    font-size: 2.2em;
+  }
+
+  @include bp(md-screen) {
+    font-size: 2.4em;
+  }
+
 }
 
 .home__search {
 	margin: 0 auto 0 auto;
-	padding: 7% 30% 13% 30%; // .home__mast height is responsive to this element
+	padding: 2% 20% 13% 20%; // .home__mast height is responsive to this element
+
+	@include bp(sm-screen) {
+    padding: 7% 30% 13% 30%;
+  }
+
 }
 
 .home__search-button {
@@ -75,7 +94,7 @@
 }
 
 .home__heading2 {
-	clear: left; // clear bootstrap grid
+	clear: both; // clear bootstrap grid
 	margin: $layout-component-margin 0;
 	font-size: 1.4em;
 }
@@ -111,7 +130,13 @@
 }
 
 .home__contributing-block {
+	margin: 0 0 $layout-component-margin 0;
 	padding: 0 ($layout-component-margin * 2) 0 0;
+
+	@include bp(sm-screen) {
+    margin: 0;
+  }
+
 }
 
 .home__contributing-link {
@@ -134,7 +159,7 @@
   transform: translate(-50%, -50%);
 	width: 90%;
 	text-align: center;
-	font-size: 1.4em;
+	font-size: 1.3em;
 
 	&:after {
 		display: inline-block; // removes the :hover underline
