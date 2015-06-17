@@ -7,7 +7,7 @@
 
 .home__mast {
 	position: relative; // relative to .home__img-credit
-	margin: 0 0 $layout-component-margin 0;
+	margin: 0 0 $layout-container-margin-xs 0;
 	background: url(/images/homepage/oranges.jpg) center;
 	background-size: center;
 
@@ -82,7 +82,7 @@
 
 .home__img-main1 {
 	position: relative; // relative to .home__img-main1-text
-	margin: 0 10px 0 0;
+	margin: 0 ($layout-container-margin-xs / 2) 0 0;
 	padding: 0 0 35% 0; // sets a responsive container size ratio
 	background: url(/images/homepage/oranges.jpg) center;
 	background-size: 115%;
@@ -91,7 +91,7 @@
 .home__img-main1-text {
 	position: relative;
 	z-index: 2;
-	margin: 0 0 $layout-component-margin 0;
+	margin: 0 0 $layout-container-margin-xs 0;
 	padding: 10px;
 	color: #fff;
 	font-size: 1.2em;
@@ -100,7 +100,7 @@
 
 	@include bp(sm-screen) {
     position: absolute;
-    margin: 0 10px 0 0;
+    margin: 0 ($layout-container-margin-xs / 2) 0 0;
 		padding: 10px 20px;
   }
 
@@ -108,20 +108,21 @@
 
 .home__img-main2 {
 	position: relative; // relative to .home__img-credit
-	margin: 0 0 0 10px;
+	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 70% 0; // sets a responsive container size ratio
 	background: url(/images/homepage/hirahara-portrait.jpg) center;
 	background-size: 115%;
 }
 
 .home__heading2 {
-	clear: both; // clear bootstrap grid
-	margin: $layout-component-margin 0;
+	clear: right; // clear bootstrap grid
+	margin: ($layout-component-margin * 2) 0 $layout-component-margin 0;
 	font-size: 1.4em;
+	overflow: hidden;
 }
 
 .home__thumbnail {
-	margin: 0 (-$layout-component-margin) 0 0;
+	margin: 0 (-$layout-component-margin) (-$layout-component-margin) 0;
 }
 
 .home__thumbnail-link {
