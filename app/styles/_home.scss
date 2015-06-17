@@ -27,21 +27,23 @@
 	background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
 
 	@include bp(sm-screen) {
+    padding: 30px 10px;
     font-size: 2.2em;
   }
 
   @include bp(md-screen) {
+    padding: 40px 10px;
     font-size: 2.4em;
   }
 
 }
 
 .home__search {
-	margin: 0 auto 0 auto;
-	padding: 2% 20% 13% 20%; // .home__mast height is responsive to this element
+	margin: 0 auto;
+	padding: 0 20% 12% 20%; // .home__mast height is responsive to this element
 
 	@include bp(sm-screen) {
-    padding: 7% 30% 13% 30%;
+    padding: 6% 30% 12% 30%;
   }
 
 }
