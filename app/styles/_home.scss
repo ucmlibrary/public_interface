@@ -32,7 +32,7 @@
 
   @include bp(md-screen) {
     padding: 40px 10px;
-    font-size: 2.4em;
+    font-size: 2.8em;
   }
 
 }
@@ -120,10 +120,9 @@
 }
 
 .home__heading2 {
-	clear: right; // clear bootstrap grid
 	margin: ($layout-component-margin * 2) 0 $layout-component-margin 0;
-	font-size: 1.4em;
-	overflow: hidden;
+	font-size: 1.5em;
+	font-weight: bold;
 }
 
 .home__thumbnail {
@@ -146,14 +145,15 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
-	padding: 5px;
+	padding: 10px;
 	color: #fff;
-	background: rgba(255, 110, 27, 0.8);
+	background: rgba(241, 70, 0, 0.7);
+	font-size: 1.2em;
 }
 
 .home__thumbnail-caption--inst {
 	@extend .home__thumbnail-caption--uc;
-	background: rgba(0, 72, 115, 0.85);
+	background: rgba(0, 91, 109, 0.7);
 }
 
 .home__contributing-block {
