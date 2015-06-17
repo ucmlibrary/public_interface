@@ -38,7 +38,7 @@
 }
 
 .obj-harvest__file-icon-overlay {
-  @include icon__centered-overlay(55px, 60px, 70px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+  @include icon__centered-overlay(80px, 90px, 100px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
 
 .obj-harvest__external-link-icon-overlay {
@@ -70,7 +70,7 @@
 // ***** Harvest Non-Image ***** //
 
 .obj-harvest-non-image__file-icon-overlay {
-  @include icon__centered-overlay(55px, 65px, 70px, $design-dark-gray-color, #fff); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+  @include icon__centered-overlay(55px, 65px, 70px, $design-primary-color, #fff); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
 
 .obj-harvest-non-image__object-icon {
@@ -105,7 +105,7 @@
 // ***** Hosted File ***** //
 
 .obj-hosted__no-image {
-  @include thumbview__no-image($thumb-border: $design-dark-gray-color);
+  @include thumbview__no-image($thumb-border: $design-primary-color);
 }
 
 .obj-hosted__caption {
