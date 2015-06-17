@@ -8,8 +8,7 @@
 .home__mast {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-container-margin-xs 0;
-	background: url(/images/homepage/oranges.jpg) center;
-	background-size: center;
+	background-image: url("/images/homepage/colorado-street-bridge.jpg");
 
 	@include bp(sm-screen) {
     background-size: cover;
@@ -84,7 +83,8 @@
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 ($layout-container-margin-xs / 2) 0 0;
 	padding: 0 0 35% 0; // sets a responsive container size ratio
-	background: url(/images/homepage/oranges.jpg) center;
+	background-image: url("/images/homepage/oranges.jpg");
+	background-position: center;
 	background-size: 115%;
 }
 
@@ -110,7 +110,8 @@
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 70% 0; // sets a responsive container size ratio
-	background: url(/images/homepage/hirahara-portrait.jpg) center;
+	background-image: url("/images/homepage/hirahara-portrait.jpg");
+	background-position: center;
 	background-size: 115%;
 }
 
