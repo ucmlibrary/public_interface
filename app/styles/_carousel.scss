@@ -59,7 +59,7 @@ html.no-js .carousel__item {
 
 .carousel__link--selected {
   @extend .carousel__link;
-  border: 7px solid $design-dark-gray-color;
+  border: 7px solid $design-secondary-color;
 }
 
 .carousel__thumbnail--no-image {
