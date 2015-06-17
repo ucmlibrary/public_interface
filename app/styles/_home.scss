@@ -5,6 +5,19 @@
 	// border: $bblue;
 }
 
+.home__main-section { // align images to edge of viewport
+	margin: 0 (-$layout-container-margin-xs);
+
+	@include bp(sm-screen) {
+    margin: 0 (-$layout-container-margin-sm);
+  }
+
+  @include bp(md-screen) {
+    margin: 0 (-$layout-container-margin-md);
+  }
+
+}
+
 .home__mast {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-container-margin-xs 0;
