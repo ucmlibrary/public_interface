@@ -60,6 +60,15 @@
 
 }
 
+#home__search-field {
+	color: #000;
+
+	&::placeholder {
+  	color: #000;  
+	}
+
+}
+
 .home__search-button {
   color: #fff;
   border: 1px solid $design-dark-gray-color;
