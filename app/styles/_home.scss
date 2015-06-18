@@ -55,7 +55,7 @@
 	padding: 0 20% 12% 20%; // .home__mast height is responsive to this element
 
 	@include bp(sm-screen) {
-    padding: 6% 30% 12% 30%;
+    padding: 3% 30% 16% 30%;
   }
 
 }
@@ -103,7 +103,7 @@
 .home__img-main1 {
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 ($layout-container-margin-xs / 2) 0 0;
-	padding: 0 0 35% 0; // sets a responsive container size ratio
+	padding: 0 0 $home-main-img-padding 0;
 	background-image: url("/images/homepage/oranges.jpg");
 	background-position: center;
 	background-size: 115%;
@@ -134,7 +134,7 @@
 .home__img-main2 {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
-	padding: 0 0 70% 0; // sets a responsive container size ratio
+	padding: 0 0 ($home-main-img-padding * 2) 0;
 	background-image: url("/images/homepage/hirahara-portrait.jpg");
 	background-position: center;
 	background-size: 115%;
