@@ -182,7 +182,13 @@
 .home__thumbnail-link {
 	position: relative; // relative to .home__thumbnail-caption
 	display: block;
-	margin: 0 $layout-component-margin $layout-component-margin 0;
+
+	margin: 0 $layout-container-margin-xs $layout-container-margin-xs 0;
+	
+	@include bp(md-screen) {
+  	margin: 0 $layout-container-margin-md $layout-container-margin-md 0;
+  }
+
 }
 
 .home__thumbnail-image {
