@@ -1,4 +1,4 @@
-// ***** Facets ***** //
+// ##### Facets ##### //
 
 .check__clear-filters {
   display: none;
@@ -25,11 +25,13 @@
 
 }
 
-.facets .row:nth-child(odd) .col-xs-12:first-child .check { // Type of Object
+// ***** Facet #1 (Type of Object) ***** //
+
+.facets .row:nth-child(odd) .col-xs-12:first-child .check {
   
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
-    z-index: 1;
+    z-index: 2; // '2' instead of '1' in order to stack over icon-overlays
   }
 
   @include bp(md-screen) {
@@ -38,11 +40,13 @@
   
 }
 
-.facets .row:nth-child(odd) .col-xs-12:last-child .check { // Date Range
+// ***** Facet #2 (Date Range) ***** //
+
+.facets .row:nth-child(odd) .col-xs-12:last-child .check {
   
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
-    z-index: 1;
+    z-index: 2; // '2' instead of '1' in order to stack over icon-overlays
   }
 
   @include bp(md-screen) {
@@ -51,11 +55,13 @@
   
 }
 
-.facets .row:nth-child(even) .col-xs-12:first-child .check { // Institution Owner
+// ***** Facet #3 (Institution Owner) ***** //
+
+.facets .row:nth-child(even) .col-xs-12:first-child .check {
   
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
-    z-index: 2;
+    z-index: 3; // stacks over '2' above
   }
 
   @include bp(md-screen) {
@@ -64,11 +70,13 @@
   
 }
 
-.facets .row:nth-child(even) .col-xs-12:last-child .check { // Collection
+// ***** Facet #4 (Collection) ***** //
+
+.facets .row:nth-child(even) .col-xs-12:last-child .check {
   
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
-    z-index: 2;
+    z-index: 3; // stacks over '2' above
   }
 
   @include bp(md-screen) {
@@ -76,6 +84,8 @@
   }
   
 }
+
+// ***** Global Styles for All Facets ***** //
 
 .check__header {
   padding: 10px 0 10px 10px;
