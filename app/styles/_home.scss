@@ -176,7 +176,12 @@
 }
 
 .home__thumbnail {
-	margin: 0 (-$layout-component-margin) (-$layout-component-margin) 0;
+	margin: 0 (-$layout-container-margin-xs) (-$layout-container-margin-xs) 0;
+
+	@include bp(md-screen) {
+		margin: 0 (-$layout-container-margin-md) (-$layout-container-margin-md) 0;
+	}
+
 }
 
 .home__thumbnail-link {
@@ -228,7 +233,7 @@
     margin: 0 $layout-container-margin-md 0 (-$layout-container-margin-md);
     padding: 0 0 0 ($layout-container-margin-md * 2);
   }
-  
+
 }
 
 .home__contributing-link {
