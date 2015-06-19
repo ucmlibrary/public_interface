@@ -75,19 +75,27 @@
 }
 
 .home__search-button {
-  // padding: 8px 16px; // allows bigger .fa icon to fit
+  width: 60px;
+  height: 46px; // match height of .input-lg
   color: #fff;
   border: 1px solid $design-primary-color;
   background: $design-primary-color;
   overflow: hidden;
 
   &:hover {
+    color: #fff;
     background: $link-hover-color;
+    border: $design-primary-color;
   }
 
-  .fa { // fa-search icon
-  	font-size: 1.1em;
-
+  &:after {
+  	content: "\f002"; // fa-search icon
+    font-family: FontAwesome;
+    font-size: 1.3em;
+    position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
   }
 
 }
