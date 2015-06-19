@@ -221,11 +221,10 @@
 }
 
 .home__contributing-block {
-	margin: 0 0 $layout-component-margin 0;
-	padding: 0 ($layout-component-margin * 2) 0 0;
+	padding: 0 ($layout-container-margin-xs * 2) 0 0;
 
-	@include bp(sm-screen) {
-    margin: 0;
+	@include bp(md-screen) {
+    padding: 0 ($layout-container-margin-md * 2) 0 0;
   }
 
 }
@@ -233,9 +232,13 @@
 .home__contributing-link {
 	position: relative;
 	display: block;
-	margin: 0 (-$layout-component-margin) 0 0;
+	margin: 0 (-$layout-container-margin-xs) 0 0;
 	padding: 0 0 50% 0;
 	border: 1px solid $design-primary-color;
+
+	@include bp(md-screen) {
+		margin: 0 (-$layout-container-margin-md) 0 0;
+	}
 
 	&:hover .home__contributing-content {
 		text-decoration: underline;
