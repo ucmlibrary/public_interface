@@ -62,6 +62,7 @@
 
 #home__search-field {
 	color: #000;
+	border: none;
 
 	&::placeholder {
   	color: #000;  
@@ -74,9 +75,11 @@
 }
 
 .home__search-button {
+  // padding: 8px 16px; // allows bigger .fa icon to fit
   color: #fff;
-  border: 1px solid $design-dark-gray-color;
+  border: 1px solid $design-primary-color;
   background: $design-primary-color;
+  overflow: hidden;
 
   &:hover {
     background: $link-hover-color;
