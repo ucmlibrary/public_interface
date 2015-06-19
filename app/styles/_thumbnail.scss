@@ -16,7 +16,7 @@
 }
 
 .thumbview__icon-overlay {
-	@include icon__centered-overlay(60px, 50px, 45px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+	@include icon__centered-overlay(60px, 50px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 	z-index: 2; // stack over .thumbview__image
 }
 
@@ -42,5 +42,5 @@
 // ***** Icon-only thumbnails ***** //
 
 .thumbview__image--no-image {
-	@include thumbview__no-image();
+	@include thumbview__no-image($design-dark-gray-color); // (border)
 }
