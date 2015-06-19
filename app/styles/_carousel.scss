@@ -62,10 +62,12 @@ html.no-js .carousel__item {
   border: 7px solid $design-secondary-color;
 }
 
+.carousel__icon-overlay {
+  @include icon__centered-overlay(60px, 50px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+}
+
 .carousel__thumbnail--no-image {
-  width: 100%; // expand the 1px .png to its container
-  height: auto;
-  border: 1px solid $design-primary-color;
+  @include thumbview__no-image($design-dark-gray-color); // (border)
 }
 
 .carousel__thumbnail-caption {
