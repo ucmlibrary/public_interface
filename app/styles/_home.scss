@@ -183,6 +183,10 @@
 	position: relative; // relative to .home__thumbnail-caption
 	display: block;
 
+	&:hover .home__thumbnail-caption--uc {
+		text-decoration: underline;
+	}
+
 	margin: 0 $layout-container-margin-xs $layout-container-margin-xs 0;
 	
 	@include bp(md-screen) {
