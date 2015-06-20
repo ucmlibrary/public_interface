@@ -41,20 +41,6 @@
   @include icon__centered-overlay(80px, 90px, 100px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
 
-.obj-harvest__external-link-icon-overlay {
-  position: absolute;
-  bottom: 5%;
-  right: 5%;
-  width: 1.6em;
-  height: 1.5em;
-  line-height: 1.6;
-  font-size: 1.8em;
-  background: #fff;
-  border: 1px solid $design-dark-gray-color;
-  border-radius: 4px;
-  color: #000;
-}
-
 .obj-harvest__caption {
   @extend .icon__external-link;
   display: block;
