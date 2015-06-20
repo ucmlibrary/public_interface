@@ -45,7 +45,7 @@
 
   @include bp(md-screen) {
     padding: 40px 10px;
-    font-size: 2.8em;
+    font-size: 2.9em;
   }
 
 }
@@ -55,7 +55,7 @@
 	padding: 0 20% 12% 20%; // .home__mast height is responsive to this element
 
 	@include bp(sm-screen) {
-    padding: 4% 30% 16% 30%;
+    padding: 3% 30% 16% 30%;
   }
 
 }
