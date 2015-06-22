@@ -192,9 +192,14 @@
 }
 
 .home__heading2 {
-	margin: ($layout-component-margin * 2) 0 $layout-component-margin 0;
+	margin: $layout-component-margin 0;
 	font-size: 1.5em;
 	font-weight: bold;
+
+	@include bp(sm-screen) {
+		margin: ($layout-component-margin * 2) 0 $layout-component-margin 0;
+	}
+
 }
 
 .home__thumbnail {
