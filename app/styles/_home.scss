@@ -21,11 +21,17 @@
 .home__mast {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-container-margin-xs 0;
-	background-image: url("/images/homepage/colorado-street-bridge.jpg");
+	background-image: url("/images/homepage/colorado-street-bridge_650x300.jpg");
+	background-size: cover;
 
 	@include bp(sm-screen) {
-    background-size: cover;
+    background-image: url("/images/homepage/colorado-street-bridge_900x400.jpg");
   }
+
+  @include bp(md-screen) {
+    background-image: url("/images/homepage/colorado-street-bridge_1400x600.jpg");
+  }
+
 }
 
 .home__mast-heading {
