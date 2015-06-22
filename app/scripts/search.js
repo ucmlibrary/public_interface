@@ -112,12 +112,14 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
 
   $(document).on('pjax:end', this.resultsContainer, function(that) {
     return function(event) {
-      // that.selectDeselectAll();
-      // that.initCarousel();
       if ($('#js-facet').length > 0) {
         $('#js-facet')[0].reset();
         that.getFormValuesFromDOM();
         that.saveValuesToSession();
+      }
+      if ($(that.carouselContainer).length > 0) {
+        that.getValuesFromSession();
+        that.carousel();
       }
     }
   }(this));
@@ -366,6 +368,4 @@ FacetQuery.prototype.carousel = function() {
 $(document).ready(function() {
   // $.pjax.disable();
   var query = new FacetQuery();
-  // query.selectDeselectAll();
-  // query.initCarousel();
 });
