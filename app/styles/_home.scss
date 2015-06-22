@@ -42,7 +42,7 @@
 	text-align: center;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+	background: linear-gradient(rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0));
 
 	@include bp(sm-screen) {
     padding: 30px 10px;
