@@ -32,8 +32,8 @@
   
 }
 
-.obj-harvest__image { // temp styles to set image size for UI work
-  width: 100%;
+.obj-harvest__image {
+  max-width: 100%; // images smaller than the max container size will not scale up
   height: auto;
 }
 
