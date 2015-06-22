@@ -58,7 +58,7 @@
 
 .home__search {
 	margin: 0 auto;
-	padding: 0 20% 12% 20%; // .home__mast height is responsive to this element
+	padding: 0 15% 12% 15%; // .home__mast height is responsive to this element
 
 	@include bp(sm-screen) {
     padding: 3% 30% 16% 30%;
