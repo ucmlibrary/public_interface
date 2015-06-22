@@ -178,9 +178,17 @@
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 ($home-main-img-padding * 2) 0;
-	background-image: url("/images/homepage/hirahara-portrait.jpg");
-	background-position: center;
-	background-size: 115%;
+	background-size: 100%;
+	background-image: url("/images/homepage/hirahara-portrait_220x188.jpg");
+
+	@include bp(sm-screen) {
+  	background-image: url("/images/homepage/hirahara-portrait_300x256.jpg");
+  }
+
+	@include bp(md-screen) {
+  	background-image: url("/images/homepage/hirahara-portrait_465x397.jpg");
+  }
+  
 }
 
 .home__heading2 {
