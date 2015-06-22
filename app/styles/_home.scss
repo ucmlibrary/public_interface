@@ -139,9 +139,17 @@
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 ($layout-container-margin-xs / 2) 0 0;
 	padding: 0 0 $home-main-img-padding 0;
-	background-image: url("/images/homepage/oranges.jpg");
-	background-position: center;
-	background-size: 115%;
+	background-image: url("/images/homepage/oranges_430x197.jpg");
+	background-size: 100%;
+
+	@include bp(sm-screen) {
+  	background-image: url("/images/homepage/oranges_600x276.jpg");
+  }
+
+	@include bp(md-screen) {
+  	background-image: url("/images/homepage/oranges_958x400.jpg");
+  }
+
 }
 
 .home__img-main1-text {
