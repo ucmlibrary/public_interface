@@ -280,7 +280,7 @@ def itemView(request, item_id=''):
 
     return render(request, 'calisphere/itemView.html', {
         'q': '',
-        'items': item_solr_search.results,
+        'item': item_solr_search.results[0],
         'item_solr_search': item_solr_search,
     })
 
