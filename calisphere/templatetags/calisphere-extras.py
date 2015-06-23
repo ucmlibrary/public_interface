@@ -1,5 +1,6 @@
 from django.template import Library
 import re
+import ast
 
 register = Library()
 
@@ -25,6 +26,10 @@ def get_range( value ):
     https://djangosnippets.org/snippets/1357/
   """
   return range( value )
+
+@register.filter
+def string_lookup( s, key ):
+    return ast.literal_eval(s)[key]
 
 @register.filter
 def dictionary_length(dictionary):
