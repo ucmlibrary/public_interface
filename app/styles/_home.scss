@@ -23,6 +23,7 @@
 	margin: 0 0 $layout-container-margin-xs 0;
 	background-image: url("/images/homepage/colorado-street-bridge_650x300.jpg");
 	background-size: cover;
+	background-position: 0 -15px;
 
 	@include bp(sm-screen) {
     background-image: url("/images/homepage/colorado-street-bridge_900x400.jpg");
@@ -51,7 +52,7 @@
 
   @include bp(md-screen) {
     padding: 30px 10px 100px 10px;
-    font-size: 2.9em;
+    font-size: 3em;
   }
 
 }
