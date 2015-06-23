@@ -52,13 +52,21 @@ html.no-js .carousel__item {
   opacity: 1;
 }
 
-.carousel__link { // for icon__overlay
+.carousel__link {
   position: relative; 
   display: block;
+
+  &:hover {
+    text-decoration: none;
+  }
+  
 }
 
-.carousel__link--selected {
-  @extend .carousel__link;
+.carousel__image-container {
+  position: relative; // relative to carousel__icon-overlay
+}
+
+.carousel__image--selected {
   border: 7px solid $design-secondary-color;
 }
 
@@ -67,13 +75,13 @@ html.no-js .carousel__item {
 }
 
 .carousel__thumbnail--no-image {
-  @include thumbview__no-image($design-dark-gray-color); // (border)
+  @include thumbview__no-image($design-dark-gray-color); // (border-color)
 }
 
 .carousel__thumbnail-caption {
   height: 2em; // reveal only 2 lines of text
   margin-top: 0.5em;
+  color: #000;
   overflow: hidden;
   line-height: 1;
-  cursor: default;
 }

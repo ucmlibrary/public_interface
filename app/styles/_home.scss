@@ -42,7 +42,7 @@
 	text-align: center;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+	background: linear-gradient(rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0));
 
 	@include bp(sm-screen) {
     padding: 30px 10px;
@@ -58,7 +58,7 @@
 
 .home__search {
 	margin: 0 auto;
-	padding: 0 20% 12% 20%; // .home__mast height is responsive to this element
+	padding: 0 15% 12% 15%; // .home__mast height is responsive to this element
 
 	@include bp(sm-screen) {
     padding: 3% 30% 16% 30%;
@@ -158,14 +158,14 @@
 	margin: 0 0 $layout-container-margin-xs 0;
 	padding: 10px;
 	color: #fff;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	background: #003399; // for <= IE 9
-	background: rgba(0, 91, 135, 0.85);
+	background: rgba(0, 91, 135, 0.8);
 
 	@include bp(sm-screen) {
     position: absolute;
     margin: 0 ($layout-container-margin-xs / 2) 0 0;
-		padding: 10px 20px;
+		padding: 10px 30px;
   }
 
   @include bp(md-screen) {
@@ -178,15 +178,28 @@
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 ($home-main-img-padding * 2) 0;
-	background-image: url("/images/homepage/hirahara-portrait.jpg");
-	background-position: center;
-	background-size: 115%;
+	background-size: 100%;
+	background-image: url("/images/homepage/hirahara-portrait_220x188.jpg");
+
+	@include bp(sm-screen) {
+  	background-image: url("/images/homepage/hirahara-portrait_300x256.jpg");
+  }
+
+	@include bp(md-screen) {
+  	background-image: url("/images/homepage/hirahara-portrait_465x397.jpg");
+  }
+  
 }
 
 .home__heading2 {
-	margin: ($layout-component-margin * 2) 0 $layout-component-margin 0;
+	margin: $layout-component-margin 0;
 	font-size: 1.5em;
 	font-weight: bold;
+
+	@include bp(sm-screen) {
+		margin: ($layout-component-margin * 2) 0 $layout-component-margin 0;
+	}
+
 }
 
 .home__thumbnail {

@@ -3,11 +3,14 @@
   {% for carousel_item in search_results %}
   <div class="{% if carousel_item.id == items.0.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
     <a class="{% if carousel_item.id == items.0.id %}carousel__link--selected{% else %}carousel__link{% endif %} js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}">
-      <img data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}" alt="{{ carousel_item.title.0 }}">
+      <div class="carousel__image-container">
+        <!-- .carousel__icon-overlay with django logic will go here -->
+        <img data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}" alt="{{ carousel_item.title.0 }}">
       <!-- {{ carousel_item.reference_image_md5 }} -->
+      </div>
+      <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:7 }}
+      </div>
     </a>
-    <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:7 }}
-    </div>
   </div>
   {% endfor %}
 
