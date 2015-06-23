@@ -533,8 +533,9 @@ def collectionView(request, collection_id):
     # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
     queryParams = processQueryRequest(request)
     collection = getCollectionData(collection_id=collection_id)
-    queryParams['filters']['collection_data'] = [collection['url'] + "::" + collection['name']]
-
+    fq = solrize_filters(queryParams['filters'])
+    fq.append('collection_url: "' + collection['url'] + '"')
+    
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'collection_data')
 
     # perform the search
@@ -543,7 +544,7 @@ def collectionView(request, collection_id):
         rows=queryParams['rows'],
         start=queryParams['start'],
         sort=solrize_sort(queryParams['sort']),
-        fq=solrize_filters(queryParams['filters']),
+        fq=fq,
         facet='true',
         facet_mincount=1,
         facet_limit='-1',
@@ -661,7 +662,7 @@ def campusView(request, campus_slug, subnav=False):
             facet='true',
             facet_mincount=1,
             facet_limit='-1',
-            facet_field = ['collection_data', 'repository_data']
+            facet_field = ['repository_data']
         )
 
         related_institutions = list(institution[0] for institution in process_facets(institutions_solr_search.facet_counts['facet_fields']['repository_data'], []))
@@ -795,9 +796,8 @@ def repositoryView(request, repository_id, subnav=False):
 
     queryParams = processQueryRequest(request)
     repository = getRepositoryData(repository_id=repository_id)
-    queryParams['filters']['repository_data'] = [repository['url'] + "::" + repository['name']]
-    if 'campus' in repository and repository['campus']:
-        queryParams['filters']['repository_data'][0] = queryParams['filters']['repository_data'][0] + "::" + repository['campus']
+    fq = solrize_filters(queryParams['filters'])
+    fq.append('repository_url: "' + repository['url'] + '"')
 
     if subnav == 'items':
         # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
@@ -809,7 +809,7 @@ def repositoryView(request, repository_id, subnav=False):
             rows=queryParams['rows'],
             start=queryParams['start'],
             sort=solrize_sort(queryParams['sort']),
-            fq=solrize_filters(queryParams['filters']),
+            fq=fq,
             facet='true',
             facet_mincount=1,
             facet_limit='-1',
