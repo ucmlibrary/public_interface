@@ -3,14 +3,16 @@
   <footer class="global-footer">
 
     <div class="global-footer__search">
-      <label for="global-footer__search-field" class="global-footer__search-label">Search the digital library</label>
-      <div class="input-group">
-        <input id="global-footer__search-field" type="search" class="form-control global-footer__search-field">
-        <span class="input-group-btn">
-          <button class="btn btn-default global-footer__search-button" type="button"><i class="fa fa-search"></i>
-          </button>
-        </span>
-      </div>
+      <form class="global-footer__search-form" role="search" id="js-footerSearch" action="{% url 'calisphere:search' %}" method="get">
+        <label for="global-footer__search-field" class="global-footer__search-label">Search the digital library</label>
+        <div class="input-group">
+          <input id="global-footer__search-field" form="js-footerSearch" name="q" value="{{ q }}" type="search" class="form-control global-footer__search-field js-globalSearch">
+          <span class="input-group-btn">
+            <button class="btn btn-default global-footer__search-button" type="submit"><i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </form>
     </div>
 
     <div class="global-footer__nav">
