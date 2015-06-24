@@ -120,15 +120,24 @@ article {
 
 .blend__container {
 	width: 250px;
+	border: $bred;
 }
 
 .blend__thumbnail-link {
 	display: block;
 	position: relative;
-	padding-bottom: 100%; // set square aspect ratio
+	margin: 0 20px 20px 0;
 	background-size: 100%;
 	background-color: #ccc; // fallback if no image
 	// background-image: url() set in html as inline style
+
+	&:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 100%; // sets a square aspect ratio
+  }
+
 }
 
 .blend__thumbnail-image {

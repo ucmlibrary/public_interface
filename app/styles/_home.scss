@@ -213,15 +213,23 @@
 }
 
 .home__thumbnail-link {
-	position: relative; // relative to .home__thumbnail-caption
 	display: block;
+	position: relative;
+	margin: 0 $layout-container-margin-xs $layout-container-margin-xs 0;
+	background-size: 100%;
+	background-color: #ccc; // fallback if no image
+	// background-image: url() set in html as inline style
 
-	&:hover .home__thumbnail-caption--uc {
+	&:before {
+    display: block;
+    content: "";
+    padding-top: 100%; // sets square aspect ratio
+  }
+
+  &:hover .home__thumbnail-caption--uc {
 		text-decoration: underline;
 	}
 
-	margin: 0 $layout-container-margin-xs $layout-container-margin-xs 0;
-	
 	@include bp(md-screen) {
   	margin: 0 $layout-container-margin-md $layout-container-margin-md 0;
   }
@@ -240,7 +248,12 @@
 	right: 0;
 	padding: 10px;
 	color: #fff;
-	background: rgba(241, 70, 0, 0.7);
+	background-color: rgba(241, 70, 0, 0.7);
+	background-image: inherit;
+	background-size: 100%;
+	background-position: bottom;
+	background-blend-mode: multiply;
+	font-size: 1.2em;
 
 	@include bp(md-screen) {
   	font-size: 1.2em;
