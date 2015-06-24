@@ -865,11 +865,11 @@ def repositoryView(request, repository_id, subnav=False):
         page = int(request.GET['page']) if 'page' in request.GET else 0
         
         if 'campus' in repository and repository['campus']:
-            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '::' + repository['campus'] + '"']
             uc_institution = repository['campus']
         else:
-            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '"']
             uc_institution = False
+        
+        collections_fq = ['repository_url: "' + repository['url'] + '"']
         
         collections_solr_search = SOLR_select(
             q='',
