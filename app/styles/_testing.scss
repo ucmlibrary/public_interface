@@ -118,14 +118,17 @@ article {
 
 // Testing background blend mode
 
+.blend__container {
+	width: 250px;
+}
+
 .blend__thumbnail-link {
 	display: block;
 	position: relative;
-	width: 250px;
-	height: 250px;
+	padding-bottom: 100%; // set square aspect ratio
 	background-size: 100%;
 	background-color: #ccc; // fallback if no image
-	// background-image set as inline style
+	// background-image: url() set in html as inline style
 }
 
 .blend__thumbnail-image {
