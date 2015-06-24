@@ -4,27 +4,43 @@
 
 {% block content %}
 
-{% include "calisphere/collectionsHeader.html" %}
+  {% include "calisphere/collectionsHeader.html" %}
 
-{% for collection in collections %}
-  {% include "calisphere/collectionPreview.html" %}
-{% endfor %}
+  <div id="js-mosaicContainer">
+  {% for collection in collections %}
+    {% include "calisphere/collectionPreview.html" %}
+  {% endfor %}
+  </div>
 
-<!-- {{ pages }} pages -->
+  <!-- {{ pages }} pages -->
 
-{% if prev_page %}
-<a class="btn btn-link related-coll__prev-button" href="{% url 'calisphere:collectionsDirectory' %}?page={{ prev_page }}">
-  <span class="fa fa-caret-left"></span>
-  <abbr title="Previous">Prev</abbr>
-</a>
-{% endif %}
+  <div id="js-collectionPagination">
+    {% if prev_page %}
+    <a class="btn btn-link related-coll__prev-button" href="{% url 'calisphere:collectionsDirectory' %}?page={{ prev_page }}">
+      <span class="fa fa-caret-left"></span>
+      <abbr title="Previous">Prev</abbr>
+    </a>
+    {% endif %}
 
-{% if next_page %}
-<a class="btn btn-link related-coll__next-button" href="{% url 'calisphere:collectionsDirectory' %}?page={{ next_page }}">
-  Next
-  <span class="fa fa-caret-right"></span>
-</a>
-{% endif %}
+    {% if next_page %}
+    <a class="btn btn-link related-coll__next-button js-next" href="{% url 'calisphere:collectionsDirectory' %}?page={{ next_page }}">
+      Next
+      <span class="fa fa-caret-right"></span>
+    </a>
+    {% endif %}
+  </div>
 
+{% endblock %}
 
+{% block footerScripts %}
+  <script>
+    $(document).ready(function() {
+      $('#js-mosaicContainer').infinitescroll({
+        navSelector: "#js-collectionPagination",
+        nextSelector: "#js-collectionPagination a.js-next",
+        itemSelector: "#js-mosaicContainer div.js-collectionMosaic",
+        debug: true
+      });
+    });
+  </script>
 {% endblock %}
