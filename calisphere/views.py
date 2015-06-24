@@ -484,11 +484,19 @@ def collectionsDirectory(request):
 
     for collection_link in solr_collections.shuffled[(page*10)-10:page*10]:
         collections.append(getCollectionMosaic(collection_link.url))
+    
+    context = {'collections': collections, 'random': True, 'pages': int(math.ceil(float(len(solr_collections.shuffled))/10))}
+
+    if (page+1)*10 < len(solr_collections.shuffled):
+        context['next_page'] = page+1
+    if (page-1)*10 >= 0:
+        context['prev_page'] = page-1
 
     if 'page' in request.GET:
-        return render(request, 'calisphere/collectionList.html', {'collections': collections, 'random': True, 'next_page': page+1})
+        return render(request, 'calisphere/collectionsRandomExplore.html', context)
+        # return render(request, 'calisphere/collectionList.html', context)
 
-    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections, 'random': True, 'next_page': page+1})
+    return render(request, 'calisphere/collectionsRandomExplore.html', context)
 
 # TODO: doesn't handle non-letter characters
 def collectionsAZ(request, collection_letter):

@@ -10,4 +10,21 @@
   {% include "calisphere/collectionPreview.html" %}
 {% endfor %}
 
+<!-- {{ pages }} pages -->
+
+{% if prev_page %}
+<a class="btn btn-link related-coll__prev-button" href="{% url 'calisphere:collectionsDirectory' %}?page={{ prev_page }}">
+  <span class="fa fa-caret-left"></span>
+  <abbr title="Previous">Prev</abbr>
+</a>
+{% endif %}
+
+{% if next_page %}
+<a class="btn btn-link related-coll__next-button" href="{% url 'calisphere:collectionsDirectory' %}?page={{ next_page }}">
+  Next
+  <span class="fa fa-caret-right"></span>
+</a>
+{% endif %}
+
+
 {% endblock %}
