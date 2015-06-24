@@ -116,6 +116,46 @@ article {
 	border: $bred;
 }
 
+// Testing background blend mode
+
+.blend__thumbnail-link {
+	display: block;
+	position: relative;
+	width: 250px;
+	height: 250px;
+	background-size: 100%;
+	background-color: #ccc; // fallback if no image
+	// background-image set as inline style
+}
+
+.blend__thumbnail-image {
+	width: 100%;
+	height: auto;
+}
+
+.blend__thumbnail-caption {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 10px;
+	color: #fff;
+	background-color: rgba(241, 70, 0, 0.7);
+	background-image: inherit;
+	background-size: 100%;
+	background-position: bottom;
+	background-blend-mode: multiply;
+	font-size: 1.2em;
+}
+
+
+
+
+
+
+
+
+
 
 
 
