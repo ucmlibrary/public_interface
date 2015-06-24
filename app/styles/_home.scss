@@ -248,7 +248,7 @@
 	right: 0;
 	padding: 10px;
 	color: #fff;
-	background-color: rgba(241, 70, 0, 0.7);
+	background-color: rgba($design-primary-color, 1);
 	background-image: inherit;
 	background-size: 100%;
 	background-position: bottom;
@@ -263,7 +263,7 @@
 
 .home__thumbnail-caption--inst {
 	@extend .home__thumbnail-caption--uc;
-	background: rgba(0, 91, 109, 0.7);
+	background-color: rgba($design-secondary-color, 1);
 }
 
 .home__contributing-block {
