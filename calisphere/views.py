@@ -752,7 +752,7 @@ def campusView(request, campus_slug, subnav=False):
             'campus_slug': campus_slug
         })
     else:
-        page = int(request.GET['page']) if 'page' in request.GET else 0
+        page = int(request.GET['page']) if 'page' in request.GET else 1
         
         campus_fq = ['campus_url: "' + campus_url + '"']
 
@@ -767,7 +767,7 @@ def campusView(request, campus_slug, subnav=False):
             facet_field=['collection_data']
         )
         
-        numPages = int(math.ceil(len(collections_solr_search.facet_counts['facet_fields']['collection_data'])/10))
+        pages = int(math.ceil(float(len(collections_solr_search.facet_counts['facet_fields']['collection_data']))/10))
 
         collections_solr_search = SOLR_select(
             q='',
@@ -776,6 +776,7 @@ def campusView(request, campus_slug, subnav=False):
             fq=campus_fq,
             facet='true',
             facet_mincount=1,
+            facet_offset=(page-1)*10,
             facet_limit='10',
             facet_field = ['collection_data', 'repository_data']
         )
@@ -787,14 +788,21 @@ def campusView(request, campus_slug, subnav=False):
 
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
-        return render(request, 'calisphere/campusCollectionsView.html', {
-            'page': page,
-            'numPages': numPages,
-            'campus_slug': campus_slug,
+        context = {
             'collections': related_collections,
+            'pages': pages,
+            'page': page,
+            'campus_slug': campus_slug,
             'campus': campus_details,
             'contact_information': contact_information
-        })
+        }
+        
+        if page+1 <= pages:
+            context['next_page'] = page+1
+        if page-1 > 0:
+            context['prev_page'] = page-1
+
+        return render(request, 'calisphere/campusCollectionsView.html', context)
 
 
 def repositoryView(request, repository_id, subnav=False):
