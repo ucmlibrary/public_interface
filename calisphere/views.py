@@ -482,29 +482,25 @@ def collectionsDirectory(request):
 
     page = int(request.GET['page']) if 'page' in request.GET else 1
 
-    for collection_link in solr_collections.shuffled[(page*10)-10:page*10]:
+    for collection_link in solr_collections.shuffled[(page-1)*10:page*10]:
         collections.append(getCollectionMosaic(collection_link.url))
     
     context = {'collections': collections, 'random': True, 'pages': int(math.ceil(float(len(solr_collections.shuffled))/10))}
 
-    if (page+1)*10 < len(solr_collections.shuffled):
+    if page*10 < len(solr_collections.shuffled):
         context['next_page'] = page+1
-    if (page-1)*10 >= 0:
+    if page-1 > 0:
         context['prev_page'] = page-1
-
-    if 'page' in request.GET:
-        return render(request, 'calisphere/collectionsRandomExplore.html', context)
-        # return render(request, 'calisphere/collectionList.html', context)
 
     return render(request, 'calisphere/collectionsRandomExplore.html', context)
 
-# TODO: doesn't handle non-letter characters
 def collectionsAZ(request, collection_letter):
     solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
 
     collections_list = []
     if collection_letter == 'num':
         for collection_link in solr_collections.parsed:
+            # TODO - diregard punctuation in position [0] of string, ie, when first character is a parens
             if collection_link.label[0] not in list(string.ascii_letters):
                 collections_list.append(collection_link)
             else:
@@ -514,20 +510,27 @@ def collectionsAZ(request, collection_letter):
             # TODO - diregard punctuation in position [0] of string, ie, when first character is a parens
             if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
                 collections_list.append(collection_link)
-
-    page = int(request.GET['page']) if 'page' in request.GET else 0
-    numPages = int(math.ceil(len(collections_list)/10))
     
-    collections = []
-    for collection_link in collections_list[page*10:(page*10)+10]:
-        collections.append(getCollectionMosaic(collection_link.url))
+    page = int(request.GET['page']) if 'page' in request.GET else 1
+    pages = int(math.ceil(float(len(collections_list))/10))
 
-    return render(request, 'calisphere/collectionsAZ.html', {'collections': collections,
+    collections = []
+    for collection_link in collections_list[(page-1)*10:page*10]:
+        collections.append(getCollectionMosaic(collection_link.url))
+    
+    context = {'collections': collections,
         'alphabet': list(string.ascii_uppercase),
         'collection_letter': collection_letter, 
         'page': page,
-        'numPages': numPages,
-    })
+        'pages': pages,
+    }
+
+    if page*10 < len(collections_list):
+        context['next_page'] = page+1
+    if page-1 > 0:
+        context['prev_page'] = page-1
+
+    return render(request, 'calisphere/collectionsAZ.html', context)
 
 def collectionsSearch(request):
     return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
