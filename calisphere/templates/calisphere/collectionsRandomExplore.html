@@ -29,6 +29,11 @@
     </a>
     {% endif %}
   </div>
+  
+  <!-- <div id="js-loadingWrapper" style="border-top: 1px solid #8b8d8e; margin-top: 20px;"> -->
+    <div id="js-loading" style="display: block; width: 58px; height: 58px; margin: 40px auto 20px auto;">
+    </div>
+  <!-- </div> -->
 
 {% endblock %}
 
@@ -39,7 +44,13 @@
         navSelector: "#js-collectionPagination",
         nextSelector: "#js-collectionPagination a.js-next",
         itemSelector: "#js-mosaicContainer div.js-collectionMosaic",
-        debug: true
+        debug: false,
+        loading: {
+          finishedMsg: "The end",
+          img: "{% static 'images/orange-spinner.gif' %}",
+          msgText: "",
+          selector: "#js-loading"
+        }
       });
     });
   </script>
