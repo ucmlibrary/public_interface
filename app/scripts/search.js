@@ -102,9 +102,14 @@ FacetQuery.prototype.getValuesFromSession = function() {
 
 // Submit event handlers save state, clean form, etc.
 FacetQuery.prototype.bindSubmitHandlers = function() {
-  $(document).on('submit', "#js-searchForm", function(that) {
+  $(document).on('submit', "#js-searchForm, #js-footerSearch", function(that) {
     return function(event) {
-      that.query = $('input[name="q"]').val();
+      that.query = $(this).find('.js-globalSearch').val();
+      if ($(this).attr('id') == '#js-searchForm') {
+        $('#js-footerSearch').find('.js-globalSearch').val(that.query);
+      } else if ($(this).attr('id') == '#js-footerSearch') {
+        $('#js-searchForm').find('.js-globalSearch').val(that.query);
+      }
       that.saveValuesToSession();
       $.pjax.submit(event, that.resultsContainer);
     }
@@ -112,12 +117,14 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
 
   $(document).on('pjax:end', this.resultsContainer, function(that) {
     return function(event) {
-      // that.selectDeselectAll();
-      // that.initCarousel();
       if ($('#js-facet').length > 0) {
         $('#js-facet')[0].reset();
         that.getFormValuesFromDOM();
         that.saveValuesToSession();
+      }
+      if ($(that.carouselContainer).length > 0) {
+        that.getValuesFromSession();
+        that.carousel();
       }
     }
   }(this));
@@ -366,6 +373,4 @@ FacetQuery.prototype.carousel = function() {
 $(document).ready(function() {
   // $.pjax.disable();
   var query = new FacetQuery();
-  // query.selectDeselectAll();
-  // query.initCarousel();
 });

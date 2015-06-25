@@ -280,7 +280,7 @@ def itemView(request, item_id=''):
 
     return render(request, 'calisphere/itemView.html', {
         'q': '',
-        'items': item_solr_search.results,
+        'item': item_solr_search.results[0],
         'item_solr_search': item_solr_search,
     })
 
@@ -482,21 +482,25 @@ def collectionsDirectory(request):
 
     page = int(request.GET['page']) if 'page' in request.GET else 1
 
-    for collection_link in solr_collections.shuffled[(page*10)-10:page*10]:
+    for collection_link in solr_collections.shuffled[(page-1)*10:page*10]:
         collections.append(getCollectionMosaic(collection_link.url))
+    
+    context = {'collections': collections, 'random': True, 'pages': int(math.ceil(float(len(solr_collections.shuffled))/10))}
 
-    if 'page' in request.GET:
-        return render(request, 'calisphere/collectionList.html', {'collections': collections, 'random': True, 'next_page': page+1})
+    if page*10 < len(solr_collections.shuffled):
+        context['next_page'] = page+1
+    if page-1 > 0:
+        context['prev_page'] = page-1
 
-    return render(request, 'calisphere/collectionsRandomExplore.html', {'collections': collections, 'random': True, 'next_page': page+1})
+    return render(request, 'calisphere/collectionsRandomExplore.html', context)
 
-# TODO: doesn't handle non-letter characters
 def collectionsAZ(request, collection_letter):
     solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
 
     collections_list = []
     if collection_letter == 'num':
         for collection_link in solr_collections.parsed:
+            # TODO - diregard punctuation in position [0] of string, ie, when first character is a parens
             if collection_link.label[0] not in list(string.ascii_letters):
                 collections_list.append(collection_link)
             else:
@@ -506,20 +510,27 @@ def collectionsAZ(request, collection_letter):
             # TODO - diregard punctuation in position [0] of string, ie, when first character is a parens
             if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
                 collections_list.append(collection_link)
-
-    page = int(request.GET['page']) if 'page' in request.GET else 0
-    numPages = int(math.ceil(len(collections_list)/10))
     
-    collections = []
-    for collection_link in collections_list[page*10:(page*10)+10]:
-        collections.append(getCollectionMosaic(collection_link.url))
+    page = int(request.GET['page']) if 'page' in request.GET else 1
+    pages = int(math.ceil(float(len(collections_list))/10))
 
-    return render(request, 'calisphere/collectionsAZ.html', {'collections': collections,
+    collections = []
+    for collection_link in collections_list[(page-1)*10:page*10]:
+        collections.append(getCollectionMosaic(collection_link.url))
+    
+    context = {'collections': collections,
         'alphabet': list(string.ascii_uppercase),
         'collection_letter': collection_letter, 
         'page': page,
-        'numPages': numPages,
-    })
+        'pages': pages,
+    }
+
+    if page*10 < len(collections_list):
+        context['next_page'] = page+1
+    if page-1 > 0:
+        context['prev_page'] = page-1
+
+    return render(request, 'calisphere/collectionsAZ.html', context)
 
 def collectionsSearch(request):
     return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
@@ -533,8 +544,9 @@ def collectionView(request, collection_id):
     # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
     queryParams = processQueryRequest(request)
     collection = getCollectionData(collection_id=collection_id)
-    queryParams['filters']['collection_data'] = [collection['url'] + "::" + collection['name']]
-
+    fq = solrize_filters(queryParams['filters'])
+    fq.append('collection_url: "' + collection['url'] + '"')
+    
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'collection_data')
 
     # perform the search
@@ -543,7 +555,7 @@ def collectionView(request, collection_id):
         rows=queryParams['rows'],
         start=queryParams['start'],
         sort=solrize_sort(queryParams['sort']),
-        fq=solrize_filters(queryParams['filters']),
+        fq=fq,
         facet='true',
         facet_mincount=1,
         facet_limit='-1',
@@ -661,7 +673,7 @@ def campusView(request, campus_slug, subnav=False):
             facet='true',
             facet_mincount=1,
             facet_limit='-1',
-            facet_field = ['collection_data', 'repository_data']
+            facet_field = ['repository_data']
         )
 
         related_institutions = list(institution[0] for institution in process_facets(institutions_solr_search.facet_counts['facet_fields']['repository_data'], []))
@@ -740,7 +752,7 @@ def campusView(request, campus_slug, subnav=False):
             'campus_slug': campus_slug
         })
     else:
-        page = int(request.GET['page']) if 'page' in request.GET else 0
+        page = int(request.GET['page']) if 'page' in request.GET else 1
         
         campus_fq = ['campus_url: "' + campus_url + '"']
 
@@ -755,7 +767,7 @@ def campusView(request, campus_slug, subnav=False):
             facet_field=['collection_data']
         )
         
-        numPages = int(math.ceil(len(collections_solr_search.facet_counts['facet_fields']['collection_data'])/10))
+        pages = int(math.ceil(float(len(collections_solr_search.facet_counts['facet_fields']['collection_data']))/10))
 
         collections_solr_search = SOLR_select(
             q='',
@@ -764,6 +776,7 @@ def campusView(request, campus_slug, subnav=False):
             fq=campus_fq,
             facet='true',
             facet_mincount=1,
+            facet_offset=(page-1)*10,
             facet_limit='10',
             facet_field = ['collection_data', 'repository_data']
         )
@@ -775,14 +788,21 @@ def campusView(request, campus_slug, subnav=False):
 
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
-        return render(request, 'calisphere/campusCollectionsView.html', {
-            'page': page,
-            'numPages': numPages,
-            'campus_slug': campus_slug,
+        context = {
             'collections': related_collections,
+            'pages': pages,
+            'page': page,
+            'campus_slug': campus_slug,
             'campus': campus_details,
             'contact_information': contact_information
-        })
+        }
+        
+        if page+1 <= pages:
+            context['next_page'] = page+1
+        if page-1 > 0:
+            context['prev_page'] = page-1
+
+        return render(request, 'calisphere/campusCollectionsView.html', context)
 
 
 def repositoryView(request, repository_id, subnav=False):
@@ -795,9 +815,8 @@ def repositoryView(request, repository_id, subnav=False):
 
     queryParams = processQueryRequest(request)
     repository = getRepositoryData(repository_id=repository_id)
-    queryParams['filters']['repository_data'] = [repository['url'] + "::" + repository['name']]
-    if 'campus' in repository and repository['campus']:
-        queryParams['filters']['repository_data'][0] = queryParams['filters']['repository_data'][0] + "::" + repository['campus']
+    fq = solrize_filters(queryParams['filters'])
+    fq.append('repository_url: "' + repository['url'] + '"')
 
     if subnav == 'items':
         # if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
@@ -809,7 +828,7 @@ def repositoryView(request, repository_id, subnav=False):
             rows=queryParams['rows'],
             start=queryParams['start'],
             sort=solrize_sort(queryParams['sort']),
-            fq=solrize_filters(queryParams['filters']),
+            fq=fq,
             facet='true',
             facet_mincount=1,
             facet_limit='-1',
@@ -854,14 +873,14 @@ def repositoryView(request, repository_id, subnav=False):
         })
     
     else:
-        page = int(request.GET['page']) if 'page' in request.GET else 0
+        page = int(request.GET['page']) if 'page' in request.GET else 1
         
         if 'campus' in repository and repository['campus']:
-            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '::' + repository['campus'] + '"']
             uc_institution = repository['campus']
         else:
-            collections_fq = ['repository_data: "' + repository['url'] + '::' + repository['name'] + '"']
             uc_institution = False
+        
+        collections_fq = ['repository_url: "' + repository['url'] + '"']
         
         collections_solr_search = SOLR_select(
             q='',
@@ -874,7 +893,7 @@ def repositoryView(request, repository_id, subnav=False):
             facet_field=['collection_data']
         )
         
-        numPages = int(math.ceil(len(collections_solr_search.facet_counts['facet_fields']['collection_data'])/10))
+        pages = int(math.ceil(float(len(collections_solr_search.facet_counts['facet_fields']['collection_data']))/10))
 
         collections_solr_search = SOLR_select(
             q='',
@@ -883,8 +902,8 @@ def repositoryView(request, repository_id, subnav=False):
             fq=collections_fq,
             facet='true',
             facet_mincount=1,
+            facet_offset=(page-1)*10,
             facet_limit='10',
-            facet_offset=page*10,
             facet_field = ['collection_data', 'repository_data']
         )
 
@@ -895,15 +914,22 @@ def repositoryView(request, repository_id, subnav=False):
 
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
-        return render(request, 'calisphere/repositoryCollectionsView.html', {
+        context = {
             'page': page,
-            'numPages': numPages,
+            'pages': pages,
             'repository_id': repository_id,
             'collections': related_collections,
             'repository': repository_details,
             'contact_information': contact_information,
             'uc_institution': uc_institution
-        })
+        }
+        
+        if page+1 <= pages:
+            context['next_page'] = page+1
+        if page-1 > 0:
+            context['prev_page'] = page-1
+
+        return render(request, 'calisphere/repositoryCollectionsView.html', context)
 
 def _fixid(id):
     return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)
