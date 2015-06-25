@@ -873,7 +873,7 @@ def repositoryView(request, repository_id, subnav=False):
         })
     
     else:
-        page = int(request.GET['page']) if 'page' in request.GET else 0
+        page = int(request.GET['page']) if 'page' in request.GET else 1
         
         if 'campus' in repository and repository['campus']:
             uc_institution = repository['campus']
@@ -893,7 +893,7 @@ def repositoryView(request, repository_id, subnav=False):
             facet_field=['collection_data']
         )
         
-        numPages = int(math.ceil(len(collections_solr_search.facet_counts['facet_fields']['collection_data'])/10))
+        pages = int(math.ceil(float(len(collections_solr_search.facet_counts['facet_fields']['collection_data']))/10))
 
         collections_solr_search = SOLR_select(
             q='',
@@ -902,8 +902,8 @@ def repositoryView(request, repository_id, subnav=False):
             fq=collections_fq,
             facet='true',
             facet_mincount=1,
+            facet_offset=(page-1)*10,
             facet_limit='10',
-            facet_offset=page*10,
             facet_field = ['collection_data', 'repository_data']
         )
 
@@ -914,15 +914,22 @@ def repositoryView(request, repository_id, subnav=False):
 
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
-        return render(request, 'calisphere/repositoryCollectionsView.html', {
+        context = {
             'page': page,
-            'numPages': numPages,
+            'pages': pages,
             'repository_id': repository_id,
             'collections': related_collections,
             'repository': repository_details,
             'contact_information': contact_information,
             'uc_institution': uc_institution
-        })
+        }
+        
+        if page+1 <= pages:
+            context['next_page'] = page+1
+        if page-1 > 0:
+            context['prev_page'] = page-1
+
+        return render(request, 'calisphere/repositoryCollectionsView.html', context)
 
 def _fixid(id):
     return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)
