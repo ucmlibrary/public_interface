@@ -1,0 +1,124 @@
+{% extends "calisphere/institutionView.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block sidebar %}
+
+  <div class="row">
+
+    <div class="col-sm-6 col-md-12">
+
+      <div class="button__institution-tabs">
+        {% if repository_id %}
+        <a class="btn btn-default button__institution-tab button__secondary" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
+          Collections
+        </a>
+        {% elif campus_slug %}
+        <a class="btn btn-default button__institution-tab button__secondary" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
+          Collections
+        </a>
+        {% endif %}
+      </div>
+
+      {% if campus_slug %}
+      <div class="button__institution-tabs">
+        <a class="btn btn-default button__institution-tab" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
+          Institutions
+        </a>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="col-sm-6 col-md-12">
+
+      <!-- Begin Search Within Field -->
+      <div class="search-collection">
+        <label for="search-collection__field" class="search-collection__label">Search {% if repository_id and uc_institution %}{{ uc_institution.0.name }}, {% endif %}{{ institution.name }}</label>
+        <div class="input-group">
+          <input id="search-collection__field" type="search" name="rq" class="form-control search-collection__field" form="js-facet">
+          <span class="input-group-btn">
+            <button class="btn btn-default search-collection__button" type="submit" form="js-facet">Search
+            </button>
+          </span>
+        </div>
+      </div>      
+      <!-- End Search Within Field -->
+
+    </div>
+
+  </div>
+  
+{% endblock %}
+
+{% block filters %}{% endblock %}
+
+{% block mainContent %}
+
+    <h2 class="text__institution-heading2">Collections</h2>
+
+    <div id="js-mosaicContainer">
+  	{% for collection in collections %}
+  	  {% include "calisphere/collectionPreview.html" %}
+  	{% endfor %}
+    </div>
+
+    {% if repository_id %}
+    <div id="js-collectionPagination">
+      {% if prev_page %}
+      <a class="btn btn-link related-coll__prev-button" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}?page={{ prev_page }}">
+        <span class="fa fa-caret-left"></span>
+        <abbr title="Previous">Prev</abbr>
+      </a>
+      {% endif %}
+
+      {% if next_page %}
+      <a class="btn btn-link related-coll__next-button js-next" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}?page={{ next_page }}">
+        Next
+        <span class="fa fa-caret-right"></span>
+      </a>
+      {% endif %}
+    </div>
+    {% elif campus_slug %}
+    <div id="js-collectionPagination">
+      {% if prev_page %}
+      <a class="btn btn-link related-coll__prev-button" href="{% url 'calisphere:campusView' campus_slug 'collections' %}?page={{ prev_page }}">
+        <span class="fa fa-caret-left"></span>
+        <abbr title="Previous">Prev</abbr>
+      </a>
+      {% endif %}
+
+      {% if next_page %}
+      <a class="btn btn-link related-coll__next-button js-next" href="{% url 'calisphere:campusView' campus_slug 'collections' %}?page={{ next_page }}">
+        Next
+        <span class="fa fa-caret-right"></span>
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  
+    <!-- <div id="js-loadingWrapper" style="border-top: 1px solid #8b8d8e; margin-top: 20px;"> -->
+      <div id="js-loading" style="display: block; width: 58px; height: 58px; margin: 40px auto 20px auto;">
+      </div>
+    <!-- </div> -->
+
+{% endblock %}
+
+{% block footerScripts %}
+  <script>
+    $(document).ready(function() {
+      $('#js-mosaicContainer').infinitescroll({
+        navSelector: "#js-collectionPagination",
+        nextSelector: "#js-collectionPagination a.js-next",
+        itemSelector: "#js-mosaicContainer div.js-collectionMosaic",
+        debug: false,
+        loading: {
+          finishedMsg: "The end",
+          img: "{% static 'images/orange-spinner.gif' %}",
+          msgText: "",
+          selector: "#js-loading"
+        }
+      });
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "calisphere/searchResults.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block pageTitle %}<h1 class="text__institutions-heading1">Institutions / <strong>{% if repository_id and uc_institution %}{{ uc_institution.0.name }}, {% endif %}{{ institution.name }}</strong></h1>{% endblock %}
+
+{% block additionalInfo %}
+  <div class="institution-intro">
+
+    {% if campus_slug %}
+      <div class="col-md-3">
+        {% with '/images/logo_'|add:campus_slug|add:'.png' as logo_url %}
+        <img class="institution-logo" src="{% static logo_url %}" alt="{{ institution.name }}">
+        {% endwith %}
+      </div>
+    {% elif repository_id and uc_institution %}
+      <div class="col-md-3">
+        {% with '/images/logo_'|add:uc_institution.0.slug|add:'.png' as logo_url %}
+          <img class="institution-logo" src="{% static logo_url %}" alt="{{ uc_institution.0.name }}">
+        {% endwith %}
+      </div>
+    {% endif %}
+
+    <div class="col-md-3">
+      <h2 class="institution-intro__heading">{{ institution.name }} <br> {% if repository_id and uc_institution %}{{ uc_institution.0.name }}{% endif %}</h2>
+      <ul class="institutional-intro__list">
+        {% if contact_information.city %}
+          <li class="institutional-intro__list-item">City: {{ contact_information.city }}</li>
+        {% endif %}
+        {% if contact_information.phone %}
+          <li class="institutional-intro__list-item">Phone: {{ contact_information.phone }}</li>
+        {% endif %}
+        {% if contact_information.email %}
+          <li class="institutional-intro__list-item">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
+        {% endif %}
+        {% if contact_information.url %}
+          <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    {% if campus_slug or uc_institution %}<div class="col-md-6">{% else %}<div class="col-md-9">{% endif %}
+      <p class="institutional-intro__description">{{ contact_information.description }}</p>
+      <a class="institutional-intro__description-link" href="">Read More ...</a>
+    </div>
+
+  </div>
+{% endblock %}
+
