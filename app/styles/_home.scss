@@ -131,8 +131,6 @@
 	font-size: 0.9em;
 }
 
-// ***** 8 by 4 image mosaic ***** //
-
 .home__mosaic {
 	position: relative;
 	z-index: 1;
@@ -317,4 +315,14 @@ html.no-background-blend-mode .home__thumbnail-caption--inst {
     margin: 0 0 0 0.5em;
 	}
 
+}
+
+.home__contributing-link--inst {
+	@extend .home__contributing-link;
+	border: 1px solid $design-secondary-color;
+}
+
+.home__contributing-content--inst {
+	@extend .home__contributing-content;
+	color: $design-secondary-color;
 }

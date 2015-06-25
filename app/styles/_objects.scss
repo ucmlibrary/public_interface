@@ -29,12 +29,14 @@
 // ***** Harvest Image ***** //
 
 .obj-harvest__link {
-  
+
 }
 
 .obj-harvest__image {
+  display: block;
   max-width: 100%; // images smaller than the max container size will not scale up
   height: auto;
+  margin: 0 auto;
 }
 
 .obj-harvest__file-icon-overlay {
