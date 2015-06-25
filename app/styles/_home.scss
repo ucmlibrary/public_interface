@@ -256,10 +256,20 @@
 
 }
 
+html.no-background-blend-mode .home__thumbnail-caption--uc {
+	background-image: none;
+	background-color: rgba($design-primary-color, 0.7);
+}
+
 .home__thumbnail-caption--inst {
 	@extend .home__thumbnail-caption--uc;
 	background-color: rgba($design-secondary-color, 1);
 }
+
+html.no-background-blend-mode .home__thumbnail-caption--inst {
+	background-color: rgba($design-secondary-color, 0.7);
+}
+
 
 .home__contributing-block {
 	margin: 0 $layout-container-margin-xs 0 (-$layout-container-margin-xs);
