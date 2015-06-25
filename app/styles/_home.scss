@@ -21,11 +21,13 @@
 .home__mast {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-container-margin-xs 0;
+	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
 	background-image: url("/images/homepage/colorado-street-bridge_650x300.jpg");
 	background-size: cover;
 	background-position: 0 -15px;
 
 	@include bp(sm-screen) {
+    padding: 0;
     background-image: url("/images/homepage/colorado-street-bridge_900x400.jpg");
   }
 
@@ -58,11 +60,11 @@
 }
 
 .home__search {
-	margin: 0 auto;
-	padding: 0 15% 12% 15%; // .home__mast height is responsive to this element
+	display: none;
 
 	@include bp(sm-screen) {
-    padding: 0 30% 16% 30%;
+    display: block;
+    padding: 0 30% 16% 30%; // .home__mast height is responsive to this element
   }
 
 }
