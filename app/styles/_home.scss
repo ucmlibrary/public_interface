@@ -321,3 +321,8 @@ html.no-background-blend-mode .home__thumbnail-caption--inst {
 	@extend .home__contributing-link;
 	border: 1px solid $design-secondary-color;
 }
+
+.home__contributing-content--inst {
+	@extend .home__contributing-content;
+	color: $design-secondary-color;
+}
