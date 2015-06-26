@@ -1,0 +1,55 @@
+{% extends "calisphere/institutionView.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block sidebar %}
+
+  <div class="row">
+
+    <div class="col-sm-6 col-md-12">
+
+      <div class="button__institution-tabs">
+        {% if repository_id %}
+        <a class="btn btn-default button__institution-tab" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
+          Collections
+        </a>
+        {% elif campus_slug %}
+        <a class="btn btn-default button__institution-tab" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
+          Collections
+        </a>
+        {% endif %}
+      </div>
+
+      {% if campus_slug %}
+      <div class="button__institution-tabs">
+        <a class="btn btn-default button__institution-tab" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
+          Institutions
+        </a>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="col-sm-6 col-md-12">
+
+      <!-- Begin Search Within Field -->
+      <div class="search-collection">
+        <label for="search-collection__field" class="search-collection__label">Search {% if repository_id and uc_institution %}{{ uc_institution.0.name }}, {% endif %}{{ institution.name }}</label>
+        <div class="input-group">
+          <input id="search-collection__field" type="search" name="rq" class="form-control search-collection__field" form="js-facet">
+          <span class="input-group-btn">
+            <button class="btn btn-default search-collection__button" type="submit" form="js-facet">Search
+            </button>
+          </span>
+        </div>
+      </div>      
+      <!-- End Search Within Field -->
+
+    </div>
+    
+  </div>
+  
+  {% include "calisphere/forms/faceting.html" %}
+  
+  
+{% endblock %}

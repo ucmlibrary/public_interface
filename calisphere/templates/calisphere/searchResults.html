@@ -16,6 +16,7 @@
       <div class="col-md-9 layout-col__1">
 
         <!-- Begin Filter Component -->
+        {% block filters %}
         {% if filters|dictionary_length > 0 or rq|length > 0 %}<div class="filter">
           
           <span class="filter__note">Filters you've selected:</span>
@@ -42,6 +43,7 @@
           </button>
 
         </div>{% endif %}
+        {% endblock %}
         <!-- End Filter Component -->
 
       </div>
