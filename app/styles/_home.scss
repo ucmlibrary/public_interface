@@ -29,6 +29,7 @@
 	@include bp(sm-screen) {
     padding: 0;
     background-image: url("/images/homepage/colorado-street-bridge_900x400.jpg");
+    background-position: 0 50%;
   }
 
   @include bp(md-screen) {
