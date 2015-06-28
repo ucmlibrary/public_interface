@@ -302,6 +302,7 @@ FacetQuery.prototype.relatedCollections = function() {
 
 FacetQuery.prototype.carousel = function() {
   // ##### Slick Carousel ##### //
+  $('.carousel').show();
   $('.carousel').slick({
     infinite: true,
     speed: 300,
@@ -370,7 +371,7 @@ FacetQuery.prototype.carousel = function() {
   }(this));
 }
 
-$(document).ready(function() {
+$(window).load(function() {
   // $.pjax.disable();
   var query = new FacetQuery();
 });
