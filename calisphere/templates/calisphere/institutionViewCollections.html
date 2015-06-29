@@ -6,34 +6,14 @@
 
   <div class="row">
 
-    <div class="col-sm-6 col-md-12">
-
-      <div class="button__institution-tabs">
-        {% if repository_id %}
-        <a class="btn btn-default button__institution-tab button__secondary" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
-          Collections
-        </a>
-        {% elif campus_slug %}
-        <a class="btn btn-default button__institution-tab button__secondary" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
-          Collections
-        </a>
-        {% endif %}
-      </div>
-
-      {% if campus_slug %}
-      <div class="button__institution-tabs">
-        <a class="btn btn-default button__institution-tab" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
-          Institutions
-        </a>
-      </div>
-      {% endif %}
-
-    </div>
-
+    {% with "collections" as mode %}
+      {% include "calisphere/institutionViewSidebar.html" %}
+    {% endwith %}
+    
     <div class="col-sm-6 col-md-12">
 
       <!-- Begin Search Within Field -->
-      <div class="search-collection">
+      <!-- <div class="search-collection">
         {% if repository_id %}
         <form id="js-searchInstitution" action="{% url 'calisphere:repositoryView' repository_id 'items' %}" method="get">
         {% elif campus_slug %}
@@ -48,7 +28,7 @@
             </span>
           </div>
         </form>
-      </div>      
+      </div>       -->
       <!-- End Search Within Field -->
 
     </div>
