@@ -245,6 +245,7 @@
 	background-position: bottom;
 	background-blend-mode: multiply;
 	font-size: 1.2em;
+	line-height: 1.2;
 
 	@include bp(md-screen) {
   	font-size: 1.2em;
