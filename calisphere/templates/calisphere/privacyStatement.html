@@ -1,6 +1,51 @@
 {% extends "calisphere/base.html"|pjax:request %}
 
 {% block content %}
-privacy please!
+
+<h1>Privacy Statement</h1>
+
+<div class="static">
+  
+  <div class="col-sm-8 static__main">
+    
+		<p>The California Digital Library (CDL) is committed to protecting your privacy to the greatest extent possible, subject to provisions of state and federal law. While our systems gather a variety of user information in the normal course of providing services, this information is kept for limited purposes only. For a detailed description of what information we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href="http://www.cdlib.org/about/policies.html">http://www.cdlib.org/about/policies.html</a>.</p>
+
+		<h2>The following additional practices, specific to the administration of Calisphere, may also affect the amount of privacy you are afforded on this website.</h2>
+
+		<h3>Google Analytics opt-out</h3>
+
+		<p>As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href="http://tools.google.com/dlpage/gaoptout">Google Analytics opt-out page</a> and install the add-on for your browser.</p>
+
+		<h3>Sharing information with content contributors</h3>
+
+		<p>The content on this website is contributed by cultural heritage institutions across California. We provide our contributors aggregate reports of usage statistics on the content they have submitted, currently derived from web server logs. Additionally, some contributors use Google Analytics to track usage of their content on this website and may take advantage of data sharing options offered by that service.</p>
+
+		<h3>Sharing information with CDL</h3>
+
+		<p>This website provides a “contact owner” button which allows users to directly message a contributing institution with questions about a given item. A copy of this message is additionally routed to CDL in order to monitor the types of questions asked and to assist with a response as necessary. If you do not wish for your message to be sent to CDL, please contact the owning institution directly using the contact information listed on its institution page.</p>
+
+		<h3>Third party APIs</h3>
+
+		<p>Certain features on this website utilize third party services and APIs such as the Google Maps API or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service. CDL does not control how information may be used by these services.</p>
+
+		<h3>User surveys</h3>
+
+		<p>This website will sometimes conduct user surveys. When doing so, it may set a flash local storage "cookie" so users are only surveyed once per computer. Survey results are collected as Google Analytics events.</p>
+
+		<h2>Revisions</h2>
+
+		<p>This statement was last revised on June 29, 2015 and may be revised at any time.</p>
+
+  </div>
+
+  <div class="col-sm-4 static__sidebar">
+    
+  	<h3 class="static__sidebar-heading">Join us!</h3>
+  	<p>Calisphere aggregates digital content and metadata from established collecting institutions in California. If you represent such an organization and are interested in contributing digital content to the site, <a href="/contact/">please contact us</a>.</p>
+
+  </div>
+  
+</div>
+
 {{ q }}
 {% endblock %}
