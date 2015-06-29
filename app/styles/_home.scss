@@ -29,6 +29,7 @@
 	@include bp(sm-screen) {
     padding: 0;
     background-image: url("/images/homepage/colorado-street-bridge_900x400.jpg");
+    background-position: 0 50%;
   }
 
   @include bp(md-screen) {
@@ -160,16 +161,20 @@
 	padding: 10px;
 	color: #fff;
 	font-size: 1.2em;
-	background: #003399; // for <= IE 9
-	background: rgba(0, 91, 135, 0.8);
+	background-color: #003399; // for <= IE 9
+	background-color: rgba(0, 91, 135, 1);
 
 	@include bp(sm-screen) {
     position: absolute;
     margin: 0 ($layout-container-margin-xs / 2) 0 0;
 		padding: 10px 30px;
+		background-image: url("/images/homepage/oranges_600x276.jpg");
+		background-size: 100%;
+		background-blend-mode: soft-light;
   }
 
   @include bp(md-screen) {
+  	background-image: url("/images/homepage/oranges_958x400.jpg");
   	font-size: 1.7em;
   }
 

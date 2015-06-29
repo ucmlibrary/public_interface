@@ -12,9 +12,10 @@
     "mediaelement": "~2.16.4",
     "openseadragon": "~1.2.1",
     "flickity": "https://github.com/kukac7/flickity.git#master",
-    "infinite-scroll": "~2.0.2"
+    "infinite-scroll": "~2.1.0"
   },
   "resolutions": {
-    "slick.js": "~1.5.5"
+    "slick.js": "~1.5.5",
+    "infinite-scroll": "~2.0.2"
   }
 }

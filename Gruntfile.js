@@ -87,6 +87,10 @@ module.exports = function (grunt) {
           middleware: function(connect) {
             return [
               includeMiddleware,
+              connect().use('/', function (req, res, next) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                next();
+              }),
               connect.static('.tmp'),
               connect().use('/bower_components', connect.static('./bower_components')),
               connect.static(config.app)
@@ -400,7 +404,6 @@ module.exports = function (grunt) {
        build: '<%= config.dist %>/*.html',
        tmp: '.tmp/*.html'
     }
-    
   });
 
 
