@@ -25,10 +25,6 @@ function FacetQuery() {
   if ($('#js-relatedCollections').length > 0) {
     this.relatedCollections();
   }
-  if ($(this.carouselContainer).length > 0) {
-    this.getValuesFromSession();
-    this.carousel();
-  }
 
   this.bindSubmitHandlers();
 }
@@ -302,6 +298,7 @@ FacetQuery.prototype.relatedCollections = function() {
 
 FacetQuery.prototype.carousel = function() {
   // ##### Slick Carousel ##### //
+  $('.carousel').show();
   $('.carousel').slick({
     infinite: true,
     speed: 300,
@@ -373,4 +370,10 @@ FacetQuery.prototype.carousel = function() {
 $(document).ready(function() {
   // $.pjax.disable();
   var query = new FacetQuery();
+  $(window).load(function() {
+    if ($(query.carouselContainer).length > 0) {
+      query.getValuesFromSession();
+      query.carousel();
+    }
+  });
 });

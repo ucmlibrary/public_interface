@@ -12,6 +12,7 @@
   clear: right;
   border-bottom: 1px solid $design-primary-color;
 
+  display: none;
   @include bp(sm-screen) {
     padding: 0 45px;
   }
@@ -53,13 +54,13 @@ html.no-js .carousel__item {
 }
 
 .carousel__link {
-  position: relative; 
+  position: relative;
   display: block;
 
   &:hover {
     text-decoration: none;
   }
-  
+
 }
 
 .carousel__image-container {
