@@ -223,7 +223,7 @@
   }
 
   &:hover .home__thumbnail-caption--uc {
-		text-decoration: underline;
+		background-image: none;
 	}
 
 	@include bp(md-screen) {
