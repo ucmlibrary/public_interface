@@ -43,18 +43,12 @@
 
   <div class="static">
 
-    <h3>{{ institution.name }} Library Contributors</h3>
+    <h3>{{ institution.name }} Contributors</h3>
 
     <ul class="list-unstyled">
       {% for institution in institutions %}
           <li><a href="{% url 'calisphere:repositoryView' institution.id 'collections' %}">{{ institution.name }}</a></li>
       {% endfor %}
-    </ul>
-
-    <h3>Other Campus Institutions</h3>
-
-    <ul class="list-unstyled">
-      <li><a href="">Cheadle Center for Biological Research</a></li>
     </ul>
 
   </div>
