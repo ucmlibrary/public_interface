@@ -6,4 +6,5 @@ def settings(request):
     return {
         'thumbnailUrl': settings.THUMBNAIL_URL,
         'devMode': settings.UCLDC_DEVEL,
+        'ucldcImages': settings.UCLDC_IMAGES,
     }
