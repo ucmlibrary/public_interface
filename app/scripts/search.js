@@ -183,7 +183,9 @@ FacetQuery.prototype.bindDomManipulators = function() {
 
   // ***************ROWS***********************
   // don't need to change the DOM value - this is changed by the user via the select dropdown
+  // do need to change the DOM value for restarting the user at page 1, though
   $(document).on('change', '#pag-dropdown__view', function() {
+	  $('#start').val('0');
     $('#js-facet').submit();
   });
 
