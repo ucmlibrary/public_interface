@@ -589,7 +589,7 @@ def collectionView(request, collection_id):
         'sort': queryParams['sort'],
         'search_results': solr_search.results,
         'facets': facets,
-        'FACET_TYPES': list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'collection_data'),
+        'FACET_TYPES': list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'collection_data' and facet_type[0] != 'repository_data'),
         'numFound': solr_search.numFound,
         'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
         'view_format': queryParams['view_format'],
