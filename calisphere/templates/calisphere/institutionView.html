@@ -1,4 +1,4 @@
-{% extends "calisphere/searchResults.html"|pjax:request %}
+{% extends "calisphere/searchResults.html" %}
 {% load calisphere-extras %}
 {% load staticfiles %}
 
@@ -11,13 +11,13 @@
 
     {% if campus_slug %}
       <div class="col-md-3">
-        {% with '/images/logo_'|add:campus_slug|add:'.png' as logo_url %}
+        {% with 'images/logo_'|add:campus_slug|lower|add:'.png' as logo_url %}
         <img class="institution-logo" src="{% static logo_url %}" alt="{{ institution.name }}">
         {% endwith %}
       </div>
     {% elif repository_id and uc_institution %}
       <div class="col-md-3">
-        {% with '/images/logo_'|add:uc_institution.0.slug|add:'.png' as logo_url %}
+        {% with 'images/logo_'|add:uc_institution.0.slug|lower|add:'.png' as logo_url %}
           <img class="institution-logo" src="{% static logo_url %}" alt="{{ uc_institution.0.name }}">
         {% endwith %}
       </div>
@@ -27,7 +27,7 @@
       <h2 class="institution-intro__heading">{{ institution.name }} <br> {% if repository_id and uc_institution %}{{ uc_institution.0.name }}{% endif %}</h2>
       <ul class="institutional-intro__list">
         {% if contact_information.city %}
-          <li class="institutional-intro__list-item">City: {{ contact_information.city }}</li>
+          <li class="institutional-intro__list-item">Location: {{ contact_information.city }}, CA</li>
         {% endif %}
         {% if contact_information.phone %}
           <li class="institutional-intro__list-item">Phone: {{ contact_information.phone }}</li>

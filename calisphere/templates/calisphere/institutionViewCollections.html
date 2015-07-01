@@ -1,4 +1,4 @@
-{% extends "calisphere/institutionView.html"|pjax:request %}
+{% extends "calisphere/institutionView.html" %}
 {% load calisphere-extras %}
 {% load staticfiles %}
 
@@ -6,43 +6,29 @@
 
   <div class="row">
 
-    <div class="col-sm-6 col-md-12">
-
-      <div class="button__institution-tabs">
-        {% if repository_id %}
-        <a class="btn btn-default button__institution-tab button__secondary" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
-          Collections
-        </a>
-        {% elif campus_slug %}
-        <a class="btn btn-default button__institution-tab button__secondary" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
-          Collections
-        </a>
-        {% endif %}
-      </div>
-
-      {% if campus_slug %}
-      <div class="button__institution-tabs">
-        <a class="btn btn-default button__institution-tab" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
-          Institutions
-        </a>
-      </div>
-      {% endif %}
-
-    </div>
-
+    {% with "collections" as mode %}
+      {% include "calisphere/institutionViewSidebar.html" %}
+    {% endwith %}
+    
     <div class="col-sm-6 col-md-12">
 
       <!-- Begin Search Within Field -->
-      <div class="search-collection">
-        <label for="search-collection__field" class="search-collection__label">Search {% if repository_id and uc_institution %}{{ uc_institution.0.name }}, {% endif %}{{ institution.name }}</label>
-        <div class="input-group">
-          <input id="search-collection__field" type="search" name="rq" class="form-control search-collection__field" form="js-facet">
-          <span class="input-group-btn">
-            <button class="btn btn-default search-collection__button" type="submit" form="js-facet">Search
-            </button>
-          </span>
-        </div>
-      </div>      
+      <!-- <div class="search-collection">
+        {% if repository_id %}
+        <form id="js-searchInstitution" action="{% url 'calisphere:repositoryView' repository_id 'items' %}" method="get">
+        {% elif campus_slug %}
+        <form id="js-searchInstitution" action="{% url 'calisphere:campusView' campus_slug 'items' %}" method="get">
+        {% endif %}
+          <label for="search-collection__field" class="search-collection__label">Search {% if repository_id and uc_institution %}{{ uc_institution.0.name }}, {% endif %}{{ institution.name }}</label>
+          <div class="input-group">
+            <input id="search-collection__field" type="search" name="rq" class="form-control search-collection__field js-institutionSearch" form="js-facet">
+            <span class="input-group-btn">
+              <button class="btn btn-default search-collection__button" type="submit" form="js-facet">Search
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>       -->
       <!-- End Search Within Field -->
 
     </div>
@@ -118,6 +104,10 @@
           msgText: "",
           selector: "#js-loading"
         }
+      });
+      
+      $(document).on('focus', '.js-institutionSearch', function() {
+        $('#js-searchInstitution').submit();
       });
     });
   </script>
