@@ -11,13 +11,13 @@
 
     {% if campus_slug %}
       <div class="col-md-3">
-        {% with '/images/logo_'|add:campus_slug|add:'.png' as logo_url %}
+        {% with 'images/logo_'|add:campus_slug|lower|add:'.png' as logo_url %}
         <img class="institution-logo" src="{% static logo_url %}" alt="{{ institution.name }}">
         {% endwith %}
       </div>
     {% elif repository_id and uc_institution %}
       <div class="col-md-3">
-        {% with '/images/logo_'|add:uc_institution.0.slug|add:'.png' as logo_url %}
+        {% with 'images/logo_'|add:uc_institution.0.slug|lower|add:'.png' as logo_url %}
           <img class="institution-logo" src="{% static logo_url %}" alt="{{ uc_institution.0.name }}">
         {% endwith %}
       </div>

@@ -24,10 +24,8 @@
     {% endblock %}
   </head>
   <body>
-    
-    <div class="container-fluid">
-      
 
+    <div class="container-fluid">
       <header class="global-header">
         <div class="row">
           <div class="col-xs-12 col-sm-4">
@@ -46,7 +44,7 @@
           </div>
 
           <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
-            {% block globalSearch %}
+          {% block globalSearch %}
             <form class="global-header__search-form" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
               <label for="global-search__field" class="global-search__label">Search the collections</label>
               <div class="input-group">
@@ -57,7 +55,7 @@
                 </span>
               </div>
             </form>
-            {% endblock %}
+          {% endblock %}
           </div>
 
           <div class="col-xs-12 col-sm-4 global-header__nav js-global-header__mobile-links">
@@ -97,11 +95,10 @@
         </div>
 
       </header>
-      
       <div id="js-pageContent">{% block content %}{% endblock %}</div>
       {% include "calisphere/footer.html" %}
     </div>
-    
+
     {% if devMode %}
       <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
       <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
