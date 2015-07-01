@@ -98,13 +98,16 @@ FacetQuery.prototype.getValuesFromSession = function() {
 
 // Submit event handlers save state, clean form, etc.
 FacetQuery.prototype.bindSubmitHandlers = function() {
-  $(document).on('submit', "#js-searchForm, #js-footerSearch", function(that) {
+  $(document).on('submit', "#js-searchForm, #js-footerSearch, #js-homeForm", function(that) {
     return function(event) {
       that.query = $(this).find('.js-globalSearch').val();
       if ($(this).attr('id') == '#js-searchForm') {
         $('#js-footerSearch').find('.js-globalSearch').val(that.query);
       } else if ($(this).attr('id') == '#js-footerSearch') {
         $('#js-searchForm').find('.js-globalSearch').val(that.query);
+      } else if ($(this).attr('id') == '#js-homeSearch') {
+      	$('#js-footerSearch').find('.js-globalSearch').val(that.query);
+				$('#js-searchForm').find('.js-globalSearch').val(that.query);
       }
       that.saveValuesToSession();
       $.pjax.submit(event, that.resultsContainer);
