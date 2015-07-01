@@ -101,6 +101,16 @@ html.no-jquery .global-header__search {
 
 }
 
+.global-header__search-form--homepage { // hide on homepage for tablet and desktop screens
+  @extend .global-header__search-form;
+  display: block;
+
+  @include bp(sm-screen) {
+    display: none;
+  }
+
+}
+
 .global-header__nav {
   display: none;
 

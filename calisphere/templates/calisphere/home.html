@@ -1,7 +1,7 @@
 {% extends "calisphere/base.html" %}
 
-{% block globalSearch %}
-<form class="global-header__search-form">&nbsp;</form>
+{% block globalSearch %}      
+	<form class="global-header__search-form--homepage" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
 
 		<div class="home__mast">
 			<h1 class="home__mast-heading">The deeper you look, the more you'll discover</h1>
-      <form class="global-header__search-form" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
+      <form role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
 			<div class="home__search">
 	      <label for="home__search-field" class="sr-only">Search the collections</label>
 	      <div class="input-group">
