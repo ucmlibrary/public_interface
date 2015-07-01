@@ -1,6 +1,14 @@
 // ##### Alignment for Page Layouts ##### //
 
-// These component base styles set the margin between components within page layouts. Margin styles for components should be set within their individual Sass files, not here.
+// ***** These component base styles set the margin or padding between components within page layouts. Margin/padding within components should be set within their component Sass files, not here. ***** //
+
+.home {
+  
+  @include bp(sm-screen) {
+    margin: (-$layout-container-margin-md) 0 0 0;
+  }
+
+}
 
 .global-header {
 
