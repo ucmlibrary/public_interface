@@ -34,17 +34,17 @@
     {% endif %}
   </select>
 
-  {% if start|subtract:rows >= 0 %}
+  {% if start|subtract:rows > 0 %}
 	  <button class="js-prev btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
   {% else %}
-  	<button class="js-prev btn btn-link pag-dropdown__arrow-icon"><span class="fa fa-caret-left fa-lg"></span></button>
+  	<button class="js-prev btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-left fa-lg"></span></button>
 	{% endif %}
 
   <label for="start" class="sr-only">Current Number</label>
         
   <select class="pag-dropdown__select--unstyled" form="js-facet">
     {% for page in pages|get_range %}
-    <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
+    <option value="{% widthratio page 1 rows %}" {% if start|add:0 >= page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
     {% endfor %}
   </select>
 
@@ -53,7 +53,7 @@
   {% if start|add:rows < numFound %}
 	  <button class="js-next btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
   {% else %}
-    <button class="js-next btn btn-link pag-dropdown__arrow-icon"><span class="fa fa-caret-right fa-lg"></span></button>
+    <button class="js-next btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-right fa-lg"></span></button>
   {% endif %}
 
 </div>
