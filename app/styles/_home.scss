@@ -26,18 +26,18 @@
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 $layout-container-margin-xs 0;
 	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
-	background-image: url("/images/homepage/colorado-street-bridge_650x300.jpg");
+	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
 	background-size: cover;
 	background-position: 0 -15px;
 
 	@include bp(sm-screen) {
     padding: 0;
-    background-image: url("/images/homepage/colorado-street-bridge_900x400.jpg");
+    background-image: url("#{$home-aws-image-path}colorado-street-bridge_900x400.jpg");
     background-position: 0 50%;
   }
 
   @include bp(md-screen) {
-    background-image: url("/images/homepage/colorado-street-bridge_1400x600.jpg");
+    background-image: url("#{$home-aws-image-path}colorado-street-bridge_1400x600.jpg");
   }
 
 }
@@ -136,15 +136,15 @@
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 ($layout-container-margin-xs / 2) 0 0;
 	padding: 0 0 $home-main-img-padding 0;
-	background-image: url("/images/homepage/oranges_430x197.jpg");
+	background-image: url("#{$home-aws-image-path}oranges_430x197.jpg");
 	background-size: 100%;
 
 	@include bp(sm-screen) {
-  	background-image: url("/images/homepage/oranges_600x276.jpg");
+  	background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
   }
 
 	@include bp(md-screen) {
-  	background-image: url("/images/homepage/oranges_958x400.jpg");
+  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
   }
 
 }
@@ -163,13 +163,13 @@
     position: absolute;
     margin: 0 ($layout-container-margin-xs / 2) 0 0;
 		padding: 10px 30px;
-		background-image: url("/images/homepage/oranges_600x276.jpg");
+		background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
 		background-size: 100%;
 		background-blend-mode: soft-light;
   }
 
   @include bp(md-screen) {
-  	background-image: url("/images/homepage/oranges_958x400.jpg");
+  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
   	font-size: 1.7em;
   }
 
@@ -180,14 +180,14 @@
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 ($home-main-img-padding * 2) 0;
 	background-size: 100%;
-	background-image: url("/images/homepage/hirahara-portrait_220x188.jpg");
+	background-image: url("#{$home-aws-image-path}hirahara-portrait_220x188.jpg");
 
 	@include bp(sm-screen) {
-  	background-image: url("/images/homepage/hirahara-portrait_300x256.jpg");
+  	background-image: url("#{$home-aws-image-path}hirahara-portrait_300x256.jpg");
   }
 
 	@include bp(md-screen) {
-  	background-image: url("/images/homepage/hirahara-portrait_465x397.jpg");
+  	background-image: url("#{$home-aws-image-path}hirahara-portrait_465x397.jpg");
   }
   
 }
