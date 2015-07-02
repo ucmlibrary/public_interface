@@ -43,11 +43,10 @@
             </div>
           </div>
           
-          
-          <div class="col-xs-12 col-sm-4 global-header__search--homepage js-global-header__search">
-            {% block globalSearch %}
+          {% block globalSearch %}
+          <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
             <form class="global-header__search-form" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
-            {% endblock %}
+          {% endblock %}
               <label for="global-search__field" class="global-search__label">Search the collections</label>
               <div class="input-group">
                 <input id="global-search__field" form="js-searchForm" name="q" value="{{ q }}" type="search" class="form-control global-search__field js-globalSearch">

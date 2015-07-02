@@ -1,6 +1,7 @@
 {% extends "calisphere/base.html" %}
 
 {% block globalSearch %}      
+<div class="col-xs-12 col-sm-4 global-header__search--homepage js-global-header__search--homepage">
 	<form class="global-header__search-form--homepage" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
 {% endblock %}
 
