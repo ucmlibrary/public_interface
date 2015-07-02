@@ -16,6 +16,7 @@ $(document).ready(function(){
   // Toggle only search box:
   $('.js-global-header__search-icon').click(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
+    $('.js-global-header__search--homepage').toggleClass('global-header__search--homepage global-header__search');
   });
 
   // ##### Search Filters ##### //
