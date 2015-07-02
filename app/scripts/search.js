@@ -6,6 +6,8 @@
  *  @author     Amy Wieliczka <amywieliczka [at] berkeley.edu>
  **/
 
+var query;
+
 function FacetQuery() {
   this.resultsContainer = "#js-pageContent";
   this.relatedCollectionsContainer = "#js-relatedCollections";
@@ -79,7 +81,7 @@ FacetQuery.prototype.saveValuesToSession = function() {
   if (this.view_format) { sessionStorage.setItem('view_format', this.view_format); }
   if (this.sort) { sessionStorage.setItem('sort', this.sort); }
   if (this.rows) { sessionStorage.setItem('rows', this.rows); }
-  if (this.start) { sessionStorage.setItem('start', this.start); }
+  if (this.start !== undefined) { sessionStorage.setItem('start', this.start); }
   if (this.refineQuery.length > 0) { sessionStorage.setItem('refineQuery', JSON.stringify(this.refineQuery)); }
   if (!$.isEmptyObject(this.filters)) { sessionStorage.setItem('filters', JSON.stringify(this.filters)); }
 }
@@ -305,7 +307,7 @@ FacetQuery.prototype.carousel = function() {
   // ##### Slick Carousel ##### //
   $('.carousel').show();
   $('.carousel').slick({
-    infinite: true,
+    infinite: false,
     speed: 300,
     slidesToShow: 10,
     slidesToScroll: 6,
@@ -374,7 +376,7 @@ FacetQuery.prototype.carousel = function() {
 
 $(document).ready(function() {
   // $.pjax.disable();
-  var query = new FacetQuery();
+  query = new FacetQuery();
   $(window).load(function() {
     if ($(query.carouselContainer).length > 0) {
       query.getValuesFromSession();
