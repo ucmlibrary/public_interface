@@ -7,6 +7,7 @@
  **/
 
 var query;
+var DESKTOP;
 
 function FacetQuery() {
   this.resultsContainer = "#js-pageContent";
@@ -233,7 +234,11 @@ FacetQuery.prototype.bindDomManipulators = function() {
   //*************FACETING*************//
   // don't need to change in the DOM - this is changed by the user via checkboxes
   $(document).on('change', '.js-facet', function() {
-    $('#js-facet').submit();
+    if (DESKTOP) {
+    	$('#js-facet').submit();
+    } else {
+			$(this).parents('.check').find('.js-a-check__update').prop('disabled', false);
+    }
   });
 
   // change the value in the DOM - the filter buttons refer to the sidebar checkbox form elements
@@ -244,18 +249,26 @@ FacetQuery.prototype.bindDomManipulators = function() {
   });
 
   // change the value in the DOM - the deselect all button refers to the sidebar checkbox form elements
-  $(document).on('click', '.js-a-check__link-deselect-all', function() {
+  $(document).on('click', '.js-a-check__link-deselect-all, .js-a-check__button-deselect-all', function() {
     var filterElements = $(this).parents('.check').find('.js-facet');
     filterElements.prop('checked', false);
-    $('#js-facet').submit();
+		if (DESKTOP) {
+	    $('#js-facet').submit();
+		} else {
+			$(this).parents('.check').find('.js-a-check__update').prop('disabled', false);
+		}
     return false;
   });
 
   // change the value in the DOM - the select all button refers to the sidebar checkbox form elements
-  $(document).on('click', '.js-a-check__link-select-all', function() {
+  $(document).on('click', '.js-a-check__link-select-all, .js-a-check__button-select-all', function() {
     var filterElements = $(this).parents('.check').find('.js-facet');
     filterElements.prop('checked', true);
-    $('#js-facet').submit();
+    if (DESKTOP) {
+    	$('#js-facet').submit();
+    } else {
+    	$(this).parents('.check').find('.js-a-check__update').prop('disabled', false);
+    }
     return false;
   });
 
@@ -266,17 +279,40 @@ FacetQuery.prototype.bindDomManipulators = function() {
   });
 
   // set up select/deselect all buttons on facet form
-
   var facetTypes = $('.check');
   for(var i=0; i<facetTypes.length; i++) {
     var allSelected = !($($(facetTypes[i]).find('.js-facet')).is(':not(:checked)'));
     if (allSelected == true) {
+			// for large screens
       $(facetTypes[i]).find('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
       $(facetTypes[i]).find('.js-a-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
-      $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
+			$(facetTypes[i]).find('.js-a-check__button-select-all').prop('disabled', true);
       $(facetTypes[i]).find('.js-a-check__update').prop('disabled', false);
     }
+		var oneSelected = $(facetTypes[i]).find('.js-facet').is(':checked');
+		if (oneSelected == true) {
+      $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
+		}
   }
+	
+  // set up checkbox groups for small and medium screens
+  $(document).on('click', '.js-a-check__header', function() {
+		//close all expanded checkbox groups
+		var allSelected = $('.check__popdown--selected');
+		for (var i=0; i<allSelected.length; i++) {
+			if ($(allSelected[i]).parent().find('input').attr('name') !== $(this).parent().find('input').attr('name')) {
+				$(allSelected[i]).toggleClass('check__popdown check__popdown--selected');
+				$(allSelected[i]).prev('.js-a-check__header').children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');				
+			}
+		}
+		//open this checkbox group
+    $(this).next('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $(this).children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
+  });
+	
+	$(document).on('click', '.js-a-check__update', function() {
+		$('#js-facet').submit();
+	});
 
   // var repository_autocomplete = new Autocomplete($('#repository_name'));
   // var collection_autocomplete = new Autocomplete($('#collection_name'));
@@ -375,6 +411,28 @@ FacetQuery.prototype.carousel = function() {
 }
 
 $(document).ready(function() {
+  $('html').removeClass('no-jquery');
+	if ($(window).width() > 900) {
+		DESKTOP = true;
+	} else {
+		DESKTOP = false;
+	}
+  
+	// ##### Global Header ##### //
+  	
+  // Toggle mobile menu with search box:
+	// $('.js-global-header__bars-icon').click(function(){
+	$(document).on('click', '.js-global-header__bars-icon', function() {
+    $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
+    $('.js-global-header__mobile-links').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');		
+	});
+
+  // Toggle only search box:
+	//  $('.js-global-header__search-icon').click(function(){
+	$(document).on('click', '.js-global-header__search-icon', function() {
+    $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
+  });
+	
   // $.pjax.disable();
   query = new FacetQuery();
   $(window).load(function() {
@@ -384,3 +442,13 @@ $(document).ready(function() {
     }
   });
 });
+
+$('[data-toggle="tooltip"]').tooltip({
+  placement: 'top'
+});
+
+if(!('backgroundBlendMode' in document.body.style)) {
+    // No support for background-blend-mode
+  var html = document.getElementsByTagName('html')[0];
+  html.className = html.className + ' no-background-blend-mode';
+}
