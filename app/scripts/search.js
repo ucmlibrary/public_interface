@@ -4,6 +4,10 @@
  *  @file       search.js
  *
  *  @author     Amy Wieliczka <amywieliczka [at] berkeley.edu>
+ *
+ *  This is run in the "integrated" django site; but not the static
+ * `grunt serve` site
+ *
  **/
 
 var query;
@@ -294,7 +298,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
       $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
 		}
   }
-	
+
   // set up checkbox groups for small and medium screens
   $(document).on('click', '.js-a-check__header', function() {
 		//close all expanded checkbox groups
@@ -302,14 +306,14 @@ FacetQuery.prototype.bindDomManipulators = function() {
 		for (var i=0; i<allSelected.length; i++) {
 			if ($(allSelected[i]).parent().find('input').attr('name') !== $(this).parent().find('input').attr('name')) {
 				$(allSelected[i]).toggleClass('check__popdown check__popdown--selected');
-				$(allSelected[i]).prev('.js-a-check__header').children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');				
+				$(allSelected[i]).prev('.js-a-check__header').children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
 			}
 		}
 		//open this checkbox group
     $(this).next('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
     $(this).children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
   });
-	
+
 	$(document).on('click', '.js-a-check__update', function() {
 		$('#js-facet').submit();
 	});
@@ -341,8 +345,7 @@ FacetQuery.prototype.relatedCollections = function() {
 
 FacetQuery.prototype.carousel = function() {
   // ##### Slick Carousel ##### //
-  $('.carousel').show();
-  $('.carousel').slick({
+  var conf = {
     infinite: false,
     speed: 300,
     slidesToShow: 10,
@@ -378,6 +381,11 @@ FacetQuery.prototype.carousel = function() {
         }
       }
     ]
+  };
+
+  imagesLoaded( '.object__container-generic', function() {
+    $('.carousel').show();
+    $('.carousel').slick(conf);
   });
 
   $('.carousel').on('beforeChange', function(that) {
@@ -408,7 +416,7 @@ FacetQuery.prototype.carousel = function() {
 
     }
   }(this));
-}
+} // end .carousel()
 
 $(document).ready(function() {
   $('html').removeClass('no-jquery');
@@ -417,14 +425,14 @@ $(document).ready(function() {
 	} else {
 		DESKTOP = false;
 	}
-  
+
 	// ##### Global Header ##### //
-  	
+
   // Toggle mobile menu with search box:
 	// $('.js-global-header__bars-icon').click(function(){
 	$(document).on('click', '.js-global-header__bars-icon', function() {
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
-    $('.js-global-header__mobile-links').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');		
+    $('.js-global-header__mobile-links').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');
 	});
 
   // Toggle only search box:
@@ -432,7 +440,7 @@ $(document).ready(function() {
 	$(document).on('click', '.js-global-header__search-icon', function() {
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
   });
-	
+
   // $.pjax.disable();
   query = new FacetQuery();
   $(window).load(function() {
