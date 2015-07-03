@@ -3,17 +3,20 @@
 $(document).ready(function(){
 
   // Remove 'no-jquery' class from <html> element if jquery loads properly:
+	// amy integrated
   $('html').removeClass('no-jquery');
 
   // ##### Global Header ##### //
-  	
+
   // Toggle menu:
+	// amy integrated
   $('.js-global-header__bars-icon').click(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
     $('.js-global-header__mobile-links').toggleClass('.global-header__mobile-links global-header__mobile-links--selected');
   });
 
   // Toggle search box:
+	// amy integrated
   $('.js-global-header__search-icon').click(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
     $('.js-global-header__search--homepage').toggleClass('global-header__search--homepage global-header__search');
@@ -36,15 +39,18 @@ $(document).ready(function(){
   // ##### Checkbox Groups ##### //
 
   // Disable Update Results button upon document.ready
+	// amy integrated
   $('.js-a-check__update').prop('disabled', true);
 
   // Expand checkbox group and switch arrow icon when clicking on header (small and medium screens):
+	// amy integrated
   $('.js-a-check__header').click(function(){
     $(this).next('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
     $(this).children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
   });
 
   // Select all or deselect all checkboxes (small and medium screens):
+	// amy integrated
   $('.js-a-check__button-select-all').click(function(){
     $('.check__input').prop('checked', true);
     $('.js-a-check__button-deselect-all').prop('disabled', false);
@@ -56,26 +62,28 @@ $(document).ready(function(){
   });
 
   // Select all or deselect all checkboxes (large screens):
-  // $('.js-a-check__link-select-all').click(function(){
-  //   $('.check__input').prop('checked', true);
-  //   $('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
-  //   $('.js-a-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
-  //   $('.js-a-check__button-deselect-all').prop('disabled', false);
-  //   $('.js-a-check__update').prop('disabled', false);
-  // });
-  // $('.js-a-check__link-deselect-all').click(function(){
-  //   $('.check__input').prop('checked', false);
-  //   $('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--selected check__link-deselect-all--not-selected');
-  // 	$('.js-a-check__link-select-all').toggleClass('check__link-select-all--not-selected check__link-select-all--selected');
-  // 	$('.js-a-check__update').prop('disabled', false);
-  // });
+  $('.js-a-check__link-select-all').click(function(){
+    $('.check__input').prop('checked', true);
+    $('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
+    $('.js-a-check__link-select-all').toggleClass('check__link-select-all--selected check__link-select-all--not-selected');
+    $('.js-a-check__button-deselect-all').prop('disabled', false);
+    $('.js-a-check__update').prop('disabled', false);
+  });
+  $('.js-a-check__link-deselect-all').click(function(){
+    $('.check__input').prop('checked', false);
+    $('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--selected check__link-deselect-all--not-selected');
+  	$('.js-a-check__link-select-all').toggleClass('check__link-select-all--not-selected check__link-select-all--selected');
+  	$('.js-a-check__update').prop('disabled', false);
+  });
 
   // If a checkbox is already checked, enable Deselect All button:
+	// amy integrated
   if ($('.check__input').is(':checked')) {
   	$('.js-a-check__button-deselect-all').prop('disabled', false);
   }
 
   // If a new checkbox is checked, enable Deselect All button and enable Update Results button:
+	// amy integrated
   $('.check__input').change(function(){
     if ($('.check__input').is(':checked')) {
   		$('.js-a-check__button-deselect-all').prop('disabled', false);
@@ -84,6 +92,7 @@ $(document).ready(function(){
   });
 
   // Collapse checkbox group, disable Update Results button, and change header styles if any checkboxes are already checked:
+	// amy integrated
   $('.js-a-check__update').click(function(){
     $('.js-a-check__update').prop('disabled', true);
   	$('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
@@ -101,13 +110,13 @@ $(document).ready(function(){
 
 // ##### Tooltip ##### //
 
-
+// amy integrated
 $('[data-toggle="tooltip"]').tooltip({
   placement: 'top'
 });
 
 // Detect background-blend-mode css property in browser and, if not available, write class to html element
-
+// amy integrated
 if(!('backgroundBlendMode' in document.body.style)) {
     // No support for background-blend-mode
   var html = document.getElementsByTagName('html')[0];
@@ -115,44 +124,45 @@ if(!('backgroundBlendMode' in document.body.style)) {
 }
 
 // ##### Slick Carousel ##### //
-
-// $('.carousel').slick({
-//   infinite: true,
-//   speed: 300,
-//   slidesToShow: 10,
-//   slidesToScroll: 6,
-//   variableWidth: true,
-//   lazyLoad: 'ondemand',
-//   responsive: [
-//     {
-//       breakpoint: 1200,
-//       settings: {
-//         infinite: true,
-//         // slidesToShow: 8,
-//         slidesToScroll: 8,
-//         variableWidth: true
-//       }
-//     },
-//     {
-//       breakpoint: 900,
-//       settings: {
-//         infinite: true,
-//         // slidesToShow: 6,
-//         slidesToScroll: 6,
-//         variableWidth: true
-//       }
-//     },
-//     {
-//       breakpoint: 650,
-//       settings: {
-//         infinite: true,
-//         // slidesToShow: 4,
-//         slidesToScroll: 4,
-//         variableWidth: true
-//       }
-//     }
-//   ]
-// });
+// amy integrated
+$('.carousel').show();
+$('.carousel').slick({
+  infinite: false,
+  speed: 300,
+  slidesToShow: 10,
+  slidesToScroll: 6,
+  variableWidth: true,
+  lazyLoad: 'ondemand',
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        infinite: true,
+        // slidesToShow: 8,
+        slidesToScroll: 8,
+        variableWidth: true
+      }
+    },
+    {
+      breakpoint: 900,
+      settings: {
+        infinite: true,
+        // slidesToShow: 6,
+        slidesToScroll: 6,
+        variableWidth: true
+      }
+    },
+    {
+      breakpoint: 650,
+      settings: {
+        infinite: true,
+        // slidesToShow: 4,
+        slidesToScroll: 4,
+        variableWidth: true
+      }
+    }
+  ]
+});
 
 // Alternative JavaScript method (instead of CSS method) for disabling popover via breakpoint:
 // if (Modernizr.mq('only screen and (max-width: 800px)')) {
