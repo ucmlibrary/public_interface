@@ -236,6 +236,13 @@ def itemView(request, item_id=''):
                 item['url_item'] = item['url_item'] + '/?brand=oac4'
             else:
                 item['oac'] = False
+        
+        item['parsed_collection_data'] = []
+        item['parsed_repository_data'] = []
+        for collection_data in item['collection_data']:
+            item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
+        for repository_data in item['repository_data']:
+            item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
 
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:

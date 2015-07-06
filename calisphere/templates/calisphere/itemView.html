@@ -130,15 +130,15 @@
     {% endif %}
     
     <!-- should include institution name: UC Berkely, Bancroft Library -->
-    {% if item.repository_name %}
+    {% if item.parsed_repository_data %}
       <dt class="meta-block__type">Contributing Institution</dt>
-      <dd class="meta-block__defin">{% for repository in item.repository_name %}{{ repository }} <br> {% endfor %}</dd>
+      <dd class="meta-block__defin">{% for repository in item.parsed_repository_data %}<a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">{{ repository.name }}</a> <br> {% endfor %}</dd>
     {% endif %}
     
-    {% if item.collection_name %}
-			<dt class="meta-block__type">Collection</dt>
-			<dd class="meta-block__defin">{% for collection_name in item.collection_name %}{{ collection_name }} <br> {% endfor %}</dd>
-		{% endif %}
+    {% if item.parsed_collection_data %}
+      <dt class="meta-block__type">Collection</dt>
+      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}<a href="{% url 'calisphere:collectionView' collection.id %}">{{ collection.name }}</a> <br> {% endfor %}</dd>
+    {% endif %}
 
     {% if item.rights %}
       <dt class="meta-block__type">Rights Information</dt>
