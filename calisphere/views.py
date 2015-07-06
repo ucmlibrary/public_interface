@@ -435,14 +435,20 @@ def relatedCollections(request, queryParams={}):
     for i in range(queryParams['rc_page']*3, queryParams['rc_page']*3+3):
         if len(related_collections) > i:
             facet = ["collection_data: \"" + related_collections[i] + "\""]
-            collection_solr_search = SOLR_select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title')
+            collection_solr_search = SOLR_select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title, type_ss')
 
-            if len(collection_solr_search.results) > 0:
+            collection_items = collection_solr_search.results
+            if len(collection_solr_search.results) < 3:
+                collection_solr_search_no_query = SOLR_select(q='', rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title, type_ss')
+                #TODO: in some cases this will result in the same object appearing twice in the related collections preview
+                collection_items = collection_items + collection_solr_search_no_query.results
+                
+            if len(collection_items) > 0 and len(collection_solr_search.results[0]) > 0:
                 if 'collection_data' in collection_solr_search.results[0] and len(collection_solr_search.results[0]['collection_data']) > 0:
                     collection = collection_solr_search.results[0]['collection_data'][0]
 
                     collection_data = {'image_urls': []}
-                    for item in collection_solr_search.results:
+                    for item in collection_items:
                         collection_data['image_urls'].append(item)
                         
                     collection_url = ''.join([
