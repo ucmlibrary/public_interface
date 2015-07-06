@@ -38,13 +38,13 @@
 <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
 {% if item.harvest_type == 'harvested' %}
-  {% if item.type_ss.0 == 'image' %}
+  {% if item.type_ss.0|lower == 'image' %}
     {% include 'calisphere/objectViewer/harvestedImage.html' %}
   {% else %}
     {% include 'calisphere/objectViewer/harvestedNonImage.html' %}
   {% endif %}
 {% elif item.harvest_type == 'hosted' %}
-  {% if item.type_ss.0 == 'image' %}
+  {% if item.type_ss.0|lower == 'image' %}
     {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
   {% elif item.type_ss.0 == 'moving image' %}
   {% elif item.type_ss.0 == 'sound' %}
