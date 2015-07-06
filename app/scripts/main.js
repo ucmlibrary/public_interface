@@ -62,6 +62,7 @@ $(document).ready(function(){
   });
 
   // Select all or deselect all checkboxes (large screens):
+	// amy integrated
   $('.js-a-check__link-select-all').click(function(){
     $('.check__input').prop('checked', true);
     $('.js-a-check__link-deselect-all').toggleClass('check__link-deselect-all--not-selected check__link-deselect-all--selected');
