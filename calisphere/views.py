@@ -272,7 +272,7 @@ def itemView(request, item_id=''):
             'numFound': carousel_items['numFound'],
             'pages': int(math.ceil(float(carousel_items['numFound'])/int(queryParams['rows']))),
             # 'view_format': queryParams['view_format'],
-            # 'related_collections': relatedCollections(request, queryParams),
+            'related_collections': relatedCollections(request, queryParams),
             # 'rc_page': queryParams['rc_page']
         })
 
@@ -627,7 +627,7 @@ def campusDirectory(request):
 def statewideDirectory(request):
     repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_mincount=1, facet_field=['repository_data'], facet_limit='-1')
     solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
-
+    
     repositories = []
     for repository_data in solr_repositories:
         repository = getRepositoryData(repository_data=repository_data)
