@@ -100,7 +100,7 @@ def getCollectionMosaic(collection_url):
 
     display_items = SOLR_select(
         q='*:*',
-        fields='reference_image_md5, url_item, id, title, collection_url',
+        fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
         rows=6,
         start=0,
         fq=['collection_url: \"' + collection_url + '\"']
