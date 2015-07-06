@@ -120,6 +120,17 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
   $(document).on('pjax:end', this.resultsContainer, function(that) {
     return function(event) {
       if ($('#js-facet').length > 0) {
+        // get rid of any visible tooltips
+        var visibleTooltips = $('[data-toggle="tooltip"][aria-describedby]');
+        for (var i=0; i<visibleTooltips.length; i++) {
+          var tooltipId = $(visibleTooltips[i]).attr('aria-describedby');
+          $('#' + tooltipId).remove();
+        }
+        // reinit tooltips
+        $('[data-toggle="tooltip"]').tooltip({
+          placement: 'top'
+        });
+        // reset the form
         $('#js-facet')[0].reset();
         that.getFormValuesFromDOM();
         that.saveValuesToSession();
