@@ -1,9 +1,36 @@
+{% load static %}
 <div class="listview">
 {% for item in search_results %}
   <div class="row listview__container">
     <div class="col-xs-3">
-      <a class="listview__link" href="">
-        <img class="listview__image" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" data-reference_image_md5="{{ item.reference_image_md5 }}" alt="bird">
+      <a class="listview__link js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
+        
+        {% if item.type_ss.0|lower != "image" %}
+        <div class="icon__overlay-container">
+          {% if item.type_ss.0|lower == "moving image" %}
+          <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
+          {% elif item.type_ss.0|lower == "sound"%}
+          <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
+          {% elif item.type_ss.0|lower == "text"%}
+          <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
+          {% elif item.type_ss.0|lower == "complex object"%}
+          <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+          {% endif %}
+        {% endif %}
+        {% if item.reference_image_md5 %}
+          <img class="listview__image"
+          src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
+          srcset="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.reference_image_md5 }} 50w"
+          data-reference_image_md5="{{ item.reference_image_md5 }}"
+          sizes="100%"
+          alt="{{ item.title.0|truncatewords:8 }}">
+        {% else %}
+          <img class="thumbview__image--no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
+        {% endif %}
+        {% if item.type_ss.0|lower != "image" %}
+        </div>
+        {% endif %}
+        
       </a>
     </div>
     <div class="col-xs-9">

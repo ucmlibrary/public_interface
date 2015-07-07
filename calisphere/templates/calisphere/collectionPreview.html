@@ -1,3 +1,4 @@
+{% load static %}
 <div class="row collect-row__link js-collectionMosaic">
 
 	<div class="col-xs-12 col-sm-4 collect-row__summary">
@@ -14,7 +15,30 @@
   	<a href="{% url 'calisphere:collectionView' collection.collection_id %}" class="collect-row__mosaic">
   		<div class="col-sm-6">
 	  		{% for item in collection.display_items %}
-		    	<img class="collect-row__image{{ forloop.counter }}" src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}" alt="">
+
+          <div class="collect-row__image{{ forloop.counter }}" style="position: relative;">          
+            {% if item.type_ss.0|lower != "image" %}
+              {% if item.type_ss.0|lower == "moving image" %}
+              <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
+              {% elif item.type_ss.0|lower == "sound"%}
+              <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
+              {% elif item.type_ss.0|lower == "text"%}
+              <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
+              {% elif item.type_ss.0|lower == "complex object"%}
+              <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+              {% endif %}
+            {% endif %}
+            {% if item.reference_image_md5 %}
+              <img style="width: 100%; height: 100%"
+              src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
+              srcset="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.reference_image_md5 }} 50w"
+              sizes="100%"
+              alt="{{ item.title.0|truncatewords:8 }}">
+            {% else %}
+              <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" style="border: 1px solid #8b8d8e; width:100%; height:100%">
+            {% endif %}
+          </div>
+                    
 		    	{% if forloop.counter = 3 %}
 		    		</div>
 		    		<div class="col-sm-6">

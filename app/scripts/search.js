@@ -124,6 +124,17 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
   $(document).on('pjax:end', this.resultsContainer, function(that) {
     return function(event) {
       if ($('#js-facet').length > 0) {
+        // get rid of any visible tooltips
+        var visibleTooltips = $('[data-toggle="tooltip"][aria-describedby]');
+        for (var i=0; i<visibleTooltips.length; i++) {
+          var tooltipId = $(visibleTooltips[i]).attr('aria-describedby');
+          $('#' + tooltipId).remove();
+        }
+        // reinit tooltips
+        $('[data-toggle="tooltip"]').tooltip({
+          placement: 'top'
+        });
+        // reset the form
         $('#js-facet')[0].reset();
         that.getFormValuesFromDOM();
         that.saveValuesToSession();
@@ -188,6 +199,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
   // ****************SORT********************
   // don't need to change the DOM value - this is changed by the user via the select dropdown
   $(document).on('change', '#pag-dropdown__sort', function() {
+    $('#start').val('0');
     $('#js-facet').submit();
   });
 
@@ -230,6 +242,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
   //***********REFINE QUERY*************//
   // change the value in the DOM - this is a hidden input changed programmatically
   $(document).on('click', '.js-refine-filter-pill', function() {
+	  $('#start').val('0');
     var txtFilter = $(this).data('slug');
     $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val("");
     $('#js-facet').submit();
@@ -239,6 +252,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
   // don't need to change in the DOM - this is changed by the user via checkboxes
   $(document).on('change', '.js-facet', function() {
     if (DESKTOP) {
+      $('#start').val('0');
     	$('#js-facet').submit();
     } else {
 			$(this).parents('.check').find('.js-a-check__update').prop('disabled', false);
@@ -247,6 +261,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
 
   // change the value in the DOM - the filter buttons refer to the sidebar checkbox form elements
   $(document).on('click', '.js-filter-pill', function() {
+	  $('#start').val('0');
     var filter = $(this).data('slug');
     $("#" + filter).prop('checked', false);
     $('#js-facet').submit();
@@ -257,6 +272,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
     var filterElements = $(this).parents('.check').find('.js-facet');
     filterElements.prop('checked', false);
 		if (DESKTOP) {
+      $('#start').val('0');
 	    $('#js-facet').submit();
 		} else {
 			$(this).parents('.check').find('.js-a-check__update').prop('disabled', false);
@@ -269,6 +285,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
     var filterElements = $(this).parents('.check').find('.js-facet');
     filterElements.prop('checked', true);
     if (DESKTOP) {
+      $('#start').val('0');
     	$('#js-facet').submit();
     } else {
     	$(this).parents('.check').find('.js-a-check__update').prop('disabled', false);
@@ -278,6 +295,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
 
   // change the value in the DOM - the clear filters button refers to the sidebar checkbox form elements
   $(document).on('click', '.js-clear-filters', function() {
+	  $('#start').val('0');
     $('.js-facet').prop('checked', false);
     $('#js-facet').submit();
   });
@@ -315,6 +333,7 @@ FacetQuery.prototype.bindDomManipulators = function() {
   });
 
 	$(document).on('click', '.js-a-check__update', function() {
+	  $('#start').val('0');
 		$('#js-facet').submit();
 	});
 
