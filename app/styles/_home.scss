@@ -153,8 +153,8 @@
 	padding: 10px;
 	color: #fff;
 	font-size: 1.2em;
-	background-color: #003399; // for <= IE 9
-	background-color: rgba(0, 91, 135, 1);
+	background-color: #006893; // for <= IE 9
+	background-color: rgba(0, 104, 147, 1);
 
 	@include bp(sm-screen) {
     position: absolute;
