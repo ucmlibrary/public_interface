@@ -161,7 +161,18 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
         'sort': that.sort,
         'start': that.start,
       };
+
+      //TODO: re-evaluate if this is the correct way to keep track of 'extra' filter parameters
       for (var i in that.filters) { data_params[i] = that.filters[i]; }
+      if ($('input[type="hidden"][name="collection_data"]').length > 0) {
+        data_params['collection_data'] = $('input[type="hidden"][name="collection_data"]').val();
+      }
+      if ($('input[type="hidden"][name="repository_data"]').length > 0) {
+        data_params['repository_data'] = $('input[type="hidden"][name="repository_data"]').val();
+      }
+      if ($('input[type="hidden"][name="campus_slug"]').length > 0) {
+        data_params['campus'] = $('input[type="hidden"][name="campus_slug"]').val();
+      }
 
       that.saveValuesToSession();
       event.preventDefault();

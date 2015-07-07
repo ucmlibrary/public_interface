@@ -611,6 +611,7 @@ def collectionView(request, collection_id):
         'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
         'view_format': queryParams['view_format'],
         'collection': collection_details,
+        'collection_id': collection_id,
         'form_action': reverse('calisphere:collectionView', kwargs={'collection_id': collection_id})
     })
 

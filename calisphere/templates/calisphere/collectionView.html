@@ -38,6 +38,7 @@
       {% if collection.url_oac|length > 0 %}
         <a href="{{ collection.url_oac }}" target="_blank">View finding aid.</a>
       {% endif %}
+      <input type="hidden" name="collection_data" value="{{ collection_id }}">
     </div>
   </div>
 
