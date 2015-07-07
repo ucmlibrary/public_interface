@@ -115,7 +115,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	padding: $layout-container-margin-sm;
+	padding: $layout-container-margin-md $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm;
 	color: #fff;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
