@@ -42,7 +42,7 @@
               </div>
             </div>
           </div>
-          
+
           {% block globalSearch %}
           <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
             <form class="global-header__search-form" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
@@ -121,11 +121,11 @@
       <script src="{% static "bower_components/fizzy-ui-utils/utils.js" %}"></script>
       <script src="{% static "bower_components/tap-listener/tap-listener.js" %}"></script>
       <script src="{% static "bower_components/infinite-scroll/jquery.infinitescroll.js" %}"></script>
+      <script src="{% static "bower_components/imagesloaded/imagesloaded.pkgd.js" %}"></script>
     {% else %}
       <script src="{% static "scripts/vendor.js" %}"></script>
       <script src="{% static "scripts/vendor/modernizr.js" %}"></script>
     {% endif %}
-    <!-- // <script src="{% static "scripts/main.js" %}"></script> -->
     <script src="{% static "scripts/search.js" %}"></script>
 
     {% block footerScripts %}
