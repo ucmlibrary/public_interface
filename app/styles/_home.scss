@@ -7,6 +7,7 @@
 
 .home__main-section { // align images to edge of viewport
 	margin: 0 (-$layout-container-margin-xs);
+	overflow: hidden;
 
 	@include bp(sm-screen) {
     margin: 0 (-$layout-container-margin-sm);
@@ -20,7 +21,7 @@
 
 .home__mast {
 	position: relative; // relative to .home__img-credit
-	margin: 0 0 $layout-container-margin-xs 0;
+	margin: $layout-container-margin-xs 0;
 	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
 	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
 	background-size: cover;
