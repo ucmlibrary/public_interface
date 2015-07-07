@@ -136,7 +136,7 @@
         
           <select class="pag-dropdown__select--unstyled" form="js-facet">
             {% for page in pages|get_range %}
-            <option value="{% widthratio page 1 rows %}" {% if start|add:0 > page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
+            <option value="{% widthratio page 1 rows %}" {% if start|add:0 >= page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
             {% endfor %}
           </select>
 

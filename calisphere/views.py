@@ -100,7 +100,7 @@ def getCollectionMosaic(collection_url):
 
     display_items = SOLR_select(
         q='*:*',
-        fields='reference_image_md5, url_item, id, title, collection_url',
+        fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
         rows=6,
         start=0,
         fq=['collection_url: \"' + collection_url + '\"']
@@ -236,6 +236,13 @@ def itemView(request, item_id=''):
                 item['url_item'] = item['url_item'] + '/?brand=oac4'
             else:
                 item['oac'] = False
+        
+        item['parsed_collection_data'] = []
+        item['parsed_repository_data'] = []
+        for collection_data in item['collection_data']:
+            item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
+        for repository_data in item['repository_data']:
+            item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
 
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
@@ -272,7 +279,7 @@ def itemView(request, item_id=''):
             'numFound': carousel_items['numFound'],
             'pages': int(math.ceil(float(carousel_items['numFound'])/int(queryParams['rows']))),
             # 'view_format': queryParams['view_format'],
-            # 'related_collections': relatedCollections(request, queryParams),
+            'related_collections': relatedCollections(request, queryParams),
             # 'rc_page': queryParams['rc_page']
         })
 
@@ -435,14 +442,20 @@ def relatedCollections(request, queryParams={}):
     for i in range(queryParams['rc_page']*3, queryParams['rc_page']*3+3):
         if len(related_collections) > i:
             facet = ["collection_data: \"" + related_collections[i] + "\""]
-            collection_solr_search = SOLR_select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title')
+            collection_solr_search = SOLR_select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title, type_ss')
 
-            if len(collection_solr_search.results) > 0:
+            collection_items = collection_solr_search.results
+            if len(collection_solr_search.results) < 3:
+                collection_solr_search_no_query = SOLR_select(q='', rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title, type_ss')
+                #TODO: in some cases this will result in the same object appearing twice in the related collections preview
+                collection_items = collection_items + collection_solr_search_no_query.results
+                
+            if len(collection_items) > 0 and len(collection_solr_search.results[0]) > 0:
                 if 'collection_data' in collection_solr_search.results[0] and len(collection_solr_search.results[0]['collection_data']) > 0:
                     collection = collection_solr_search.results[0]['collection_data'][0]
 
                     collection_data = {'image_urls': []}
-                    for item in collection_solr_search.results:
+                    for item in collection_items:
                         collection_data['image_urls'].append(item)
                         
                     collection_url = ''.join([
@@ -621,7 +634,7 @@ def campusDirectory(request):
 def statewideDirectory(request):
     repositories_solr_query = SOLR_select(q='*:*', rows=0, start=0, facet='true', facet_mincount=1, facet_field=['repository_data'], facet_limit='-1')
     solr_repositories = repositories_solr_query.facet_counts['facet_fields']['repository_data']
-
+    
     repositories = []
     for repository_data in solr_repositories:
         repository = getRepositoryData(repository_data=repository_data)
