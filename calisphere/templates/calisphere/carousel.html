@@ -1,11 +1,33 @@
 {% load calisphere-extras %}
+{% load static %}
     
   {% for carousel_item in search_results %}
-  <div class="{% if carousel_item.id == items.0.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
-    <a class="{% if carousel_item.id == items.0.id %}carousel__link--selected{% else %}carousel__link{% endif %} js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}">
+  <div class="{% if carousel_item.id == item.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
+    <a class="{% if carousel_item.id == item.id %}carousel__link--selected{% else %}carousel__link{% endif %} js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}">
       <div class="carousel__image-container">
+        <div style="position: relative;">
+          {% if carousel_item.type_ss.0|lower != "image" %}
+            {% if carousel_item.type_ss.0|lower == "moving image" %}
+            <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
+            {% elif carousel_item.type_ss.0|lower == "sound"%}
+            <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
+            {% elif carousel_item.type_ss.0|lower == "text"%}
+            <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
+            {% elif carousel_item.type_ss.0|lower == "complex object"%}
+            <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+            {% endif %}
+          {% endif %}
+          {% if carousel_item.reference_image_md5 %}
+            <img style="width: 100%; height: 100%"
+            data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}"
+            sizes="100%"
+            alt="{{ carousel_item.title.0|truncatewords:8 }}">
+          {% else %}
+            <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" style="border: 1px solid #8b8d8e; width:100%; height:100%">
+          {% endif %}
+        </div>
         <!-- .carousel__icon-overlay with django logic will go here -->
-        <img data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}" alt="{{ carousel_item.title.0|truncatewords:7 }}">
+        <!-- <img data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}" alt="{{ carousel_item.title.0|truncatewords:7 }}"> -->
       <!-- {{ carousel_item.reference_image_md5 }} -->
       </div>
       <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:7 }}
