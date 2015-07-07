@@ -1,5 +1,17 @@
 'use strict'; // for jshint
 
+/**
+ *  @file       main.js
+ *
+ *  @author     Joel
+ *
+ *  This is javascript for the static `/app` mockup specs
+ * `grunt serve` site -- does not run on django site
+ *
+ * comments "// amy integrated" means version in `search.js`
+ *
+ **/
+
 $(document).ready(function(){
 
   // Remove 'no-jquery' class from <html> element if jquery loads properly:
@@ -7,7 +19,7 @@ $(document).ready(function(){
   $('html').removeClass('no-jquery');
 
   // ##### Global Header ##### //
-  	
+
   // Toggle menu:
 	// amy integrated
   $('.js-global-header__bars-icon').click(function(){
