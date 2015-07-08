@@ -91,7 +91,7 @@ def getCollectionMosaic(collection_url):
     collection_repositories = []
     for repository in collection_details['repository']:
         if 'campus' in repository and len(repository['campus']) > 0:
-            collection_repositories.append(repository['name'] + " - " + repository['campus'][0]['name'])
+            collection_repositories.append(repository['campus'][0]['name'] + ", " + repository['name'])
         else:
             collection_repositories.append(repository['name'])
 
@@ -486,14 +486,13 @@ def relatedCollections(request, queryParams={}):
                     collection_data['collection_id'] = col_id.group('collection_id')
 
                     # TODO: get this from repository_data in solr rather than from the registry API
-                    collection_data['institution'] = ''
-                    for repository in collection_details['repository']:
-                        collection_data['institution'] = repository['name']
-                        if repository['campus']:
-                            collection_data['institution'] = collection_data['institution'] + ', '
-                            for campus in repository['campus']:
-                                collection_data['institution'] = collection_data['institution'] + campus['name'] + ', '
-
+                    if collection_details['repository'][0]['campus']:
+                        print collection_details['repository'][0]['campus'][0]['name']
+                        print collection_details['repository'][0]['name']
+                        collection_data['institution'] = collection_details['repository'][0]['campus'][0]['name'] + ', ' + collection_details['repository'][0]['name']
+                    else:
+                        collection_data['institution'] = collection_details['repository'][0]['name']
+                    
                     three_related_collections.append(collection_data)
 
     if not ajaxRequest:
