@@ -177,6 +177,47 @@ $('.carousel').slick({
   ]
 });
 
+// ***** Complex Carousel ***** //
+
+$('.carousel-complex').show();
+$('.carousel-complex').slick({
+  infinite: false,
+  speed: 300,
+  slidesToShow: 6,
+  slidesToScroll: 6,
+  variableWidth: true,
+  lazyLoad: 'ondemand',
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        infinite: true,
+        // slidesToShow: 8,
+        slidesToScroll: 8,
+        variableWidth: true
+      }
+    },
+    {
+      breakpoint: 900,
+      settings: {
+        infinite: true,
+        // slidesToShow: 6,
+        slidesToScroll: 6,
+        variableWidth: true
+      }
+    },
+    {
+      breakpoint: 650,
+      settings: {
+        infinite: true,
+        // slidesToShow: 4,
+        slidesToScroll: 4,
+        variableWidth: true
+      }
+    }
+  ]
+});
+
 // Alternative JavaScript method (instead of CSS method) for disabling popover via breakpoint:
 // if (Modernizr.mq('only screen and (max-width: 800px)')) {
 //  $('.popover__link').popover('destroy');
