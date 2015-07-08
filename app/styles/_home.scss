@@ -7,6 +7,7 @@
 
 .home__main-section { // align images to edge of viewport
 	margin: 0 (-$layout-container-margin-xs);
+	overflow: hidden;
 
 	@include bp(sm-screen) {
     margin: 0 (-$layout-container-margin-sm);
@@ -20,7 +21,7 @@
 
 .home__mast {
 	position: relative; // relative to .home__img-credit
-	margin: 0 0 $layout-container-margin-xs 0;
+	margin: $layout-container-margin-xs 0;
 	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
 	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
 	background-size: cover;
@@ -111,17 +112,31 @@
 }
 
 .home__img-credit {
+	display: none;
 	position: absolute;
-	bottom: $layout-container-margin-sm;
-	right: $layout-container-margin-sm;
-	margin: 0 0 0 $layout-container-margin-sm;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: $layout-container-margin-md $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm;
 	color: #fff;
+	text-align: right;
 	font-size: 0.9em;
 
 	&:hover {
 		color: #fff;
 	}
 
+	@include bp(sm-screen) {
+		display: block;
+	}
+
+}
+
+.home__img-credit--gradient {
+	@extend .home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 }
 
 .home__img-main-row {
@@ -153,8 +168,8 @@
 	padding: 10px;
 	color: #fff;
 	font-size: 1.2em;
-	background-color: #003399; // for <= IE 9
-	background-color: rgba(0, 91, 135, 1);
+	background-color: #006893; // for <= IE 9
+	background-color: rgba(0, 104, 147, 1);
 
 	@include bp(sm-screen) {
     position: absolute;
@@ -245,11 +260,10 @@
 	background-size: 100%;
 	background-position: bottom;
 	background-blend-mode: multiply;
-	font-size: 1.2em;
 	line-height: 1.2;
 
 	@include bp(md-screen) {
-  	font-size: 1.2em;
+  	font-size: 1.1em;
   }
 
 }
