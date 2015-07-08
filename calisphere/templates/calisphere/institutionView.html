@@ -14,17 +14,17 @@
         {% with 'images/logo_'|add:campus_slug|lower|add:'.png' as logo_url %}
         <img class="institution-logo" src="{% static logo_url %}" alt="{{ institution.name }}">
         {% endwith %}
-        <input type="hidden" name="campus_slug" value="{{ campus_slug }}">
+        <input id="{{ campus_slug }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="campus_slug" value="{{ campus_slug }}" checked style="display: none;">
       </div>
     {% elif repository_id and uc_institution %}
       <div class="col-md-3">
         {% with 'images/logo_'|add:uc_institution.0.slug|lower|add:'.png' as logo_url %}
           <img class="institution-logo" src="{% static logo_url %}" alt="{{ uc_institution.0.name }}">
         {% endwith %}
-        <input type="hidden" name="repository_data" value="{{ repository_id }}">
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="repository_data" value="{{ repository_id }}" checked style="display: none;">
       </div>
     {% else %}
-      <input type="hidden" name="repository_data" value="{{ repository_id }}">
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="repository_data" value="{{ repository_id }}" checked style="display: none;">
     {% endif %}
 
     <div class="col-md-3">

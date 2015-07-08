@@ -374,13 +374,23 @@ def itemViewCarousel(request, queryParams={}):
     else:
         ajaxRequest = False
     
+    fq = solrize_filters(queryParams['filters'])
+    if 'campus_slug' in request.GET:
+        campus_id = ''
+        for campus in CAMPUS_LIST:
+            if request.GET['campus_slug'] == campus['slug']:
+                campus_id = campus['id']
+        if campus_id == '':
+            print "Campus registry ID not found"
+
+        fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
 
     # TODO: getting back way more fields than I really need
     carousel_solr_search = SOLR_select(
         q=queryParams['query_terms'],
         rows=queryParams['rows'],
         start=queryParams['start'],
-        fq=solrize_filters(queryParams['filters'])
+        fq=fq
     )
 
     # except solr.SolrException:
