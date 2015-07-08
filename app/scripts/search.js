@@ -165,6 +165,7 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
         'sort': that.sort,
         'start': that.start,
       };
+
       for (var i in that.filters) { data_params[i] = that.filters[i]; }
 
       that.saveValuesToSession();

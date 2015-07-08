@@ -38,6 +38,8 @@
       {% if collection.url_oac|length > 0 %}
         <a href="{{ collection.url_oac }}" target="_blank">View finding aid.</a>
       {% endif %}
+      <input id="{{ collection_id }}" class="facet js-facet facet-collection_data" form="js-facet" type="checkbox" name="collection_data" value="{{ collection_id }}" checked style="display: none;">
+      
     </div>
   </div>
 

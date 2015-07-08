@@ -140,7 +140,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
             repository['campus'] = ''
     return repository
 
-def facetQuery(facet_fields, queryParams, solr_search):
+def facetQuery(facet_fields, queryParams, solr_search, extra_filter=None):
     facets = {}
     for facet_type in facet_fields:
         if facet_type in queryParams['filters'] and len(queryParams['filters'][facet_type]) > 0:
@@ -148,13 +148,17 @@ def facetQuery(facet_fields, queryParams, solr_search):
             other_filters = {key: value for key, value in queryParams['filters'].items()
                 if key != facet_type}
             other_filters[facet_type] = []
+            
+            fq = solrize_filters(other_filters)
+            if extra_filter: 
+                fq.append(extra_filter)
 
             # perform the exact same search, but as though no filters of this type have been selected
             # to obtain the counts for facets for this facet type
             facet_solr_search = SOLR_select(
                 q=queryParams['query_terms'],
                 rows='0',
-                fq=solrize_filters(other_filters),
+                fq=fq,
                 facet='true',
                 facet_mincount=1,
                 facet_limit='-1',
@@ -370,13 +374,23 @@ def itemViewCarousel(request, queryParams={}):
     else:
         ajaxRequest = False
     
+    fq = solrize_filters(queryParams['filters'])
+    if 'campus_slug' in request.GET:
+        campus_id = ''
+        for campus in CAMPUS_LIST:
+            if request.GET['campus_slug'] == campus['slug']:
+                campus_id = campus['id']
+        if campus_id == '':
+            print "Campus registry ID not found"
+
+        fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
 
     # TODO: getting back way more fields than I really need
     carousel_solr_search = SOLR_select(
         q=queryParams['query_terms'],
         rows=queryParams['rows'],
         start=queryParams['start'],
-        fq=solrize_filters(queryParams['filters'])
+        fq=fq
     )
 
     # except solr.SolrException:
@@ -559,7 +573,7 @@ def collectionView(request, collection_id):
     collection = getCollectionData(collection_id=collection_id)
     fq = solrize_filters(queryParams['filters'])
     fq.append('collection_url: "' + collection['url'] + '"')
-    
+        
     facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'collection_data')
 
     # perform the search
@@ -574,8 +588,8 @@ def collectionView(request, collection_id):
         facet_limit='-1',
         facet_field=facet_fields
     )
-
-    facets = facetQuery(facet_fields, queryParams, solr_search)
+    
+    facets = facetQuery(facet_fields, queryParams, solr_search, 'collection_url: "' + collection['url'] + '"')
 
     for i, facet_item in enumerate(facets['repository_data']):
         repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
@@ -607,6 +621,7 @@ def collectionView(request, collection_id):
         'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
         'view_format': queryParams['view_format'],
         'collection': collection_details,
+        'collection_id': collection_id,
         'form_action': reverse('calisphere:collectionView', kwargs={'collection_id': collection_id})
     })
 
@@ -685,6 +700,7 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
         if institution_type == 'repository':
             fq.append('repository_url: "' + institution_url + '"')
             facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
+        
         if institution_type == 'campus':
             fq.append('campus_url: "' + institution_url + '"')
             facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
@@ -700,8 +716,13 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             facet_limit='-1',
             facet_field=facet_fields
         )
-    
-        facets = facetQuery(facet_fields, queryParams, solr_search)
+        
+        if institution_type == 'repository':
+            facets = facetQuery(facet_fields, queryParams, solr_search, 'repository_url: "' + institution_url + '"')
+        elif institution_type == 'campus':
+            facets = facetQuery(facet_fields, queryParams, solr_search, 'campus_url: "' + institution_url + '"')
+        else:
+            facets = facetQuery(facet_fields, queryParams, solr_search)
 
         for i, facet_item in enumerate(facets['collection_data']):
             collection = (getCollectionData(collection_data=facet_item[0]), facet_item[1])
