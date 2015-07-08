@@ -234,12 +234,14 @@ def itemView(request, item_id=''):
                 item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + item['iiif_id'] + '/info.json'))
         else:
             item['harvest_type'] = 'harvested'
-            if item['url_item'].startswith('http://ark.cdlib.org/ark:'):
-                item['oac'] = True
-                item['url_item'] = string.replace(item['url_item'], 'http://ark.cdlib.org/ark:', 'http://oac.cdlib.org/ark:')
-                item['url_item'] = item['url_item'] + '/?brand=oac4'
-            else:
-                item['oac'] = False
+            if 'url_item' in item:
+                if item['url_item'].startswith('http://ark.cdlib.org/ark:'):
+                    item['oac'] = True
+                    item['url_item'] = string.replace(item['url_item'], 'http://ark.cdlib.org/ark:', 'http://oac.cdlib.org/ark:')
+                    item['url_item'] = item['url_item'] + '/?brand=oac4'
+                else:
+                    item['oac'] = False
+            #TODO: error handling 'else' 
         
         item['parsed_collection_data'] = []
         item['parsed_repository_data'] = []
