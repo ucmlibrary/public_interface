@@ -227,11 +227,14 @@ def itemView(request, item_id=''):
     for item in item_solr_search.results:
         if 'structmap_url' in item and len(item['structmap_url']) >= 1:
             item['harvest_type'] = 'hosted'
-            if (item['type_ss'][0] == 'image'):
-                item['structmap_url'] = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
-                item['iiif_id'] = json_loads_url(item['structmap_url'])['id']
-                # hard-coded IIIF ID that works: 001687cd-e327-4ed1-9788-da3899715794
-                item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + item['iiif_id'] + '/info.json'))
+            item['structmap_url'] = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
+            structmap_data = json_loads_url(item['structmap_url'])
+            if 'structMap' in structmap_data:
+                item['structMap'] = structmap_data['structMap']
+                # for component in structmap_data['structMap']:
+                #     component['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + component['id'] + '/info.json'))
+            # if structmap_data['format'] == 'image':
+            #     item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap_data['id'] + '/info.json'))
         else:
             item['harvest_type'] = 'harvested'
             if item['url_item'].startswith('http://ark.cdlib.org/ark:'):
@@ -247,6 +250,8 @@ def itemView(request, item_id=''):
             item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
         for repository_data in item['repository_data']:
             item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
+        
+        print item
 
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:

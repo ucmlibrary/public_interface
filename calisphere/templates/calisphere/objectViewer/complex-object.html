@@ -1,0 +1,71 @@
+{% load staticfiles %}
+
+<div class="object__container-osd">
+  
+  <div id="obj__osd"></div>
+
+  <div class="obj__osd-button-group">
+
+    <a id="obj__osd-button-home" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-refresh fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-zoom-in" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-plus fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-zoom-out" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-minus fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-fullscreen" class="btn btn-default obj__osd-button" href="">
+      <span class="fa fa-expand fa-fw"></span>
+    </a>
+
+  </div>
+
+  <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
+  
+  <script type="text/javascript">
+      var viewer = OpenSeadragon({
+          id: "obj__osd",
+          tileSources: [{{ item.titleSources|safe }}],
+          zoomInButton:   "obj__osd-button-zoom-in",
+          zoomOutButton:  "obj__osd-button-zoom-out",
+          homeButton:     "obj__osd-button-home",
+          fullPageButton: "obj__osd-button-fullscreen"
+      });
+  </script>
+      
+  <div class="component-carousel">
+    {% for component in item.structMap %}
+    <div class="{% if component.id == item.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
+      <a class="{% if component.id == item.id %}carousel__link--selected{% else %}carousel__link{% endif %}" data-item_id="{{ component.id }}">
+        <div class="carousel__image-container">
+          <div style="position: relative;">
+            {% if component.format|lower != "image" %}
+              {% if component.format|lower == "moving image" %}
+              <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
+              {% elif component.format|lower == "sound"%}
+              <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
+              {% elif component.format|lower == "text"%}
+              <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
+              {% elif component.format|lower == "complex object"%}
+              <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+              {% endif %}
+            {% endif %}
+            {% if component.format|lower == "image" %}
+              <img style="width: 100%; height: 100%"
+              data-lazy="http://ucldciiifwest-env.elasticbeanstalk.com/{{ component.id }}/full/,210/0/default.jpg"
+              sizes="100%"
+              alt="{{ component.label }}">
+            {% else %}
+              <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" style="border: 1px solid #8b8d8e; width:100%; height:100%">
+            {% endif %}
+          </div>
+        </div>
+        <div class="carousel__thumbnail-caption">{{ component.label|truncatewords:8 }}
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>

@@ -44,12 +44,14 @@
     {% include 'calisphere/objectViewer/harvestedNonImage.html' %}
   {% endif %}
 {% elif item.harvest_type == 'hosted' %}
-  {% if item.type_ss.0|lower == 'image' %}
+  {% if item.structMap %}
+    {% include 'calisphere/objectViewer/complex-object.html' %}
+  {% elif item.type_ss.0|lower == 'image' %}
     {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
-  {% elif item.type_ss.0 == 'moving image' %}
-  {% elif item.type_ss.0 == 'sound' %}
-  {% elif item.type_ss.0 == "text"%}
-  {% elif item.type_ss.0 == "complex object"%}
+  {% elif item.type_ss.0|lower == 'moving image' %}
+  {% elif item.type_ss.0|lower == 'sound' %}
+  {% elif item.type_ss.0|lower == "text"%}
+  {% elif item.type_ss.0|lower == "complex object"%}
   {% endif %}
 {% endif %}
 
@@ -242,4 +244,53 @@
   header returned from solr; for debugging
   {{ item_solr_search.header|safe }}
   -->
+{% endblock %}
+
+{% block footerScripts %}
+  <script type="text/javascript">
+    var conf = {
+      infinite: false,
+      speed: 300,
+      slidesToShow: 10,
+      slidesToScroll: 6,
+      variableWidth: true,
+      lazyLoad: 'ondemand',
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            infinite: true,
+            // slidesToShow: 8,
+            slidesToScroll: 8,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            infinite: true,
+            // slidesToShow: 6,
+            slidesToScroll: 6,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 650,
+          settings: {
+            infinite: true,
+            // slidesToShow: 4,
+            slidesToScroll: 4,
+            variableWidth: true
+          }
+        }
+      ]
+    };
+
+    $(document).ready(function() {
+      if ($('.component-carousel').length > 0) {
+        $('.component-carousel').show();
+        $('.component-carousel').slick(conf);
+      }
+    });
+  </script>
 {% endblock %}
