@@ -42,14 +42,29 @@
   margin: $layout-component-margin ($layout-component-margin / 4);
 }
 
-.carousel-complex__link {
+.carousel-complex__fixed-item-img {
   
 }
 
-.carousel-complex__link--selected {
-  display: block;
-  position: relative;
-  border: 7px solid $design-primary-color;
+.carousel-complex__fixed-item-img--selected {
+  border: 5px solid $design-dark-gray-color;
+}
+
+.carousel-complex__item-img {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+  
+}
+
+.carousel-complex__item-img--selected {
+  border: 5px solid $design-primary-color;
+}
+
+.carousel-complex__link {
+  
 }
 
 .carousel-complex img { // temporary image resize for UI dev:
