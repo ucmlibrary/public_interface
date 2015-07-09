@@ -1,9 +1,12 @@
 // ##### Complex Carousel Component ##### //
 
 .carousel-complex {
-  display: flex;
-  justify-content: center;
+  display: none; // set to '.show()' on js initialization
   background: $design-light-gray-color;
+
+  @include bp(sm-screen) {
+    padding: 0 $layout-component-margin - 2;
+  }
 
   @include bp(md-screen) {
     margin: 0 $object-leftright-margin;
@@ -11,18 +14,32 @@
 
 }
 
-.carousel-complex__item {
-  height: 50px;
-  margin: $layout-component-margin ($layout-component-margin / 4);
+.carousel-complex__fixed-item {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin: $layout-component-margin 0;
 
   @include bp(sm-screen) {
-    height: 60px;
+    margin: $layout-component-margin 0 $layout-component-margin ($layout-component-margin * 2);
   }
 
-  @include bp(md-screen) {
-    height: 80px;
+}
+
+.carousel-complex__items {
+  margin: 0 0 0 90px;
+  
+  @include bp(sm-screen) {
+    margin: 0 0 0 130px;
+    padding: 0 ($layout-component-margin * 2) 0 0;
   }
 
+}
+
+.carousel-complex__item {
+  width: 80px;
+  height: 80px;
+  margin: $layout-component-margin ($layout-component-margin / 4);
 }
 
 .carousel-complex__link {
