@@ -36,14 +36,12 @@
 {% block filters %}{% endblock %}
 
 {% block mainContent %}
-  <h2 class="text__institution-heading2">Institutions</h2>
+  <h2 class="text__institution-heading2">Contributors at {{ institution.name }}</h2>
   
 
   <!-- Begin Institution List Component -->
 
   <div class="static">
-
-    <h3>{{ institution.name }} Contributors</h3>
 
     <ul class="list-unstyled">
       {% for institution in institutions %}

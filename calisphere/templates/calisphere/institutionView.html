@@ -4,7 +4,22 @@
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block pageTitle %}<h1 class="text__institutions-heading1">Institutions / <strong>{% if repository_id and uc_institution %}{{ uc_institution.0.name }}, {% endif %}{{ institution.name }}</strong></h1>{% endblock %}
+{% block pageTitle %}
+  <h1 class="text__institutions-heading1">
+    {% if campus_slug or uc_institution %}
+      <a href="{% url 'calisphere:campusDirectory' %}">Institutions</a>
+    {% else %}
+      <a href="{% url 'calisphere:statewideDirectory' %}">Institutions</a>
+    {% endif %}
+     / 
+    {% if repository_id and uc_institution %}
+      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}">{{ uc_institution.0.name }}</a> / 
+    {% endif %}
+    <strong>
+      {{ institution.name }}
+    </strong>
+  </h1>
+{% endblock %}
 
 {% block additionalInfo %}
   <div class="institution-intro">
