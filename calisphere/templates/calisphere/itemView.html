@@ -132,7 +132,15 @@
     <!-- should include institution name: UC Berkely, Bancroft Library -->
     {% if item.parsed_repository_data %}
       <dt class="meta-block__type">Contributing Institution</dt>
-      <dd class="meta-block__defin">{% for repository in item.parsed_repository_data %}<a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">{{ repository.name }}</a> <br> {% endfor %}</dd>
+      <dd class="meta-block__defin">
+        {% for repository in item.parsed_repository_data %}
+          <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">
+          {% if repository.campus %}
+            {{ repository.campus }}, 
+          {% endif %}
+          {{ repository.name }}</a> <br>
+        {% endfor %}
+      </dd>
     {% endif %}
     
     {% if item.parsed_collection_data %}
