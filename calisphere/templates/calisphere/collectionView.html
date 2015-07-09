@@ -4,7 +4,7 @@
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block pageTitle %}<h2 class="text__page-heading">{{ collection.name }}</h2>{% endblock %}
+{% block pageTitle %}<h2 class="text__page-heading"><a href="{% url 'calisphere:collectionsDirectory' %}">Collections</a> / <strong>{{ collection.name }}</strong></h2>{% endblock %}
 
 {% block additionalInfo %}
 

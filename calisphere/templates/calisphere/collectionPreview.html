@@ -5,7 +5,7 @@
     <a href="{% url 'calisphere:collectionView' collection.collection_id %}">
       <h3 class="collect-row__title">{{ collection.name }}</h3>
     </a>
-    <p>{{ collection.description }}</p>
+    <p>{{ collection.description|truncatewords:100 }}</p>
     <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
   </div>
 
