@@ -546,8 +546,10 @@ def collectionsAZ(request, collection_letter):
     for collection_link in collections_list[(page-1)*10:page*10]:
         collections.append(getCollectionMosaic(collection_link.url))
     
+    alphabet = list((character, True if character != 'Q' and character != 'X' else False) for character in list(string.ascii_uppercase))
+    
     context = {'collections': collections,
-        'alphabet': list(string.ascii_uppercase),
+        'alphabet': alphabet,
         'collection_letter': collection_letter, 
         'page': page,
         'pages': pages,

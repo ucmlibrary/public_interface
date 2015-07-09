@@ -48,6 +48,16 @@
 
 }
 
+.alphanav__list-link--inactive {
+  @extend .alphanav__list-link;
+  color: $design-light-gray-color;
+  
+  &:hover {
+    color: $design-light-gray-color;
+    background: #FFF;
+  }
+}
+
 .alphanav__list-link--selected {
   @extend .alphanav__list-link;
   color: #fff;

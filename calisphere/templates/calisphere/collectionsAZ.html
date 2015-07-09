@@ -14,8 +14,12 @@
 		  <ul class="alphanav__list">
 		   	<li class="alphanav__list-item"><a class="{% if collection_letter == 'num' %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' 'num' %}">#</a></li>
 
-			{% for char in alphabet %}
-			  <li class="alphanav__list-item"><a class="{% if char == collection_letter|upper %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' char|lower %}">{{ char }}</a></li>
+			{% for char, display in alphabet %}
+        {% if display %}
+    		  <li class="alphanav__list-item"><a class="{% if char == collection_letter|upper %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' char|lower %}">{{ char }}</a></li>
+        {% else %}
+  		    <li class="alphanav__list-item"><span class="alphanav__list-link--inactive">{{ char }}</span></li>
+        {% endif %}
 			{% endfor %}
 			</ul>
 		</div>
