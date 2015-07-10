@@ -109,6 +109,10 @@
 
 // Bootstrap Overrides
 
+abbr[title] {
+  border: none;
+}
+
 strong {
   -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }

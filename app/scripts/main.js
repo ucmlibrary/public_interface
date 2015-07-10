@@ -180,7 +180,7 @@ $('.carousel').slick({
 // ***** Complex Carousel ***** //
 
 $('.carousel-complex').show();
-$('.carousel-complex__items').slick({
+$('.carousel-complex__item-container').slick({
   infinite: false,
   speed: 300,
   slidesToShow: 6,
