@@ -24,7 +24,7 @@
       <a class="btn btn-default btn-block {% if collection_q %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsTitleSearch' %}">Title Search</a>
     </div>
     <div class="col-xs-6 col-sm-3 collect-intro__buttons">
-      <a class="btn btn-default btn-block" href="">Themed Collections</a>
+      <a class="btn btn-default btn-block {% if themedCollections %}button__secondary{% endif %}" href="{% url 'calisphere:themedCollections' %}">Themed Collections</a>
     </div>
   </div>
 

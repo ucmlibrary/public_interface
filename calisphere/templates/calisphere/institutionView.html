@@ -4,7 +4,22 @@
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block pageTitle %}<h1 class="text__institutions-heading1">Institutions / <strong>{% if repository_id and uc_institution %}{{ uc_institution.0.name }}, {% endif %}{{ institution.name }}</strong></h1>{% endblock %}
+{% block pageTitle %}
+  <h1 class="text__institutions-heading1">
+    {% if campus_slug or uc_institution %}
+      <a href="{% url 'calisphere:campusDirectory' %}">Institutions</a>
+    {% else %}
+      <a href="{% url 'calisphere:statewideDirectory' %}">Institutions</a>
+    {% endif %}
+     / 
+    {% if repository_id and uc_institution %}
+      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}">{{ uc_institution.0.name }}</a> / 
+    {% endif %}
+    <strong>
+      {{ institution.name }}
+    </strong>
+  </h1>
+{% endblock %}
 
 {% block additionalInfo %}
   <div class="institution-intro">
@@ -46,8 +61,18 @@
     </div>
 
     {% if campus_slug or uc_institution %}<div class="col-md-6">{% else %}<div class="col-md-9">{% endif %}
-      <p class="institutional-intro__description">{{ contact_information.description }}</p>
-      <a class="institutional-intro__description-link" href="">Read More ...</a>
+      {% if contact_information.description %}
+        <p class="institutional-intro__description">{{ contact_information.description }}</p>
+        <!-- <a class="institutional-intro__description-link" href="">Read More ...</a> -->
+      {% elif campus_slug %}
+        <div class="alert alert-warning" style="margin: 20px;">
+          <p><i class="fa fa-exclamation-triangle"></i> I need a description! Please provide a campus-wide statement regarding your institutions and collections.</p>
+        </div>
+      {% else %}
+        <div class="alert alert-warning" style="margin: 20px;">
+          <p><i class="fa fa-exclamation-triangle"></i> I need a description! Please provide a unit-wide statement regarding your institution and collections.</p>
+        </div>
+      {% endif %}
     </div>
 
   </div>
