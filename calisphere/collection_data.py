@@ -30,7 +30,30 @@ class CollectionManager(object):
             [CollectionLink(*x.rsplit('::')) for x in self.data],
             key=sort_key
         )
-
+        
+        split_collections = {'num': [], 'a': []}
+        
+        current_char = 'a'
+        for collection_link in self.parsed:
+            for c in collection_link.label:
+                if c not in string.punctuation:
+                    if c in string.digits:
+                        split_collections['num'].append(collection_link)
+                    elif c.lower() == current_char:
+                        split_collections[current_char].append(collection_link)
+                    else:
+                        while c.lower() != current_char and current_char <= 'z': 
+                            current_char = chr(ord(current_char) + 1)
+                            split_collections[current_char] = []
+                        split_collections[current_char].append(collection_link)
+                    break
+        self.split = split_collections
+        
+        self.no_collections = []
+        for c in list(string.ascii_lowercase):
+            if len(self.split[c]) == 0:
+                self.no_collections.append(c);
+        
         random.seed(time.strftime("%d/%m/%Y"))
 
         self.shuffled = random.sample(self.parsed, len(self.parsed))
