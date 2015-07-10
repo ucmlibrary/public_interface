@@ -1,29 +1,10 @@
 // ##### Objects ##### //
 
-// ***** Simple Hosted Image ***** //
+// ***** Open SeaDragon ***** //
 
-.obj__hosted-simple-image {
-  border: 1px solid $design-dark-gray-color;
-  background: $design-light-gray-color;
-}
-
-#obj__osd {
-  height: 400px;
-  background: $design-dark-gray-color;
-  cursor: move;
-
-  @include bp(sm-screen) {
-    height: 500px;
-  }
-
-  @include bp(md-screen) {
-    height: 600px;
-  }
-
-  @include bp(lg-screen) {
-    height: 700px;
-  }
-
+#obj__osd { // Open SeaDragon renders on this element
+  width: 100%;
+  height: 100%;
 }
 
 // ***** Harvest Image ***** //

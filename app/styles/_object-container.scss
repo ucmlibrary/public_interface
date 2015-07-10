@@ -48,10 +48,22 @@
 
 .object__container-osd {
   position: relative; // for absolutely positioned 'osd-button-group' child
+  height: 400px;
   margin: 0;
+  background: $design-dark-gray-color;
+  cursor: move;
+
+  @include bp(sm-screen) {
+    height: 500px;
+  }
 
   @include bp(md-screen) {
+    height: 600px;
     margin: 0 $object-leftright-margin 0 $object-leftright-margin;
+  }
+
+  @include bp(lg-screen) {
+    height: 700px;
   }
 
 }
