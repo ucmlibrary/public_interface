@@ -46,8 +46,22 @@
 
 }
 
+.object__container-complex-non-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; // sets overall size of non-image object
+
+  @include bp(sm-screen) {
+    width: 300px;
+  }
+  
+}
+
 .object__container-osd {
   position: relative; // for absolutely positioned 'osd-button-group' child
+  overflow: hidden; // if a non-image object is taller than this container
   height: 400px;
   margin: 0;
   background: $design-dark-gray-color;

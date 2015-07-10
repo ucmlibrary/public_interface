@@ -10,7 +10,8 @@
 // ***** Harvest Image ***** //
 
 .obj-harvest__link {
-
+  position: relative;
+  display: block;
 }
 
 .obj-harvest__image {
@@ -81,4 +82,10 @@
   display: block;
   margin: 0.5em 0 0 0;
   text-align: center;
+}
+
+// ***** Complex Non-Image ***** //
+
+.obj-complex-non-image__file-icon-overlay {
+  @include icon__centered-overlay(80px, 90px, 100px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
