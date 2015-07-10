@@ -49,10 +49,10 @@ $slick-opacity-not-active: 0.25;
 
 // Complex Slick Carousel
 
-.carousel-complex__items .slick-prev, .carousel-complex__items .slick-next {
+.carousel-complex__item-container .slick-prev, .carousel-complex__item-container .slick-next {
 	margin-top: -25px;
 }
 
-.carousel-complex__items .slick-prev {
+.carousel-complex__item-container .slick-prev {
 	left: -130px;
 }
