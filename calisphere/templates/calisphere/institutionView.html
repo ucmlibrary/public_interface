@@ -61,8 +61,18 @@
     </div>
 
     {% if campus_slug or uc_institution %}<div class="col-md-6">{% else %}<div class="col-md-9">{% endif %}
-      <p class="institutional-intro__description">{{ contact_information.description }}</p>
-      <a class="institutional-intro__description-link" href="">Read More ...</a>
+      {% if contact_information.description %}
+        <p class="institutional-intro__description">{{ contact_information.description }}</p>
+        <!-- <a class="institutional-intro__description-link" href="">Read More ...</a> -->
+      {% elif campus_slug %}
+        <div class="alert alert-warning" style="margin: 20px;">
+          <p><i class="fa fa-exclamation-triangle"></i> I need a description! Please provide a campus-wide statement regarding your institutions and collections.</p>
+        </div>
+      {% else %}
+        <div class="alert alert-warning" style="margin: 20px;">
+          <p><i class="fa fa-exclamation-triangle"></i> I need a description! Please provide a unit-wide statement regarding your institution and collections.</p>
+        </div>
+      {% endif %}
     </div>
 
   </div>
