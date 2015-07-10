@@ -59,7 +59,7 @@
               <div class="input-group">
                 <input id="search-within__field" type="search" name="rq" class="form-control search-within__field" form="js-facet">
                 <span class="input-group-btn">
-                  <button class="btn btn-default search-within__button" type="submit" form="js-facet">Search
+                  <button class="btn btn-default search-within__button" type="submit" form="js-facet">Refine
                   </button>
                 </span>
               </div>
@@ -122,35 +122,37 @@
 
         <!-- End Thumbnail and List View Components -->
 
-		<div class="pag-dropdown">
+        <div class="row">
+          <div class="pag-dropdown">
 
-          {% if start|subtract:rows >= 0 %}
-        	  <button class="js-prev btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
-          {% else %}
-            <button class="js-prev btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-left fa-lg"></span></button>
-          {% endif %}
+            {% if start|subtract:rows >= 0 %}
+          	  <button class="js-prev btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
+            {% else %}
+              <button class="js-prev btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-left fa-lg"></span></button>
+            {% endif %}
 
-          <label for="start" class="sr-only">Current Number</label>
+            <label for="start" class="sr-only">Current Number</label>
         
-          <select class="pag-dropdown__select--unstyled" form="js-facet">
-            {% for page in pages|get_range %}
-            <option value="{% widthratio page 1 rows %}" {% if start|add:0 >= page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
-            {% endfor %}
-          </select>
+            <select class="pag-dropdown__select--unstyled" form="js-facet">
+              {% for page in pages|get_range %}
+              <option value="{% widthratio page 1 rows %}" {% if start|add:0 >= page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
+              {% endfor %}
+            </select>
 
-          <span class="pag-dropdown__total-number">of {{ pages }}</span>
+            <span class="pag-dropdown__total-number">of {{ pages }}</span>
 
-          {% if start|add:rows < numFound %}
-        	  <button class="js-next btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
-          {% else %}
-            <button class="js-next btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-right fa-lg"></span></button>
-          {% endif %}
+            {% if start|add:rows < numFound %}
+          	  <button class="js-next btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
+            {% else %}
+              <button class="js-next btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-right fa-lg"></span></button>
+            {% endif %}
 		  
-		</div>
+  		    </div>
           
-        <!-- Begin Buttons Pagination Component -->
-          {% include "calisphere/forms/paginate-buttons.html" %}
-        <!-- End Buttons Pagination Component -->
+          <!-- Begin Buttons Pagination Component -->
+            {% include "calisphere/forms/paginate-buttons.html" %}
+          <!-- End Buttons Pagination Component -->
+        </div>
 
         <!-- Begin Related Collections Component -->
         {% block relatedCollections %}
