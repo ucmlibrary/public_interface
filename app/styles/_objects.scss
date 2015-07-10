@@ -82,18 +82,3 @@
   margin: 0.5em 0 0 0;
   text-align: center;
 }
-
-// ***** Object Metadata ***** //
-
-.object__metadata { // this class is in the object layouts, not within metadata component
-  
-  @include bp(sm-screen) {
-    border-top: 1px solid $design-primary-color;
-    padding: 20px 0 0 0;
-  }
-
-  @include bp(md-screen) {
-    padding: 20px 0 0 $object-leftright-margin;
-  }
-
-}
