@@ -59,13 +59,12 @@
   
 }
 
-.object__container-osd {
+.object__container-type1 {
   position: relative; // for absolutely positioned 'osd-button-group' child
   overflow: hidden; // if a non-image object is taller than this container
   height: 400px;
   margin: 0;
-  background: $design-dark-gray-color;
-  cursor: move;
+  background: rgba(#eee, 0.5);
 
   @include bp(sm-screen) {
     height: 500px;
@@ -80,4 +79,10 @@
     height: 700px;
   }
 
+}
+
+.object__container-osd {
+  @extend .object__container-type1;
+  background: $design-dark-gray-color;
+  cursor: move;
 }
