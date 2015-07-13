@@ -1,35 +1,17 @@
 // ##### Objects ##### //
 
-// ***** Simple Hosted Image ***** //
+// ***** Open SeaDragon ***** //
 
-.obj__hosted-simple-image {
-  border: 1px solid $design-dark-gray-color;
-  background: $design-light-gray-color;
-}
-
-#obj__osd {
-  height: 400px;
-  background: $design-dark-gray-color;
-  cursor: move;
-
-  @include bp(sm-screen) {
-    height: 500px;
-  }
-
-  @include bp(md-screen) {
-    height: 600px;
-  }
-
-  @include bp(lg-screen) {
-    height: 700px;
-  }
-
+#obj__osd { // Open SeaDragon renders on this element
+  width: 100%;
+  height: 100%;
 }
 
 // ***** Harvest Image ***** //
 
 .obj-harvest__link {
-
+  position: relative;
+  display: block;
 }
 
 .obj-harvest__image {
@@ -102,17 +84,8 @@
   text-align: center;
 }
 
-// ***** Object Metadata ***** //
+// ***** Complex Non-Image ***** //
 
-.object__metadata { // this class is in the object layouts, not within metadata component
-  
-  @include bp(sm-screen) {
-    border-top: 1px solid $design-primary-color;
-    padding: 20px 0 0 0;
-  }
-
-  @include bp(md-screen) {
-    padding: 20px 0 0 $object-leftright-margin;
-  }
-
+.obj-complex-non-image__file-icon-overlay {
+  @include icon__centered-overlay(80px, 90px, 100px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
