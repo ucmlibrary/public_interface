@@ -109,24 +109,44 @@
 
 // Bootstrap Overrides
 
+abbr[title] {
+  border: none;
+}
+
 strong {
   -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }
 
-.tooltip {
+.pag-dropdown .tooltip-inner {
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  color: #8a6d3b;
+}
+
+.pag-dropdown .tooltip-arrow {
+  border-top-color: #faebcc;
+}
+
+.pag-dropdown .tooltip-inner:before {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  content: "\f071";
+}
+
+.thumbview__link .tooltip {
   width: 100%;
 }
 
-.tooltip.top { // center tooltip and hide from pointer
+.thumbview__link .tooltip.top { // center tooltip and hide from pointer
   margin: 55% 0 0 0;
   padding: 0 $layout-component-margin;
   pointer-events: none;
 }
 
-.tooltip-arrow {
+.thumbview__link .tooltip-arrow {
   display: none;
 }
 
-.tooltip-inner {
+.thumbview__link .tooltip-inner {
   text-align: left;
 }

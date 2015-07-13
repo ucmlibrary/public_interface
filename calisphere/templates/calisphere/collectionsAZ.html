@@ -14,8 +14,12 @@
 		  <ul class="alphanav__list">
 		   	<li class="alphanav__list-item"><a class="{% if collection_letter == 'num' %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' 'num' %}">#</a></li>
 
-			{% for char in alphabet %}
-			  <li class="alphanav__list-item"><a class="{% if char == collection_letter|upper %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' char|lower %}">{{ char }}</a></li>
+			{% for char, display in alphabet %}
+        {% if display %}
+    		  <li class="alphanav__list-item"><a class="{% if char == collection_letter|upper %}alphanav__list-link--selected{% else %}alphanav__list-link{% endif %}" href="{% url 'calisphere:collectionsAZ' char|lower %}">{{ char }}</a></li>
+        {% else %}
+  		    <li class="alphanav__list-item"><span class="alphanav__list-link--inactive">{{ char }}</span></li>
+        {% endif %}
 			{% endfor %}
 			</ul>
 		</div>
@@ -25,9 +29,13 @@
   <div class="col-xs-12 col-sm-11 collect-row__container-border">
 
     <div id="js-mosaicContainer">
-		{% for collection in collections %}
-		  {% include "calisphere/collectionPreview.html" %}
-		{% endfor %}
+    {% if collections %}
+  		{% for collection in collections %}
+  		  {% include "calisphere/collectionPreview.html" %}
+  		{% endfor %}
+    {% else %}
+      <h3 style="padding-bottom: 40px; border-bottom: 1px solid #8b8d8e">Sorry, we don't have any collections starting with {{ collection_letter|upper }} yet.</h3>
+    {% endif %}
     </div>
     
     <!-- {{ pages }} pages -->

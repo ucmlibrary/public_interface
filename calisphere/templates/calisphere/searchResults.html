@@ -4,8 +4,6 @@
 
 {% block content %}
 
-    {% block breadcrumbs %}<p class="text__breadcrumb-nav">Search > {{ q }}</p>{% endblock %}
-
     {% block pageTitle %}<h2 class="text__page-heading">Search Results for "<strong>{{ q }}</strong>"</h2>{% endblock %}
     
     {% block additionalInfo %}{% endblock %}
@@ -24,7 +22,7 @@
           {% for filter_type in filters %}
             {% for filter in filters|get_item:filter_type %}
               {% if filter_type == 'collection_data' or filter_type == 'repository_data' %}
-                <button type="button" class="btn btn-default btn-xs filter-pill button__close js-filter-pill" data-slug="{{ filter.id }}">{% if filter.campus %}{{ filter.campus }} - {% endif %}{{ filter.name }}<i class="fa fa-close button__close-icon"></i>
+                <button type="button" class="btn btn-default btn-xs filter-pill button__close js-filter-pill" data-slug="{{ filter.id }}">{% if filter.campus %}{{ filter.campus }}, {% endif %}{{ filter.name }}<i class="fa fa-close button__close-icon"></i>
                 </button>
               {% else %}
                 <button type="button" class="btn btn-default btn-xs filter-pill button__close js-filter-pill" data-slug="{{ filter|slugify }}">{{ filter }}<i class="fa fa-close button__close-icon"></i>
@@ -61,7 +59,7 @@
               <div class="input-group">
                 <input id="search-within__field" type="search" name="rq" class="form-control search-within__field" form="js-facet">
                 <span class="input-group-btn">
-                  <button class="btn btn-default search-within__button" type="submit" form="js-facet">Search
+                  <button class="btn btn-default search-within__button" type="submit" form="js-facet">Refine
                   </button>
                 </span>
               </div>
@@ -80,7 +78,7 @@
         {% block mainContent %}
           
         <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
-        <h3 class="text__collections-heading">{% block objectsFound %}{{ numFound }} Objects Found in 
+        <h3 class="text__collections-heading">{% block objectsFound %}{{ numFound }} Items Found in 
           <a href="#related-coll">
             {% if filters|get_item:'collection_data'|length == 0 %}
               {{ facets.collection_data|length }}
@@ -124,35 +122,37 @@
 
         <!-- End Thumbnail and List View Components -->
 
-		<div class="pag-dropdown">
+        <div class="row">
+          <div class="pag-dropdown">
 
-          {% if start|subtract:rows >= 0 %}
-        	  <button class="js-prev btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
-          {% else %}
-            <button class="js-prev btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-left fa-lg"></span></button>
-          {% endif %}
+            {% if start|subtract:rows >= 0 %}
+          	  <button class="js-prev btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|subtract:rows }}"><span class="fa fa-caret-left fa-lg"></span></button>
+            {% else %}
+              <button class="js-prev btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-left fa-lg"></span></button>
+            {% endif %}
 
-          <label for="start" class="sr-only">Current Number</label>
+            <label for="start" class="sr-only">Current Number</label>
         
-          <select class="pag-dropdown__select--unstyled" form="js-facet">
-            {% for page in pages|get_range %}
-            <option value="{% widthratio page 1 rows %}" {% if start|add:0 >= page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
-            {% endfor %}
-          </select>
+            <select class="pag-dropdown__select--unstyled" form="js-facet">
+              {% for page in pages|get_range %}
+              <option value="{% widthratio page 1 rows %}" {% if start|add:0 >= page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
+              {% endfor %}
+            </select>
 
-          <span class="pag-dropdown__total-number">of {{ pages }}</span>
+            <span class="pag-dropdown__total-number">of {{ pages }}</span>
 
-          {% if start|add:rows < numFound %}
-        	  <button class="js-next btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
-          {% else %}
-            <button class="js-next btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-right fa-lg"></span></button>
-          {% endif %}
+            {% if start|add:rows < numFound %}
+          	  <button class="js-next btn btn-link pag-dropdown__arrow-icon" data-start="{{ start|add:rows }}"><span class="fa fa-caret-right fa-lg"></span></button>
+            {% else %}
+              <button class="js-next btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-right fa-lg"></span></button>
+            {% endif %}
 		  
-		</div>
+  		    </div>
           
-        <!-- Begin Buttons Pagination Component -->
-          {% include "calisphere/forms/paginate-buttons.html" %}
-        <!-- End Buttons Pagination Component -->
+          <!-- Begin Buttons Pagination Component -->
+            {% include "calisphere/forms/paginate-buttons.html" %}
+          <!-- End Buttons Pagination Component -->
+        </div>
 
         <!-- Begin Related Collections Component -->
         {% block relatedCollections %}

@@ -5,11 +5,11 @@
 
 <div id="js-carouselContainer">
   <div class="carousel__search-results">
-    Search results > {{ q }} 
+    <a href="">Search results for "{{ q }}"</a>
   </div>
 
   <div class="carousel__items-number">
-    Displaying {{ start|add:1 }} - {{ start|add:6 }} of {{ numFound }}
+    {{ numFound }} items found. <a id="js-carousel-start" href="">Return to selected item</a>
   </div>
 
   <form id="js-carousel" data-numfound="{{ numFound }}">
@@ -33,7 +33,20 @@
   </div>
 </div>
 
-<p class="text__breadcrumb-nav">Search > {{ q }} > {{ item.title.0|truncatewords:7 }}</p>
+<p class="text__breadcrumb-nav">
+  {% if item.parsed_repository_data %}
+    <a href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}">
+      {% if item.parsed_repository_data.0.campus %}
+        {{ item.parsed_repository_data.0.campus }}, 
+      {% endif %}
+      {{ item.parsed_repository_data.0.name }}
+    </a>
+  {% endif %}
+   > 
+  {% if item.parsed_collection_data %}
+     <a href="{% url 'calisphere:collectionView' item.parsed_collection_data.0.id %}">{{ item.parsed_collection_data.0.name }}</a>
+  {% endif %}
+   > {{ item.title.0 }}</p>
 
 <h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
@@ -87,6 +100,14 @@
       <span class="fa fa-envelope"></span>
       Contact Owner
     </a>
+    
+    {% if item.harvest_type == 'hosted' %}
+      <a class="btn btn-xs obj-buttons__download-image" href="">
+        <span class="icon__download-image">
+          <span class="fa fa-arrow-circle-o-down"></span>
+        </span> Download {{ item.type.0 }}
+      </a>
+    {% endif %}
 
   </div>
 
@@ -134,7 +155,15 @@
     <!-- should include institution name: UC Berkely, Bancroft Library -->
     {% if item.parsed_repository_data %}
       <dt class="meta-block__type">Contributing Institution</dt>
-      <dd class="meta-block__defin">{% for repository in item.parsed_repository_data %}<a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">{{ repository.name }}</a> <br> {% endfor %}</dd>
+      <dd class="meta-block__defin">
+        {% for repository in item.parsed_repository_data %}
+          <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">
+          {% if repository.campus %}
+            {{ repository.campus }}, 
+          {% endif %}
+          {{ repository.name }}</a> <br>
+        {% endfor %}
+      </dd>
     {% endif %}
     
     {% if item.parsed_collection_data %}

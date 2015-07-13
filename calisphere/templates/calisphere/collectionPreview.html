@@ -5,7 +5,13 @@
     <a href="{% url 'calisphere:collectionView' collection.collection_id %}">
       <h3 class="collect-row__title">{{ collection.name }}</h3>
     </a>
-    <p>{{ collection.description }}</p>
+    {% if collection.description %}
+      <p>{{ collection.description|truncatewords:100 }}</p>
+    {% else %}
+      <div class="alert alert-warning" style="margin-top: 4px; padding: 5px;">
+        <p><i class="fa fa-exclamation-triangle"></i> I need a description! Please describe your collection!</p>
+      </div>
+    {% endif %}
     <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
   </div>
 
@@ -24,6 +30,8 @@
               <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
               {% elif item.type_ss.0|lower == "text"%}
               <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
+              {% elif item.type_ss.0|lower == "dataset" %}
+              <span class="fa fa-bar-chart fa-fw thumbview__icon-overlay"></span>
               {% elif item.type_ss.0|lower == "complex object"%}
               <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
               {% endif %}

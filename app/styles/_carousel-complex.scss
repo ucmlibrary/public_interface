@@ -1,9 +1,12 @@
 // ##### Complex Carousel Component ##### //
 
 .carousel-complex {
-  display: flex;
-  justify-content: center;
+  display: none; // set to '.show()' on js initialization
   background: $design-light-gray-color;
+
+  @include bp(sm-screen) {
+    padding: 0 $layout-component-margin - 2;
+  }
 
   @include bp(md-screen) {
     margin: 0 $object-leftright-margin;
@@ -11,31 +14,73 @@
 
 }
 
-.carousel-complex__item {
-  height: 50px;
-  margin: $layout-component-margin ($layout-component-margin / 4);
+.carousel-complex__item-fixed {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin: $layout-component-margin 0;
 
   @include bp(sm-screen) {
-    height: 60px;
+    margin: $layout-component-margin 0 $layout-component-margin ($layout-component-margin * 2);
   }
 
-  @include bp(md-screen) {
-    height: 80px;
+}
+
+.carousel-complex__item-container {
+  margin: 0 0 0 90px;
+  
+  @include bp(sm-screen) {
+    margin: 0 0 0 130px;
+    padding: 0 ($layout-component-margin * 2) 0 0;
   }
 
+}
+
+.carousel-complex__item {
+  width: 80px;
+  height: 80px;
+  margin: $layout-component-margin ($layout-component-margin / 4);
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+
+}
+
+.carousel-complex__item--selected {
+  @extend .carousel-complex__item;
+  opacity: 1;
+}
+
+.carousel-complex__icon-overlay {
+  @include icon__centered-overlay(40px, 40px, 40px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+}
+
+.carousel-complex__img--no-image {
+  @include thumbview__no-image($design-dark-gray-color); // (border-color)
+}
+
+.carousel-complex__img-fixed--no-image {
+  
+  @include thumbview__no-image($design-dark-gray-color); // (border-color)
+  border: 5px solid $design-dark-gray-color;
+}
+
+.carousel-complex__item-fixed-img--selected {
+  border: 5px solid $design-dark-gray-color;
+}
+
+.carousel-complex__item-img--selected {
+  border: 5px solid $design-primary-color;
 }
 
 .carousel-complex__link {
-  
-}
-
-.carousel-complex__link--selected {
   display: block;
   position: relative;
-  border: 7px solid $design-primary-color;
 }
 
-.carousel-complex img { // temporary image resize for UI dev:
-  width: auto;
-  height: 100%;
+.carousel-complex img {
+  width: 100%;
+  height: auto;
 }
