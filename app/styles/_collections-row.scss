@@ -59,7 +59,21 @@
 
 // ***** Begin Image Mosaic ***** //
 
+.collect-row__image {
+  width: 100%;
+  height: 100%;
+}
+
+.collect-row__image--no-image {
+  @include thumbview__no-image($thumb-border: $design-dark-gray-color);
+}
+
+.collect-row__icon-overlay {
+  @include icon__centered-overlay(60px, 50px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
+}
+
 .collect-row__image1 {
+  position: relative;
   float: left;
   width: 100%;
   height: auto;
@@ -71,6 +85,7 @@
 }
 
 .collect-row__image2 {
+  position: relative;
   display: none;
   float: right;
   width: 32%;
@@ -84,6 +99,7 @@
 }
 
 .collect-row__image3 {
+  position: relative;
   display: none;
   float: right;
   width: 32%;
@@ -96,6 +112,7 @@
 }
 
 .collect-row__image4 {
+  position: relative;
   float: left;
   clear: both;
   width: 49%;
@@ -110,6 +127,7 @@
 }
 
 .collect-row__image5 {
+  position: relative;
   float: left;
   width: 49%;
   height: auto;
@@ -123,6 +141,7 @@
 }
 
 .collect-row__image6 {
+  position: relative;
   float: left;
   clear: left;
   width: 49%;
