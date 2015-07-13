@@ -58,7 +58,7 @@
           
           {% if item.repository_name %}
           <dt class="meta-inline__type">Contributing Institution</dt>
-          <dd class="meta-inline__defin"><a href="">{{ item.repository_name.0 }}</a></dd>
+          <dd class="meta-inline__defin"><a href="">{% if item.campus_name %}{{ item.campus_name.0 }}, {% endif %}{{ item.repository_name.0 }}</a></dd>
           {% endif %}
 
           {% if item.collection_name %}

@@ -41,7 +41,7 @@
 
 {% block mainContent %}
 
-    <h2 class="text__institution-heading2">Collections</h2>
+    <h2 class="text__institution-heading2">Collections at {% if campus_slug %}{{ institution.name }}{% else %}this institution{% endif %}</h2>
 
     <div id="js-mosaicContainer">
   	{% for collection in collections %}

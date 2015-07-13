@@ -1,8 +1,8 @@
 FACET_TYPES = [
-    ('type_ss', 'Type of Object'),
-    ('repository_data', 'Institution Owner'),
-    ('collection_data', 'Collection'),
+    ('type_ss', 'Type of Item'),
     ('facet_decade', 'Decade'),
+    ('repository_data', 'Contributing Institution'),
+    ('collection_data', 'Collection'),
 ]
 
 

@@ -91,7 +91,7 @@ def getCollectionMosaic(collection_url):
     collection_repositories = []
     for repository in collection_details['repository']:
         if 'campus' in repository and len(repository['campus']) > 0:
-            collection_repositories.append(repository['name'] + " - " + repository['campus'][0]['name'])
+            collection_repositories.append(repository['campus'][0]['name'] + ", " + repository['name'])
         else:
             collection_repositories.append(repository['name'])
 
@@ -234,12 +234,14 @@ def itemView(request, item_id=''):
                 item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + item['iiif_id'] + '/info.json'))
         else:
             item['harvest_type'] = 'harvested'
-            if item['url_item'].startswith('http://ark.cdlib.org/ark:'):
-                item['oac'] = True
-                item['url_item'] = string.replace(item['url_item'], 'http://ark.cdlib.org/ark:', 'http://oac.cdlib.org/ark:')
-                item['url_item'] = item['url_item'] + '/?brand=oac4'
-            else:
-                item['oac'] = False
+            if 'url_item' in item:
+                if item['url_item'].startswith('http://ark.cdlib.org/ark:'):
+                    item['oac'] = True
+                    item['url_item'] = string.replace(item['url_item'], 'http://ark.cdlib.org/ark:', 'http://oac.cdlib.org/ark:')
+                    item['url_item'] = item['url_item'] + '/?brand=oac4'
+                else:
+                    item['oac'] = False
+            #TODO: error handling 'else' 
         
         item['parsed_collection_data'] = []
         item['parsed_repository_data'] = []
@@ -374,13 +376,23 @@ def itemViewCarousel(request, queryParams={}):
     else:
         ajaxRequest = False
     
+    fq = solrize_filters(queryParams['filters'])
+    if 'campus_slug' in request.GET:
+        campus_id = ''
+        for campus in CAMPUS_LIST:
+            if request.GET['campus_slug'] == campus['slug']:
+                campus_id = campus['id']
+        if campus_id == '':
+            print "Campus registry ID not found"
+
+        fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
 
     # TODO: getting back way more fields than I really need
     carousel_solr_search = SOLR_select(
         q=queryParams['query_terms'],
         rows=queryParams['rows'],
         start=queryParams['start'],
-        fq=solrize_filters(queryParams['filters'])
+        fq=fq
     )
 
     # except solr.SolrException:
@@ -474,14 +486,13 @@ def relatedCollections(request, queryParams={}):
                     collection_data['collection_id'] = col_id.group('collection_id')
 
                     # TODO: get this from repository_data in solr rather than from the registry API
-                    collection_data['institution'] = ''
-                    for repository in collection_details['repository']:
-                        collection_data['institution'] = repository['name']
-                        if repository['campus']:
-                            collection_data['institution'] = collection_data['institution'] + ', '
-                            for campus in repository['campus']:
-                                collection_data['institution'] = collection_data['institution'] + campus['name'] + ', '
-
+                    if collection_details['repository'][0]['campus']:
+                        print collection_details['repository'][0]['campus'][0]['name']
+                        print collection_details['repository'][0]['name']
+                        collection_data['institution'] = collection_details['repository'][0]['campus'][0]['name'] + ', ' + collection_details['repository'][0]['name']
+                    else:
+                        collection_data['institution'] = collection_details['repository'][0]['name']
+                    
                     three_related_collections.append(collection_data)
 
     if not ajaxRequest:
@@ -513,20 +524,7 @@ def collectionsDirectory(request):
 
 def collectionsAZ(request, collection_letter):
     solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
-
-    collections_list = []
-    if collection_letter == 'num':
-        for collection_link in solr_collections.parsed:
-            # TODO - diregard punctuation in position [0] of string, ie, when first character is a parens
-            if collection_link.label[0] not in list(string.ascii_letters):
-                collections_list.append(collection_link)
-            else:
-                break
-    else:
-        for collection_link in solr_collections.parsed:
-            # TODO - diregard punctuation in position [0] of string, ie, when first character is a parens
-            if collection_link.label[0] == collection_letter or collection_link.label[0] == collection_letter.upper():
-                collections_list.append(collection_link)
+    collections_list = solr_collections.split[collection_letter.lower()]
     
     page = int(request.GET['page']) if 'page' in request.GET else 1
     pages = int(math.ceil(float(len(collections_list))/10))
@@ -535,8 +533,10 @@ def collectionsAZ(request, collection_letter):
     for collection_link in collections_list[(page-1)*10:page*10]:
         collections.append(getCollectionMosaic(collection_link.url))
     
+    alphabet = list((character, True if character.lower() not in solr_collections.no_collections else False) for character in list(string.ascii_uppercase))
+    
     context = {'collections': collections,
-        'alphabet': list(string.ascii_uppercase),
+        'alphabet': alphabet,
         'collection_letter': collection_letter, 
         'page': page,
         'pages': pages,
@@ -551,6 +551,9 @@ def collectionsAZ(request, collection_letter):
 
 def collectionsSearch(request):
     return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
+
+def themedCollections(request):
+    return render(request, 'calisphere/collectionsThemedCollections.html', {'themedCollections': True})
 
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
@@ -611,6 +614,7 @@ def collectionView(request, collection_id):
         'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
         'view_format': queryParams['view_format'],
         'collection': collection_details,
+        'collection_id': collection_id,
         'form_action': reverse('calisphere:collectionView', kwargs={'collection_id': collection_id})
     })
 
