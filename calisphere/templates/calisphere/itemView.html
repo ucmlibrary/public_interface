@@ -338,14 +338,6 @@
               {% endif %}
               'start': "{{ start }}"
             }
-          // var data_params = {
-          //   'order': $(this).data('item_id'),
-          //   'q': query.query,
-          //   'rq': query.refineQuery,
-          //   'start': parseInt(query.start),
-          //   'sort': query.sort,
-          //   'rows': '8'
-          // };
             for (var i in query.filters) { data_params[i] = query.filters[i]; }
           
             event.preventDefault();
