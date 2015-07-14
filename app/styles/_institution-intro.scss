@@ -10,15 +10,16 @@
 }
 
 .institution-intro__featured-image-link {
-  
+  display: block;
+  margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 }
 
 .institution-intro__featured-image {
-  
+  max-width: 100%;
 }
 
 .institution-intro__featured-image-caption {
-  
+  text-align: right;
 }
 
 .institution-intro__logo-location {
