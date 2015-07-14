@@ -48,7 +48,7 @@
   {% endif %}
    > {{ item.title.0 }}</p>
 
-<h2 class="object__page-heading">{{ item.type.0 }} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
+<h2 class="object__page-heading">{{ item.type.0 }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
 {% if item.harvest_type == 'harvested' %}
   {% if item.type_ss.0|lower == 'image' %}
@@ -57,12 +57,14 @@
     {% include 'calisphere/objectViewer/harvestedNonImage.html' %}
   {% endif %}
 {% elif item.harvest_type == 'hosted' %}
-  {% if item.type_ss.0|lower == 'image' %}
+  {% if item.structMap %}
+    {% include 'calisphere/objectViewer/complex-object.html' %}
+  {% elif item.type_ss.0|lower == 'image' %}
     {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
-  {% elif item.type_ss.0 == 'moving image' %}
-  {% elif item.type_ss.0 == 'sound' %}
-  {% elif item.type_ss.0 == "text"%}
-  {% elif item.type_ss.0 == "complex object"%}
+  {% elif item.type_ss.0|lower == 'moving image' %}
+  {% elif item.type_ss.0|lower == 'sound' %}
+  {% elif item.type_ss.0|lower == "text"%}
+  {% elif item.type_ss.0|lower == "complex object"%}
   {% endif %}
 {% endif %}
 
@@ -115,10 +117,17 @@
   {% if item.harvest_type == 'harvested' %}
     Metadata Preview. <a class="meta-heading__preview-link" href="{{ item.url_item }}">View complete record.</a>
   {% elif item.harvest_type == 'hosted' %}
-    Item Information.
+    {% if item.structMap and item.selected == True %}
+      Set Information.
+    {% else %}
+      Item Information.
+    {% endif %}
   {% endif %}
 </h3>
 
+{% if item.selected == False %}
+  {% include "calisphere/component-metadata.html" %}
+{% else %}
 <div class="meta-block">
 
   <dl class="meta-block__list">
@@ -262,6 +271,7 @@
   </dl>
 
 </div>
+{% endif %}
 
 <div class="related-coll--search-results-page" id="js-relatedCollections">
   {% include "calisphere/related-collections.html" %}
@@ -271,4 +281,76 @@
   header returned from solr; for debugging
   {{ item_solr_search.header|safe }}
   -->
+{% endblock %}
+
+{% block footerScripts %}
+  <script type="text/javascript">
+    var conf = {
+      infinite: false,
+      speed: 300,
+      slidesToShow: 20,
+      slidesToScroll: 6,
+      variableWidth: true,
+      lazyLoad: 'ondemand',
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            infinite: true,
+            // slidesToShow: 8,
+            slidesToScroll: 8,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            infinite: true,
+            // slidesToShow: 6,
+            slidesToScroll: 6,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 650,
+          settings: {
+            infinite: true,
+            // slidesToShow: 4,
+            slidesToScroll: 4,
+            variableWidth: true
+          }
+        }
+      ]
+    };
+
+    $(document).ready(function() {
+      if ($('.carousel-complex').length > 0) {
+        $('.carousel-complex').show();
+        $('.carousel-complex__item-container').slick(conf);
+        
+        $(document).on('click', '.js-component-link', function(query) {
+          return function(event) {
+            var data_params = {
+              'order': $(this).data('item_id'), 
+              'q': "{{ q }}",
+              {% if rq|length > 0 %}
+              'rq': "{{ rq }}",
+              {% endif %}
+              'start': "{{ start }}"
+            }
+            for (var i in query.filters) { data_params[i] = query.filters[i]; }
+          
+            event.preventDefault();
+            $.pjax({
+              type: 'GET',
+              url: $(this).attr('href'),
+              container: query.resultsContainer,
+              data: data_params,
+              traditional: true
+            });
+          }
+        }(query));
+      }
+    });
+  </script>
 {% endblock %}
