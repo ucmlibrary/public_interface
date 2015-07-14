@@ -117,7 +117,7 @@
   {% if item.harvest_type == 'harvested' %}
     Metadata Preview. <a class="meta-heading__preview-link" href="{{ item.url_item }}">View complete record.</a>
   {% elif item.harvest_type == 'hosted' %}
-    {% if item.structMap %}
+    {% if item.structMap and item.selected == True %}
       Set Information.
     {% else %}
       Item Information.
@@ -125,6 +125,9 @@
   {% endif %}
 </h3>
 
+{% if item.selected == False %}
+  {% include "calisphere/component-metadata.html" %}
+{% else %}
 <div class="meta-block">
 
   <dl class="meta-block__list">
@@ -268,6 +271,7 @@
   </dl>
 
 </div>
+{% endif %}
 
 <div class="related-coll--search-results-page" id="js-relatedCollections">
   {% include "calisphere/related-collections.html" %}

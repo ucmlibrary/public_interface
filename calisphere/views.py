@@ -182,7 +182,7 @@ def processQueryRequest(request):
     rq = request.GET.getlist('rq')
     query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '16'
-    start = request.GET['start'] if 'start' in request.GET else '0'
+    start = request.GET['start'] if 'start' in request.GET and request.GET['start'] != '' else '0'
     sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'
     view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
     rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
@@ -217,6 +217,18 @@ def processQueryRequest(request):
 def home(request):
     return render (request, 'calisphere/home.html', {'q': ''})
 
+def getHostedContentFile(structmap):
+    if structmap['format'] == 'image':
+        contentFile = {
+            'titleSources': json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap['id'] + '/info.json')), 
+            'format': 'image'
+        }
+    if structmap['format'] == 'text':
+        contentFile = {
+            'format': 'text'
+        }
+    return contentFile
+
 def itemView(request, item_id=''):
     item_id_search_term = 'id:"{0}"'.format(_fixid(item_id))
     item_solr_search = SOLR_select(q=item_id_search_term)
@@ -226,22 +238,29 @@ def itemView(request, item_id=''):
     for item in item_solr_search.results:
         if 'structmap_url' in item and len(item['structmap_url']) >= 1:
             item['harvest_type'] = 'hosted'
-            item['structmap_url'] = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
-            structmap_data = json_loads_url(item['structmap_url'])
+            structmap_url = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
+            structmap_data = json_loads_url(structmap_url)
+
             if 'structMap' in structmap_data:
-                # for component in structmap_data['structMap']:
-                #     if 'format' in component:
-                #         component['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + component['id'] + '/info.json'))
-                item['structMap'] = structmap_data['structMap']
-                
-                if 'order' in request.GET:
+                # complex object
+                if 'order' in request.GET and 'structMap' in structmap_data:
+                    # fetch component object
+                    item['selected'] = False
                     order = int(request.GET['order'])
                     component = structmap_data['structMap'][order]
-                    item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + component['id'] + '/info.json'))
-                    
-            if 'format' in structmap_data:
-                if structmap_data['format'] == 'image':
-                    item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap_data['id'] + '/info.json'))
+                    component['selected'] = True
+                    if 'format' in component:
+                        item['contentFile'] = getHostedContentFile(component)
+                    item['selectedComponent'] = component
+                else: 
+                    item['selected'] = True
+                    if 'format' in structmap_data:
+                        item['contentFile'] = getHostedContentFile(structmap_data)
+                item['structMap'] = structmap_data['structMap']
+            else: 
+                # simple object
+                if 'format' in structmap_data:
+                    item['contentFile'] = getHostedContentFile(structmap_data)    
         else:
             item['harvest_type'] = 'harvested'
             if 'url_item' in item:
