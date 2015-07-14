@@ -73,7 +73,6 @@ def getCollectionData(collection_data=None, collection_id=None):
         collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection['url'])
         if collection_api_url is None:
             print 'no collection api url:'
-            print collection_data
             collection['id'] = ''
         else:
             collection['id'] = collection_api_url.group('url')
@@ -230,11 +229,19 @@ def itemView(request, item_id=''):
             item['structmap_url'] = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
             structmap_data = json_loads_url(item['structmap_url'])
             if 'structMap' in structmap_data:
-                item['structMap'] = structmap_data['structMap']
                 # for component in structmap_data['structMap']:
-                #     component['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + component['id'] + '/info.json'))
-            # if structmap_data['format'] == 'image':
-            #     item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap_data['id'] + '/info.json'))
+                #     if 'format' in component:
+                #         component['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + component['id'] + '/info.json'))
+                item['structMap'] = structmap_data['structMap']
+                
+                if 'order' in request.GET:
+                    order = int(request.GET['order'])
+                    component = structmap_data['structMap'][order]
+                    item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + component['id'] + '/info.json'))
+                    
+            if 'format' in structmap_data:
+                if structmap_data['format'] == 'image':
+                    item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap_data['id'] + '/info.json'))
         else:
             item['harvest_type'] = 'harvested'
             if 'url_item' in item:
@@ -252,8 +259,6 @@ def itemView(request, item_id=''):
             item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
         for repository_data in item['repository_data']:
             item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
-        
-        print item
 
     # TODO: write related objects version (else)
     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
@@ -492,8 +497,6 @@ def relatedCollections(request, queryParams={}):
 
                     # TODO: get this from repository_data in solr rather than from the registry API
                     if collection_details['repository'][0]['campus']:
-                        print collection_details['repository'][0]['campus'][0]['name']
-                        print collection_details['repository'][0]['name']
                         collection_data['institution'] = collection_details['repository'][0]['campus'][0]['name'] + ', ' + collection_details['repository'][0]['name']
                     else:
                         collection_data['institution'] = collection_details['repository'][0]['name']

@@ -1,5 +1,6 @@
 {% load staticfiles %}
 
+{% if item.structMap.format|lower == 'image' %}
 <div class="object__container-osd">
   
   <div id="obj__osd"></div>
@@ -34,38 +35,72 @@
       });
   </script>
       
-  <div class="component-carousel">
-    {% for component in item.structMap %}
-    <div class="{% if component.id == item.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
-      <a class="{% if component.id == item.id %}carousel__link--selected{% else %}carousel__link{% endif %}" data-item_id="{{ component.id }}">
-        <div class="carousel__image-container">
-          <div style="position: relative;">
-            {% if component.format|lower != "image" %}
-              {% if component.format|lower == "moving image" %}
-              <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
-              {% elif component.format|lower == "sound"%}
-              <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
-              {% elif component.format|lower == "text"%}
-              <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
-              {% elif component.format|lower == "complex object"%}
-              <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
-              {% endif %}
-            {% endif %}
-            {% if component.format|lower == "image" %}
-              <img style="width: 100%; height: 100%"
-              data-lazy="http://ucldciiifwest-env.elasticbeanstalk.com/{{ component.id }}/full/,210/0/default.jpg"
-              sizes="100%"
-              alt="{{ component.label }}">
-            {% else %}
-              <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" style="border: 1px solid #8b8d8e; width:100%; height:100%">
-            {% endif %}
-          </div>
-        </div>
-        <div class="carousel__thumbnail-caption">{{ component.label|truncatewords:8 }}
-        </div>
+</div>
+{% else %}
+<div class="object__container-type1">
+  
+  <div class="object__container-complex-non-image">
+
+    <a class="obj-harvest__link" href="">
+      <div class="icon__overlay-container">
+        {% if item.structMap.format %}
+        <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
+        {% else %}
+        <span class="fa fa-cubes fa-fw obj-complex-non-image__file-icon-overlay"></span>
+        {% endif %}
+        <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
+      </div>
+      {% if item.structMap.format %}
+      <div class="obj-hosted__caption">Read item on contributor's website
+      </div>
+      {% endif %}
+    </a>
+
+  </div>
+
+</div>
+{% endif %}
+
+<div class="carousel-complex">
+  <!--TODO: take care of parent object display in carousel -->
+  <!-- {{ item.structMap.id }} -->
+  <!-- {{ item.id }} -->
+  <!-- carousel-complex__item--selected -->
+  <div class="carousel-complex__item-fixed">
+    <a href="" class="carousel-complex__link" class="carousel-complex__link">
+      <span class="fa fa-cubes fa-fw carousel-complex__icon-overlay"></span>
+      <!--carousel-complex__item-fixed-img--selected -->
+      <img class="carousel-complex__img-fixed--no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
+    </a>
+  </div>
+  
+  <div class="carousel-complex__item-container">
+  {% for component in item.structMap %}
+    <div class="{% if component.id == item.id %}carousel-complex__item--selected{% else %}carousel-complex__item{% endif %}">
+      <a class="carousel-complex__link js-component-link" data-item_id="{{ forloop.counter0 }}" href="{% url 'calisphere:itemView' item.id %}">
+        {% if component.format|lower != "image" %}
+          {% if component.format|lower == "moving image" %}
+          <span class="fa fa-play-circle-o fa-fw carousel-complex__icon-overlay"></span>
+          {% elif component.format|lower == "sound"%}
+          <span class="fa fa-volume-up fa-fw carousel-complex__icon-overlay"></span>
+          {% elif component.format|lower == "text"%}
+          <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
+          {% elif component.format|lower == "complex object"%}
+          <span class="fa fa-cubes fa-fw carousel-complex__icon-overlay"></span>
+          {% endif %}
+        {% endif %}
+        {% if component.format|lower == "image" %}
+          <img style="width: 100%; height: 100%"
+          class="{% if component.id == item.id %}carousel-complex__item-img--selected{% else %}carousel-complex__item-img{% endif %}"
+          data-lazy="http://ucldciiifwest-env.elasticbeanstalk.com/{{ component.id }}/full/,80/0/default.jpg"
+          sizes="100%"
+          alt="{{ component.label }}">
+        {% else %}
+          <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" class="carousel-complex__img--no-image">
+        {% endif %}
       </a>
     </div>
-    {% endfor %}
+  {% endfor %}
   </div>
 
 </div>
