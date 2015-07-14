@@ -9,10 +9,46 @@
 
 }
 
-.institution-logo {
+.institution-intro__heading {
+  // no styles yet
+}
+
+.institution-intro__featured-image-link {
+  display: block;
+  margin: $layout-component-margin ($layout-component-margin * 2);
+}
+
+.institution-intro__featured-image {
+  max-width: 100%;
+}
+
+.institution-intro__featured-image-caption {
+  text-align: right;
+}
+
+.institutional-intro__list {
+  margin: $layout-component-margin;
+  padding: 0;
+}
+
+.institution-intro__logo-location {
+  display: flex;
+  align-items: flex-end;
+  margin: $layout-component-margin 0 0 $layout-component-margin;
+}
+
+.institution-intro__logo {
   max-width: 100%; // default img width is 250px
   height: auto;
-  padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+}
+
+.institution-intro__location {
+  margin: 0 0 0 $layout-component-margin;
+  padding: 0;
+}
+
+.institution-intro__location-list {
+  list-style: none;
 }
 
 .institution-intro__heading {
@@ -21,25 +57,14 @@
   font-weight: bold;
 }
 
-.institutional-intro__list {
-  margin: $layout-component-margin 0 1em $layout-component-margin;
-  padding: 0;
-}
-
 .institutional-intro__list-item {
   list-style: none;
 }
 
 .institution-intro__web-link {
-  display: block;
   @extend .icon__external-link;
 }
 
 .institutional-intro__description {
   margin: $layout-component-margin $layout-component-margin $layout-component-margin $layout-component-margin;
-}
-
-.institutional-intro__description-link {
-  display: block;
-  margin: 1em 0 $layout-component-margin $layout-component-margin;
 }
