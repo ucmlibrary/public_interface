@@ -15,7 +15,7 @@
 
 .institution-intro__featured-image-link {
   display: block;
-  margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+  margin: $layout-component-margin ($layout-component-margin * 2);
 }
 
 .institution-intro__featured-image {
