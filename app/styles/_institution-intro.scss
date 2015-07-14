@@ -9,6 +9,10 @@
 
 }
 
+.institution-intro__heading {
+  // no styles yet
+}
+
 .institution-intro__featured-image-link {
   display: block;
   margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
@@ -20,6 +24,11 @@
 
 .institution-intro__featured-image-caption {
   text-align: right;
+}
+
+.institutional-intro__list {
+  margin: $layout-component-margin;
+  padding: 0;
 }
 
 .institution-intro__logo-location {
