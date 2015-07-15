@@ -5,11 +5,13 @@
 
 <div id="js-carouselContainer">
   <div class="carousel__search-results">
+    {% if q %}
     <a href="">Search results for "{{ q }}"</a>
+    {% endif %}
   </div>
 
   <div class="carousel__items-number">
-    {{ numFound }} items found. <a id="js-carousel-start" href="">Return to selected item</a>
+    {{ numFound }} items found.
   </div>
 
   <form id="js-carousel" data-numfound="{{ numFound }}">

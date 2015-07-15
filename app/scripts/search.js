@@ -437,10 +437,6 @@ FacetQuery.prototype.carousel = function() {
     }
   }(this));
   
-  $(document).on('click', '#js-carousel-start', function(that) {
-    $('.carousel').slick('slickGoTo', 0);
-    return false;
-  });
 } // end .carousel()
 
 $(document).ready(function() {
