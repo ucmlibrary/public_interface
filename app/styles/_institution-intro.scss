@@ -42,9 +42,19 @@
   height: auto;
 }
 
+.institution-intro__logo--uc {
+  @extend .institution-intro__logo;
+  padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+}
+
 .institution-intro__location {
   margin: 0 0 0 $layout-component-margin;
   padding: 0;
+}
+
+.institution-intro__location--uc {
+  @extend .institution-intro__location;
+  margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 }
 
 .institution-intro__location-list {
