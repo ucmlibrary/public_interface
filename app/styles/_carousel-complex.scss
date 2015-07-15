@@ -2,11 +2,8 @@
 
 .carousel-complex {
   display: none; // set to '.show()' on js initialization
+  padding: $layout-component-margin $layout-component-margin - 2;
   background: $design-light-gray-color;
-
-  @include bp(sm-screen) {
-    padding: 0 $layout-component-margin - 2;
-  }
 
   @include bp(md-screen) {
     margin: 0 $object-leftright-margin;
@@ -18,20 +15,21 @@
   float: left;
   width: 80px;
   height: 80px;
-  margin: $layout-component-margin 0;
 
   @include bp(sm-screen) {
-    margin: $layout-component-margin 0 $layout-component-margin ($layout-component-margin * 2);
+    margin: 0 0 0 ($layout-component-margin * 2);
   }
 
 }
 
 .carousel-complex__item-container {
   margin: 0 0 0 90px;
+  border-left: 2px solid $design-dark-gray-color;
+  padding: 0 0 0 ($layout-component-margin / 2);
   
   @include bp(sm-screen) {
     margin: 0 0 0 130px;
-    padding: 0 ($layout-component-margin * 2) 0 0;
+    padding: 0 ($layout-component-margin * 2) 0 ($layout-component-margin / 2);
   }
 
 }
@@ -39,7 +37,7 @@
 .carousel-complex__item {
   width: 80px;
   height: 80px;
-  margin: $layout-component-margin ($layout-component-margin / 4);
+  margin: 0 ($layout-component-margin / 4);
   opacity: 0.5;
 
   &:hover {
