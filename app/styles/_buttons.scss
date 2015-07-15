@@ -74,23 +74,47 @@
   text-align: left;
 }
 
-.button__institution-tabs {
-  position: relative; // allows absolute positioning of Fontawesome icon for eac tab below
+.button__institution-tabs-container {
+  margin: 0 0 $layout-container-margin-md 0;
 }
 
-.button__institution-tab {
-  
+.button__institution-tabs {
   display: block;
-  margin: 0 0 $layout-component-margin 0;
+  margin: -1px 0 0 0;
   text-align: left;
+  border-radius: 0;
 
-//  &:after {
-//    position: absolute;
-//    top: 0.2em;
-//    right: 20px;
-//    font-family: FontAwesome;
-//    font-size: 1.4em;
-//    content: "\f105"; // 'fa-angle-right' Fontawesome icon
-//  }
+  &:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    width: 1.8em;
+  }
+
+}
+
+.button__institution-tab-collections {
+  @extend .button__institution-tabs;
+
+  &:before {
+    content: "\f00a";
+  }
+
+}
+
+.button__institution-tab-contributors {
+  @extend .button__institution-tabs;
+
+  &:before {
+    content: "\f19c";
+  }
+
+}
+
+.button__institution-tab-search {
+  @extend .button__institution-tabs;
+
+  &:before {
+    content: "\f002";
+  }
 
 }
