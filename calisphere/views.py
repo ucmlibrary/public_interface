@@ -707,11 +707,11 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
     else:
         contact_information = ''
     
-    if 'campus' in institution_details:
+    if 'campus' in institution_details and len(institution_details['campus']) > 0:
         uc_institution = institution_details['campus']
     else:
         uc_institution = False
-    
+        
     if subnav == 'items':
         queryParams = processQueryRequest(request)
     
@@ -788,12 +788,21 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES)
             context['campus_slug'] = institution_details['slug']
             context['form_action'] = reverse('calisphere:campusView', kwargs={'campus_slug': institution_details['slug'], 'subnav': 'items'})
+            for campus in CAMPUS_LIST:
+                if institution_id == campus['id'] and 'featuredImage' in campus:
+                    context['featuredImage'] = campus['featuredImage']
         
         if institution_type == 'repository':
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
             context['repository_id'] = institution_id
             context['uc_institution'] = uc_institution
             context['form_action'] = reverse('calisphere:repositoryView', kwargs={'repository_id': institution_id, 'subnav': 'items'})
+            
+            if uc_institution == False:
+                for unit in FEATURED_UNITS:
+                    if unit['id'] == institution_id:
+                        context['featuredImage'] = unit['featuredImage']
+            
             
         return render(request, 'calisphere/institutionViewItems.html', context)
 
@@ -851,17 +860,29 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
 
         if institution_type == 'campus':
             context['campus_slug'] = institution_details['slug']
+            for campus in CAMPUS_LIST:
+                if institution_id == campus['id'] and 'featuredImage' in campus:
+                    context['featuredImage'] = campus['featuredImage']
         if institution_type == 'repository':
             context['repository_id'] = institution_id
             context['uc_institution'] = uc_institution
+            
+            if uc_institution == False:
+                for unit in FEATURED_UNITS:
+                    if unit['id'] == institution_id:
+                        context['featuredImage'] = unit['featuredImage']
+            
 
         return render(request, 'calisphere/institutionViewCollections.html', context)
 
 def campusView(request, campus_slug, subnav=False):
     campus_id = ''
+    featured_image = ''
     for campus in CAMPUS_LIST:
         if campus_slug == campus['slug']:
             campus_id = campus['id']
+            if 'featuredImage' in campus:
+                featured_image = campus['featuredImage']
     if campus_id == '':
         print "Campus registry ID not found"
 
@@ -893,6 +914,7 @@ def campusView(request, campus_slug, subnav=False):
             related_institutions[i] = getRepositoryData(repository_data=related_institution)
 
         return render(request, 'calisphere/institutionViewInstitutions.html', {
+            'featuredImage': featured_image,
             'campus_slug': campus_slug,
             'institutions': related_institutions,
             'institution': campus_details,
