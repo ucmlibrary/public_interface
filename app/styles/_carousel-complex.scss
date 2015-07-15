@@ -35,8 +35,6 @@
 }
 
 .carousel-complex__item {
-  width: 80px;
-  height: 80px;
   margin: 0 ($layout-component-margin / 4);
   opacity: 0.5;
 
@@ -55,17 +53,27 @@
   @include icon__centered-overlay(40px, 40px, 40px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
 
+.carousel-complex img {
+  width: 100%;
+  height: 80px;
+}
+
 .carousel-complex__img--no-image {
   @include thumbview__no-image($design-dark-gray-color); // (border-color)
 }
 
-.carousel-complex__img-fixed--no-image {
-  
-  @include thumbview__no-image($design-dark-gray-color); // (border-color)
+.carousel-complex__img--no-image--selected {
+  @extend .carousel-complex__img--no-image;
   border: 5px solid $design-dark-gray-color;
 }
 
-.carousel-complex__item-fixed-img--selected {
+.carousel-complex__img-fixed--no-image {
+  @include thumbview__no-image($design-dark-gray-color); // (border-color)
+  border: 1px solid $design-dark-gray-color;
+}
+
+.carousel-complex__img-fixed--no-image--selected {
+  @extend .carousel-complex__img-fixed--no-image;
   border: 5px solid $design-dark-gray-color;
 }
 
@@ -76,9 +84,4 @@
 .carousel-complex__link {
   display: block;
   position: relative;
-}
-
-.carousel-complex img {
-  width: 100%;
-  height: auto;
 }
