@@ -9,7 +9,7 @@
       <p>{{ collection.description|truncatewords:100 }}</p>
     {% else %}
       <div class="alert alert-warning" style="margin-top: 4px; padding: 5px;">
-        <p><i class="fa fa-exclamation-triangle"></i> I need a description! Please describe your collection!</p>
+        <p><i class="fa fa-exclamation-triangle"></i> Collection description needed.</p>
       </div>
     {% endif %}
     <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
