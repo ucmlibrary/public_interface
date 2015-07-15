@@ -82,7 +82,7 @@
   display: block;
   margin: -1px 0 0 0;
   text-align: left;
-  border-radius: 0;
+  border-radius: 0; // remove bootstrap's border-radius
 
   &:before {
     font-family: FontAwesome;
