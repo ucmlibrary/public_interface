@@ -13,6 +13,8 @@
           <span class="fa fa-volume-up fa-fw listview__icon-overlay"></span>
           {% elif item.type_ss.0|lower == "text"%}
           <span class="fa fa-file-text-o fa-fw listview__icon-overlay"></span>
+          {% elif item.type_ss.0|lower == "dataset" %}
+          <span class="fa fa-bar-chart fa-fw listview__icon-overlay"></span>
           {% elif item.type_ss.0|lower == "complex object"%}
           <span class="fa fa-cubes fa-fw listview__icon-overlay"></span>
           {% endif %}
@@ -34,7 +36,12 @@
       <div class="listview__metadata">
         <dl class="meta-inline__list">
           <dt class="meta-inline__type">Title</dt>
-          <dd class="meta-inline__defin">{{ item.title.0 }}</dd>
+          <dd class="meta-inline__defin">
+            <a class="listview__link js-item-link" href="{% url 'calisphere:itemView' item.id %}" 
+            data-item_id="{{ item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
+              {{ item.title.0 }}
+            </a>
+          </dd>
           
           {% if item.creator %}
           <dt class="meta-inline__type">Creator/Contributor</dt>
@@ -58,12 +65,12 @@
           
           {% if item.repository_name %}
           <dt class="meta-inline__type">Contributing Institution</dt>
-          <dd class="meta-inline__defin"><a href="">{% if item.campus_name %}{{ item.campus_name.0 }}, {% endif %}{{ item.repository_name.0 }}</a></dd>
+          <dd class="meta-inline__defin">{% if item.campus_name %}{{ item.campus_name.0 }}, {% endif %}{{ item.repository_name.0 }}</dd>
           {% endif %}
 
           {% if item.collection_name %}
           <dt class="meta-inline__type">Collection</dt>
-          <dd class="meta-inline__defin"><a href="">{{ item.collection_name.0 }}</a></dd>
+          <dd class="meta-inline__defin">{{ item.collection_name.0 }}</dd>
           {% endif %}
         </dl>
       </div>
