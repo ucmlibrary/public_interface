@@ -43,15 +43,25 @@
 
     <a class="obj-harvest__link" href="">
       <div class="icon__overlay-container">
-        {% if item.contentFile %}
+        <!-- {% if item.contentFile %}
           {% if item.contentFile.format|lower == 'text' %}
             <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
             <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
           {% endif %}
-        {% else %}
-          <span class="fa fa-cubes fa-fw obj-complex-non-image__file-icon-overlay"></span>
+        {% else %} -->
+        {% if item.type_ss.0|lower == "moving image" %}
+          <span class="fa fa-play-circle-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
+        {% elif item.type_ss.0|lower == "sound"%}
+          <span class="fa fa-volume-up fa-fw obj-complex-non-image__file-icon-overlay"></span>
+        {% elif item.type_ss.0|lower == "text"%}
+          <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
+        {% elif item.type_ss.0|lower == "dataset" %}
+          <span class="fa fa-bar-chart fa-fw obj-complex-non-image__file-icon-overlay"></span>
+        {% endif %}          
           <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
-          <div class="obj-hosted__caption">Explanatory complex object caption in the case of no parent object content file?</div>
+          <div class="obj-hosted__caption" style="margin-left: -1px; margin-right: -1px;">
+            Use the carousel below to page through this {{ item.type.0 }} set
+          </div>
         {% endif %}
       </div>
     </a>
@@ -65,7 +75,16 @@
   <!--TODO: if {{ item.selected }} is True apply 'selected' styles -->
   <div class="carousel-complex__item-fixed">
     <a href="{% url 'calisphere:itemView' item.id %}" class="carousel-complex__link" class="carousel-complex__link">
-      <span class="fa fa-cubes fa-fw carousel-complex__icon-overlay"></span>
+      {% if item.type_ss.0|lower == "moving image" %}
+        <span class="fa fa-play-circle-o fa-fw carousel-complex__icon-overlay"></span>
+      {% elif item.type_ss.0|lower == "sound"%}
+        <span class="fa fa-volume-up fa-fw carousel-complex__icon-overlay"></span>
+      {% elif item.type_ss.0|lower == "text"%}
+        <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
+      {% elif item.type_ss.0|lower == "dataset" %}
+        <span class="fa fa-bar-chart fa-fw carousel-complex__icon-overlay"></span>
+      {% endif %}
+      <!-- <span class="fa fa-cubes fa-fw carousel-complex__icon-overlay"></span> -->
       <img class="carousel-complex__img-fixed--no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
     </a>
   </div>
