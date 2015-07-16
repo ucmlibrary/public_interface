@@ -17,14 +17,11 @@
 
 }
 
-.collection-intro__institution-heading-link {
-  
-}
-
 .collection-intro__institution-heading {
   margin: 0;
   font-size: 1em;
   font-weight: bold;
+  -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }
 
 .collection-intro__about {
@@ -44,6 +41,7 @@
   margin: 0;
   font-size: 1em;
   font-weight: bold;
+  -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }
 
 .collection-intro__about-description {
