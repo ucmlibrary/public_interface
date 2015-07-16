@@ -70,7 +70,7 @@
 <div class="carousel-complex">
   <!--TODO: if {{ item.selected }} is True apply 'selected' styles -->
   <div class="carousel-complex__item-fixed">
-    <a href="{% url 'calisphere:itemView' item.id %}" class="carousel-complex__link" class="carousel-complex__link">
+    <a href="{% url 'calisphere:itemView' item.id %}" class="carousel-complex__link">
       {% if item.type_ss.0|lower == "moving image" %}
         <span class="fa fa-play-circle-o fa-fw carousel-complex__icon-overlay"></span>
       {% elif item.type_ss.0|lower == "sound"%}
