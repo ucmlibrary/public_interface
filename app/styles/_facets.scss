@@ -28,7 +28,7 @@
 // ***** Facet #1 (Type of Object) ***** //
 
 .facets .row:nth-child(odd) .col-xs-12:first-child .check {
-  
+
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
     z-index: 2; // '2' instead of '1' in order to stack over icon-overlays
@@ -37,13 +37,13 @@
   @include bp(md-screen) {
     margin: 0;
   }
-  
+
 }
 
 // ***** Facet #2 (Date Range) ***** //
 
 .facets .row:nth-child(odd) .col-xs-12:last-child .check {
-  
+
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
     z-index: 2; // '2' instead of '1' in order to stack over icon-overlays
@@ -52,13 +52,13 @@
   @include bp(md-screen) {
     margin: 0;
   }
-  
+
 }
 
 // ***** Facet #3 (Institution Owner) ***** //
 
 .facets .row:nth-child(even) .col-xs-12:first-child .check {
-  
+
   @include bp(sm-screen) {
     margin: 0 ($layout-component-margin / 2) 0 0;
     z-index: 3; // stacks over '2' above
@@ -67,13 +67,13 @@
   @include bp(md-screen) {
     margin: 0;
   }
-  
+
 }
 
 // ***** Facet #4 (Collection) ***** //
 
 .facets .row:nth-child(even) .col-xs-12:last-child .check {
-  
+
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin / 2);
     z-index: 3; // stacks over '2' above
@@ -82,7 +82,7 @@
   @include bp(md-screen) {
     margin: 0;
   }
-  
+
 }
 
 // ***** Global Styles for All Facets ***** //
@@ -161,7 +161,7 @@ html.no-jquery .check__header-links {
     display: block;
     margin: 0.1em 0;
   }
-  
+
 }
 
 .check__link-select-all--selected, .check__link-deselect-all--selected {
@@ -170,7 +170,7 @@ html.no-jquery .check__header-links {
     display: block;
     color: $design-primary-color;
   }
-  
+
 }
 
 .check__link-select-all--not-selected, .check__link-deselect-all--not-selected {
@@ -178,7 +178,7 @@ html.no-jquery .check__header-links {
   @include bp(md-screen) {
     display: none;
   }
-  
+
 }
 
 .check__popdown {
@@ -266,7 +266,7 @@ html.no-jquery .check__button-group {
 }
 
 html.svg .check__label {
-  background: #fff url("/images/checkbox-square.svg") no-repeat;
+  background: #fff url("../images/checkbox-square.svg") no-repeat;
   background-size: 18px 18px; // constrains SVG canvas for positioning
   background-position: right 20px center;
 }
@@ -291,7 +291,7 @@ html.svg .check__input {
 
 html.svg .check__input:checked + .check__label {
    font-weight: bold;
-   background: #fff url("/images/checkbox-check.svg") no-repeat right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
+   background: #fff url("../images/checkbox-check.svg") no-repeat right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
    background-size: 18px 12px; // constrains SVG canvas for positioning
 }
 

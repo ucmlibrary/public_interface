@@ -10,6 +10,24 @@
  *
  **/
 
+/*
+  Let's Leave console.log() in shipping code; but follow this advice:
+
+ "Log major (high-level) decisions & event handling, so the
+  business, high-level UI & major event-handling flow can be followed.
+  These are valuable in perpetuity for engineering the application.
+  Logging 'entering method A', 'leaving method A', 'param1 77' is
+  OTOH not good logging." –  Thomas W May 2 '13 at 3:50; commenting on
+  http://stackoverflow.com/a/1114232/1763984
+  see also: http://stackoverflow.com/a/1114200/1763984
+*/
+
+/* dummy handler so console.log() won't error out */
+if(typeof console === "undefined") {
+  console = { log: function() { } };
+}
+
+
 var query;
 var DESKTOP;
 
@@ -436,7 +454,7 @@ FacetQuery.prototype.carousel = function() {
 
     }
   }(this));
-  
+
 } // end .carousel()
 
 $(document).ready(function() {
