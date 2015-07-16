@@ -2,14 +2,14 @@
 
 // Highlight all Bootstrap grid columns
 
-body.column-test [class^="col-"] { 
+body.column-test [class^="col-"] {
 	border: 1px solid red;
 	// background: #eee;
 	// padding-top: 10px;
 	// padding-bottom: 10px;
 }
 
-body.column-test .row .row [class^="col-"] { 
+body.column-test .row .row [class^="col-"] {
   border: 1px solid green;
 }
 
@@ -24,7 +24,7 @@ body.column-test .row .row [class^="col-"] {
 
 .popover__img-popover {
 	width: 380px;
-	height: 280px; 
+	height: 280px;
 }
 
 // Highlight image placeholders
@@ -41,7 +41,7 @@ body.image-test img {
 
 // Set a fixed height on Bootstrap columns for shapes
 
-body.shapes-test [class^="col-"] { 
+body.shapes-test [class^="col-"] {
 	height: 100px;
 }
 

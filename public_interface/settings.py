@@ -24,7 +24,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
                                          'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
                        )
              )
+
 STATIC_URL = os.getenv('UCLDC_STATIC_URL', 'http://localhost:9000/')  # `grunt serve`
+
 SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
@@ -97,10 +99,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 
-# STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "vendor"),
+    os.path.join(BASE_DIR, "dist"),
 )
 
 LOGGING = {

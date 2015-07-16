@@ -27,11 +27,11 @@
 // ***** Set the button image paths ***** //
 
 .mejs-controls .mejs-button button {
-  background-image: url("/bower_components/mediaelement/build/controls.svg");
+  background-image: url("../bower_components/mediaelement/build/controls.svg");
 }
 
 .mejs-overlay-button {
-  background-image: url("/bower_components/mediaelement/build/bigplay.svg")
+  background-image: url("../bower_components/mediaelement/build/bigplay.svg")
 }
 
 // ***** Reset the default mediaelementplayer.css skin colors ***** //
