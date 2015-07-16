@@ -156,6 +156,10 @@ FacetQuery.prototype.bindSubmitHandlers = function() {
         $('#js-facet')[0].reset();
         that.getFormValuesFromDOM();
         that.saveValuesToSession();
+        that.bindDomManipulators();
+      }
+      if ($('#js-relatedCollections').length > 0) {
+        that.relatedCollections();
       }
       if ($(that.carouselContainer).length > 0) {
         that.getValuesFromSession();
