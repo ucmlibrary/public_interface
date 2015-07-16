@@ -70,6 +70,31 @@
   {% endif %}
 {% endif %}
 
+<div class="modal fade" id="citationModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="citationModalTitle">Get Citation</h4>
+        <p style="margin-bottom:0px">We recommend you include the following information in your citation. Look below the item for additional data you may want to include.</p>
+      </div>
+      <div class="modal-body">
+        <textarea style="width: 100%; height: 11em;" onclick="this.focus();this.select()">
+Title: {{ item.title.0 }}
+{% if item.date.0 %}Date: {{ item.date.0 }}{% endif %}
+Collection: {{ item.collection_name.0 }}
+Owning Institution: {{ item.repository_name.0 }}
+Source: Calisphere
+Date of access: {% now "F j Y H:i" %}
+Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="obj-buttons{% if item.structMap %}--complex{% endif %}">
 
   <div class="obj-buttons__group1">
@@ -86,7 +111,7 @@
       <span class="fa fa-facebook-square"></span>
     </a>
 
-    <a class="btn btn-xs obj-buttons__citation" href="javascript: void(0)">
+    <a class="btn btn-xs obj-buttons__citation" href="javascript: void(0)" data-toggle="modal" data-target="#citationModal">
       Get Citation
     </a>
 

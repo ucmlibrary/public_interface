@@ -15,7 +15,7 @@ CAMPUS_LIST = [
     {'id': '6', 'name': 'UC San Diego', 'slug': 'UCSD', 'featuredImage': {'url': '', 'src': '/thumb-uc_sandiego.jpg'}},
     {'id': '7', 'name': 'UC San Francisco', 'slug': 'UCSF', 'featuredImage': {'url': 'http://calisphere-test.cdlib.org/item/108--27b50a3a-9476-4ade-997a-ab875c1e2d9a/', 'src': '/thumb-uc_sf.jpg'}},
     {'id': '8', 'name': 'UC Santa Barbara', 'slug': 'UCSB', 'featuredImage': {'url': 'http://calisphere-test.cdlib.org/item/15021--http%3A//ark.cdlib.org/ark%3A/13030/kt3r29r74p/', 'src': '/thumb-uc_santabarbara.jpg'}},
-    {'id': '9', 'name': 'UC Santa Cruz', 'slug': 'UCSC', 'featuredImage': {'url': '', 'src': '/thumb-uc_santacruz.jpg'}},
+    {'id': '9', 'name': 'UC Santa Cruz', 'slug': 'UCSC', 'featuredImage': {'url': 'http://calisphere-test.cdlib.org/item/10318--http%3A//ark.cdlib.org/ark%3A/13030/hb4b69n74p/', 'src': '/thumb-uc_santacruz.jpg'}},
 ]
 
 FEATURED_UNITS = [
