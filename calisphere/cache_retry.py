@@ -24,7 +24,10 @@ def json_loads_url(url_or_req):
     key = kwargs_md5(key='json_loads_url', url=url_or_req)
     data = cache.get(key)
     if not data:
-        data = json.loads(urllib2.urlopen(url_or_req).read())
+        try:
+            data = json.loads(urllib2.urlopen(url_or_req).read())
+        except urllib2.HTTPError:
+            data = {}
     return data
 
 

@@ -76,7 +76,7 @@
 	border: none;
 
 	&::placeholder {
-  	color: #000;  
+  	color: #000;
 	}
 
 	&:focus::placeholder {
@@ -201,7 +201,7 @@
 	@include bp(md-screen) {
   	background-image: url("#{$home-aws-image-path}hirahara-portrait_465x397.jpg");
   }
-  
+
 }
 
 .home__heading2 {
