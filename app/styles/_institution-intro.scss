@@ -31,9 +31,10 @@
   padding: 0;
 }
 
+// changed campus page contact information location to be below the logo instead of beside it
 .institution-intro__logo-location {
-  display: flex;
-  align-items: flex-end;
+//  display: flex;
+//  align-items: flex-end;
   margin: $layout-component-margin 0 0 $layout-component-margin;
 }
 
@@ -47,8 +48,10 @@
   padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
 }
 
+// changed campus page contact information location to be below the logo instead of beside it
 .institution-intro__location {
-  margin: 0 0 0 $layout-component-margin;
+  margin: $layout-component-margin 0 0 0;
+//  margin: 0 0 0 $layout-component-margin;
   padding: 0;
 }
 
