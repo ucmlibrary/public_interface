@@ -6,7 +6,7 @@
 <div id="js-carouselContainer">
   <div class="carousel__search-results">
     {% if q %}
-    <a href="">Search results for "{{ q }}"</a>
+    Search results for "{{ q }}"
     {% endif %}
   </div>
 
@@ -70,9 +70,7 @@
   {% endif %}
 {% endif %}
 
-<!-- {{ item }} -->
-
-<div class="obj-buttons">
+<div class="obj-buttons{% if item.structMap %}--complex{% endif %}">
 
   <div class="obj-buttons__group1">
 

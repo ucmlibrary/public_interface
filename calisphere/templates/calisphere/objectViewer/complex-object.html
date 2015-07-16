@@ -40,32 +40,28 @@
 <div class="object__container-type1">
   
   <div class="object__container-complex-non-image">
-
-    <a class="obj-harvest__link" href="">
-      <div class="icon__overlay-container">
-        <!-- {% if item.contentFile %}
-          {% if item.contentFile.format|lower == 'text' %}
-            <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
-            <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
-          {% endif %}
-        {% else %} -->
-        {% if item.type_ss.0|lower == "moving image" %}
-          <span class="fa fa-play-circle-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
-        {% elif item.type_ss.0|lower == "sound"%}
-          <span class="fa fa-volume-up fa-fw obj-complex-non-image__file-icon-overlay"></span>
-        {% elif item.type_ss.0|lower == "text"%}
+    <div class="icon__overlay-container">
+      <!-- {% if item.contentFile %}
+        {% if item.contentFile.format|lower == 'text' %}
           <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
-        {% elif item.type_ss.0|lower == "dataset" %}
-          <span class="fa fa-bar-chart fa-fw obj-complex-non-image__file-icon-overlay"></span>
-        {% endif %}          
           <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
-          <div class="obj-hosted__caption" style="margin-left: -1px; margin-right: -1px;">
-            Use the carousel below to page through this {{ item.type.0 }} set
-          </div>
         {% endif %}
-      </div>
-    </a>
-
+      {% else %} -->
+      {% if item.type_ss.0|lower == "moving image" %}
+        <span class="fa fa-play-circle-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
+      {% elif item.type_ss.0|lower == "sound"%}
+        <span class="fa fa-volume-up fa-fw obj-complex-non-image__file-icon-overlay"></span>
+      {% elif item.type_ss.0|lower == "text"%}
+        <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
+      {% elif item.type_ss.0|lower == "dataset" %}
+        <span class="fa fa-bar-chart fa-fw obj-complex-non-image__file-icon-overlay"></span>
+      {% endif %}          
+        <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
+        <div class="obj-hosted__caption" style="margin-left: -1px; margin-right: -1px;">
+          Use the carousel below to page through this {{ item.type.0 }} set
+        </div>
+      {% endif %}
+    </div>
   </div>
 
 </div>
@@ -74,18 +70,22 @@
 <div class="carousel-complex">
   <!--TODO: if {{ item.selected }} is True apply 'selected' styles -->
   <div class="carousel-complex__item-fixed">
-    <a href="{% url 'calisphere:itemView' item.id %}" class="carousel-complex__link" class="carousel-complex__link">
-      {% if item.type_ss.0|lower == "moving image" %}
-        <span class="fa fa-play-circle-o fa-fw carousel-complex__icon-overlay"></span>
-      {% elif item.type_ss.0|lower == "sound"%}
-        <span class="fa fa-volume-up fa-fw carousel-complex__icon-overlay"></span>
-      {% elif item.type_ss.0|lower == "text"%}
-        <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
-      {% elif item.type_ss.0|lower == "dataset" %}
-        <span class="fa fa-bar-chart fa-fw carousel-complex__icon-overlay"></span>
+    <a href="{% url 'calisphere:itemView' item.id %}" class="carousel-complex__link">
+      {% if item.type_ss.0|lower != "image" %}
+        {% if item.type_ss.0|lower == "moving image" %}
+          <span class="fa fa-play-circle-o fa-fw carousel-complex__icon-overlay"></span>
+        {% elif item.type_ss.0|lower == "sound"%}
+          <span class="fa fa-volume-up fa-fw carousel-complex__icon-overlay"></span>
+        {% elif item.type_ss.0|lower == "text"%}
+          <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
+        {% elif item.type_ss.0|lower == "dataset" %}
+          <span class="fa fa-bar-chart fa-fw carousel-complex__icon-overlay"></span>
+        {% endif %}
+        <!-- <span class="fa fa-cubes fa-fw carousel-complex__icon-overlay"></span> -->
+        <img class="carousel-complex__img-fixed--no-image{% if item.selected %} carousel-complex__item-img--selected{% endif %}" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
+      {% else %}
+        <img class="carousel-complex__img-fixed{% if item.selected %} carousel-complex__item-img--selected{% endif %}" src="http://ucldciiifwest-env.elasticbeanstalk.com/{{ component.id }}/full/,80/0/default.jpg">
       {% endif %}
-      <!-- <span class="fa fa-cubes fa-fw carousel-complex__icon-overlay"></span> -->
-      <img class="carousel-complex__img-fixed--no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
     </a>
   </div>
   
@@ -102,13 +102,13 @@
           <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
           {% endif %}
         {% elif component.format|lower == "image" %}
-          <img style="width: 100%; height: 100%"
-          class="{% if component.id == item.id %}carousel-complex__item-img--selected{% else %}carousel-complex__item-img{% endif %}"
+          <img
+          class="{% if component.selected %}carousel-complex__item-img--selected{% else %}carousel-complex__item-img{% endif %}"
           data-lazy="http://ucldciiifwest-env.elasticbeanstalk.com/{{ component.id }}/full/,80/0/default.jpg"
           sizes="100%"
           alt="{{ component.label }}">
         {% else %}
-          <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" class="carousel-complex__img--no-image">
+          <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" class="{% if component.selected %}carousel-complex__item-img--selected{% else %}carousel-complex__img--no-image{% endif %}">
         {% endif %}
       </a>
     </div>
