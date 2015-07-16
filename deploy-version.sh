@@ -43,6 +43,9 @@ if [[ env_exists -ne 1 ]]
 fi
 
 grunt
+cd app
+git checkout .
+cd ..
 
 # package app and upload
 zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/ dist/
