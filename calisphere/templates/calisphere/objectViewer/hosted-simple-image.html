@@ -26,7 +26,7 @@
   <script type="text/javascript">
       var viewer = OpenSeadragon({
           id: "obj__osd",
-          tileSources: [{{ item.titleSources|safe }}],
+          tileSources: [{{ item.contentFile.titleSources|safe }}],
           zoomInButton:   "obj__osd-button-zoom-in",
           zoomOutButton:  "obj__osd-button-zoom-out",
           homeButton:     "obj__osd-button-home",

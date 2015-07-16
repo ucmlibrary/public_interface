@@ -13,8 +13,8 @@
             <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
             {% elif carousel_item.type_ss.0|lower == "text"%}
             <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
-            {% elif carousel_item.type_ss.0|lower == "complex object"%}
-            <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+            {% elif carousel_item.type_ss.0|lower == "dataset" %}
+            <span class="fa fa-bar-chart fa-fw thumbview__icon-overlay"></span>
             {% endif %}
           {% endif %}
           {% if carousel_item.reference_image_md5 %}
@@ -24,7 +24,10 @@
             {% if carousel_item.id == item.id %}class="carousel__image--selected"{% endif %}
             alt="{{ carousel_item.title.0|truncatewords:8 }}">
           {% else %}
-            <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" style="border: 1px solid #8b8d8e; width:100%; height:100%">
+            <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" 
+            {% if carousel_item.id == item.id %}class="carousel__image--selected"
+            {% else %}style="border: 1px solid #8b8d8e;"{% endif %}
+            style="width:100%; height:100%">
           {% endif %}
         </div>
         <!-- .carousel__icon-overlay with django logic will go here -->

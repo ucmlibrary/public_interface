@@ -1,40 +1,30 @@
 <div class="col-sm-6 col-md-12">
 
-  <div class="button__institution-tabs">
+  <div class="button__institution-tabs-container">
     {% if repository_id %}
-    <a class="btn btn-default button__institution-tab{% if mode == "collections" %} button__secondary{% endif %}" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}" style="border-bottom: 0px; margin-bottom: 0px; border-radius: 0px;">
+    <a class="btn btn-default button__institution-tab-collections{% if mode == "collections" %} button__secondary{% endif %}" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
       Collections at this institution
-      <span class="fa fa-th" style="float:left; margin-right: 8px;"></span>
     </a>
     {% elif campus_slug %}
-    <a class="btn btn-default button__institution-tab{% if mode == "collections" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'collections' %}" style="border-bottom: 0px; margin-bottom: 0px; border-radius: 0px;">
+    <a class="btn btn-default button__institution-tab-collections{% if mode == "collections" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
       Collections at {{ institution.name }}
-      <span class="fa fa-th" style="float:left; margin-right: 8px;"></span>
     </a>
     {% endif %}
-  </div>
   
-  {% if campus_slug %}
-  <div class="button__institution-tabs">
-    <a class="btn btn-default button__institution-tab{% if mode == "institutions" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}" style="border-bottom: 0px; margin-bottom: 0px; border-radius: 0px;">
-      <span class="fa fa-university" style="float:left; margin-right: 8px;"></span>
+    {% if campus_slug %}
+    <a class="btn btn-default button__institution-tab-contributors{% if mode == "institutions" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
       Contributors at {{ institution.name }}
     </a>
-  </div>
-  {% endif %}
+    {% endif %}
   
-  <div class="button__institution-tabs">
     {% if repository_id %}
-    <a class="btn btn-default button__institution-tab{% if mode == "items" %} button__secondary{% endif %}" href="{% url 'calisphere:repositoryView' repository_id 'items' %}" style="border-radius: 0px;">
-      <span class="fa fa-search" style="float:left; margin-right: 8px;"></span>
+    <a class="btn btn-default button__institution-tab-search{% if mode == "items" %} button__secondary{% endif %}" href="{% url 'calisphere:repositoryView' repository_id 'items' %}">
       Search this institution
     </a>
     {% elif campus_slug %}
-    <a class="btn btn-default button__institution-tab{% if mode == "items" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'items' %}" style="border-radius: 0px;">
-      <span class="fa fa-search" style="float:left; margin-right: 8px;"></span>
+    <a class="btn btn-default button__institution-tab-search{% if mode == "items" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'items' %}">
       Search {{ institution.name }}
     </a>
     {% endif %}
   </div>
-  
 </div>
