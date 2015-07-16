@@ -88,7 +88,13 @@ def getCollectionMosaic(collection_url):
     collection_details = json_loads_url(collection_url + "?format=json")
 
     collection_repositories = []
-    for repository in collection_details['repository']:
+
+    repository_details = collection_details.get('repository')
+
+    if not (repository_details):
+        return
+    
+    for repository in repository_details:
         if 'campus' in repository and len(repository['campus']) > 0:
             collection_repositories.append(repository['campus'][0]['name'] + ", " + repository['name'])
         else:

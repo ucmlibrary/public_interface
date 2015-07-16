@@ -2,7 +2,7 @@
 
 .global-header__bars-icon {
   cursor: pointer;
-  
+
   @include bp(sm-screen) {
     display: none;
   }
@@ -20,7 +20,7 @@ html.no-jquery .global-header__bars-icon {
 
 .global-header__logo {
   margin: 0 0 10px 0;
-  background: url(/images/logo-calisphere.svg) no-repeat;
+  background: url(../images/logo-calisphere.svg) no-repeat;
   background-position: center top;
   background-size: $header-logo-xs-width $header-logo-xs-height;
 
@@ -33,7 +33,7 @@ html.no-jquery .global-header__bars-icon {
 }
 
 html.no-svg .global-header__logo {
-  background: url(/images/logo-calisphere.png) no-repeat;
+  background: url(../images/logo-calisphere.png) no-repeat;
 }
 
 .global-header__logo-link {
@@ -128,7 +128,7 @@ html.no-jquery .global-header__nav {
   display: block;
 }
 
-.global-header__mobile-links--selected { 
+.global-header__mobile-links--selected {
   display: block;
 }
 

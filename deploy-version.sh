@@ -1,5 +1,5 @@
 #!/bin/env bash
-if [[ -n "$DEBUG" ]]; then 
+if [[ -n "$DEBUG" ]]; then
   set -x
 fi
 
@@ -39,11 +39,16 @@ env_exists=$(aws elasticbeanstalk describe-environments \
 if [[ env_exists -ne 1 ]]
   then
     echo "environment $2 does not exist"
-    usage    
+    usage
 fi
 
+grunt
+cd app
+git checkout .
+cd ..
+
 # package app and upload
-zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/
+zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/ dist/
 aws s3 cp $ZIP s3://$BUCKET/$DIR/$ZIP
 aws elasticbeanstalk create-application-version \
   --application-name $APPNAME \
@@ -58,13 +63,13 @@ aws elasticbeanstalk update-environment \
   --version-label "$1"
 
 # Copyright (c) 2015, Regents of the University of California
-# 
+#
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
-# 
+#
 # - Redistributions of source code must retain the above copyright notice,
 #   this list of conditions and the following disclaimer.
 # - Redistributions in binary form must reproduce the above copyright
