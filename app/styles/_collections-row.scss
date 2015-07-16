@@ -163,8 +163,8 @@
   font-size: 1.4em;
   text-align: center;
   line-height: 1;
-  color: #000;
-  background: $design-light-gray-color;
+  color: $design-primary-color;
+  border: 1px solid $design-primary-color;
 
 .aspect-ratio-content {
   position: absolute;
