@@ -73,7 +73,6 @@ def getCollectionData(collection_data=None, collection_id=None):
         collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection['url'])
         if collection_api_url is None:
             print 'no collection api url:'
-            print collection_data
             collection['id'] = ''
         else:
             collection['id'] = collection_api_url.group('url')
@@ -183,7 +182,7 @@ def processQueryRequest(request):
     rq = request.GET.getlist('rq')
     query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '16'
-    start = request.GET['start'] if 'start' in request.GET else '0'
+    start = request.GET['start'] if 'start' in request.GET and request.GET['start'] != '' else '0'
     sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'
     view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
     rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
@@ -218,6 +217,18 @@ def processQueryRequest(request):
 def home(request):
     return render (request, 'calisphere/home.html', {'q': ''})
 
+def getHostedContentFile(structmap):
+    if structmap['format'] == 'image':
+        contentFile = {
+            'titleSources': json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap['id'] + '/info.json')), 
+            'format': 'image'
+        }
+    if structmap['format'] == 'text':
+        contentFile = {
+            'format': 'text'
+        }
+    return contentFile
+
 def itemView(request, item_id=''):
     item_id_search_term = 'id:"{0}"'.format(_fixid(item_id))
     item_solr_search = SOLR_select(q=item_id_search_term)
@@ -227,11 +238,29 @@ def itemView(request, item_id=''):
     for item in item_solr_search.results:
         if 'structmap_url' in item and len(item['structmap_url']) >= 1:
             item['harvest_type'] = 'hosted'
-            if (item['type_ss'][0] == 'image'):
-                item['structmap_url'] = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
-                item['iiif_id'] = json_loads_url(item['structmap_url'])['id']
-                # hard-coded IIIF ID that works: 001687cd-e327-4ed1-9788-da3899715794
-                item['titleSources'] = json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + item['iiif_id'] + '/info.json'))
+            structmap_url = string.replace(item['structmap_url'], 's3://static', 'https://s3.amazonaws.com/static');
+            structmap_data = json_loads_url(structmap_url)
+
+            if 'structMap' in structmap_data:
+                # complex object
+                if 'order' in request.GET and 'structMap' in structmap_data:
+                    # fetch component object
+                    item['selected'] = False
+                    order = int(request.GET['order'])
+                    component = structmap_data['structMap'][order]
+                    component['selected'] = True
+                    if 'format' in component:
+                        item['contentFile'] = getHostedContentFile(component)
+                    item['selectedComponent'] = component
+                else: 
+                    item['selected'] = True
+                    if 'format' in structmap_data:
+                        item['contentFile'] = getHostedContentFile(structmap_data)
+                item['structMap'] = structmap_data['structMap']
+            else: 
+                # simple object
+                if 'format' in structmap_data:
+                    item['contentFile'] = getHostedContentFile(structmap_data)    
         else:
             item['harvest_type'] = 'harvested'
             if 'url_item' in item:
@@ -487,8 +516,6 @@ def relatedCollections(request, queryParams={}):
 
                     # TODO: get this from repository_data in solr rather than from the registry API
                     if collection_details['repository'][0]['campus']:
-                        print collection_details['repository'][0]['campus'][0]['name']
-                        print collection_details['repository'][0]['name']
                         collection_data['institution'] = collection_details['repository'][0]['campus'][0]['name'] + ', ' + collection_details['repository'][0]['name']
                     else:
                         collection_data['institution'] = collection_details['repository'][0]['name']
@@ -680,11 +707,11 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
     else:
         contact_information = ''
     
-    if 'campus' in institution_details:
+    if 'campus' in institution_details and len(institution_details['campus']) > 0:
         uc_institution = institution_details['campus']
     else:
         uc_institution = False
-    
+        
     if subnav == 'items':
         queryParams = processQueryRequest(request)
     
@@ -761,12 +788,21 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES)
             context['campus_slug'] = institution_details['slug']
             context['form_action'] = reverse('calisphere:campusView', kwargs={'campus_slug': institution_details['slug'], 'subnav': 'items'})
+            for campus in CAMPUS_LIST:
+                if institution_id == campus['id'] and 'featuredImage' in campus:
+                    context['featuredImage'] = campus['featuredImage']
         
         if institution_type == 'repository':
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
             context['repository_id'] = institution_id
             context['uc_institution'] = uc_institution
             context['form_action'] = reverse('calisphere:repositoryView', kwargs={'repository_id': institution_id, 'subnav': 'items'})
+            
+            if uc_institution == False:
+                for unit in FEATURED_UNITS:
+                    if unit['id'] == institution_id:
+                        context['featuredImage'] = unit['featuredImage']
+            
             
         return render(request, 'calisphere/institutionViewItems.html', context)
 
@@ -824,17 +860,29 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
 
         if institution_type == 'campus':
             context['campus_slug'] = institution_details['slug']
+            for campus in CAMPUS_LIST:
+                if institution_id == campus['id'] and 'featuredImage' in campus:
+                    context['featuredImage'] = campus['featuredImage']
         if institution_type == 'repository':
             context['repository_id'] = institution_id
             context['uc_institution'] = uc_institution
+            
+            if uc_institution == False:
+                for unit in FEATURED_UNITS:
+                    if unit['id'] == institution_id:
+                        context['featuredImage'] = unit['featuredImage']
+            
 
         return render(request, 'calisphere/institutionViewCollections.html', context)
 
 def campusView(request, campus_slug, subnav=False):
     campus_id = ''
+    featured_image = ''
     for campus in CAMPUS_LIST:
         if campus_slug == campus['slug']:
             campus_id = campus['id']
+            if 'featuredImage' in campus:
+                featured_image = campus['featuredImage']
     if campus_id == '':
         print "Campus registry ID not found"
 
@@ -866,6 +914,7 @@ def campusView(request, campus_slug, subnav=False):
             related_institutions[i] = getRepositoryData(repository_data=related_institution)
 
         return render(request, 'calisphere/institutionViewInstitutions.html', {
+            'featuredImage': featured_image,
             'campus_slug': campus_slug,
             'institutions': related_institutions,
             'institution': campus_details,

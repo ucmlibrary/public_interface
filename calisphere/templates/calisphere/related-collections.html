@@ -19,8 +19,8 @@
                 <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
                 {% elif items.0.type_ss.0|lower == "text"%}
                 <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
-                {% elif items.0.type_ss.0|lower == "complex object"%}
-                <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+                {% elif item.type_ss.0|lower == "dataset" %}
+                <span class="fa fa-bar-chart fa-fw thumbview__icon-overlay"></span>
                 {% endif %}
               {% endif %}
               {% if items.0.reference_image_md5 %}
@@ -41,8 +41,8 @@
                 <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
                 {% elif items.1.type_ss.0|lower == "text"%}
                 <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
-                {% elif items.1.type_ss.0|lower == "complex object"%}
-                <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+                {% elif item.type_ss.0|lower == "dataset" %}
+                <span class="fa fa-bar-chart fa-fw thumbview__icon-overlay"></span>
                 {% endif %}
               {% endif %}
               {% if items.1.reference_image_md5 %}
@@ -63,8 +63,8 @@
                 <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
                 {% elif items.2.type_ss.0|lower == "text"%}
                 <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
-                {% elif items.2.type_ss.0|lower == "complex object"%}
-                <span class="fa fa-cubes fa-fw thumbview__icon-overlay"></span>
+                {% elif item.type_ss.0|lower == "dataset" %}
+                <span class="fa fa-bar-chart fa-fw thumbview__icon-overlay"></span>
                 {% endif %}
               {% endif %}
               {% if items.2.reference_image_md5 %}
