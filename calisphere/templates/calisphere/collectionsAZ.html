@@ -2,6 +2,8 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
+{% block title %}: Collections A-Z{% endblock %}
+
 {% block content %}
 
 {% include "calisphere/collectionsHeader.html" %}
@@ -37,7 +39,7 @@
       <h3 style="padding-bottom: 40px; border-bottom: 1px solid #8b8d8e">Sorry, we don't have any collections starting with {{ collection_letter|upper }} yet.</h3>
     {% endif %}
     </div>
-    
+
     <!-- {{ pages }} pages -->
 
     <div id="js-collectionPagination">
@@ -55,12 +57,12 @@
       </a>
       {% endif %}
     </div>
-  
+
     <!-- <div id="js-loadingWrapper" style="border-top: 1px solid #8b8d8e; margin-top: 20px;"> -->
       <div id="js-loading" style="display: block; width: 58px; height: 58px; margin: 40px auto 20px auto;">
       </div>
     <!-- </div> -->
-    
+
 	</div>
 
 </div>

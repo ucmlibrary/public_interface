@@ -1,6 +1,8 @@
 {% extends "calisphere/base.html"|pjax:request %}
 {% load calisphere-extras %}
 
+{% block title %}: {{ item.title.0 }}{% endblock %}
+
 {% block content %}
 
 <div id="js-carouselContainer">
@@ -29,7 +31,7 @@
       {% endfor %}
     {% endfor %}
   </form>
-    
+
   <div class="carousel" data-carousel_start="{{ start }}">
     {% include "calisphere/carousel.html" %}
   </div>
@@ -39,12 +41,12 @@
   {% if item.parsed_repository_data %}
     <a href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}">
       {% if item.parsed_repository_data.0.campus %}
-        {{ item.parsed_repository_data.0.campus }}, 
+        {{ item.parsed_repository_data.0.campus }},
       {% endif %}
       {{ item.parsed_repository_data.0.name }}
     </a>
   {% endif %}
-   > 
+   >
   {% if item.parsed_collection_data %}
      <a href="{% url 'calisphere:collectionView' item.parsed_collection_data.0.id %}">{{ item.parsed_collection_data.0.name }}</a>
   {% endif %}
@@ -208,7 +210,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
         <p>Hold on a sec! Before you download, consider:</p>
         <p><strong>Do you have the rights to use it?</strong> Check the rights information for this item to see if it has copyright restrictions. Even if the item is protected by copyright, you may be able to use it for educational, research, or other purposes. To learn more, read Calisphere's <a href="{% url 'calisphere:termsOfUse' %}">terms of use.</a></p>
         <p><strong>Is this the version you want?</strong> This file is 1024 x 768 px and 518 kB. To obtain an alternate file type or higher resolution copy, please <a href="#" data-dismiss="modal">contact the owning institution.</a></p>
-      </div>      
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary">Download</button>
@@ -248,7 +250,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
       <span class="fa fa-envelope"></span>
       Contact Owner
     </a>
-    
+
     {% if item.harvest_type == 'hosted' %}
       <a class="btn btn-xs obj-buttons__download-image" href="javascript: void(0)" data-toggle="modal" data-target="#downloadModal">
         <span class="icon__download-image">
@@ -281,32 +283,32 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
   <dl class="meta-block__list">
     <dt class="meta-block__type">Title</dt>
     <dd class="meta-block__defin">{{ item.title.0 }}</dd>
-    
+
     {% if item.alternative_title %}
       <dt class="meta-block__type">Alternative Title</dt>
       <dd class="meta-block__defin">{% for title in item.alternative_title %}{{ title }} <br> {% endfor %}</dd>
     {% endif %}
-    
+
     {% if item.creator %}
       <dt class="meta-block__type">Creator</dt>
       <dd class="meta-block__defin">{% for creator in item.creator %}{{ creator }} <br> {% endfor %}</dd>
     {% endif %}
-    
+
     {% if item.contributor %}
       <dt class="meta-block__type">Contributor</dt>
       <dd class="meta-block__defin">{% for contributor in item.contributor %}{{ contributor }} <br> {% endfor %}</dd>
     {% endif %}
-    
+
     {% if item.date %}
       <dt class="meta-block__type">Date Created and/or Issued</dt>
       <dd class="meta-block__defin">{% for date in item.date %}{{ date }} <br> {% endfor %}</dd>
     {% endif %}
-    
+
     {% if item.publisher %}
       <dt class="meta-block__type">Publisher</dt>
       <dd class="meta-block__defin">{% for publisher in item.publisher %}{{ publisher }} <br> {% endfor %}</dd>
     {% endif %}
-    
+
     <!-- should include institution name: UC Berkely, Bancroft Library -->
     {% if item.parsed_repository_data %}
       <dt class="meta-block__type">Contributing Institution</dt>
@@ -314,13 +316,13 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
         {% for repository in item.parsed_repository_data %}
           <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">
           {% if repository.campus %}
-            {{ repository.campus }}, 
+            {{ repository.campus }},
           {% endif %}
           {{ repository.name }}</a> <br>
         {% endfor %}
       </dd>
     {% endif %}
-    
+
     {% if item.parsed_collection_data %}
       <dt class="meta-block__type">Collection</dt>
       <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}<a href="{% url 'calisphere:collectionView' collection.id %}">{{ collection.name }}</a> <br> {% endfor %}</dd>
@@ -351,7 +353,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
 			<dt class="meta-block__type">Description</dt>
 			<dd class="meta-block__defin">{% for description in item.description %}{{ description }} <br> {% endfor %}</dd>
 		{% endif %}
-    
+
     {% if item.type %}
 			<dt class="meta-block__type">Type</dt>
 			<dd class="meta-block__defin">{% for type in item.type %}{{ type }} <br> {% endfor %}</dd>
@@ -475,11 +477,11 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
       if ($('.carousel-complex').length > 0) {
         $('.carousel-complex').show();
         $('.carousel-complex__item-container').slick(conf);
-        
+
         $(document).on('click', '.js-component-link', function(query) {
           return function(event) {
             var data_params = {
-              'order': $(this).data('item_id'), 
+              'order': $(this).data('item_id'),
               'q': "{{ q }}",
               {% if rq|length > 0 %}
               'rq': "{{ rq }}",
@@ -487,7 +489,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
               'start': "{{ start }}"
             }
             for (var i in query.filters) { data_params[i] = query.filters[i]; }
-          
+
             event.preventDefault();
             $.pjax({
               type: 'GET',
