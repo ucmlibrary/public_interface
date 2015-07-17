@@ -31,6 +31,8 @@ SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
 
+GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
 

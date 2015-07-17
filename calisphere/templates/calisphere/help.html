@@ -1,13 +1,15 @@
 {% extends "calisphere/base.html"|pjax:request %}
 
+{% block title %}: Help{% endblock %}
+
 {% block content %}
 
 <h1>Help</h1>
 
 <div class="static">
-  
+
   <div class="col-sm-8 static__main">
-    
+
 		<p>Calisphere brings together thousands of digital images, documents, audio and video recordings from the University of California and other educational and cultural heritage institutions across the state.</p>
 
 		<p>Below are some frequently asked questions about finding, using, and obtaining more information about these materials.</p>
@@ -61,7 +63,7 @@
 		<h2 id="5">How can I get a high-quality reproduction of an item I find here?</h2>
 
 		<p>If you require a high-resolution image or a copy of a text, audio, or video file, contact the institution that contributed it to Calisphere. Note that availability, protocols, and fees for obtaining files may differ among contributing institutions.
-			
+
 		<p>To contact the contributing institution for a given item, simply click the “contact owner” button and send a message. Or, visit the <a href="/institutions/uc-partners/">institution's main page</a> for phone and email information.</p>
 
 		<h2 id="6">Do I need permission to use items I find on Calisphere?</h2>
@@ -91,12 +93,12 @@
   </div>
 
   <div class="col-sm-4 static__sidebar">
-    
+
   	<h3 class="static__sidebar-heading">Share your story</h3>
   	<p>Has Calisphere helped you advance your research, complete a project, or find something meaningful? We'd love to hear about it. Stories like yours help us obtain additional funding so we can continue to grow and improve the site.</p><p>Please <a href="/contact/">send us a message</a>.</p>
 
   </div>
-  
+
 </div>
 
 {{ q }}

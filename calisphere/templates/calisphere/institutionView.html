@@ -4,6 +4,8 @@
 
 {% block breadcrumbs %}{% endblock %}
 
+{% block title %}: {% if repository_id and uc_institution %}{{ uc_institution.0.name }} / {% endif %}{{ institution.name }}{% endblock %}
+
 {% block pageTitle %}
   <h1 class="text__institutions-heading1">
     {% if campus_slug or uc_institution %}
@@ -11,9 +13,9 @@
     {% else %}
       <a href="{% url 'calisphere:statewideDirectory' %}">Institutions</a>
     {% endif %}
-     / 
+     /
     {% if repository_id and uc_institution %}
-      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}">{{ uc_institution.0.name }}</a> / 
+      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}">{{ uc_institution.0.name }}</a> /
     {% endif %}
     <strong>
       {{ institution.name }}
@@ -39,7 +41,7 @@
           {% with 'images/logo_'|add:campus_slug|lower|add:'.png' as logo_url %}
             <img class="institution-intro__logo" src="{% static logo_url %}" alt="{{ institution.name }}">
           {% endwith %}
-          
+
           <!-- <h2 class="institution-intro__heading">{{ institution.name }} <br> {% if repository_id and uc_institution %}{{ uc_institution.0.name }}{% endif %}</h2> -->
           <ul class="institution-intro__location">
             {% if contact_information.city %}
@@ -55,10 +57,10 @@
               <li class="institution-intro__location-list">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
             {% endif %}
           </ul>
-          
+
           <input id="{{ campus_slug }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="campus_slug" value="{{ campus_slug }}" checked style="display: none;">
         </div>
-        
+
         {% if contact_information.description %}
         <!-- <p class="institutional-intro__description"> -->
           <!-- {{ contact_information.description }} -->
@@ -93,8 +95,8 @@
             <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" 
-          form="js-facet" type="checkbox" name="repository_data" 
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+          form="js-facet" type="checkbox" name="repository_data"
           value="{{ repository_id }}" checked style="display: none;">
       </div>
       <div class="col-md-6">
@@ -134,8 +136,8 @@
             <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" 
-          form="js-facet" type="checkbox" name="repository_data" 
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+          form="js-facet" type="checkbox" name="repository_data"
           value="{{ repository_id }}" checked style="display: none;">
       </div>
       <div class="col-md-6">
@@ -167,8 +169,8 @@
             <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" 
-          form="js-facet" type="checkbox" name="repository_data" 
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+          form="js-facet" type="checkbox" name="repository_data"
           value="{{ repository_id }}" checked style="display: none;">
       </div>
       <div class="col-md-9">

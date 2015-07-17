@@ -7,4 +7,5 @@ def settings(request):
         'thumbnailUrl': settings.THUMBNAIL_URL,
         'devMode': settings.UCLDC_DEVEL,
         'ucldcImages': settings.UCLDC_IMAGES,
+        'gaSiteCode': settings.GA_SITE_CODE
     }
