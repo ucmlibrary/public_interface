@@ -75,11 +75,6 @@
       </div>
     {% elif repository_id and uc_institution %}
       <div class="col-md-3">
-        {% with 'images/logo_'|add:uc_institution.0.slug|lower|add:'.png' as logo_url %}
-          <img class="institution-intro__featured-image-link" src="{% static logo_url %}" alt="{{ uc_institution.0.name }}">
-        {% endwith %}
-      </div>
-      <div class="col-md-3">
         <h2 class="institution-intro__heading">{{ institution.name }} <br> {{ uc_institution.0.name }}</h2>
         <ul class="institutional-intro__list">
           {% if contact_information.city %}
@@ -99,7 +94,7 @@
           form="js-facet" type="checkbox" name="repository_data"
           value="{{ repository_id }}" checked style="display: none;">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-9">
         {% if contact_information.description %}
           <p class="institutional-intro__description">
             {{ contact_information.description }}
