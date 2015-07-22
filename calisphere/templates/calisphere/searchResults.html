@@ -2,10 +2,12 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
+{% block title %}: {{ q }}{% endblock %}
+
 {% block content %}
 
     {% block pageTitle %}<h2 class="text__page-heading">Search Results for "<strong>{{ q }}</strong>"</h2>{% endblock %}
-    
+
     {% block additionalInfo %}{% endblock %}
 
     <!-- Begin Filters -->
@@ -16,9 +18,9 @@
         <!-- Begin Filter Component -->
         {% block filters %}
         {% if filters|dictionary_length > 0 or rq|length > 0 %}<div class="filter">
-          
+
           <span class="filter__note">Filters you've selected:</span>
-          
+
           {% for filter_type in filters %}
             {% for filter in filters|get_item:filter_type %}
               {% if filter_type == 'collection_data' or filter_type == 'repository_data' %}
@@ -50,7 +52,7 @@
 
       <div class="col-md-3 layout-col__2">
         {% block sidebar %}
-        
+
           {% block refineSearch %}
 
             <!-- Begin Search Within Field -->
@@ -76,9 +78,9 @@
 
       <div class="col-md-9 layout-col__3">
         {% block mainContent %}
-          
+
         <!-- TODO: facets.collection_name|length is only accurate if no collection filters have been applied -->
-        <h3 class="text__collections-heading">{% block objectsFound %}{{ numFound }} Items Found in 
+        <h3 class="text__collections-heading">{% block objectsFound %}{{ numFound }} Items Found in
           <a href="#related-coll">
             {% if filters|get_item:'collection_data'|length == 0 %}
               {{ facets.collection_data|length }}
@@ -90,7 +92,7 @@
         </h3>
 
         <div class="row object-view-row">
-          
+
           <!-- Begin Dropdown Pagination Component -->
           {% include "calisphere/forms/paginate.html" %}
           <!-- End Dropdown Pagination Component -->
@@ -109,9 +111,9 @@
         </div>
 
         <!-- TODO: rewrite this form, POST bad. maintain state through javascript object -->
-        
+
         <!-- Begin Thumbnail and List View Components -->
-        
+
         {% if view_format == "thumbnails" %}
           {% include "calisphere/item-thumb.html" %}
         {% elif view_format == "list" %}
@@ -132,7 +134,7 @@
             {% endif %}
 
             <label for="start" class="sr-only">Current Number</label>
-        
+
             <select class="pag-dropdown__select--unstyled" form="js-facet">
               {% for page in pages|get_range %}
               <option value="{% widthratio page 1 rows %}" {% if start|add:0 >= page|multiply:rows|add:0 and start|add:0 < page|add:1|multiply:rows|add:0 %}selected{% endif %}>{{ page|add:"1" }}</option>
@@ -146,9 +148,9 @@
             {% else %}
               <button class="js-next btn btn-link pag-dropdown__arrow-icon" disabled><span class="fa fa-caret-right fa-lg"></span></button>
             {% endif %}
-		  
+
   		    </div>
-          
+
           <!-- Begin Buttons Pagination Component -->
             {% include "calisphere/forms/paginate-buttons.html" %}
           <!-- End Buttons Pagination Component -->

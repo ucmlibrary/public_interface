@@ -4,6 +4,8 @@
 
 {% block breadcrumbs %}{% endblock %}
 
+{% block title %}: {% if repository_id and uc_institution %}{{ uc_institution.0.name }} / {% endif %}{{ institution.name }}{% endblock %}
+
 {% block pageTitle %}
   <h1 class="text__institutions-heading1">
     {% if campus_slug or uc_institution %}
@@ -11,9 +13,9 @@
     {% else %}
       <a href="{% url 'calisphere:statewideDirectory' %}">Institutions</a>
     {% endif %}
-     / 
+     /
     {% if repository_id and uc_institution %}
-      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}">{{ uc_institution.0.name }}</a> / 
+      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}">{{ uc_institution.0.name }}</a> /
     {% endif %}
     <strong>
       {{ institution.name }}
@@ -26,7 +28,7 @@
 
     {% if campus_slug %}
       <div class="col-md-3">
-        <a class="institution-intro__featured-image-link" href="{{ featuredImage.url }}?campus_slug={{ campus_slug }}">
+        <a class="institution-intro__featured-image-link" href="{% if featuredImage.url %}{{ featuredImage.url }}{% else %}#{% endif %}">
           <img class="institution-intro__featured-image" src="{{ ucldcImages }}{{ featuredImage.src }}" alt="{{ institution.name }}">
           <div class="institution-intro__featured-image-caption">
             View featured image.
@@ -39,7 +41,7 @@
           {% with 'images/logo_'|add:campus_slug|lower|add:'.png' as logo_url %}
             <img class="institution-intro__logo" src="{% static logo_url %}" alt="{{ institution.name }}">
           {% endwith %}
-          
+
           <!-- <h2 class="institution-intro__heading">{{ institution.name }} <br> {% if repository_id and uc_institution %}{{ uc_institution.0.name }}{% endif %}</h2> -->
           <ul class="institution-intro__location">
             {% if contact_information.city %}
@@ -55,28 +57,23 @@
               <li class="institution-intro__location-list">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
             {% endif %}
           </ul>
-          
+
           <input id="{{ campus_slug }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="campus_slug" value="{{ campus_slug }}" checked style="display: none;">
         </div>
-        
+
         {% if contact_information.description %}
-        <p class="institutional-intro__description">
-          {{ contact_information.description }}
+        <!-- <p class="institutional-intro__description"> -->
+          <!-- {{ contact_information.description }} -->
           <!-- <a class="institution-intro__web-link" href="">Read More</a> -->
-        </p>
+        <!-- </p> -->
         {% else %}
-        <div class="alert alert-warning" style="margin: 20px;">
-          <p><i class="fa fa-exclamation-triangle"></i> Campus description needed. We’ll be working with the Collection Administrator for this campus to develop this description. It will say something about the scope of institutions and distinctive collecting areas of the campus, and any other information that would be helpful for Calisphere users. For an example, see <a href="{% url 'calisphere:campusView' 'UCB' 'collections' %}" class="alert-link" style="text-decoration: underline;">UC Berkeley’s page</a>.</p>
-        </div>
+        <!-- <div class="alert alert-warning" style="margin: 20px;"> -->
+          <!-- <p><i class="fa fa-exclamation-triangle"></i> Campus description needed. We’ll be working with the Collection Administrator for this campus to develop this description. It will say something about the scope of institutions and distinctive collecting areas of the campus, and any other information that would be helpful for Calisphere users. For an example, see <a href="{% url 'calisphere:campusView' 'UCB' 'collections' %}" class="alert-link" style="text-decoration: underline;">UC Berkeley’s page</a>.</p> -->
+        <!-- </div> -->
         {% endif %}
 
       </div>
     {% elif repository_id and uc_institution %}
-      <div class="col-md-3">
-        {% with 'images/logo_'|add:uc_institution.0.slug|lower|add:'.png' as logo_url %}
-          <img class="institution-intro__featured-image-link" src="{% static logo_url %}" alt="{{ uc_institution.0.name }}">
-        {% endwith %}
-      </div>
       <div class="col-md-3">
         <h2 class="institution-intro__heading">{{ institution.name }} <br> {{ uc_institution.0.name }}</h2>
         <ul class="institutional-intro__list">
@@ -93,11 +90,11 @@
             <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" 
-          form="js-facet" type="checkbox" name="repository_data" 
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+          form="js-facet" type="checkbox" name="repository_data"
           value="{{ repository_id }}" checked style="display: none;">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-9">
         {% if contact_information.description %}
           <p class="institutional-intro__description">
             {{ contact_information.description }}
@@ -105,13 +102,13 @@
           </p>
         {% else %}
         <div class="alert alert-warning" style="margin: 20px;">
-          <p><i class="fa fa-exclamation-triangle"></i> Institution description needed. Do you represent this institution? Please provide some information about its mission and/or collecting areas to help Calisphere users know what it’s all about. For examples of institution descriptions, browse other <a href="{# url 'calisphere:campusDirectory' #}" class="alert-link" style="text-decoration: underline;">institution pages</a>. <a href="mailto: ucldc@ucop.edu" class="alert-link" style="text-decoration: underline;">Email us</a> with copy or questions.</p>
+          <p><i class="fa fa-exclamation-triangle"></i> Institution description needed. Do you represent this institution? Please provide some information about its mission and/or collecting areas to help Calisphere users know what it’s all about. For examples of institution descriptions, browse other <a href="{% url 'calisphere:campusDirectory' %}" class="alert-link" style="text-decoration: underline;">institution pages</a>. <a href="mailto: ucldc@ucop.edu" class="alert-link" style="text-decoration: underline;">Email us</a> with copy or questions.</p>
         </div>
         {% endif %}
       </div>
     {% elif featuredImage %}
       <div class="col-md-3">
-        <a class="institution-intro__featured-image-link" href="#">
+        <a class="institution-intro__featured-image-link" href="{% if featuredImage.url %}{{ featuredImage.url }}{% else %}#{% endif %}">
           <img class="institution-intro__featured-image" src="{{ ucldcImages }}{{ featuredImage.src }}" alt="{{ institution.name }}">
           <div class="institution-intro__featured-image-caption">
             View featured image.
@@ -134,8 +131,8 @@
             <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" 
-          form="js-facet" type="checkbox" name="repository_data" 
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+          form="js-facet" type="checkbox" name="repository_data"
           value="{{ repository_id }}" checked style="display: none;">
       </div>
       <div class="col-md-6">
@@ -146,7 +143,7 @@
           </p>
         {% else %}
         <div class="alert alert-warning" style="margin: 20px;">
-          <p><i class="fa fa-exclamation-triangle"></i> Institution description needed. Do you represent this institution? Please provide some information about its mission and/or collecting areas to help Calisphere users know what it’s all about. For examples of institution descriptions, browse other <a href="{# url 'calisphere:campusDirectory' #}" class="alert-link" style="text-decoration: underline;">institution pages</a>. <a href="mailto: ucldc@ucop.edu" class="alert-link" style="text-decoration: underline;">Email us</a> with copy or questions.</p>
+          <p><i class="fa fa-exclamation-triangle"></i> Institution description needed. Do you represent this institution? Please provide some information about its mission and/or collecting areas to help Calisphere users know what it’s all about. For examples of institution descriptions, browse other <a href="{% url 'calisphere:statewideDirectory' %}" class="alert-link" style="text-decoration: underline;">institution pages</a>. <a href="mailto: ucldc@ucop.edu" class="alert-link" style="text-decoration: underline;">Email us</a> with copy or questions.</p>
         </div>
         {% endif %}
       </div>
@@ -167,8 +164,8 @@
             <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data" 
-          form="js-facet" type="checkbox" name="repository_data" 
+        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+          form="js-facet" type="checkbox" name="repository_data"
           value="{{ repository_id }}" checked style="display: none;">
       </div>
       <div class="col-md-9">
@@ -179,7 +176,7 @@
           </p>
         {% else %}
         <div class="alert alert-warning" style="margin: 20px;">
-          <p><i class="fa fa-exclamation-triangle"></i> Institution description needed. Do you represent this institution? Please provide some information about its mission and/or collecting areas to help Calisphere users know what it’s all about. For examples of institution descriptions, browse other <a href="{# url 'calisphere:campusDirectory' #}" class="alert-link" style="text-decoration: underline;">institution pages</a>. <a href="mailto: ucldc@ucop.edu" class="alert-link" style="text-decoration: underline;">Email us</a> with copy or questions.</p>
+          <p><i class="fa fa-exclamation-triangle"></i> Institution description needed. Do you represent this institution? Please provide some information about its mission and/or collecting areas to help Calisphere users know what it’s all about. For examples of institution descriptions, browse other <a href="{% url 'calisphere:statewideDirectory' %}" class="alert-link" style="text-decoration: underline;">institution pages</a>. <a href="mailto: ucldc@ucop.edu" class="alert-link" style="text-decoration: underline;">Email us</a> with copy or questions.</p>
         </div>
         {% endif %}
       </div>
