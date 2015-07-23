@@ -11,7 +11,8 @@
 // ***** Vendor Libraries ***** //
 
 @import "bootstrap-imports";
-@import "font-awesome-imports";
+// "Font Awesome css file already linked in document head, so sass import below (probably) not needed
+// @import "font-awesome-imports";
 @import "mediaelementplayer-custom-styles.scss";
 @import "slick-carousel.scss";
 
