@@ -17,7 +17,7 @@
 
 .themed__triangle { // inspired by: http://output.jsbin.com/maqimaqozi/1/edit?html,css,output
   position: relative;
-  left: 85%;
+  left: 68%;
   width: 80px;
   height: $layout-component-margin;
 
@@ -43,6 +43,10 @@
     left: 22px;
     border-bottom-color: #fff;
     border-width: 15px;
+  }
+
+  @include bp(sm-screen) {
+    left: 85%;
   }
 
 }
