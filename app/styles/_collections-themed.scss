@@ -51,6 +51,8 @@
 
 }
 
+// ***** Orange Box with Link to Main CA History Page ***** //
+
 .themed__hosted-box {
   display: flex;
   justify-content: space-between;
@@ -68,3 +70,38 @@
 .themed__hosted-text {
   font-size: 1.1em;
 }
+
+// ***** Themed Collection Row ***** //
+
+.themed__collection-row [class^="col-"] {
+  min-height: 200px;
+  border: $bblue;
+}
+
+.themed__collection-row-image {
+  width: 100%;
+  height: auto;
+}
+
+.themed__collection-row-text {
+  margin: 0 $layout-container-margin-md $layout-container-margin-md $layout-container-margin-md;
+}
+
+.themed__collection-row-heading {
+  margin: 0 0 0.5em 0;
+}
+
+.themed__collection-row-button {
+  @extend .button__dark;
+  width: 50%;
+}
+
+.themed__collection-row-list {
+  padding: 0;
+}
+
+.themed__collection-row-list-item {
+  list-style: none;
+}
+
+
