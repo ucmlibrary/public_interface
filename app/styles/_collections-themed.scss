@@ -57,7 +57,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: $layout-component-margin 0 $layout-component-margin 0;
+  margin: $layout-component-margin 0 0 0;
   padding: $layout-component-margin;
   color: #fff;
   background: $design-primary-color;
@@ -73,9 +73,14 @@
 
 // ***** Themed Collection Row ***** //
 
-.themed__collection-row [class^="col-"] {
-  min-height: 200px;
-  border: $bblue;
+// .themed__collection-row [class^="col-"] {
+//   min-height: 200px;
+//   border: $bblue;
+// }
+
+.themed__collection-row {
+  position: relative;
+  margin: $layout-component-margin 0 0 0;
 }
 
 .themed__collection-row-image {
@@ -84,7 +89,7 @@
 }
 
 .themed__collection-row-text {
-  margin: 0 $layout-container-margin-md $layout-container-margin-md $layout-container-margin-md;
+  margin: 0 $layout-container-margin-md 50px $layout-container-margin-md;
 }
 
 .themed__collection-row-heading {
@@ -93,7 +98,11 @@
 
 .themed__collection-row-button {
   @extend .button__dark;
-  width: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  margin: 0 $layout-container-margin-md;
+  width: 20%;
 }
 
 .themed__collection-row-list {
