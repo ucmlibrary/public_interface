@@ -1,7 +1,7 @@
 // ##### Collections - Themed Component ##### //
 
 .themed {
-
+  
 }
 
 .themed__subnav {
@@ -16,32 +16,31 @@
   left: 85%;
   width: 80px;
   height: $layout-component-margin;
-}
 
-.themed__triangle:before, .themed__triangle:after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-color: transparent;
-  border-top: 0;
-}
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-top: 0;
+  }
 
-/* stroke */
-.themed__triangle:before {
-  bottom: -1px;
-  left: 21px;
-  border-bottom-color: $design-primary-color;
-  border-width: 16px;
-}
+  &:before { // stroke
+    bottom: -1px;
+    left: 21px;
+    border-bottom-color: $design-primary-color;
+    border-width: 16px;
+  }
 
-/* fill */
-.themed__triangle:after {
-  bottom: -1px;
-  left: 22px;
-  border-bottom-color: #fff;
-  border-width: 15px;
+  &:after { // fill
+    bottom: -1px;
+    left: 22px;
+    border-bottom-color: #fff;
+    border-width: 15px;
+  }
+
 }
 
 .themed__hosted-box {
