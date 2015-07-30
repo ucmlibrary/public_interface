@@ -1,8 +1,10 @@
 /*global QueryManager */
 /*global GlobalSearchForm */
+/*global FacetForm */
+
 'use strict'; 
 
-var qm, globalSearchForm;
+var qm, globalSearchForm, facetForm;
 
 $(document).ready(function() {
   $('html').removeClass('no-jquery');
@@ -40,5 +42,15 @@ $(document).ready(function() {
   
   qm = new QueryManager();
   globalSearchForm = new GlobalSearchForm({model: qm});
+  
+  if($('#js-facet').length > 0) {
+    facetForm = new FacetForm({model: qm});
+  }
+  
+  $('#js-global-header-logo').on('click', function() {
+    if (qm.has('q')) {
+      qm.clear();
+    }
+  });
   
 });

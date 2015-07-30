@@ -9,6 +9,7 @@ var QueryManager = Backbone.Model.extend({
   initialize: function() {
     if (sessionStorage.length > 0) {
       this.set({q: sessionStorage.getItem('q')});
+      if (sessionStorage.getItem('rq') !== null) { this.set({rq: JSON.parse(sessionStorage.getItem('refineQuery'))}); }
     }
   },
   

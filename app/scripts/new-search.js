@@ -1,6 +1,7 @@
 /*global Backbone */
 /*global _ */
 /*exported GlobalSearchForm */
+/*exported FacetForm */
 
 'use strict';
 
@@ -35,10 +36,15 @@ var GlobalSearchForm = Backbone.View.extend({
   }
 });
 
-// var FacetForm = Backbone.View.extend({
-//   initialize: function() {
-//     this.bind()
-//   },
+var FacetForm = Backbone.View.extend({
+  initialize: function() {
+    $('#js-facet').on('submit', (function(model) {
+      return function(e) {
+        model.set({rq: $('input[name=rq]').val()});
+        e.preventDefault();
+      };
+    }(this.model)));
+  },
 //
 //   bind: function() {
 //     $('#thumbnails').on('click', (function(model) {
@@ -50,4 +56,4 @@ var GlobalSearchForm = Backbone.View.extend({
 //     }(this.model)));
 //
 //   }
-// });
+});
