@@ -46,7 +46,7 @@
                 <i class="fa fa-bars"></i>
               </div>
               <div class="col-xs-8 col-sm-12 global-header__logo">
-                <a class="global-header__logo-link" href="{% url 'calisphere:home' %}">
+                <a class="global-header__logo-link" id="js-global-header-logo" href="{% url 'calisphere:home' %}">
                 </a>
               </div>
               <div class="col-xs-2 col-sm-12 global-header__search-icon js-global-header__search-icon">
@@ -132,12 +132,14 @@
       <script src="{% static "bower_components/tap-listener/tap-listener.js" %}"></script>
       <script src="{% static "bower_components/infinite-scroll/jquery.infinitescroll.js" %}"></script>
       <script src="{% static "bower_components/imagesloaded/imagesloaded.pkgd.js" %}"></script>
+      <script src="{% static "bower_components/backbone/backbone.js" %}"></script>
     {% else %}
       <script src="{% static "scripts/vendor.js" %}"></script>
       <script src="{% static "scripts/vendor/modernizr.js" %}"></script>
     {% endif %}
-    <script src="{% static "scripts/calisphere-pjax.js" %}"></script>
-    <!-- // <script src="{% static "scripts/search.js" %}"></script> -->
+    <script src="{% static "scripts/query-manager.js" %}"></script>
+    <script src="{% static "scripts/new-search.js" %}"></script>
+    <script src="{% static "scripts/calisphere.js" %}"></script>
 
     {% block footerScripts %}
     {% endblock %}

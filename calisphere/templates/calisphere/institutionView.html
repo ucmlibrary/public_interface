@@ -9,13 +9,13 @@
 {% block pageTitle %}
   <h1 class="text__institutions-heading1">
     {% if campus_slug or uc_institution %}
-      <a href="{% url 'calisphere:campusDirectory' %}">Institutions</a>
+      <a href="{% url 'calisphere:campusDirectory' %}" data-pjax="js-pageContent">Institutions</a>
     {% else %}
-      <a href="{% url 'calisphere:statewideDirectory' %}">Institutions</a>
+      <a href="{% url 'calisphere:statewideDirectory' %}" data-pjax="js-pageContent">Institutions</a>
     {% endif %}
      /
     {% if repository_id and uc_institution %}
-      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}">{{ uc_institution.0.name }}</a> /
+      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}" data-pjax="js-pageContent">{{ uc_institution.0.name }}</a> /
     {% endif %}
     <strong>
       {{ institution.name }}

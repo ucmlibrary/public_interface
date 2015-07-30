@@ -436,10 +436,6 @@
       <script src="{% static "scripts/vendor.js" %}"></script>
       <script src="{% static "scripts/vendor/modernizr.js" %}"></script>
     {% endif %}
-      <script>
-        $(document).ready(function() {
-          $('html').removeClass('no-jquery');
-        });
-      </script>
+      <script src="{% static "scripts/calisphere-home.js" %}"></script>
   </body>
 </html>

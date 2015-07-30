@@ -1,4 +1,8 @@
+/*global QueryManager */
+/*global GlobalSearchForm */
 'use strict'; 
+
+var qm, globalSearchForm;
 
 $(document).ready(function() {
   $('html').removeClass('no-jquery');
@@ -10,8 +14,14 @@ $(document).ready(function() {
       $('#js-mosaicContainer').infinitescroll('destroy');
     }
   });
-  
+
   $(document).on('pjax:end', '#js-pageContent', function() {
+    //if we've gotten to a page without search context, clear the query manager
+    if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0 && qm.has('q')) {
+      qm.clear();        
+    }
+        
+    //if we've gotten to a page with a list of collection mosaics, init infinite scroll
     if($('#js-mosaicContainer').length > 0) {
       $('#js-mosaicContainer').infinitescroll({
         navSelector: '#js-collectionPagination',
@@ -27,5 +37,8 @@ $(document).ready(function() {
       });
     }
   });
+  
+  qm = new QueryManager();
+  globalSearchForm = new GlobalSearchForm({model: qm});
   
 });

@@ -2,27 +2,32 @@
 
   <div class="button__institution-tabs-container">
     {% if repository_id %}
-    <a class="btn btn-default button__institution-tab-collections{% if mode == "collections" %} button__secondary{% endif %}" href="{% url 'calisphere:repositoryView' repository_id 'collections' %}">
+    <a class="btn btn-default button__institution-tab-collections{% if mode == "collections" %} button__secondary{% endif %}" 
+      href="{% url 'calisphere:repositoryView' repository_id 'collections' %}" data-pjax="js-pageContent">
       Collections at this institution
     </a>
     {% elif campus_slug %}
-    <a class="btn btn-default button__institution-tab-collections{% if mode == "collections" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'collections' %}">
+    <a class="btn btn-default button__institution-tab-collections{% if mode == "collections" %} button__secondary{% endif %}" 
+      href="{% url 'calisphere:campusView' campus_slug 'collections' %}" data-pjax="js-pageContent">
       Collections at {{ institution.name }}
     </a>
     {% endif %}
   
     {% if campus_slug %}
-    <a class="btn btn-default button__institution-tab-contributors{% if mode == "institutions" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'institutions' %}">
+    <a class="btn btn-default button__institution-tab-contributors{% if mode == "institutions" %} button__secondary{% endif %}" 
+      href="{% url 'calisphere:campusView' campus_slug 'institutions' %}" data-pjax="js-pageContent">
       Contributors at {{ institution.name }}
     </a>
     {% endif %}
   
     {% if repository_id %}
-    <a class="btn btn-default button__institution-tab-search{% if mode == "items" %} button__secondary{% endif %}" href="{% url 'calisphere:repositoryView' repository_id 'items' %}">
+    <a class="btn btn-default button__institution-tab-search{% if mode == "items" %} button__secondary{% endif %}" 
+      href="{% url 'calisphere:repositoryView' repository_id 'items' %}" data-pjax="js-pageContent">
       Search this institution
     </a>
     {% elif campus_slug %}
-    <a class="btn btn-default button__institution-tab-search{% if mode == "items" %} button__secondary{% endif %}" href="{% url 'calisphere:campusView' campus_slug 'items' %}">
+    <a class="btn btn-default button__institution-tab-search{% if mode == "items" %} button__secondary{% endif %}" 
+      href="{% url 'calisphere:campusView' campus_slug 'items' %}" data-pjax="js-pageContent">
       Search {{ institution.name }}
     </a>
     {% endif %}

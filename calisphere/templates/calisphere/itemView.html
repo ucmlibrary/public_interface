@@ -54,6 +54,7 @@
 
 <h2 class="object__page-heading">{{ item.type.0 }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
+<div id="js-objectViewport">
 {% if item.harvest_type == 'harvested' %}
   {% if item.type_ss.0|lower == 'image' %}
     {% include 'calisphere/objectViewer/harvestedImage.html' %}
@@ -72,6 +73,7 @@
   {% elif item.type_ss.0|lower == "complex object"%}
   {% endif %}
 {% endif %}
+</div>
 
 <div class="modal fade" id="citationModal" tabindex="-1" role="dialog" aria-labelledby="citationModalTitle">
   <div class="modal-dialog" role="document">
