@@ -22,6 +22,10 @@ $(document).ready(function() {
     if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0 && qm.has('q')) {
       qm.clear();        
     }
+    
+    if($('#js-facet').length > 0 && facetForm === undefined) {
+      facetForm = new FacetForm({model: qm});
+    }
         
     //if we've gotten to a page with a list of collection mosaics, init infinite scroll
     if($('#js-mosaicContainer').length > 0) {

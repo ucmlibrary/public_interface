@@ -21,6 +21,11 @@ var GlobalSearchForm = Backbone.View.extend({
   
   render: function() {
     if(this.model.has('q')) {
+      //get rid of all other search parameters
+      var q = this.model.get('q');
+      this.model.clear({silent: true});
+      this.model.set({q: q}, {silent: true});
+      //perform the search!
       $.pjax({
         url: $('#js-searchForm').attr('action'),
         container: '#js-pageContent',
@@ -38,13 +43,40 @@ var GlobalSearchForm = Backbone.View.extend({
 
 var FacetForm = Backbone.View.extend({
   initialize: function() {
-    $('#js-facet').on('submit', (function(model) {
+    $(document).on('submit', '#js-facet', (function(model) {
       return function(e) {
-        model.set({rq: $('input[name=rq]').val()});
+        model.set({rq: $.map($('input[name=rq]'), function(el) { return $(el).val(); })});
         e.preventDefault();
       };
     }(this.model)));
+    
+    $(document).on('click', '.js-refine-filter-pill', (function(model) {
+      return function() { 
+        //update html
+        var txtFilter = $(this).data('slug');
+        $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val("");
+        //update model
+        if (_.without(model.get('rq'), txtFilter).length === 0) {
+          model.unset('rq');
+        } else {
+          model.set({rq: _.without(model.get('rq'), txtFilter)});
+        }
+      };
+    }(this.model)));
+    
+    this.listenTo(this.model, 'change:rq', this.render);
   },
+  
+  render: function() {
+    if(this.model.has('q')) {
+      $.pjax({
+        url: $('#js-searchForm').attr('action'),
+        container: '#js-pageContent',
+        data: this.model.toJSON(),
+        traditional: true
+      });
+    }
+  }
 //
 //   bind: function() {
 //     $('#thumbnails').on('click', (function(model) {
