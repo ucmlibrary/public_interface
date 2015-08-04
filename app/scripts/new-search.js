@@ -45,7 +45,7 @@ var FacetForm = Backbone.View.extend({
   initialize: function() {
     $(document).on('submit', '#js-facet', (function(model) {
       return function(e) {
-        model.set({rq: $.map($('input[name=rq]'), function(el) { return $(el).val(); })});
+        model.set({start: 0, rq: $.map($('input[name=rq]'), function(el) { return $(el).val(); })});
         e.preventDefault();
       };
     }(this.model)));
@@ -54,17 +54,91 @@ var FacetForm = Backbone.View.extend({
       return function() { 
         //update html
         var txtFilter = $(this).data('slug');
-        $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val("");
+        $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val('');
         //update model
         if (_.without(model.get('rq'), txtFilter).length === 0) {
-          model.unset('rq');
+          model.set({start: 0, rq: ''});
         } else {
-          model.set({rq: _.without(model.get('rq'), txtFilter)});
+          model.set({start: 0, rq: _.without(model.get('rq'), txtFilter)});
         }
       };
     }(this.model)));
     
-    this.listenTo(this.model, 'change:rq', this.render);
+    $(document).on('change', '.js-facet', (function(model) {
+      return function() {
+        var filterType = $(this).attr('name');
+        var attributes = {start: 0}
+        attributes[filterType] = $.map($('input[name=' + filterType + ']:checked'), function(el) { return $(el).val(); })
+        model.set(attributes);
+      };
+    }(this.model)));
+    
+    $(document).on('click', '.js-filter-pill', (function(model) {
+      return function() {
+        var filter = $(this).data('slug');
+        $('#' + filter).prop('checked', false);
+        var filterType = $('#' + filter).attr('name');
+        var attributes = {start: 0}
+        if (_.without(model.get(filterType), filter).length === 0) {
+          attributes[filterType] = '';
+        } else {
+          attributes[filterType] = _.without(model.get(filterType), filter);
+        }
+        model.set(attributes);
+      };
+    }(this.model)));
+    
+    $(document).on('click', '#thumbnails', (function(model) {
+      return function() { 
+        $('#view_format').prop('value', 'thumbnails');
+        model.set({view_format: 'thumbnails'}); 
+      };
+    }(this.model)));
+    
+    $(document).on('click', '#list', (function(model) {
+      return function() { 
+        $('#view_format').prop('value', 'list');
+        model.set({view_format: 'list'}); 
+      };
+    }(this.model)));
+    
+    $(document).on('change', '#pag-dropdown__sort', (function(model) {
+      return function() {
+        model.set({start: 0, sort: $(this).val() });
+      };
+    }(this.model)));
+    
+    $(document).on('change', '#pag-dropdown__view', (function(model) {
+      return function() {
+        model.set({start: 0, rows: $(this).val() });
+      };
+    }(this.model)));
+    
+    $(document).on('click', '.js-prev, .js-next', (function(model) {
+      return function() {
+        var start = $(this).data('start');
+        $('#start').val(start);
+        model.set({ start: start });
+      };
+    }(this.model)));
+    
+    $(document).on('change', '.pag-dropdown__select--unstyled', (function(model){
+      return function() {
+        var start = $(this).children('option:selected').attr('value');
+        $('#start').val(start);
+        model.set({ start: start });
+      };
+    }(this.model)));
+    
+    $(document).on('click', 'a[data-start]', (function(model){
+      return function() {
+        var start = $(this).data('start');
+        $('#start').val(start);
+        model.set({ start: start });
+      };
+    }(this.model)));
+    
+    this.listenTo(this.model, 'change', this.render);
   },
   
   render: function() {
@@ -77,15 +151,4 @@ var FacetForm = Backbone.View.extend({
       });
     }
   }
-//
-//   bind: function() {
-//     $('#thumbnails').on('click', (function(model) {
-//       return function() { model.set({view_format: 'thumbnails'}); };
-//     }(this.model)));
-//
-//     $('#list').on('click', (function(model) {
-//       return function() { model.set({view_format: 'list'}); };
-//     }(this.model)));
-//
-//   }
 });

@@ -6,16 +6,29 @@
 
 var QueryManager = Backbone.Model.extend({
   
+  defaultValues: {
+    q: '',
+    rq: '',
+    view_format: 'thumbnails',
+    sort: 'relevance', 
+    rows: '16', 
+    start: 0
+  },
+  
   initialize: function() {
     if (sessionStorage.length > 0) {
       this.set({q: sessionStorage.getItem('q')});
       if (sessionStorage.getItem('rq') !== null) { this.set({rq: JSON.parse(sessionStorage.getItem('rq'))}); }
+      if (sessionStorage.getItem('view_format') !== null) { this.set({view_format: sessionStorage.getItem('view_format')}); }
+      if (sessionStorage.getItem('sort') !== null) { this.set({sort: sessionStorage.getItem('sort')}); }
+      if (sessionStorage.getItem('rows') !== null) { this.set({rows: sessionStorage.getItem('rows')}); }
+      if (sessionStorage.getItem('start') !== null) { this.set({start: sessionStorage.getItem('start')}); }
     }
   },
   
   setSessionStorage: function(value, key) {
-    if (key == 'rq') {
-      sessionStorage.setItem('rq', JSON.stringify(value));
+    if (_.isArray(key)) {
+      sessionStorage.setItem(key, JSON.stringify(value));
     } else {
       sessionStorage.setItem(key, value);
     }
@@ -24,17 +37,41 @@ var QueryManager = Backbone.Model.extend({
   unsetSessionStorage: function(key) {
     sessionStorage.removeItem(key);
   },
-  
-  set: function(attributes) {
-    Backbone.Model.prototype.set.apply(this, arguments);
-    _.each(attributes, this.setSessionStorage);
+    
+  set: function(key, value, options) {
+    if (key == null) return this;
+    
+    var attrs
+    if (typeof key === 'object') {
+      attrs = key;
+      options = value;
+    } else {
+      (attrs = {})[key] = value;
+    }
+    options || (options = {});
+        
+    // if we're setting an attribute to default, remove it from the list
+    _.each(attrs, (function(that) {
+      return function(value, key, list) {
+        if (that.defaultValues[key] !== undefined && that.defaultValues[key] === value) {
+          delete list[key];
+          that.unsetSessionStorage(key);
+          if (_.isEmpty(list)) {
+            that.unset(key);
+          } else {
+            that.unset(key, {silent: true});
+          }
+        }
+      };
+    }(this)));
+        
+    Backbone.Model.prototype.set.apply(this, [attrs, options]);
+    
+    if (!options.unset) {
+      _.each(attrs, this.setSessionStorage);
+    }
   },
-  
-  unset: function(attributes) {
-    Backbone.Model.prototype.unset.apply(this, arguments);
-    this.unsetSessionStorage(attributes);
-  },
-  
+    
   clear: function(options) {
     Backbone.Model.prototype.clear.apply(this, arguments);
     sessionStorage.clear();
