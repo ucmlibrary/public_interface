@@ -11,10 +11,7 @@
 
 }
 
-.carousel-complex__link {
-  display: block;
-  position: relative;
-}
+// ***** Fixed Parent-level Thumbnail ***** //
 
 .carousel-complex__fixed-item {
   float: left;
@@ -56,6 +53,8 @@
   line-height: 1;
 }
 
+// ***** Complex Carousel Thumbnails ***** //
+
 .carousel-complex__item-container {
   margin: 0 0 0 90px;
   border-left: 2px solid $design-dark-gray-color;
@@ -78,6 +77,18 @@
 
 }
 
+.carousel-complex__link {
+  display: block;
+}
+
+.carousel-complex__link--no-image {
+  display: block;
+  position: relative;
+  min-width: 80px;
+  height: 80px;
+  border: 1px solid $design-dark-gray-color;
+}
+
 .carousel-complex__item--selected {
   @extend .carousel-complex__item;
   opacity: 1;
@@ -90,15 +101,6 @@
 .carousel-complex img {
   width: 100%;
   height: 80px;
-}
-
-.carousel-complex__img--no-image {
-  @include thumbview__no-image($design-dark-gray-color); // (border-color)
-}
-
-.carousel-complex__img--no-image--selected {
-  @extend .carousel-complex__img--no-image;
-  border: 5px solid $design-dark-gray-color;
 }
 
 .carousel-complex__item-img--selected {
