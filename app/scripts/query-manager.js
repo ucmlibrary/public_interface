@@ -18,11 +18,17 @@ var QueryManager = Backbone.Model.extend({
   initialize: function() {
     if (sessionStorage.length > 0) {
       this.set({q: sessionStorage.getItem('q')});
+      for (var key in sessionStorage) {
+        console.log(key);
+        console.log(sessionStorage.getItem(key));
+      }
       if (sessionStorage.getItem('rq') !== null) { this.set({rq: JSON.parse(sessionStorage.getItem('rq'))}); }
       if (sessionStorage.getItem('view_format') !== null) { this.set({view_format: sessionStorage.getItem('view_format')}); }
       if (sessionStorage.getItem('sort') !== null) { this.set({sort: sessionStorage.getItem('sort')}); }
       if (sessionStorage.getItem('rows') !== null) { this.set({rows: sessionStorage.getItem('rows')}); }
       if (sessionStorage.getItem('start') !== null) { this.set({start: sessionStorage.getItem('start')}); }
+      if (sessionStorage.getItem('type_ss') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('type_ss'))}); }
+      if (sessionStorage.getItem('repository_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('repository_data'))}); }
     }
   },
   
@@ -39,28 +45,31 @@ var QueryManager = Backbone.Model.extend({
   },
     
   set: function(key, value, options) {
-    if (key == null) return this;
+    if (key === null) { return this; }
     
-    var attrs
+    var attrs;
     if (typeof key === 'object') {
       attrs = key;
       options = value;
     } else {
       (attrs = {})[key] = value;
     }
+    
     options || (options = {});
         
     // if we're setting an attribute to default, remove it from the list
     _.each(attrs, (function(that) {
       return function(value, key, list) {
-        if (that.defaultValues[key] !== undefined && that.defaultValues[key] === value) {
-          delete list[key];
-          that.unsetSessionStorage(key);
-          if (_.isEmpty(list)) {
-            that.unset(key);
-          } else {
-            that.unset(key, {silent: true});
-          }
+        if (value !== undefined) {
+          if ((that.defaultValues[key] !== undefined && that.defaultValues[key] === value) || value.length === 0) {
+            delete list[key];
+            that.unsetSessionStorage(key);
+            if (_.isEmpty(list)) {
+              that.unset(key);
+            } else {
+              that.unset(key, {silent: true});
+            }
+          }          
         }
       };
     }(this)));
@@ -72,7 +81,7 @@ var QueryManager = Backbone.Model.extend({
     }
   },
     
-  clear: function(options) {
+  clear: function() {
     Backbone.Model.prototype.clear.apply(this, arguments);
     sessionStorage.clear();
   }  

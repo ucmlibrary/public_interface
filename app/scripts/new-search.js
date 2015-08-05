@@ -67,23 +67,28 @@ var FacetForm = Backbone.View.extend({
     $(document).on('change', '.js-facet', (function(model) {
       return function() {
         var filterType = $(this).attr('name');
-        var attributes = {start: 0}
-        attributes[filterType] = $.map($('input[name=' + filterType + ']:checked'), function(el) { return $(el).val(); })
+        var attributes = {start: 0};
+        attributes[filterType] = $.map($('input[name=' + filterType + ']:checked'), function(el) { return $(el).val(); });
         model.set(attributes);
       };
     }(this.model)));
     
     $(document).on('click', '.js-filter-pill', (function(model) {
       return function() {
-        var filter = $(this).data('slug');
-        $('#' + filter).prop('checked', false);
-        var filterType = $('#' + filter).attr('name');
-        var attributes = {start: 0}
-        if (_.without(model.get(filterType), filter).length === 0) {
-          attributes[filterType] = '';
-        } else {
-          attributes[filterType] = _.without(model.get(filterType), filter);
+        var filter_slug = $(this).data('slug');
+        if (typeof filter_slug !== 'string') {
+          filter_slug = String(filter_slug);
         }
+        $('#' + filter_slug).prop('checked', false);
+        var filterType = $('#' + filter_slug).attr('name');
+        var filter = $('#' + filter_slug).attr('value');
+        var attributes = {start: 0};
+        // if (_.without(model.get(filterType), filter).length === 0) {
+        //   attributes[filterType] = '';
+        // } else {
+        attributes[filterType] = _.without(model.get(filterType), filter);
+        // }
+
         model.set(attributes);
       };
     }(this.model)));
