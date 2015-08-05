@@ -16,7 +16,7 @@
   position: relative;
 }
 
-.carousel-complex__item-fixed {
+.carousel-complex__fixed-item {
   float: left;
   width: 80px;
   height: 80px;
@@ -27,7 +27,7 @@
 
 }
 
-.carousel-complex__item-link {
+.carousel-complex__fixed-link {
   display: block;
   position: relative;
   background-color: #fff;
@@ -41,12 +41,12 @@
 
 }
 
-.carousel-complex__item-link--selected {
-  @extend .carousel-complex__item-link;
+.carousel-complex__fixed-link--selected {
+  @extend .carousel-complex__fixed-link;
   border: 5px solid $design-primary-color;
 }
 
-.carousel-complex__item-fixed-content {
+.carousel-complex__fixed-content {
   position: absolute;
   top: 50%;
   left: 50%;
