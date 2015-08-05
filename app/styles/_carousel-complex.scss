@@ -11,6 +11,11 @@
 
 }
 
+.carousel-complex__link {
+  display: block;
+  position: relative;
+}
+
 .carousel-complex__item-fixed {
   float: left;
   width: 80px;
@@ -20,6 +25,35 @@
     margin: 0 0 0 ($layout-component-margin * 2);
   }
 
+}
+
+.carousel-complex__item-link {
+  display: block;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid $design-primary-color;
+
+  &:before { // fill box to 100% of container (maybe use to replace  transparent.png method some day!)
+    display: block;
+    padding-bottom: 100%;
+    content: "";
+  }
+
+}
+
+.carousel-complex__item-link--selected {
+  @extend .carousel-complex__item-link;
+  border: 5px solid $design-primary-color;
+}
+
+.carousel-complex__item-fixed-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.3em;
+  line-height: 1;
 }
 
 .carousel-complex__item-container {
@@ -67,21 +101,6 @@
   border: 5px solid $design-dark-gray-color;
 }
 
-.carousel-complex__img-fixed--no-image {
-  @include thumbview__no-image($design-dark-gray-color); // (border-color)
-  border: 1px solid $design-dark-gray-color;
-}
-
-.carousel-complex__img-fixed--no-image--selected {
-  @extend .carousel-complex__img-fixed--no-image;
-  border: 5px solid $design-dark-gray-color;
-}
-
 .carousel-complex__item-img--selected {
   border: 5px solid $design-primary-color;
-}
-
-.carousel-complex__link {
-  display: block;
-  position: relative;
 }
