@@ -61,7 +61,7 @@ $(document).ready(function() {
   }
   
   $('#js-global-header-logo').on('click', function() {
-    if (qm.has('q')) {
+    if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
       qm.clear();
     }
   });
