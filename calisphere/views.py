@@ -186,7 +186,7 @@ def processQueryRequest(request):
     # concatenate query terms from refine query and query box, set defaults
     q = request.GET['q'] if 'q' in request.GET else ''
     rq = request.GET.getlist('rq')
-    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
+    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if ('q' in request.GET or 'rq' in request.GET) else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '16'
     start = request.GET['start'] if 'start' in request.GET and request.GET['start'] != '' else '0'
     sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'

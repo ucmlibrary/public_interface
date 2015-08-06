@@ -1,3 +1,4 @@
+/*global _*/
 /*global QueryManager */
 /*global GlobalSearchForm */
 /*global FacetForm */
@@ -19,8 +20,8 @@ $(document).ready(function() {
 
   $(document).on('pjax:end', '#js-pageContent', function() {
     //if we've gotten to a page without search context, clear the query manager
-    if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0 && qm.has('q')) {
-      qm.clear();        
+    if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
+      qm.clear({silent: true});        
     }
     
     if($('#js-facet').length > 0 && facetForm === undefined) {
@@ -48,15 +49,15 @@ $(document).ready(function() {
   globalSearchForm = new GlobalSearchForm({model: qm});
   
   if($('#js-facet').length > 0) {
-    if($('#js-institution').length > 0) {
-      if($('#js-institution').data('campus')) {
-        qm.set({campus: $('#js-institution').data('campus')}, {silent: true});
-      } else {
-        qm.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
-      }
-    } else if ($('#js-collection').length > 0) {
-      qm.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
-    }
+    // if($('#js-institution').length > 0) {
+    //   if($('#js-institution').data('campus')) {
+    //     qm.set({campus: $('#js-institution').data('campus')}, {silent: true});
+    //   } else {
+    //     qm.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
+    //   }
+    // } else if ($('#js-collection').length > 0) {
+    //   qm.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
+    // }
     facetForm = new FacetForm({model: qm});
   }
   

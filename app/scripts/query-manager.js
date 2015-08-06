@@ -39,7 +39,7 @@ var QueryManager = Backbone.Model.extend({
   },
   
   setSessionStorage: function(value, key) {
-    if (_.isArray(key)) {
+    if (_.isArray(value)) {
       sessionStorage.setItem(key, JSON.stringify(value));
     } else {
       sessionStorage.setItem(key, value);

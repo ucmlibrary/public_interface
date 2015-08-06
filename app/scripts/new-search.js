@@ -56,11 +56,11 @@ var FacetForm = Backbone.View.extend({
         var txtFilter = $(this).data('slug');
         $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val('');
         //update model
-        if (_.without(model.get('rq'), txtFilter).length === 0) {
-          model.set({start: 0, rq: ''});
-        } else {
-          model.set({start: 0, rq: _.without(model.get('rq'), txtFilter)});
-        }
+        // if (_.without(model.get('rq'), txtFilter).length === 0) {
+        //   model.set({start: 0, rq: ''});
+        // } else {
+        model.set({start: 0, rq: _.without(model.get('rq'), txtFilter)});
+        // }
       };
     }(this.model)));
     
@@ -143,7 +143,7 @@ var FacetForm = Backbone.View.extend({
   },
   
   render: function() {
-    if(!_.isEmpty(this.model.attributes)) {
+    if(!_.isEmpty(this.model.changed) && !_.has(this.model.changed, 'q')) {
       $.pjax({
         url: $('#js-facet').attr('action'),
         container: '#js-pageContent',
