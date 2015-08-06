@@ -17,18 +17,24 @@ var QueryManager = Backbone.Model.extend({
   
   initialize: function() {
     if (sessionStorage.length > 0) {
-      this.set({q: sessionStorage.getItem('q')});
-      for (var key in sessionStorage) {
-        console.log(key);
-        console.log(sessionStorage.getItem(key));
-      }
+      // this.set({q: sessionStorage.getItem('q')});
+      // for (var key in sessionStorage) {
+      //   this.set(key, sessionStorage.getItem(key))
+      //   console.log(key);
+      //   console.log(sessionStorage.getItem(key));
+      // }
+      if (sessionStorage.getItem('q') !== null) { this.set({q: sessionStorage.getItem('q')}); }
       if (sessionStorage.getItem('rq') !== null) { this.set({rq: JSON.parse(sessionStorage.getItem('rq'))}); }
       if (sessionStorage.getItem('view_format') !== null) { this.set({view_format: sessionStorage.getItem('view_format')}); }
       if (sessionStorage.getItem('sort') !== null) { this.set({sort: sessionStorage.getItem('sort')}); }
       if (sessionStorage.getItem('rows') !== null) { this.set({rows: sessionStorage.getItem('rows')}); }
       if (sessionStorage.getItem('start') !== null) { this.set({start: sessionStorage.getItem('start')}); }
+      
       if (sessionStorage.getItem('type_ss') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('type_ss'))}); }
+      if (sessionStorage.getItem('facet_decade') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('facet_decade'))}); }      
       if (sessionStorage.getItem('repository_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('repository_data'))}); }
+      if (sessionStorage.getItem('collection_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('collection_data'))}); }
+
     }
   },
   

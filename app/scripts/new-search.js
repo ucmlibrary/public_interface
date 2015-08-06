@@ -83,11 +83,7 @@ var FacetForm = Backbone.View.extend({
         var filterType = $('#' + filter_slug).attr('name');
         var filter = $('#' + filter_slug).attr('value');
         var attributes = {start: 0};
-        // if (_.without(model.get(filterType), filter).length === 0) {
-        //   attributes[filterType] = '';
-        // } else {
         attributes[filterType] = _.without(model.get(filterType), filter);
-        // }
 
         model.set(attributes);
       };
@@ -147,9 +143,9 @@ var FacetForm = Backbone.View.extend({
   },
   
   render: function() {
-    if(this.model.has('q')) {
+    if(!_.isEmpty(this.model.attributes)) {
       $.pjax({
-        url: $('#js-searchForm').attr('action'),
+        url: $('#js-facet').attr('action'),
         container: '#js-pageContent',
         data: this.model.toJSON(),
         traditional: true
