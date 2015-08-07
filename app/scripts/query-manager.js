@@ -34,6 +34,10 @@ var QueryManager = Backbone.Model.extend({
       if (sessionStorage.getItem('facet_decade') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('facet_decade'))}); }      
       if (sessionStorage.getItem('repository_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('repository_data'))}); }
       if (sessionStorage.getItem('collection_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('collection_data'))}); }
+      
+      if (sessionStorage.getItem('carouselStart') !== null) { this.set({carouselStart: sessionStorage.getItem('carouselStart')}); }
+      if (sessionStorage.getItem('carouselRows') !== null) { this.set({carouselRows: sessionStorage.getItem('carouselRows')}); }
+      if (sessionStorage.getItem('itemId') !== null) { this.set({itemId: sessionStorage.getItem('itemId')}); }
 
     }
   },
@@ -90,5 +94,16 @@ var QueryManager = Backbone.Model.extend({
   clear: function() {
     Backbone.Model.prototype.clear.apply(this, arguments);
     sessionStorage.clear();
-  }  
+  }, 
+  
+  carouselContext: function() {
+    var context = this.toJSON();
+    if ('carouselStart' in context && 'carouselRows' in context) {
+      context.start = context.carouselStart;
+      context.rows = context.carouselRows;
+      delete context.carouselStart;
+      delete context.carouselRows;
+    }
+    return context;
+  }
 });

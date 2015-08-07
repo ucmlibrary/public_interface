@@ -2,10 +2,11 @@
 /*global QueryManager */
 /*global GlobalSearchForm */
 /*global FacetForm */
+/*global CarouselContext */
 
 'use strict'; 
 
-var qm, globalSearchForm, facetForm;
+var qm, globalSearchForm, facetForm, carousel;
 
 $(document).ready(function() {
   $('html').removeClass('no-jquery');
@@ -15,6 +16,9 @@ $(document).ready(function() {
   $(document).on('pjax:beforeReplace', '#js-pageContent', function() {
     if($('#js-mosaicContainer').length > 0) {
       $('#js-mosaicContainer').infinitescroll('destroy');
+    }
+    if(carousel !== undefined) {
+      carousel = undefined;
     }
   });
 
@@ -27,7 +31,11 @@ $(document).ready(function() {
     if($('#js-facet').length > 0 && facetForm === undefined) {
       facetForm = new FacetForm({model: qm});
     }
-        
+    
+    if($('#js-carouselContainer').length > 0 && carousel === undefined) {
+      carousel = new CarouselContext({model: qm});
+    }
+    
     //if we've gotten to a page with a list of collection mosaics, init infinite scroll
     if($('#js-mosaicContainer').length > 0) {
       $('#js-mosaicContainer').infinitescroll({
@@ -49,16 +57,11 @@ $(document).ready(function() {
   globalSearchForm = new GlobalSearchForm({model: qm});
   
   if($('#js-facet').length > 0) {
-    // if($('#js-institution').length > 0) {
-    //   if($('#js-institution').data('campus')) {
-    //     qm.set({campus: $('#js-institution').data('campus')}, {silent: true});
-    //   } else {
-    //     qm.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
-    //   }
-    // } else if ($('#js-collection').length > 0) {
-    //   qm.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
-    // }
     facetForm = new FacetForm({model: qm});
+  }
+  
+  if($('#js-carouselContainer').length > 0 && carousel === undefined) {
+    carousel = new CarouselContext({model: qm});
   }
   
   $('#js-global-header-logo').on('click', function() {

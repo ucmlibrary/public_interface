@@ -2,6 +2,7 @@
 /*global _ */
 /*exported GlobalSearchForm */
 /*exported FacetForm */
+/*exported CarouselContext */
 
 'use strict';
 
@@ -43,6 +44,8 @@ var GlobalSearchForm = Backbone.View.extend({
 
 var FacetForm = Backbone.View.extend({
   initialize: function() {
+    this.carouselRows = 12;
+    
     $(document).on('submit', '#js-facet', (function(model) {
       return function(e) {
         model.set({start: 0, rq: $.map($('input[name=rq]'), function(el) { return $(el).val(); })});
@@ -139,6 +142,35 @@ var FacetForm = Backbone.View.extend({
       };
     }(this.model)));
     
+    $(document).on('click', '.js-item-link', (function(that){
+      return function(e) {
+        if ($(this).data('item_number') !== undefined) {
+          that.model.set({
+            carouselStart: $(this).data('item_number'), 
+            carouselRows: that.carouselRows, 
+            itemId: $(this).data('item_id')
+          }, {silent: true});
+          
+          // add implicit context for campus, institution, and collection pages
+          if($('#js-institution').length > 0) {
+            if($('#js-institution').data('campus')) {
+              that.model.set({campus: $('#js-institution').data('campus')}, {silent: true});
+            } else {
+              that.model.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
+            }
+          } else if ($('#js-collection').length > 0) {
+            that.model.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
+          }
+          
+          e.preventDefault();
+          $.pjax({
+            url: $(this).attr('href'),
+            container: '#js-pageContent'
+          });
+        }
+      };
+    }(this)));
+    
     this.listenTo(this.model, 'change', this.render);
   },
   
@@ -151,5 +183,74 @@ var FacetForm = Backbone.View.extend({
         traditional: true
       });
     }
+  }
+});
+
+var CarouselContext = Backbone.View.extend({
+  initialize: function() {
+    $('#js-linkBack').html('<a href="/search/">Search results for ' + this.model.get('q') + '</a>');
+    $(document).on('click', '#js-linkBack a', (function(that){
+      return function(e) {
+        that.model.unset('carouselStart', {silent: true});
+        that.model.unset('carouselRows', {silent: true});
+        that.model.unset('itemId', {silent: true});
+        e.preventDefault();
+        $.pjax({
+          url: $(this).attr('href'),
+          container: '#js-pageContent',
+          data: that.model.toJSON(),
+          traditional: true
+        });        
+      };
+    }(this)));
+    
+    var conf = {
+      infinite: false,
+      speed: 300,
+      slidesToShow: 10,
+      slidesToScroll: 6,
+      variableWidth: true,
+      lazyLoad: 'ondemand',
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            infinite: true,
+            // slidesToShow: 8,
+            slidesToScroll: 8,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            infinite: true,
+            // slidesToShow: 6,
+            slidesToScroll: 6,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 650,
+          settings: {
+            infinite: true,
+            // slidesToShow: 4,
+            slidesToScroll: 4,
+            variableWidth: true
+          }
+        }
+      ]
+    };    
+    
+    $.ajax({
+      url: '/carousel/',
+      data: this.model.carouselContext(), 
+      traditional: true, 
+      success: function(data, status, jqXHR) {
+        $('#js-carousel').html(data);
+        $('.carousel').show();
+        $('.carousel').slick(conf);
+      }
+    });
   }
 });

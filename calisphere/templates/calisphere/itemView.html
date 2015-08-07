@@ -6,7 +6,7 @@
 {% block content %}
 
 <div id="js-carouselContainer">
-  <div class="carousel__search-results">
+  <div class="carousel__search-results" id="js-linkBack">
     {% if q %}
     Search results for "{{ q }}"
     {% endif %}
@@ -16,23 +16,7 @@
     {{ numFound }} items found.
   </div>
 
-  <form id="js-carousel" data-numfound="{{ numFound }}">
-    <input type="hidden" name="q" value="{{ q }}" form="js-carousel">
-    {% for refine in rq %}
-    <input type="hidden" name="rq" value="{{ refine }}" form="js-carousel">
-    {% endfor %}
-    {% for filter_type in filters %}
-      {% for filter in filters|get_item:filter_type %}
-        {% if filter_type == 'collection_data' or filter_type == 'repository_data' %}
-          <input type="hidden" class="js-filterType" name="{{ filter_type }}" value="{{ filter.id }}" form="js-carousel">
-        {% else %}
-          <input type="hidden" class="js-filterType" name="{{ filter_type }}" value="{{ filter|slugify }}" form="js-carousel">
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-  </form>
-
-  <div class="carousel" data-carousel_start="{{ start }}">
+  <div class="carousel" id="js-carousel" data-carousel_start="{{ start }}">
     {% include "calisphere/carousel.html" %}
   </div>
 </div>

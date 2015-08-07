@@ -404,14 +404,17 @@ def search(request):
     return render (request, 'calisphere/home.html', {'q': ''})
 
 def itemViewCarousel(request, queryParams={}):
-    if not queryParams:
-        if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-            queryParams = processQueryRequest(request)
-
-        ajaxRequest = True
-        queryParams['rows'] = 6
-    else:
-        ajaxRequest = False
+    # if not queryParams:
+    #     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+    #         queryParams = processQueryRequest(request)
+    #
+    #     ajaxRequest = True
+    #     queryParams['rows'] = 6
+    # else:
+    #     ajaxRequest = False
+    
+    queryParams = processQueryRequest(request)
+    item_id = request.GET['itemId'];
     
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
@@ -444,15 +447,16 @@ def itemViewCarousel(request, queryParams={}):
     if len(carousel_solr_search.results) == 0:
         print 'no results found'
     
-    if ajaxRequest:
-        return render(request, 'calisphere/carousel.html', {
-            'q': queryParams['q'],
-            'start': queryParams['start'],
-            'numFound': carousel_solr_search.numFound,
-            'search_results': carousel_solr_search.results,
-        })
+    # if ajaxRequest:
+    return render(request, 'calisphere/carousel.html', {
+        'q': queryParams['q'],
+        'start': queryParams['start'],
+        'numFound': carousel_solr_search.numFound,
+        'search_results': carousel_solr_search.results,
+        'item_id': item_id
+    })
 
-    return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
+    # return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
 
 def relatedCollections(request, queryParams={}):
     if not queryParams:
