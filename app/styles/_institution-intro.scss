@@ -1,10 +1,10 @@
 // ##### Institution Intro Component ##### //
 
 .institution-intro {
-  
+  overflow: hidden;
+
   @include bp(sm-screen) {
     border: 1px solid $design-dark-gray-color;
-    overflow: hidden;
   }
 
 }
