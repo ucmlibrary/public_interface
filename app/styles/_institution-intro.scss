@@ -26,7 +26,7 @@
   text-align: right;
 }
 
-.institutional-intro__list {
+.institution-intro__list {
   margin: $layout-component-margin;
   padding: 0;
 }
@@ -70,7 +70,7 @@
   font-weight: bold;
 }
 
-.institutional-intro__list-item {
+.institution-intro__list-item {
   list-style: none;
 }
 
@@ -78,6 +78,6 @@
   @extend .icon__external-link;
 }
 
-.institutional-intro__description {
+.institution-intro__description {
   margin: $layout-component-margin $layout-component-margin $layout-component-margin $layout-component-margin;
 }

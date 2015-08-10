@@ -54,7 +54,7 @@
               <li class="institution-intro__location-list">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
             {% endif %}
             {% if contact_information.url %}
-              <li class="institution-intro__location-list">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
+              <li class="institution-intro__location-list">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
             {% endif %}
           </ul>
 
@@ -62,7 +62,7 @@
         </div>
 
         {% if contact_information.description %}
-        <!-- <p class="institutional-intro__description"> -->
+        <!-- <p class="institution-intro__description"> -->
           <!-- {{ contact_information.description }} -->
           <!-- <a class="institution-intro__web-link" href="">Read More</a> -->
         <!-- </p> -->
@@ -76,18 +76,18 @@
     {% elif repository_id and uc_institution %}
       <div class="col-md-3">
         <h2 class="institution-intro__heading">{{ institution.name }} <br> {{ uc_institution.0.name }}</h2>
-        <ul class="institutional-intro__list">
+        <ul class="institution-intro__list">
           {% if contact_information.city %}
-            <li class="institutional-intro__list-item">Location: {{ contact_information.city }}, CA</li>
+            <li class="institution-intro__list-item">Location: {{ contact_information.city }}, CA</li>
           {% endif %}
           {% if contact_information.phone %}
-            <li class="institutional-intro__list-item">Phone: {{ contact_information.phone }}</li>
+            <li class="institution-intro__list-item">Phone: {{ contact_information.phone }}</li>
           {% endif %}
           {% if contact_information.email %}
-            <li class="institutional-intro__list-item">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
+            <li class="institution-intro__list-item">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
           {% endif %}
           {% if contact_information.url %}
-            <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
+            <li class="institution-intro__list-item">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
         <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
@@ -96,7 +96,7 @@
       </div>
       <div class="col-md-9">
         {% if contact_information.description %}
-          <p class="institutional-intro__description">
+          <p class="institution-intro__description">
             {{ contact_information.description }}
             <!-- <a class="institution-intro__web-link" href="">Read More</a> -->
           </p>
@@ -117,18 +117,18 @@
       </div>
       <div class="col-md-3">
         <h2 class="institution-intro__heading">{{ institution.name }}</h2>
-        <ul class="institutional-intro__list">
+        <ul class="institution-intro__list">
           {% if contact_information.city %}
-            <li class="institutional-intro__list-item">Location: {{ contact_information.city }}, CA</li>
+            <li class="institution-intro__list-item">Location: {{ contact_information.city }}, CA</li>
           {% endif %}
           {% if contact_information.phone %}
-            <li class="institutional-intro__list-item">Phone: {{ contact_information.phone }}</li>
+            <li class="institution-intro__list-item">Phone: {{ contact_information.phone }}</li>
           {% endif %}
           {% if contact_information.email %}
-            <li class="institutional-intro__list-item">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
+            <li class="institution-intro__list-item">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
           {% endif %}
           {% if contact_information.url %}
-            <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
+            <li class="institution-intro__list-item">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
         <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
@@ -137,7 +137,7 @@
       </div>
       <div class="col-md-6">
         {% if contact_information.description %}
-          <p class="institutional-intro__description">
+          <p class="institution-intro__description">
             {{ contact_information.description }}
             <!-- <a class="institution-intro__web-link" href="">Read More</a> -->
           </p>
@@ -150,18 +150,18 @@
     {% else %}
       <div class="col-md-3">
         <h2 class="institution-intro__heading">{{ institution.name }}</h2>
-        <ul class="institutional-intro__list">
+        <ul class="institution-intro__list">
           {% if contact_information.city %}
-            <li class="institutional-intro__list-item">Location: {{ contact_information.city }}, CA</li>
+            <li class="institution-intro__list-item">Location: {{ contact_information.city }}, CA</li>
           {% endif %}
           {% if contact_information.phone %}
-            <li class="institutional-intro__list-item">Phone: {{ contact_information.phone }}</li>
+            <li class="institution-intro__list-item">Phone: {{ contact_information.phone }}</li>
           {% endif %}
           {% if contact_information.email %}
-            <li class="institutional-intro__list-item">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
+            <li class="institution-intro__list-item">Email: <a href="mailto:{{ contact_information.email }}">{{ contact_information.email }}</a></li>
           {% endif %}
           {% if contact_information.url %}
-            <li class="institutional-intro__list-item">Website: <a class="institutional-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
+            <li class="institution-intro__list-item">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
         <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
@@ -170,7 +170,7 @@
       </div>
       <div class="col-md-9">
         {% if contact_information.description %}
-          <p class="institutional-intro__description">
+          <p class="institution-intro__description">
             {{ contact_information.description }}
             <!-- <a class="institution-intro__web-link" href="">Read More</a> -->
           </p>
