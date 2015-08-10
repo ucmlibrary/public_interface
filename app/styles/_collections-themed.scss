@@ -50,19 +50,30 @@
 
 .themed__hosted-box {
   display: flex;
+  flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
   margin: $layout-component-margin 0;
   padding: $layout-component-margin;
   color: #fff;
   background: $design-primary-color;
+
+  @include bp(sm-screen) {
+    flex-flow: row nowrap;
+  }
+  
 }
 
 .themed__hosted-button {
   @extend .icon__external-link;
-  margin: 0 0 0 $layout-component-margin;
+  margin: 1em 0 0 0;
   color: $design-primary-color;
   border-color: $design-primary-color;
+
+  @include bp(sm-screen) {
+    margin: 0 0 0 $layout-component-margin;
+  }
+
 }
 
 .themed__hosted-text {
