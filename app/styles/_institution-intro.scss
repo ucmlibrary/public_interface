@@ -51,7 +51,16 @@
 
 .institution-intro__logo--uc {
   @extend .institution-intro__logo;
+  padding: $layout-component-margin 0 0 0;
+
+  @include bp(sm-screen) {
+    padding: $layout-component-margin 0 0 $layout-component-margin;
+  }
+
+  @include bp(md-screen) {
   padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+  }
+
 }
 
 .institution-intro__location {
@@ -61,7 +70,12 @@
 
 .institution-intro__location--uc {
   @extend .institution-intro__location;
-  margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+  margin: $layout-component-margin 0;
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+  }
+
 }
 
 .institution-intro__location-list {
