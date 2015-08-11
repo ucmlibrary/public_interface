@@ -1,8 +1,5 @@
-/*global Backbone */
-/*global _ */
-/*exported GlobalSearchForm */
-/*exported FacetForm */
-/*exported CarouselContext */
+/*global Backbone, _, DESKTOP */
+/*exported GlobalSearchForm, FacetForm, CarouselContext */
 
 'use strict';
 
@@ -232,7 +229,8 @@ var FacetForm = Backbone.View.extend({
       return function() {
         var data_params = model.toJSON();
         data_params.rc_page = $(this).data('rc_page');
-        $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(data, status, jqXHR) {
+        //TODO: function(data, status, jqXHR)
+        $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(data) {
             $('#js-relatedCollections').html(data);
           }
         });
@@ -348,11 +346,12 @@ var CarouselContext = Backbone.View.extend({
       ]
     };    
     
+    //TODO: function(data, status, jqXHR)
     $.ajax({
       url: '/carousel/',
       data: this.model.carouselContext(), 
       traditional: true, 
-      success: function(data, status, jqXHR) {
+      success: function(data) {
         $('#js-carousel').html(data);
         $('.carousel').show();
         $('.carousel').slick(conf);
@@ -364,7 +363,7 @@ var CarouselContext = Backbone.View.extend({
       return function(event, slick, currentSlide, nextSlide){
         var numFound = $('.js-carousel_item').data('numfound');
         var numLoaded = $('.carousel').slick('getSlick').slideCount;
-        var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
+        // var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
 
         if (numLoaded < numFound && nextSlide > currentSlide) {
 
@@ -372,7 +371,8 @@ var CarouselContext = Backbone.View.extend({
           data_params.start = parseInt(that.model.get('carouselStart')) + parseInt(that.model.get('carouselRows'));
           that.model.set({carouselStart: data_params.start}, {silent: true});
 
-          $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(data, status, jqXHR) {
+          // function(data, status, jqXHR)
+          $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(data) {
               $('.carousel').slick('slickAdd', data);
           }});
         }

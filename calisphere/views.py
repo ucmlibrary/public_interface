@@ -262,8 +262,13 @@ def itemView(request, item_id=''):
                     item['selectedComponent'] = component
                 else: 
                     item['selected'] = True
+                    # if parent content file, get it
                     if 'format' in structmap_data:
                         item['contentFile'] = getHostedContentFile(structmap_data)
+                    # otherwise get first component file
+                    else:
+                        component = structmap_data['structMap'][0]
+                        item['contentFile'] = getHostedContentFile(component)
                 item['structMap'] = structmap_data['structMap']
             else: 
                 # simple object

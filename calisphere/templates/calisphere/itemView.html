@@ -34,7 +34,8 @@
   {% if item.parsed_collection_data %}
      <a href="{% url 'calisphere:collectionView' item.parsed_collection_data.0.id %}">{{ item.parsed_collection_data.0.name }}</a>
   {% endif %}
-   > {{ item.title.0 }}</p>
+   > {{ item.title.0 }}
+</p>
 
 <h2 class="object__page-heading">{{ item.type.0 }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:7 }}</strong></h2>
 
@@ -425,6 +426,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
 {% endblock %}
 
 {% block footerScripts %}
+<!--TODO: move this into JS file, no longer need to get the context via the template context -->
   <script type="text/javascript">
     var conf = {
       infinite: false,
@@ -485,7 +487,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
             $.pjax({
               type: 'GET',
               url: $(this).attr('href'),
-              container: query.resultsContainer,
+              container: $('#js-pageContent'),
               data: data_params,
               traditional: true
             });
