@@ -35,6 +35,7 @@ var QueryManager = Backbone.Model.extend({
       if (sessionStorage.getItem('repository_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('repository_data'))}); }
       if (sessionStorage.getItem('collection_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('collection_data'))}); }
       
+      if (sessionStorage.getItem('itemNumber') !== null) { this.set({itemNumber: sessionStorage.getItem('itemNumber')}); }
       if (sessionStorage.getItem('carouselStart') !== null) { this.set({carouselStart: sessionStorage.getItem('carouselStart')}); }
       if (sessionStorage.getItem('carouselRows') !== null) { this.set({carouselRows: sessionStorage.getItem('carouselRows')}); }
       if (sessionStorage.getItem('itemId') !== null) { this.set({itemId: sessionStorage.getItem('itemId')}); }
