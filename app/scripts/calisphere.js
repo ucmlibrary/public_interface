@@ -2,7 +2,7 @@
 /*global QueryManager */
 /*global GlobalSearchForm */
 /*global FacetForm */
-/*global CarouselContext */
+/*global CarouselContext, ComplexCarousel */
 
 'use strict'; 
 
@@ -12,7 +12,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, DESKTOP;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP;
 
 $(document).ready(function() {
   $('html').removeClass('no-jquery');
@@ -29,8 +29,15 @@ $(document).ready(function() {
     if($('#js-mosaicContainer').length > 0) {
       $('#js-mosaicContainer').infinitescroll('destroy');
     }
+    if(viewer !== undefined) {
+      viewer.destroy();
+      viewer = null;
+    }
     if(carousel !== undefined) {
-      carousel = undefined;
+      carousel.remove();
+    }
+    if(complexCarousel !== undefined) {
+      complexCarousel.remove();
     }
   });
 
@@ -58,8 +65,12 @@ $(document).ready(function() {
       });
     }
     
-    if($('#js-carouselContainer').length > 0 && carousel === undefined) {
+    if($('#js-carouselContainer').length > 0) {
       carousel = new CarouselContext({model: qm});
+    }
+    
+    if($('.carousel-complex').length > 0) {
+      complexCarousel = new ComplexCarousel({model: qm});
     }
     
     //if we've gotten to a page with a list of collection mosaics, init infinite scroll
@@ -92,6 +103,10 @@ $(document).ready(function() {
   
   if($('#js-carouselContainer').length > 0 && carousel === undefined) {
     carousel = new CarouselContext({model: qm});
+  }
+  
+  if($('.carousel-complex').length > 0 && complexCarousel === undefined) {
+    complexCarousel = new ComplexCarousel({model: qm});
   }
   
   $('#js-global-header-logo').on('click', function() {

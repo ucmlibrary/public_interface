@@ -1,5 +1,5 @@
 /*global Backbone, _, DESKTOP */
-/*exported GlobalSearchForm, FacetForm, CarouselContext */
+/*exported GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel */
 
 'use strict';
 
@@ -382,6 +382,66 @@ var CarouselContext = Backbone.View.extend({
         //
         // $('.carousel__items-number').text('Displaying ' + (parseInt(nextSlide)+1) + ' - ' + slideRange + ' of ' + numFound);
 
+      };
+    }(this)));
+  }
+});
+
+var ComplexCarousel = Backbone.View.extend({
+  initialize: function() {
+    var conf = {
+      infinite: false,
+      speed: 300,
+      slidesToShow: 20,
+      slidesToScroll: 6,
+      variableWidth: true,
+      lazyLoad: 'ondemand',
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            infinite: true,
+            // slidesToShow: 8,
+            slidesToScroll: 8,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            infinite: true,
+            // slidesToShow: 6,
+            slidesToScroll: 6,
+            variableWidth: true
+          }
+        },
+        {
+          breakpoint: 650,
+          settings: {
+            infinite: true,
+            // slidesToShow: 4,
+            slidesToScroll: 4,
+            variableWidth: true
+          }
+        }
+      ]
+    };
+    
+    $('.carousel-complex').show();
+    $('.carousel-complex__item-container').slick(conf);
+
+    $(document).on('click', '.js-component-link', (function(that) {
+      return function(event) {
+        var data_params = {order: $(this).data('item_id')};
+        
+        event.preventDefault();
+        $.pjax({
+          type: 'GET',
+          url: $(this).attr('href'),
+          container: $('#js-pageContent'),
+          data: data_params,
+          traditional: true
+        });
       };
     }(this)));
   }

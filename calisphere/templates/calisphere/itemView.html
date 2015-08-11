@@ -247,7 +247,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
       <a class="btn btn-xs obj-buttons__download-image" href="javascript: void(0)" data-toggle="modal" data-target="#downloadModal">
         <span class="icon__download-image">
           <span class="fa fa-arrow-circle-o-down"></span>
-        </span> Download {{ item.type.0 }}
+        </span> Download {% if item.structMap %}page{% else %}{{ item.type.0 }}{% endif %}
       </a>
     {% endif %}
 
@@ -262,7 +262,7 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
     {% if item.structMap and item.selected == True %}
       Set Information.
     {% else %}
-      Item Information.
+      Page Information. <a href="{% url 'calisphere:itemView' item.id %}">Go to set information.</a>
     {% endif %}
   {% endif %}
 </h3>
@@ -423,77 +423,4 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
   header returned from solr; for debugging
   {{ item_solr_search.header|safe }}
   -->
-{% endblock %}
-
-{% block footerScripts %}
-<!--TODO: move this into JS file, no longer need to get the context via the template context -->
-  <script type="text/javascript">
-    var conf = {
-      infinite: false,
-      speed: 300,
-      slidesToShow: 20,
-      slidesToScroll: 6,
-      variableWidth: true,
-      lazyLoad: 'ondemand',
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            infinite: true,
-            // slidesToShow: 8,
-            slidesToScroll: 8,
-            variableWidth: true
-          }
-        },
-        {
-          breakpoint: 900,
-          settings: {
-            infinite: true,
-            // slidesToShow: 6,
-            slidesToScroll: 6,
-            variableWidth: true
-          }
-        },
-        {
-          breakpoint: 650,
-          settings: {
-            infinite: true,
-            // slidesToShow: 4,
-            slidesToScroll: 4,
-            variableWidth: true
-          }
-        }
-      ]
-    };
-
-    $(document).ready(function() {
-      if ($('.carousel-complex').length > 0) {
-        $('.carousel-complex').show();
-        $('.carousel-complex__item-container').slick(conf);
-
-        $(document).on('click', '.js-component-link', function(query) {
-          return function(event) {
-            var data_params = {
-              'order': $(this).data('item_id'),
-              'q': "{{ q }}",
-              {% if rq|length > 0 %}
-              'rq': "{{ rq }}",
-              {% endif %}
-              'start': "{{ start }}"
-            }
-            for (var i in query.filters) { data_params[i] = query.filters[i]; }
-
-            event.preventDefault();
-            $.pjax({
-              type: 'GET',
-              url: $(this).attr('href'),
-              container: $('#js-pageContent'),
-              data: data_params,
-              traditional: true
-            });
-          }
-        }(query));
-      }
-    });
-  </script>
 {% endblock %}
