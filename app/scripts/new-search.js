@@ -297,6 +297,7 @@ var CarouselContext = Backbone.View.extend({
         that.model.unset('carouselStart', {silent: true});
         that.model.unset('carouselRows', {silent: true});
         that.model.unset('itemId', {silent: true});
+        that.model.unset('itemNumber', {silent: true});
         e.preventDefault();
         $.pjax({
           url: $(this).attr('href'),
