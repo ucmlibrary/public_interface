@@ -100,7 +100,7 @@
 }
 
 .themed__collection-row-text {
-  margin: $layout-container-margin-md 0 0 0;
+  margin: $layout-container-margin-md 0 3.5em 0;
 
   @include bp(sm-screen) {
     margin: 0 $layout-container-margin-md 50px $layout-container-margin-md;
@@ -128,7 +128,7 @@
 
 .themed__collection-row-list {
   padding: 0;
-  margin: 0 0 3.5em 0;
+  margin: -2.5em 0 3.5em 0; // the negative top-margin subtracts out the bottom-margin from .themed__collection-row-text
 
   @include bp(sm-screen) {
     margin: 2.2em 0 0 0;
@@ -145,5 +145,3 @@
   }
 
 }
-
-
