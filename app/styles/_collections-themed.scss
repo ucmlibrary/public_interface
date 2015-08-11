@@ -100,7 +100,12 @@
 }
 
 .themed__collection-row-text {
-  margin: 0 $layout-container-margin-md 50px $layout-container-margin-md;
+  margin: $layout-container-margin-md 0 0 0;
+
+  @include bp(sm-screen) {
+    margin: 0 $layout-container-margin-md 50px $layout-container-margin-md;
+  }
+
 }
 
 .themed__collection-row-heading {
@@ -112,18 +117,33 @@
   @extend .button__dark;
   position: absolute; // to .themed__collection-row
   bottom: 0;
-  left: 25%;
-  margin: 0 $layout-container-margin-md;
-  width: 20%;
+
+  @include bp(sm-screen) {
+    left: 25%;
+    margin: 0 $layout-container-margin-md;
+    width: 20%;
+  }
+
 }
 
 .themed__collection-row-list {
-  margin: 2.2em 0 0 0;
   padding: 0;
+  margin: 0 0 3.5em 0;
+
+  @include bp(sm-screen) {
+    margin: 2.2em 0 0 0;
+  }
+
 }
 
 .themed__collection-row-list-item {
   list-style: none;
+  margin: 0 0 1em 0;
+
+  @include bp(sm-screen) {
+    margin: 0;
+  }
+
 }
 
 
