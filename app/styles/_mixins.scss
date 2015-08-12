@@ -59,6 +59,30 @@
   border: 1px solid $thumb-border;
 }
 
+// ***** Thumbnail Icon Tiles ***** //
+
+@mixin thumbnail__tile-icon($icon-bg-size-md: 80px, $icon-font-size-md: 4em) { // sets the white circle within the container
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $icon-bg-size-md;
+  height: $icon-bg-size-md;
+  background-color: #fff;
+  border-radius: 50%;
+
+  &:before { // sets the icon within the white circle
+    @extend .fa; // Font Awesome base class
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $design-primary-color;
+    font-size: $icon-font-size-md;
+  }
+
+}
+
 // Set an icon vertically and horizontally centered within a container
 
 @mixin icon__centered-overlay($size-xs: 60px, $size-sm: 50px, $size-md: 45px, $icon-color: #fff, $icon-bg: $design-primary-color) {
