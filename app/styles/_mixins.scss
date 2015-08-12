@@ -61,13 +61,13 @@
 
 // ***** Thumbnail Icon Tiles ***** //
 
-@mixin thumbnail__tile-icon($icon-bg-size-md: 80px, $icon-font-size-md: 4em) { // sets the white circle within the container
+@mixin thumbnail__tile-icon($tile-bg-size-md: 80px, $tile-font-size-md: 4em) { // sets the white circle within the container
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: $icon-bg-size-md;
-  height: $icon-bg-size-md;
+  width: $tile-bg-size-md;
+  height: $tile-bg-size-md;
   background-color: #fff;
   border-radius: 50%;
 
@@ -78,7 +78,40 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: $design-primary-color;
-    font-size: $icon-font-size-md;
+    font-size: $tile-font-size-md;
+  }
+
+}
+
+// ***** Thumbnail Icon Overlays ***** //
+
+.thumbnail__overlay-image { // sets the image within the container
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}
+
+@mixin thumbnail__overlay-icon($overlay-bg-size-md: 40px, $overlay-font-size-md: 1.8em) { // sets the white circle within the container
+  position: absolute;
+  left: 5%;
+  bottom: 5%;
+  width: $overlay-bg-size-md;
+  height: $overlay-bg-size-md;
+  background-color: #fff;
+  border-radius: 50%;
+
+  &:before { // sets the icon within the white circle
+    @extend .fa; // Font Awesome base class
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $design-primary-color;
+    font-size: $overlay-font-size-md;
   }
 
 }
