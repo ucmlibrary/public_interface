@@ -388,7 +388,7 @@ var CarouselContext = Backbone.View.extend({
 });
 
 var ComplexCarousel = Backbone.View.extend({
-  initialize: function() {
+  initCarousel: function() {
     var conf = {
       infinite: false,
       speed: 300,
@@ -429,20 +429,21 @@ var ComplexCarousel = Backbone.View.extend({
     
     $('.carousel-complex').show();
     $('.carousel-complex__item-container').slick(conf);
+  },
 
-    $(document).on('click', '.js-component-link', (function(that) {
-      return function(event) {
-        var data_params = {order: $(this).data('item_id')};
-        
-        event.preventDefault();
-        $.pjax({
-          type: 'GET',
-          url: $(this).attr('href'),
-          container: $('#js-pageContent'),
-          data: data_params,
-          traditional: true
-        });
-      };
-    }(this)));
+  initialize: function() {
+    $(document).on('click', '.js-component-link', function(event) {
+      var data_params = {order: $(this).data('item_id')};
+
+      event.preventDefault();
+      $.pjax({
+        type: 'GET',
+        url: $(this).attr('href'),
+        container: $('#js-pageContent'),
+        data: data_params,
+        traditional: true
+      });
+    });
+    this.initCarousel();
   }
 });

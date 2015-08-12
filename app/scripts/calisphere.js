@@ -26,7 +26,11 @@ var setupObjects = function() {
   }
 
   if($('.carousel-complex').length > 0) {
-    complexCarousel = new ComplexCarousel({model: qm});
+    if (complexCarousel === undefined) {
+      complexCarousel = new ComplexCarousel({model: qm});
+    } else {
+      complexCarousel.initCarousel();
+    }
   }
 
   //if we've gotten to a page with a list of collection mosaics, init infinite scroll
