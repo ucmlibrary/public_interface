@@ -1,5 +1,95 @@
 // ##### Thumbnail View Component ##### //
 
+// ***** Thumbnail Tiles ***** //
+
+.thumbnail [class^="col-"] {
+	// border: $bblue;
+}
+
+// This version eliminates need for .thumbnail__tile:before selector but it's not as well supported:
+// .thumbnail__tile {
+// 	height: 16.66vw; // 100 / 6
+// }
+
+.thumbnail__tile { // creates the container
+	position: relative;
+	background-color: $design-light-gray-color; 
+}
+
+.thumbnail__tile:before { // sets container height equal to width
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 100%;
+}
+
+.thumbnail__tile-icon { // sets the white circle within the container
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.thumbnail__tile-icon:before { // sets the icon within the white circle
+  @extend .fa; // Font Awesome base class
+  position: absolute;
+	top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $design-primary-color;
+  font-size: 4em;
+}
+
+// ***** Icon Overlays ***** //
+
+.thumbnail__overlay { // creates the container
+	position: relative;
+	background-color: $design-light-gray-color; 
+}
+
+.thumbnail__overlay:before { // sets container height equal to width
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 100%;
+}
+
+.thumbnail__overlay-image { // sets the image within the container
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}
+
+.thumbnail__overlay-icon { // sets the white circle within the container
+	position: absolute;
+	left: 5%;
+  bottom: 5%;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.thumbnail__overlay-icon:before { // sets the icon within the white circle
+	@extend .fa; // Font Awesome base class
+	position: absolute;
+	top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $design-primary-color;
+  font-size: 1.8em;
+}
+
+// ***** Original Thumbnails ***** //
+
 .thumbview {
 	clear: right; // clear .object-view-row
 }
