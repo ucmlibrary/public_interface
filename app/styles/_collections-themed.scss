@@ -76,9 +76,19 @@
 
 }
 
+html.no-flexbox .themed__hosted-button {
+  margin: $layout-component-margin 0 0 0;
+}
+
 .themed__hosted-text {
-  display: block;
+  display: block; // for IE 10
   font-size: 1.3em;
+  max-width: 100%; // for IE 10
+
+  @include bp(sm-screen) {
+    flex: 0 1 75%; // for IE 10
+  }
+
 }
 
 // ***** Themed Collection Row ***** //
