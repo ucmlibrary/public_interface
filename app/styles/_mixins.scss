@@ -61,13 +61,13 @@
 
 // ***** Thumbnail Icon Tiles ***** //
 
-@mixin thumbnail__tile-icon($tile-bg-size-md: 80px, $tile-font-size-md: 4em) { // sets the white circle within the container
+@mixin thumbnail__tile-icon($tile-size-md: 80px) { // sets the white circle within the container
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: $tile-bg-size-md;
-  height: $tile-bg-size-md;
+  width: $tile-size-md;
+  height: $tile-size-md;
   background-color: #fff;
   border-radius: 50%;
 
@@ -78,7 +78,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: $design-primary-color;
-    font-size: $tile-font-size-md;
+    font-size: $tile-size-md - 20px;
   }
 
 }
@@ -95,12 +95,12 @@
   height: auto;
 }
 
-@mixin thumbnail__overlay-icon($overlay-bg-size-md: 40px, $overlay-font-size-md: 1.8em) { // sets the white circle within the container
+@mixin thumbnail__overlay-icon($overlay-size-md: 40px) { // sets the white circle within the container
   position: absolute;
   left: 5%;
   bottom: 5%;
-  width: $overlay-bg-size-md;
-  height: $overlay-bg-size-md;
+  width: $overlay-size-md;
+  height: $overlay-size-md;
   background-color: #fff;
   border-radius: 50%;
 
@@ -111,7 +111,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: $design-primary-color;
-    font-size: $overlay-font-size-md;
+    font-size: $overlay-size-md - 15px;
   }
 
 }
