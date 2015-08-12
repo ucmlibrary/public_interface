@@ -46,8 +46,47 @@
 
 // ***** Icon Overlays ***** //
 
-.icon__overlay {
-	
+.icon__overlay { // creates the container
+	position: relative;
+	background-color: $design-light-gray-color; 
+}
+
+.icon__overlay:before { // sets container height
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 100%;
+}
+
+.icon__overlay-image { // sets the image
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}
+
+.icon__overlay-icon { // sets the white circle
+	position: absolute;
+	left: 5%;
+  bottom: 5%;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.icon__overlay-icon:before { // sets the icon
+	position: absolute;
+	top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	content: $fa-var-volume-up;
+  font-family: FontAwesome;
+  color: $design-primary-color;
+  font-size: 1.8em;
 }
 
 // ***** Single Icon Uses ***** //
