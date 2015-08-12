@@ -23,7 +23,7 @@
 
 // ***** Thumbnail Icon Tiles ***** //
 
-.thumbnail__tile { // sets the white circle within the container
+.thumbnail__tile-icon { // sets the white circle within the container
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,7 +34,7 @@
   border-radius: 50%;
 }
 
-.thumbnail__tile:before { // sets the icon within the white circle
+.thumbnail__tile-icon:before { // sets the icon within the white circle
   @extend .fa; // Font Awesome base class
   position: absolute;
 	top: 50%;
