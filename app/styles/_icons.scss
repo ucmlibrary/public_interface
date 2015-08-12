@@ -1,5 +1,23 @@
 // ##### Icons ##### //
 
+// ***** Icon Tiles ***** //
+
+.icon [class^="col-"] {
+	border: $bblue;
+}
+
+.icon__tile {
+
+}
+
+// ***** Icon Overlays ***** //
+
+.icon__overlay {
+	
+}
+
+// ***** Single Icon Uses ***** //
+
 .icon__external-link:after {
   display: inline-block; // removes the :hover underline (except in IE)
   font-family: FontAwesome;
