@@ -6,8 +6,29 @@
 	border: $bblue;
 }
 
-.icon__tile {
+// simple version, not as well supported:
+// .icon__tile {
+// 	height: 16.66vw; // 100 / 6
+// }
 
+.icon__tile {
+	position: relative;
+	background-color: $design-light-gray-color; 
+}
+
+.icon__tile:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 100%;
+}
+
+.icon__tile-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 // ***** Icon Overlays ***** //
