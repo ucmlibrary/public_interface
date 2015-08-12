@@ -3,7 +3,7 @@
 // ***** Icon Tiles ***** //
 
 .icon [class^="col-"] {
-	border: $bblue;
+	// border: $bblue;
 }
 
 // simple version, not as well supported:
@@ -11,24 +11,37 @@
 // 	height: 16.66vw; // 100 / 6
 // }
 
-.icon__tile {
+.icon__tile { // creates the container
 	position: relative;
 	background-color: $design-light-gray-color; 
 }
 
-.icon__tile:before {
+.icon__tile:before { // sets container height
   display: block;
   content: "";
   width: 100%;
   padding-top: 100%;
 }
 
-.icon__tile-content {
+.icon__tile-content { // sets the white circle
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 25%;
+  left: 25%;
+  right: 25%;
+  bottom: 25%;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.icon__tile-content:before { // sets the icon
+  position: absolute;
+	top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: $fa-var-volume-up;
+  font-family: FontAwesome;
+  color: $design-primary-color;
+  font-size: 4em;
 }
 
 // ***** Icon Overlays ***** //
