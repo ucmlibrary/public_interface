@@ -3,7 +3,7 @@
 
   {% for carousel_item in search_results %}
   <div class="js-carousel_item {% if carousel_item.id == item_id %}carousel__item--selected{% else %}carousel__item{% endif %}" data-numfound="{{ numFound }}">
-    <a class="{% if carousel_item.id == item_id %}carousel__link--selected{% else %}carousel__link{% endif %} js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}">
+    <a class="{% if carousel_item.id == item_id %}carousel__link--selected{% else %}carousel__link{% endif %} js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
       <div class="carousel__image-container">
         <div style="position: relative;">
           {% if carousel_item.type_ss.0|lower != "image" %}
