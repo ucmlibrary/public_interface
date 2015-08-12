@@ -1,7 +1,5 @@
 // ##### Thumbnail View Component ##### //
 
-// ***** Thumbnail Tiles ***** //
-
 .thumbnail [class^="col-"] {
 	// border: $bblue;
 }
@@ -11,19 +9,21 @@
 // 	height: 16.66vw; // 100 / 6
 // }
 
-.thumbnail__tile { // creates the container
+.thumbnail__container { // creates the container
 	position: relative;
 	background-color: $design-light-gray-color; 
 }
 
-.thumbnail__tile:before { // sets container height equal to width
+.thumbnail__container:before { // sets container height equal to width
   display: block;
   content: "";
   width: 100%;
   padding-top: 100%;
 }
 
-.thumbnail__tile-icon { // sets the white circle within the container
+// ***** Thumbnail Icon Tiles ***** //
+
+.thumbnail__tile { // sets the white circle within the container
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,7 +34,7 @@
   border-radius: 50%;
 }
 
-.thumbnail__tile-icon:before { // sets the icon within the white circle
+.thumbnail__tile:before { // sets the icon within the white circle
   @extend .fa; // Font Awesome base class
   position: absolute;
 	top: 50%;
@@ -44,19 +44,7 @@
   font-size: 4em;
 }
 
-// ***** Icon Overlays ***** //
-
-.thumbnail__overlay { // creates the container
-	position: relative;
-	background-color: $design-light-gray-color; 
-}
-
-.thumbnail__overlay:before { // sets container height equal to width
-  display: block;
-  content: "";
-  width: 100%;
-  padding-top: 100%;
-}
+// ***** Thumbnail Icon Overlays ***** //
 
 .thumbnail__overlay-image { // sets the image within the container
   position: absolute;
@@ -88,7 +76,7 @@
   font-size: 1.8em;
 }
 
-// ***** Original Thumbnails ***** //
+// ***** Original Thumbnail Classes ***** //
 
 .thumbview {
 	clear: right; // clear .object-view-row
