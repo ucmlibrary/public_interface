@@ -26,6 +26,11 @@ var setupObjects = function() {
   }
 
   if($('.carousel-complex').length > 0) {
+    //TODO: this should only have to happen once!
+    $('.js-obj__osd-infobanner-link').click(function(){
+      $('.js-obj__osd-infobanner').slideUp('fast');
+    });
+
     if (complexCarousel === undefined) {
       complexCarousel = new ComplexCarousel({model: qm});
     } else {

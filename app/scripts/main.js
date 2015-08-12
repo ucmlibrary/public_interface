@@ -119,6 +119,7 @@ $(document).ready(function(){
   	}
   });
 
+  // amy integrated
   $('.js-obj__osd-infobanner-link').click(function(){
     $('.js-obj__osd-infobanner').slideUp('fast');
   });
@@ -182,7 +183,7 @@ $('.carousel').slick({
 });
 
 // ***** Complex Carousel ***** //
-
+// amy integrated
 $('.carousel-complex').show();
 $('.carousel-complex__item-container').slick({
   infinite: false,
