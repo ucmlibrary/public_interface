@@ -16,14 +16,14 @@
 	background-color: $design-light-gray-color; 
 }
 
-.icon__tile:before { // sets container height
+.icon__tile:before { // sets container height equal to width
   display: block;
   content: "";
   width: 100%;
   padding-top: 100%;
 }
 
-.icon__tile-content { // sets the white circle
+.icon__tile-icon { // sets the white circle within the container
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,7 +34,7 @@
   border-radius: 50%;
 }
 
-.icon__tile-content:before { // sets the icon
+.icon__tile-icon:before { // sets the icon within the white circle
   position: absolute;
 	top: 50%;
   left: 50%;
@@ -52,14 +52,14 @@
 	background-color: $design-light-gray-color; 
 }
 
-.icon__overlay:before { // sets container height
+.icon__overlay:before { // sets container height equal to width
   display: block;
   content: "";
   width: 100%;
   padding-top: 100%;
 }
 
-.icon__overlay-image { // sets the image
+.icon__overlay-image { // sets the image within the container
   position: absolute;
   top: 0;
   left: 0;
@@ -69,7 +69,7 @@
   height: auto;
 }
 
-.icon__overlay-icon { // sets the white circle
+.icon__overlay-icon { // sets the white circle within the container
 	position: absolute;
 	left: 5%;
   bottom: 5%;
@@ -79,7 +79,7 @@
   border-radius: 50%;
 }
 
-.icon__overlay-icon:before { // sets the icon
+.icon__overlay-icon:before { // sets the icon within the white circle
 	position: absolute;
 	top: 50%;
   left: 50%;
