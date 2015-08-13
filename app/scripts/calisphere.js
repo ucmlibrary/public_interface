@@ -8,16 +8,18 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, viewer, DESKTOP;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP;
 
 var setupObjects = function() {
   if ($('#js-facet').length > 0) {
     if (facetForm === undefined) {
       facetForm = new FacetForm({model: qm});
-    } else if (facetForm.dead === true) {
-      facetForm.dead = false;
+      facetForm.listening = true;
+    }
+    else if (facetForm.listening === false) {
       facetForm.initialize();
       facetForm.delegateEvents();
+      facetForm.listening = true;
     }
     facetForm.toggleSelectDeselectAll();
 
@@ -27,46 +29,58 @@ var setupObjects = function() {
       var tooltipId = $(visibleTooltips[i]).attr('aria-describedby');
       $('#' + tooltipId).remove();
     }
-
+    // set tooltips
     $('[data-toggle="tooltip"]').tooltip({
       placement: 'top'
     });
   }
   else if (facetForm !== undefined) {
-    facetForm.dead = true;
     facetForm.stopListening();
     facetForm.undelegateEvents();
+    facetForm.listening = false;
   }
 
   if($('#js-carouselContainer').length > 0) {
     if (carousel === undefined) {
       carousel = new CarouselContext({model: qm});
-    } else if (carousel.dead === true) {
-      carousel.dead = false;
+      carousel.listening = true;
+    }
+    else if (carousel.listening === false) {
       carousel.initialize();
       carousel.delegateEvents();
+      carousel.listening = true;
     }
-    $(document).one('pjax:beforeSend', function(e, xhr) {
-      xhr.setRequestHeader('X-From-Item-Page', 'true');
-    });
   }
   else if (carousel !== undefined) {
-    carousel.dead = true;
     carousel.stopListening();
     carousel.undelegateEvents();
+    carousel.listening = false;
   }
 
   if($('.carousel-complex').length > 0) {
+    if (complexCarousel === undefined) {
+      complexCarousel = new ComplexCarousel({model: qm});
+      $('.js-obj__osd-infobanner').show();
+      complexCarousel.listening = true;
+    }
+    else if (complexCarousel.listening === false) {
+      complexCarousel.initialize();
+      complexCarousel.delegateEvents();
+      $('.js-obj__osd-infobanner').show();
+      complexCarousel.listening = true;
+    } else {
+      $('.js-obj__osd-infobanner').hide();
+      complexCarousel.initialize();
+    }
     //TODO: this should only have to happen once!
     $('.js-obj__osd-infobanner-link').click(function(){
       $('.js-obj__osd-infobanner').slideUp('fast');
     });
-
-    if (complexCarousel === undefined) {
-      complexCarousel = new ComplexCarousel({model: qm});
-    } else {
-      complexCarousel.initCarousel();
-    }
+  }
+  else if (complexCarousel !== undefined) {
+    complexCarousel.stopListening();
+    complexCarousel.undelegateEvents();
+    complexCarousel.listening = false;
   }
 
   //if we've gotten to a page with a list of collection mosaics, init infinite scroll
@@ -105,12 +119,35 @@ $(document).ready(function() {
     }
   });
 
+  $(document).on('pjax:beforeSend', '#js-itemContainer', function(e, xhr, options) {
+    if (options.container === '#js-itemContainer') {
+      xhr.setRequestHeader('X-From-Item-Page', 'true');
+    }
+  });
+
   $(document).on('pjax:beforeReplace', '#js-pageContent', function() {
     if($('#js-mosaicContainer').length > 0) {
       $('#js-mosaicContainer').infinitescroll('destroy');
     }
-    if(viewer !== undefined) {
-      viewer.destroy();
+  });
+
+  $(document).on('pjax:end', '#js-itemContainer', function() {
+    var lastLinkItem = $('.carousel__link--selected');
+    if (lastLinkItem.data('item_id') !== qm.get('itemId')) {
+      lastLinkItem.find('.carousel__image--selected').toggleClass('carousel__image');
+      lastLinkItem.find('.carousel__image--selected').toggleClass('carousel__image--selected');
+      lastLinkItem.toggleClass('carousel__link');
+      lastLinkItem.toggleClass('carousel__link--selected');
+      lastLinkItem.parent().toggleClass('carousel__item');
+      lastLinkItem.parent().toggleClass('carousel__item--selected');
+
+      var linkItem = $('.js-item-link[data-item_id="' + qm.get('itemId') + '"]');
+      linkItem.find('.carousel__image').toggleClass('carousel__image--selected');
+      linkItem.find('.carousel__image').toggleClass('carousel__image');
+      linkItem.toggleClass('carousel__link--selected');
+      linkItem.toggleClass('carousel__link');
+      linkItem.parent().toggleClass('carousel__item--selected');
+      linkItem.parent().toggleClass('carousel__item');
     }
   });
 
@@ -119,7 +156,6 @@ $(document).ready(function() {
     if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
       qm.clear({silent: true});        
     }
-
     setupObjects();
   });
 });

@@ -342,7 +342,7 @@ var CarouselContext = Backbone.View.extend({
       e.preventDefault();
       $.pjax({
         url: $(e.currentTarget).attr('href'),
-        container: '#js-itemContainer',
+        container: '#js-itemContainer'
       });
     }
   },
@@ -354,7 +354,7 @@ var CarouselContext = Backbone.View.extend({
     return context;
   },
 
-  setupCarousel: function() {
+  initCarousel: function() {
     $('#js-linkBack').html('<a href="/search/">Search results for "' + this.model.get('q') + '"</a>');
     this.carouselStart = this.model.get('itemNumber');
     
@@ -374,66 +374,74 @@ var CarouselContext = Backbone.View.extend({
     });
   },
 
-  initialize: function() { this.setupCarousel(); }
+  initialize: function() {
+    this.initCarousel();
+  }
 });
 
 var ComplexCarousel = Backbone.View.extend({
-  initCarousel: function() {
-    var conf = {
-      infinite: false,
-      speed: 300,
-      slidesToShow: 20,
-      slidesToScroll: 6,
-      variableWidth: true,
-      lazyLoad: 'ondemand',
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            infinite: true,
-            // slidesToShow: 8,
-            slidesToScroll: 8,
-            variableWidth: true
-          }
-        },
-        {
-          breakpoint: 900,
-          settings: {
-            infinite: true,
-            // slidesToShow: 6,
-            slidesToScroll: 6,
-            variableWidth: true
-          }
-        },
-        {
-          breakpoint: 650,
-          settings: {
-            infinite: true,
-            // slidesToShow: 4,
-            slidesToScroll: 4,
-            variableWidth: true
-          }
+  el: $('#js-pageContent'),
+  carouselConfig: {
+    infinite: false,
+    speed: 300,
+    slidesToShow: 20,
+    slidesToScroll: 6,
+    variableWidth: true,
+    lazyLoad: 'ondemand',
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          infinite: true,
+          // slidesToShow: 8,
+          slidesToScroll: 8,
+          variableWidth: true
         }
-      ]
-    };
-    
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          infinite: true,
+          // slidesToShow: 6,
+          slidesToScroll: 6,
+          variableWidth: true
+        }
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          infinite: true,
+          // slidesToShow: 4,
+          slidesToScroll: 4,
+          variableWidth: true
+        }
+      }
+    ]
+  },
+
+  events: {
+    'click .js-component-link'  : 'getComponent',
+  },
+  getComponent: function(e) {
+    var data_params = {order: $(e.currentTarget).data('item_id')};
+
+    e.preventDefault();
+    $.pjax({
+      type: 'GET',
+      url: $(e.currentTarget).attr('href'),
+      container: '#js-itemContainer',
+      data: data_params,
+      traditional: true,
+      scrollTo: 440
+    });
+  },
+
+  initCarousel: function() {
     $('.carousel-complex').show();
-    $('.carousel-complex__item-container').slick(conf);
+    $('.carousel-complex__item-container').slick(this.carouselConfig);
   },
 
   initialize: function() {
-    $(document).on('click', '.js-component-link', function(event) {
-      var data_params = {order: $(this).data('item_id')};
-
-      event.preventDefault();
-      $.pjax({
-        type: 'GET',
-        url: $(this).attr('href'),
-        container: $('#js-pageContent'),
-        data: data_params,
-        traditional: true
-      });
-    });
     this.initCarousel();
   }
 });
