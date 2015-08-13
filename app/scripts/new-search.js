@@ -137,12 +137,24 @@ var FacetForm = Backbone.View.extend({
       // add implicit context for campus, institution, and collection pages
       if($('#js-institution').length > 0) {
         if($('#js-institution').data('campus')) {
-          this.model.set({campus: $('#js-institution').data('campus')}, {silent: true});
+          this.model.set({
+            campus_slug: $('#js-institution').data('campus'),
+            referral: 'campus',
+            referralName: $('#js-institution').data('referralname')
+          }, {silent: true});
         } else {
-          this.model.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
+          this.model.set({
+            repository_data: $('#js-institution').data('institution'),
+            referral: 'institution',
+            referralName: $('#js-institution').data('referralname')
+          }, {silent: true});
         }
       } else if ($('#js-collection').length > 0) {
-        this.model.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
+        this.model.set({
+          collection_data: $('#js-collection').data('collection'),
+          referral: 'collection',
+          referralName: $('#js-collection').data('referralname')
+        }, {silent: true});
       }
 
       e.preventDefault();
@@ -293,6 +305,19 @@ var CarouselContext = Backbone.View.extend({
   goToSearchResults: function(e) {
     this.model.unset('itemId', {silent: true});
     this.model.unset('itemNumber', {silent: true});
+
+    if (this.model.get('referral') !== undefined) {
+      if (this.model.get('referral') === 'institution') {
+        this.model.unset('repository_data', {silent: true});
+      } else if (this.model.get('referral') === 'campus') {
+        this.model.unset('campus_slug', {silent: true});
+      } else if (this.model.get('referral') === 'collection') {
+        this.model.unset('collection_data', {silent: true});
+      }
+      this.model.unset('referral', {silent: true});
+      this.model.unset('referralName', {silent: true});
+    }
+
     e.preventDefault();
     $.pjax({
       url: $(e.currentTarget).children('a').attr('href'),
@@ -332,7 +357,7 @@ var CarouselContext = Backbone.View.extend({
       // add implicit context for campus, institution, and collection pages
       if($('#js-institution').length > 0) {
         if($('#js-institution').data('campus')) {
-          this.model.set({campus: $('#js-institution').data('campus')}, {silent: true});
+          this.model.set({campus_slug: $('#js-institution').data('campus')}, {silent: true});
         } else {
           this.model.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
         }
@@ -351,6 +376,8 @@ var CarouselContext = Backbone.View.extend({
     var data_params = this.model.toJSON();
     delete data_params.itemId;
     delete data_params.itemNumber;
+    delete data_params.referral;
+    delete data_params.referralName;
     if (e !== undefined) {
       data_params.rc_page = $(e.currentTarget).data('rc_page');
     } else {
@@ -371,13 +398,32 @@ var CarouselContext = Backbone.View.extend({
   },
 
   initCarousel: function() {
-    $('#js-linkBack').html('<a href="/search/">Search results for "' + this.model.get('q') + '"</a>');
+    var linkBack, textContent;
+    if (this.model.get('referral') === 'institution') {
+      linkBack = '/institution/' + this.model.get('repository_data') + '/items/';
+      textContent = 'Items at ' + this.model.get('referralName');
+    } else if (this.model.get('referral') === 'campus') {
+      linkBack = '/' + this.model.get('campus_slug') + '/items/';
+      textContent = 'Items at ' + this.model.get('referralName');
+    } else if (this.model.get('referral') === 'collection') {
+      linkBack = '/collections/' + this.model.get('collection_data') + '/';
+      textContent = 'Items in ' + this.model.get('referralName');
+    } else {
+      linkBack = '/search/';
+      textContent = 'Search results for "' + this.model.get('q') + '"';
+    }
+    $('#js-linkBack').html('<a href="' + linkBack + '" data-pjax="js-pageContent">' + textContent + '</a>');
     this.carouselStart = this.model.get('itemNumber');
     
+    var data_params = this.toJSON();
+    delete data_params.referral;
+    delete data_params.referralName;
+    delete data_params.itemNumber;
+
     //TODO: function(data, status, jqXHR)
     $.ajax({
       url: '/carousel/',
-      data: this.toJSON(),
+      data: data_params,
       traditional: true, 
       success: (function(that) {
         return function(data) {

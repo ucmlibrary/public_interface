@@ -434,6 +434,7 @@ def itemViewCarousel(request, queryParams={}):
 
     # return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
 
+# TODO: handle campus_slug
 def relatedCollections(request, queryParams={}):
     if not queryParams:
         queryParams = processQueryRequest(request)

@@ -37,6 +37,8 @@ var QueryManager = Backbone.Model.extend({
       
       if (sessionStorage.getItem('itemNumber') !== null) { this.set({itemNumber: sessionStorage.getItem('itemNumber')}); }
       if (sessionStorage.getItem('itemId') !== null) { this.set({itemId: sessionStorage.getItem('itemId')}); }
+      if (sessionStorage.getItem('referral') !== null) { this.set({referral: sessionStorage.getItem('referral')}); }
+      if (sessionStorage.getItem('referralName') !== null) { this.set({referralName: sessionStorage.getItem('referralName')}); }
 
     }
   },
@@ -49,7 +51,10 @@ var QueryManager = Backbone.Model.extend({
     }
   },
   
-  unsetSessionStorage: function(key) {
+  unsetSessionStorage: function(value, key) {
+    if (key === undefined) {
+      key = value;
+    }
     sessionStorage.removeItem(key);
   },
     
@@ -87,6 +92,8 @@ var QueryManager = Backbone.Model.extend({
     
     if (!options.unset) {
       _.each(attrs, this.setSessionStorage);
+    } else {
+      _.each(attrs, this.unsetSessionStorage);
     }
   },
     
