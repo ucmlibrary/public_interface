@@ -88,14 +88,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: $design-primary-color;
-    font-size: $tile-icon-size-xs - 15px;
+    font-size: $tile-icon-size-xs - 20px;
 
     @include bp(sm-screen) {
-      font-size: $tile-icon-size-sm - 20px;
+      font-size: $tile-icon-size-sm - 25px;
     }
 
     @include bp(md-screen) {
-      font-size: $tile-icon-size-md - 20px;
+      font-size: $tile-icon-size-md - 35px;
     }
 
   }
