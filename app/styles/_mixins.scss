@@ -114,14 +114,24 @@
   height: auto;
 }
 
-@mixin thumbnail__overlay-icon($overlay-size-md: 40px) { // sets the white circle within the container
+@mixin thumbnail__overlay-icon($overlay-icon-size-xs: 30px, $overlay-icon-size-sm: 35px, $overlay-icon-size-md: 40px) { // sets the white circle within the container
   position: absolute;
   left: 5%;
   bottom: 5%;
-  width: $overlay-size-md;
-  height: $overlay-size-md;
+  width: $overlay-icon-size-xs;
+  height: $overlay-icon-size-xs;
   background-color: #fff;
   border-radius: 50%;
+
+  @include bp(sm-screen) {
+    width: $overlay-icon-size-sm;
+    height: $overlay-icon-size-sm;
+  }
+
+  @include bp(md-screen) {
+    width: $overlay-icon-size-md;
+    height: $overlay-icon-size-md;
+  }
 
   &:before { // sets the icon within the white circle
     @extend .fa; // Font Awesome base class
@@ -130,7 +140,16 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: $design-primary-color;
-    font-size: $overlay-size-md - 15px;
+    font-size: $overlay-icon-size-xs - 10px;
+
+    @include bp(sm-screen) {
+      font-size: $overlay-icon-size-sm - 14px;
+    }
+
+    @include bp(md-screen) {
+      font-size: $overlay-icon-size-md - 16px;
+    }
+
   }
 
 }
