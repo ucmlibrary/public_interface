@@ -1,5 +1,37 @@
 // ##### Thumbnail View Component ##### //
 
+.thumbnail [class^="col-"] {
+	// border: $bblue;
+}
+
+// This version eliminates need for .thumbnail__tile:before selector but it's not as well supported:
+// .thumbnail__tile {
+// 	height: 16.66vw; // 100 / 6
+// }
+
+.thumbnail__container { // creates the container
+	position: relative;
+	background-color: $design-light-gray-color;
+
+	&:before { // sets container height equal to width
+	  display: block;
+	  content: "";
+	  width: 100%;
+	  padding-top: 100%;
+	}
+
+}
+
+.baseclass1-tile-icon {
+	@include thumbnail__tile-icon(90px); // (size xs, size md, size lg)
+}
+
+.baseclass2-overlay-icon {
+	@include thumbnail__overlay-icon(45px); // (size xs, size md, size lg)
+}
+
+// ***** Original Thumbnail Classes ***** //
+
 .thumbview {
 	clear: right; // clear .object-view-row
 }
