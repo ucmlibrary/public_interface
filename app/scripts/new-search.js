@@ -287,7 +287,8 @@ var CarouselContext = Backbone.View.extend({
   events: {
     'click #js-linkBack'      : 'goToSearchResults',
     'beforeChange .carousel'  : 'loadSlides',
-    'click .js-item-link'     : 'goToItemPage'
+    'click .js-item-link'     : 'goToItemPage',
+    'click .js-rc-page'       : 'paginateRelatedCollections'
   },
   goToSearchResults: function(e) {
     this.model.unset('itemId', {silent: true});
@@ -346,6 +347,21 @@ var CarouselContext = Backbone.View.extend({
       });
     }
   },
+  paginateRelatedCollections: function(e) {
+    var data_params = this.model.toJSON();
+    delete data_params.itemId;
+    delete data_params.itemNumber;
+    if (e !== undefined) {
+      data_params.rc_page = $(e.currentTarget).data('rc_page');
+    } else {
+      data_params.rc_page = 0;
+    }
+    //TODO: function(data, status, jqXHR)
+    $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(data) {
+        $('#js-relatedCollections').html(data);
+      }
+    });
+  },
 
   toJSON: function() {
     var context = this.model.toJSON();
@@ -376,6 +392,7 @@ var CarouselContext = Backbone.View.extend({
 
   initialize: function() {
     this.initCarousel();
+    this.paginateRelatedCollections();
   }
 });
 
