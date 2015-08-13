@@ -55,191 +55,112 @@ var GlobalSearchForm = Backbone.View.extend({
 });
 
 var FacetForm = Backbone.View.extend({
-  initialize: function() {
-    this.carouselRows = 12;
-    
-    $(document).on('submit', '#js-facet', (function(model) {
-      return function(e) {
-        model.set({start: 0, rq: $.map($('input[name=rq]'), function(el) { return $(el).val(); })});
-        e.preventDefault();
-      };
-    }(this.model)));
-    
-    $(document).on('click', '.js-refine-filter-pill', (function(model) {
-      return function() { 
-        //update html
-        var txtFilter = $(this).data('slug');
-        $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val('');
-        //update model
-        // if (_.without(model.get('rq'), txtFilter).length === 0) {
-        //   model.set({start: 0, rq: ''});
-        // } else {
-        model.set({start: 0, rq: _.without(model.get('rq'), txtFilter)});
-        // }
-      };
-    }(this.model)));
-    
-    $(document).on('change', '.js-facet', (function(model) {
-      return function() {
-        var filterType = $(this).attr('name');
-        var attributes = {start: 0};
-        attributes[filterType] = $.map($('input[name=' + filterType + ']:checked'), function(el) { return $(el).val(); });
-        model.set(attributes);
-      };
-    }(this.model)));
-    
-    $(document).on('click', '.js-filter-pill', (function(model) {
-      return function() {
-        var filter_slug = $(this).data('slug');
-        if (typeof filter_slug !== 'string') {
-          filter_slug = String(filter_slug);
-        }
-        $('#' + filter_slug).prop('checked', false);
-        var filterType = $('#' + filter_slug).attr('name');
-        var filter = $('#' + filter_slug).attr('value');
-        var attributes = {start: 0};
-        attributes[filterType] = _.without(model.get(filterType), filter);
-
-        model.set(attributes);
-      };
-    }(this.model)));
-    
-    $(document).on('click', '#thumbnails', (function(model) {
-      return function() { 
-        $('#view_format').prop('value', 'thumbnails');
-        model.set({view_format: 'thumbnails'}); 
-      };
-    }(this.model)));
-    
-    $(document).on('click', '#list', (function(model) {
-      return function() { 
-        $('#view_format').prop('value', 'list');
-        model.set({view_format: 'list'}); 
-      };
-    }(this.model)));
-    
-    $(document).on('change', '#pag-dropdown__sort', (function(model) {
-      return function() {
-        model.set({start: 0, sort: $(this).val() });
-      };
-    }(this.model)));
-    
-    $(document).on('change', '#pag-dropdown__view', (function(model) {
-      return function() {
-        model.set({start: 0, rows: $(this).val() });
-      };
-    }(this.model)));
-    
-    $(document).on('click', '.js-prev, .js-next', (function(model) {
-      return function() {
-        var start = $(this).data('start');
-        $('#start').val(start);
-        model.set({ start: start });
-      };
-    }(this.model)));
-    
-    $(document).on('change', '.pag-dropdown__select--unstyled', (function(model){
-      return function() {
-        var start = $(this).children('option:selected').attr('value');
-        $('#start').val(start);
-        model.set({ start: start });
-      };
-    }(this.model)));
-    
-    $(document).on('click', 'a[data-start]', (function(model){
-      return function() {
-        var start = $(this).data('start');
-        $('#start').val(start);
-        model.set({ start: start });
-      };
-    }(this.model)));
-    
-    $(document).on('click', '.js-item-link', (function(that){
-      return function(e) {
-        if ($(this).data('item_number') !== undefined) {
-          that.model.set({
-            itemNumber: $(this).data('item_number'),
-            carouselRows: that.carouselRows, 
-            itemId: $(this).data('item_id')
-          }, {silent: true});
-          
-          // add implicit context for campus, institution, and collection pages
-          if($('#js-institution').length > 0) {
-            if($('#js-institution').data('campus')) {
-              that.model.set({campus: $('#js-institution').data('campus')}, {silent: true});
-            } else {
-              that.model.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
-            }
-          } else if ($('#js-collection').length > 0) {
-            that.model.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
-          }
-          
-          e.preventDefault();
-          $.pjax({
-            url: $(this).attr('href'),
-            container: '#js-pageContent'
-          });
-        }
-      };
-    }(this)));
-
-    $(document).on('click', '.js-a-check__link-deselect-all, .js-a-check__button-deselect-all', function(e){
-      var filterElements = $(this).parents('.check').find('.js-facet');
-      filterElements.prop('checked', false);
-      filterElements.trigger('change');
-      e.preventDefault();
-    });
-    
-    $(document).on('click', '.js-a-check__link-select-all, .js-a-check__button-select-all', function(e){
-      var filterElements = $(this).parents('.check').find('.js-facet');
-      filterElements.prop('checked', true);
-      filterElements.trigger('change');
-      e.preventDefault();
-    });
-
-    $(document).on('click', '.js-clear-filters', function() {
-      var filterElements = $('.js-facet');
-      filterElements.prop('checked', false);
-      filterElements.trigger('change');
-    });
-
-    // set up checkbox groups for small and medium screens
-    $(document).on('click', '.js-a-check__header', function() {
-      //close all expanded checkbox groups
-      var allSelected = $('.check__popdown--selected');
-      for (var i=0; i<allSelected.length; i++) {
-        if ($(allSelected[i]).parent().find('input').attr('name') !== $(this).parent().find('input').attr('name')) {
-          $(allSelected[i]).toggleClass('check__popdown check__popdown--selected');
-          $(allSelected[i]).prev('.js-a-check__header').children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
-        }
-      }
-      //open this checkbox group
-      $(this).next('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
-      $(this).children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
-    });
-
-    $(document).on('click', '.js-a-check__update', (function(that) {
-      return function(e) {
-        that.facetSearch();
-        e.preventDefault();
-      };
-    }(this)));
-
-    $(document).on('click', '.js-rc-page', (function(model) {
-      return function() {
-        var data_params = model.toJSON();
-        data_params.rc_page = $(this).data('rc_page');
-        //TODO: function(data, status, jqXHR)
-        $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(data) {
-            $('#js-relatedCollections').html(data);
-          }
-        });
-      };
-    }(this.model)));
-
-    this.listenTo(this.model, 'change', this.render);
+  el: $('#js-pageContent'),
+  events: {
+    'submit #js-facet'                        : 'setRefineQuery',
+    'click .js-refine-filter-pill'            : 'removeRefineQuery',
+    'change .js-facet'                        : 'setFacet',
+    'click .js-filter-pill'                   : 'removeFacet',
+    'click #thumbnails,#list'                 : 'toggleViewFormat',
+    'change #pag-dropdown__sort'              : 'setSort',
+    'change #pag-dropdown__view'              : 'setRows',
+    'click .js-prev,.js-next,a[data-start]'   : 'setStart',
+    'change .pag-dropdown__select--unstyled'  : 'setStart',
+    'click .js-item-link'                     : 'goToItemPage',
+    'click .js-a-check__link-deselect-all'    : 'deselectAll',
+    'click .js-a-check__button-deselect-all'  : 'deselectAll',
+    'click .js-a-check__link-select-all'      : 'selectAll',
+    'click .js-a-check__button-select-all'    : 'selectAll',
+    'click .js-clear-filters'                 : 'clearFilters',
+    'click .js-a-check__header'               : 'toggleFacetDropdown',
+    'click .js-a-check__update'               : 'updateFacets',
+    'click .js-rc-page'                       : 'paginateRelatedCollections'
   },
-  
+
+  setRefineQuery: function(e) {
+    this.model.set({start: 0, rq: $.map($('input[name=rq]'), function(el) { return $(el).val(); })});
+    e.preventDefault();
+  },
+  removeRefineQuery: function(e) {
+    var txtFilter = $(e.currentTarget).data('slug');
+    $('input[form="js-facet"][name="rq"][value="' + txtFilter + '"]').val('');
+    this.model.set({start: 0, rq: _.without(this.model.get('rq'), txtFilter)});
+  },
+  setFacet: function(e) {
+    var filterType = $(e.currentTarget).attr('name');
+    var attributes = {start: 0};
+    attributes[filterType] = $.map($('input[name=' + filterType + ']:checked'), function(el) { return $(el).val(); });
+    this.model.set(attributes);
+  },
+  removeFacet: function(e) {
+    var filter_slug = $(e.currentTarget).data('slug');
+    if (typeof filter_slug !== 'string') {
+      filter_slug = String(filter_slug);
+    }
+    $('#' + filter_slug).prop('checked', false);
+    var filterType = $('#' + filter_slug).attr('name');
+    var filter = $('#' + filter_slug).attr('value');
+    var attributes = {start: 0};
+    attributes[filterType] = _.without(this.model.get(filterType), filter);
+
+    this.model.set(attributes);
+  },
+  toggleViewFormat: function(e) {
+    var viewFormat = $(e.currentTarget).attr('id');
+    $('#view_format').prop('value', viewFormat);
+    this.model.set({view_format: viewFormat});
+  },
+  setSort: function(e) {
+    this.model.set({start: 0, sort: $(e.currentTarget).val() });
+  },
+  setRows: function(e) {
+    this.model.set({start: 0, rows: $(e.currentTarget).val() });
+  },
+  setStart: function(e) {
+    var start;
+    if (e.type === 'click') {
+      start = $(e.currentTarget).data('start');
+    } else if (e.type === 'change') {
+      start = $(e.currentTarget).children('option:selected').attr('value');
+    }
+    $('#start').val(start);
+    this.model.set({ start: start });
+  },
+
+  goToItemPage: function(e) {
+    if ($(e.currentTarget).data('item_number') !== undefined) {
+      this.model.set({
+        itemNumber: $(e.currentTarget).data('item_number'),
+        itemId: $(e.currentTarget).data('item_id')
+      }, {silent: true});
+
+      // add implicit context for campus, institution, and collection pages
+      if($('#js-institution').length > 0) {
+        if($('#js-institution').data('campus')) {
+          this.model.set({campus: $('#js-institution').data('campus')}, {silent: true});
+        } else {
+          this.model.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
+        }
+      } else if ($('#js-collection').length > 0) {
+        this.model.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
+      }
+
+      e.preventDefault();
+      $.pjax({
+        url: $(e.currentTarget).attr('href'),
+        container: '#js-pageContent'
+      });
+    }
+  },
+
+  deselectAll: function(e) { this.selectDeselectAll(e, false); },
+  selectAll: function(e) { this.selectDeselectAll(e, true); },
+  selectDeselectAll: function(e, checked) {
+    var filterElements = $(e.currentTarget).parents('.check').find('.js-facet');
+    filterElements.prop('checked', checked);
+    filterElements.trigger('change');
+    e.preventDefault();
+  },
   toggleSelectDeselectAll: function() {
     var facetTypes = $('.check');
     for(var i=0; i<facetTypes.length; i++) {
@@ -256,14 +177,46 @@ var FacetForm = Backbone.View.extend({
         $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
       }
     }
+  },  
+  clearFilters: function() {
+    var filterElements = $('.js-facet');
+    filterElements.prop('checked', false);
+    filterElements.trigger('change');
   },
 
+  toggleFacetDropdown: function(e) {
+    //close all expanded checkbox groups
+    var allSelected = $('.check__popdown--selected');
+    for (var i=0; i<allSelected.length; i++) {
+      if ($(allSelected[i]).parent().find('input').attr('name') !== $(e.currentTarget).parent().find('input').attr('name')) {
+        $(allSelected[i]).toggleClass('check__popdown check__popdown--selected');
+        $(allSelected[i]).prev('.js-a-check__header').children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
+      }
+    }
+    //open this checkbox group
+    $(e.currentTarget).next('.js-a-check__popdown').toggleClass('check__popdown check__popdown--selected');
+    $(e.currentTarget).children('.js-a-check__header-arrow-icon').toggleClass('fa-angle-down fa-angle-up');
+  },
+  updateFacets: function(e) {
+    e.preventDefault();
+    this.facetSearch();
+  },
   facetSearch: function() {
     $.pjax({
       url: $('#js-facet').attr('action'),
       container: '#js-pageContent',
       data: this.model.toJSON(),
       traditional: true
+    });
+  },
+
+  paginateRelatedCollections: function(e) {
+    var data_params = this.model.toJSON();
+    data_params.rc_page = $(e.currentTarget).data('rc_page');
+    //TODO: function(data, status, jqXHR)
+    $.ajax({data: data_params, traditional: true, url: '/relatedCollections/', success: function(data) {
+        $('#js-relatedCollections').html(data);
+      }
     });
   },
 
@@ -283,108 +236,145 @@ var FacetForm = Backbone.View.extend({
         });
       }
     }
+  },
+
+  initialize: function() {
+    this.listenTo(this.model, 'change', this.render);
   }
 });
 
 var CarouselContext = Backbone.View.extend({
-  initialize: function() {
-    $('#js-linkBack').html('<a href="/search/">Search results for "' + this.model.get('q') + '"</a>');
-
-    $(document).on('click', '#js-linkBack a', (function(that){
-      return function(e) {
-        that.model.unset('carouselStart', {silent: true});
-        that.model.unset('carouselRows', {silent: true});
-        that.model.unset('itemId', {silent: true});
-        that.model.unset('itemNumber', {silent: true});
-        e.preventDefault();
-        $.pjax({
-          url: $(this).attr('href'),
-          container: '#js-pageContent',
-          data: that.model.toJSON(),
-          traditional: true
-        });        
-      };
-    }(this)));
-    
-    this.model.set({carouselStart: this.model.get('itemNumber')}, {silent: true});
-
-    var conf = {
-      infinite: false,
-      speed: 300,
-      slidesToShow: 10,
-      slidesToScroll: 6,
-      variableWidth: true,
-      lazyLoad: 'ondemand',
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            infinite: true,
-            // slidesToShow: 8,
-            slidesToScroll: 8,
-            variableWidth: true
-          }
-        },
-        {
-          breakpoint: 900,
-          settings: {
-            infinite: true,
-            // slidesToShow: 6,
-            slidesToScroll: 6,
-            variableWidth: true
-          }
-        },
-        {
-          breakpoint: 650,
-          settings: {
-            infinite: true,
-            // slidesToShow: 4,
-            slidesToScroll: 4,
-            variableWidth: true
-          }
+  el: $('#js-pageContent'),
+  carouselRows: 12,
+  carouselConfig: {
+    infinite: false,
+    speed: 300,
+    slidesToShow: 10,
+    slidesToScroll: 6,
+    variableWidth: true,
+    lazyLoad: 'ondemand',
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          infinite: true,
+          // slidesToShow: 8,
+          slidesToScroll: 8,
+          variableWidth: true
         }
-      ]
-    };    
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          infinite: true,
+          // slidesToShow: 6,
+          slidesToScroll: 6,
+          variableWidth: true
+        }
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          infinite: true,
+          // slidesToShow: 4,
+          slidesToScroll: 4,
+          variableWidth: true
+        }
+      }
+    ]
+  },
+
+  events: {
+    'click #js-linkBack'      : 'goToSearchResults',
+    'beforeChange .carousel'  : 'loadSlides',
+    'click .js-item-link'     : 'goToItemPage'
+  },
+  goToSearchResults: function(e) {
+    this.model.unset('itemId', {silent: true});
+    this.model.unset('itemNumber', {silent: true});
+    e.preventDefault();
+    $.pjax({
+      url: $(e.currentTarget).children('a').attr('href'),
+      container: '#js-pageContent',
+      data: this.model.toJSON(),
+      traditional: true
+    });
+  },
+  loadSlides: function(e, slick, currentSlide, nextSlide) {
+    var numFound = $('.js-carousel_item').data('numfound');
+    var numLoaded = $('.carousel').slick('getSlick').slideCount;
+    // var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
+
+    if (numLoaded < numFound && nextSlide > currentSlide) {
+
+      this.carouselStart = parseInt(this.carouselStart) + parseInt(this.carouselRows);
+
+      // function(data, status, jqXHR)
+      $.ajax({data: this.toJSON(), traditional: true, url: '/carousel/', success: function(data) {
+          $('.carousel').slick('slickAdd', data);
+      }});
+    }
+
+    // if (nextSlide+slidesPerPage > numFound){ var slideRange = (nextSlide+slidesPerPage) - numFound}
+    // else { var slideRange = nextSlide+slidesPerPage }
+    //
+    // $('.carousel__items-number').text('Displaying ' + (parseInt(nextSlide)+1) + ' - ' + slideRange + ' of ' + numFound);
+
+  },
+  goToItemPage: function(e) {
+    if ($(e.currentTarget).data('item_number') !== undefined) {
+      this.model.set({
+        itemNumber: $(e.currentTarget).data('item_number'),
+        itemId: $(e.currentTarget).data('item_id')
+      }, {silent: true});
+
+      // add implicit context for campus, institution, and collection pages
+      if($('#js-institution').length > 0) {
+        if($('#js-institution').data('campus')) {
+          this.model.set({campus: $('#js-institution').data('campus')}, {silent: true});
+        } else {
+          this.model.set({repository_data: $('#js-institution').data('institution')}, {silent: true});
+        }
+      } else if ($('#js-collection').length > 0) {
+        this.model.set({collection_data: $('#js-collection').data('collection')}, {silent: true});
+      }
+
+      e.preventDefault();
+      $.pjax({
+        url: $(e.currentTarget).attr('href'),
+        container: '#js-itemContainer',
+      });
+    }
+  },
+
+  toJSON: function() {
+    var context = this.model.toJSON();
+    context.start = this.carouselStart;
+    context.rows = this.carouselRows;
+    return context;
+  },
+
+  setupCarousel: function() {
+    $('#js-linkBack').html('<a href="/search/">Search results for "' + this.model.get('q') + '"</a>');
+    this.carouselStart = this.model.get('itemNumber');
     
     //TODO: function(data, status, jqXHR)
     $.ajax({
       url: '/carousel/',
-      data: this.model.carouselContext(), 
+      data: this.toJSON(),
       traditional: true, 
-      success: function(data) {
-        $('#js-carousel').html(data);
-        $('.carousel').show();
-        $('.carousel').slick(conf);
-        $('.carousel__items-number').html($(data).data('numfound') + ' ' + $('.carousel__items-number').html());
-      }
+      success: (function(that) {
+        return function(data) {
+          $('#js-carousel').html(data);
+          $('.carousel').show();
+          $('.carousel').slick(that.carouselConfig);
+          $('.carousel__items-number').html($(data).data('numfound') + ' ' + $('.carousel__items-number').html());
+        };
+      }(this))
     });
+  },
 
-    $('.carousel').on('beforeChange', (function(that) {
-      return function(event, slick, currentSlide, nextSlide){
-        var numFound = $('.js-carousel_item').data('numfound');
-        var numLoaded = $('.carousel').slick('getSlick').slideCount;
-        // var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
-
-        if (numLoaded < numFound && nextSlide > currentSlide) {
-
-          var data_params = that.model.carouselContext();
-          data_params.start = parseInt(that.model.get('carouselStart')) + parseInt(that.model.get('carouselRows'));
-          that.model.set({carouselStart: data_params.start}, {silent: true});
-
-          // function(data, status, jqXHR)
-          $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(data) {
-              $('.carousel').slick('slickAdd', data);
-          }});
-        }
-
-        // if (nextSlide+slidesPerPage > numFound){ var slideRange = (nextSlide+slidesPerPage) - numFound}
-        // else { var slideRange = nextSlide+slidesPerPage }
-        //
-        // $('.carousel__items-number').text('Displaying ' + (parseInt(nextSlide)+1) + ' - ' + slideRange + ' of ' + numFound);
-
-      };
-    }(this)));
-  }
+  initialize: function() { this.setupCarousel(); }
 });
 
 var ComplexCarousel = Backbone.View.extend({

@@ -14,15 +14,46 @@ var setupObjects = function() {
   if ($('#js-facet').length > 0) {
     if (facetForm === undefined) {
       facetForm = new FacetForm({model: qm});
+    } else if (facetForm.dead === true) {
+      facetForm.dead = false;
+      facetForm.initialize();
+      facetForm.delegateEvents();
     }
     facetForm.toggleSelectDeselectAll();
+
+    // get rid of any visible tooltips
+    var visibleTooltips = $('[data-toggle="tooltip"][aria-describedby]');
+    for (var i=0; i<visibleTooltips.length; i++) {
+      var tooltipId = $(visibleTooltips[i]).attr('aria-describedby');
+      $('#' + tooltipId).remove();
+    }
+
     $('[data-toggle="tooltip"]').tooltip({
       placement: 'top'
     });
   }
+  else if (facetForm !== undefined) {
+    facetForm.dead = true;
+    facetForm.stopListening();
+    facetForm.undelegateEvents();
+  }
 
   if($('#js-carouselContainer').length > 0) {
-    carousel = new CarouselContext({model: qm});
+    if (carousel === undefined) {
+      carousel = new CarouselContext({model: qm});
+    } else if (carousel.dead === true) {
+      carousel.dead = false;
+      carousel.initialize();
+      carousel.delegateEvents();
+    }
+    $(document).one('pjax:beforeSend', function(e, xhr) {
+      xhr.setRequestHeader('X-From-Item-Page', 'true');
+    });
+  }
+  else if (carousel !== undefined) {
+    carousel.dead = true;
+    carousel.stopListening();
+    carousel.undelegateEvents();
   }
 
   if($('.carousel-complex').length > 0) {
@@ -81,27 +112,12 @@ $(document).ready(function() {
     if(viewer !== undefined) {
       viewer.destroy();
     }
-    if(carousel !== undefined) {
-      carousel.remove();
-    }
-    if(complexCarousel !== undefined) {
-      complexCarousel.remove();
-    }
   });
 
   $(document).on('pjax:end', '#js-pageContent', function() {
     //if we've gotten to a page without search context, clear the query manager
     if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
       qm.clear({silent: true});        
-    }
-    
-    if($('#js-facet').length > 0) {
-      // get rid of any visible tooltips
-      var visibleTooltips = $('[data-toggle="tooltip"][aria-describedby]');
-      for (var i=0; i<visibleTooltips.length; i++) {
-        var tooltipId = $(visibleTooltips[i]).attr('aria-describedby');
-        $('#' + tooltipId).remove();
-      }
     }
 
     setupObjects();

@@ -297,47 +297,13 @@ def itemView(request, item_id=''):
         for repository_data in item['repository_data']:
             item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
 
-    # TODO: write related objects version (else)
-    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-        queryParams = processQueryRequest(request)
-        queryParams['rows'] = 12
-        carousel_items = itemViewCarousel(request, queryParams)
-        
-        filter_display = {}
-        for filter_type in queryParams['filters']:
-            if filter_type == 'collection_data':
-                filter_display['collection_data'] = []
-                for filter_item in queryParams['filters'][filter_type]:
-                    collection = getCollectionData(collection_data=filter_item)
-                    filter_display['collection_data'].append(collection)
-            elif filter_type == 'repository_data':
-                filter_display['repository_data'] = []
-                for filter_item in queryParams['filters'][filter_type]:
-                    repository = getRepositoryData(repository_data=filter_item)
-                    filter_display['repository_data'].append(repository)
-            else:
-                filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
-
-        return render(request, 'calisphere/itemView.html', {
-            'item_solr_search': item_solr_search,
+    fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE") 
+    if fromItemPage: 
+        return render (request, 'calisphere/itemViewer.html', {
+            'q': '',
             'item': item_solr_search.results[0],
-            'q': queryParams['q'],
-            'rq': queryParams['rq'],
-            'filters': filter_display,
-            'rows': queryParams['rows'],
-            'start': queryParams['start'],
-            'search_results': carousel_items['results'],
-            # 'facets': facets,
-            'FACET_TYPES': FACET_TYPES,
-            'numFound': carousel_items['numFound'],
-            'pages': int(math.ceil(float(carousel_items['numFound'])/int(queryParams['rows']))),
-            # 'view_format': queryParams['view_format'],
-            'related_collections': relatedCollections(request, queryParams),
-            # 'rc_page': queryParams['rc_page']
+            'item_solr_search': item_solr_search,
         })
-
-        # return render (request, 'calisphere/home.html', {'q': q})
-
     return render(request, 'calisphere/itemView.html', {
         'q': '',
         'item': item_solr_search.results[0],
@@ -410,7 +376,7 @@ def search(request):
             'rc_page': queryParams['rc_page'],
             'form_action': reverse('calisphere:search')
         })
-
+    
     return render (request, 'calisphere/home.html', {'q': ''})
 
 def itemViewCarousel(request, queryParams={}):
