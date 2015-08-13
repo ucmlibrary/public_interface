@@ -104,16 +104,6 @@
 
 // ***** Thumbnail Icon Overlays ***** //
 
-.thumbnail__overlay-image { // sets the image within the container
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-}
-
 @mixin thumbnail__overlay-icon($overlay-icon-size-xs: 30px, $overlay-icon-size-sm: 35px, $overlay-icon-size-md: 40px) { // sets the white circle within the container
   position: absolute;
   left: 5%;
