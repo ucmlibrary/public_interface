@@ -23,11 +23,11 @@
 }
 
 .baseclass1-tile-icon {
-	@include thumbnail__tile-icon(90px); // (size xs, size md, size lg)
+	@include thumbnail__tile-icon(); // for custom icon sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 .baseclass2-overlay-icon {
-	@include thumbnail__overlay-icon(45px); // (size xs, size md, size lg)
+	@include thumbnail__overlay-icon(); // for custom icon sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 // ***** Original Thumbnail Classes ***** //
