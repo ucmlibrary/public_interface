@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
+from calisphere.home import HomeView
 
 urlpatterns = patterns('calisphere',
-    url(r'^$', TemplateView.as_view(template_name='calisphere/home.html'), name='home'),
+    url(r'^$', HomeView.as_view(), name='home'),
     url(r'^search/$', 'views.search', name='search'),
     url(r'^item/(?P<item_id>.*)/', 'views.itemView', name='itemView'),
 
