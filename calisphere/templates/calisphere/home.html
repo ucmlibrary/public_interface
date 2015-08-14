@@ -1,6 +1,6 @@
 {% extends "calisphere/base.html" %}
 
-{% block globalSearch %}      
+{% block globalSearch %}
 <div class="col-xs-12 col-sm-4 global-header__search--homepage js-global-header__search--homepage">
 	<form class="global-header__search-form--homepage" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
 {% endblock %}
@@ -11,7 +11,8 @@
 
 	<div class="home__main-section">
 
-		<div class="home__mast">
+
+		<div class="{{ lock_up.mast.class }}">
 			<h1 class="home__mast-heading">The deeper you look, the more you'll discover.</h1>
       <form role="search" id="js-homeForm" action="{% url 'calisphere:search' %}" method="get">
 			<div class="home__search">
@@ -25,7 +26,9 @@
 	      </div>
 	    </div>
       </form>
-	    <a href="{% url 'calisphere:itemView' '26094--LAPL00035316' %}" class="home__img-credit--gradient">Strolling on the Colorado Street Bridge (Pasadena, CA) / Los Angeles Public Library</a>
+	    <a href="{% url 'calisphere:itemView' lock_up.mast.id  %}" class="home__img-credit--gradient">
+        {{ lock_up.mast.title }} / {{ lock_up.mast.contributor }}
+      </a>
 
 		</div>
 
@@ -36,14 +39,18 @@
 			</div>
 
 			<div class="col-xs-8">
-				<div class="home__img-main1">
-					<a href="{% url 'calisphere:itemView' '16289--http://ark.cdlib.org/ark:/13030/kt9v19q5hg' %}" class="home__img-credit">Crate label for Orange County Valencias / Orange Public Library</a>
+				<div class="{{ lock_up.main1.class }}">
+					<a href="{% url 'calisphere:itemView' lock_up.main1.id %}" class="home__img-credit">
+            {{ lock_up.main1.title }} / {{ lock_up.main1.contributor }}
+          </a>
 				</div>
 			</div>
 
 			<div class="col-xs-4">
-				<div class="home__img-main2">
-					<a href="{% url 'calisphere:itemView' '872--http://ark.cdlib.org/ark:/13030/kt329015v6' %}" class="home__img-credit--gradient">Hirahara family portrait, 1926 / Anaheim Public Library</a>
+				<div class="{{ lock_up.main2.class }}">
+					<a href="{% url 'calisphere:itemView' lock_up.main2.id %}" class="home__img-credit--gradient">
+            {{ lock_up.main2.title }} / {{ lock_up.main2.contributor }}
+          </a>
 				</div>
 			</div>
 
@@ -53,87 +60,19 @@
 
 	<h2 class="home__heading2">Explore University of California collections:</h2>
 
+  {{ uc_partners }}
+
 	<div class="row home__thumbnail">
 
+  {% for feature in uc_partners %}
 		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCSB' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_santabarbara.jpg');">
+			<a href="{% url 'calisphere:campusView' feature.id 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/{{ feature.thumb }}');">
 				<div class="home__thumbnail-caption--uc">
-					UC Santa Barbara
+					{{ feature.name }}
 				</div>
 			</a>
 		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCI' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_irvine.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC Irvine
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCM' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_merced.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC Merced
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCSD' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_sandiego.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC San Diego
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCSC' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_santacruz.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC Santa Cruz
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCLA' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_la.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UCLA
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCD' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_davis.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC Davis
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCSF' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_sf.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC San Francisco
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCB' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_berkeley.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC Berkeley
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:campusView' 'UCR' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-uc_riverside.jpg');">
-				<div class="home__thumbnail-caption--uc">
-					UC Riverside
-				</div>
-			</a>
-		</div>
+  {% endfor %}
 
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 			<div class="home__contributing-block">
@@ -149,85 +88,16 @@
 
 		<h2 class="home__heading2">Featured statewide partners:</h2>
 
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '87' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_marin.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Marin County Free Library
-				</div>
-			</a>
-		</div>
 
+  {% for feature in statewide_partners %}
 		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '143' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_la-public-library.jpg');">
+			<a href="{% url 'calisphere:repositoryView' feature.id 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/{{ feature.thumb }}');">
 				<div class="home__thumbnail-caption--inst">
-					Los Angeles Public Library
+					{{ feature.name }}
 				</div>
 			</a>
 		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '144' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_sf-public-library.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					San Francisco Public Library
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '77' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_humboldt-state-university.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Humboldt State University
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '93' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_museum.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Museum of Performance and Design, Performing Arts Library
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '80' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_japanese.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Japanese American National Museum
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '108' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_riverside.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Riverside Public Library
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '146' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_huntington.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Huntington Library, Photo Archives
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '72' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_lgbt.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Gay, Lesbian, Bisexual, Transgender Historical Society
-				</div>
-			</a>
-		</div>
-
-		<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			<a href="{% url 'calisphere:repositoryView' '149' 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/thumb-inst_tulare-county.jpg');">
-				<div class="home__thumbnail-caption--inst">
-					Tulare County Library
-				</div>
-			</a>
-		</div>
+  {% endfor %}
 
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 			<div class="home__contributing-block">
