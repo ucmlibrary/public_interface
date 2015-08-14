@@ -99,8 +99,12 @@ html.no-jquery .obj__osd-infobanner {
 
 // ***** Hosted File ***** //
 
-.obj-hosted__no-image {
+.obj-hosted__no-image { // delete after integrating icon mixins
   @include thumbview__no-image($thumb-border: $design-primary-color);
+}
+
+.obj-hosted__tile-icon {
+  @include thumbnail__tile-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 .obj-hosted__caption {
