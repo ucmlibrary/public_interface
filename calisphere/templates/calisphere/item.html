@@ -28,7 +28,7 @@
 {% elif item.harvest_type == 'hosted' %}
   {% if item.structMap %}
     {% include 'calisphere/objectViewer/complex-object.html' %}
-  {% elif item.type_ss.0|lower == 'image' %}
+  {% elif item.type_ss.0|lower == 'image' or item.structmap_url and item.reference_image_md5 %}
     {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
   {% elif item.type_ss.0|lower == 'moving image' %}
   {% elif item.type_ss.0|lower == 'sound' %}
