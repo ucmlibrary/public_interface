@@ -11,6 +11,7 @@
 // }
 
 .thumbnail__container { // creates the container
+	display: block;
 	position: relative;
 	background-color: $design-light-gray-color;
 

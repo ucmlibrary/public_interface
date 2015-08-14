@@ -23,6 +23,14 @@
   display: block;
 }
 
+.listview__overlay-icon {
+  @include thumbnail__overlay-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.listview__tile-icon {
+  @include thumbnail__tile-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
 .listview__icon-overlay {
   @include icon__centered-overlay(60px, 50px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
   z-index: 2; // stack over .thumbview__image
