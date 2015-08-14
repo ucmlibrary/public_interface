@@ -41,11 +41,10 @@
 }
 
 .thumbnail__caption {
-  height: 2.5em; // reveal only 2 lines of text
-  padding: 0.5em 0 0 0;
+  height: 2em; // reveal only 2 lines of text
+  margin: 0.5em 0 0 0;
   line-height: 1;
   overflow: hidden;
-  background-color: #fff;
 }
 
 .baseclass1-tile-icon { // remove after testing
