@@ -63,19 +63,37 @@ html.no-js .carousel__item {
 
 }
 
-.carousel__image-container {
+.carousel__image-container { // delete after integrating icon mixins
   position: relative; // relative to carousel__icon-overlay
 }
 
-.carousel__image--selected {
+.carousel__image {
+  @extend .thumbnail__overlay-image;
+}
+
+.carousel__image1--selected { // delete and rename to 'image--selected' after integrating icon mixins
+  @extend .thumbnail__overlay-image;
   border: 7px solid $design-secondary-color;
 }
 
-.carousel__icon-overlay {
+.carousel__image--selected { 
+  // @extend .thumbnail__overlay-image;
+  border: 7px solid $design-secondary-color;
+}
+
+.carousel__overlay-icon {
+  @include thumbnail__overlay-icon(30px, 35px, 35px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.carousel__tile-icon {
+  @include thumbnail__tile-icon(45px, 50px, 60px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.carousel__icon-overlay { // delete after integrating icon mixins above
   @include icon__centered-overlay(60px, 50px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
 
-.carousel__thumbnail--no-image {
+.carousel__thumbnail--no-image { // delete after integrating icon mixins above
   @include thumbview__no-image($design-dark-gray-color); // (border-color)
 }
 
