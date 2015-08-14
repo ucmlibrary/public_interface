@@ -3,7 +3,7 @@ from django.shortcuts import render
 import json
 import random
 import os
-from pprint import pprint as pp
+
 
 class HomeView(TemplateView):
 
@@ -16,7 +16,6 @@ class HomeView(TemplateView):
         this_dir = os.path.dirname(os.path.realpath(__file__))
         this_data = os.path.join(this_dir, 'home-data.json')
         self.home_data = json.loads(open(this_data).read())
-
 
     def get(self, request):
         """ view for home page """
