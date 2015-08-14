@@ -41,17 +41,24 @@ html.no-jquery .obj__osd-infobanner {
 // ***** Icon Overlays ***** //
 
 .obj__overlay-icon {
-  @include thumbnail__overlay-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+  @include thumbnail__overlay-icon(40px, 45px, 50px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 // ***** Harvest Image ***** //
+
+.obj__simple-image { // delete after integrating icon mixins
+  @extend .thumbnail__overlay-image;
+  width: auto; // cancels 'width: 100%'
+  max-width: 100%; // images smaller than the max container size will not scale up
+  margin: 0 auto;
+}
 
 .obj-harvest__link {
   position: relative;
   display: block;
 }
 
-.obj-harvest__image {
+.obj-harvest__image { // delete after integrating icon mixins
   display: block;
   max-width: 100%; // images smaller than the max container size will not scale up
   height: auto;
