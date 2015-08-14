@@ -1,4 +1,4 @@
-{% extends "calisphere/base.html"|pjax:request %}
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 
 {% block title %}: About{% endblock %}
 
@@ -14,7 +14,7 @@
 
 		<p>Welcome to Calisphere: your gateway to California’s remarkable digital collections. Calisphere provides free access to unique and historically important artifacts for research, teaching, and curious exploration. Explore photographs, documents, letters, artwork, diaries, oral histories, films, advertisements, and more.</p>
 
-		<p>The collections you’ll find on Calisphere have been digitized and contributed by <a href="/institutions/uc-partners/">all ten campuses of the University of California</a> and other great <a href="/institutions/statewide-partners/">libraries, archives, and museums throughout the state</a>.</p>
+		<p>The collections you’ll find on Calisphere have been digitized and contributed by <a href="/institutions/uc-partners/" data-pjax="js-pageContent">all ten campuses of the University of California</a> and other great <a href="/institutions/statewide-partners/" data-pjax="js-pageContent">libraries, archives, and museums throughout the state</a>.</p>
 
 		<h2>Calisphere <span class="text-uppercase">beta</span>: more content, better access</h2>
 
@@ -22,7 +22,7 @@
 
 		<p>If you’re a longtime Calisphere visitor, you may notice the absence of curated sets of resources such as Themed Collections, <abbr title="Japanese American Relocation Digital Archives">JARDA</abbr>, and California Cultures. We are actively working on adding these to Calisphere <span class="text-uppercase">beta</span>. In the meantime, you can access them through <a href="http://www.calisphere.org">the old Calisphere website</a>.</p>
 
-		<p><a href="/contact/">We’d welcome your feedback</a> on the Calisphere <span class="text-uppercase">beta</span> site.</p>
+		<p><a href="/contact/" data-pjax="js-pageContent">We’d welcome your feedback</a> on the Calisphere <span class="text-uppercase">beta</span> site.</p>
 
 		<h2>Our Organization</h2>
 
@@ -33,7 +33,7 @@
   <div class="col-sm-4 static__sidebar">
 
   	<h3 class="static__sidebar-heading">Join us!</h3>
-  	<p>Calisphere aggregates digital content and metadata from established collecting institutions in California. If you represent such an organization and are interested in contributing digital content to the site, please <a href="/contact/">contact us</a>.</p>
+  	<p>Calisphere aggregates digital content and metadata from established collecting institutions in California. If you represent such an organization and are interested in contributing digital content to the site, please <a href="/contact/" data-pjax="js-pageContent">contact us</a>.</p>
 
   </div>
 

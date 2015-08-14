@@ -186,7 +186,7 @@ def processQueryRequest(request):
     # concatenate query terms from refine query and query box, set defaults
     q = request.GET['q'] if 'q' in request.GET else ''
     rq = request.GET.getlist('rq')
-    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
+    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if ('q' in request.GET or 'rq' in request.GET) else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '16'
     start = request.GET['start'] if 'start' in request.GET and request.GET['start'] != '' else '0'
     sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'
@@ -267,8 +267,13 @@ def itemView(request, item_id=''):
                     item['selectedComponent'] = component
                 else: 
                     item['selected'] = True
+                    # if parent content file, get it
                     if 'format' in structmap_data:
                         item['contentFile'] = getHostedContentFile(structmap_data)
+                    # otherwise get first component file
+                    else:
+                        component = structmap_data['structMap'][0]
+                        item['contentFile'] = getHostedContentFile(component)
                 item['structMap'] = structmap_data['structMap']
             else: 
                 # simple object
@@ -292,47 +297,13 @@ def itemView(request, item_id=''):
         for repository_data in item['repository_data']:
             item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
 
-    # TODO: write related objects version (else)
-    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-        queryParams = processQueryRequest(request)
-        queryParams['rows'] = 12
-        carousel_items = itemViewCarousel(request, queryParams)
-        
-        filter_display = {}
-        for filter_type in queryParams['filters']:
-            if filter_type == 'collection_data':
-                filter_display['collection_data'] = []
-                for filter_item in queryParams['filters'][filter_type]:
-                    collection = getCollectionData(collection_data=filter_item)
-                    filter_display['collection_data'].append(collection)
-            elif filter_type == 'repository_data':
-                filter_display['repository_data'] = []
-                for filter_item in queryParams['filters'][filter_type]:
-                    repository = getRepositoryData(repository_data=filter_item)
-                    filter_display['repository_data'].append(repository)
-            else:
-                filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
-
-        return render(request, 'calisphere/itemView.html', {
-            'item_solr_search': item_solr_search,
+    fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE") 
+    if fromItemPage: 
+        return render (request, 'calisphere/itemViewer.html', {
+            'q': '',
             'item': item_solr_search.results[0],
-            'q': queryParams['q'],
-            'rq': queryParams['rq'],
-            'filters': filter_display,
-            'rows': queryParams['rows'],
-            'start': queryParams['start'],
-            'search_results': carousel_items['results'],
-            # 'facets': facets,
-            'FACET_TYPES': FACET_TYPES,
-            'numFound': carousel_items['numFound'],
-            'pages': int(math.ceil(float(carousel_items['numFound'])/int(queryParams['rows']))),
-            # 'view_format': queryParams['view_format'],
-            'related_collections': relatedCollections(request, queryParams),
-            # 'rc_page': queryParams['rc_page']
+            'item_solr_search': item_solr_search,
         })
-
-        # return render (request, 'calisphere/home.html', {'q': q})
-
     return render(request, 'calisphere/itemView.html', {
         'q': '',
         'item': item_solr_search.results[0],
@@ -405,18 +376,21 @@ def search(request):
             'rc_page': queryParams['rc_page'],
             'form_action': reverse('calisphere:search')
         })
-
+    
     return render (request, 'calisphere/home.html', {'q': ''})
 
 def itemViewCarousel(request, queryParams={}):
-    if not queryParams:
-        if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-            queryParams = processQueryRequest(request)
-
-        ajaxRequest = True
-        queryParams['rows'] = 6
-    else:
-        ajaxRequest = False
+    # if not queryParams:
+    #     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
+    #         queryParams = processQueryRequest(request)
+    #
+    #     ajaxRequest = True
+    #     queryParams['rows'] = 6
+    # else:
+    #     ajaxRequest = False
+    
+    queryParams = processQueryRequest(request)
+    item_id = request.GET['itemId'];
     
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
@@ -449,16 +423,18 @@ def itemViewCarousel(request, queryParams={}):
     if len(carousel_solr_search.results) == 0:
         print 'no results found'
     
-    if ajaxRequest:
-        return render(request, 'calisphere/carousel.html', {
-            'q': queryParams['q'],
-            'start': queryParams['start'],
-            'numFound': carousel_solr_search.numFound,
-            'search_results': carousel_solr_search.results,
-        })
+    # if ajaxRequest:
+    return render(request, 'calisphere/carousel.html', {
+        'q': queryParams['q'],
+        'start': queryParams['start'],
+        'numFound': carousel_solr_search.numFound,
+        'search_results': carousel_solr_search.results,
+        'item_id': item_id
+    })
 
-    return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
+    # return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
 
+# TODO: handle campus_slug
 def relatedCollections(request, queryParams={}):
     if not queryParams:
         queryParams = processQueryRequest(request)

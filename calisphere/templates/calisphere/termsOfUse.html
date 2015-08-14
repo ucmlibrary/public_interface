@@ -1,4 +1,4 @@
-{% extends "calisphere/base.html"|pjax:request %}
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 
 {% block title %}: Terms of Use and Copyright Information{% endblock %}
 
@@ -43,7 +43,7 @@
   <div class="col-sm-4 static__sidebar">
 
   	<h3 class="static__sidebar-heading">Need more help?</h3>
-  	<p>Check out our <a href="/help/">frequently asked questions</a>.</p>
+  	<p>Check out our <a href="/help/" data-pjax="js-pageContent">frequently asked questions</a>.</p>
 
   </div>
 

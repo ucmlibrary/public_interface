@@ -1,4 +1,4 @@
-{% extends "calisphere/base.html"|pjax:request %}
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 {% load calisphere-extras %}
 {% load staticfiles %}
 
@@ -15,7 +15,13 @@
   		<h3 class="inst-textboxes__box-heading">{{ char }}</h3>
   		<ul class="inst-textboxes__list">
       {% for repository in repos %}
-          <li class="inst-textboxes__list-item"><a class="inst-textboxes__link" href="{% url 'calisphere:repositoryView' repository.repository_id 'collections' %}">{{ repository.name }}</a></li>
+          <li class="inst-textboxes__list-item">
+            <a class="inst-textboxes__link" 
+            href="{% url 'calisphere:repositoryView' repository.repository_id 'collections' %}" 
+            data-pjax="js-pageContent">
+              {{ repository.name }}
+            </a>
+          </li>
       {% endfor %}
     	</ul>
     </div>

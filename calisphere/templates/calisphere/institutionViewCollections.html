@@ -93,19 +93,6 @@
 {% block footerScripts %}
   <script>
     $(document).ready(function() {
-      $('#js-mosaicContainer').infinitescroll({
-        navSelector: "#js-collectionPagination",
-        nextSelector: "#js-collectionPagination a.js-next",
-        itemSelector: "#js-mosaicContainer div.js-collectionMosaic",
-        debug: false,
-        loading: {
-          finishedMsg: "All collections showing.",
-          img: "{% static 'images/orange-spinner.gif' %}",
-          msgText: "",
-          selector: "#js-loading"
-        }
-      });
-      
       $(document).on('focus', '.js-institutionSearch', function() {
         $('#js-searchInstitution').submit();
       });

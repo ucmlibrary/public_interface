@@ -6,7 +6,7 @@
     {{ num_related_collections }} Collections in Search Results</h3>
   {% for related_collection in related_collections %}
     <div class="col-xs-12 col-sm-4">
-      <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}">
+      <a class="related-coll__link" href="{% url 'calisphere:collectionView' related_collection.collection_id %}" data-pjax="js-pageContent">
         <div class="related-coll__container">
           <div class="col-xs-12 col-sm-12">
             
