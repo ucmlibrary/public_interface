@@ -240,8 +240,10 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
   {% elif item.harvest_type == 'hosted' %}
     {% if item.structMap and item.selected == True %}
       Set Information.
-    {% else %}
+    {% elif item.structMap %}
       Page Information. <a href="{% url 'calisphere:itemView' item.id %}">Go to set information.</a>
+    {% else %}
+      Item Information.
     {% endif %}
   {% endif %}
 </h3>
