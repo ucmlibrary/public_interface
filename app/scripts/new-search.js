@@ -408,12 +408,17 @@ var CarouselContext = Backbone.View.extend({
     } else if (this.model.get('referral') === 'collection') {
       linkBack = '/collections/' + this.model.get('collection_data') + '/';
       textContent = 'Items in ' + this.model.get('referralName');
-    } else {
+    } else if (this.model.get('q') !== undefined) {
       linkBack = '/search/';
       textContent = 'Search results for "' + this.model.get('q') + '"';
+    } else {
+      linkBack = '/search/';
+      textContent = 'More items like this on Calisphere';
     }
     $('#js-linkBack').html('<a href="' + linkBack + '" data-pjax="js-pageContent">' + textContent + '</a>');
-    this.carouselStart = this.model.get('itemNumber');
+    if (this.model.get('itemNumber') !== undefined) {
+      this.carouselStart = this.model.get('itemNumber');
+    }
     
     var data_params = this.toJSON();
     delete data_params.referral;
@@ -437,6 +442,9 @@ var CarouselContext = Backbone.View.extend({
   },
 
   initialize: function() {
+    if (_.isEmpty(this.model.attributes)) {
+      this.model.set({itemId: $('#js-itemContainer').data('itemid')}, {silent: true});
+    }
     this.initCarousel();
     this.paginateRelatedCollections();
   }

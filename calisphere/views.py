@@ -379,19 +379,15 @@ def search(request):
     
     return render (request, 'calisphere/home.html', {'q': ''})
 
-def itemViewCarousel(request, queryParams={}):
-    # if not queryParams:
-    #     if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-    #         queryParams = processQueryRequest(request)
-    #
-    #     ajaxRequest = True
-    #     queryParams['rows'] = 6
-    # else:
-    #     ajaxRequest = False
-    
+def itemViewCarousel(request):
     queryParams = processQueryRequest(request)
-    item_id = request.GET['itemId'];
-    
+    item_id = request.GET['itemId'] if 'itemId' in request.GET else ''
+
+    mlt = False
+    if queryParams['q'] == '' and bool([filterType for filterType in queryParams['filters'].values() if filterType == []]):
+        mlt=True,
+        mlt_fl='title,collection_name,subject'
+
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
         campus_id = ''
@@ -404,26 +400,20 @@ def itemViewCarousel(request, queryParams={}):
         fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
 
     # TODO: getting back way more fields than I really need
-    carousel_solr_search = SOLR_select(
-        q=queryParams['query_terms'],
-        rows=queryParams['rows'],
-        start=queryParams['start'],
-        fq=fq
-    )
+    if mlt:
+        carousel_solr_search = SOLR_select(
+            q='id:'+item_id,
+            mlt='true',
+            mlt_fl=['title', 'collection_name', 'subject']
+        )
+    else:
+        carousel_solr_search = SOLR_select(
+            q=queryParams['query_terms'],
+            rows=queryParams['rows'],
+            start=queryParams['start'],
+            fq=fq
+        )
 
-    # except solr.SolrException:
-        # TODO: better error handling
-        # print solr.SolrException.reason
-        # print solr.SolrException.httpcode
-        # print solr.SolrException.body
-
-    # search performed, process the results
-
-    # TODO: create a no results found page
-    if len(carousel_solr_search.results) == 0:
-        print 'no results found'
-    
-    # if ajaxRequest:
     return render(request, 'calisphere/carousel.html', {
         'q': queryParams['q'],
         'start': queryParams['start'],
@@ -431,8 +421,6 @@ def itemViewCarousel(request, queryParams={}):
         'search_results': carousel_solr_search.results,
         'item_id': item_id
     })
-
-    # return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
 
 # TODO: handle campus_slug
 def relatedCollections(request, queryParams={}):

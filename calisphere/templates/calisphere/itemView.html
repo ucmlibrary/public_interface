@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<div id="js-itemContainer">
+<div id="js-itemContainer" data-itemId="{{ item.id }}">
   {% block itemContent %}
     {% include "calisphere/item.html" %}
   {% endblock %}
