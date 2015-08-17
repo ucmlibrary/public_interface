@@ -68,16 +68,16 @@ html.no-js .carousel__item {
 }
 
 .carousel__image {
-  @extend .thumbnail__overlay-image;
+  @extend .thumbnail__image;
 }
 
 .carousel__image1--selected { // delete and rename to 'image--selected' after integrating icon mixins
-  @extend .thumbnail__overlay-image;
+  @extend .thumbnail__image;
   border: 7px solid $design-secondary-color;
 }
 
 .carousel__image--selected { 
-  // @extend .thumbnail__overlay-image;
+  // @extend .thumbnail__image;
   border: 7px solid $design-secondary-color;
 }
 

@@ -47,7 +47,7 @@ html.no-jquery .obj__osd-infobanner {
 // ***** Harvest Image ***** //
 
 .obj__simple-image { // delete after integrating icon mixins
-  @extend .thumbnail__overlay-image;
+  @extend .thumbnail__image;
   width: auto; // cancels 'width: 100%'
   max-width: 100%; // images smaller than the max container size will not scale up
   margin: 0 auto;
