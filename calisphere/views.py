@@ -382,12 +382,6 @@ def search(request):
 def itemViewCarousel(request):
     queryParams = processQueryRequest(request)
     item_id = request.GET['itemId'] if 'itemId' in request.GET else ''
-
-    mlt = False
-    if queryParams['q'] == '' and bool([filterType for filterType in queryParams['filters'].values() if filterType == []]):
-        mlt=True,
-        mlt_fl='title,collection_name,subject'
-
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
         campus_id = ''
@@ -398,6 +392,11 @@ def itemViewCarousel(request):
             print "Campus registry ID not found"
 
         fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
+
+    mlt = False
+    if queryParams['q'] == '' and fq == '':
+        mlt=True,
+        mlt_fl='title,collection_name,subject'
 
     # TODO: getting back way more fields than I really need
     if mlt:
@@ -441,10 +440,21 @@ def relatedCollections(request, queryParams={}):
     # else:
     related_collections_filters = queryParams['filters']
 
+    fq = solrize_filters(related_collections_filters)
+    if 'campus_slug' in request.GET:
+        campus_id = ''
+        for campus in CAMPUS_LIST:
+            if request.GET['campus_slug'] == campus['slug']:
+                campus_id = campus['id']
+        if campus_id == '':
+            print "Campus registry ID not found"
+
+        fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
+
     related_collections_solr_search = SOLR_select(
         q=queryParams['query_terms'],
         rows='0',
-        fq=solrize_filters(related_collections_filters),
+        fq=fq,
         facet='true',
         facet_mincount=1,
         facet_limit='-1',
