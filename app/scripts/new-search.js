@@ -442,9 +442,7 @@ var CarouselContext = Backbone.View.extend({
   },
 
   initialize: function() {
-    if (_.isEmpty(this.model.attributes)) {
-      this.model.set({itemId: $('#js-itemContainer').data('itemid')}, {silent: true});
-    }
+    this.model.set({itemId: $('#js-itemContainer').data('itemid')}, {silent: true});
     this.initCarousel();
     this.paginateRelatedCollections();
   }
