@@ -54,9 +54,12 @@ def solrize_sort(sort):
     # if sort == 'newest':
     #     return 'facet_decade_s desc'
 
-def process_facets(facets, filters):
+def process_facets(facets, filters, facet_type=None):
     display_facets = dict((facet, count) for facet, count in facets.iteritems() if count != 0)
-    display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(1), reverse=True)
+    if facet_type and facet_type == 'facet_decade':
+        display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(0))
+    else:
+        display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(1), reverse=True)
 
     for f in filters:
         if not any(f in facet for facet in display_facets):
@@ -169,15 +172,16 @@ def facetQuery(facet_fields, queryParams, solr_search, extra_filter=None):
                 facet_limit='-1',
                 facet_field=[facet_type]
             )
-
             facets[facet_type] = process_facets(
                 facet_solr_search.facet_counts['facet_fields'][facet_type],
-                queryParams['filters'][facet_type]
+                queryParams['filters'][facet_type],
+                facet_type
             )
         else:
             facets[facet_type] = process_facets(
                 solr_search.facet_counts['facet_fields'][facet_type],
-                queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else []
+                queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else [],
+                facet_type
             )
 
     return facets
