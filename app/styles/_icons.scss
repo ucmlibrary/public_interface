@@ -1,5 +1,10 @@
 // ##### Icons ##### //
 
+.icon [class^="col-"] { // If Bootstrap column is present, do this:
+	// border: $bblue;
+	padding: 10px;
+}
+
 // ***** Single Icon Uses ***** //
 
 .icon__external-link:after {
