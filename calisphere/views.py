@@ -408,16 +408,17 @@ def itemViewCarousel(request):
         mlt=True,
         mlt_fl='title,collection_name,subject'
 
-    # TODO: getting back way more fields than I really need
     if mlt:
         carousel_solr_search = SOLR_select(
             q='id:'+item_id,
+            fields='id, type_ss, reference_image_md5, title',
             mlt='true',
             mlt_fl=['title', 'collection_name', 'subject']
         )
     else:
         carousel_solr_search = SOLR_select(
             q=queryParams['query_terms'],
+            fields='id, type_ss, reference_image_md5, title',
             rows=queryParams['rows'],
             start=queryParams['start'],
             fq=fq
@@ -436,9 +437,7 @@ def itemViewCarousel(request):
         })
     else:
         return render(request, 'calisphere/carousel.html', {
-            'q': queryParams['q'],
             'start': queryParams['start'],
-            'numFound': carousel_solr_search.numFound,
             'search_results': carousel_solr_search.results,
             'item_id': item_id
         })
