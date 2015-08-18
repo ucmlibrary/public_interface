@@ -2,34 +2,41 @@
 {% load static %}
 
   {% for carousel_item in search_results %}
-  <div class="js-carousel_item {% if carousel_item.id == item_id %}carousel__item--selected{% else %}carousel__item{% endif %}">
-    <a class="{% if carousel_item.id == item_id %}carousel__link--selected{% else %}carousel__link{% endif %} js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
-      <div class="carousel__image-container">
-        <div style="position: relative;">
-          {% if carousel_item.type_ss.0|lower != "image" %}
-            {% if carousel_item.type_ss.0|lower == "moving image" %}
-            <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
-            {% elif carousel_item.type_ss.0|lower == "sound"%}
-            <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
-            {% elif carousel_item.type_ss.0|lower == "text"%}
-            <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
-            {% elif carousel_item.type_ss.0|lower == "dataset" %}
-            <span class="fa fa-bar-chart fa-fw thumbview__icon-overlay"></span>
-            {% endif %}
-          {% endif %}
-          {% if carousel_item.reference_image_md5 %}
-            <img style="width: 100%; height: 100%" src="" 
-            data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}"
-            
-            {% if carousel_item.id == item_id %}class="carousel__image--selected"{% else %}class="carousel__image"{% endif %}
-            alt="{{ carousel_item.title.0|truncatewords:8 }}">
+  <div class="js-carousel_item {% if carousel_item.id == item.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
+    <a class="carousel__link js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
+      <div class="thumbnail__container">
+        {% if carousel_item.reference_image_md5 %}
+          <img
+          data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}"
+          {% if carousel_item.id == item.id %}
+          class="carousel__image--selected"
           {% else %}
-            <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}" 
-            {% if carousel_item.id == item_id %}class="carousel__image--selected"
-            {% else %}class="carousel__image" style="border: 1px solid #8b8d8e;"{% endif %}
-            style="width:100%; height:100%">
+          class="carousel__image"
           {% endif %}
-        </div>
+          alt="{{ carousel_item.title.0|truncatewords:8 }}"
+          >
+
+          {% if carousel_item.type_ss.0|lower == "moving image" %}
+          <span class="carousel__overlay-icon fa-play-circle-o"></span>
+          {% elif carousel_item.type_ss.0|lower == "sound"%}
+          <span class="carousel__overlay-icon fa-volume-up"></span>
+          {% elif carousel_item.type_ss.0|lower == "text"%}
+          <span class="carousel__overlay-icon fa-file-text-o"></span>
+          {% elif carousel_item.type_ss.0|lower == "dataset" %}
+          <span class="carousel__overlay-icon fa-bar-chart"></span>
+          {% endif %}
+
+        {% else %}
+          {% if carousel_item.type_ss.0|lower == "moving image" %}
+          <span class="carousel__tile-icon fa-play-circle-o"></span>
+          {% elif carousel_item.type_ss.0|lower == "sound"%}
+          <span class="carousel__tile-icon fa-volume-up"></span>
+          {% elif carousel_item.type_ss.0|lower == "text"%}
+          <span class="carousel__tile-icon fa-file-text-o"></span>
+          {% elif carousel_item.type_ss.0|lower == "dataset" %}
+          <span class="carousel__tile-icon fa-bar-chart"></span>
+          {% endif %}
+        {% endif %}        
       </div>
       <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:7 }}
       </div>
