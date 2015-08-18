@@ -192,6 +192,7 @@ def processQueryRequest(request):
     sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'
     view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
     rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
+    campus_slug = request.GET['campus_slug'] if 'campus_slug' in request.GET else ''
 
     # for each filter_type tuple ('solr_name', 'Display Name') in the list FACET_TYPES
     # create a dictionary with key solr_name of filter and value list of parameters for that filter
@@ -217,7 +218,8 @@ def processQueryRequest(request):
         'sort': sort,
         'view_format': view_format,
         'filters': filters,
-        'rc_page': rc_page
+        'rc_page': rc_page,
+        'campus_slug': campus_slug
     }
 
 def home(request):
@@ -461,10 +463,10 @@ def relatedCollections(request, queryParams={}):
     related_collections_filters = queryParams['filters']
 
     fq = solrize_filters(related_collections_filters)
-    if 'campus_slug' in request.GET:
+    if 'campus_slug' in queryParams and queryParams['campus_slug'] != '':
         campus_id = ''
         for campus in CAMPUS_LIST:
-            if request.GET['campus_slug'] == campus['slug']:
+            if queryParams['campus_slug'] == campus['slug']:
                 campus_id = campus['id']
         if campus_id == '':
             print "Campus registry ID not found"
@@ -721,7 +723,6 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
         
     if subnav == 'items':
         queryParams = processQueryRequest(request)
-    
         fq = solrize_filters(queryParams['filters'])
     
         if institution_type == 'repository':
@@ -729,6 +730,7 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
         
         if institution_type == 'campus':
+            queryParams['campus_slug'] = institution_details['slug']
             fq.append('campus_url: "' + institution_url + '"')
             facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
         
@@ -798,6 +800,11 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             for campus in CAMPUS_LIST:
                 if institution_id == campus['id'] and 'featuredImage' in campus:
                     context['featuredImage'] = campus['featuredImage']
+
+            #TODO: add to above context variable for both campus and institution, but this isn't working for institutions yet.
+            context['related_collections'] = relatedCollections(request, queryParams)
+            context['num_related_collections'] = len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data'])
+            context['rc_page'] = queryParams['rc_page']
         
         if institution_type == 'repository':
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')

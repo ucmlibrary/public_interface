@@ -223,6 +223,28 @@ var FacetForm = Backbone.View.extend({
   },
 
   paginateRelatedCollections: function(e) {
+    if($('#js-institution').length > 0) {
+      if($('#js-institution').data('campus')) {
+        this.model.set({
+          campus_slug: $('#js-institution').data('campus'),
+          referral: 'campus',
+          referralName: $('#js-institution').data('referralname')
+        }, {silent: true});
+      } else {
+        this.model.set({
+          repository_data: $('#js-institution').data('institution'),
+          referral: 'institution',
+          referralName: $('#js-institution').data('referralname')
+        }, {silent: true});
+      }
+    } else if ($('#js-collection').length > 0) {
+      this.model.set({
+        collection_data: $('#js-collection').data('collection'),
+        referral: 'collection',
+        referralName: $('#js-collection').data('referralname')
+      }, {silent: true});
+    }
+
     var data_params = this.model.toJSON();
     data_params.rc_page = $(e.currentTarget).data('rc_page');
     //TODO: function(data, status, jqXHR)
