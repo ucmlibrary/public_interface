@@ -1,11 +1,22 @@
 // ##### Thumbnail View Component ##### //
 
+.thumbnail {
+	clear: right; // clear .object-view-row
+}
+
+.thumbnail__link {
+	display: block;
+	margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+	color: #000;
+
+}
+
 // This version eliminates need for .thumbnail__tile:before selector but it's not as well supported:
 // .thumbnail__tile {
 // 	height: 16.66vw; // 100 / 6
 // }
 
-.thumbnail__container { // creates the container
+.thumbnail__container { // creates the container. NOTE: this selector used for all instances of thumbnails throughout website
 	display: block;
 	position: relative;
 	background-color: $design-light-gray-color;
@@ -19,7 +30,7 @@
 
 }
 
-.thumbnail__image { // sets the image within the container
+.thumbnail__image { // sets the image within the container. . NOTE: this selector used for all instances of thumbnails throughout website
   position: absolute;
   top: 0;
   left: 0;
@@ -44,49 +55,9 @@
   overflow: hidden;
 }
 
-// ***** Original Thumbnail Classes ***** //
-
-.thumbview {
-	clear: right; // clear .object-view-row
-}
-
-.thumbview__link {
-	display: block;
-	margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
-	color: #000;
-
-}
-
-.thumbview__container {
-	position: relative; // for .thumbview__icon-overlay
-}
-
-.thumbview__icon-overlay {
-	@include icon__centered-overlay(60px, 50px, 45px, #fff, $design-dark-gray-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
-	z-index: 2; // stack over .thumbview__image
-}
-
-.thumbview__image-container {
-	@include aspect-ratio(1, 1);
-	background: $design-light-gray-color;
-}
-
-.thumbview__image {
-	display: block;
-	z-index: 1;
-	background: $design-light-gray-color; // revealed if no image
-	@extend .aspect-ratio-content;
-}
-
-.thumbview__caption {
+.thumbnail__caption {
   height: 2em; // reveal only 2 lines of text
   margin-top: 0.5em;
   line-height: 1;
   overflow: hidden;
-}
-
-// ***** Icon-only thumbnails ***** //
-
-.thumbview__image--no-image {
-	@include thumbview__no-image($design-dark-gray-color); // (border)
 }
