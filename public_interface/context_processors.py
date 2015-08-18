@@ -8,5 +8,6 @@ def settings(request):
         'devMode': settings.UCLDC_DEVEL,
         'ucldcImages': settings.UCLDC_IMAGES,
         'ucldcMedia': settings.UCLDC_MEDIA,
-        'gaSiteCode': settings.GA_SITE_CODE
+        'ucldcIiif': settings.UCLDC_IIIF,
+        'gaSiteCode': settings.GA_SITE_CODE,
     }

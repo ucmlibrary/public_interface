@@ -97,7 +97,7 @@
         {% elif component.format|lower == "image" %}
           <img
           class="carousel-complex__img{% if component.selected %}--selected{% endif %}"
-          data-lazy="http://ucldciiifwest-env.elasticbeanstalk.com/{{ component.id }}/full/,80/0/default.jpg"
+          data-lazy="{{ ucldcIiif }}{{ component.id }}/full/,80/0/default.jpg"
           alt="{{ component.label }}">
         {% else %}
           <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
