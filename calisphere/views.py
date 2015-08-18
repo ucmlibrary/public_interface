@@ -226,8 +226,12 @@ def home(request):
 def getHostedContentFile(structmap):
     contentFile = ''
     if structmap['format'] == 'image':
+        structmap_url = '{}{}/info.json'.format(
+            settings.UCLDC_IIIF,
+            structmap['id']
+        )
         contentFile = {
-            'titleSources': json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap['id'] + '/info.json')), 
+            'titleSources': json.dumps(json_loads_url(structmap_url)),
             'format': 'image'
         }
     if structmap['format'] == 'file':
