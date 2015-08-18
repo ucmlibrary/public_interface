@@ -5,21 +5,7 @@
 
 {% block content %}
 
-<div id="js-carouselContainer">
-  <div class="carousel__search-results" id="js-linkBack">
-    {% if q %}
-    Search results for "{{ q }}"
-    {% endif %}
-  </div>
-
-  <div class="carousel__items-number">
-    {{ numFound }} items found.
-  </div>
-
-  <div class="carousel" id="js-carousel" data-carousel_start="{{ start }}">
-    {% include "calisphere/carousel.html" %}
-  </div>
-</div>
+<div id="js-carouselContainer"></div>
 
 <div id="js-itemContainer" data-itemId="{{ item.id }}">
   {% block itemContent %}

@@ -327,7 +327,7 @@ var CarouselContext = Backbone.View.extend({
     });
   },
   loadSlides: function(e, slick, currentSlide, nextSlide) {
-    var numFound = $('.js-carousel_item').data('numfound');
+    var numFound = $('#js-carousel').data('numfound');
     var numLoaded = $('.carousel').slick('getSlick').slideCount;
     // var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
 
@@ -398,32 +398,13 @@ var CarouselContext = Backbone.View.extend({
   },
 
   initCarousel: function() {
-    var linkBack, textContent;
-    if (this.model.get('referral') === 'institution') {
-      linkBack = '/institution/' + this.model.get('repository_data') + '/items/';
-      textContent = 'Items at ' + this.model.get('referralName');
-    } else if (this.model.get('referral') === 'campus') {
-      linkBack = '/' + this.model.get('campus_slug') + '/items/';
-      textContent = 'Items at ' + this.model.get('referralName');
-    } else if (this.model.get('referral') === 'collection') {
-      linkBack = '/collections/' + this.model.get('collection_data') + '/';
-      textContent = 'Items in ' + this.model.get('referralName');
-    } else if (this.model.get('q') !== undefined) {
-      linkBack = '/search/';
-      textContent = 'Search results for "' + this.model.get('q') + '"';
-    } else {
-      linkBack = '/search/';
-      textContent = 'More items like this on Calisphere';
-    }
-    $('#js-linkBack').html('<a href="' + linkBack + '" data-pjax="js-pageContent">' + textContent + '</a>');
     if (this.model.get('itemNumber') !== undefined) {
       this.carouselStart = this.model.get('itemNumber');
     }
     
     var data_params = this.toJSON();
-    delete data_params.referral;
-    delete data_params.referralName;
     delete data_params.itemNumber;
+    data_params.init = true;
 
     //TODO: function(data, status, jqXHR)
     $.ajax({
@@ -432,10 +413,9 @@ var CarouselContext = Backbone.View.extend({
       traditional: true, 
       success: (function(that) {
         return function(data) {
-          $('#js-carousel').html(data);
+          $('#js-carouselContainer').html(data);
           $('.carousel').show();
           $('.carousel').slick(that.carouselConfig);
-          $('.carousel__items-number').html($(data).data('numfound') + ' ' + $('.carousel__items-number').html());
         };
       }(this))
     });

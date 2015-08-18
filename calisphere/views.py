@@ -380,8 +380,19 @@ def search(request):
     return render (request, 'calisphere/home.html', {'q': ''})
 
 def itemViewCarousel(request):
+    referral = request.GET['referral'] if 'referral' in request.GET else ''
+    linkBackId = ''
+    if referral == 'institution':
+        linkBackId = request.GET['repository_data']
+    elif referral == 'collection':
+        linkBackId = request.GET['collection_data']
+    elif referral == 'campus':
+        linkBackId = request.GET['campus_slug']
+
     queryParams = processQueryRequest(request)
     item_id = request.GET['itemId'] if 'itemId' in request.GET else ''
+    init = request.GET['init'] if 'init' in request.GET else ''
+
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
         campus_id = ''
@@ -413,15 +424,26 @@ def itemViewCarousel(request):
             fq=fq
         )
 
-    return render(request, 'calisphere/carousel.html', {
-        'q': queryParams['q'],
-        'start': queryParams['start'],
-        'numFound': carousel_solr_search.numFound,
-        'search_results': carousel_solr_search.results,
-        'item_id': item_id
-    })
+    if init:
+        return render(request, 'calisphere/carouselContainer.html', {
+            'q': queryParams['q'],
+            'start': queryParams['start'],
+            'numFound': carousel_solr_search.numFound,
+            'search_results': carousel_solr_search.results,
+            'item_id': item_id,
+            'referral': request.GET['referral'] if 'referral' in request.GET else '',
+            'referralName': request.GET['referralName'] if 'referralName' in request.GET else '',
+            'linkBackId': linkBackId
+        })
+    else:
+        return render(request, 'calisphere/carousel.html', {
+            'q': queryParams['q'],
+            'start': queryParams['start'],
+            'numFound': carousel_solr_search.numFound,
+            'search_results': carousel_solr_search.results,
+            'item_id': item_id
+        })
 
-# TODO: handle campus_slug
 def relatedCollections(request, queryParams={}):
     if not queryParams:
         queryParams = processQueryRequest(request)

@@ -34,6 +34,7 @@ var QueryManager = Backbone.Model.extend({
       if (sessionStorage.getItem('facet_decade') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('facet_decade'))}); }      
       if (sessionStorage.getItem('repository_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('repository_data'))}); }
       if (sessionStorage.getItem('collection_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('collection_data'))}); }
+      if (sessionStorage.getItem('campus_slug') !== null) { this.set({campus_slug: sessionStorage.getItem('campus_slug')}); }
       
       if (sessionStorage.getItem('itemNumber') !== null) { this.set({itemNumber: sessionStorage.getItem('itemNumber')}); }
       if (sessionStorage.getItem('itemId') !== null) { this.set({itemId: sessionStorage.getItem('itemId')}); }
