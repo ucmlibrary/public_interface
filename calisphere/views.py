@@ -391,7 +391,6 @@ def itemViewCarousel(request):
 
     queryParams = processQueryRequest(request)
     item_id = request.GET['itemId'] if 'itemId' in request.GET else ''
-    init = request.GET['init'] if 'init' in request.GET else ''
 
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
@@ -424,7 +423,7 @@ def itemViewCarousel(request):
             fq=fq
         )
 
-    if init:
+    if 'init' in request.GET:
         return render(request, 'calisphere/carouselContainer.html', {
             'q': queryParams['q'],
             'start': queryParams['start'],
