@@ -1,0 +1,211 @@
+{% load calisphere-extras %}
+
+<p class="text__breadcrumb-nav">
+  {% if item.parsed_repository_data %}
+    <a href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}">
+      {% if item.parsed_repository_data.0.campus %}
+        {{ item.parsed_repository_data.0.campus }},
+      {% endif %}
+      {{ item.parsed_repository_data.0.name }}
+    </a>
+  {% endif %}
+   >
+  {% if item.parsed_collection_data %}
+     <a href="{% url 'calisphere:collectionView' item.parsed_collection_data.0.id %}">{{ item.parsed_collection_data.0.name }}</a>
+  {% endif %}
+   > {{ item.title.0 }}
+</p>
+
+<h2 class="object__page-heading">{{ item.type.0 }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:12 }}</strong></h2>
+
+<div id="js-objectViewport">
+{% if item.harvest_type == 'harvested' %}
+  {% if item.type_ss.0|lower == 'image' %}
+    {% include 'calisphere/objectViewer/harvestedImage.html' %}
+  {% else %}
+    {% include 'calisphere/objectViewer/harvestedNonImage.html' %}
+  {% endif %}
+{% elif item.harvest_type == 'hosted' %}
+  {% if item.structMap %}
+    {% include 'calisphere/objectViewer/complex-object.html' %}
+  {% elif item.type_ss.0|lower == 'image' or item.structmap_url and item.reference_image_md5 %}
+    {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
+  {% elif item.type_ss.0|lower == 'moving image' %}
+  {% elif item.type_ss.0|lower == 'sound' %}
+  {% elif item.type_ss.0|lower == "text"%}
+    {% include 'calisphere/objectViewer/hosted-file.html' %}
+  {% elif item.type_ss.0|lower == "complex object"%}
+  {% endif %}
+{% endif %}
+</div>
+
+{% include "calisphere/itemButtons.html" %}
+
+<h3 class="meta-heading__preview">
+  {% if item.harvest_type == 'harvested' %}
+    Item Information. 
+    <a class="meta-heading__preview-link" href="{{ item.url_item }}{% if item.oac %}&layout=metadata{% endif %}">
+      View source record on 
+      {% if item.oac == True %}
+        the Online Archive of California.
+      {% else%} 
+        contributor's website.
+      {% endif %}
+    </a>
+  {% elif item.harvest_type == 'hosted' %}
+    {% if item.structMap and item.selected == True %}
+      Set Information.
+    {% elif item.structMap %}
+      Page Information. <a href="{% url 'calisphere:itemView' item.id %}">Go to set information.</a>
+    {% else %}
+      Item Information.
+    {% endif %}
+  {% endif %}
+</h3>
+
+{% if item.selected == False %}
+  {% include "calisphere/component-metadata.html" %}
+{% else %}
+<div class="meta-block">
+
+  <dl class="meta-block__list">
+    <dt class="meta-block__type">Title</dt>
+    <dd class="meta-block__defin">{{ item.title.0 }}</dd>
+
+    {% if item.alternative_title %}
+      <dt class="meta-block__type">Alternative Title</dt>
+      <dd class="meta-block__defin">{% for title in item.alternative_title %}{{ title }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.creator %}
+      <dt class="meta-block__type">Creator</dt>
+      <dd class="meta-block__defin">{% for creator in item.creator %}{{ creator }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.contributor %}
+      <dt class="meta-block__type">Contributor</dt>
+      <dd class="meta-block__defin">{% for contributor in item.contributor %}{{ contributor }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.date %}
+      <dt class="meta-block__type">Date Created and/or Issued</dt>
+      <dd class="meta-block__defin">{% for date in item.date %}{{ date }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.publisher %}
+      <dt class="meta-block__type">Publisher</dt>
+      <dd class="meta-block__defin">{% for publisher in item.publisher %}{{ publisher }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.parsed_repository_data %}
+      <dt class="meta-block__type">Contributing Institution</dt>
+      <dd class="meta-block__defin">
+        {% for repository in item.parsed_repository_data %}
+          <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">
+          {% if repository.campus %}
+            {{ repository.campus }},
+          {% endif %}
+          {{ repository.name }}</a> <br>
+        {% endfor %}
+      </dd>
+    {% endif %}
+
+    {% if item.parsed_collection_data %}
+      <dt class="meta-block__type">Collection</dt>
+      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}<a href="{% url 'calisphere:collectionView' collection.id %}">{{ collection.name }}</a> <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.rights %}
+      <dt class="meta-block__type">Rights Information</dt>
+			<dd class="meta-block__defin">{% for rights in item.rights %}{{ rights }} <br>{% endfor %}</dd>
+    {% endif %}
+
+    {% if item.rights_holder %}
+			<dt class="meta-block__type">Rights Holder and Contact</dt>
+			<dd class="meta-block__defin">{% for rights_holder in item.rights_holder %}{{ rights_holder }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.rights_note %}
+			<dt class="meta-block__type">Rights Notes</dt>
+			<dd class="meta-block__defin">{% for rights_note in item.rights_note %}{{ rights_note }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    <!-- rights date is not currently multivalued -->
+    {% if item.rights_date %}
+			<dt class="meta-block__type">Date of Copyright</dt>
+			<dd class="meta-block__defin">{{ item.rights_date }} <br> </dd>
+		{% endif %}
+
+    {% if item.description %}
+			<dt class="meta-block__type">Description</dt>
+			<dd class="meta-block__defin">{% for description in item.description %}{{ description }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.type %}
+			<dt class="meta-block__type">Type</dt>
+			<dd class="meta-block__defin">{% for type in item.type %}{{ type }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.format %}
+			<dt class="meta-block__type">Format</dt>
+			<dd class="meta-block__defin">{% for format in item.format %}{{ format }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.genre %}
+			<dt class="meta-block__type">Form/Genre</dt>
+			<dd class="meta-block__defin">{% for genre in item.genre %}{{ genre }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.extent %}
+			<dt class="meta-block__type">Extent</dt>
+			<dd class="meta-block__defin">{% for extent in item.extent %}{{ extent }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.identifier %}
+			<dt class="meta-block__type">Identifier</dt>
+			<dd class="meta-block__defin">{% for identifier in item.identifier %}{{ identifier }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.language %}
+			<dt class="meta-block__type">Language</dt>
+			<dd class="meta-block__defin">{% for language in item.language %}{{ language }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.subject %}
+      <dt class="meta-block__type">Subject</dt>
+			<dd class="meta-block__defin">{% for subject in item.subject %}{{ subject }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.temporal %}
+			<dt class="meta-block__type">Time Period</dt>
+			<dd class="meta-block__defin">{% for temporal in item.temporal %}{{ temporal }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.coverage %}
+			<dt class="meta-block__type">Place</dt>
+			<dd class="meta-block__defin">{% for coverage in item.coverage %}{{ coverage }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.source %}
+			<dt class="meta-block__type">Source</dt>
+			<dd class="meta-block__defin">{% for source in item.source %}{{ source }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.relation %}
+			<dt class="meta-block__type">Relation</dt>
+			<dd class="meta-block__defin">{% for relation in item.relation %}{{ relation }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.provenance %}
+			<dt class="meta-block__type">Provenance</dt>
+			<dd class="meta-block__defin">{% for provenance in item.provenance %}{{ provenance }} <br> {% endfor %}</dd>
+		{% endif %}
+
+    {% if item.location %}
+			<dt class="meta-block__type">Location</dt>
+			<dd class="meta-block__defin">{% for location in item.location %}{{ location }} <br> {% endfor %}</dd>
+		{% endif %}
+  </dl>
+
+</div>
+{% endif %}

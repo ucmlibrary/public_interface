@@ -1,4 +1,4 @@
-{% extends "calisphere/base.html"|pjax:request %}
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 {% load calisphere-extras %}
 {% load staticfiles %}
 
@@ -11,7 +11,6 @@
     {% block additionalInfo %}{% endblock %}
 
     <!-- Begin Filters -->
-
 
       <div class="col-md-9 layout-col__1">
 
@@ -158,9 +157,11 @@
 
         <!-- Begin Related Collections Component -->
         {% block relatedCollections %}
+        {% if num_related_collections %}
         <div class="related-coll--search-results-page" id="js-relatedCollections">
           {% include "calisphere/related-collections.html" %}
         </div>
+        {% endif %}
         {% endblock %}
         <!-- End Related Collections Component -->
       {% endblock %}

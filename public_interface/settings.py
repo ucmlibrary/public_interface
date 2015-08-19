@@ -30,6 +30,7 @@ SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
 UCLDC_MEDIA = os.getenv('UCLDC_MEDIA', '')
+UCLDC_IIIF = os.getenv('UCLDC_IIIF', '')
 
 GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
 
@@ -71,6 +72,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'public_interface.urls'
 
 WSGI_APPLICATION = 'public_interface.wsgi.application'
+
+APPEND_SLASH = True
 
 
 # Database

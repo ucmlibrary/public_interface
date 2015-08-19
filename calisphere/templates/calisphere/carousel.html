@@ -1,9 +1,9 @@
 {% load calisphere-extras %}
 {% load static %}
-    
+
   {% for carousel_item in search_results %}
-  <div class="{% if carousel_item.id == item.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
-    <a class="carousel__link js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}">
+  <div class="js-carousel_item {% if carousel_item.id == item.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
+    <a class="carousel__link js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
       <div class="thumbnail__container">
         {% if carousel_item.reference_image_md5 %}
           <img
@@ -12,7 +12,9 @@
           class="carousel__image--selected"
           {% else %}
           class="carousel__image"
-          {% endif %}>
+          {% endif %}
+          alt="{{ carousel_item.title.0|truncatewords:12 }}"
+          >
 
           {% if carousel_item.type_ss.0|lower == "moving image" %}
           <span class="carousel__overlay-icon fa-play-circle-o"></span>
@@ -34,37 +36,10 @@
           {% elif carousel_item.type_ss.0|lower == "dataset" %}
           <span class="carousel__tile-icon fa-bar-chart"></span>
           {% endif %}
-        {% endif %}
-        
+        {% endif %}        
       </div>
-      <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:7 }}
+      <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:12 }}
       </div>
     </a>
   </div>
   {% endfor %}
-
-
-<!-- <div style="display: none;">
-  <div class="col-md-1">
-    {% if start|subtract:6 > 0 %}
-      <button class="btn btn-link carousel__prev-button js-carousel-page" data-carousel_start="{{ start|subtract:6 }}">
-        <span class="fa fa-caret-left"></span>
-        Prev
-      </button>
-    {% elif start != 0 %}
-      <button class="btn btn-link carousel__prev-button js-carousel-page" data-carousel_start="0">
-        <span class="fa fa-caret-left"></span>
-        Prev
-      </button>
-    {% endif %}
-  </div>
-
-  <div class="col-md-1">
-    {% if start|add:6 < numFound %}
-      <button class="btn btn-link carousel__next-button js-carousel-page" data-carousel_start="{{ start|add:6 }}">
-        Next
-        <span class="fa fa-caret-right"></span>
-      </button>
-    {% endif %}
-  </div>
-</div> -->

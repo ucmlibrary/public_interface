@@ -1,16 +1,17 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
+from calisphere.home import HomeView
 
 urlpatterns = patterns('calisphere',
-    url(r'^$', TemplateView.as_view(template_name='calisphere/home.html'), name='home'),
+    url(r'^$', HomeView.as_view(), name='home'),
     url(r'^search/$', 'views.search', name='search'),
-    url(r'^item/(?P<item_id>.*)/', 'views.itemView', name='itemView'),
+    url(r'^item/(?P<item_id>.*)/$', 'views.itemView', name='itemView'),
 
     url(r'^collections/$', 'views.collectionsDirectory', name='collectionsDirectory'),
     url(r'^collections/(?P<collection_letter>[a-zA-Z]{1})/', 'views.collectionsAZ', name='collectionsAZ'),
     url(r'^collections/(?P<collection_letter>num)/', 'views.collectionsAZ', name='collectionsAZ'),
     url(r'^collections/(?P<collection_id>\d*)/', 'views.collectionView', name='collectionView'),
-    url(r'^collections/themedCollections', 'views.themedCollections', name='themedCollections'),
+    url(r'^collections/themedCollections/', 'views.themedCollections', name='themedCollections'),
     url(r'^collections/titleSearch/$', 'views.collectionsSearch', name='collectionsTitleSearch'),
     url(r'^collections/', 'views.collectionsSearch', name='collectionsSearch'),
 

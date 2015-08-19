@@ -54,9 +54,12 @@ def solrize_sort(sort):
     # if sort == 'newest':
     #     return 'facet_decade_s desc'
 
-def process_facets(facets, filters):
+def process_facets(facets, filters, facet_type=None):
     display_facets = dict((facet, count) for facet, count in facets.iteritems() if count != 0)
-    display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(1), reverse=True)
+    if facet_type and facet_type == 'facet_decade':
+        display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(0))
+    else:
+        display_facets = sorted(display_facets.iteritems(), key=operator.itemgetter(1), reverse=True)
 
     for f in filters:
         if not any(f in facet for facet in display_facets):
@@ -169,15 +172,16 @@ def facetQuery(facet_fields, queryParams, solr_search, extra_filter=None):
                 facet_limit='-1',
                 facet_field=[facet_type]
             )
-
             facets[facet_type] = process_facets(
                 facet_solr_search.facet_counts['facet_fields'][facet_type],
-                queryParams['filters'][facet_type]
+                queryParams['filters'][facet_type],
+                facet_type
             )
         else:
             facets[facet_type] = process_facets(
                 solr_search.facet_counts['facet_fields'][facet_type],
-                queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else []
+                queryParams['filters'][facet_type] if facet_type in queryParams['filters'] else [],
+                facet_type
             )
 
     return facets
@@ -186,12 +190,13 @@ def processQueryRequest(request):
     # concatenate query terms from refine query and query box, set defaults
     q = request.GET['q'] if 'q' in request.GET else ''
     rq = request.GET.getlist('rq')
-    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if 'q' in request.GET else ''
+    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if ('q' in request.GET or 'rq' in request.GET) else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '16'
     start = request.GET['start'] if 'start' in request.GET and request.GET['start'] != '' else '0'
     sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'
     view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
     rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
+    campus_slug = request.GET['campus_slug'] if 'campus_slug' in request.GET else ''
 
     # for each filter_type tuple ('solr_name', 'Display Name') in the list FACET_TYPES
     # create a dictionary with key solr_name of filter and value list of parameters for that filter
@@ -217,7 +222,8 @@ def processQueryRequest(request):
         'sort': sort,
         'view_format': view_format,
         'filters': filters,
-        'rc_page': rc_page
+        'rc_page': rc_page,
+        'campus_slug': campus_slug
     }
 
 def home(request):
@@ -226,8 +232,12 @@ def home(request):
 def getHostedContentFile(structmap):
     contentFile = ''
     if structmap['format'] == 'image':
+        structmap_url = '{}{}/info.json'.format(
+            settings.UCLDC_IIIF,
+            structmap['id']
+        )
         contentFile = {
-            'titleSources': json.dumps(json_loads_url('http://ucldciiifwest-env.elasticbeanstalk.com/' + structmap['id'] + '/info.json')), 
+            'titleSources': json.dumps(json_loads_url(structmap_url)),
             'format': 'image'
         }
     if structmap['format'] == 'file':
@@ -267,8 +277,13 @@ def itemView(request, item_id=''):
                     item['selectedComponent'] = component
                 else: 
                     item['selected'] = True
-                    if 'format' in structmap_data:
+                    # if parent content file, get it
+                    if 'format' in structmap_data and structmap_data['format'] != 'file':
                         item['contentFile'] = getHostedContentFile(structmap_data)
+                    # otherwise get first component file
+                    else:
+                        component = structmap_data['structMap'][0]
+                        item['contentFile'] = getHostedContentFile(component)
                 item['structMap'] = structmap_data['structMap']
             else: 
                 # simple object
@@ -292,47 +307,13 @@ def itemView(request, item_id=''):
         for repository_data in item['repository_data']:
             item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
 
-    # TODO: write related objects version (else)
-    if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-        queryParams = processQueryRequest(request)
-        queryParams['rows'] = 12
-        carousel_items = itemViewCarousel(request, queryParams)
-        
-        filter_display = {}
-        for filter_type in queryParams['filters']:
-            if filter_type == 'collection_data':
-                filter_display['collection_data'] = []
-                for filter_item in queryParams['filters'][filter_type]:
-                    collection = getCollectionData(collection_data=filter_item)
-                    filter_display['collection_data'].append(collection)
-            elif filter_type == 'repository_data':
-                filter_display['repository_data'] = []
-                for filter_item in queryParams['filters'][filter_type]:
-                    repository = getRepositoryData(repository_data=filter_item)
-                    filter_display['repository_data'].append(repository)
-            else:
-                filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
-
-        return render(request, 'calisphere/itemView.html', {
-            'item_solr_search': item_solr_search,
+    fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE") 
+    if fromItemPage: 
+        return render (request, 'calisphere/itemViewer.html', {
+            'q': '',
             'item': item_solr_search.results[0],
-            'q': queryParams['q'],
-            'rq': queryParams['rq'],
-            'filters': filter_display,
-            'rows': queryParams['rows'],
-            'start': queryParams['start'],
-            'search_results': carousel_items['results'],
-            # 'facets': facets,
-            'FACET_TYPES': FACET_TYPES,
-            'numFound': carousel_items['numFound'],
-            'pages': int(math.ceil(float(carousel_items['numFound'])/int(queryParams['rows']))),
-            # 'view_format': queryParams['view_format'],
-            'related_collections': relatedCollections(request, queryParams),
-            # 'rc_page': queryParams['rc_page']
+            'item_solr_search': item_solr_search,
         })
-
-        # return render (request, 'calisphere/home.html', {'q': q})
-
     return render(request, 'calisphere/itemView.html', {
         'q': '',
         'item': item_solr_search.results[0],
@@ -405,19 +386,22 @@ def search(request):
             'rc_page': queryParams['rc_page'],
             'form_action': reverse('calisphere:search')
         })
-
+    
     return render (request, 'calisphere/home.html', {'q': ''})
 
-def itemViewCarousel(request, queryParams={}):
-    if not queryParams:
-        if request.method == 'GET' and len(request.GET.getlist('q')) > 0:
-            queryParams = processQueryRequest(request)
+def itemViewCarousel(request):
+    referral = request.GET['referral'] if 'referral' in request.GET else ''
+    linkBackId = ''
+    if referral == 'institution':
+        linkBackId = request.GET['repository_data']
+    elif referral == 'collection':
+        linkBackId = request.GET['collection_data']
+    elif referral == 'campus':
+        linkBackId = request.GET['campus_slug']
 
-        ajaxRequest = True
-        queryParams['rows'] = 6
-    else:
-        ajaxRequest = False
-    
+    queryParams = processQueryRequest(request)
+    item_id = request.GET['itemId'] if 'itemId' in request.GET else ''
+
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
         campus_id = ''
@@ -429,35 +413,44 @@ def itemViewCarousel(request, queryParams={}):
 
         fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
 
-    # TODO: getting back way more fields than I really need
-    carousel_solr_search = SOLR_select(
-        q=queryParams['query_terms'],
-        rows=queryParams['rows'],
-        start=queryParams['start'],
-        fq=fq
-    )
+    mlt = False
+    if queryParams['q'] == '' and fq == '':
+        mlt=True,
+        mlt_fl='title,collection_name,subject'
 
-    # except solr.SolrException:
-        # TODO: better error handling
-        # print solr.SolrException.reason
-        # print solr.SolrException.httpcode
-        # print solr.SolrException.body
+    if mlt:
+        carousel_solr_search = SOLR_select(
+            q='id:'+item_id,
+            fields='id, type_ss, reference_image_md5, title',
+            mlt='true',
+            mlt_fl=['title', 'collection_name', 'subject']
+        )
+    else:
+        carousel_solr_search = SOLR_select(
+            q=queryParams['query_terms'],
+            fields='id, type_ss, reference_image_md5, title',
+            rows=queryParams['rows'],
+            start=queryParams['start'],
+            fq=fq
+        )
 
-    # search performed, process the results
-
-    # TODO: create a no results found page
-    if len(carousel_solr_search.results) == 0:
-        print 'no results found'
-    
-    if ajaxRequest:
-        return render(request, 'calisphere/carousel.html', {
+    if 'init' in request.GET:
+        return render(request, 'calisphere/carouselContainer.html', {
             'q': queryParams['q'],
             'start': queryParams['start'],
             'numFound': carousel_solr_search.numFound,
             'search_results': carousel_solr_search.results,
+            'item_id': item_id,
+            'referral': request.GET['referral'] if 'referral' in request.GET else '',
+            'referralName': request.GET['referralName'] if 'referralName' in request.GET else '',
+            'linkBackId': linkBackId
         })
-
-    return {'results': carousel_solr_search.results, 'numFound': carousel_solr_search.numFound}
+    else:
+        return render(request, 'calisphere/carousel.html', {
+            'start': queryParams['start'],
+            'search_results': carousel_solr_search.results,
+            'item_id': item_id
+        })
 
 def relatedCollections(request, queryParams={}):
     if not queryParams:
@@ -477,10 +470,21 @@ def relatedCollections(request, queryParams={}):
     # else:
     related_collections_filters = queryParams['filters']
 
+    fq = solrize_filters(related_collections_filters)
+    if 'campus_slug' in queryParams and queryParams['campus_slug'] != '':
+        campus_id = ''
+        for campus in CAMPUS_LIST:
+            if queryParams['campus_slug'] == campus['slug']:
+                campus_id = campus['id']
+        if campus_id == '':
+            print "Campus registry ID not found"
+
+        fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
+
     related_collections_solr_search = SOLR_select(
         q=queryParams['query_terms'],
         rows='0',
-        fq=solrize_filters(related_collections_filters),
+        fq=fq,
         facet='true',
         facet_mincount=1,
         facet_limit='-1',
@@ -727,7 +731,6 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
         
     if subnav == 'items':
         queryParams = processQueryRequest(request)
-    
         fq = solrize_filters(queryParams['filters'])
     
         if institution_type == 'repository':
@@ -735,6 +738,7 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             facet_fields = list(facet_type[0] for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
         
         if institution_type == 'campus':
+            queryParams['campus_slug'] = institution_details['slug']
             fq.append('campus_url: "' + institution_url + '"')
             facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
         
@@ -804,6 +808,11 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             for campus in CAMPUS_LIST:
                 if institution_id == campus['id'] and 'featuredImage' in campus:
                     context['featuredImage'] = campus['featuredImage']
+
+            #TODO: add to above context variable for both campus and institution, but this isn't working for institutions yet.
+            context['related_collections'] = relatedCollections(request, queryParams)
+            context['num_related_collections'] = len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data'])
+            context['rc_page'] = queryParams['rc_page']
         
         if institution_type == 'repository':
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
