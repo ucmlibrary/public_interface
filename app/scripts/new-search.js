@@ -74,7 +74,8 @@ var FacetForm = Backbone.View.extend({
     'click .js-clear-filters'                 : 'clearFilters',
     'click .js-a-check__header'               : 'toggleFacetDropdown',
     'click .js-a-check__update'               : 'updateFacets',
-    'click .js-rc-page'                       : 'paginateRelatedCollections'
+    'click .js-rc-page'                       : 'paginateRelatedCollections',
+    'click .js-relatedCollection'             : 'goToCollectionPage'
   },
 
   setRefineQuery: function(e) {
@@ -254,6 +255,10 @@ var FacetForm = Backbone.View.extend({
     });
   },
 
+  goToCollectionPage: function() {
+    this.model.clear();
+  },
+
   render: function() {
     if(!_.isEmpty(this.model.changed) && !_.has(this.model.changed, 'q')) {
       if(DESKTOP) {
@@ -319,10 +324,11 @@ var CarouselContext = Backbone.View.extend({
   },
 
   events: {
-    'click #js-linkBack'      : 'goToSearchResults',
-    'beforeChange .carousel'  : 'loadSlides',
-    'click .js-item-link'     : 'goToItemPage',
-    'click .js-rc-page'       : 'paginateRelatedCollections'
+    'click #js-linkBack'             : 'goToSearchResults',
+    'beforeChange .carousel'         : 'loadSlides',
+    'click .js-item-link'            : 'goToItemPage',
+    'click .js-rc-page'              : 'paginateRelatedCollections',
+    'click .js-relatedCollection'    : 'goToCollectionPage'
   },
   goToSearchResults: function(e) {
     this.model.unset('itemId', {silent: true});
@@ -412,6 +418,10 @@ var CarouselContext = Backbone.View.extend({
     });
   },
 
+  goToCollectionPage: function() {
+    this.model.clear();
+  },
+
   toJSON: function() {
     var context = this.model.toJSON();
     context.start = this.carouselStart;
@@ -491,7 +501,18 @@ var ComplexCarousel = Backbone.View.extend({
   },
 
   events: {
+    'click .js-set-link'        : 'getSet',
     'click .js-component-link'  : 'getComponent',
+  },
+  getSet: function(e) {
+    e.preventDefault();
+    $.pjax({
+      type: 'GET',
+      url: $(e.currentTarget).attr('href'),
+      container: '#js-itemContainer',
+      traditional: true,
+      scrollTo: 440
+    });
   },
   getComponent: function(e) {
     var data_params = {order: $(e.currentTarget).data('item_id')};
