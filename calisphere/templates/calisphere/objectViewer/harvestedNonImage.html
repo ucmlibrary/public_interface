@@ -17,7 +17,7 @@
       {% if item.reference_image_md5 %}
         <img class="obj-harvest__image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="">
       {% else %}
-        <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:8 }}">
+        <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:12 }}">
       {% endif %}
     </div>
     <div class="obj-harvest__caption">

@@ -13,7 +13,7 @@
           {% else %}
           class="carousel__image"
           {% endif %}
-          alt="{{ carousel_item.title.0|truncatewords:8 }}"
+          alt="{{ carousel_item.title.0|truncatewords:12 }}"
           >
 
           {% if carousel_item.type_ss.0|lower == "moving image" %}
@@ -38,7 +38,7 @@
           {% endif %}
         {% endif %}        
       </div>
-      <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:7 }}
+      <div class="carousel__thumbnail-caption">{{ carousel_item.title.0|truncatewords:12 }}
       </div>
     </a>
   </div>
