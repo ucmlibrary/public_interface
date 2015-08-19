@@ -42,17 +42,23 @@ def solrize_filters(filters):
     return fq
 
 def solrize_sort(sort):
-    return 'score desc'
-    # if sort == 'relevance':
-    #     return 'score desc'
-    # if sort == 'a':
-    #     return 'title_s desc'
-    # if sort == 'z':
-    #     return 'title_s asc'
-    # if sort == 'oldest':
-    #     return 'facet_decade_s asc'
-    # if sort == 'newest':
-    #     return 'facet_decade_s desc'
+    # return 'score desc'
+    if sort == 'relevance':
+        return 'score desc'
+    elif sort == 'a':
+        return 'sort_title desc'
+    elif sort == 'z':
+        return 'sort_title asc'
+    elif sort == 'oldest-start':
+        return 'sort_date_start asc'
+    elif sort == 'oldest-end':
+        return 'sort_date_end asc'
+    elif sort == 'newest-start':
+        return 'sort_date_start desc'
+    elif sort == 'newest-end':
+        return 'sort_date_end desc'
+    else:
+        return 'score desc'
 
 def process_facets(facets, filters, facet_type=None):
     display_facets = dict((facet, count) for facet, count in facets.iteritems() if count != 0)
@@ -327,6 +333,8 @@ def search(request):
 
         # define facet fields to retrieve
         facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
+
+        print solrize_sort(queryParams['sort'])
 
         solr_search = SOLR_select(
             q=queryParams['query_terms'],

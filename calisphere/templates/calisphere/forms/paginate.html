@@ -21,18 +21,22 @@
   <div style="display: inline-block;" data-toggle="tooltip" title=" Sort feature coming soon.">
     <!--WHEN SORT WORKS: <select id="pag-dropdown__sort" class="pag-dropdown__select" name="sort" form="js-facet"> -->
     <select id="pag-dropdown__sort" class="pag-dropdown__select" name="sort" style="background-color: #e6e6e6; color: #9c9e9f; border-color: #9c9e9f">
-      {% if sort == 'relevance' or sort == 'a' or sort == 'z' or sort == 'oldest' or sort == 'newest' %}
+      {% if sort == 'relevance' or sort == 'a' or sort == 'z' or sort == 'oldest-start' or sort == 'oldest-end' or sort == 'newest-start' or sort == 'newest-end' %}
         <option value="relevance" {% if sort == 'relevance' %}selected{% endif %}>Relevance</option>
         <option value="a" {% if sort == 'a' %}selected{% endif %}>A-Z</option>
         <option value="z" {% if sort == 'z' %}selected{% endif %}>Z-A</option>
-        <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest First</option>
-        <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest First</option>
+        <option value="oldest-start" {% if sort == 'oldest-start' %}selected{% endif %}>Oldest First (Start Date)</option>
+        <option value="oldest-end" {% if sort == 'oldest-end' %}selected{% endif %}>Oldest First (End Date)
+        <option value="newest-start" {% if sort == 'newest-start' %}selected{% endif %}>Newest First (Start Date)</option>
+        <option value="newest-end" {% if sort == 'newest-end' %}selected{% endif %}>Newest First (End Date)</option>
       {% else %}
         <option value="relevance" selected>Relevance</option>
         <option value="a">A-Z</option>
         <option value="z">Z-A</option>
-        <option value="oldest">Oldest First</option>
-        <option value="newest">Newest First</option>
+        <option value="oldest-start">Oldest First (Start Date)</option>
+        <option value="oldest-end">Oldest First (End Date)
+        <option value="newest-start">Newest First (Start Date)</option>
+        <option value="newest-end">Newest First (End Date)</option>
       {% endif %}
     </select>
   </div>
