@@ -2,7 +2,7 @@
 
 <p class="text__breadcrumb-nav">
   {% if item.parsed_repository_data %}
-    <a href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}">
+    <a href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}" data-pjax="js-pageContent">
       {% if item.parsed_repository_data.0.campus %}
         {{ item.parsed_repository_data.0.campus }},
       {% endif %}
@@ -11,7 +11,7 @@
   {% endif %}
    >
   {% if item.parsed_collection_data %}
-     <a href="{% url 'calisphere:collectionView' item.parsed_collection_data.0.id %}">{{ item.parsed_collection_data.0.name }}</a>
+     <a href="{% url 'calisphere:collectionView' item.parsed_collection_data.0.id %}" data-pjax="js-pageContent" class="js-relatedCollection">{{ item.parsed_collection_data.0.name }}</a>
   {% endif %}
    > {{ item.title.0 }}
 </p>
@@ -56,7 +56,7 @@
     {% if item.structMap and item.selected == True %}
       Set Information.
     {% elif item.structMap %}
-      Page Information. <a href="{% url 'calisphere:itemView' item.id %}">Go to set information.</a>
+      Page Information. <a href="{% url 'calisphere:itemView' item.id %}" data-pjax="js-pageContent">Go to set information.</a>
     {% else %}
       Item Information.
     {% endif %}
@@ -101,7 +101,7 @@
       <dt class="meta-block__type">Contributing Institution</dt>
       <dd class="meta-block__defin">
         {% for repository in item.parsed_repository_data %}
-          <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}">
+          <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}" data-pjax="js-pageContent">
           {% if repository.campus %}
             {{ repository.campus }},
           {% endif %}
@@ -112,7 +112,7 @@
 
     {% if item.parsed_collection_data %}
       <dt class="meta-block__type">Collection</dt>
-      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}<a href="{% url 'calisphere:collectionView' collection.id %}">{{ collection.name }}</a> <br> {% endfor %}</dd>
+      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}<a href="{% url 'calisphere:collectionView' collection.id %}" data-pjax="js-pageContent" class="js-relatedCollection">{{ collection.name }}</a> <br> {% endfor %}</dd>
     {% endif %}
 
     {% if item.rights %}

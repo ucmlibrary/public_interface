@@ -75,7 +75,7 @@
   <!--TODO: if {{ item.selected }} is True apply 'selected' styles -->
   <div class="carousel-complex__fixed-item">
     <a href="{% url 'calisphere:itemView' item.id %}" class="{% if item.selected %}carousel-complex__fixed-link--selected
-      {% else %}carousel-complex__fixed-link{% endif %}">
+      {% else %}carousel-complex__fixed-link{% endif %} js-set-link">
       <div class="carousel-complex__fixed-content">
       cover page
       </div>
