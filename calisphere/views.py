@@ -710,6 +710,7 @@ def statewideDirectory(request):
             if repository['name'][0] == char or repository['name'][0] == char.upper:
                 bin.append(repository)
         if len(bin) > 0:
+            bin.sort()
             binned_repositories.append({char: bin})
 
     return render(request, 'calisphere/statewideDirectory.html', {'state_repositories': binned_repositories})
@@ -934,6 +935,7 @@ def campusView(request, campus_slug, subnav=False):
 
         for i, related_institution in enumerate(related_institutions):
             related_institutions[i] = getRepositoryData(repository_data=related_institution)
+        related_institutions = sorted(related_institutions, key=lambda related_institution: related_institution['name'])
 
         return render(request, 'calisphere/institutionViewInstitutions.html', {
             'featuredImage': featured_image,
