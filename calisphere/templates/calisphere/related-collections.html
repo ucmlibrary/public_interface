@@ -12,28 +12,38 @@
             
             {% with related_collection.image_urls as items %}
             {% for item in items %}
-            <div class="related-coll__image{{ forloop.counter }}" style="position: relative;">
-              {% if item.type_ss.0|lower != "image" %}
+            {% if forloop.counter <= 3 %}
+            <div class="related-coll__thumbnail-container{{ forloop.counter }}">
+              {% if item.reference_image_md5 %}
+                <img
+                src="{{ thumbnailUrl }}crop/300x300/{{ item.reference_image_md5 }}"
+                class="thumbnail__image"
+                alt="{{ item.title.0|truncatewords:12 }}">
+
                 {% if item.type_ss.0|lower == "moving image" %}
-                <span class="fa fa-play-circle-o fa-fw thumbview__icon-overlay"></span>
+                <div class="related-coll__overlay-icon--large fa-play-circle-o"></div>
                 {% elif item.type_ss.0|lower == "sound"%}
-                <span class="fa fa-volume-up fa-fw thumbview__icon-overlay"></span>
+                <div class="related-coll__overlay-icon--large fa-volume-up"></div>
                 {% elif item.type_ss.0|lower == "text"%}
-                <span class="fa fa-file-text-o fa-fw thumbview__icon-overlay"></span>
+                <div class="related-coll__overlay-icon--large fa-file-text-o"></div>
                 {% elif item.type_ss.0|lower == "dataset" %}
-                <span class="fa fa-bar-chart fa-fw thumbview__icon-overlay"></span>
+                <div class="related-coll__overlay-icon--large fa-bar-chart"></div>
+                {% endif %}
+              
+              {% else %}
+                {% if item.type_ss.0|lower == "moving image" %}
+                <div class="related-coll__tile-icon--large fa-play-circle-o"></div>
+                {% elif item.type_ss.0|lower == "sound"%}
+                <div class="related-coll__tile-icon--large fa-volume-up"></div>
+                {% elif item.type_ss.0|lower == "text"%}
+                <div class="related-coll__tile-icon--large fa-file-text-o"></div>
+                {% elif item.type_ss.0|lower == "dataset" %}
+                <div class="related-coll__tile-icon--large fa-bar-chart"></div>
                 {% endif %}
               {% endif %}
-              {% if item.reference_image_md5 %}
-                <img style="width: 100%; height: 100%"
-                src="{{ thumbnailUrl }}crop/{% if forloop.counter == 1 %}300x300{% else %}200x200{% endif %}/{{ item.reference_image_md5 }}"
-                alt="{{ item.title.0|truncatewords:12 }}">
-              {% else %}
-                <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:12 }}" style="border: 1px solid #8b8d8e; width:100%; height:100%">
-              {% endif %}
             </div>
+            {% endif %}
             {% endfor %}
-                        
             {% endwith %}            
           </div>
           <div class="col-xs-12 col-sm-12 related-coll__caption">
