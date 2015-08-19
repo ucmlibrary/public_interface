@@ -4,6 +4,20 @@
 	@extend .text__page-heading;
 }
 
+// ***** New Containers ***** //
+
+.obj-container__simple-tile {
+  margin: 0 auto 15px auto;
+  width: 40%;
+
+  @include bp(sm-screen) {
+    width: 25%;
+  }
+
+}
+
+// ***** Original Containers ***** //
+
 .object__container-audio {
   display: block;
   width: 100%;
