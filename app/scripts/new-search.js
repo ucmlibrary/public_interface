@@ -74,7 +74,8 @@ var FacetForm = Backbone.View.extend({
     'click .js-clear-filters'                 : 'clearFilters',
     'click .js-a-check__header'               : 'toggleFacetDropdown',
     'click .js-a-check__update'               : 'updateFacets',
-    'click .js-rc-page'                       : 'paginateRelatedCollections'
+    'click .js-rc-page'                       : 'paginateRelatedCollections',
+    'click .js-relatedCollection'             : 'goToCollectionPage'
   },
 
   setRefineQuery: function(e) {
@@ -252,6 +253,10 @@ var FacetForm = Backbone.View.extend({
         $('#js-relatedCollections').html(data);
       }
     });
+  },
+
+  goToCollectionPage: function() {
+    this.model.clear();
   },
 
   render: function() {
