@@ -22,12 +22,11 @@
   margin: 0 0 15px 0;
 }
 
-.object__container-type1 {
+.obj__container-osd {
   position: relative; // for absolutely positioned 'osd-button-group' child
-  overflow: hidden; // if a non-image object is taller than this container
   height: 400px;
-  margin: 0;
-  background: rgba(#eee, 0.5);
+  background-color: $design-dark-gray-color;
+  z-index: 1;
 
   @include bp(sm-screen) {
     height: 500px;
@@ -42,13 +41,6 @@
     height: 700px;
   }
 
-}
-
-.object__container-osd {
-  @extend .object__container-type1;
-  position: relative;
-  z-index: 1;
-  background: $design-dark-gray-color;
 }
 
 // ***** Original Containers ***** //
