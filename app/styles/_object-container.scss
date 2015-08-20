@@ -16,6 +16,21 @@
 
 }
 
+.obj-container__simple-image {
+  margin: 0 auto 15px auto;
+  // width: 40%;
+
+  @include bp(sm-screen) {
+    // width: 25%;
+  }
+
+  img {
+    // max-height: 100vh;
+    // width: auto;
+  }
+border: $bred;
+}
+
 // ***** Original Containers ***** //
 
 .object__container-audio {
