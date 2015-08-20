@@ -44,9 +44,9 @@ html.no-jquery .obj__osd-infobanner {
   @include thumbnail__overlay-icon(40px, 45px, 50px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
-// ***** Harvest Image ***** //
+// ***** New Objects ***** //
 
-.obj-harvest__link {
+.obj__link {
   display: block;
 }
 
@@ -55,7 +55,7 @@ html.no-jquery .obj__osd-infobanner {
 }
 
 .obj__simple-image {
-  max-width: 95vw; // would prefer to use 'max-width: 100%;' but image width overflows container in FF
+  max-width: 95vw; // would prefer to use 'max-width: 100%' but image width overflows container in FF
   max-height: 95vh;
 
   @include bp(sm-screen) {
@@ -63,6 +63,14 @@ html.no-jquery .obj__osd-infobanner {
   }
 
 }
+
+.obj__caption {
+  @extend .icon__external-link;
+  margin: 0.5em 0 0 0;
+  text-align: center;
+}
+
+// ***** Original Objects ***** //
 
 .obj-harvest__image { // delete after integrating icon mixins
   display: block;
@@ -73,13 +81,6 @@ html.no-jquery .obj__osd-infobanner {
 
 .obj-harvest__file-icon-overlay {
   @include icon__centered-overlay(80px, 90px, 100px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
-}
-
-.obj-harvest__caption {
-  @extend .icon__external-link;
-  display: block;
-  margin: 0.5em 0 0 0;
-  text-align: center;
 }
 
 .obj-harvest__caption-highlight {
