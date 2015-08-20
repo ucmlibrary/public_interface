@@ -129,12 +129,6 @@ html.no-jquery .obj__osd-infobanner {
   @include thumbview__no-image($thumb-border: $design-primary-color);
 }
 
-.obj-hosted__caption {
-  display: block;
-  margin: 0.5em 0 0 0;
-  text-align: center;
-}
-
 // ***** Complex Non-Image ***** //
 
 .obj-complex-non-image__file-icon-overlay {

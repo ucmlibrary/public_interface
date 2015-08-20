@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="object__container-harvest-non-image">
-  <a class="obj-harvest__link" href="{{ item.url_item }}" target="_blank">
+  <a class="obj__link" href="{{ item.url_item }}" target="_blank">
     <div class="icon__overlay-container">
       {% if item.type_ss.0|lower == 'moving image' %}
         <span class="fa fa-play-circle-o fa-fw obj-harvest__file-icon-overlay"></span>
