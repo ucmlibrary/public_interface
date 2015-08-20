@@ -424,11 +424,12 @@ def itemViewCarousel(request):
             q='id:'+item_id,
             fields='id, type_ss, reference_image_md5, title',
             mlt='true',
-            mlt_count='12',
+            mlt_count='24',
             mlt_fl=mlt_fl
         )
-        search_results = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
-        numFound = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['numFound']
+        search_results = json.loads(carousel_solr_search)['response']['docs'] + json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
+        numFound = '25'
+        # numFound = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['numFound']
     else:
         carousel_solr_search = SOLR_select(
             q=queryParams['query_terms'],
