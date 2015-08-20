@@ -17,18 +17,9 @@
 }
 
 .obj-container__simple-image {
-  margin: 0 auto 15px auto;
-  // width: 40%;
-
-  @include bp(sm-screen) {
-    // width: 25%;
-  }
-
-  img {
-    // max-height: 100vh;
-    // width: auto;
-  }
-border: $bred;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 15px 0;
 }
 
 // ***** Original Containers ***** //

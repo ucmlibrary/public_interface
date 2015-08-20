@@ -46,22 +46,22 @@ html.no-jquery .obj__osd-infobanner {
 
 // ***** Harvest Image ***** //
 
-.obj__simple-image-container {
-  position: relative;
-  margin: 0 auto;
-  border: $bblue;
-
-}
-
-.obj__simple-image { // delete after integrating icon mixins
-  // @extend .thumbnail__image;
-  // width: auto; // cancels 'width: 100%'
-  max-width: 100%; // images smaller than the max container size will not scale up
-}
-
 .obj-harvest__link {
-  position: relative;
   display: block;
+}
+
+.obj__icon-container {
+  position: relative;
+}
+
+.obj__simple-image {
+  max-width: 95vw; // would prefer to use 'max-width: 100%;' but image width overflows container in FF
+  max-height: 95vh;
+
+  @include bp(sm-screen) {
+    max-width: 98vw;
+  }
+
 }
 
 .obj-harvest__image { // delete after integrating icon mixins
