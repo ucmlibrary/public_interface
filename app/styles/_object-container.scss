@@ -43,7 +43,34 @@
 
 }
 
-// ***** Original Containers ***** //
+%obj-container__media-element { // This placeholder extended in selectors below
+  display: block;
+  width: 100%;
+  margin: 0 auto 15px auto;
+
+  @include bp(sm-screen) {
+    width: 70%;
+  }
+
+  @include bp(md-screen) {
+    width: 50%;
+  }
+
+}
+
+.obj-container__audio {
+  @extend %obj-container__media-element;
+
+  @include bp(sm-screen) {
+    margin: 50px auto 65px auto;
+  }
+
+}
+
+.obj-container__video {
+  @extend %obj-container__media-element;
+  @extend %mejs-custom__video-container; // This placeholder comes from _mediaelementplayer-custom-styles.scss
+}
 
 .object__container-audio {
   display: block;
@@ -60,6 +87,8 @@
   }
 
 }
+
+// ***** Original Containers ***** //
 
 .object__container-generic, .object__container-video {
   display: block;

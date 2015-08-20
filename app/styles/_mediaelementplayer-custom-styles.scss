@@ -1,27 +1,29 @@
 // ##### Custom Styles for MediaElement.js ##### //
 
-// ***** Reset mediaelementplayer.css container and children to make fluid (see: https://css-tricks.com/rundown-of-handling-flexible-media ) ***** //
+// ***** Sass placeholders extended into video wrapper div within _object-container.scss to make mejs responsive (see: https://css-tricks.com/rundown-of-handling-flexible-media ) ***** //
 
-.mejs-player {
-  width: 100% !important;
-}
-
-.object__container-video .mejs-container {
+%mejs-custom__video-container .mejs-container {
   width: 100% !important;
   height: auto !important;
   padding-top: 75%; // adjusts aspect ratio of container box
 }
 
-.object__container-video .mejs-overlay, .object__container-video .mejs-poster {
+%mejs-custom__video-container .mejs-overlay, %mejs-custom__video-container .mejs-poster {
   width: 100% !important;
   height: 100% !important;
 }
 
-.object__container-video .mejs-mediaelement video {
+%mejs-custom__video-container .mejs-mediaelement video {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   width: 100% !important;
   height: 100% !important;
+}
+
+// ***** Global reset to make mejs responsive ***** //
+
+.mejs-player {
+  width: 100% !important;
 }
 
 // ***** Set the button image paths ***** //
