@@ -1,5 +1,7 @@
 // ##### Complex Carousel Component ##### //
 
+$carousel-item-size: 80px;
+
 .carousel-complex {
   display: none; // set to '.show()' on js initialization
   padding: $layout-component-margin $layout-component-margin - 2;
@@ -15,8 +17,8 @@
 
 .carousel-complex__fixed-item {
   float: left;
-  width: 80px;
-  height: 80px;
+  width: $carousel-item-size;
+  height: $carousel-item-size;
 
   @include bp(sm-screen) {
     margin: 0 0 0 ($layout-component-margin * 2);
@@ -30,7 +32,7 @@
   background-color: #fff;
   border: 1px solid $design-primary-color;
 
-  &:before { // fill box to 100% of container (maybe use to replace  transparent.png method some day!)
+  &:before {
     display: block;
     padding-bottom: 100%;
     content: "";
@@ -74,7 +76,7 @@
   &:hover {
     opacity: 1;
   }
-// border: $bred;
+
 }
 
 .carousel-complex__link {
@@ -93,8 +95,8 @@
 
 .carousel-complex__tile {
   @extend .carousel-complex__item;
-  width: 80px;
-  height: 80px;
+  width: $carousel-item-size;
+  height: $carousel-item-size;
 }
 
 .carousel-complex__tile--selected {
@@ -106,9 +108,9 @@
   @include thumbnail__tile-icon(40px, 50px, 55px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
-.carousel-complex img {
+.carousel-complex img { // Slick carousel reset
   width: 100%;
-  height: 80px;
+  height: $carousel-item-size;
 }
 
 .carousel-complex__img--selected {
