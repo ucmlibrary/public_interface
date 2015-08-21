@@ -4,8 +4,6 @@
 	@extend .text__page-heading;
 }
 
-// ***** New Containers ***** //
-
 .obj-container__simple-tile {
   margin: 0 auto 15px auto;
   width: 40%;
@@ -71,62 +69,3 @@
   @extend %obj-container__media-element;
   @extend %mejs-custom__video-container; // This placeholder comes from _mediaelementplayer-custom-styles.scss
 }
-
-.object__container-audio {
-  display: block;
-  width: 100%;
-  margin: 0 auto 15px auto;
-
-  @include bp(sm-screen) {
-    width: 70%;
-    margin: 50px auto 65px auto;
-  }
-
-  @include bp(md-screen) {
-    width: 50%;
-  }
-
-}
-
-// ***** Original Containers ***** //
-
-.object__container-generic, .object__container-video {
-  display: block;
-  width: 100%;
-  margin: 0 auto 15px auto;
-
-	@include bp(sm-screen) {
-    width: 70%;
-  }
-
-  @include bp(md-screen) {
-    width: 50%;
-  }
-
-}
-
-.object__container-hosted-file, .object__container-harvest-non-image {
-  display: block;
-  width: 100%;
-  margin: 0 auto 15px auto;
-
-  @include bp(sm-screen) {
-    width: 25%;
-  }
-
-}
-
-.object__container-complex-non-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px; // sets overall size of non-image object
-
-  @include bp(sm-screen) {
-    width: 300px;
-  }
-  
-}
-
-
