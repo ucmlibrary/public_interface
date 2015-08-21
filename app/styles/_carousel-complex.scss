@@ -79,6 +79,15 @@ $carousel-item-size: 80px;
 
 }
 
+.carousel-complex__item--selected {
+  opacity: 1;
+  
+  .carousel-complex__img {
+    border: 5px solid $design-primary-color;
+  }
+
+}
+
 .carousel-complex__link {
   display: block;
 }
@@ -102,6 +111,12 @@ $carousel-item-size: 80px;
 .carousel-complex__tile--selected {
   @extend .carousel-complex__tile;
   opacity: 1;
+
+  .carousel-complex__thumbnail-container {
+    @extend .thumbnail__container;
+    border: 5px solid $design-primary-color;
+  }
+
 }
 
 .carousel-complex__tile-icon {
@@ -111,8 +126,4 @@ $carousel-item-size: 80px;
 .carousel-complex img { // Slick carousel reset
   width: 100%;
   height: $carousel-item-size;
-}
-
-.carousel-complex__img--selected {
-  border: 5px solid $design-primary-color;
 }
