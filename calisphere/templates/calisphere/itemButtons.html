@@ -31,92 +31,100 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="contactOwnerModalTitle">Contact Owning Institution</h4>
         <p style="margin-bottom:0px">All fields are required.</p>
-        <div class="alert alert-warning" style="margin: 5px 5px 0 5px; padding: 5px 5px 5px 10px">
+        <!-- <div class="alert alert-warning" style="margin: 5px 5px 0 5px; padding: 5px 5px 5px 10px">
           <i class="fa fa-exclamation-triangle"></i> This feature coming soon.<br/>
           This form will enable users to contact owning institutions directly.
-        </div>
+        </div> -->
       </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6">
-              <div style="margin-right: 20px;">
-                <div class="well well-sm">
-                  {{ item.repository_name.0 }}<br/>
-                  address@owning-institution.edu<br/>
-                  (999) 999-9999<br/>
-                  <a>http://owning-institution.edu</a>
-                </div>
-                <form>
-                  <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Your full name">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Your email">
-                  </div>
-                  <div class="form-group">
-                    <label for="verifyEmail">Verify Email:</label>
-                    <input type="email" class="form-control" id="verifyEmail" placeholder="Verify your email">
-                  </div>
-                  <div class="form-group">
-                    <label for="demographic">How would you best describe yourself?</label>
-                    <select id="demographic" class="form-control">
-                      <option>K-12 teacher or librarian</option>
-                      <option>K-12 student</option>
-                      <option>College student</option>
-                      <option>Graduate student</option>
-                      <option>Faculty or Academic Researcher</option>
-                      <option>Archivist or Librarian</option>
-                      <option>Genealogist or family researcher</option>
-                      <option>Other, please specify</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder='If "Other," please specify'>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="col-md-6" style="border-left: 1px solid black">
-              <div style="margin-left: 20px;">
-                <div class="well well-sm">Every item on Calisphere has been contributed to the site by a California institution. The institution can answer questions about this item, assit you with obtaining a hi-res copy, and gather additional information you may have about it. If you are experiencing technical issues, we'd request that you contact Calisphere directly.</div>
-                <form>
-                  <div class="form-group">
+      <form id="js-contactOwner" action="{% url 'calisphere:contactOwner' %}" method="get">
+        <div id="js-contactOwnerForm">
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <div style="margin-right: 20px;">
+                    <div class="well well-sm">
+                      {% if item.parsed_repository_data.0.campus %}
+                        {{ item.parsed_repository_data.0.campus }},
+                      {% endif %}
+                      {{ item.parsed_repository_data.0.name }}<br/>
+                      {% if item.institution_contact.0.email %}{{ item.institution_contact.0.email }}<br/>{% endif %}
+                      {% if item.institution_contact.0.phone %}{{ item.institution_contact.0.phone }}<br/>{% endif %}
+                      {% if item.institution_contact.0.url %}
+                        <a href="{{ item.institution_contact.0.url }}" target="_blank">{{ item.institution_contact.0.url }}</a>
+                      {% endif %}
+                    </div>
                     <div class="form-group">
-                      <label for="request">Nature of Request</label>
-                      <select id="request" class="form-control">
-                        <option>Request high-resolution copy of item</option>
-                        <option>Ask a copyright question</option>
-                        <option>Get more information</option>
-                        <option>Report an error</option>
-                        <option>Leave a comment</option>
+                      <label class="control-label" for="contactOwner-name">Name:</label>
+                      <input type="text" class="form-control" id="contactOwner-name" placeholder="Your full name" form="js-contactOwner" name="name">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label" for="contactOwner-email">Email:</label>
+                      <input type="email" class="form-control" id="contactOwner-email" placeholder="Your email" form="js-contactOwner" name="email">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label has-feedback" for="contactOwner-verifyEmail">Verify Email:</label>
+                      <input type="email" class="form-control" id="contactOwner-verifyEmail" placeholder="Verify your email">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label" for="contactOwner-demographic">How would you best describe yourself?</label>
+                      <select id="contactOwner-demographic" class="form-control" form="js-contactOwner" name="demographic">
+                        <option value="teacher">K-12 teacher or librarian</option>
+                        <option value="student">K-12 student</option>
+                        <option value="college">College student</option>
+                        <option value="gradstudent">Graduate student</option>
+                        <option value="faculty">Faculty or Academic Researcher</option>
+                        <option value="archivist">Archivist or Librarian</option>
+                        <option value="genealogist">Genealogist or family researcher</option>
+                        <option value="other">Other, please specify</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      RE: Calisphere: <i>request_reason</i> for {{ item.title.0 }}
-                    </div>
-                    <div class="form-group">
-                      <label for="message">Message</label>
-                      <textarea id="message" class="form-control" style="height: 7em"></textarea>
+                      <label class="sr-only" for="contactOwner-specifiedDemographic">If "Other," please specify</label>
+                      <input type="text" class="form-control" id="contactOwner-speicifedDemographic" placeholder='If "Other," please specify' form="js-contactOwner" name="demographic-specification" disabled>
                     </div>
                   </div>
-                </form>
+                </div>
+                <div class="col-md-6" style="border-left: 1px solid black">
+                  <div style="margin-left: 20px;">
+                    <div class="well well-sm">Every item on Calisphere has been contributed to the site by a California institution. The institution can answer questions about this item, assit you with obtaining a hi-res copy, and gather additional information you may have about it. If you are experiencing technical issues, we'd request that you contact Calisphere directly.</div>
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label" for="contactOwner-requestReason">Nature of Request</label>
+                        <select id="contactOwner-requestReason" class="form-control" form="js-contactOwner" name="request_reason">
+                          <option selected>Request high-resolution copy of item</option>
+                          <option>Ask a copyright question</option>
+                          <option>Get more information</option>
+                          <option>Report an error</option>
+                          <option>Leave a comment</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label" >Subject:</label>
+                        <p class="form-control-static">RE: Calisphere: <span class="js-requestReason">Request high-resolution copy of item</span> for {{ item.title.0 }}</p>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label" for="contactOwner-message">Message</label>
+                        <textarea id="contactOwner-message" class="form-control" style="height: 7em" form="js-contactOwner" name="message"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <div style="float: left">
+              <input type="checkbox" id="contactOwner-copySelf" form="js-contactOwner" name="copySelf"></input>
+              <label for="copySelf">Check to send a copy of this message to your email.</label>
+            </div>
+            <div style="float: right">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button id="contactOwner-submit" type="submit" class="btn btn-primary" form="js-contactOwner">Submit</button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <div style="float: left">
-          <input type="checkbox"></input> Check to send a copy of this message to your email.
-        </div>
-        <div style="float: right">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Submit</button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
@@ -140,6 +148,11 @@ Permalink: {% url 'calisphere:itemView' item.id %}</textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        {# {% if item.contentFile.format == 'image' %} #}
+          {# {% if item.reference_image_md5 %} #}
+            <!-- <a type="button" class="btn btn-primary" href="{{ thumbnailUrl }}full/full/{{ item.reference_image_md5 }}" target="_blank">Download</a> -->
+          {# {% endif %} #}
+          <!-- <a type="button" class="btn btn-primary" href="{{ ucldcMedia }}{{ item.contentFile.id }}" target="_blank">Download</a> -->
         {% if item.contentFile.format == 'file' %}
           <a type="button" class="btn btn-primary" href="{{ ucldcMedia }}{{ item.contentFile.id }}" target="_blank">Download</a>
         {% else %}

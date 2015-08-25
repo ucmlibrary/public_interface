@@ -309,10 +309,20 @@ def itemView(request, item_id=''):
         
         item['parsed_collection_data'] = []
         item['parsed_repository_data'] = []
+        item['institution_contact'] = []
         for collection_data in item['collection_data']:
             item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
         for repository_data in item['repository_data']:
             item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
+
+            institution_url = item['parsed_repository_data'][0]['url']
+            institution_details = json_loads_url(institution_url + "?format=json")
+            if 'ark' in institution_details and institution_details['ark'] != '':
+                contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + institution_details['ark'])
+            else:
+                contact_information = ''
+
+            item['institution_contact'].append(contact_information)
 
     fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE") 
     if fromItemPage: 
@@ -432,11 +442,12 @@ def itemViewCarousel(request):
             q='id:'+item_id,
             fields='id, type_ss, reference_image_md5, title',
             mlt='true',
-            mlt_count='12',
+            mlt_count='24',
             mlt_fl=mlt_fl
         )
-        search_results = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
-        numFound = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['numFound']
+        search_results = json.loads(carousel_solr_search)['response']['docs'] + json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
+        numFound = '25'
+        # numFound = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['numFound']
     else:
         carousel_solr_search = SOLR_select(
             q=queryParams['query_terms'],
@@ -964,6 +975,10 @@ def campusView(request, campus_slug, subnav=False):
 
 def repositoryView(request, repository_id, subnav=False):
     return institutionView(request, repository_id, subnav, 'repository')
+
+def contactOwner(request):
+    # print request.GET
+    return render(request, 'calisphere/thankyou.html');
 
 def _fixid(id):
     return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)
