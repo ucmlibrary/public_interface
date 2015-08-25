@@ -1,4 +1,4 @@
-/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel */
+/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm */
 
 'use strict'; 
 
@@ -8,7 +8,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm;
 
 var setupObjects = function() {
   if ($('#js-facet').length > 0) {
@@ -55,6 +55,22 @@ var setupObjects = function() {
     carousel.stopListening();
     carousel.undelegateEvents();
     carousel.listening = false;
+  }
+
+  if($('#js-contactOwner').length > 0) {
+    if (contactOwnerForm === undefined) {
+      contactOwnerForm = new ContactOwnerForm();
+      contactOwnerForm.listening = true;
+    }
+    else if (contactOwnerForm.listening === false) {
+      contactOwnerForm.initialize();
+      contactOwnerForm.delegateEvents();
+      contactOwnerForm.listening = true;
+    }
+  } else if (contactOwnerForm !== undefined) {
+    contactOwnerForm.stopListening();
+    contactOwnerForm.undelegateEvents();
+    contactOwnerForm.listening = false;
   }
 
   if($('.carousel-complex').length > 0) {

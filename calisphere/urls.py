@@ -30,4 +30,5 @@ urlpatterns = patterns('calisphere',
     # AJAX HELPERS
     url(r'^relatedCollections/', 'views.relatedCollections', name='relatedCollections'),
     url(r'^carousel/', 'views.itemViewCarousel', name='carousel'),
+    url(r'^contactOwner/', 'views.contactOwner', name='contactOwner'),
 )
