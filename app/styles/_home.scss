@@ -5,7 +5,7 @@
 	// border: $bblue;
 }
 
-.home__main-section { // align images to edge of viewport
+.home__top-images { // align images to edge of viewport
 	margin: 0 (-$layout-container-margin-xs);
 	overflow: hidden;
 
@@ -19,7 +19,7 @@
 
 }
 
-.home__mast {
+.home__top-img1-v1 {
 	position: relative; // relative to .home__img-credit
 	margin: $layout-container-margin-xs 0;
 	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
@@ -39,7 +39,7 @@
 
 }
 
-.home__mast-heading {
+.home__top-img1-v1-heading {
 	margin: 0;
 	padding: 20px 10px;
 	color: #fff;
@@ -144,7 +144,7 @@
 	z-index: 1;
 }
 
-.home__img-main1 {
+.home__top-img2-v1 {
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 ($layout-container-margin-xs / 2) 0 0;
 	padding: 0 0 $home-main-img-padding 0;
@@ -161,7 +161,7 @@
 
 }
 
-.home__img-main1-text {
+.home__top-img2-v1-text {
 	position: relative;
 	z-index: 2;
 	margin: 0 0 $layout-container-margin-xs 0;
@@ -187,7 +187,7 @@
 
 }
 
-.home__img-main2 {
+.home__top-img3-v1 {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 ($home-main-img-padding * 2) 0;
