@@ -47,9 +47,9 @@ def solrize_sort(sort):
     if sort == 'relevance':
         return 'score desc'
     elif sort == 'a':
-        return 'sort_title desc'
-    elif sort == 'z':
         return 'sort_title asc'
+    elif sort == 'z':
+        return 'sort_title desc'
     elif sort == 'oldest-start':
         return 'sort_date_start asc'
     elif sort == 'oldest-end':
@@ -344,8 +344,6 @@ def search(request):
 
         # define facet fields to retrieve
         facet_fields = list(facet_type[0] for facet_type in FACET_TYPES)
-
-        print solrize_sort(queryParams['sort'])
 
         solr_search = SOLR_select(
             q=queryParams['query_terms'],
