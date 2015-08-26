@@ -13,7 +13,7 @@ urlpatterns = patterns('calisphere',
     url(r'^collections/(?P<collection_id>\d*)/', 'views.collectionView', name='collectionView'),
     url(r'^collections/themedCollections/', 'views.themedCollections', name='themedCollections'),
     url(r'^collections/titleSearch/$', 'views.collectionsSearch', name='collectionsTitleSearch'),
-    url(r'^collections/', 'views.collectionsSearch', name='collectionsSearch'),
+    url(r'^collections/titles.json$', 'views.collectionsTitles', name='collectionsTitleData'),
 
     url(r'^institution/(?P<repository_id>\d*)(?:/(?P<subnav>items|collections))?/', 'views.repositoryView', name='repositoryView'),
     url(r'^(?P<campus_slug>UC\w{1,2})(?:/(?P<subnav>items|collections|institutions))?/', 'views.campusView', name='campusView'),
