@@ -632,8 +632,14 @@ def collectionsTitles(request):
 def collectionsSearch(request):
     return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
 
-def themedCollections(request):
-    return render(request, 'calisphere/collectionsThemedCollections.html', {'themedCollections': True})
+def calHistory(request):
+    return render(request, 'calisphere/themedCollections/calHistory.html', {'themedCollections': True})
+
+def calCultures(request):
+    return render(request, 'calisphere/themedCollections/calCultures.html', {'themedCollections': True})
+
+def jarda(request):
+    return render(request, 'calisphere/themedCollections/jarda.html', {'themedCollections': True})
 
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
