@@ -170,6 +170,15 @@ $(document).ready(function() {
     }
     setupObjects();
   });
+
+  $(document).on('pjax:send', function() {
+    $('#loading').show();
+  });
+
+  $(document).on('pjax:complete', function() {
+    $('#loading').hide();
+  });
+
 });
 
 $(document).on('ready pjax:success', function() {
