@@ -19,12 +19,23 @@
 
 }
 
-.home__img1-v1 {
+// ***** Image 1 Versions ***** //
+
+%home__img1 {
 	position: relative; // relative to .home__img-credit
 	margin: $layout-container-margin-xs 0;
 	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
-	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
 	background-size: cover;
+	
+	@include bp(sm-screen) {
+    padding: 0;
+  }
+
+}
+
+.home__img1-v1 {
+	@extend %home__img1;
+	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
 	background-position: 0 -15px;
 
 	@include bp(sm-screen) {
@@ -39,15 +50,48 @@
 
 }
 
-.home__img1-v1-heading {
+.home__img1-v2 {
+	@extend %home__img1;
+	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
+	background-position: 0 -15px;
+
+	@include bp(sm-screen) {
+    padding: 0;
+    background-image: url("#{$home-aws-image-path}colorado-street-bridge_900x400.jpg");
+    background-position: 0 50%;
+  }
+
+  @include bp(md-screen) {
+    background-image: url("#{$home-aws-image-path}colorado-street-bridge_1400x600.jpg");
+  }
+
+}
+
+.home__img1-v3 {
+	@extend %home__img1;
+	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
+	background-position: 0 -15px;
+
+	@include bp(sm-screen) {
+    padding: 0;
+    background-image: url("#{$home-aws-image-path}colorado-street-bridge_900x400.jpg");
+    background-position: 0 50%;
+  }
+
+  @include bp(md-screen) {
+    background-image: url("#{$home-aws-image-path}colorado-street-bridge_1400x600.jpg");
+  }
+
+}
+
+// ***** Image 1 Heading Versions ***** //
+
+%home__img1-heading {
 	margin: 0;
 	padding: 20px 10px;
 	color: #fff;
 	font-size: 2em;
 	text-align: center;
-	background: #666; // for <= IE 8
-	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 
 	@include bp(sm-screen) {
     padding: 30px 10px 60px 10px;
@@ -59,6 +103,27 @@
     font-size: 3em;
   }
 
+}
+
+.home__img1-v1-heading {
+	@extend %home__img1-heading;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+}
+
+.home__img1-v2-heading {
+	@extend %home__img1-heading;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+}
+
+.home__img1-v3-heading {
+	@extend %home__img1-heading;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 }
 
 .home__search {
@@ -111,7 +176,9 @@
 
 }
 
-.home__img-credit {
+// ***** Image Credit Versions ***** //
+
+%home__img-credit {
 	display: none;
 	position: absolute;
 	bottom: 0;
@@ -132,8 +199,55 @@
 
 }
 
-.home__img-credit--gradient {
-	@extend .home__img-credit;
+.home__img1-v1-credit {
+	@extend %home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+}
+
+.home__img1-v2-credit {
+	@extend %home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+}
+
+.home__img1-v3-credit {
+	@extend %home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+}
+
+.home__img2-v1-credit {
+	@extend %home__img-credit;
+}
+
+.home__img2-v2-credit {
+	@extend %home__img-credit;
+}
+
+.home__img2-v3-credit {
+	@extend %home__img-credit;
+}
+
+.home__img3-v1-credit {
+	@extend %home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+}
+
+.home__img3-v2-credit {
+	@extend %home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+}
+
+.home__img3-v3-credit {
+	@extend %home__img-credit;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
 	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
@@ -144,12 +258,18 @@
 	z-index: 1;
 }
 
-.home__img2-v1 {
+// ***** Image 2 Versions ***** //
+
+%home__img2 {
 	position: relative; // relative to .home__img-main1-text
 	margin: 0 ($layout-container-margin-xs / 2) 0 0;
 	padding: 0 0 $home-main-img-padding 0;
-	background-image: url("#{$home-aws-image-path}oranges_430x197.jpg");
 	background-size: 100%;
+}
+
+.home__img2-v1 {
+	@extend %home__img2;
+	background-image: url("#{$home-aws-image-path}oranges_430x197.jpg");
 
 	@include bp(sm-screen) {
   	background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
@@ -161,20 +281,62 @@
 
 }
 
-.home__img2-v1-text {
+.home__img2-v2 {
+	@extend %home__img2;
+	background-image: url("#{$home-aws-image-path}oranges_430x197.jpg");
+
+	@include bp(sm-screen) {
+  	background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
+  }
+
+	@include bp(md-screen) {
+  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
+  }
+
+}
+
+.home__img2-v3 {
+	@extend %home__img2;
+	background-image: url("#{$home-aws-image-path}oranges_430x197.jpg");
+
+	@include bp(sm-screen) {
+  	background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
+  }
+
+	@include bp(md-screen) {
+  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
+  }
+
+}
+
+// ***** Image 2 Text Overlay Versions ***** //
+
+%home__img2-text {
 	position: relative;
 	z-index: 2;
 	margin: 0 0 $layout-container-margin-xs 0;
 	padding: 10px;
 	color: #fff;
 	font-size: 1.2em;
-	background-color: #006893; // for <= IE 9
-	background-color: rgba(0, 104, 147, 1);
 
 	@include bp(sm-screen) {
     position: absolute;
     margin: 0 ($layout-container-margin-xs / 2) 0 0;
 		padding: 10px 30px;
+  }
+
+  @include bp(md-screen) {
+  	font-size: 1.7em;
+  }
+
+}
+
+.home__img2-v1-text {
+	@extend %home__img2-text;
+	background-color: #006893; // for <= IE 9
+	background-color: rgba(0, 104, 147, 1);
+
+	@include bp(sm-screen) {
 		background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
 		background-size: 100%;
 		background-blend-mode: soft-light;
@@ -182,16 +344,83 @@
 
   @include bp(md-screen) {
   	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
-  	font-size: 1.7em;
   }
 
 }
 
-.home__img3-v1 {
+.home__img2-v2-text {
+	@extend %home__img2-text;
+	background-color: #006893; // for <= IE 9
+	background-color: rgba(0, 104, 147, 1);
+
+	@include bp(sm-screen) {
+		background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
+		background-size: 100%;
+		background-blend-mode: soft-light;
+  }
+
+  @include bp(md-screen) {
+  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
+  }
+
+}
+
+.home__img2-v3-text {
+	@extend %home__img2-text;
+	background-color: #006893; // for <= IE 9
+	background-color: rgba(0, 104, 147, 1);
+
+	@include bp(sm-screen) {
+		background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
+		background-size: 100%;
+		background-blend-mode: soft-light;
+  }
+
+  @include bp(md-screen) {
+  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
+  }
+
+}
+
+// ***** Image 3 Versions ***** //
+
+%home__img3 {
 	position: relative; // relative to .home__img-credit
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 ($home-main-img-padding * 2) 0;
 	background-size: 100%;
+}
+
+.home__img3-v1 {
+	@extend %home__img3;
+	background-image: url("#{$home-aws-image-path}hirahara-portrait_220x188.jpg");
+
+	@include bp(sm-screen) {
+  	background-image: url("#{$home-aws-image-path}hirahara-portrait_300x256.jpg");
+  }
+
+	@include bp(md-screen) {
+  	background-image: url("#{$home-aws-image-path}hirahara-portrait_465x397.jpg");
+  }
+
+}
+
+.home__img3-v2 {
+	@extend %home__img3;
+	background-image: url("#{$home-aws-image-path}hirahara-portrait_220x188.jpg");
+
+	@include bp(sm-screen) {
+  	background-image: url("#{$home-aws-image-path}hirahara-portrait_300x256.jpg");
+  }
+
+	@include bp(md-screen) {
+  	background-image: url("#{$home-aws-image-path}hirahara-portrait_465x397.jpg");
+  }
+
+}
+
+.home__img3-v3 {
+	@extend %home__img3;
 	background-image: url("#{$home-aws-image-path}hirahara-portrait_220x188.jpg");
 
 	@include bp(sm-screen) {
