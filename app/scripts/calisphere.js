@@ -1,6 +1,6 @@
 /*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm */
 
-'use strict'; 
+'use strict';
 
 if(typeof console === 'undefined') {
   console = { log: function() { } };
@@ -128,7 +128,7 @@ $(document).ready(function() {
   qm = new QueryManager();
   globalSearchForm = new GlobalSearchForm({model: qm});
   setupObjects();
-  
+
   $('#js-global-header-logo').on('click', function() {
     if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
       qm.clear();
@@ -166,10 +166,38 @@ $(document).ready(function() {
   $(document).on('pjax:end', '#js-pageContent', function() {
     //if we've gotten to a page without search context, clear the query manager
     if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
-      qm.clear({silent: true});        
+      qm.clear({silent: true});
     }
     setupObjects();
   });
+});
+
+$(document).on('ready pjax:success', function() {
+  /* globals Bloodhound: false */
+  if ($('#titlesearch__field')) {
+    var collections = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: '/collections/titles.json'
+    });
+    // chain things to the titlesearch field
+    $('#titlesearch__field').typeahead(null, {
+      name: 'collections',
+      display: 'title',
+      limit: 10,
+      source: collections
+    }).on('keydown', function(event) {
+      // disable enter
+      // http://stackoverflow.com/a/21318996/1763984
+      var x = event.which;
+      if (x === 13) {
+       event.preventDefault();
+      }
+    }).bind('typeahead:selected', function(obj, datum) {
+      // redirect to the select page
+      window.location = datum.uri;
+    });
+  } // end title search
 });
 
 if(!('backgroundBlendMode' in document.body.style)) {
