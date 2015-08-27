@@ -174,7 +174,7 @@ $(document).ready(function() {
 
 $(document).on('ready pjax:success', function() {
   /* globals Bloodhound: false */
-  if ($('#titlesearch__field')) {
+  if ($('#titlesearch__field').length) {
     var collections = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
