@@ -1,6 +1,13 @@
 {% extends 'calisphere/base.html' %}
 
 {% block content %}
+
+<h1>Contact Calisphere</h1>
+
+<div class="static">
+
+  <div class="col-sm-8 static__main">
+
                         <form method="post">{% csrf_token %}
                             {% for field in form %}
                                 <div class="fieldWrapper">
@@ -10,4 +17,15 @@
                             {% endfor %}
                             <input type="submit" value="Submit">
                         </form>
+
+  </div>
+
+  <div class="col-sm-4 static__sidebar">
+
+        <h3 class="static__sidebar-heading">Don't want to email?</h3>
+        <p><a href="http://www.calisphere.universityofcalifornia.edu/contact-us-faq.html">Calisphere classic contact form</a></p>
+        <div>Helpline (510) 987-0555<br/>
+         Mon - Fri, 8 AM - 5 PM</div>
+
+  </div>
 {% endblock %}
