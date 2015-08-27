@@ -237,14 +237,24 @@ def getHostedContentFile(structmap):
             settings.UCLDC_IIIF,
             structmap['id']
         )
+        size = json_loads_url(structmap_url)['sizes'][-1]
+        if size['height'] > size['width']:
+            access_size = {'width': ((size['width'] * 1024) / size['height']), 'height': 1024}
+            access_url = json_loads_url(structmap_url)['@id'] + "/full/,1024/0/default.jpg"
+        else:
+            access_size = {'width': 1024, 'height': ((size['height'] * 1024) / size['width'])}
+            access_url = json_loads_url(structmap_url)['@id'] + "/full/1024,/0/default.jpg"
+        
         contentFile = {
             'titleSources': json.dumps(json_loads_url(structmap_url)),
-            'format': 'image'
+            'format': 'image',
+            'size': access_size,
+            'url': access_url
         }
     if structmap['format'] == 'file':
         contentFile = {
             'id': structmap['id'],
-            'format': 'file'
+            'format': 'file',
         }
     return contentFile
 
