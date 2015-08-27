@@ -8,7 +8,8 @@ var GlobalSearchForm = Backbone.View.extend({
     //on submit, change the model, don't submit the form
     $('#js-searchForm, #js-footerSearch').on('submit', (function(model) {
       return function(e) { 
-        model.set({q: $(this).find('input[name=q]').val()}); 
+        model.set({q: $(this).find('input[name=q]').val()}, {silent: true}); 
+        model.trigger('change:q');
         e.preventDefault();
       };
     }(this.model)));

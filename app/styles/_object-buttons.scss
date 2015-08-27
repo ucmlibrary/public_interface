@@ -14,8 +14,7 @@
   }
 
   @include bp(md-screen) {
-    padding: 0 $object-leftright-margin $layout-component-margin $object-leftright-margin;
-    border-bottom: 1px solid $design-primary-color;
+    padding: 0 $object-leftright-margin;
   }
 	
 }
