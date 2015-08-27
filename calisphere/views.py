@@ -613,8 +613,19 @@ def collectionsAZ(request, collection_letter):
 
 
 def collectionsTitles(request):
+    '''create JSON/data for the collections search page'''
+
+
+    def djangoize(uri):
+        '''turn registry URI into URL on django site'''
+        collection_id = uri.split('https://registry.cdlib.org/api/v1/collection/',
+                                  1)[1][:-1]
+        return reverse('calisphere:collectionView',
+                       kwargs={'collection_id': collection_id})
+
+
     collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
-    data = [{ 'uri': uri, 'title': title } for (uri, title) in collections.parsed]
+    data = [{ 'uri': djangoize(uri), 'title': title } for (uri, title) in collections.parsed]
     return JsonResponse(data, safe=False)
 
 

@@ -180,11 +180,22 @@ $(document).on('ready pjax:success', function() {
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: '/collections/titles.json'
     });
+    // chain things to the titlesearch field
     $('#titlesearch__field').typeahead(null, {
       name: 'collections',
       display: 'title',
       limit: 10,
       source: collections
+    }).on('keydown', function(event) {
+      // disable enter
+      // http://stackoverflow.com/a/21318996/1763984
+      var x = event.which;
+      if (x === 13) {
+       event.preventDefault();
+      }
+    }).bind('typeahead:selected', function(obj, datum) {
+      // redirect to the select page
+      window.location = datum.uri;
     });
   } // end title search
 });
