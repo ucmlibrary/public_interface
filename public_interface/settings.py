@@ -32,6 +32,9 @@ UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
 UCLDC_MEDIA = os.getenv('UCLDC_MEDIA', '')
 UCLDC_IIIF = os.getenv('UCLDC_IIIF', '')
 
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND',
+                          'django.core.mail.backends.console.EmailBackend')
+
 GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
