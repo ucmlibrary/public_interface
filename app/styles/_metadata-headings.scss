@@ -1,5 +1,18 @@
 // ##### Metadata Headings ##### //
 
+.meta-heading {
+  font-size: 1.4em;
+
+  @include bp(md-screen) {
+    margin: $layout-component-margin 0 0 0;
+    padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
+    border-top: 1px solid $design-primary-color;
+  }
+
+}
+
+// check if styles below are still relevant:
+
 .meta-heading__preview {
   margin: 0;
   font-size: 1.4em;
@@ -30,17 +43,6 @@
 
   @include bp(md-screen) {
     margin: 0 $object-leftright-margin;
-  }
-
-}
-
-.meta-heading__complex-set {
-  font-size: 1.4em;
-
-  @include bp(md-screen) {
-    margin: $layout-component-margin 0 0 0;
-    padding: $layout-component-margin $object-leftright-margin 0 $object-leftright-margin;
-    border-top: 1px solid $design-primary-color;
   }
 
 }
