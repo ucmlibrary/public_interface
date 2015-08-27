@@ -1,74 +1,7 @@
 {% load staticfiles %}
 
 {% if item.contentFile.format|lower == 'image' %}
-<div class="object__container-osd">
-  
-  <div id="obj__osd"></div>
-
-  <div class="obj__osd-infobanner js-obj__osd-infobanner">
-    Use the carousel below to page through items in this set. <span class="obj__osd-infobanner-link js-obj__osd-infobanner-link">Got it!</span>
-  </div>
-
-  <div class="obj__osd-button-group">
-
-    <a id="obj__osd-button-home" class="btn btn-default obj__osd-button" href="#">
-      <span class="fa fa-refresh fa-fw"></span>
-    </a>
-    <a id="obj__osd-button-zoom-in" class="btn btn-default obj__osd-button" href="#">
-      <span class="fa fa-plus fa-fw"></span>
-    </a>
-    <a id="obj__osd-button-zoom-out" class="btn btn-default obj__osd-button" href="#">
-      <span class="fa fa-minus fa-fw"></span>
-    </a>
-    <a id="obj__osd-button-fullscreen" class="btn btn-default obj__osd-button" href="">
-      <span class="fa fa-expand fa-fw"></span>
-    </a>
-
-  </div>
-
-  <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
-  
-  <script type="text/javascript">
-      var viewer = OpenSeadragon({
-          id: "obj__osd",
-          tileSources: [{{ item.contentFile.titleSources|safe }}],
-          zoomInButton:   "obj__osd-button-zoom-in",
-          zoomOutButton:  "obj__osd-button-zoom-out",
-          homeButton:     "obj__osd-button-home",
-          fullPageButton: "obj__osd-button-fullscreen"
-      });
-  </script>
-      
-</div>
-{% else %}
-<div class="object__container-type1">
-  
-  <div class="object__container-complex-non-image">
-    <div class="icon__overlay-container">
-      <!-- {% if item.contentFile %}
-        {% if item.contentFile.format|lower == 'text' %}
-          <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
-          <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:12 }}">
-        {% endif %}
-      {% else %} -->
-      {% if item.type_ss.0|lower == "moving image" %}
-        <span class="fa fa-play-circle-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
-      {% elif item.type_ss.0|lower == "sound"%}
-        <span class="fa fa-volume-up fa-fw obj-complex-non-image__file-icon-overlay"></span>
-      {% elif item.type_ss.0|lower == "text"%}
-        <span class="fa fa-file-text-o fa-fw obj-complex-non-image__file-icon-overlay"></span>
-      {% elif item.type_ss.0|lower == "dataset" %}
-        <span class="fa fa-bar-chart fa-fw obj-complex-non-image__file-icon-overlay"></span>
-      {% endif %}          
-        <img class="obj-hosted__no-image" src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:12 }}">
-        <div class="obj__caption" style="margin-left: -1px; margin-right: -1px;">
-          Use the carousel below to page through this {{ item.type.0 }} set
-        </div>
-      {% endif %}
-    </div>
-  </div>
-
-</div>
+  {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
 {% endif %}
 
 <div class="carousel-complex">
@@ -84,23 +17,25 @@
   
   <div class="carousel-complex__item-container">
   {% for component in item.structMap %}
-    <div class="carousel-complex__item{% if component.format|lower != "image" %}--no-image{% endif %}{% if component.selected %}--selected{% endif %}">
+    <div class="carousel-complex__{% if component.format|lower != "image" %}tile{% else %}item{% endif %}{% if component.selected %}--selected{% endif %}">
       <a class="carousel-complex__link js-component-link" data-item_id="{{ forloop.counter0 }}" href="{% url 'calisphere:itemView' item.id %}">
         {% if component.format|lower != "image" %}
+          <div class="carousel-complex__thumbnail-container">
           {% if component.format|lower == "moving image" %}
-          <span class="fa fa-play-circle-o fa-fw carousel-complex__icon-overlay"></span>
+            <div class="carousel-complex__tile-icon fa-play-circle-o"></div>
           {% elif component.format|lower == "sound"%}
-          <span class="fa fa-volume-up fa-fw carousel-complex__icon-overlay"></span>
+            <div class="carousel-complex__tile-icon fa-volume-up"></div>
           {% elif component.format|lower == "text"%}
-          <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
+            <div class="carousel-complex__tile-icon fa-file-text-o"></div>
           {% endif %}
+          </div>
         {% elif component.format|lower == "image" %}
           <img
-          class="carousel-complex__img{% if component.selected %}--selected{% endif %}"
+          class="carousel-complex__img"
           data-lazy="{{ ucldcIiif }}{{ component.id }}/full/,80/0/default.jpg"
           alt="{{ component.label }}">
-        {% else %}
-          <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span>
+        {# else #}
+          <!-- <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span> -->
           <!-- <img src="{% static 'images/transparent.png' %}" alt="{{ item.title.0|truncatewords:12 }}"
           class="carousel-complex__item-img{% if component.selected %}--selected{% else %}carousel-complex__img--no-image{% endif %}"> -->
         {% endif %}

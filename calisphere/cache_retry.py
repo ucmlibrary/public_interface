@@ -102,3 +102,19 @@ def SOLR_select(**kwargs):
         sc.numFound = sr.numFound
         cache.set(key, sc, 60*15)  # seconds
     return sc
+
+@retry(stop_max_delay=3000)
+def SOLR_raw(**kwargs):
+    kwargs.update(SOLR_DEFAULTS)
+    # set up solr handler with auth token
+    SOLR = solr.SearchHandler(
+        solr.Solr(
+            settings.SOLR_URL,
+            post_headers={
+                'X-Authentication-Token': settings.SOLR_API_KEY,
+            },
+        ),
+        "/query"
+    )
+    sr = SOLR.raw(**kwargs)
+    return sr

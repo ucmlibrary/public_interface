@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from calisphere.collection_data import CollectionManager
 from constants import *
-from cache_retry import SOLR_select, json_loads_url
+from cache_retry import SOLR_select, SOLR_raw, json_loads_url
 
 import operator
 import math
@@ -12,6 +12,7 @@ import re
 import copy
 import simplejson as json
 import string
+import solr
 
 # concat query with 'AND'
 def concat_query(q, rq):
@@ -302,10 +303,20 @@ def itemView(request, item_id=''):
         
         item['parsed_collection_data'] = []
         item['parsed_repository_data'] = []
+        item['institution_contact'] = []
         for collection_data in item['collection_data']:
             item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
         for repository_data in item['repository_data']:
             item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
+
+            institution_url = item['parsed_repository_data'][0]['url']
+            institution_details = json_loads_url(institution_url + "?format=json")
+            if 'ark' in institution_details and institution_details['ark'] != '':
+                contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + institution_details['ark'])
+            else:
+                contact_information = ''
+
+            item['institution_contact'].append(contact_information)
 
     fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE") 
     if fromItemPage: 
@@ -414,17 +425,21 @@ def itemViewCarousel(request):
         fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
 
     mlt = False
-    if queryParams['q'] == '' and fq == '':
+    if queryParams['q'] == '' and len(fq) == 0:
         mlt=True,
         mlt_fl='title,collection_name,subject'
 
     if mlt:
-        carousel_solr_search = SOLR_select(
+        carousel_solr_search = SOLR_raw(
             q='id:'+item_id,
             fields='id, type_ss, reference_image_md5, title',
             mlt='true',
-            mlt_fl=['title', 'collection_name', 'subject']
+            mlt_count='24',
+            mlt_fl=mlt_fl
         )
+        search_results = json.loads(carousel_solr_search)['response']['docs'] + json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
+        numFound = '25'
+        # numFound = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['numFound']
     else:
         carousel_solr_search = SOLR_select(
             q=queryParams['query_terms'],
@@ -433,13 +448,15 @@ def itemViewCarousel(request):
             start=queryParams['start'],
             fq=fq
         )
+        search_results = carousel_solr_search.results
+        numFound = carousel_solr_search.numFound
 
     if 'init' in request.GET:
         return render(request, 'calisphere/carouselContainer.html', {
             'q': queryParams['q'],
             'start': queryParams['start'],
-            'numFound': carousel_solr_search.numFound,
-            'search_results': carousel_solr_search.results,
+            'numFound': numFound,
+            'search_results': search_results,
             'item_id': item_id,
             'referral': request.GET['referral'] if 'referral' in request.GET else '',
             'referralName': request.GET['referralName'] if 'referralName' in request.GET else '',
@@ -448,7 +465,7 @@ def itemViewCarousel(request):
     else:
         return render(request, 'calisphere/carousel.html', {
             'start': queryParams['start'],
-            'search_results': carousel_solr_search.results,
+            'search_results': search_results,
             'item_id': item_id
         })
 
@@ -950,6 +967,10 @@ def campusView(request, campus_slug, subnav=False):
 
 def repositoryView(request, repository_id, subnav=False):
     return institutionView(request, repository_id, subnav, 'repository')
+
+def contactOwner(request):
+    # print request.GET
+    return render(request, 'calisphere/thankyou.html');
 
 def _fixid(id):
     return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)

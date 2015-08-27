@@ -1,8 +1,14 @@
 {% load staticfiles %}
 
-<div class="object__container-osd">
+<div class="obj__container-osd">
   
   <div id="obj__osd"></div>
+  
+  {% if item.structMap %}
+  <div class="obj__osd-infobanner js-obj__osd-infobanner">
+    Use the carousel below to page through items in this set. <span class="obj__osd-infobanner-link js-obj__osd-infobanner-link">Got it!</span>
+  </div>
+  {% endif %}
 
   <div class="obj__osd-button-group">
     

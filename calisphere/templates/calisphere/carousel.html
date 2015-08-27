@@ -2,13 +2,13 @@
 {% load static %}
 
   {% for carousel_item in search_results %}
-  <div class="js-carousel_item {% if carousel_item.id == item.id %}carousel__item--selected{% else %}carousel__item{% endif %}">
+  <div class="js-carousel_item {% if carousel_item.id == item_id %}carousel__item--selected{% else %}carousel__item{% endif %}">
     <a class="carousel__link js-item-link" href="{% url 'calisphere:itemView' carousel_item.id %}" data-item_id="{{ carousel_item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
       <div class="thumbnail__container">
         {% if carousel_item.reference_image_md5 %}
           <img
           data-lazy="{{ thumbnailUrl }}crop/120x120/{{ carousel_item.reference_image_md5 }}"
-          {% if carousel_item.id == item.id %}
+          {% if carousel_item.id == item_id %}
           class="carousel__image--selected"
           {% else %}
           class="carousel__image"
