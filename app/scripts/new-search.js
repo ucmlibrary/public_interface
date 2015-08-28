@@ -269,6 +269,15 @@ var FacetForm = Backbone.View.extend({
       _.has(this.model.changed, 'facet_decade') ||
       _.has(this.model.changed, 'repository_data') ||
       _.has(this.model.changed, 'collection_data')) {
+        var attrUndefined = false;
+        _.each(this.model.changed, function(value) {
+          if (value === undefined) {
+            attrUndefined = true;
+          }
+        });
+        if (attrUndefined) {
+          this.facetSearch();
+        }
         _.each(this.model.changed, function(value, key) {
           if (key === 'type_ss' || key === 'facet_decade' || key === 'repository_data' || key === 'collection_data') {
             $('.facet-' + key).parents('.check').find('.js-a-check__update').prop('disabled', false);
