@@ -7,16 +7,23 @@
 <div class="static">
 
   <div class="col-sm-8 static__main">
-
-                        <form method="post">{% csrf_token %}
-                            {% for field in form %}
-                                <div class="fieldWrapper">
-                                    {{ field.errors }}
-                                    {{ field.label_tag }} {{ field }}
-                                </div>
-                            {% endfor %}
-                            <input type="submit" value="Submit">
-                        </form>
+    <form method="post">{% csrf_token %}
+    {% for field in form %}
+      {% if field.label != "Referer" %}
+      <div class="form-group">
+        {{ field.errors }}
+        {{ field.label_tag }}<div>{{ field }}</div>
+      </div>
+      {% endif %}
+    {% endfor %}
+      <div class="form-group">
+        <label for="referer">
+          Last page viewed:
+        </label> {{ request.META.HTTP_REFERER }}
+        <input type="hidden" name="referer" value="{{ request.META.HTTP_REFERER }}">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
 
   </div>
 
