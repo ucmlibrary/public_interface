@@ -109,7 +109,7 @@ var setupObjects = function() {
       debug: false,
       loading: {
         finishedMsg: 'All collections showing.',
-        img: 'http://localhost:9000/images/orange-spinner.gif',
+        img: 'http://calisphere.cdlib.org/static_root/images/orange-spinner.gif',
         msgText: '',
         selector: '#js-loading'
       }
