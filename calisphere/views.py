@@ -862,11 +862,6 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
                 if institution_id == campus['id'] and 'featuredImage' in campus:
                     context['featuredImage'] = campus['featuredImage']
 
-            #TODO: add to above context variable for both campus and institution, but this isn't working for institutions yet.
-            context['related_collections'] = relatedCollections(request, queryParams)
-            context['num_related_collections'] = len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data'])
-            context['rc_page'] = queryParams['rc_page']
-
         if institution_type == 'repository':
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES if facet_type[0] != 'repository_data')
             context['repository_id'] = institution_id
@@ -878,6 +873,16 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
                     if unit['id'] == institution_id:
                         context['featuredImage'] = unit['featuredImage']
 
+            # add institution_data to query params for related collections
+            institution_data = institution_url + "::" + institution_details['name']
+            if len(institution_details['campus']) > 0:
+                institution_data = institution_data + "::" + institution_details['campus'][0]['name']
+            queryParams['filters']['repository_data'] = [institution_data]
+
+        #TODO: add to above context variable for both campus and institution, but this isn't working for institutions yet.
+        context['related_collections'] = relatedCollections(request, queryParams)
+        context['num_related_collections'] = len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data'])
+        context['rc_page'] = queryParams['rc_page']
 
         return render(request, 'calisphere/institutionViewItems.html', context)
 
