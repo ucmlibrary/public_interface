@@ -112,8 +112,21 @@ def getCollectionMosaic(collection_url):
         fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
         rows=6,
         start=0,
-        fq=['collection_url: \"' + collection_url + '\"']
+        fq=['collection_url: \"' + collection_url + '\"', 'type_ss: \"image\"']
     )
+
+    items = display_items.results
+
+    if len(display_items.results) > 6:
+        ugly_display_items = SOLR_select(
+            q='*:*',
+            fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
+            rows=6,
+            start=0,
+            fq=['collection_url: \"' + collection_url + '\"', '-type_ss: \"image\"']
+        )
+
+        items = items.append(ugly_display_items.results)
 
     return {
         'name': collection_details['name'],
@@ -121,7 +134,7 @@ def getCollectionMosaic(collection_url):
         'description': collection_details['description'],
         'collection_id': collection_id,
         'numFound': display_items.numFound,
-        'display_items': display_items.results
+        'display_items': items
     }
 
 def getRepositoryData(repository_data=None, repository_id=None):
@@ -879,7 +892,6 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
                 institution_data = institution_data + "::" + institution_details['campus'][0]['name']
             queryParams['filters']['repository_data'] = [institution_data]
 
-        #TODO: add to above context variable for both campus and institution, but this isn't working for institutions yet.
         context['related_collections'] = relatedCollections(request, queryParams)
         context['num_related_collections'] = len(queryParams['filters']['collection_data']) if len(queryParams['filters']['collection_data']) > 0 else len(facets['collection_data'])
         context['rc_page'] = queryParams['rc_page']

@@ -21,7 +21,7 @@
   	<a href="{% url 'calisphere:collectionView' collection.collection_id %}" class="collect-row__mosaic" data-pjax="js-pageContent">
   		<div class="col-sm-6">
 	  		{% for item in collection.display_items %}
-
+          {% if forloop.counter <= 6 %}
           <div class="collect-row__container{{ forloop.counter }}">          
             {% if item.reference_image_md5 %}
               <img class="thumbnail__image"
@@ -59,6 +59,7 @@
 		    		</div>
 		    		<div class="col-sm-6">
 		    	{% endif %}
+          {% endif %}
       		{% endfor %}
       		<div class="collect-row__button">
         		<div class="aspect-ratio-content">
