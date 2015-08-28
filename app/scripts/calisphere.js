@@ -171,6 +171,14 @@ $(document).ready(function() {
     setupObjects();
   });
 
+  $(document).on('pjax:end', function() {
+    // send google analytics on pjax pages
+    if (ga !== undefined) {
+      ga('set', 'location', window.location.href);
+      ga('send', 'pageview');
+    }
+  });
+
   $(document).on('pjax:send', function() {
     $('#loading').show();
   });
