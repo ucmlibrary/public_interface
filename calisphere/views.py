@@ -117,23 +117,23 @@ def getCollectionMosaic(collection_url):
 
     items = display_items.results
 
-    if len(display_items.results) > 6:
-        ugly_display_items = SOLR_select(
-            q='*:*',
-            fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
-            rows=6,
-            start=0,
-            fq=['collection_url: \"' + collection_url + '\"', '-type_ss: \"image\"']
-        )
+    ugly_display_items = SOLR_select(
+        q='*:*',
+        fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
+        rows=6,
+        start=0,
+        fq=['collection_url: \"' + collection_url + '\"', '(*:* AND -type_ss:\"image\")']
+    )
 
-        items = items.append(ugly_display_items.results)
+    if len(display_items.results) < 6:
+        items = items + ugly_display_items.results
 
     return {
         'name': collection_details['name'],
         'institutions': collection_repositories,
         'description': collection_details['description'],
         'collection_id': collection_id,
-        'numFound': display_items.numFound,
+        'numFound': display_items.numFound + ugly_display_items.numFound,
         'display_items': items
     }
 
