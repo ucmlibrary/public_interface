@@ -109,7 +109,7 @@ var setupObjects = function() {
       debug: false,
       loading: {
         finishedMsg: 'All collections showing.',
-        img: 'http://localhost:9000/images/orange-spinner.gif',
+        img: 'http://calisphere.cdlib.org/static_root/images/orange-spinner.gif',
         msgText: '',
         selector: '#js-loading'
       }
@@ -183,7 +183,7 @@ $(document).ready(function() {
 
 $(document).on('ready pjax:success', function() {
   /* globals Bloodhound: false */
-  if ($('#titlesearch__field')) {
+  if ($('#titlesearch__field').length) {
     var collections = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,

@@ -259,7 +259,7 @@ def getHostedContentFile(structmap):
     return contentFile
 
 def itemView(request, item_id=''):
-    item_id_search_term = 'id:"{0}"'.format(_fixid(item_id))
+    item_id_search_term = 'id:"{0}"'.format(item_id)
     item_solr_search = SOLR_select(q=item_id_search_term)
     if not item_solr_search.numFound:
         # second level search
@@ -1006,6 +1006,3 @@ def repositoryView(request, repository_id, subnav=False):
 def contactOwner(request):
     # print request.GET
     return render(request, 'calisphere/thankyou.html');
-
-def _fixid(id):
-    return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)
