@@ -204,7 +204,7 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
 	@extend %home__img-credit;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
 }
 
 .home__img2-v3-credit {
@@ -257,6 +257,7 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
 
 .home__img2-v2 {
 	@extend %home__img2;
+	background-position: 0 -20px;
 	background-image: url($home__img2-v2-xs);
 
 	@include bp(sm-screen) {
@@ -297,6 +298,7 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
     position: absolute;
     margin: 0 ($layout-container-margin-xs / 2) 0 0;
 		padding: 10px 30px;
+		background-size: 100%;
   }
 
   @include bp(md-screen) {
@@ -312,7 +314,6 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
 
 	@include bp(sm-screen) {
 		background-image: url($home__img2-v1-sm);
-		background-size: 100%;
 		background-blend-mode: soft-light;
   }
 
@@ -324,11 +325,11 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
 
 .home__img2-v2-text {
 	@extend %home__img2-text;
+	background-position: 0 -20px;
 	background-color: $design-secondary-color;
 
 	@include bp(sm-screen) {
 		background-image: url($home__img2-v2-sm);
-		background-size: 100%;
 		background-blend-mode: multiply;
   }
 
@@ -345,7 +346,6 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
 
 	@include bp(sm-screen) {
 		background-image: url($home__img2-v3-sm);
-		background-size: 100%;
 		background-blend-mode: soft-light;
   }
 
