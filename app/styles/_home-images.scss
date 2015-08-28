@@ -202,6 +202,9 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
 
 .home__img2-v2-credit {
 	@extend %home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 }
 
 .home__img2-v3-credit {
@@ -321,13 +324,12 @@ $home__img3-v3-md: "#{$home-aws-image-path}map_465w.jpg";
 
 .home__img2-v2-text {
 	@extend %home__img2-text;
-	background-color: #006893; // for <= IE 9
-	background-color: rgba(0, 104, 147, 1);
+	background-color: $design-secondary-color;
 
 	@include bp(sm-screen) {
 		background-image: url($home__img2-v2-sm);
 		background-size: 100%;
-		background-blend-mode: soft-light;
+		background-blend-mode: multiply;
   }
 
   @include bp(md-screen) {
