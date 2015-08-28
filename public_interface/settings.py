@@ -35,6 +35,11 @@ UCLDC_IIIF = os.getenv('UCLDC_IIIF', '')
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND',
                           'django.core.mail.backends.console.EmailBackend')
 
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'project@example.edu')
+
+ADMINS = (('', DEFAULT_FROM_EMAIL),)
+MANAGERS = ADMINS
+
 GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
