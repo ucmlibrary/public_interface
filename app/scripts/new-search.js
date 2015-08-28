@@ -45,6 +45,13 @@ var GlobalSearchForm = Backbone.View.extend({
         container: '#js-pageContent',
         data: this.model.toJSON()
       });
+    } else {
+      this.model.clear({silent: true});
+      $.pjax({
+        url: $('#js-searchForm').attr('action'),
+        container: '#js-pageContent',
+        data: {'q': ''}
+      });
     }
     
     _.each($('#js-searchForm, #js-footerSearch'), (function(model) {
