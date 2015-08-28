@@ -20,7 +20,6 @@
 	background-position: 0 -15px;
 
 	@include bp(sm-screen) {
-    padding: 0;
     background-image: url("#{$home-aws-image-path}colorado-street-bridge_900x400.jpg");
     background-position: 0 50%;
   }
@@ -33,17 +32,14 @@
 
 .home__img1-v2 {
 	@extend %home__img1;
-	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
-	background-position: 0 -15px;
+	background-image: url("#{$home-aws-image-path}baseball-players_650w.jpg");
 
 	@include bp(sm-screen) {
-    padding: 0;
-    background-image: url("#{$home-aws-image-path}colorado-street-bridge_900x400.jpg");
-    background-position: 0 50%;
+    background-image: url("#{$home-aws-image-path}baseball-players_900w.jpg");
   }
 
   @include bp(md-screen) {
-    background-image: url("#{$home-aws-image-path}colorado-street-bridge_1400x600.jpg");
+    background-image: url("#{$home-aws-image-path}baseball-players_1400w.jpg");
   }
 
 }
@@ -54,7 +50,6 @@
 	background-position: 0 -15px;
 
 	@include bp(sm-screen) {
-    padding: 0;
     background-image: url("#{$home-aws-image-path}colorado-street-bridge_900x400.jpg");
     background-position: 0 50%;
   }
@@ -219,14 +214,14 @@
 
 .home__img2-v2 {
 	@extend %home__img2;
-	background-image: url("#{$home-aws-image-path}oranges_430x197.jpg");
+	background-image: url("#{$home-aws-image-path}coachella-valley_430w.jpg");
 
 	@include bp(sm-screen) {
-  	background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
+  	background-image: url("#{$home-aws-image-path}coachella-valley_600w.jpg");
   }
 
 	@include bp(md-screen) {
-  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
+  	background-image: url("#{$home-aws-image-path}coachella-valley_960w.jpg");
   }
 
 }
@@ -290,13 +285,13 @@
 	background-color: rgba(0, 104, 147, 1);
 
 	@include bp(sm-screen) {
-		background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
+		background-image: url("#{$home-aws-image-path}coachella-valley_600w.jpg");
 		background-size: 100%;
 		background-blend-mode: soft-light;
   }
 
   @include bp(md-screen) {
-  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
+  	background-image: url("#{$home-aws-image-path}coachella-valley_960w.jpg");
   }
 
 }
@@ -343,14 +338,14 @@
 
 .home__img3-v2 {
 	@extend %home__img3;
-	background-image: url("#{$home-aws-image-path}hirahara-portrait_220x188.jpg");
+	background-image: url("#{$home-aws-image-path}rosie_the_riviter_200w.jpg");
 
 	@include bp(sm-screen) {
-  	background-image: url("#{$home-aws-image-path}hirahara-portrait_300x256.jpg");
+  	background-image: url("#{$home-aws-image-path}rosie_the_riviter_300w.jpg");
   }
 
 	@include bp(md-screen) {
-  	background-image: url("#{$home-aws-image-path}hirahara-portrait_465x397.jpg");
+  	background-image: url("#{$home-aws-image-path}rosie_the_riviter_465w.jpg");
   }
 
 }
