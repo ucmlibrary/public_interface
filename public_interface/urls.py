@@ -9,10 +9,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^', include('calisphere.urls', namespace="calisphere")),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^contact/', 
+    url(r'^contact/$',
         CalisphereContactFormView.as_view(),
         name='contact_form'),
-    url(r'^sent/$',
+    url(r'^contact/sent/$',
         TemplateView.as_view(
             template_name='contact_form/contact_form_sent.html'),
         name='contact_form_sent'),
