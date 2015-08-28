@@ -274,6 +274,8 @@ var FacetForm = Backbone.View.extend({
             $('.facet-' + key).parents('.check').find('.js-a-check__update').prop('disabled', false);
           }
         });
+      } else {
+        this.facetSearch();
       }
     }
   },
