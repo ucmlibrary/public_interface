@@ -173,6 +173,7 @@ $(document).ready(function() {
 
   $(document).on('pjax:end', function() {
     // send google analytics on pjax pages
+    /* globals ga: false */
     if (ga !== undefined) {
       ga('set', 'location', window.location.href);
       ga('send', 'pageview');
