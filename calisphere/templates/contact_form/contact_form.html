@@ -6,6 +6,8 @@
 
 <div class="static">
 
+  {{ request.META.HOST }}
+
   <div class="col-sm-8 static__main">
     <form method="post">{% csrf_token %}
     {% for field in form %}
