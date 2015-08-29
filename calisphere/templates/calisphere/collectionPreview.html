@@ -12,7 +12,7 @@
         <p><i class="fa fa-exclamation-triangle"></i> Collection description needed.</p>
       </div>
     {% endif %}
-    <p>Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}</p>
+    <p>{% if collection.institutions %}Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}{% endif %}</p>
   </div>
 
   <p class="collect-row__item-number"><strong>{{ collection.numFound }} Item{{ collection.numFound|pluralize }}</strong></p>

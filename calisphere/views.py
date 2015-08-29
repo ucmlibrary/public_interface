@@ -95,8 +95,8 @@ def getCollectionMosaic(collection_url):
 
     repository_details = collection_details.get('repository')
 
-    if not (repository_details):
-        return
+    # if not (repository_details):
+    #     return
 
     for repository in repository_details:
         if 'campus' in repository and len(repository['campus']) > 0:
