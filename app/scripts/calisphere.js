@@ -168,6 +168,15 @@ $(document).ready(function() {
     if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
       qm.clear({silent: true});
     }
+    _.each($('form'), function(form) {
+      form.reset();
+      if ($(form).attr('id') === 'js-facet') {
+        var formAfter = _.object(_.map($(form).serializeArray(), function(value) { return [value.name, value.value]; }));
+        formAfter = _.defaults(formAfter, {type_ss: '', facet_decade: '', repository_data: '', collection_data: ''});
+        qm.set(formAfter, {silent: true});
+      }
+    });
+
     setupObjects();
   });
 
