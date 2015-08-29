@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block additionalInfo %}
-  <div class="institution-intro">
+  <div class="institution-intro" data-ga-code="{{ institution.google_analytics_tracking_code }}">
 
     {% if campus_slug %}
       <div class="col-md-3">
