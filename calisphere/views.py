@@ -257,7 +257,7 @@ def getHostedContentFile(structmap):
         else:
             access_size = {'width': 1024, 'height': ((size['height'] * 1024) / size['width'])}
             access_url = json_loads_url(structmap_url)['@id'] + "/full/1024,/0/default.jpg"
-        
+
         contentFile = {
             'titleSources': json.dumps(json_loads_url(structmap_url)),
             'format': 'image',
@@ -276,7 +276,7 @@ def itemView(request, item_id=''):
     item_solr_search = SOLR_select(q=item_id_search_term)
     if not item_solr_search.numFound:
         # second level search
-        old_id_search = SOLR_select(q='harvest_id_s:{}'.format(_fixid(item_id)))
+        old_id_search = SOLR_select(q='harvest_id_s:{}'.format(item_id))
         if old_id_search.numFound:
             return redirect('calisphere:itemView', old_id_search.results[0]['id'])
         else:
