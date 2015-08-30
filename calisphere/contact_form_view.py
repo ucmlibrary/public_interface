@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from django import forms
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from contact_form.views import ContactFormView
 from contact_form.forms import ContactForm
@@ -71,7 +72,7 @@ class CalisphereContactFormView(ContactFormView):
         # fix the host name to stay on the proxy http://stackoverflow.com/a/5686726/1763984
         # pass the referer on to the "sent" email confirmation page
         return urlparse.urljoin(
-            self.request.META['HTTP_HOST'],
+            settings.UCLDC_FRONT ,
             u'{0}?referer={1}'.format(
                 reverse('contact_form_sent'),
                 self.request.POST.get('referer')

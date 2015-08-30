@@ -32,6 +32,8 @@ UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
 UCLDC_MEDIA = os.getenv('UCLDC_MEDIA', '')
 UCLDC_IIIF = os.getenv('UCLDC_IIIF', '')
 
+UCLDC_FRONT = os.getenv('UCLDC_FRONT','')
+
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND',
                           'django.core.mail.backends.console.EmailBackend')
 
@@ -60,7 +62,7 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + (
     'public_interface.context_processors.settings',
 )
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 
 # Application definition
