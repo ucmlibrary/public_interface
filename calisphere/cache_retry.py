@@ -89,8 +89,8 @@ def SOLR_select(**kwargs):
         "/query"
     )
     # look in the cache
-    key = kwargs_md5(**kwargs)
-    sc = cache.get('SOLR_select_'.format(key))
+    key = 'SOLR_select_{0}'.format(kwargs_md5(**kwargs))
+    sc = cache.get(key)
     if not sc:
         # do the solr look up
         sr = SOLR(**kwargs)
@@ -118,9 +118,9 @@ def SOLR_raw(**kwargs):
         "/query"
     )
     # look in the cache
-    key = kwargs_md5(**kwargs)
-    sc = cache.get('SOLR_raw_'.format(key))
-    if not sc:
+    key = 'SOLR_raw_{0}'.format(kwargs_md5(**kwargs))
+    sr = cache.get(key)
+    if not sr:
         # do the solr look up
         sr = SOLR.raw(**kwargs)
         cache.set(key, sr, settings.DJANGO_CACHE_TIMEOUT)  # seconds
