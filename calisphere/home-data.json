@@ -19,6 +19,46 @@
         "title": "Hirahara family portrait, 1926",
         "contributor": "Anaheim Public Library"
       }
+    },
+        {
+      "img1": {
+        "class": "img1-v1",
+        "id": "26094--LAPL00035316",
+        "title": "Strolling on the Colorado Street Bridge (Pasadena, CA)",
+        "contributor": "Los Angeles Public Library"
+      },
+      "img2": {
+        "class": "img2-v1",
+        "id": "16289--http://ark.cdlib.org/ark:/13030/kt9v19q5hg",
+        "title": "Crate label for Orange County Valencias",
+        "contributor": "Orange Public Library"
+      },
+      "img3": {
+        "class": "img3-v1",
+        "id": "872--http://ark.cdlib.org/ark:/13030/kt329015v6",
+        "title": "Hirahara family portrait, 1926",
+        "contributor": "Anaheim Public Library"
+      }
+    },
+        {
+      "img1": {
+        "class": "img1-v1",
+        "id": "26094--LAPL00035316",
+        "title": "Strolling on the Colorado Street Bridge (Pasadena, CA)",
+        "contributor": "Los Angeles Public Library"
+      },
+      "img2": {
+        "class": "img2-v1",
+        "id": "16289--http://ark.cdlib.org/ark:/13030/kt9v19q5hg",
+        "title": "Crate label for Orange County Valencias",
+        "contributor": "Orange Public Library"
+      },
+      "img3": {
+        "class": "img3-v1",
+        "id": "872--http://ark.cdlib.org/ark:/13030/kt329015v6",
+        "title": "Hirahara family portrait, 1926",
+        "contributor": "Anaheim Public Library"
+      }
     }
   ],
   "uc_partners": [
