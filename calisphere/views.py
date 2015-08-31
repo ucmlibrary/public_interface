@@ -519,8 +519,8 @@ def itemViewCarousel(request):
             'numFound': numFound,
             'search_results': search_results,
             'item_id': item_id,
-            'referral': request.GET['referral'] if 'referral' in request.GET else '',
-            'referralName': request.GET['referralName'] if 'referralName' in request.GET else '',
+            'referral': request.GET.get('referral'),
+            'referralName': request.GET.get('referralName'),
             'campus_slug': request.GET.get('campus_slug'),
             'linkBackId': linkBackId
         })
