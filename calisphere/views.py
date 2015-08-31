@@ -165,8 +165,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
     elif repository_id:
         repository['url'] = "https://registry.cdlib.org/api/v1/repository/{0}/".format(repository_id)
         repository['id'] = repository_id
-
-        repository_details = app.registry.repository_data.get(repository_id, None)
+        repository_details = app.registry.repository_data.get(int(repository_id), None)
         repository['name'] = repository_details['name']
         if repository_details['campus']:
             repository['campus'] = repository_details['campus'][0]['name']
@@ -446,7 +445,7 @@ def itemViewCarousel(request):
     if referral == 'institution':
         linkBackId = request.GET['repository_data']
     elif referral == 'collection':
-        linkBackId = request.GET['collection_data']
+        linkBackId = request.GET.get('collection_data', None)
     elif referral == 'campus':
         linkBackId = request.GET['campus_slug']
 
