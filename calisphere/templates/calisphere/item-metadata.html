@@ -33,7 +33,11 @@
       <dt class="meta-block__type">Contributing Institution</dt>
       <dd class="meta-block__defin">
         {% for repository in item.parsed_repository_data %}
-          <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}" data-pjax="js-pageContent">
+          <a
+            href="{% url 'calisphere:repositoryView' repository.id 'collections' %}"
+            data-pjax="js-pageContent"
+            data-ga-code="{{ repository.ga_code }}"
+          >
           {% if repository.campus %}
             {{ repository.campus }},
           {% endif %}

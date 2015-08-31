@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -71,9 +72,9 @@ def process_facets(facets, filters, facet_type=None):
 def getCollectionData(collection_data=None, collection_id=None):
     collection = {}
     if collection_data:
-        collection['url'] = collection_data.split('::')[0] if len(collection_data.split('::')) >= 1 else ''
-        collection['name'] = collection_data.split('::')[1] if len(collection_data.split('::')) >= 2 else ''
-
+        parts = collection_data.split('::')
+        collection['url'] = parts[0] if len(parts) >= 1 else ''
+        collection['name'] = parts[1] if len(parts) >= 2 else ''
         collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', collection['url'])
         if collection_api_url is None:
             print 'no collection api url:'
@@ -86,6 +87,7 @@ def getCollectionData(collection_data=None, collection_id=None):
 
         collection_details = json_loads_url("{0}?format=json".format(collection['url']))
         collection['name'] = collection_details['name']
+        collection['local_id'] = collection_details['local_id']
     return collection
 
 def getCollectionMosaic(collection_url):
@@ -138,28 +140,40 @@ def getCollectionMosaic(collection_url):
     }
 
 def getRepositoryData(repository_data=None, repository_id=None):
+    """ supply either `repository_data` from solr or the `repository_id` """
+    app = apps.get_app_config('calisphere')
     repository = {}
+    repository_details = {}
     if repository_data:
-        repository['url'] = repository_data.split('::')[0] if len(repository_data.split('::')) >= 1 else ''
-        repository['name'] = repository_data.split('::')[1] if len(repository_data.split('::')) >= 2 else ''
-        repository['campus'] = repository_data.split('::')[2] if len(repository_data.split('::')) >= 3 else ''
+        parts = repository_data.split('::')
+        repository['url'] = parts[0] if len(parts) >= 1 else ''
+        repository['name'] = parts[1] if len(parts) >= 2 else ''
+        repository['campus'] = parts[2] if len(parts) >= 3 else ''
 
-        repository_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/repository/(?P<url>\d*)/', repository['url'])
+        repository_api_url = re.match(
+            r'^https://registry\.cdlib\.org/api/v1/repository/(?P<url>\d*)/',
+            repository['url']
+        )
         if repository_api_url is None:
             print 'no repository api url'
             repository['id'] = ''
         else:
             repository['id'] = repository_api_url.group('url')
+            repository_details = app.registry.repository_data.get(
+                int(repository['id']), None
+            )
     elif repository_id:
-        repository['url'] = "https://registry.cdlib.org/api/v1/repository/" + repository_id + "/"
+        repository['url'] = "https://registry.cdlib.org/api/v1/repository/{0}/".format(repository_id)
         repository['id'] = repository_id
-
-        repository_details = json_loads_url(repository['url'] + "?format=json")
+        repository_details = app.registry.repository_data.get(int(repository_id), None)
         repository['name'] = repository_details['name']
         if repository_details['campus']:
             repository['campus'] = repository_details['campus'][0]['name']
         else:
             repository['campus'] = ''
+    # details needed for stats
+    repository['ga_code'] = repository_details.get('google_analytics_tracking_code', None)
+    repository['slug'] = repository_details.get('slug', None)
     return repository
 
 def facetQuery(facet_fields, queryParams, solr_search, extra_filter=None):
@@ -276,7 +290,9 @@ def itemView(request, item_id=''):
     item_solr_search = SOLR_select(q=item_id_search_term)
     if not item_solr_search.numFound:
         # second level search
-        old_id_search = SOLR_select(q='harvest_id_s:{}'.format(item_id))
+        def _fixid(id):
+            return re.sub(r'^(\d*--http:/)(?!/)', r'\1/', id)
+        old_id_search = SOLR_select(q='harvest_id_s:{}'.format(_fixid(item_id)))
         if old_id_search.numFound:
             return redirect('calisphere:itemView', old_id_search.results[0]['id'])
         else:
@@ -429,7 +445,7 @@ def itemViewCarousel(request):
     if referral == 'institution':
         linkBackId = request.GET['repository_data']
     elif referral == 'collection':
-        linkBackId = request.GET['collection_data']
+        linkBackId = request.GET.get('collection_data', None)
     elif referral == 'campus':
         linkBackId = request.GET['campus_slug']
 
