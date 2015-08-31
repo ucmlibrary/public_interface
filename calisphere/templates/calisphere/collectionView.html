@@ -10,8 +10,7 @@
 
 {% block additionalInfo %}
 
-<div class="collection-intro">
-
+<div class="collection-intro" data-ga-dim1="{{ collection.local_id }}{{ collection.slug }}">
   <div class="col-md-3">
     <div class="collection-intro__institution">
       <h2 class="collection-intro__institution-heading">Owning Institution{{ collection.repository|pluralize }}:
@@ -21,6 +20,7 @@
             class="collection-intro__institution-heading-link"
             data-pjax="js-pageContent"
             data-ga-code="{{ repository.google_analytics_tracking_code }}"
+            data-ga-dim2="{%if repository.campus %}{{ repository.campus.0.slug }}-{% endif %}{{ repository.slug }}"
           >
             {% if repository.campus %}{{ repository.campus.0.name }}, {% endif %}{{ repository.name }}
           </a>

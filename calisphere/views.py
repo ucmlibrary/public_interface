@@ -173,7 +173,11 @@ def getRepositoryData(repository_data=None, repository_id=None):
             repository['campus'] = ''
     # details needed for stats
     repository['ga_code'] = repository_details.get('google_analytics_tracking_code', None)
-    repository['slug'] = repository_details.get('slug', None)
+    parent = repository_details['campus']
+    pslug = u''
+    if len(parent):
+        pslug = '{0}-'.format(parent[0].get('slug', None))
+    repository['slug'] = pslug + repository_details.get('slug', None)
     return repository
 
 def facetQuery(facet_fields, queryParams, solr_search, extra_filter=None):
@@ -517,7 +521,7 @@ def itemViewCarousel(request):
             'item_id': item_id,
             'referral': request.GET['referral'] if 'referral' in request.GET else '',
             'referralName': request.GET['referralName'] if 'referralName' in request.GET else '',
-            'campus_slug': request.GET['campus_slug'],
+            'campus_slug': request.GET.get('campus_slug'),
             'linkBackId': linkBackId
         })
     else:

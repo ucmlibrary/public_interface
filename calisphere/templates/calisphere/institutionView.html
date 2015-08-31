@@ -24,7 +24,11 @@
 {% endblock %}
 
 {% block additionalInfo %}
-  <div class="institution-intro" data-ga-code="{{ institution.google_analytics_tracking_code }}">
+  <div
+    class="institution-intro"
+    data-ga-code="{{ institution.google_analytics_tracking_code }}"
+    data-ga-dim2="{%if institution.campus %}{{ institution.campus.0.slug }}-{% endif %}{{ institution.slug }}"
+  >
 
     {% if campus_slug %}
       <div class="col-md-3">
