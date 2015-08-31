@@ -491,14 +491,33 @@ def itemViewCarousel(request):
         numFound = carousel_solr_search.numFound
 
     if 'init' in request.GET:
+        filter_display = {}
+        for filter_type in queryParams['filters']:
+            if filter_type == 'collection_data':
+                filter_display['collection_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    collection = getCollectionData(collection_data=filter_item)
+                    filter_display['collection_data'].append(collection)
+            elif filter_type == 'repository_data':
+                filter_display['repository_data'] = []
+                for filter_item in queryParams['filters'][filter_type]:
+                    repository = getRepositoryData(repository_data=filter_item)
+                    filter_display['repository_data'].append(repository)
+            else:
+                filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
+
         return render(request, 'calisphere/carouselContainer.html', {
             'q': queryParams['q'],
+            'rq': queryParams['rq'],
+            'sort': queryParams['sort'],
+            'filters': filter_display,
             'start': queryParams['start'],
             'numFound': numFound,
             'search_results': search_results,
             'item_id': item_id,
             'referral': request.GET['referral'] if 'referral' in request.GET else '',
             'referralName': request.GET['referralName'] if 'referralName' in request.GET else '',
+            'campus_slug': request.GET['campus_slug'],
             'linkBackId': linkBackId
         })
     else:

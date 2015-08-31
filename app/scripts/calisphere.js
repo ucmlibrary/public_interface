@@ -8,7 +8,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, popstate = null;
 
 var setupObjects = function() {
   if ($('#js-facet').length > 0) {
@@ -168,16 +168,37 @@ $(document).ready(function() {
     if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
       qm.clear({silent: true});
     }
-    _.each($('form'), function(form) {
-      form.reset();
-      if ($(form).attr('id') === 'js-facet') {
-        var formAfter = _.object(_.map($(form).serializeArray(), function(value) { return [value.name, value.value]; }));
-        formAfter = _.defaults(formAfter, {type_ss: '', facet_decade: '', repository_data: '', collection_data: ''});
-        qm.set(formAfter, {silent: true});
-      }
-    });
 
+    if (popstate === 'back' || popstate === 'forward') {
+      _.each($('form'), function(form) {
+        form.reset();
+        if ($(form).attr('id') === 'js-facet' || $(form).attr('id') === 'js-carouselForm') {
+          var formAfter = _.map($(form).serializeArray(), function(value) { return [value.name, value.value]; });
+          for (var i=0; i<formAfter.length; i++) {
+            for (var j=i+1; j<formAfter.length; j++) {
+              if (formAfter[i][0] === formAfter[j][0]) {
+                formAfter[i][1] = [formAfter[i][1], formAfter[j][1]];
+                formAfter[i][1] = _.flatten(formAfter[i][1]);
+                formAfter.splice(j, 1);
+                j = j-1;
+              }
+            }
+          }
+          formAfter = _.object(formAfter);
+          formAfter = _.defaults(formAfter, {type_ss: '', facet_decade: '', repository_data: '', collection_data: ''});
+
+          qm.set(formAfter, {silent: true});
+        }
+      });
+    }
+    
+    popstate = null;
+    
     setupObjects();
+  });
+
+  $(document).on('pjax:popstate', '#js-pageContent', function(e) {
+    popstate = e.direction;
   });
 
   $(document).on('pjax:end', function() {
