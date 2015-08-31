@@ -8,7 +8,7 @@
       <a href="{% url 'calisphere:campusView' linkBackId 'items' %}" data-pjax="js-pageContent">
         Items at {{ referralName }}
       </a>
-    {% elif referral == 'collection' %}
+    {% elif referral == 'collection' and linkBackId %}
       <a href="{% url 'calisphere:collectionView' linkBackId %}" data-pjax="js-pageContent">
         Items in {{ referralName }}
       </a>

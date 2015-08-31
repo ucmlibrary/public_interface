@@ -25,12 +25,14 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
                        )
              )
 
+DJANGO_CACHE_TIMEOUT = os.getenv('DJANGO_CACHE_TIMEOUT', 60*15) # seconds
 
 SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
 UCLDC_MEDIA = os.getenv('UCLDC_MEDIA', '')
 UCLDC_IIIF = os.getenv('UCLDC_IIIF', '')
+UCLDC_REGISTRY_URL = os.getenv('UCLDC_REGISTRY_URL', 'https://registry.cdlib.org/')
 
 UCLDC_FRONT = os.getenv('UCLDC_FRONT','')
 

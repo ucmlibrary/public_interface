@@ -90,7 +90,7 @@ def SOLR_select(**kwargs):
     )
     # look in the cache
     key = kwargs_md5(**kwargs)
-    sc = cache.get(key)
+    sc = cache.get('SOLR_select_'.format(key))
     if not sc:
         # do the solr look up
         sr = SOLR(**kwargs)
@@ -100,8 +100,9 @@ def SOLR_select(**kwargs):
         sc.header = sr.header
         sc.facet_counts = getattr(sr, 'facet_counts', None)
         sc.numFound = sr.numFound
-        cache.set(key, sc, 60*15)  # seconds
+        cache.set(key, sc, settings.DJANGO_CACHE_TIMEOUT)  # seconds
     return sc
+
 
 @retry(stop_max_delay=3000)
 def SOLR_raw(**kwargs):
@@ -116,5 +117,11 @@ def SOLR_raw(**kwargs):
         ),
         "/query"
     )
-    sr = SOLR.raw(**kwargs)
+    # look in the cache
+    key = kwargs_md5(**kwargs)
+    sc = cache.get('SOLR_raw_'.format(key))
+    if not sc:
+        # do the solr look up
+        sr = SOLR.raw(**kwargs)
+        cache.set(key, sr, settings.DJANGO_CACHE_TIMEOUT)  # seconds
     return sr

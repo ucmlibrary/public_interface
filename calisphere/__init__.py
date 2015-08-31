@@ -18,3 +18,6 @@ def new_render(cls, context):
     """
     return old_render(cls, context).replace("%3A", ":")
 URLNode.render = new_render
+
+
+default_app_config = 'calisphere.apps.CalisphereAppConfig'
