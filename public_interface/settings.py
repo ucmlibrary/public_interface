@@ -25,12 +25,32 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
                        )
              )
 
+DJANGO_CACHE_TIMEOUT = os.getenv('DJANGO_CACHE_TIMEOUT', 60*15) # seconds
 
 SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
 UCLDC_MEDIA = os.getenv('UCLDC_MEDIA', '')
 UCLDC_IIIF = os.getenv('UCLDC_IIIF', '')
+UCLDC_REGISTRY_URL = os.getenv('UCLDC_REGISTRY_URL', 'https://registry.cdlib.org/')
+
+UCLDC_FRONT = os.getenv('UCLDC_FRONT','')
+
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND',
+                          'django.core.mail.backends.console.EmailBackend')
+
+EMAIL_HOST = os.getenv('EMAIL_HOST', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_PORT = os.getenv('EMAIL_PORT', '')
+EMAIL_USE_TLS = bool(os.getenv('EMAIL_USE_TLS', ''))
+
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'project@example.edu')
+
+
+
+ADMINS = (('', DEFAULT_FROM_EMAIL),)
+MANAGERS = ADMINS
 
 GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
 
@@ -44,7 +64,7 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + (
     'public_interface.context_processors.settings',
 )
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 
 # Application definition

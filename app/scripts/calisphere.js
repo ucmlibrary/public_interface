@@ -1,6 +1,6 @@
 /*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm */
 
-'use strict'; 
+'use strict';
 
 if(typeof console === 'undefined') {
   console = { log: function() { } };
@@ -8,7 +8,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, popstate = null;
 
 var setupObjects = function() {
   if ($('#js-facet').length > 0) {
@@ -109,7 +109,7 @@ var setupObjects = function() {
       debug: false,
       loading: {
         finishedMsg: 'All collections showing.',
-        img: 'http://localhost:9000/images/orange-spinner.gif',
+        img: 'http://calisphere.cdlib.org/static_root/images/orange-spinner.gif',
         msgText: '',
         selector: '#js-loading'
       }
@@ -128,7 +128,7 @@ $(document).ready(function() {
   qm = new QueryManager();
   globalSearchForm = new GlobalSearchForm({model: qm});
   setupObjects();
-  
+
   $('#js-global-header-logo').on('click', function() {
     if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
       qm.clear();
@@ -166,10 +166,101 @@ $(document).ready(function() {
   $(document).on('pjax:end', '#js-pageContent', function() {
     //if we've gotten to a page without search context, clear the query manager
     if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
-      qm.clear({silent: true});        
+      qm.clear({silent: true});
     }
+
+    if (popstate === 'back' || popstate === 'forward') {
+      _.each($('form'), function(form) {
+        form.reset();
+        if ($(form).attr('id') === 'js-facet' || $(form).attr('id') === 'js-carouselForm') {
+          var formAfter = _.map($(form).serializeArray(), function(value) { return [value.name, value.value]; });
+          for (var i=0; i<formAfter.length; i++) {
+            for (var j=i+1; j<formAfter.length; j++) {
+              if (formAfter[i][0] === formAfter[j][0]) {
+                formAfter[i][1] = [formAfter[i][1], formAfter[j][1]];
+                formAfter[i][1] = _.flatten(formAfter[i][1]);
+                formAfter.splice(j, 1);
+                j = j-1;
+              }
+            }
+          }
+          formAfter = _.object(formAfter);
+          formAfter = _.defaults(formAfter, {type_ss: '', facet_decade: '', repository_data: '', collection_data: ''});
+
+          qm.set(formAfter, {silent: true});
+        }
+      });
+    }
+    
+    popstate = null;
+    
     setupObjects();
   });
+
+  $(document).on('pjax:popstate', '#js-pageContent', function(e) {
+    popstate = e.direction;
+  });
+
+  $(document).on('pjax:end', function() {
+    // send google analytics on pjax pages
+    /* globals ga: false */
+    if (typeof ga !== 'undefined') {
+      ga('set', 'location', window.location.href);
+      ga('send', 'pageview');
+    }
+  });
+
+  $(document).on('pjax:send', function() {
+    $('#loading').show();
+  });
+
+  $(document).on('pjax:complete', function() {
+    $('#loading').hide();
+  });
+
+});
+
+$(document).on('ready pjax:end', function() {
+  // google analytics that need to read stuff
+  // might move all of it here, just to keep it all the same
+  // right now, just institution specific code
+  var inst_ga_code = $('[data-ga-code]').data('ga-code');
+  if (inst_ga_code) {
+    var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
+    if (typeof ga !== 'undefined') {
+      ga('create', inst_ga_code, 'auto', {'name': inst_tracker_name});
+      ga( inst_tracker_name + '.set', 'location', window.location.href);
+      ga( inst_tracker_name + '.send', 'pageview');
+    }
+  }
+
+  // collection title search
+
+  /* globals Bloodhound: false */
+  if ($('#titlesearch__field').length) {
+    var collections = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: '/collections/titles.json'
+    });
+    // chain things to the titlesearch field
+    $('#titlesearch__field').typeahead(null, {
+      name: 'collections',
+      display: 'title',
+      limit: 10,
+      source: collections
+    }).on('keydown', function(event) {
+      // disable enter
+      // http://stackoverflow.com/a/21318996/1763984
+      var x = event.which;
+      if (x === 13) {
+       event.preventDefault();
+      }
+    }).bind('typeahead:selected', function(obj, datum) {
+      // redirect to the select page
+      window.location = datum.uri;
+    });
+  } // end title search
 });
 
 if(!('backgroundBlendMode' in document.body.style)) {

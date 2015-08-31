@@ -13,31 +13,6 @@
     <p>This tab will enable users to browse and go to Themed Collections, California Cultures, and JARDA on the old Calisphere site, while they still reside there.</p>
   </div>
 
-{# if collection_q or collection_q = '' #}
-
-  <!-- <form class="titlesearch__form" role="search" action="{% url 'calisphere:collectionsSearch' %}" method="get" id="js-collectionSearch">
-    <label for="titlesearch__field" class="sr-only">Search for keywords within the titles of Calisphere's collections</label>
-    <div class="input-group">
-      <input form="js-collectionSearch" name="q" value="{{ q }}" id="titlesearch__field" class="form-control" type="search" placeholder="Search for keywords within the titles of Calisphere's collections">
-      <span class="input-group-btn">
-        <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
-        </button>
-      </span>
-    </div>
-  </form>
-
-  <div class="titlesearch__recommended">
-
-    <h2 class="titlesearch__list-heading">Recommended Searches</h2>
-
-    <ul class="titlesearch__list">
-      <li class="titlesearch__listitem"><a class="titlesearch__link" href="">Not sure where these are coming from...</a></li>
-    </ul>
-
-  </div> -->
-
-{# endif #}
-
 </div>
 
 {% for collection in collections %}

@@ -5,3 +5,4 @@ https://github.com/tingletech/md5s3stash/archive/master.zip#egg=md5s3stash
 django-easy-pjax==1.1.0
 retrying==1.3.3
 whitenoise==2.0.2
+django-contact-form==1.1

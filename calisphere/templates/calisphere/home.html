@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="apple-touch-icon-precomposed" href="/favicon-152x152.png">
     {% if devMode %}
-      <!-- <link rel="stylesheet" href="{% static "bower_components/slick.js/slick/slick.css" %}" /> -->
       <link rel="stylesheet" href="{% static "bower_components/fontawesome/css/font-awesome.css" %}" />
       <link rel="stylesheet" href="{% static "bower_components/mediaelement/build/mediaelementplayer.css" %}" />
       <link rel="stylesheet" href="{% static "styles/main.css" %}" />
@@ -16,18 +15,7 @@
       <link rel="stylesheet" href="{% static "styles/vendor.css" %}" />
       <link rel="stylesheet" href="{% static "styles/main.css" %}" />
     {% endif %}
-
-{% if gaSiteCode %}
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', '{{ gaSiteCode }}', 'auto');
-  ga('send', 'pageview');
-</script>
-{% endif %}
+    {% include "calisphere/ga_site_code.html" %}
   </head>
   <body>
 
@@ -74,7 +62,7 @@
                 <a class="global-header__nav-link" href="{% url 'calisphere:about' %}">About</a>
               </li>
               <li class="global-header__nav-list-item">
-                <a class="global-header__nav-link" href="{% url 'calisphere:contact' %}">Contact</a>
+                <a class="global-header__nav-link" href="{% url 'contact_form' %}">Contact</a>
               </li>
               <li class="global-header__nav-list-item">
                 <a class="global-header__nav-link" href="{% url 'calisphere:help' %}">Help</a>
@@ -227,7 +215,7 @@
                 <a class="global-footer__nav-link--mobile" href="{% url 'calisphere:about' %}">About</a>
               </li>
               <li class="global-footer__nav-list-item--mobile">
-                <a class="global-footer__nav-link--mobile" href="{% url 'calisphere:contact' %}">Contact</a>
+                <a class="global-footer__nav-link--mobile" href="{% url 'contact_form' %}">Contact</a>
               </li>
               <li class="global-footer__nav-list-item--mobile">
                 <a class="global-footer__nav-link--mobile" href="{% url 'calisphere:help' %}">Help</a>

@@ -1,47 +1,98 @@
 {% extends "calisphere/collectionsDirectory.html,calisphere/pjaxTemplates/collectionsDirectory.html"|pjax:request %}
+
 {% load calisphere-extras %}
 {% load staticfiles %}
 
 {% block title %}: Collections Title Search{% endblock %}
 
 {% block collectionContent %}
+<style>
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 100%;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-menu {
+  width: 100%;
+  margin: 32px 0;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  /* font-size: 18px;
+  line-height: 24px; */
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+.twitter-typeahead {
+  width: 100%;
+  display: block !important;
+}
+
+</style>
 
 <div class="titlesearch">
 
-  <div class="alert alert-warning titlesearch__form">
-    <h3 style="margin-top: 0"><i class="fa fa-exclamation-triangle"></i> This feature coming soon.</h3>
-    <p>Title search will enable users to locate a particular, known collection by searching keywords within a collection title.</p>
-  </div>
-
-{# if collection_q or collection_q = '' #}
-
-  <!-- <form class="titlesearch__form" role="search" action="{% url 'calisphere:collectionsSearch' %}" method="get" id="js-collectionSearch">
-    <label for="titlesearch__field" class="sr-only">Search for keywords within the titles of Calisphere's collections</label>
-    <div class="input-group">
-      <input form="js-collectionSearch" name="q" value="{{ q }}" id="titlesearch__field" class="form-control" type="search" placeholder="Search for keywords within the titles of Calisphere's collections">
-      <span class="input-group-btn">
-        <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
-        </button>
-      </span>
-    </div>
-  </form>
-
-  <div class="titlesearch__recommended">
-
-    <h2 class="titlesearch__list-heading">Recommended Searches</h2>
-
-    <ul class="titlesearch__list">
-      <li class="titlesearch__listitem"><a class="titlesearch__link" href="">Not sure where these are coming from...</a></li>
-    </ul>
-
-  </div> -->
-
-{# endif #}
-
-</div>
-
-{% for collection in collections %}
-  {% include "calisphere/collectionPreview.html" %}
-{% endfor %}
-
+        <form class="titlesearch__form" role="search" onsubmit="false()">
+          <label for="titlesearch__field" class="sr-only">Search for keywords within the titles of Calisphere's collections</label>
+          <div class="input-group">
+<input id="titlesearch__field" type="search" placeholder="Search for keywords within the titles of Calisphere's collections" class="form-control">
+            <span class="input-group-btn">
+              <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div style="margin-bottom: 10em;">&nbsp;</div>
 {% endblock %}

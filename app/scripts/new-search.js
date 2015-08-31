@@ -8,7 +8,8 @@ var GlobalSearchForm = Backbone.View.extend({
     //on submit, change the model, don't submit the form
     $('#js-searchForm, #js-footerSearch').on('submit', (function(model) {
       return function(e) { 
-        model.set({q: $(this).find('input[name=q]').val()}); 
+        model.set({q: $(this).find('input[name=q]').val()}, {silent: true}); 
+        model.trigger('change:q');
         e.preventDefault();
       };
     }(this.model)));
@@ -43,6 +44,13 @@ var GlobalSearchForm = Backbone.View.extend({
         url: $('#js-searchForm').attr('action'),
         container: '#js-pageContent',
         data: this.model.toJSON()
+      });
+    } else {
+      this.model.clear({silent: true});
+      $.pjax({
+        url: $('#js-searchForm').attr('action'),
+        container: '#js-pageContent',
+        data: {'q': ''}
       });
     }
     
@@ -268,11 +276,22 @@ var FacetForm = Backbone.View.extend({
       _.has(this.model.changed, 'facet_decade') ||
       _.has(this.model.changed, 'repository_data') ||
       _.has(this.model.changed, 'collection_data')) {
+        var attrUndefined = false;
+        _.each(this.model.changed, function(value) {
+          if (value === undefined) {
+            attrUndefined = true;
+          }
+        });
+        if (attrUndefined) {
+          this.facetSearch();
+        }
         _.each(this.model.changed, function(value, key) {
           if (key === 'type_ss' || key === 'facet_decade' || key === 'repository_data' || key === 'collection_data') {
             $('.facet-' + key).parents('.check').find('.js-a-check__update').prop('disabled', false);
           }
         });
+      } else {
+        this.facetSearch();
       }
     }
   },

@@ -1,5 +1,5 @@
+{% load calisphere-extras %}
   <div class="carousel__search-results" id="js-linkBack">
-    {{ filters }}
     {% if referral == 'institution' %}
       <a href="{% url 'calisphere:repositoryView' linkBackId 'items' %}" data-pjax="js-pageContent">
         Items at {{ referralName }}
@@ -8,7 +8,7 @@
       <a href="{% url 'calisphere:campusView' linkBackId 'items' %}" data-pjax="js-pageContent">
         Items at {{ referralName }}
       </a>
-    {% elif referral == 'collection' %}
+    {% elif referral == 'collection' and linkBackId %}
       <a href="{% url 'calisphere:collectionView' linkBackId %}" data-pjax="js-pageContent">
         Items in {{ referralName }}
       </a>
@@ -26,6 +26,28 @@
   <div class="carousel__items-number">
     {{ numFound }} items found.
   </div>
+  
+  <form id="js-carouselForm">
+    <input type="hidden" name="q" value="{{ q }}">
+    <input type="hidden" name="rq" value="{{ rq }}">
+    <input type="hidden" name="sort" value="{{ sort }}">
+
+    {% for filter_type in filters %}
+      {% for filter in filters|get_item:filter_type %}
+        {% if filter_type == 'collection_data' or filter_type == 'repository_data' %}
+          <input type="hidden" name="{{ filter_type }}" value="{{ filter.id }}">
+        {% else %}
+          <input type="hidden" name="{{ filter_type }}" value="{{ filter|slugify }}">
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+    <input type="hidden" name="referral" value="{{ referral }}">
+    <input type="hidden" name="referralName" value="{{ referralName }}">
+    <input type="hidden" name="itemId" value="{{ item_id }}">
+    <input type="hidden" name="itemNumber" value="{{ start }}">
+    <input type="hidden" name="campus_slug" value="{{ campus_slug }}">
+  </form>
 
   <div class="carousel" id="js-carousel" data-carousel_start="{{ start }}" data-numFound="{{ numFound }}">
     {% include "calisphere/carousel.html" %}

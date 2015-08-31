@@ -32,104 +32,38 @@ html.no-jquery .obj__osd-infobanner {
   display: none;
 }
 
-// ***** Icon Tiles ***** //
+// ***** Icon Tiles and Overlays ***** //
 
 .obj__tile-icon {
   @include thumbnail__tile-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
-// ***** Icon Overlays ***** //
-
 .obj__overlay-icon {
   @include thumbnail__overlay-icon(40px, 45px, 50px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
-// ***** Harvest Image ***** //
+// ***** Global Object Styles ***** //
 
-.obj__simple-image { // delete after integrating icon mixins
-  @extend .thumbnail__image;
-  width: auto; // cancels 'width: 100%'
-  max-width: 100%; // images smaller than the max container size will not scale up
-  margin: 0 auto;
+.obj__link {
+  display: block;
 }
 
-.obj-harvest__link {
+.obj__icon-container {
   position: relative;
-  display: block;
 }
 
-.obj-harvest__image { // delete after integrating icon mixins
-  display: block;
-  max-width: 100%; // images smaller than the max container size will not scale up
-  height: auto;
-  margin: 0 auto;
-}
-
-.obj-harvest__file-icon-overlay {
-  @include icon__centered-overlay(80px, 90px, 100px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
-}
-
-.obj-harvest__caption {
-  @extend .icon__external-link;
-  display: block;
-  margin: 0.5em 0 0 0;
-  text-align: center;
-}
-
-.obj-harvest__caption-highlight {
-  color: #000;
-  font-weight: normal;
-}
-
-// ***** Harvest Non-Image ***** //
-
-.obj-harvest-non-image__file-icon-overlay {
-  @include icon__centered-overlay(55px, 65px, 70px, $design-primary-color, #fff); // (size-xs, size-md, size-lg, icon-color, icon-bg)
-}
-
-.obj-harvest-non-image__object-icon {
-  width: 80px;
-  height: auto;
-}
-
-.obj-harvest-non-image__object {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  align-content: center;
-  margin: 0 0 0 $layout-container-margin-md;
-  font-size: 1.2em;
+.obj__simple-image {
+  max-width: 95vw; // would prefer to use 'max-width: 100%' but image width overflows container in FF
+  max-height: 95vh;
 
   @include bp(sm-screen) {
-    margin: 0 0 0 $layout-container-margin-sm;
-    font-size: 1.4em;
+    max-width: 98vw;
   }
 
 }
 
-.obj-harvest-non-image__text {
-  margin: 0.1em 0.5em 0 0;
-}
-
-.obj-harvest-non-image__link {
+.obj__caption {
   @extend .icon__external-link;
-  
-}
-
-// ***** Hosted File ***** //
-
-.obj-hosted__no-image { // delete after integrating icon mixins
-  @include thumbview__no-image($thumb-border: $design-primary-color);
-}
-
-.obj-hosted__caption {
-  display: block;
   margin: 0.5em 0 0 0;
   text-align: center;
-}
-
-// ***** Complex Non-Image ***** //
-
-.obj-complex-non-image__file-icon-overlay {
-  @include icon__centered-overlay(80px, 90px, 100px, #fff, $design-primary-color); // (size-xs, size-md, size-lg, icon-color, icon-bg)
 }
