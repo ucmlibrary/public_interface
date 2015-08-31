@@ -114,7 +114,7 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 .home__img1-v4 {
 	@extend %home__img1;
 	background-image: url($home__img1-v4-xs);
-	background-position: 0 -50px;
+	background-position: 0 bottom;
 
 	@include bp(sm-screen) {
     background-image: url($home__img1-v4-sm);
@@ -172,7 +172,7 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 	@extend %home__img1-heading;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 31, 40, 0.9), rgba(0, 0, 0, 0));
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 }
 
 .home__search {
@@ -228,6 +228,9 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 
 .home__img1-v4-credit {
 	@extend %home__img-credit;
+	background: #666; // for <= IE 8
+	background: rgba(0, 0, 0, 0.5); // for IE 9
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 }
 
 .home__img2-v1-credit {
@@ -251,10 +254,9 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 
 .home__img2-v4-credit {
 	@extend %home__img-credit;
-	padding-top: 60px;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0), rgba(128, 119, 106, 0.8));
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 }
 
 .home__img3-v1-credit {
@@ -281,10 +283,9 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 
 .home__img3-v4-credit {
 	@extend %home__img-credit;
-	padding-top: 60px;
 	background: #666; // for <= IE 8
 	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0), rgba(128, 119, 106, 0.8));
+	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 }
 
 // ***** Image 2 Versions ***** //
@@ -426,10 +427,10 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 
 .home__img2-v4-text {
 	@extend %home__img2-text;
-	background-color: $design-secondary-color;
+	background-color: rgb(0, 104, 147);
 
 	@include bp(sm-screen) {
-		background-color: rgba($design-secondary-color, 0.85);
+		background-color: rgba(0, 104, 147, 0.85);
   }
 
   @include bp(md-screen) {
