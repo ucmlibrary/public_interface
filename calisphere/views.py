@@ -173,7 +173,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
         else:
             repository['campus'] = ''
     # details needed for stats
-    repository['ga_code'] = repository_details.get('google_analytics_code', None)
+    repository['ga_code'] = repository_details.get('google_analytics_tracking_code', None)
     repository['slug'] = repository_details.get('slug', None)
     return repository
 
