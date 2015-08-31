@@ -183,7 +183,7 @@ $(document).ready(function() {
   $(document).on('pjax:end', function() {
     // send google analytics on pjax pages
     /* globals ga: false */
-    if (ga !== undefined) {
+    if (typeof ga !== 'undefined') {
       ga('set', 'location', window.location.href);
       ga('send', 'pageview');
     }
@@ -206,7 +206,7 @@ $(document).on('ready pjax:end', function() {
   var inst_ga_code = $('[data-ga-code]').data('ga-code');
   if (inst_ga_code !== undefined) {
     var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
-    if (ga !== undefined) {
+    if (typeof ga !== 'undefined') {
       ga('create', inst_ga_code, 'auto', {'name': inst_tracker_name});
       ga( inst_tracker_name + '.send', 'pageview');
     }
