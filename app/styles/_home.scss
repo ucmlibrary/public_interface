@@ -5,7 +5,7 @@
 	// border: $bblue;
 }
 
-.home__main-section { // align images to edge of viewport
+.home__top-images { // align images to edge of viewport
 	margin: 0 (-$layout-container-margin-xs);
 	overflow: hidden;
 
@@ -15,48 +15,6 @@
 
   @include bp(md-screen) {
     margin: 0 (-$layout-container-margin-md);
-  }
-
-}
-
-.home__mast {
-	position: relative; // relative to .home__img-credit
-	margin: $layout-container-margin-xs 0;
-	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
-	background-image: url("#{$home-aws-image-path}colorado-street-bridge_650x300.jpg");
-	background-size: cover;
-	background-position: 0 -15px;
-
-	@include bp(sm-screen) {
-    padding: 0;
-    background-image: url("#{$home-aws-image-path}colorado-street-bridge_900x400.jpg");
-    background-position: 0 50%;
-  }
-
-  @include bp(md-screen) {
-    background-image: url("#{$home-aws-image-path}colorado-street-bridge_1400x600.jpg");
-  }
-
-}
-
-.home__mast-heading {
-	margin: 0;
-	padding: 20px 10px;
-	color: #fff;
-	font-size: 2em;
-	text-align: center;
-	background: #666; // for <= IE 8
-	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-
-	@include bp(sm-screen) {
-    padding: 30px 10px 60px 10px;
-    font-size: 2.2em;
-  }
-
-  @include bp(md-screen) {
-    padding: 50px 10px 80px 10px;
-    font-size: 3em;
   }
 
 }
@@ -111,97 +69,9 @@
 
 }
 
-.home__img-credit {
-	display: none;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	padding: $layout-container-margin-md $layout-container-margin-sm $layout-container-margin-sm $layout-container-margin-sm;
-	color: #fff;
-	text-align: right;
-	font-size: 0.9em;
-
-	&:hover {
-		color: #fff;
-	}
-
-	@include bp(sm-screen) {
-		display: block;
-	}
-
-}
-
-.home__img-credit--gradient {
-	@extend .home__img-credit;
-	background: #666; // for <= IE 8
-	background: rgba(0, 0, 0, 0.5); // for IE 9
-	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
-}
-
 .home__img-main-row {
 	position: relative;
 	z-index: 1;
-}
-
-.home__img-main1 {
-	position: relative; // relative to .home__img-main1-text
-	margin: 0 ($layout-container-margin-xs / 2) 0 0;
-	padding: 0 0 $home-main-img-padding 0;
-	background-image: url("#{$home-aws-image-path}oranges_430x197.jpg");
-	background-size: 100%;
-
-	@include bp(sm-screen) {
-  	background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
-  }
-
-	@include bp(md-screen) {
-  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
-  }
-
-}
-
-.home__img-main1-text {
-	position: relative;
-	z-index: 2;
-	margin: 0 0 $layout-container-margin-xs 0;
-	padding: 10px;
-	color: #fff;
-	font-size: 1.2em;
-	background-color: #006893; // for <= IE 9
-	background-color: rgba(0, 104, 147, 1);
-
-	@include bp(sm-screen) {
-    position: absolute;
-    margin: 0 ($layout-container-margin-xs / 2) 0 0;
-		padding: 10px 30px;
-		background-image: url("#{$home-aws-image-path}oranges_600x276.jpg");
-		background-size: 100%;
-		background-blend-mode: soft-light;
-  }
-
-  @include bp(md-screen) {
-  	background-image: url("#{$home-aws-image-path}oranges_958x400.jpg");
-  	font-size: 1.7em;
-  }
-
-}
-
-.home__img-main2 {
-	position: relative; // relative to .home__img-credit
-	margin: 0 0 0 ($layout-container-margin-xs / 2);
-	padding: 0 0 ($home-main-img-padding * 2) 0;
-	background-size: 100%;
-	background-image: url("#{$home-aws-image-path}hirahara-portrait_220x188.jpg");
-
-	@include bp(sm-screen) {
-  	background-image: url("#{$home-aws-image-path}hirahara-portrait_300x256.jpg");
-  }
-
-	@include bp(md-screen) {
-  	background-image: url("#{$home-aws-image-path}hirahara-portrait_465x397.jpg");
-  }
-
 }
 
 .home__heading2 {
