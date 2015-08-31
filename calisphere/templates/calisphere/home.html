@@ -100,11 +100,10 @@
 
         <div class="home">
 
-	        <div class="home__main-section">
+	        <div class="home__top-images">
 
-
-		        <div class="{{ lock_up.mast.class }}">
-			        <h1 class="home__mast-heading">The deeper you look, the more you'll discover.</h1>
+		        <div class="home__{{ lock_up.img1.class }}">
+			        <h1 class="home__{{ lock_up.img1.class }}-heading">The deeper you look, the more you'll discover.</h1>
               <form role="search" id="js-homeForm" action="{% url 'calisphere:search' %}" method="get">
 			        <div class="home__search">
 	              <label for="home__search-field" class="sr-only">Search the collections</label>
@@ -117,8 +116,8 @@
 	              </div>
 	            </div>
               </form>
-	            <a href="{% url 'calisphere:itemView' lock_up.mast.id  %}" class="home__img-credit--gradient">
-        {{ lock_up.mast.title }} / {{ lock_up.mast.contributor }}
+	            <a href="{% url 'calisphere:itemView' lock_up.img1.id  %}" class="home__{{ lock_up.img1.class }}-credit">
+        {{ lock_up.img1.title }} / {{ lock_up.img1.contributor }}
               </a>
 
 		        </div>
@@ -126,21 +125,21 @@
 		        <div class="row home__img-main-row">
 
 			        <div class="col-xs-12 col-sm-8">
-				        <p class="home__img-main1-text">Calisphere is a gateway to digital collections from California's great libraries, archives, and museums. Discover over 375,000 images, texts, and recordings&#8212;and counting.</p>
+				        <p class="home__{{ lock_up.img2.class }}-text">Calisphere is a gateway to digital collections from California's great libraries, archives, and museums. Discover over 375,000 images, texts, and recordings&#8212;and counting.</p>
 			        </div>
 
 			        <div class="col-xs-8">
-				        <div class="{{ lock_up.main1.class }}">
-					        <a href="{% url 'calisphere:itemView' lock_up.main1.id %}" class="home__img-credit">
-            {{ lock_up.main1.title }} / {{ lock_up.main1.contributor }}
+				        <div class="home__{{ lock_up.img2.class }}">
+					        <a href="{% url 'calisphere:itemView' lock_up.img2.id %}" class="home__{{ lock_up.img2.class }}-credit">
+            {{ lock_up.img2.title }} / {{ lock_up.img2.contributor }}
                   </a>
 				        </div>
 			        </div>
 
 			        <div class="col-xs-4">
-				        <div class="{{ lock_up.main2.class }}">
-					        <a href="{% url 'calisphere:itemView' lock_up.main2.id %}" class="home__img-credit--gradient">
-            {{ lock_up.main2.title }} / {{ lock_up.main2.contributor }}
+				        <div class="home__{{ lock_up.img3.class }}">
+					        <a href="{% url 'calisphere:itemView' lock_up.img3.id %}" class="home__{{ lock_up.img3.class }}-credit">
+            {{ lock_up.img3.title }} / {{ lock_up.img3.contributor }}
                   </a>
 				        </div>
 			        </div>
