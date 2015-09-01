@@ -29,7 +29,9 @@
   
   <form id="js-carouselForm">
     <input type="hidden" name="q" value="{{ q }}">
-    <input type="hidden" name="rq" value="{{ rq }}">
+    {% if rq %}
+      <input type="hidden" name="rq" value="{{ rq }}">
+    {% endif %}
     <input type="hidden" name="sort" value="{{ sort }}">
 
     {% for filter_type in filters %}
@@ -46,7 +48,9 @@
     <input type="hidden" name="referralName" value="{{ referralName }}">
     <input type="hidden" name="itemId" value="{{ item_id }}">
     <input type="hidden" name="itemNumber" value="{{ start }}">
-    <input type="hidden" name="campus_slug" value="{{ campus_slug }}">
+    {% if campus_slug %}
+      <input type="hidden" name="campus_slug" value="{{ campus_slug }}">
+    {% endif %}
   </form>
 
   <div class="carousel" id="js-carousel" data-carousel_start="{{ start }}" data-numFound="{{ numFound }}">
