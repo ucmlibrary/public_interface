@@ -193,23 +193,14 @@ $(document).ready(function() {
         }
       });
     }
-    
+
     popstate = null;
-    
+
     setupObjects();
   });
 
   $(document).on('pjax:popstate', '#js-pageContent', function(e) {
     popstate = e.direction;
-  });
-
-  $(document).on('pjax:end', function() {
-    // send google analytics on pjax pages
-    /* globals ga: false */
-    if (typeof ga !== 'undefined') {
-      ga('set', 'location', window.location.href);
-      ga('send', 'pageview');
-    }
   });
 
   $(document).on('pjax:send', function() {
@@ -222,16 +213,37 @@ $(document).ready(function() {
 
 });
 
+$(document).on('pjax:end', function() {
+  /* globals FB: false */
+  // http://stackoverflow.com/a/11727384/1763984
+  if (typeof FB !== 'undefined') {
+    FB.XFBML.parse();
+  }
+  /* globals twttr: false */
+  // http://stackoverflow.com/a/15075801/1763984
+  if (typeof twttr !== 'undefined') {
+    twttr.widgets.load();
+  }
+});
+
 $(document).on('ready pjax:end', function() {
-  // google analytics that need to read stuff
-  // might move all of it here, just to keep it all the same
-  // right now, just institution specific code
-  var inst_ga_code = $('[data-ga-code]').data('ga-code');
-  if (inst_ga_code) {
-    var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
-    if (typeof ga !== 'undefined') {
+  // send google analytics on pjax pages
+  /* globals ga: false */
+  if (typeof ga !== 'undefined') {
+    var inst_ga_code = $('[data-ga-code]').data('ga-code');
+    var dim1 = $('[data-ga-dim1]').data('ga-dim1');
+    var dim2 = $('[data-ga-dim2]').data('ga-dim2');
+
+    ga('set', 'location', window.location.href);
+    if (dim1) { ga('set', 'dimension1', dim1); }
+    if (dim2) { ga('set', 'dimension2', dim2); }
+    ga('send', 'pageview');
+    if (inst_ga_code) {
+      var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
       ga('create', inst_ga_code, 'auto', {'name': inst_tracker_name});
-      ga( inst_tracker_name + '.set', 'location', window.location.href);
+      ga(inst_tracker_name + '.set', 'location', window.location.href);
+      if (dim1) { ga(inst_tracker_name + '.set', 'dimension1', dim1); }
+      if (dim2) { ga(inst_tracker_name + '.set', 'dimension2', dim2); }
       ga( inst_tracker_name + '.send', 'pageview');
     }
   }

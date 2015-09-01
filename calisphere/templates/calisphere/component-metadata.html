@@ -22,6 +22,7 @@
             href="{% url 'calisphere:repositoryView' repository.id 'collections' %}"
             data-pjax="js-pageContent"
             data-ga-code="{{ repository.ga_code }}"
+            data-ga-dim2="{{ repository.slug }}"
           >
           {% if repository.campus %}
             {{ repository.campus }},
@@ -33,7 +34,13 @@
 
     {% if item.parsed_collection_data %}
       <dt class="meta-block__type">Collection</dt>
-      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}<a href="{% url 'calisphere:collectionView' collection.id %}" data-pjax="js-pageContent" class="js-relatedCollection">{{ collection.name }}</a> <br> {% endfor %}</dd>
+      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}
+        <a
+          href="{% url 'calisphere:collectionView' collection.id %}"
+          data-pjax="js-pageContent"
+          class="js-relatedCollection"
+          data-ga-dim1="{{ collection.local_id }}{{ collection.slug }}"
+       >{{ collection.name }}</a> <br> {% endfor %}</dd>
     {% endif %}
 
 </div>
