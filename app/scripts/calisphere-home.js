@@ -1,7 +1,9 @@
 /*global _*/
 'use strict';
 
-sessionStorage.clear();
+if ($('.home').length) {
+  sessionStorage.clear();
+}
 
 $(document).ready(function() {
   if ($('.home').length) {
