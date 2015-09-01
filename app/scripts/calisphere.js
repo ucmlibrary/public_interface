@@ -211,6 +211,19 @@ $(document).ready(function() {
 
 });
 
+$(document).on('pjax:end', function() {
+  /* globals FB: false */
+  // http://stackoverflow.com/a/11727384/1763984
+  if (typeof FB !== 'undefined') {
+    FB.XFBML.parse();
+  }
+  /* globals twttr: false */
+  // http://stackoverflow.com/a/15075801/1763984
+  if (typeof twttr !== 'undefined') {
+    twttr.widgets.load();
+  }
+});
+
 $(document).on('ready pjax:end', function() {
   // send google analytics on pjax pages
   /* globals ga: false */
