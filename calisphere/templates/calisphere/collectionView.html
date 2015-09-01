@@ -31,15 +31,11 @@
 
   <div class="col-md-9">
     <div class="collection-intro__about">
-      <h3 class="collection-intro__about-heading">About this Collection</h3>
       {% if collection.description %}
+      <h3 class="collection-intro__about-heading">About this Collection</h3>
         <span class="collection-intro__about-description">
           {{ collection.description }}
         </span>
-      {% else %}
-        <div class="alert alert-warning" style="margin-top: 4px; padding: 5px;">
-          <p><i class="fa fa-exclamation-triangle"></i> Collection description needed. Do you own this collection? Please provide some information about this collection that will help Calisphere users understand and interpret the items in it. For examples of collection descriptions, browse other <a href="{% url 'calisphere:collectionsDirectory' %}" class="alert-link" style="text-decoration: underline;" data-pjax="js-pageContent">collections</a>. <a href=“mailto: ucldc@ucop.edu” class="alert-link" style="text-decoration: underline;">Email us</a> with copy or questions.</p>
-        </div>
       {% endif %}
       {% if collection.url_local|length > 0 %}
         <a class="collection-intro__about-link" href="{{ collection.url_local }}" target="_blank">View this collection on the contributor's website.</a><br/>
