@@ -264,7 +264,7 @@ var FacetForm = Backbone.View.extend({
   },
 
   goToCollectionPage: function() {
-    this.model.clear();
+    this.model.clear({silent: true});
   },
 
   render: function() {
@@ -438,7 +438,7 @@ var CarouselContext = Backbone.View.extend({
   },
 
   goToCollectionPage: function() {
-    this.model.clear();
+    this.model.clear({silent: true});
   },
 
   toJSON: function() {
