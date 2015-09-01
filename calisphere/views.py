@@ -495,6 +495,7 @@ def itemViewCarousel(request):
             fields='id, type_ss, reference_image_md5, title',
             rows=queryParams['rows'],
             start=queryParams['start'],
+            sort=solrize_sort(queryParams['sort']),
             fq=fq
         )
         search_results = carousel_solr_search.results
