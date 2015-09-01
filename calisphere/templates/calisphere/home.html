@@ -115,9 +115,13 @@
 	              </div>
 	            </div>
               </form>
-	            <a href="{% url 'calisphere:itemView' lock_up.img1.id  %}" class="home__{{ lock_up.img1.class }}-credit">
+              <!-- Temporary disabling of link: -->
+	            <!-- <a href="{% url 'calisphere:itemView' lock_up.img1.id  %}" class="home__{{ lock_up.img1.class }}-credit">
         {{ lock_up.img1.title }} / {{ lock_up.img1.contributor }}
-              </a>
+              </a> -->
+              <span class="home__{{ lock_up.img1.class }}-credit">
+        {{ lock_up.img1.title }} / {{ lock_up.img1.contributor }}
+              </span>
 
 		        </div>
 
@@ -129,17 +133,25 @@
 
 			        <div class="col-xs-8">
 				        <div class="home__{{ lock_up.img2.class }}">
-					        <a href="{% url 'calisphere:itemView' lock_up.img2.id %}" class="home__{{ lock_up.img2.class }}-credit">
+					        <!-- Temporary disabling of link: -->
+                  <!-- <a href="{% url 'calisphere:itemView' lock_up.img2.id %}" class="home__{{ lock_up.img2.class }}-credit">
             {{ lock_up.img2.title }} / {{ lock_up.img2.contributor }}
-                  </a>
+                  </a> -->
+                  <span class="home__{{ lock_up.img2.class }}-credit">
+            {{ lock_up.img2.title }} / {{ lock_up.img2.contributor }}
+                  </span>
 				        </div>
 			        </div>
 
 			        <div class="col-xs-4">
 				        <div class="home__{{ lock_up.img3.class }}">
-					        <a href="{% url 'calisphere:itemView' lock_up.img3.id %}" class="home__{{ lock_up.img3.class }}-credit">
+                  <!-- Temporary disabling of link: -->
+					        <!-- <a href="{% url 'calisphere:itemView' lock_up.img3.id %}" class="home__{{ lock_up.img3.class }}-credit">
             {{ lock_up.img3.title }} / {{ lock_up.img3.contributor }}
-                  </a>
+                  </a> -->
+                  <span class="home__{{ lock_up.img3.class }}-credit">
+            {{ lock_up.img3.title }} / {{ lock_up.img3.contributor }}
+                  </span>
 				        </div>
 			        </div>
 
