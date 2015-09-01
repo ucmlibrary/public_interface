@@ -126,8 +126,10 @@ $(document).ready(function() {
   $(document).pjax('a[data-pjax=js-pageContent]', '#js-pageContent');
 
   qm = new QueryManager();
-  globalSearchForm = new GlobalSearchForm({model: qm});
-  setupObjects();
+  if (!$('.home').length) {
+    globalSearchForm = new GlobalSearchForm({model: qm});
+    setupObjects();    
+  }
 
   $('#js-global-header-logo').on('click', function() {
     if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
