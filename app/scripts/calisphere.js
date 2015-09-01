@@ -191,9 +191,9 @@ $(document).ready(function() {
         }
       });
     }
-    
+
     popstate = null;
-    
+
     setupObjects();
   });
 
@@ -216,14 +216,19 @@ $(document).on('ready pjax:end', function() {
   /* globals ga: false */
   if (typeof ga !== 'undefined') {
     var inst_ga_code = $('[data-ga-code]').data('ga-code');
+    var dim1 = $('[data-ga-dim1]').data('ga-dim1');
+    var dim2 = $('[data-ga-dim2]').data('ga-dim2');
 
     ga('set', 'location', window.location.href);
+    if (dim1) { ga('set', 'dimension1', dim1); }
+    if (dim2) { ga('set', 'dimension2', dim2); }
     ga('send', 'pageview');
-
     if (inst_ga_code) {
       var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
       ga('create', inst_ga_code, 'auto', {'name': inst_tracker_name});
-      ga( inst_tracker_name + '.set', 'location', window.location.href);
+      ga(inst_tracker_name + '.set', 'location', window.location.href);
+      if (dim1) { ga(inst_tracker_name + '.set', 'dimension1', dim1); }
+      if (dim2) { ga(inst_tracker_name + '.set', 'dimension2', dim2); }
       ga( inst_tracker_name + '.send', 'pageview');
     }
   }
