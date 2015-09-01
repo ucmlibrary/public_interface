@@ -487,7 +487,7 @@ def itemViewCarousel(request):
             mlt_fl=mlt_fl
         )
         search_results = json.loads(carousel_solr_search)['response']['docs'] + json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
-        numFound = '25'
+        numFound = len(search_results)
         # numFound = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['numFound']
     else:
         carousel_solr_search = SOLR_select(
