@@ -63,11 +63,14 @@ def solrize_sort(sort):
         return 'score desc'
 
 def process_sort_collection_data(string):
+    '''temporary; should parse sort_collection_data
+       with either `:` or `::` dlimiter style
+    '''
     if '::' in string:
         return string.split('::', 2)
     else:
         part1, remainder = string.split(':', 1)
-        part2, part3 = string.rsplit(':https:')
+        part2, part3 = remainder.rsplit(':https:')
         return [part1, part2, u'https:{}'.format(part3)]
 
 def process_facets(facets, filters, facet_type=None):
