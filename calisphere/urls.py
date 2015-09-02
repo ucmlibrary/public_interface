@@ -23,7 +23,6 @@ urlpatterns = patterns('calisphere',
     url(r'^institutions/statewide-partners/$', 'views.statewideDirectory', name='statewideDirectory'),
 
     url(r'about/$', TemplateView.as_view(template_name='calisphere/about.html'), name='about'),
-    url(r'contact/$', TemplateView.as_view(template_name='calisphere/contact.html'), name='contact'),
     url(r'help/$', TemplateView.as_view(template_name='calisphere/help.html'), name='help'),
     url(r'terms/$', TemplateView.as_view(template_name='calisphere/termsOfUse.html'), name='termsOfUse'),
     url(r'privacy/$', TemplateView.as_view(template_name='calisphere/privacyStatement.html'), name='privacyStatement'),

@@ -9,27 +9,38 @@
     {% endif %}
 
     <hr style="width: 100%">
-    
+
     <!-- should include institution name: UC Berkely, Bancroft Library -->
     <dt class="meta-block__type">Parent Item</dt>
     <dd class="meta-block__defin"><a href="{% url 'calisphere:itemView' item.id %}" data-pjax="js-pageContent">{{ item.title.0 }}</a></dd>
-    
+
     {% if item.parsed_repository_data %}
       <dt class="meta-block__type">Contributing Institution</dt>
       <dd class="meta-block__defin">
         {% for repository in item.parsed_repository_data %}
-          <a href="{% url 'calisphere:repositoryView' repository.id 'collections' %}" data-pjax="js-pageContent">
+          <a
+            href="{% url 'calisphere:repositoryView' repository.id 'collections' %}"
+            data-pjax="js-pageContent"
+            data-ga-code="{{ repository.ga_code }}"
+            data-ga-dim2="{{ repository.slug }}"
+          >
           {% if repository.campus %}
-            {{ repository.campus }}, 
+            {{ repository.campus }},
           {% endif %}
           {{ repository.name }}</a> <br>
         {% endfor %}
       </dd>
     {% endif %}
-    
+
     {% if item.parsed_collection_data %}
       <dt class="meta-block__type">Collection</dt>
-      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}<a href="{% url 'calisphere:collectionView' collection.id %}" data-pjax="js-pageContent" class="js-relatedCollection">{{ collection.name }}</a> <br> {% endfor %}</dd>
+      <dd class="meta-block__defin">{% for collection in item.parsed_collection_data %}
+        <a
+          href="{% url 'calisphere:collectionView' collection.id %}"
+          data-pjax="js-pageContent"
+          class="js-relatedCollection"
+          data-ga-dim1="{{ collection.local_id }}{{ collection.slug }}"
+       >{{ collection.name }}</a> <br> {% endfor %}</dd>
     {% endif %}
 
 </div>
