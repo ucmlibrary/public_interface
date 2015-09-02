@@ -1,0 +1,199 @@
+{% load calisphere-extras %}
+
+<div class="modal fade" id="citationModal" tabindex="-1" role="dialog" aria-labelledby="citationModalTitle">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="citationModalTitle">Get Citation</h4>
+        <p style="margin-bottom:0px">We recommend you include the following information in your citation. Look below the item for additional data you may want to include.</p>
+      </div>
+      <div class="modal-body">
+        <textarea style="width: 100%; height: 11em;" onclick="this.focus();this.select()">
+Title: {{ item.title.0 }}{% if item.date.0 %}
+Date: {{ item.date.0 }}{% endif %}
+Collection: {{ item.collection_name.0 }}
+Owning Institution: {% if item.parsed_repository_data %}{% if item.parsed_repository_data.0.campus %}{{ item.parsed_repository_data.0.campus }}, {% endif %}{{ item.parsed_repository_data.0.name }}{% else %}{{ item.repository_name.0 }}
+{% endif %}
+Source: Calisphere
+Date of access: {% now "F j Y H:i" %}
+Permalink: {{ settings.UCLDC_FRONT }}{{ request.path }}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="contactOwnerModal" tabindex="-1" role="dialog" aria-labelledby="contactOwnerModalTitle">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="contactOwnerModalTitle">Contact Owning Institution</h4>
+        <p style="margin-bottom:0px">All fields are required.</p>
+      </div>
+      <form id="js-contactOwner" action="{% url 'calisphere:contactOwner' %}" method="get">
+        <div id="js-contactOwnerForm">
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <div style="margin-right: 20px;">
+                    <div class="well well-sm">
+                      {% if item.parsed_repository_data.0.campus %}
+                        {{ item.parsed_repository_data.0.campus }},
+                      {% endif %}
+                      {{ item.parsed_repository_data.0.name }}<br/>
+                      {% if item.institution_contact.0.email %}{{ item.institution_contact.0.email }}<br/>{% endif %}
+                      {% if item.institution_contact.0.phone %}{{ item.institution_contact.0.phone }}<br/>{% endif %}
+                      {% if item.institution_contact.0.url %}
+                        <a href="{{ item.institution_contact.0.url }}" target="_blank">{{ item.institution_contact.0.url }}</a>
+                      {% endif %}
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label" for="contactOwner-name">Name:</label>
+                      <input type="text" class="form-control" id="contactOwner-name" placeholder="Your full name" form="js-contactOwner" name="name">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label" for="contactOwner-email">Email:</label>
+                      <input type="email" class="form-control" id="contactOwner-email" placeholder="Your email" form="js-contactOwner" name="email">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label has-feedback" for="contactOwner-verifyEmail">Verify Email:</label>
+                      <input type="email" class="form-control" id="contactOwner-verifyEmail" placeholder="Verify your email">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label" for="contactOwner-demographic">How would you best describe yourself?</label>
+                      <select id="contactOwner-demographic" class="form-control" form="js-contactOwner" name="demographic">
+                        <option value="teacher">K-12 teacher or librarian</option>
+                        <option value="student">K-12 student</option>
+                        <option value="college">College student</option>
+                        <option value="gradstudent">Graduate student</option>
+                        <option value="faculty">Faculty or Academic Researcher</option>
+                        <option value="archivist">Archivist or Librarian</option>
+                        <option value="genealogist">Genealogist or family researcher</option>
+                        <option value="other">Other, please specify</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="sr-only" for="contactOwner-specifiedDemographic">If "Other," please specify</label>
+                      <input type="text" class="form-control" id="contactOwner-speicifedDemographic" placeholder='If "Other," please specify' form="js-contactOwner" name="demographic-specification" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" style="border-left: 1px solid black">
+                  <div style="margin-left: 20px;">
+                    <div class="well well-sm">Every item on Calisphere has been contributed to the site by a California institution. The institution can answer questions about this item, assit you with obtaining a hi-res copy, and gather additional information you may have about it. If you are experiencing technical issues, we'd request that you contact Calisphere directly.</div>
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label" for="contactOwner-requestReason">Nature of Request</label>
+                        <select id="contactOwner-requestReason" class="form-control" form="js-contactOwner" name="request_reason">
+                          <option selected>Request high-resolution copy of item</option>
+                          <option>Ask a copyright question</option>
+                          <option>Get more information</option>
+                          <option>Report an error</option>
+                          <option>Leave a comment</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label" >Subject:</label>
+                        <p class="form-control-static">RE: Calisphere: <span class="js-requestReason">Request high-resolution copy of item</span> for {{ item.title.0 }}</p>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label" for="contactOwner-message">Message</label>
+                        <textarea id="contactOwner-message" class="form-control" style="height: 7em" form="js-contactOwner" name="message"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div style="float: left">
+              <input type="checkbox" id="contactOwner-copySelf" form="js-contactOwner" name="copySelf"></input>
+              <label for="copySelf">Check to send a copy of this message to your email.</label>
+            </div>
+            <div style="float: right">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button id="contactOwner-submit" type="submit" class="btn btn-primary" form="js-contactOwner">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if item.harvest_type == 'hosted' %}
+<div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalTitle">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="downloadModalTitle">Download Item</h4>
+      </div>
+      <div class="modal-body">
+        <p>Hold on a sec! Before you download, consider:</p>
+        <p><strong>Do you have the rights to use it?</strong> Check the rights information for this item to see if it has copyright restrictions. Even if the item is protected by copyright, you may be able to use it for educational, research, or other purposes. To learn more, read Calisphere's <a href="{% url 'calisphere:termsOfUse' %}">terms of use.</a></p>
+        <p><strong>Is this the version you want?</strong> {% if item.contentFile.format == 'image' %}This file is {{ item.contentFile.size.width }} x {{ item.contentFile.size.height }} px. {% endif %}To obtain an alternate file type or higher resolution copy, please <a href="#" data-dismiss="modal">contact the owning institution.</a></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        {% if item.contentFile.format == 'image' %}
+          {# {% if item.reference_image_md5 %} #}
+            <!-- <a type="button" class="btn btn-primary" href="{{ thumbnailUrl }}full/full/{{ item.reference_image_md5 }}" target="_blank">Download</a> -->
+          {# {% endif %} #}
+          <a type="button" class="btn btn-primary" href="{{ item.contentFile.url }}" download="{{ item.title.0 }}.jpg" target="_blank">Download</a>
+        {% elif item.contentFile.format == 'file' %}
+          <a type="button" class="btn btn-primary" href="{{ ucldcMedia }}{{ item.contentFile.id }}" target="_blank">Download</a>
+        {% else %}
+          <a type="button" class="btn btn-primary" href="">Download</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="obj-buttons{% if item.structMap %}--complex{% endif %}">
+
+  <div class="obj-buttons__group1">
+
+    <!-- a class="btn btn-xs obj-buttons__envelope" title="Email" href="javascript: void(0)">
+      <span class="fa fa-envelope-o fa-fw"></span>
+    </a -->
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-dnt="true">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div>&nbsp;</div>
+<div class="fb-share-button" data-href="{{ settings.UCLDC_FRONT }}{{ request.path }}" data-layout="button"></div>
+
+<div>&nbsp;</div>
+    <a class="btn btn-xs obj-buttons__citation" href="javascript: void(0)" data-toggle="modal" data-target="#citationModal">
+      Get Citation
+    </a>
+
+  </div>
+
+  <div class="obj-buttons__group2">
+
+    <span class="obj-buttons__contact-text">Need more information about this object? </span>
+
+    <a class="btn btn-xs button__contact-owner" href="javascript: void(0)" data-toggle="modal" data-target="#contactOwnerModal">
+      <span class="fa fa-envelope"></span>
+      Contact Owner
+    </a>
+
+    {% if item.harvest_type == 'hosted' %}
+      <a class="btn btn-xs obj-buttons__download-image" href="javascript: void(0)" data-toggle="modal" data-target="#downloadModal">
+        <span class="icon__download-image">
+          <span class="fa fa-arrow-circle-o-down"></span>
+        </span> Download {% if item.structMap %}page{% else %}{{ item.type.0 }}{% endif %}
+      </a>
+    {% endif %}
+
+  </div>
+
+</div>

@@ -1,0 +1,97 @@
+{% load calisphere-extras %}
+
+<div class="pag-buttons">
+  
+  <ul class="pag-buttons__list">
+    
+    <!-- previous button -->
+    {% if start|subtract:rows >= 0 %}
+      <li class="pag-buttons__list-item">
+        <a class="btn btn-default button__prev" href="" data-start="{{ start|subtract:16 }}"><i class="fa fa-caret-left fa-lg"></i> <abbr title="Previous">Prev</abbr></a>
+      </li>
+    {% endif %}
+    
+    <!-- if pages is less than 6, just include all the buttons -->
+    {% if pages <= 6 %}
+      {% for page in pages|get_range %}
+      <li class="pag-buttons__list-item">
+        <a class="btn btn-default {% if start == page|multiply:rows %}pag-buttons__list-link--selected{% endif %}" href="" data-start="{{ page|multiply:rows }}">{{ page|add:"1" }}</a>
+      </li>
+      {% endfor %}
+    <!-- more than 6 pages of results -->
+    {% else %}
+      <!-- the page we're currently on is one of the first 4, include first five buttons -->
+      {% if start|current_page:rows <= 4 %}
+        {% for page in 5|get_range %}
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default {% if start == page|multiply:rows %}pag-buttons__list-link--selected{% endif %}" href="" data-start="{{ page|multiply:rows }}">
+            {{ page|add:"1" }}
+          </a>
+        </li>
+        {% endfor %}
+        <li class="pag-buttons__list-item">&#8230;</li>
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default" href="" data-start="{{ pages|subtract:1|multiply:rows }}">{{ pages }}</a>
+        </li>
+      <!-- the page we're currently on is one of the last 4, include last five buttons -->
+      {% elif pages|subtract:4 < start|current_page:rows %}
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default" href="" data-start="0">1</a>
+        </li>
+        <li class="pag-buttons__list-item">&#8230;</li>
+          {% for page in 5|get_range %}
+          <li class="pag-buttons__list-item">
+            <a class="btn btn-default {% if start|current_page:rows == pages|subtract:5|add:page|add:1 %}pag-buttons__list-link--selected{% endif %}" href="" data-start="{{ pages|subtract:5|add:page|multiply:rows }}">
+              {{ pages|subtract:5|add:page|add:1 }}
+            </a>
+          </li>
+          {% endfor %}
+      <!-- the page we're currently on is in the middle -->
+      {% else %}
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default" href="" data-start="0">1</a>
+        </li>
+        <li class="pag-buttons__list-item">&#8230;</li>
+        
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default" href="" data-start="{{ start|subtract:16 }}">
+            {{ start|current_page:rows|subtract:1 }}
+          </a>
+        </li>
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default pag-buttons__list-link--selected" data-start="{{ start }}">
+            {{ start|current_page:rows }}
+          </a>
+        </li>
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default" href="" data-start="{{ start|add:16 }}">
+            {{ start|current_page:rows|add:1 }}
+          </a>
+        </li>
+        
+        <li class="pag-buttons__list-item">&#8230;</li>
+        <li class="pag-buttons__list-item">
+          <a class="btn btn-default" href="" data-start="{{ pages|subtract:1|multiply:rows }}">{{ pages }}</a>
+        </li>
+      {% endif %}
+    {% endif %}
+        
+    <!-- next button -->
+    {% if start|add:rows < numFound %}
+      <li class="pag-buttons__list-item"><a class="btn btn-default button__next" href="" data-start="{{ start|add:16 }}">Next <i class="fa fa-caret-right fa-lg"></i></a></li>
+    {% endif %}
+    
+    
+    <!-- <option value="{% widthratio page 1 rows %}" {% if start == page|multiply:rows %}selected{% endif %}>{{ page|add:"1" }}</option>
+    
+    <li class="pag-buttons__list-item"><a class="btn btn-default pag-buttons__list-link--selected" href="">1</a></li>
+    <li class="pag-buttons__list-item"><a class="btn btn-default" href="">2</a></li>
+    <li class="pag-buttons__list-item"><a class="btn btn-default" href="">3</a></li>
+    <li class="pag-buttons__list-item"><a class="btn btn-default" href="">4</a></li>
+    <li class="pag-buttons__list-item"><a class="btn btn-default" href="">5</a></li>
+    <li class="pag-buttons__list-item"><a class="btn btn-default" href="">6</a></li>
+    <li class="pag-buttons__list-item">&#8230;</li>
+    <li class="pag-buttons__list-item"><a class="btn btn-default" href="">10</a></li> -->
+  </ul>
+
+</div>

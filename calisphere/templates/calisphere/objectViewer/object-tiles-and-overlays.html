@@ -1,0 +1,63 @@
+<div class="obj-container__simple-{% if item.reference_image_md5 %}image{% else %}tile{% endif %}">
+
+  <a class="obj__link" 
+    {% if item.harvest_type == "hosted" and item.type_ss.0|lower == "text" %}
+      href="javascript: void(0)" data-toggle="modal" data-target="#downloadModal"
+    {% elif item.harvest_type == "harvested" %}
+      href="{{ item.url_item }}"
+    {% endif %}
+  >
+    {% if item.reference_image_md5 %}
+      <div class="obj__icon-container">
+      	<img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+        {% if item.type_ss.0|lower == "moving image" %}
+        <div class="obj__overlay-icon fa-play"></div>
+        {% elif item.type_ss.0|lower == "sound"%}
+        <div class="obj__overlay-icon fa-volume-up"></div>
+        {% elif item.type_ss.0|lower == "text"%}
+        <div class="obj__overlay-icon fa-file-text-o"></div>
+        {% elif item.type_ss.0|lower == "dataset" %}
+        <div class="obj__overlay-icon fa-bar-chart"></div>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="thumbnail__container">
+        {% if item.type_ss.0|lower == "moving image" %}
+        <div class="obj__tile-icon fa-play"></div>
+        {% elif item.type_ss.0|lower == "sound"%}
+        <div class="obj__tile-icon fa-volume-up"></div>
+        {% elif item.type_ss.0|lower == "text"%}
+        <div class="obj__tile-icon fa-file-text-o"></div>
+        {% elif item.type_ss.0|lower == "dataset" %}
+        <div class="obj__tile-icon fa-bar-chart"></div>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="obj__caption">
+      {% if item.harvest_type == "hosted" %}
+        {% if item.type_ss.0|lower == "text" %}
+          Download File
+        {% endif %}
+      {% elif item.harvest_type == "harvested" %}
+        {% if item.type_ss.0|lower == 'moving image' %}
+          Play video
+        {% elif item.type_ss.0|lower == 'sound' %}
+          Play audio
+        {% elif item.type_ss.0|lower == 'text' %}
+          Read item
+        {% elif item.type_ss.0|lower == "dataset" %}
+          View dataset
+        {% elif item.type_ss.0|lower == "image" %}
+          View source image
+        {% endif %}
+         on 
+        {% if item.oac == True %}
+          the Online Archive of California.
+        {% elif item.harvest_type == 'harvested' %} 
+          contributor's website.
+        {% endif %}
+      {% endif %}
+    </div>
+  </a>
+
+</div>

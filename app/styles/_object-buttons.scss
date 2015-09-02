@@ -1,0 +1,182 @@
+// ##### Object Buttons ##### //
+
+// ***** Buttons Below Object Container ***** //
+
+.obj-buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: $layout-component-margin 0 0 0;
+
+	@include bp(sm-screen) {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  @include bp(md-screen) {
+    padding: 0 $object-leftright-margin;
+  }
+	
+}
+
+html.no-flexbox .obj-buttons a {
+  display: inline-block;
+  margin: 0 2px;
+}
+
+.obj-buttons--complex {
+  @extend .obj-buttons;
+
+  @include bp(sm-screen) {
+    margin: 0;
+    padding: 0 $layout-component-margin $layout-component-margin $layout-component-margin;
+    border: none;
+    background: $design-light-gray-color;
+  }
+  
+  @include bp(md-screen) {
+    margin: 0 $object-leftright-margin;
+  }
+
+}
+
+.obj-buttons__group1 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  @include bp(sm-screen) {
+    justify-content: space-between;
+    width: 180px;
+  }
+
+}
+
+html.no-flexbox .obj-buttons__group1 {
+  float: left;
+}
+
+.obj-buttons__group2 {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  margin: 20px 0;
+  
+  @include bp(sm-screen) {
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    // width: 440px;
+    margin: 0;
+  }
+
+}
+
+html.no-flexbox .obj-buttons__group2 {
+  float: right;
+}
+
+.obj-buttons__envelope {
+  @extend .button__primary;
+}
+
+.obj-buttons__twitter {
+  display: block; // needed for IE 10
+  font-size: 1.9em;
+  line-height: 0.1;
+  color: rgb(41, 138, 201);
+}
+
+html.no-flexbox .obj-buttons__twitter {
+  position: relative;
+  top: 6px;
+}
+
+.obj-buttons__facebook {
+  display: block; // needed for IE 10
+  font-size: 1.9em;
+  line-height: 0.1;
+  color: rgb(46, 71, 124);
+}
+
+html.no-flexbox .obj-buttons__facebook {
+  position: relative;
+  top: 6px;
+}
+
+.obj-buttons__citation {
+  @extend .button__dark;
+}
+
+.obj-buttons__contact-text {
+  display: block; // needed for IE 10
+  margin: 0 0 0.5em 0;
+  font-size: 0.8em;
+  line-height: 1;
+  text-align: left;
+
+  @include bp(sm-screen) {
+    // width: 200px;
+    margin: 0;
+    text-align: right;
+  }
+
+  @include bp(md-screen) {
+    font-size: 1em;
+  }
+
+}
+
+html.no-flexbox .obj-buttons__contact-text {
+  display: block;
+  float: left;
+  margin: 0 0.5em 0 0;
+}
+
+.button__contact-owner {
+  width: 100%;
+
+  @include bp(sm-screen) {
+    width: auto;
+    margin: 0 0 0 1em;
+  }
+	
+}
+
+.obj-buttons__download-image {
+  @extend .button__dark;
+  display: none;
+
+  @include bp(sm-screen) {
+    display: inline-block;
+    margin: 0 0 0 0.5em;
+  }
+
+}
+
+// ***** Open SeaDragon Control Buttons ***** //
+
+.obj__osd-button-group {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: $layout-container-margin-sm $layout-container-margin-sm 0 0;
+
+  @include bp(sm-screen) {
+    margin: $layout-component-margin $layout-component-margin 0 0;
+  }
+
+}
+
+.obj__osd-button {
+  margin: 0 0 0.5em 0;
+}
+
+html.no-flexbox .obj__osd-button {
+  margin: 0 0 0 0.5em;
+}
+
+
+

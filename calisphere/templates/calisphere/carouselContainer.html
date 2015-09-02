@@ -1,0 +1,56 @@
+{% load calisphere-extras %}
+  <div class="carousel__search-results" id="js-linkBack">
+    {% if referral == 'institution' %}
+      <a href="{% url 'calisphere:repositoryView' linkBackId 'items' %}" data-pjax="js-pageContent">
+        Items at {{ referralName }}
+      </a>
+    {% elif referral == 'campus' %}
+      <a href="{% url 'calisphere:campusView' linkBackId 'items' %}" data-pjax="js-pageContent">
+        Items at {{ referralName }}
+      </a>
+    {% elif referral == 'collection' and linkBackId %}
+      <a href="{% url 'calisphere:collectionView' linkBackId %}" data-pjax="js-pageContent">
+        Items in {{ referralName }}
+      </a>
+    {% elif q != '' %}
+      <a href="{% url 'calisphere:search' %}" data-pjax="js-pageContent">
+        Search results for "{{ q }}"
+      </a>
+    {% else %}
+      More items like this on Calisphere
+    {% endif %}
+  </div>
+
+  <div class="carousel__items-number">
+    {{ numFound }} items found.
+  </div>
+  
+  <form id="js-carouselForm">
+    <input type="hidden" name="q" value="{{ q }}">
+    {% if rq %}
+      <input type="hidden" name="rq" value="{{ rq }}">
+    {% endif %}
+    <input type="hidden" name="sort" value="{{ sort }}">
+
+    {% for filter_type in filters %}
+      {% for filter in filters|get_item:filter_type %}
+        {% if filter_type == 'collection_data' or filter_type == 'repository_data' %}
+          <input type="hidden" name="{{ filter_type }}" value="{{ filter.id }}">
+        {% else %}
+          <input type="hidden" name="{{ filter_type }}" value="{{ filter|slugify }}">
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+    <input type="hidden" name="referral" value="{{ referral }}">
+    <input type="hidden" name="referralName" value="{{ referralName }}">
+    <input type="hidden" name="itemId" value="{{ item_id }}">
+    <input type="hidden" name="itemNumber" value="{{ start }}">
+    {% if campus_slug %}
+      <input type="hidden" name="campus_slug" value="{{ campus_slug }}">
+    {% endif %}
+  </form>
+
+  <div class="carousel" id="js-carousel" data-carousel_start="{{ start }}" data-numFound="{{ numFound }}">
+    {% include "calisphere/carousel.html" %}
+  </div>

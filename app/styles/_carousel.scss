@@ -1,0 +1,84 @@
+// ##### Carousel Component ##### //
+
+.carousel__search-results {
+  float: left;
+}
+
+.carousel__items-number {
+  float: right;
+}
+
+.carousel {
+  clear: right;
+  border-bottom: 1px solid $design-primary-color;
+
+  display: none;
+  @include bp(sm-screen) {
+    padding: 0 45px;
+  }
+
+}
+
+html.no-js .carousel {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.carousel__item {
+  width: 120px;
+  margin: 10px;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @include bp(sm-screen) {
+    margin: 20px;
+  }
+
+}
+
+html.no-js .carousel__item {
+  float: left;
+}
+
+.carousel__item--selected {
+  @extend .carousel__item;
+  opacity: 1;
+}
+
+.carousel__link {
+  position: relative;
+  display: block;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+}
+
+.carousel__image {
+  @extend .thumbnail__image;
+}
+
+.carousel__image--selected {
+  @extend .thumbnail__image;
+  border: 7px solid $design-secondary-color;
+}
+
+.carousel__overlay-icon {
+  @include thumbnail__overlay-icon(30px, 35px, 35px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.carousel__tile-icon {
+  @include thumbnail__tile-icon(45px, 50px, 60px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.carousel__thumbnail-caption {
+  height: 2em; // reveal only 2 lines of text
+  margin-top: 0.5em;
+  color: #000;
+  overflow: hidden;
+  line-height: 1;
+}

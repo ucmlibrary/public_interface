@@ -1,0 +1,19 @@
+// ##### Custom Fonts for Text ##### //
+
+// ***** Kievit Regular ***** //
+
+@font-face {
+  font-family: 'KievitWeb';
+  src: url('http://www.calisphere.universityofcalifornia.edu/font/KievitWeb.eot'); /* IE9 Compat Modes */
+  src: url('http://www.calisphere.universityofcalifornia.edu/font/KievitWeb.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('http://www.calisphere.universityofcalifornia.edu/font/KievitWeb.woff') format('woff'); /* Modern Browsers */
+}
+
+// ***** Kievit Regular Small Caps ***** //
+
+@font-face {
+	font-family: 'KievitScWeb';
+  src: url('http://www.calisphere.universityofcalifornia.edu/font/KievitScWebPro.eot'); /* IE9 Compat Modes */
+  src: url('http://www.calisphere.universityofcalifornia.edu/font/KievitScWebPro.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('http://www.calisphere.universityofcalifornia.edu/font/KievitScWebPro.woff') format('woff'); /* Modern Browsers */
+}

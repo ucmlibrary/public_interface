@@ -1,0 +1,17 @@
+// ##### Print Styles ##### //
+
+@media print {
+	
+	@page {
+    margin: 0.5in;
+  }
+
+  .container-fluid {
+		padding: 0 !important;
+	}
+
+	header, footer {
+		display: none;
+	}
+
+}

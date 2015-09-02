@@ -1,0 +1,24 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+
+{% block title %}: {{ item.title.0 }}{% endblock %}
+
+{% block content %}
+
+<div id="js-carouselContainer"></div>
+
+<div id="js-itemContainer" data-itemId="{{ item.id }}">
+  {% block itemContent %}
+    {% include "calisphere/item.html" %}
+  {% endblock %}
+</div>
+
+<div class="related-coll--search-results-page" id="js-relatedCollections">
+  {% include "calisphere/related-collections.html" %}
+</div>
+
+<!--
+  header returned from solr; for debugging
+  {{ item_solr_search.header|safe }}
+  -->
+{% endblock %}

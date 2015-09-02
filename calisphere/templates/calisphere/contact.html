@@ -1,0 +1,38 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+
+{% block title %}: Contact{% endblock %}
+
+{% block content %}
+
+<h1>Contact Calisphere</h1>
+
+<!-- Begin Static About Component -->
+
+<div class="static">
+
+  <div class="col-sm-8 static__main text-center">
+
+   <h2>Thanks for checking out our beta site!</h2>
+   <p>Please email us with any feedback, questions, or concerns.</p>
+   <h3>ucldc@ucop.edu
+     <a href="mailto:ucldc@ucop.edu?subject=Calisphere%20beta%20feedback">
+       <i class="fa fa-envelope" title="open email client (mailto:)"></i>
+     </a>
+   </h3>
+
+  </div>
+
+  <div class="col-sm-4 static__sidebar">
+
+  	<h3 class="static__sidebar-heading">Don't want to email?</h3>
+  	<p><a href="http://www.calisphere.universityofcalifornia.edu/contact-us-faq.html">Calisphere classic contact form</a></p>
+  	<div>Helpline (510) 987-0555<br/>
+         Mon - Fri, 8 AM - 5 PM</div>
+
+  </div>
+
+</div>
+
+<!-- End Static About Component -->
+{{ q }}
+{% endblock %}

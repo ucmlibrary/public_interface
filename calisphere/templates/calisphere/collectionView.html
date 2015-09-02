@@ -1,0 +1,92 @@
+{% extends "calisphere/searchResults.html" %}
+{% load calisphere-extras %}
+{% load staticfiles %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block title %}: {{ collection.name }}{% endblock %}
+
+{% block pageTitle %}<h2 class="text__page-heading" id="js-collection" data-collection="{{ collection_id }}" data-referralName="{{ collection.name }}"><a href="{% url 'calisphere:collectionsDirectory' %}" data-pjax="js-pageContent">Collections</a> / <strong>{{ collection.name }}</strong></h2>{% endblock %}
+
+{% block additionalInfo %}
+
+<div class="collection-intro" data-ga-dim1="{{ collection.local_id }}{{ collection.slug }}">
+  <div class="col-md-3">
+    <div class="collection-intro__institution">
+      <h2 class="collection-intro__institution-heading">Owning Institution{{ collection.repository|pluralize }}:
+        {% for repository in collection.repository %}
+          <a
+            href="{% url 'calisphere:repositoryView' repository.resource_id 'collections' %}"
+            class="collection-intro__institution-heading-link"
+            data-pjax="js-pageContent"
+            data-ga-code="{{ repository.google_analytics_tracking_code }}"
+            data-ga-dim2="{%if repository.campus %}{{ repository.campus.0.slug }}-{% endif %}{{ repository.slug }}"
+          >
+            {% if repository.campus %}{{ repository.campus.0.name }}, {% endif %}{{ repository.name }}
+          </a>
+        {% endfor %}
+      </h2>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="collection-intro__about">
+      {% if collection.description %}
+      <h3 class="collection-intro__about-heading">About this Collection</h3>
+        <span class="collection-intro__about-description">
+          {{ collection.description }}
+        </span>
+      {% endif %}
+      {% if collection.url_local|length > 0 %}
+        <a class="collection-intro__about-link" href="{{ collection.url_local }}" target="_blank">View this collection on the contributor's website.</a><br/>
+      {% endif %}
+      {% if collection.url_oac|length > 0 %}
+        <a class="collection-intro__about-link" href="{{ collection.url_oac }}" target="_blank">View finding aid.</a>
+      {% endif %}
+      <input id="{{ collection_id }}" class="facet js-facet facet-collection_data" form="js-facet" type="checkbox" name="collection_data" value="{{ collection_id }}" checked style="display: none;">
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block refineSearch %}
+<div class="row">
+
+  <div class="col-sm-6 col-md-12">
+    {% for repository in collection.repository %}
+      <a class="btn btn-default button__back-to-institution" href="{% url 'calisphere:repositoryView' repository.resource_id 'collections' %}" data-pjax="js-pageContent">
+        <span class="fa fa-angle-left fa-lg fa-fw"></span>
+        Go to Institution Page
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="col-sm-6 col-md-12">
+    <!-- Begin Search Collection Field -->
+
+    <div class="search-collection">
+      <label for="search-collection__field" class="search-collection__label">Search within collection</label>
+      <div class="input-group">
+        <input id="search-collection__field" type="search" name="rq" class="form-control search-collection__field" form="js-facet">
+        <span class="input-group-btn">
+          <button class="btn btn-default search-collection__button" type="submit" form="js-facet">Refine
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- End Search Collection Field -->
+  </div>
+
+</div>
+{% endblock %}
+
+{% block objectsFound %}
+{{ numFound }} Object{{ numFound|pluralize }} Found in this collection
+{% endblock %}
+
+{% block relatedCollections %}
+{% endblock %}

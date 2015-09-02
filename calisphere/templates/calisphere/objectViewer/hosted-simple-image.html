@@ -1,0 +1,43 @@
+{% load staticfiles %}
+
+<div class="obj__container-osd">
+  
+  <div id="obj__osd"></div>
+  
+  {% if item.structMap %}
+  <div class="obj__osd-infobanner js-obj__osd-infobanner">
+    Use the carousel below to page through items in this set. <span class="obj__osd-infobanner-link js-obj__osd-infobanner-link">Got it!</span>
+  </div>
+  {% endif %}
+
+  <div class="obj__osd-button-group">
+    
+    <a id="obj__osd-button-home" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-refresh fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-zoom-in" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-plus fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-zoom-out" class="btn btn-default obj__osd-button" href="#">
+      <span class="fa fa-minus fa-fw"></span>
+    </a>
+    <a id="obj__osd-button-fullscreen" class="btn btn-default obj__osd-button" href="">
+      <span class="fa fa-expand fa-fw"></span>
+    </a>
+
+  </div>
+
+  <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
+  
+  <script type="text/javascript">
+      var viewer = OpenSeadragon({
+          id: "obj__osd",
+          tileSources: [{{ item.contentFile.titleSources|safe }}],
+          zoomInButton:   "obj__osd-button-zoom-in",
+          zoomOutButton:  "obj__osd-button-zoom-out",
+          homeButton:     "obj__osd-button-home",
+          fullPageButton: "obj__osd-button-fullscreen"
+      });
+  </script>
+
+</div>

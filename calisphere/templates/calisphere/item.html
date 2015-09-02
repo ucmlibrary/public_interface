@@ -1,0 +1,57 @@
+{% load calisphere-extras %}
+
+<p class="text__breadcrumb-nav">
+  {% if item.parsed_repository_data %}
+    <a href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}" data-pjax="js-pageContent">
+      {% if item.parsed_repository_data.0.campus %}{{ item.parsed_repository_data.0.campus }}, {% endif %}
+      {{ item.parsed_repository_data.0.name }}
+    </a>
+  {% endif %}
+   >
+  {% if item.parsed_collection_data %}
+    <a href="{% url 'calisphere:collectionView' item.parsed_collection_data.0.id %}" data-pjax="js-pageContent" class="js-relatedCollection">{{ item.parsed_collection_data.0.name }}</a>
+  {% endif %}
+   > {{ item.title.0 }}
+</p>
+
+<h2 class="obj__page-heading">{{ item.type.0|title }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:12 }}</strong></h2>
+
+<div id="js-objectViewport">
+{% if item.harvest_type == 'hosted' and item.structMap %}
+  {% include 'calisphere/objectViewer/complex-object.html' %}
+{% elif item.harvest_type == 'hosted' and item.type_ss.0|lower == 'image' or item.structmap_url and item.reference_image_md5 %}
+  {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
+{% else %}
+  {% include 'calisphere/objectViewer/object-tiles-and-overlays.html' %}
+{% endif %}
+</div>
+
+{% include "calisphere/itemButtons.html" %}
+
+<h3 class="meta-heading">
+  {% if item.harvest_type == 'harvested' %}
+    Item Information. 
+    <a class="meta-heading__preview-link" href="{{ item.url_item }}{% if item.oac %}&layout=metadata{% endif %}">
+      View source record on 
+      {% if item.oac == True %}
+        the Online Archive of California.
+      {% else%} 
+        contributor's website.
+      {% endif %}
+    </a>
+  {% elif item.harvest_type == 'hosted' %}
+    {% if item.structMap and item.selected == True %}
+      Set Information.
+    {% elif item.structMap %}
+      Page Information. <a href="{% url 'calisphere:itemView' item.id %}" data-pjax="js-pageContent">Go to set information.</a>
+    {% else %}
+      Item Information.
+    {% endif %}
+  {% endif %}
+</h3>
+
+{% if item.selected == False %}
+  {% include "calisphere/component-metadata.html" %}
+{% else %}
+  {% include "calisphere/item-metadata.html" %}
+{% endif %}

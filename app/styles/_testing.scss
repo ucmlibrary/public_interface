@@ -1,0 +1,176 @@
+// ***** For Testing Only ***** //
+
+// Highlight all Bootstrap grid columns
+
+body.column-test [class^="col-"] {
+	border: 1px solid red;
+	// background: #eee;
+	// padding-top: 10px;
+	// padding-bottom: 10px;
+}
+
+body.column-test .row .row [class^="col-"] {
+  border: 1px solid green;
+}
+
+// Set image thumbnail size
+
+.thumbview__image, .listview__image, .collect-row__thumbnail img {
+	width: 100%;
+	height: auto;
+}
+
+// Set image popover size
+
+.popover__img-popover {
+	width: 380px;
+	height: 280px;
+}
+
+// Highlight image placeholders
+
+body.image-test img {
+	display: block;
+	// width: 200px;
+	// height: 130px;
+	width: 100%;
+	height: auto;
+	border: 1px solid #ccc;
+	background: #fff;
+}
+
+// Set a fixed height on Bootstrap columns for shapes
+
+body.shapes-test [class^="col-"] {
+	height: 100px;
+}
+
+// Increase size of Font Awesome icons to compare them
+
+body.icons-test .fa {
+	font-size: 2em !important;
+}
+
+// Highlight elements with border (ex: border: $bred;)
+
+$bred: 1px solid red;
+$bblue: 1px solid blue;
+$bgreen: 1px solid green;
+
+// Responsive image test
+
+article {
+    margin: 0 auto;
+    max-width: 700px;
+    border: $bred;
+}
+
+.res__container {
+	width: 300px;
+}
+
+.res__img {
+    max-width: 100%;
+}
+
+// Testing centering methods. First uses flexbox w/o needing a 3rd child. Second uses a 3rd child with a transform
+
+.center1__parent {
+	@include aspect-ratio(2, 1);
+	margin: 0 25%;
+
+  border: $bblue;
+}
+
+.center1__child {
+	@extend .aspect-ratio-content;
+	display: flex;
+  align-items: center;
+  margin: 0 25%;
+}
+
+.center1__content {
+	border: $bred;
+}
+
+
+
+.center2__parent {
+	@include aspect-ratio(2, 1);
+	margin: 0 25%;
+
+	border: $bblue;
+}
+
+.center2__child {
+	@extend .aspect-ratio-content;
+	margin: 0 25%;
+}
+
+.center2__content {
+	display: block;
+	position: absolute;
+	top: 50%;
+  transform: translateY(-50%);
+
+	border: $bred;
+}
+
+// Testing background blend mode
+
+.blend__container {
+	width: 250px;
+	border: $bred;
+}
+
+.blend__thumbnail-link {
+	display: block;
+	position: relative;
+	margin: 0 20px 20px 0;
+	background-size: 100%;
+	background-color: #ccc; // fallback if no image
+	// background-image: url() set in html as inline style
+
+	&:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 100%; // sets a square aspect ratio
+  }
+
+}
+
+.blend__thumbnail-image {
+	width: 100%;
+	height: auto;
+}
+
+.blend__thumbnail-caption {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 10px;
+	color: #fff;
+	background-color: rgba(241, 70, 0, 0.7);
+	background-image: inherit;
+	background-size: 100%;
+	background-position: bottom;
+	background-blend-mode: multiply;
+	font-size: 1.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

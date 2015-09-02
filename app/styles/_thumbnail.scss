@@ -1,0 +1,63 @@
+// ##### Thumbnail View Component ##### //
+
+.thumbnail {
+	clear: right; // clear .object-view-row
+}
+
+.thumbnail__link {
+	display: block;
+	margin: $layout-component-margin 0 $layout-component-margin $layout-component-margin;
+	color: #000;
+
+}
+
+// This version eliminates need for .thumbnail__tile:before selector but it's not as well supported:
+// .thumbnail__tile {
+// 	height: 16.66vw; // 100 / 6
+// }
+
+.thumbnail__container { // creates the container. NOTE: this selector used for all instances of thumbnails throughout website
+	display: block;
+	position: relative;
+	background-color: $design-light-gray-color;
+
+	&:before { // sets container height equal to width
+	  display: block;
+	  content: "";
+	  // width: 100%;
+	  padding-top: 100%;
+	}
+
+}
+
+.thumbnail__image { // sets the image within the container. . NOTE: this selector used for all instances of thumbnails throughout website
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  // height: auto;
+}
+
+.thumbnail__overlay-icon {
+	@include thumbnail__overlay-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.thumbnail__tile-icon {
+	@include thumbnail__tile-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.thumbnail__caption {
+  height: 2em; // reveal only 2 lines of text
+  margin: 0.5em 0 0 0;
+  line-height: 1;
+  overflow: hidden;
+}
+
+.thumbnail__caption {
+  height: 2em; // reveal only 2 lines of text
+  margin-top: 0.5em;
+  line-height: 1;
+  overflow: hidden;
+}

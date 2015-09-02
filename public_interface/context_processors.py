@@ -4,5 +4,10 @@ def settings(request):
     """
     from django.conf import settings
     return {
-        'thumbnailBase': settings.THUMBNAIL_BASE,
+        'thumbnailUrl': settings.THUMBNAIL_URL,
+        'devMode': settings.UCLDC_DEVEL,
+        'ucldcImages': settings.UCLDC_IMAGES,
+        'ucldcMedia': settings.UCLDC_MEDIA,
+        'ucldcIiif': settings.UCLDC_IIIF,
+        'gaSiteCode': settings.GA_SITE_CODE,
     }

@@ -1,62 +1,153 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
-// bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
-// endbower
+// ##### Main Sass ##### //
 
-.title {
-  position: absolute;
-  z-index: 1;
-  top: 30px;
-  left: 140px;
-  width: 200px;
-  padding: 5px 5px;
+// This file imports all Sass partials below and compiles result to main.css
 
-  background: rgba(256, 256, 256, 1);
-  border: 1px solid #DDD;
-  border-radius: 5px;
+// ***** Global Settings ***** //
 
-  visibility: hidden;
-  opacity:0;
+@import "variables";
+@import "mixins";
+@import "fonts";
+
+// ***** Vendor Libraries ***** //
+
+@import "bootstrap-imports";
+@import "font-awesome-imports";
+@import "mediaelementplayer-custom-styles.scss";
+@import "slick-carousel.scss";
+
+// ***** For Testing (comment out before compiling for production) ***** //
+
+@import "testing";
+
+// ***** Custom Elements ***** //
+
+@import "buttons";
+@import "icons";
+@import "text";
+
+// ***** Custom Components ***** //
+
+@import "alpha-nav";
+@import "carousel";
+@import "carousel-complex";
+@import "collection-intro";
+@import "collections-intro";
+@import "collections-themed";
+@import "collections-row";
+@import "related-collections";
+@import "facets";
+@import "filter";
+@import "footer";
+@import "header";
+@import "home";
+@import "home-images";
+@import "institution-intro";
+@import "institutions-intro";
+@import "institutions-nav";
+@import "institutions-textboxes";
+@import "listview";
+@import "metadata-block";
+@import "metadata-complex-image";
+@import "metadata-headings";
+@import "metadata-inline";
+@import "objects";
+@import "object-buttons";
+@import "object-container";
+@import "pagination";
+@import "popover";
+@import "searchfields";
+@import "static";
+@import "thumbnail";
+@import "titlesearch";
+@import "toggle";
+
+// ***** Custom Layouts ***** //
+
+@import "alignment";
+@import "print";
+
+// ***** Global Styles ***** //
+
+// Reset Bootstrap grid media queries by adding print media (located in _grid.scss in Bootstrap Bower package)
+
+@media (min-width: $screen-sm-min), print and (min-width: $print-sm-min)  {
+  @include make-grid(sm);
 }
 
-.imgWrap:hover .title {visibility: visible; opacity: 1;}
-.filter-pill {padding: 3px 6px !important; margin-bottom: 3px !important; font-size: 75% !important; font-weight: bold !important;}
-.options-container {max-height: 200px; overflow: auto; border: 1px solid #ddd; border-top: none; margin-bottom: 20px;}
-.options-container table {margin-bottom: 0px !important; }
-
-
-
-/********************************************
-************CHOSEN STYLE OVERRIDES***********
-*********************************************
-
-.chosen-container-display-list .chosen-drop {
-    position: relative;
-    left: auto;
+@media (min-width: $screen-md-min), print and (min-width: $print-md-min)  {
+  @include make-grid(md);
 }
 
-.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
-    height: auto !important;
-}
-.chosen-container-multi .chosen-choices {
-    background-image: none !important;
-}
-.chosen-container .chosen-drop {
-    box-shadow: none !important;
-    height: 163px;
-}
-.chosen-container .chosen-results {
-    height: 163px;
-}
-.chosen-container .chosen-results li.highlighted {
-    background-color: #fff;
-    background-image: none;
-    color: inherit;
-}
-.chosen-container .chosen-results li {
-    border-bottom: 1px solid #ddd;
-    margin: 5px 0;
-    padding-left: 20px;
+@media (min-width: $screen-lg-min), print and (min-width: $print-lg-min)  {
+  @include make-grid(lg);
 }
 
-********************************************/
+// Bootstrap container
+
+.container-fluid {
+  max-width: 1400px;
+  padding: $layout-container-margin-xs;
+	
+	@include bp(sm-screen) {
+    padding: $layout-container-margin-sm;
+  }
+
+	@include bp(md-screen) {
+    padding: $layout-container-margin-md;
+  }
+	
+}
+
+// Layout Column Floats
+
+.layout-col__1 {
+  
+  @include bp(md-screen) {
+    float: right;
+  }
+
+}
+
+// Bootstrap Overrides
+
+abbr[title] {
+  border: none;
+}
+
+strong {
+  -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
+}
+
+.pag-dropdown .tooltip-inner {
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  color: #8a6d3b;
+}
+
+.pag-dropdown .tooltip-arrow {
+  border-top-color: #faebcc;
+}
+
+.pag-dropdown .tooltip-inner:before {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  content: "\f071";
+}
+
+.thumbview__link .tooltip {
+  width: 100%;
+}
+
+.thumbview__link .tooltip.top { // center tooltip and hide from pointer
+  margin: 55% 0 0 0;
+  padding: 0 $layout-component-margin;
+  pointer-events: none;
+}
+
+.thumbview__link .tooltip-arrow {
+  display: none;
+}
+
+.thumbview__link .tooltip-inner {
+  text-align: left;
+}

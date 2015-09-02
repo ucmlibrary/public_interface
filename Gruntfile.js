@@ -8,10 +8,12 @@
 // If you want to recursively match all subfolders, use:
 // 'test/spec/**/*.js'
 
+
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+  grunt.loadNpmTasks('yeoman-include');
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -21,6 +23,8 @@ module.exports = function (grunt) {
     app: 'app',
     dist: 'dist'
   };
+
+  var includeMiddleware = require('yeoman-include/middleware')(__dirname+'/'+config.app);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -75,12 +79,18 @@ module.exports = function (grunt) {
         open: true,
         livereload: 35729,
         // Change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
+        // hostname: 'localhost'
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
           middleware: function(connect) {
             return [
+              includeMiddleware,
+              connect().use('/', function (req, res, next) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                next();
+              }),
               connect.static('.tmp'),
               connect().use('/bower_components', connect.static('./bower_components')),
               connect.static(config.app)
@@ -105,7 +115,12 @@ module.exports = function (grunt) {
       dist: {
         options: {
           base: '<%= config.dist %>',
-          livereload: false
+          livereload: false,
+          middleware: function() {
+            return [
+              includeMiddleware
+            ];
+          }
         }
       }
     },
@@ -208,11 +223,6 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= config.dist %>/scripts/{,*/}*.js',
-            '<%= config.dist %>/styles/{,*/}*.css',
-            '<%= config.dist %>/images/{,*/}*.*',
-            '<%= config.dist %>/styles/fonts/{,*/}*.*',
-            '<%= config.dist %>/*.{ico,png}'
           ]
         }
       }
@@ -320,7 +330,8 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
             '{,*/}*.html',
-            'styles/fonts/{,*/}*.*'
+            'styles/{,*/}*.*',
+            'fonts/{,*/}*.*'
           ]
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
@@ -329,7 +340,8 @@ module.exports = function (grunt) {
           expand: true,
           dot: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          // src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          src: 'bower_components/**',
           dest: '<%= config.dist %>'
         }]
       },
@@ -346,13 +358,14 @@ module.exports = function (grunt) {
     // reference in your app
     modernizr: {
       dist: {
-        devFile: 'bower_components/modernizr/modernizr.js',
+        // devFile: 'bower_components/modernizr/modernizr.js',
+        devFile: '<%= config.app %>/scripts/vendor/modernizr-dev.js',
         outputFile: '<%= config.dist %>/scripts/vendor/modernizr.js',
         files: {
           src: [
             '<%= config.dist %>/scripts/{,*/}*.js',
             '<%= config.dist %>/styles/{,*/}*.css',
-            '!<%= config.dist %>/scripts/vendor/*'
+            // '!<%= config.dist %>/scripts/vendor/*'
           ]
         },
         uglify: true
@@ -374,6 +387,22 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
+    },
+
+    //
+    include: {
+      build: '<%= config.app %>/*.html',
+      tmp: '.tmp/*.html'
+    },
+
+    'include:clean': {
+       build: '<%= config.app %>/*.html',
+       tmp: '.tmp/*.html'
+    },
+
+    'include:clean-dest': {
+       build: '<%= config.dist %>/*.html',
+       tmp: '.tmp/*.html'
     }
   });
 
@@ -425,16 +454,19 @@ module.exports = function (grunt) {
     'concat',
     'cssmin',
     'uglify',
+    'include:build',
     'copy:dist',
     'modernizr',
     'rev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'include:clean:build',
+    'include:clean-dest:build'
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
-    'build'
+    'build',
   ]);
 };

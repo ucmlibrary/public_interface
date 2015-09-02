@@ -1,0 +1,129 @@
+// ##### Complex Carousel Component ##### //
+
+$carousel-item-size: 80px;
+
+.carousel-complex {
+  display: none; // set to '.show()' on js initialization
+  padding: $layout-component-margin $layout-component-margin - 2;
+  background: $design-light-gray-color;
+
+  @include bp(md-screen) {
+    margin: 0 $object-leftright-margin;
+  }
+
+}
+
+// ***** Fixed Parent-level Thumbnail ***** //
+
+.carousel-complex__fixed-item {
+  float: left;
+  width: $carousel-item-size;
+  height: $carousel-item-size;
+
+  @include bp(sm-screen) {
+    margin: 0 0 0 ($layout-component-margin * 2);
+  }
+
+}
+
+.carousel-complex__fixed-link {
+  display: block;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid $design-primary-color;
+
+  &:before {
+    display: block;
+    padding-bottom: 100%;
+    content: "";
+  }
+
+}
+
+.carousel-complex__fixed-link--selected {
+  @extend .carousel-complex__fixed-link;
+  border: 5px solid $design-primary-color;
+}
+
+.carousel-complex__fixed-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+// ***** Complex Carousel Thumbnails ***** //
+
+.carousel-complex__item-container {
+  margin: 0 0 0 90px;
+  border-left: 2px solid $design-dark-gray-color;
+  padding: 0 0 0 ($layout-component-margin / 2);
+  
+  @include bp(sm-screen) {
+    margin: 0 0 0 130px;
+    padding: 0 ($layout-component-margin * 2) 0 ($layout-component-margin / 2);
+  }
+
+}
+
+.carousel-complex__item {
+  margin: 0 ($layout-component-margin / 4);
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+
+}
+
+.carousel-complex__item--selected {
+  opacity: 1;
+  
+  .carousel-complex__img {
+    border: 5px solid $design-primary-color;
+  }
+
+}
+
+.carousel-complex__link {
+  display: block;
+}
+
+.carousel-complex__thumbnail-container {
+  @extend .thumbnail__container;
+  border: 1px solid $design-dark-gray-color;
+}
+
+.carousel-complex__thumbnail-container--selected {
+  @extend .thumbnail__container;
+  border: 5px solid $design-primary-color;
+}
+
+.carousel-complex__tile {
+  @extend .carousel-complex__item;
+  width: $carousel-item-size;
+  height: $carousel-item-size;
+}
+
+.carousel-complex__tile--selected {
+  @extend .carousel-complex__tile;
+  opacity: 1;
+
+  .carousel-complex__thumbnail-container {
+    @extend .thumbnail__container;
+    border: 5px solid $design-primary-color;
+  }
+
+}
+
+.carousel-complex__tile-icon {
+  @include thumbnail__tile-icon(40px, 50px, 55px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+}
+
+.carousel-complex img { // Slick carousel reset
+  width: 100%;
+  height: $carousel-item-size;
+}
