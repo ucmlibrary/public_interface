@@ -484,7 +484,8 @@ def itemViewCarousel(request):
             fields='id, type_ss, reference_image_md5, title',
             mlt='true',
             mlt_count='24',
-            mlt_fl=mlt_fl
+            mlt_fl=mlt_fl,
+            mlt_mintf=1,
         )
         search_results = json.loads(carousel_solr_search)['response']['docs'] + json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
         numFound = len(search_results)
@@ -830,7 +831,6 @@ def statewideDirectory(request):
 def institutionView(request, institution_id, subnav=False, institution_type='repository|campus'):
     institution_url = 'https://registry.cdlib.org/api/v1/' + institution_type + '/' + institution_id + '/'
     institution_details = json_loads_url(institution_url + "?format=json")
-
     if 'ark' in institution_details and institution_details['ark'] != '':
         contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + institution_details['ark'])
     else:
@@ -960,11 +960,12 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             facet='true',
             facet_mincount=1,
             facet_limit='-1',
-            facet_field=['collection_data']
+            facet_field=['sort_collection_data']
         )
 
-        pages = int(math.ceil(float(len(collections_solr_search.facet_counts['facet_fields']['collection_data']))/10))
-
+        pages = int(math.ceil(float(len(collections_solr_search.facet_counts['facet_fields']['sort_collection_data']))/10))
+        # doing the search again;
+        # could we slice this from the results above?
         collections_solr_search = SOLR_select(
             q='',
             rows=0,
@@ -974,13 +975,27 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             facet_mincount=1,
             facet_offset=(page-1)*10,
             facet_limit='10',
-            facet_field = ['collection_data']
+            facet_field=['sort_collection_data'],
+            facet_sort='index',
         )
 
-        related_collections = list(collection[0] for collection in process_facets(collections_solr_search.facet_counts['facet_fields']['collection_data'], []))
-
+        # solrpy gives us a dict == unsorted (!)
+        # use the `facet_decade` mode of process_facets to do a lexical sort by value ....
+        related_collections = list(
+            collection[0] for collection in process_facets(
+                collections_solr_search.facet_counts['facet_fields']['sort_collection_data'],
+                [],
+                'facet_decade',
+            )
+        )
         for i, related_collection in enumerate(related_collections):
-            collection_data = getCollectionData(collection_data=related_collection)
+            collection_parts = related_collection.split(':', 2)
+            collection_data = getCollectionData(
+                collection_data=u'{0}::{1}'.format(
+                    collection_parts[2],
+                    collection_parts[1],
+                )
+            )
             related_collections[i] = getCollectionMosaic(collection_data['url'])
 
         context = {
