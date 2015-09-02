@@ -62,6 +62,14 @@ def solrize_sort(sort):
     else:
         return 'score desc'
 
+def process_sort_collection_data(string):
+    if '::' in string:
+        return string.split('::', 2)
+    else:
+        part1, remainder = string.split(':', 1)
+        part2, part3 = string.rsplit(':https:')
+        return [part1, part2, u'https:{}'.format(part3)]
+
 def process_facets(facets, filters, facet_type=None):
     display_facets = dict((facet, count) for facet, count in facets.iteritems() if count != 0)
     if facet_type and facet_type == 'facet_decade':
@@ -989,7 +997,7 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             )
         )
         for i, related_collection in enumerate(related_collections):
-            collection_parts = related_collection.split(':', 2)
+            collection_parts = process_sort_collection_data(related_collection)
             collection_data = getCollectionData(
                 collection_data=u'{0}::{1}'.format(
                     collection_parts[2],
