@@ -70,6 +70,7 @@
 
 a:focus {
   outline: 0; // remove dotted border in Firefox
+  text-decoration: underline;
 }
 
 abbr[title] {
