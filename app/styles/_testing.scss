@@ -57,22 +57,6 @@ $bred: 1px solid red;
 $bblue: 1px solid blue;
 $bgreen: 1px solid green;
 
-// Responsive image test
-
-article {
-    margin: 0 auto;
-    max-width: 700px;
-    border: $bred;
-}
-
-.res__container {
-	width: 300px;
-}
-
-.res__img {
-    max-width: 100%;
-}
-
 // Testing centering methods. First uses flexbox w/o needing a 3rd child. Second uses a 3rd child with a transform
 
 .center1__parent {
