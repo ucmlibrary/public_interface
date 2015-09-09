@@ -171,3 +171,17 @@ strong {
   border-top-color: $design-primary-color;
   border-left-color: $design-primary-color;
 }
+
+// contact form
+
+#contact-us-form input,
+#contact-us-form select,
+#contact-us-form textarea {
+  @extend .form-control;
+}
+
+// calipshere btn
+
+.btn-calisphere {
+  @include button-variant(white, $design-primary-color, $design-primary-color);
+}
