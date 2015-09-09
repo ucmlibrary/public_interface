@@ -7,7 +7,7 @@
 var QueryManager = Backbone.Model.extend({
   
   defaultValues: {
-    q: '',
+    // q: '',
     rq: '',
     view_format: 'thumbnails',
     sort: 'relevance', 
@@ -76,7 +76,7 @@ var QueryManager = Backbone.Model.extend({
     _.each(attrs, (function(that) {
       return function(value, key, list) {
         if (value !== undefined) {
-          if ((that.defaultValues[key] !== undefined && that.defaultValues[key] === value) || value.length === 0) {
+          if ((that.defaultValues[key] !== undefined && that.defaultValues[key] === value) || (value.length === 0 && key !== 'q')) {
             delete list[key];
             that.unsetSessionStorage(key);
             if (_.isEmpty(list)) {
