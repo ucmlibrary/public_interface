@@ -68,11 +68,11 @@ html.no-js .carousel__item {
 }
 
 .carousel__overlay-icon {
-  @include thumbnail__overlay-icon(30px, 35px, 35px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+  @include thumbnail__overlay-icon(30px, 30px, 30px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 .carousel__tile-icon {
-  @include thumbnail__tile-icon(45px, 50px, 60px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+  @include thumbnail__tile-icon(60px, 60px, 60px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 .carousel__thumbnail-caption {
