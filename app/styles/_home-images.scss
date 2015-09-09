@@ -58,7 +58,7 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 	position: relative; // relative to absolutely positioned credit text
 	margin: $layout-container-margin-xs 0;
 	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
-	background-color: #000;
+	background-color: #ccc; // seen before image loads
 	background-size: cover;
 	
 	@include bp(sm-screen) {
@@ -85,6 +85,7 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 
 .home__img1-v2 {
 	@extend %home__img1;
+	background-position: 0 5%;
 	background-image: url($home__img1-v2-xs);
 
 	@include bp(sm-screen) {
@@ -295,7 +296,7 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 	position: relative; // relative to absolutely positioned text block and credit text
 	margin: 0 ($layout-container-margin-xs / 2) 0 0;
 	padding: 0 0 $home-main-img-padding 0;
-	background-color: #000;
+	background-color: #ccc; // seen before image loads
 	background-size: 100%;
 }
 
@@ -447,7 +448,7 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 	position: relative; // relative to absolutely positioned credit text
 	margin: 0 0 0 ($layout-container-margin-xs / 2);
 	padding: 0 0 ($home-main-img-padding * 2) 0;
-	background-color: #000;
+	background-color: #ccc; // seen before image loads
 	background-size: 100%;
 }
 

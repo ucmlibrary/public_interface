@@ -3,21 +3,81 @@
     {
       "img1": {
         "class": "img1-v1",
-        "id": "26094--LAPL00035316",
+        "id": "e264c758ae10c0cbb45c0afed2787f50",
         "title": "Strolling on the Colorado Street Bridge (Pasadena, CA)",
         "contributor": "Los Angeles Public Library"
       },
       "img2": {
         "class": "img2-v1",
-        "id": "16289--http://ark.cdlib.org/ark:/13030/kt9v19q5hg",
+        "id": "ark:/13030/kt9v19q5hg",
         "title": "Crate label for Orange County Valencias",
         "contributor": "Orange Public Library"
       },
       "img3": {
         "class": "img3-v1",
-        "id": "872--http://ark.cdlib.org/ark:/13030/kt329015v6",
+        "id": "ark:/13030/kt329015v6",
         "title": "Hirahara family portrait, 1926",
         "contributor": "Anaheim Public Library"
+      }
+    },
+        {
+      "img1": {
+        "class": "img1-v2",
+        "id": "ark:/13030/c82808x9",
+        "title": "Oakland Larks Players",
+        "contributor": "Oakland Public Library, African American Museum and Library at Oakland"
+      },
+      "img2": {
+        "class": "img2-v2",
+        "id": "ark:/13030/kt1s20160q",
+        "title": "Coachella Valley onion field, 1929",
+        "contributor": "Pomona Public Library"
+      },
+      "img3": {
+        "class": "img3-v2",
+        "id": "52bf789293519407780706f8284d73fd",
+        "title": "Woman holding a small torch",
+        "contributor": "Los Angeles Public Library"
+      }
+    },
+        {
+      "img1": {
+        "class": "img1-v3",
+        "id": "ark:/28722/bk0013m4c2g",
+        "title": "Nucleus Bear Brand fruit crate label",
+        "contributor": "The Bancroft Library, UC Berkeley"
+      },
+      "img2": {
+        "class": "img2-v3",
+        "id": "ark:/13030/c8t43r3x",
+        "title": "Banning High School girls’ basketball team, 1911",
+        "contributor": "Banning Library District"
+      },
+      "img3": {
+        "class": "img3-v3",
+        "id": "ark:/13030/kt4489q87n",
+        "title": "Atlas of Humboldt County",
+        "contributor": "Humboldt State University"
+      }
+    },    
+        {
+      "img1": {
+        "class": "img1-v4",
+        "id": "ark:/13030/tf1t1n98qm",
+        "title": "Crowd at Greek Theater during Free Speech Movement protests, 1964",
+        "contributor": "Oakland Museum of California"
+      },
+      "img2": {
+        "class": "img2-v4",
+        "id": "ark:/13030/kt367nf1rk",
+        "title": "1977 San Francisco Gay Day Parade",
+        "contributor": "Gay, Lesbian, Bisexual, Transgender Historical Society"
+      },
+      "img3": {
+        "class": "img3-v4",
+        "id": "ark:/13030/hb796nb8qn",
+        "title": "Miguel Angel Reyes, portrait of Maria Felix",
+        "contributor": "UC Santa Barbara"
       }
     }
   ],

@@ -68,6 +68,19 @@
 
 // ***** Global Styles ***** //
 
+a:focus {
+  outline: 0; // remove dotted border in Firefox
+  text-decoration: underline;
+}
+
+abbr[title] {
+  border: none;
+}
+
+strong {
+  -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
+}
+
 // Reset Bootstrap grid media queries by adding print media (located in _grid.scss in Bootstrap Bower package)
 
 @media (min-width: $screen-sm-min), print and (min-width: $print-sm-min)  {
@@ -82,7 +95,7 @@
   @include make-grid(lg);
 }
 
-// Bootstrap container
+// Bootstrap Container
 
 .container-fluid {
   max-width: 1400px;
@@ -109,14 +122,6 @@
 }
 
 // Bootstrap Overrides
-
-abbr[title] {
-  border: none;
-}
-
-strong {
-  -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
-}
 
 .pag-dropdown .tooltip-inner {
   background-color: #fcf8e3;

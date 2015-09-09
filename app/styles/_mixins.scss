@@ -61,7 +61,7 @@
 
 // ***** Thumbnail Icon Tiles ***** //
 
-@mixin thumbnail__tile-icon($tile-icon-size-xs: 40px, $tile-icon-size-sm: 60px, $tile-icon-size-md: 80px) { // sets the white circle within the container
+@mixin thumbnail__tile-icon($tile-icon-size-xs: 20vw, $tile-icon-size-sm: 10vw, $tile-icon-size-md: 80px) { // sets the white circle within the container
   position: absolute;
   top: 50%;
   left: 50%;
@@ -88,14 +88,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: $design-primary-color;
-    font-size: $tile-icon-size-xs - 20px;
+    font-size: $tile-icon-size-xs * 0.6;
 
     @include bp(sm-screen) {
-      font-size: $tile-icon-size-sm - 25px;
+      font-size: $tile-icon-size-sm * 0.6;
     }
 
     @include bp(md-screen) {
-      font-size: $tile-icon-size-md - 35px;
+      font-size: $tile-icon-size-md * 0.6;
     }
 
   }
@@ -104,10 +104,10 @@
 
 // ***** Thumbnail Icon Overlays ***** //
 
-@mixin thumbnail__overlay-icon($overlay-icon-size-xs: 30px, $overlay-icon-size-sm: 35px, $overlay-icon-size-md: 40px) { // sets the white circle within the container
+@mixin thumbnail__overlay-icon($overlay-icon-size-xs: 5vw, $overlay-icon-size-sm: 4vw, $overlay-icon-size-md: 30px) { // sets the white circle within the container
   position: absolute;
-  left: 5%;
-  bottom: 5%;
+  left: 8%;
+  bottom: 8%;
   width: $overlay-icon-size-xs;
   height: $overlay-icon-size-xs;
   background-color: #fff;
@@ -130,14 +130,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: $design-primary-color;
-    font-size: $overlay-icon-size-xs - 10px;
+    font-size: $overlay-icon-size-xs * 0.6;
 
     @include bp(sm-screen) {
-      font-size: $overlay-icon-size-sm - 14px;
+      font-size: $overlay-icon-size-sm * 0.6;
     }
 
     @include bp(md-screen) {
-      font-size: $overlay-icon-size-md - 16px;
+      font-size: $overlay-icon-size-md * 0.6;
     }
 
   }
