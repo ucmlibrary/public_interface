@@ -1,4 +1,4 @@
-/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm */
+/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm, OpenSeadragon, tileSources */
 
 'use strict';
 
@@ -8,7 +8,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, popstate = null;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, viewer, popstate = null;
 
 var setupObjects = function() {
   if ($('#js-facet').length > 0) {
@@ -97,6 +97,26 @@ var setupObjects = function() {
     complexCarousel.stopListening();
     complexCarousel.undelegateEvents();
     complexCarousel.listening = false;
+  }
+
+  if($('#js-itemContainer').length > 0) {
+    if (viewer !== undefined) {
+      viewer.destroy();
+      viewer = undefined;
+      $('#obj__osd').empty();
+    }
+    viewer = new OpenSeadragon({
+      id: 'obj__osd',
+      tileSources: [tileSources],
+      zoomInButton: 'obj__osd-button-zoom-in',
+      zoomOutButton: 'obj__osd-button-zoom-out',
+      homeButton: 'obj__osd-button-home',
+      fullPageButton: 'obj__osd-button-fullscreen'
+    });
+  }
+  else if (viewer !== undefined) {
+    viewer.destroy();
+    viewer = undefined;
   }
 
   //if we've gotten to a page with a list of collection mosaics, init infinite scroll
