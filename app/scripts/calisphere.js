@@ -119,7 +119,7 @@ var setupObjects = function() {
 
 $(document).ready(function() {
   if (!$('.home').length) {
-  
+
     $('html').removeClass('no-jquery');
     if ($(window).width() > 900) { DESKTOP = true; }
     else { DESKTOP = false; }
@@ -129,7 +129,7 @@ $(document).ready(function() {
 
     qm = new QueryManager();
     globalSearchForm = new GlobalSearchForm({model: qm});
-    setupObjects();    
+    setupObjects();
 
     $('#js-global-header-logo').on('click', function() {
       if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
@@ -193,9 +193,9 @@ $(document).ready(function() {
           }
         });
       }
-    
+
       popstate = null;
-    
+
       setupObjects();
     });
 
@@ -203,12 +203,13 @@ $(document).ready(function() {
       popstate = e.direction;
     });
 
+    /* globals NProgress: false */
     $(document).on('pjax:send', function() {
-      $('#loading').show();
+      NProgress.start();
     });
 
     $(document).on('pjax:complete', function() {
-      $('#loading').hide();
+      NProgress.done();
     });
   }
 });

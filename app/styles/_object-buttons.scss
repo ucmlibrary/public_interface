@@ -16,7 +16,7 @@
   @include bp(md-screen) {
     padding: 0 $object-leftright-margin;
   }
-	
+
 }
 
 html.no-flexbox .obj-buttons a {
@@ -33,7 +33,7 @@ html.no-flexbox .obj-buttons a {
     border: none;
     background: $design-light-gray-color;
   }
-  
+
   @include bp(md-screen) {
     margin: 0 $object-leftright-margin;
   }
@@ -44,10 +44,27 @@ html.no-flexbox .obj-buttons a {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
+
   @include bp(sm-screen) {
     justify-content: space-between;
     width: 180px;
+  }
+
+}
+
+.obj-buttons__group1--twitter {
+
+  @include bp(sm-screen) {
+    padding-top: 5px;
+    padding-right: 1em;
+  }
+
+}
+
+.obj-buttons__group1--fb {
+
+  @include bp(sm-screen) {
+    padding-right: 1em;
   }
 
 }
@@ -61,7 +78,7 @@ html.no-flexbox .obj-buttons__group1 {
   flex-flow: column nowrap;
   align-items: flex-start;
   margin: 20px 0;
-  
+
   @include bp(sm-screen) {
     flex-flow: row nowrap;
     justify-content: flex-end;
@@ -140,7 +157,7 @@ html.no-flexbox .obj-buttons__contact-text {
     width: auto;
     margin: 0 0 0 1em;
   }
-	
+
 }
 
 .obj-buttons__download-image {

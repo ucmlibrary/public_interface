@@ -100,7 +100,7 @@ strong {
 .container-fluid {
   max-width: 1400px;
   padding: $layout-container-margin-xs;
-	
+
 	@include bp(sm-screen) {
     padding: $layout-container-margin-sm;
   }
@@ -108,13 +108,13 @@ strong {
 	@include bp(md-screen) {
     padding: $layout-container-margin-md;
   }
-	
+
 }
 
 // Layout Column Floats
 
 .layout-col__1 {
-  
+
   @include bp(md-screen) {
     float: right;
   }
@@ -155,4 +155,33 @@ strong {
 
 .thumbview__link .tooltip-inner {
   text-align: left;
+}
+
+// vendor overrides
+
+#nprogress .bar {
+  background: $design-primary-color;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px $design-dark-gray-color, 0 0 5px $design-dark-gray-color;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: $design-primary-color;
+  border-left-color: $design-primary-color;
+}
+
+// contact form
+
+#contact-us-form input,
+#contact-us-form select,
+#contact-us-form textarea {
+  @extend .form-control;
+}
+
+// calipshere btn
+
+.btn-calisphere {
+  @include button-variant(white, $design-primary-color, $design-primary-color);
 }
