@@ -99,7 +99,7 @@ var setupObjects = function() {
     complexCarousel.listening = false;
   }
 
-  if($('#js-itemContainer').length > 0) {
+  if($('#obj__osd').length > 0) {
     if (viewer !== undefined) {
       viewer.destroy();
       viewer = undefined;
