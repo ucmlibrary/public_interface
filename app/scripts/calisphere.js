@@ -139,8 +139,6 @@ var setupObjects = function() {
 
 $(document).ready(function() {
   if (!$('.home').length) {
-
-    $('html').removeClass('no-jquery');
     if ($(window).width() > 900) { DESKTOP = true; }
     else { DESKTOP = false; }
 
