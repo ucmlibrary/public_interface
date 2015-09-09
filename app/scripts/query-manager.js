@@ -11,7 +11,7 @@ var QueryManager = Backbone.Model.extend({
     rq: '',
     view_format: 'thumbnails',
     sort: 'relevance', 
-    rows: '16', 
+    rows: '24',
     start: 0
   },
   
