@@ -133,7 +133,7 @@ $(document).ready(function() {
 
     $('#js-global-header-logo').on('click', function() {
       if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
-        qm.clear();
+        qm.clear({silent: true});
       }
     });
 
