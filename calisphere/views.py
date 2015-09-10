@@ -13,6 +13,7 @@ import re
 import copy
 import simplejson as json
 import string
+import urlparse
 import solr
 
 # concat query with 'AND'
@@ -379,16 +380,19 @@ def itemView(request, item_id=''):
             item['institution_contact'].append(contact_information)
 
     fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE")
+    permalink = urlparse.urljoin(settings.UCLDC_FRONT, request.path)
     if fromItemPage:
         return render (request, 'calisphere/itemViewer.html', {
             'q': '',
             'item': item_solr_search.results[0],
             'item_solr_search': item_solr_search,
+            'permalink': permalink,
         })
     return render(request, 'calisphere/itemView.html', {
         'q': '',
         'item': item_solr_search.results[0],
         'item_solr_search': item_solr_search,
+        'permalink': permalink,
     })
 
 
