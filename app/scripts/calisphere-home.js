@@ -7,7 +7,6 @@ if ($('.home').length) {
 
 $(document).ready(function() {
   if ($('.home').length) {
-    $('html').removeClass('no-jquery');
     _.each($('form'), function(el) {
       el.reset();
     });

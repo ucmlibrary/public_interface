@@ -22,6 +22,10 @@
     {% block inline-scripts %}
       <script></script>
     {% endblock %}
+    <script>
+      //no-jquery class is now effectively a no-js class
+      document.getElementsByTagName('html')[0].classList.remove('no-jquery');
+    </script>
     {% include "calisphere/ga_site_code.html" %}
   </head>
   <body>

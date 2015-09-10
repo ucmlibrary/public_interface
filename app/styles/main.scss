@@ -122,6 +122,9 @@ strong {
 }
 
 // Bootstrap Overrides
+.tooltip-inner {
+  text-align: left;
+}
 
 .pag-dropdown .tooltip-inner {
   background-color: #fcf8e3;

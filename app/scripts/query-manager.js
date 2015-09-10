@@ -7,11 +7,11 @@
 var QueryManager = Backbone.Model.extend({
   
   defaultValues: {
-    q: '',
+    // q: '',
     rq: '',
     view_format: 'thumbnails',
     sort: 'relevance', 
-    rows: '16', 
+    rows: '24',
     start: 0
   },
   
@@ -33,7 +33,7 @@ var QueryManager = Backbone.Model.extend({
       if (sessionStorage.getItem('type_ss') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('type_ss'))}); }
       if (sessionStorage.getItem('facet_decade') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('facet_decade'))}); }      
       if (sessionStorage.getItem('repository_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('repository_data'))}); }
-      if (sessionStorage.getItem('collection_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('collection_data'))}); }
+      if (sessionStorage.getItem('collection_data') !== null) { this.set({collection_data: JSON.parse(sessionStorage.getItem('collection_data'))}); }
       if (sessionStorage.getItem('campus_slug') !== null) { this.set({campus_slug: sessionStorage.getItem('campus_slug')}); }
       
       if (sessionStorage.getItem('itemNumber') !== null) { this.set({itemNumber: sessionStorage.getItem('itemNumber')}); }
@@ -76,7 +76,7 @@ var QueryManager = Backbone.Model.extend({
     _.each(attrs, (function(that) {
       return function(value, key, list) {
         if (value !== undefined) {
-          if ((that.defaultValues[key] !== undefined && that.defaultValues[key] === value) || value.length === 0) {
+          if ((that.defaultValues[key] !== undefined && that.defaultValues[key] === value) || (value.length === 0 && key !== 'q')) {
             delete list[key];
             that.unsetSessionStorage(key);
             if (_.isEmpty(list)) {

@@ -1,4 +1,4 @@
-/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm */
+/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm, OpenSeadragon, tileSources */
 
 /* globals Modernizr: false */
 'use strict';
@@ -9,7 +9,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, popstate = null;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, viewer, popstate = null;
 
 var setupObjects = function() {
   if ($('#js-facet').length > 0) {
@@ -100,6 +100,26 @@ var setupObjects = function() {
     complexCarousel.listening = false;
   }
 
+  if($('#obj__osd').length > 0) {
+    if (viewer !== undefined) {
+      viewer.destroy();
+      viewer = undefined;
+      $('#obj__osd').empty();
+    }
+    viewer = new OpenSeadragon({
+      id: 'obj__osd',
+      tileSources: [tileSources],
+      zoomInButton: 'obj__osd-button-zoom-in',
+      zoomOutButton: 'obj__osd-button-zoom-out',
+      homeButton: 'obj__osd-button-home',
+      fullPageButton: 'obj__osd-button-fullscreen'
+    });
+  }
+  else if (viewer !== undefined) {
+    viewer.destroy();
+    viewer = undefined;
+  }
+
   //if we've gotten to a page with a list of collection mosaics, init infinite scroll
   //TODO: change reference to localhost!
   if($('#js-mosaicContainer').length > 0) {
@@ -120,8 +140,6 @@ var setupObjects = function() {
 
 $(document).ready(function() {
   if (!$('.home').length) {
-
-    $('html').removeClass('no-jquery');
     if ($(window).width() > 900) { DESKTOP = true; }
     else { DESKTOP = false; }
 
@@ -134,7 +152,7 @@ $(document).ready(function() {
 
     $('#js-global-header-logo').on('click', function() {
       if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
-        qm.clear();
+        qm.clear({silent: true});
       }
     });
 
