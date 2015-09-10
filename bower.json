@@ -10,7 +10,7 @@
     "fontawesome": "~4.2.0",
     "picturefill": "~2.2.0",
     "mediaelement": "~2.16.4",
-    "openseadragon": "~1.2.1",
+    "openseadragon": "~2.0.0",
     "flickity": "https://github.com/kukac7/flickity.git#master",
     "infinite-scroll": "~2.1.0",
     "imagesloaded": "~3.1.8",

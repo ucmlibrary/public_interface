@@ -30,14 +30,7 @@
   <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
   
   <script type="text/javascript">
-      var viewer = OpenSeadragon({
-          id: "obj__osd",
-          tileSources: [{{ item.contentFile.titleSources|safe }}],
-          zoomInButton:   "obj__osd-button-zoom-in",
-          zoomOutButton:  "obj__osd-button-zoom-out",
-          homeButton:     "obj__osd-button-home",
-          fullPageButton: "obj__osd-button-fullscreen"
-      });
+    var tileSources = {{ item.contentFile.titleSources|safe }};
   </script>
 
 </div>

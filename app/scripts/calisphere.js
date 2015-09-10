@@ -1,6 +1,22 @@
-/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm */
+/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm, OpenSeadragon, tileSources */
 
+/* globals Modernizr: false */
 'use strict';
+
+function sessionStorageWarning() {
+  if (! Modernizr.sessionstorage) {
+    $('body').prepend(
+      $('<div/>', {'class': 'container-fluid'})
+      .append(
+        $('<div/>', {
+          'class': 'alert alert-warning alert-dismissible',
+          'role': 'alert'
+        }).text('Calisphere beta has known issues when using private browsing mode')
+        .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+      )
+    );
+  }
+}
 
 if(typeof console === 'undefined') {
   console = { log: function() { } };
@@ -8,7 +24,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, popstate = null;
+var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, viewer, popstate = null;
 
 var setupObjects = function() {
   if ($('#js-facet').length > 0) {
@@ -99,6 +115,26 @@ var setupObjects = function() {
     complexCarousel.listening = false;
   }
 
+  if($('#obj__osd').length > 0) {
+    if (viewer !== undefined) {
+      viewer.destroy();
+      viewer = undefined;
+      $('#obj__osd').empty();
+    }
+    viewer = new OpenSeadragon({
+      id: 'obj__osd',
+      tileSources: [tileSources],
+      zoomInButton: 'obj__osd-button-zoom-in',
+      zoomOutButton: 'obj__osd-button-zoom-out',
+      homeButton: 'obj__osd-button-home',
+      fullPageButton: 'obj__osd-button-fullscreen'
+    });
+  }
+  else if (viewer !== undefined) {
+    viewer.destroy();
+    viewer = undefined;
+  }
+
   //if we've gotten to a page with a list of collection mosaics, init infinite scroll
   //TODO: change reference to localhost!
   if($('#js-mosaicContainer').length > 0) {
@@ -118,9 +154,8 @@ var setupObjects = function() {
 };
 
 $(document).ready(function() {
+  sessionStorageWarning();
   if (!$('.home').length) {
-
-    $('html').removeClass('no-jquery');
     if ($(window).width() > 900) { DESKTOP = true; }
     else { DESKTOP = false; }
 
@@ -133,7 +168,7 @@ $(document).ready(function() {
 
     $('#js-global-header-logo').on('click', function() {
       if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
-        qm.clear();
+        qm.clear({silent: true});
       }
     });
 
@@ -234,10 +269,12 @@ $(document).on('ready pjax:end', function() {
     var inst_ga_code = $('[data-ga-code]').data('ga-code');
     var dim1 = $('[data-ga-dim1]').data('ga-dim1');
     var dim2 = $('[data-ga-dim2]').data('ga-dim2');
+    var dim3 = Modernizr.sessionstorage.toString();
 
     ga('set', 'location', window.location.href);
     if (dim1) { ga('set', 'dimension1', dim1); }
     if (dim2) { ga('set', 'dimension2', dim2); }
+    if (dim3) { ga('set', 'dimension3', dim3); }
     ga('send', 'pageview');
     if (inst_ga_code) {
       var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
