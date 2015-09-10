@@ -130,6 +130,7 @@ def getCollectionMosaic(collection_url):
     display_items = SOLR_select(
         q='*:*',
         fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
+        sort=solrize_sort('a'),
         rows=6,
         start=0,
         fq=['collection_url: \"' + collection_url + '\"', 'type_ss: \"image\"']
@@ -140,6 +141,7 @@ def getCollectionMosaic(collection_url):
     ugly_display_items = SOLR_select(
         q='*:*',
         fields='reference_image_md5, url_item, id, title, collection_url, type_ss',
+        sort=solrize_sort('a'),
         rows=6,
         start=0,
         fq=['collection_url: \"' + collection_url + '\"', '(*:* AND -type_ss:\"image\")']
@@ -243,7 +245,12 @@ def processQueryRequest(request):
     query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if ('q' in request.GET or 'rq' in request.GET) else ''
     rows = request.GET['rows'] if 'rows' in request.GET else '24'
     start = request.GET['start'] if 'start' in request.GET and request.GET['start'] != '' else '0'
-    sort = request.GET['sort'] if 'sort' in request.GET else 'relevance'
+    if 'sort' in request.GET:
+        sort = request.GET['sort']
+    elif query_terms:
+        sort = 'relevance'
+    else:
+        sort = 'a'
     view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
     rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
     campus_slug = request.GET['campus_slug'] if 'campus_slug' in request.GET else ''
