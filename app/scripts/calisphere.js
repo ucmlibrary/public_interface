@@ -3,6 +3,21 @@
 /* globals Modernizr: false */
 'use strict';
 
+function sessionStorageWarning() {
+  if (! Modernizr.sessionstorage) {
+    $('body').prepend(
+      $('<div/>', {'class': 'container-fluid'})
+      .append(
+        $('<div/>', {
+          'class': 'alert alert-warning alert-dismissible',
+          'role': 'alert'
+        }).text('Calisphere beta has known issues when using private browsing mode')
+        .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+      )
+    );
+  }
+}
+
 if(typeof console === 'undefined') {
   console = { log: function() { } };
 }
@@ -139,6 +154,7 @@ var setupObjects = function() {
 };
 
 $(document).ready(function() {
+  sessionStorageWarning();
   if (!$('.home').length) {
     if ($(window).width() > 900) { DESKTOP = true; }
     else { DESKTOP = false; }
