@@ -1,6 +1,22 @@
 /*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm, OpenSeadragon, tileSources */
 
+/* globals Modernizr: false */
 'use strict';
+
+function sessionStorageWarning() {
+  if (! Modernizr.sessionstorage) {
+    $('body').prepend(
+      $('<div/>', {'class': 'container-fluid'})
+      .append(
+        $('<div/>', {
+          'class': 'alert alert-warning alert-dismissible',
+          'role': 'alert'
+        }).text('Calisphere beta has known issues when using private browsing mode')
+        .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+      )
+    );
+  }
+}
 
 if(typeof console === 'undefined') {
   console = { log: function() { } };
@@ -138,6 +154,7 @@ var setupObjects = function() {
 };
 
 $(document).ready(function() {
+  sessionStorageWarning();
   if (!$('.home').length) {
     if ($(window).width() > 900) { DESKTOP = true; }
     else { DESKTOP = false; }
@@ -252,10 +269,12 @@ $(document).on('ready pjax:end', function() {
     var inst_ga_code = $('[data-ga-code]').data('ga-code');
     var dim1 = $('[data-ga-dim1]').data('ga-dim1');
     var dim2 = $('[data-ga-dim2]').data('ga-dim2');
+    var dim3 = Modernizr.sessionstorage.toString();
 
     ga('set', 'location', window.location.href);
     if (dim1) { ga('set', 'dimension1', dim1); }
     if (dim2) { ga('set', 'dimension2', dim2); }
+    if (dim3) { ga('set', 'dimension3', dim3); }
     ga('send', 'pageview');
     if (inst_ga_code) {
       var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
