@@ -22,7 +22,7 @@ CAMPUS_LIST = [
   'name': 'UC Irvine',
   'slug': 'UCI'},
  {'featuredImage': {'src': '/thumb-uc_la.jpg',
-                    'url': '/item/354--adamspapers:136/'},
+                    'url': '/item/ark:/21198/zz002bzhj9/'},
   'id': '10',
   'name': 'UCLA',
   'slug': 'UCLA'},
