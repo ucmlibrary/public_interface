@@ -21,7 +21,7 @@
                 alt="{{ item.title.0|truncatewords:12 }}">
 
                 {% if item.type_ss.0|lower == "moving image" %}
-                <div class="related-coll__overlay-icon--large fa-play-circle-o"></div>
+                <div class="related-coll__overlay-icon--large fa-video-camera"></div>
                 {% elif item.type_ss.0|lower == "sound"%}
                 <div class="related-coll__overlay-icon--large fa-volume-up"></div>
                 {% elif item.type_ss.0|lower == "text"%}
@@ -32,7 +32,7 @@
               
               {% else %}
                 {% if item.type_ss.0|lower == "moving image" %}
-                <div class="related-coll__tile-icon--large fa-play-circle-o"></div>
+                <div class="related-coll__tile-icon--large fa-video-camera"></div>
                 {% elif item.type_ss.0|lower == "sound"%}
                 <div class="related-coll__tile-icon--large fa-volume-up"></div>
                 {% elif item.type_ss.0|lower == "text"%}
