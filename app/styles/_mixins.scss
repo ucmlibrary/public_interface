@@ -106,8 +106,8 @@
 
 @mixin thumbnail__overlay-icon($overlay-icon-size-xs: 5vw, $overlay-icon-size-sm: 4vw, $overlay-icon-size-md: 30px) { // sets the white circle within the container
   position: absolute;
-  left: 8%;
-  bottom: 8%;
+  left: 10px;
+  bottom: 10px;
   width: $overlay-icon-size-xs;
   height: $overlay-icon-size-xs;
   background-color: #fff;
