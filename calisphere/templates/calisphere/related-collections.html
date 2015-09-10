@@ -3,7 +3,12 @@
 
 <div class="related-coll" id="related-coll">
   <h3 class="related-coll__title">
-    {{ num_related_collections }} Collections in Search Results</h3>
+    {% if q or rq or referral %}
+      {{ num_related_collections }} collection{{ num_related_collections|pluralize }} containing search results
+    {% else %}
+      {{ num_related_collections }} collection{{ num_related_collections|pluralize }} on Calisphere
+    {% endif %}
+  </h3>
   {% for related_collection in related_collections %}
     <div class="col-xs-12 col-sm-4">
       <a class="related-coll__link js-relatedCollection" href="{% url 'calisphere:collectionView' related_collection.collection_id %}" data-pjax="js-pageContent">

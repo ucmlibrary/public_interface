@@ -5,11 +5,11 @@
   <!-- value of the search query from the header form -->
   <input type="text" style="display:none;" name="q" value="{{ q }}" form="js-facet">
   
-  <!-- <button type="button" id="deselect-facets" class="btn btn-default btn-block">Deselect All</button> -->
+  <!-- <button type="button" id="deselect-facets" class="btn btn-default btn-block">Deselect all</button> -->
 
   <div class="facets">
 
-    <button type="button" class="btn btn-default btn-block check__clear-filters js-clear-filters">Clear Filters</button>
+    <button type="button" class="btn btn-default btn-block check__clear-filters js-clear-filters">Clear filters</button>
 
     <div class="row">
   
@@ -25,16 +25,16 @@
             <p class="check__header-text js-a-check__header-text">{{ facet_type_display }} {% if filters|get_item:facet_type|length > 0 %}({{ filters|get_item:facet_type|length }} selected){% endif %}</p>
             <i class="check__header-arrow-icon js-a-check__header-arrow-icon fa fa-angle-down"></i>
             <div class="check__header-links">
-              <a class="js-a-check__link-select-all check__link-select-all--selected" href="#">Select All</a>
-              <a class="js-a-check__link-deselect-all check__link-deselect-all--not-selected" href="#">Deselect All</a>
+              <a class="js-a-check__link-select-all check__link-select-all--selected" href="#">Select all</a>
+              <a class="js-a-check__link-deselect-all check__link-deselect-all--not-selected" href="#">Deselect all</a>
             </div>
           </div>
 
           <div class="check__popdown js-a-check__popdown">
 
             <div class="check__button-group">
-              <button type="button" disabled class="btn btn-default check__button js-a-check__button-deselect-all">Deselect All</button>
-              <button type="button" class="btn btn-default check__button js-a-check__button-select-all">Select All</button>
+              <button type="button" disabled class="btn btn-default check__button js-a-check__button-deselect-all">Deselect all</button>
+              <button type="button" class="btn btn-default check__button js-a-check__button-select-all">Select all</button>
             </div>
 
             

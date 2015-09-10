@@ -1,20 +1,36 @@
 {% load calisphere-extras %}
   <div class="carousel__search-results" id="js-linkBack">
-    {% if referral == 'institution' %}
+    {% if q != '' %}
+      <a href="{% url 'calisphere:search' %}" data-pjax="js-pageContent">
+        {% if rq|length > 0 %}
+          Search results for "{{ q }}, {{ rq|join:", " }}"
+        {% else %}
+          Search results for "{{ q }}"
+        {% endif %}
+      </a>
+    {% elif referral == 'institution' %}
       <a href="{% url 'calisphere:repositoryView' linkBackId 'items' %}" data-pjax="js-pageContent">
-        Items at {{ referralName }}
+        {% if rq|length > 0 %}
+          Search results for "{{ rq|join:", " }}"
+        {% else %}
+          Items at {{ referralName }}
+        {% endif %}
       </a>
     {% elif referral == 'campus' %}
       <a href="{% url 'calisphere:campusView' linkBackId 'items' %}" data-pjax="js-pageContent">
-        Items at {{ referralName }}
+        {% if rq|length > 0 %}
+          Search results for "{{ rq|join:", " }}"
+        {% else %}
+          Items at {{ referralName }}
+        {% endif %}
       </a>
     {% elif referral == 'collection' and linkBackId %}
       <a href="{% url 'calisphere:collectionView' linkBackId %}" data-pjax="js-pageContent">
-        Items in {{ referralName }}
-      </a>
-    {% elif q != '' %}
-      <a href="{% url 'calisphere:search' %}" data-pjax="js-pageContent">
-        Search results for "{{ q }}"
+        {% if rq|length > 0 %}
+          Search results for "{{ rq|join:", " }}"
+        {% else %}
+          Items in {{ referralName }}
+        {% endif %}
       </a>
     {% else %}
       More items like this on Calisphere
@@ -22,7 +38,7 @@
   </div>
 
   <div class="carousel__items-number">
-    {{ numFound }} items found.
+    {{ numFound }} items found
   </div>
   
   <form id="js-carouselForm">
