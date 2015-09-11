@@ -72,7 +72,7 @@ html.no-js .carousel__item {
 }
 
 .carousel__tile-icon {
-  @include thumbnail__tile-icon(60px, 60px, 60px); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
+  @include thumbnail__tile-icon(60px, 60px, 60px, 60px); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
 }
 
 .carousel__thumbnail-caption {
