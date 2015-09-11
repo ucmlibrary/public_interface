@@ -177,16 +177,6 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 }
 
-.home__search {
-	display: none;
-
-	@include bp(sm-screen) {
-    display: block;
-    padding: 0 30% 16% 30%; // .home__mast height is responsive to this element
-  }
-
-}
-
 // ***** Image Credit Versions ***** //
 
 %home__img-credit {
