@@ -20,7 +20,7 @@
 }
 
 .home__search {
-	display: none;
+	padding: 0 10px;
 
 	@include bp(sm-screen) {
     display: block;
