@@ -1,8 +1,64 @@
 {% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 
-{% block title %}: Spread the Word!{% endblock %}
+{% block title %}: Outreach Materials{% endblock %}
 
 {% block content %}
-site map!
+<h1>Outreach Materials</h1>
+
+<p>Calisphere is visited a million times a year by undergraduates, K-12 students, teachers, professors, genealogists, artists, and other curious people for their personal and professional projects and endeavors.</p>
+
+<p>Help us spread the word about this great resource to your patrons, friends, and colleagues.</p>
+
+<h2>Embeddable banners</h2>
+<p>Place a banner on you website or blog post to direct people to Calisphere. Choose from three sizes to fit your space. Each banner links to the site.
+Simply cut the code below and paste it into your HTML in the place where you want it to appear.</p>
+
+<img src="http://calisphere.cdlib.org/calisphere_images/calisphere_beta_badge_vertical.jpg" alt="vertical Calisphere banner" border="0"/>
+<div class="well">
+<pre>
+&lt;a href="http://calisphere.cdlib.org">
+  &lt;img
+    src="http://calisphere.cdlib.org/calisphere_images/calisphere_beta_badge_vertical.jpg"
+    alt="vertical Calisphere banner"
+    border="0"/>
+&lt;/a>
+</pre>
+</div>
+
+<a href="http://calisphere.cdlib.org">
+<img src="http://calisphere.cdlib.org/calisphere_images/calisphere_beta_badge_horizontal.jpg" alt="horizontal Calisphere banner"/>
+</a>
+
+<div class="well">
+<pre>
+&lt;a href="http://calisphere.cdlib.org">
+  &lt;img
+    src="http://calisphere.cdlib.org/calisphere_images/calisphere_beta_badge_horizontal.jpg"
+    alt="horizontal Calisphere banner"
+    border="0"/>
+&lt;/a>
+</pre>
+</div>
+<a href="http://calisphere.cdlib.org">
+  <img src="http://calisphere.cdlib.org/calisphere_images/calisphere_beta_badge_small.jpg" alt="small Calisphere banner"/>
+</a>
+
+<div class="well">
+<pre>&lt;a href="http://calisphere.cdlib.org">
+  &lt;img
+    src="http://calisphere.cdlib.org/calisphere_images/calisphere_beta_badge_small.jpg"
+    alt="small Calisphere banner"
+    border="0"/>
+&lt;/a></pre>
+</div>
+
+<h2>Social media tools</h2>
+<p>Items on Calisphere can be easily shared on social media. Look for the Twitter and Facebook buttons on each item, and send it to your followers with a single click.</p>
+
+<h2>Animated video</h2>
+<p>(coming soon)</p>
+
+<h2>Let’s work together</h2>
+<p>We welcome opportunities to introduce Calisphere to diverse audiences. We are happy to supply language for articles and blog posts, and can be available for virtual and in-person presentations (subject to travel and staff resource considerations). Please contact us with your outreach ideas.</p>
 {{ q }}
 {% endblock %}
