@@ -148,3 +148,5 @@ LOGGING = {
         },
     },
 }
+
+CONTRUBUTOR_CONTACT_FLAG = 'link'  # 'email'
