@@ -24,6 +24,11 @@
 
 	@include bp(sm-screen) {
     display: block;
+    padding: 0 25% 16% 25%; // .home__mast height is responsive to this element
+  }
+
+  @include bp(md-screen) {
+    display: block;
     padding: 0 30% 16% 30%; // .home__mast height is responsive to this element
   }
 
