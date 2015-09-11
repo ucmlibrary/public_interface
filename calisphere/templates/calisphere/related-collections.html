@@ -6,7 +6,7 @@
     {% if q or rq or referral %}
       {{ num_related_collections }} collection{{ num_related_collections|pluralize }} containing search results
     {% else %}
-      {{ num_related_collections }} collection{{ num_related_collections|pluralize }} on Calisphere
+      {{ num_related_collections }} collection{{ num_related_collections|pluralize }} with similar items
     {% endif %}
   </h3>
   {% for related_collection in related_collections %}
