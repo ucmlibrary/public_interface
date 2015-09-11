@@ -1,6 +1,6 @@
 {% load calisphere-extras %}
-  <div class="carousel__search-results" id="js-linkBack">
-    {% if q != '' %}
+  {% if q != '' %}
+    <div class="carousel__search-results" id="js-linkBack">
       <a href="{% url 'calisphere:search' %}" data-pjax="js-pageContent">
         {% if rq|length > 0 %}
           Search results for "{{ q }}, {{ rq|join:", " }}"
@@ -8,7 +8,9 @@
           Search results for "{{ q }}"
         {% endif %}
       </a>
-    {% elif referral == 'institution' %}
+    </div>
+  {% elif referral == 'institution' %}
+    <div class="carousel__search-results" id="js-linkBack">
       <a href="{% url 'calisphere:repositoryView' linkBackId 'items' %}" data-pjax="js-pageContent">
         {% if rq|length > 0 %}
           Search results for "{{ rq|join:", " }}"
@@ -16,7 +18,9 @@
           Items at {{ referralName }}
         {% endif %}
       </a>
-    {% elif referral == 'campus' %}
+    </div>
+  {% elif referral == 'campus' %}
+    <div class="carousel__search-results" id="js-linkBack">
       <a href="{% url 'calisphere:campusView' linkBackId 'items' %}" data-pjax="js-pageContent">
         {% if rq|length > 0 %}
           Search results for "{{ rq|join:", " }}"
@@ -24,7 +28,9 @@
           Items at {{ referralName }}
         {% endif %}
       </a>
-    {% elif referral == 'collection' and linkBackId %}
+    </div>
+  {% elif referral == 'collection' and linkBackId %}
+    <div class="carousel__search-results" id="js-linkBack">
       <a href="{% url 'calisphere:collectionView' linkBackId %}" data-pjax="js-pageContent">
         {% if rq|length > 0 %}
           Search results for "{{ rq|join:", " }}"
@@ -32,10 +38,12 @@
           Items in {{ referralName }}
         {% endif %}
       </a>
-    {% else %}
-      More items like this on Calisphere
-    {% endif %}
-  </div>
+    </div>
+  {% else %}
+    <div class="carousel__search-results">
+      Similar items on Calisphere
+    </div>
+  {% endif %}
 
   <div class="carousel__items-number">
     {{ numFound }} items found
