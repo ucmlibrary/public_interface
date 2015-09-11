@@ -66,7 +66,7 @@
 }
 
 .related-coll__tile-icon {
-  @include thumbnail__tile-icon(15vw, 6vw, 60px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+  @include thumbnail__tile-icon(15vw, 5vw, 40px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 .related-coll__overlay-icon--large {
