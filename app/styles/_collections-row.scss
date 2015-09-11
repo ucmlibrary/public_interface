@@ -64,7 +64,7 @@
 }
 
 .collect-row__tile-icon {
-  @include thumbnail__tile-icon(20vw, 6vw, 60px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+  @include thumbnail__tile-icon(20vw, 5vw, 40px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 .collect-row__overlay-icon--large {
@@ -72,7 +72,7 @@
 }
 
 .collect-row__tile-icon--large {
-  @include thumbnail__tile-icon(25vw, 11vw, 100px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+  @include thumbnail__tile-icon(30vw, 11vw, 100px); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
 }
 
 .collect-row__container1 {
