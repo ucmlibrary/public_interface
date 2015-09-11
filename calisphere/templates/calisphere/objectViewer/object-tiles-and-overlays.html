@@ -11,7 +11,7 @@
       <div class="obj__icon-container">
       	<img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
         {% if item.type_ss.0|lower == "moving image" %}
-        <div class="obj__overlay-icon fa-play"></div>
+        <div class="obj__overlay-icon fa-video-camera"></div>
         {% elif item.type_ss.0|lower == "sound"%}
         <div class="obj__overlay-icon fa-volume-up"></div>
         {% elif item.type_ss.0|lower == "text"%}
@@ -23,7 +23,7 @@
     {% else %}
       <div class="thumbnail__container">
         {% if item.type_ss.0|lower == "moving image" %}
-        <div class="obj__tile-icon fa-play"></div>
+        <div class="obj__tile-icon fa-video-camera"></div>
         {% elif item.type_ss.0|lower == "sound"%}
         <div class="obj__tile-icon fa-volume-up"></div>
         {% elif item.type_ss.0|lower == "text"%}
