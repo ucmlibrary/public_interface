@@ -24,8 +24,7 @@
 .thumblist-toggle__thumbnails {
   @extend %thumblist-toggle__base;
   float: left;
-  color: #fff;
-  background: $design-dark-gray-color;
+  color: $design-dark-gray-color;
 
   &:hover {
     color: #fff;
@@ -54,8 +53,12 @@
 .thumblist-toggle__thumbnails--selected {
 	@extend .thumblist-toggle__thumbnails;
 	
+  color: #fff;
+  background-color: $design-dark-gray-color;
+
 	@include bp(sm-screen) {
-		color: $design-dark-gray-color;
+		color: #000;
+    background: none;
 	}
 
 }
