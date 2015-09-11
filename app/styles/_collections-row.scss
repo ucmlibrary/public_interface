@@ -64,7 +64,7 @@
 }
 
 .collect-row__tile-icon {
-  @include thumbnail__tile-icon(20vw, 5vw, 40px); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
+  @include thumbnail__tile-icon(20vw, 5vw, 4vw, 50px); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
 }
 
 .collect-row__overlay-icon--large {
@@ -72,7 +72,7 @@
 }
 
 .collect-row__tile-icon--large {
-  @include thumbnail__tile-icon(30vw, 11vw, 100px); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
+  @include thumbnail__tile-icon(30vw, 11vw, 8vw, 100px); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
 }
 
 .collect-row__container1 {
