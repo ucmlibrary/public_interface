@@ -70,11 +70,10 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 .home__img1-v1 {
 	@extend %home__img1;
 	background-image: url($home__img1-v1-xs);
-	background-position: 0 -15px;
+	background-position: 0 50%;
 
 	@include bp(sm-screen) {
     background-image: url($home__img1-v1-sm);
-    background-position: 0 50%;
   }
 
   @include bp(md-screen) {

@@ -31,6 +31,7 @@ $(document).ready(function(){
 	// amy integrated
   $('.js-global-header__search-icon').click(function(){
     $('.js-global-header__search').toggleClass('global-header__search global-header__search--selected');
+    // reverse toggle on homepage (not currently used):
     $('.js-global-header__search--homepage').toggleClass('global-header__search--homepage global-header__search');
   });
 
