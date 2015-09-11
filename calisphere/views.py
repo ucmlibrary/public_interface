@@ -652,6 +652,8 @@ def relatedCollections(request, queryParams={}):
         return three_related_collections
     else:
         return render(request, 'calisphere/related-collections.html', {
+            'q': queryParams['q'],
+            'rq': queryParams['rq'],
             'num_related_collections': len(related_collections),
             'related_collections': three_related_collections,
             'rc_page': queryParams['rc_page']
