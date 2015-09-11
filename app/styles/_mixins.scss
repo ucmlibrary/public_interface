@@ -61,7 +61,7 @@
 
 // ***** Thumbnail Icon Tiles ***** //
 
-@mixin thumbnail__tile-icon($tile-icon-size-xs: 20vw, $tile-icon-size-sm: 10vw, $tile-icon-size-md: 80px) { // sets the white circle within the container
+@mixin thumbnail__tile-icon($tile-icon-size-xs: 20vw, $tile-icon-size-sm: 10vw, $tile-icon-size-md: 8vw, $tile-icon-size-lg: 80px) { // sets the white circle within the container
   position: absolute;
   top: 50%;
   left: 50%;
@@ -81,6 +81,11 @@
     height: $tile-icon-size-md;
   }
 
+  @include bp(lg-screen) {
+    width: $tile-icon-size-lg;
+    height: $tile-icon-size-lg;
+  }
+
   &:before { // sets the icon within the white circle
     @extend .fa; // Font Awesome base class
     position: absolute;
@@ -96,6 +101,10 @@
 
     @include bp(md-screen) {
       font-size: $tile-icon-size-md * 0.6;
+    }
+
+    @include bp(lg-screen) {
+      font-size: $tile-icon-size-lg * 0.6;
     }
 
   }
