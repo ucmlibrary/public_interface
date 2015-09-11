@@ -24,8 +24,7 @@
 .thumblist-toggle__thumbnails {
   @extend %thumblist-toggle__base;
   float: left;
-  color: #fff;
-  background: $design-dark-gray-color;
+  color: $design-dark-gray-color;
 
   &:hover {
     color: #fff;
@@ -54,8 +53,12 @@
 .thumblist-toggle__thumbnails--selected {
 	@extend .thumblist-toggle__thumbnails;
 	
+  color: #fff;
+  background-color: $design-dark-gray-color;
+
 	@include bp(sm-screen) {
-		color: $design-dark-gray-color;
+		color: #000;
+    background: none;
 	}
 
 }
@@ -67,8 +70,8 @@
   background: #fff;
 
   &:hover {
-    color: $design-dark-gray-color;
-    border: 1px solid $design-dark-gray-color;
+    color: #fff;
+    background: $design-dark-gray-color;
   }
 
   @include bp(sm-screen) {
@@ -82,7 +85,7 @@
 
     &:hover {
     	color: $design-primary-color;
-      border: none;
+      background: none;
     }
 
   }
@@ -92,8 +95,12 @@
 .thumblist-toggle__list--selected {
 	@extend .thumblist-toggle__list;
 	
+  color: #fff;
+  background-color: $design-dark-gray-color;
+
 	@include bp(sm-screen) {
-		color: $design-dark-gray-color;
+		color: #000;
+		background: none;
 	}
 
 }

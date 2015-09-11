@@ -12,7 +12,7 @@
           alt="{{ item.title.0|truncatewords:12 }}">
 
           {% if item.type_ss.0|lower == "moving image" %}
-          <div class="listview__overlay-icon fa-play"></div>
+          <div class="listview__overlay-icon fa-video-camera"></div>
           {% elif item.type_ss.0|lower == "sound"%}
           <div class="listview__overlay-icon fa-volume-up"></div>
           {% elif item.type_ss.0|lower == "text"%}
@@ -23,7 +23,7 @@
 
         {% else %}
           {% if item.type_ss.0|lower == "moving image" %}
-          <div class="listview__tile-icon fa-play"></div>
+          <div class="listview__tile-icon fa-video-camera"></div>
           {% elif item.type_ss.0|lower == "sound"%}
           <div class="listview__tile-icon fa-volume-up"></div>
           {% elif item.type_ss.0|lower == "text"%}
