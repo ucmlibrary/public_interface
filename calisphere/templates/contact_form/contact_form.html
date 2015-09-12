@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<h1>Contact Calisphere</h1>
-<p>Please note that Calisphere does not own the items or collections on the site and has no further information about them. Questions about items and collections should be directed to their contributing institutions. Use the "contact owner" button or visit <a href="/institutions/" data-pjax="js-pageContent">the institution's page</a> for more information. If you have a question about using an item you found on Calisphere, you may want to first consult the <a href="/terms/" data-pjax="js-pageContent">Terms of Use</a>. Other frequently asked questions are addressed on our <a href="/help/" data-pjax="js-pageContent">help page</a>.</p>
-<p>Use this form to report technical problems, send us comments, or ask questions about Calisphere.</p>
 <div class="static">
 
   <div id="contact-us-form" class="col-sm-8 static__main">
+<h1>Contact Calisphere</h1>
+<p>Please note that Calisphere does not own the items or collections on the site and has no further information about them. Questions about items and collections should be directed to their contributing institutions. Use the "contact owner" button or visit <a href="/institutions/" data-pjax="js-pageContent">the institution's page</a> for more information. If you have a question about using an item you found on Calisphere, you may want to first consult the <a href="/terms/" data-pjax="js-pageContent">Terms of Use</a>. Other frequently asked questions are addressed on our <a href="/help/" data-pjax="js-pageContent">help page</a>.</p>
+<p>Use this form to report technical problems, send us comments, or ask questions about Calisphere.</p>
     <form method="post">{% csrf_token %}
     {% for field in form %}
       {% if field.label != "Referer" %}

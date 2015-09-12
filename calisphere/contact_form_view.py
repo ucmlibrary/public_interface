@@ -8,13 +8,6 @@ import urlparse
 
 
 class CalisphereContactForm(ContactForm):
-    REASON = (
-        ('comment', 'Leave a comment'),
-        ('hi-res copy', 'Request high-resolution copy of item'),
-        ('copyright', 'Ask a copyright question'),
-        ('info', 'Get more information'),
-        ('error', 'Report an error'),
-    )
     name = forms.CharField(
         max_length=100,
         label=u'Name:',
@@ -34,10 +27,6 @@ class CalisphereContactForm(ContactForm):
         widget=forms.Textarea,
         label=u'Message',
     )
-    reason = forms.ChoiceField(
-        choices=REASON,
-        label='Nature of Request',
-    )
     referer = forms.CharField(widget=forms.HiddenInput())
 
     template_name = 'contact_form/contact_form.txt'
@@ -52,7 +41,6 @@ class CalisphereContactForm(ContactForm):
             'name',
             'email',
             'email2',
-            'reason',
             'body',
             'referer',
         ]
