@@ -6,7 +6,7 @@
 
 {% block title %}: {{ collection.name }}{% endblock %}
 
-{% block pageTitle %}<h2 class="text__page-heading" id="js-collection" data-collection="{{ collection_id }}" data-referralName="{{ collection.name }}"><a href="{% url 'calisphere:collectionsDirectory' %}" data-pjax="js-pageContent">Collections</a> / <strong>{{ collection.name }}</strong></h2>{% endblock %}
+{% block pageTitle %}<h1 id="js-collection" data-collection="{{ collection_id }}" data-referralName="{{ collection.name }}"><a href="{% url 'calisphere:collectionsDirectory' %}" data-pjax="js-pageContent">Collections</a> / <strong>{{ collection.name }}</strong></h2>{% endblock %}
 
 {% block additionalInfo %}
 
