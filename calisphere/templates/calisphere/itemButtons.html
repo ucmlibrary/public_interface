@@ -17,7 +17,7 @@ Owning Institution: {% if item.parsed_repository_data %}{% if item.parsed_reposi
 {% endif %}
 Source: Calisphere
 Date of access: {% now "F j Y H:i" %}
-Permalink: {{ settings.UCLDC_FRONT }}{{ request.path }}</textarea>
+Permalink: {{ permalink }}</textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -118,7 +118,7 @@ Permalink: {{ settings.UCLDC_FRONT }}{{ request.path }}</textarea>
             </div>
             <div style="float: right">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button id="contactOwner-submit" type="submit" class="btn btn-primary" form="js-contactOwner">Submit</button>
+              <button id="contactOwner-submit" type="submit" class="btn btn-calisphere" form="js-contactOwner">Submit</button>
             </div>
           </div>
         </div>
@@ -138,7 +138,11 @@ Permalink: {{ settings.UCLDC_FRONT }}{{ request.path }}</textarea>
       <div class="modal-body">
         <p>Hold on a sec! Before you download, consider:</p>
         <p><strong>Do you have the rights to use it?</strong> Check the rights information for this item to see if it has copyright restrictions. Even if the item is protected by copyright, you may be able to use it for educational, research, or other purposes. To learn more, read Calisphere's <a href="{% url 'calisphere:termsOfUse' %}">terms of use.</a></p>
-        <p><strong>Is this the version you want?</strong> {% if item.contentFile.format == 'image' %}This file is {{ item.contentFile.size.width }} x {{ item.contentFile.size.height }} px. {% endif %}To obtain an alternate file type or higher resolution copy, please <a href="#" data-dismiss="modal">contact the owning institution.</a></p>
+        <p><strong>Is this the version you want?</strong> {% if item.contentFile.format == 'image' %}This file is {{ item.contentFile.size.width }} x {{ item.contentFile.size.height }} px. {% endif %}To obtain an alternate file type or higher resolution copy, please
+          <!-- add contactFlag conditional here -->
+          <a href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}"
+          >contact the owning institution.</a>
+        </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -166,14 +170,17 @@ Permalink: {{ settings.UCLDC_FRONT }}{{ request.path }}</textarea>
       <span class="fa fa-envelope-o fa-fw"></span>
     </a -->
 
-<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-dnt="true">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-<div>&nbsp;</div>
-<div class="fb-share-button" data-href="{{ settings.UCLDC_FRONT }}{{ request.path }}" data-layout="button"></div>
+    <div class="obj-buttons__group1--twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-dnt="true">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
 
-<div>&nbsp;</div>
-    <a class="btn btn-xs obj-buttons__citation" href="javascript: void(0)" data-toggle="modal" data-target="#citationModal">
-      Get Citation
-    </a>
+    <div class="obj-buttons__group1--fb">
+      <div class="fb-share-button" data-href="{{ request.path }}" data-layout="button"></div>
+    </div>
+
+    <div>
+      <a class="btn btn-xs obj-buttons__citation" href="javascript: void(0)" data-toggle="modal" data-target="#citationModal">Get Citation</a>
+    </div>
 
   </div>
 
@@ -181,7 +188,12 @@ Permalink: {{ settings.UCLDC_FRONT }}{{ request.path }}</textarea>
 
     <span class="obj-buttons__contact-text">Have a question about this item? </span>
 
-    <a class="btn btn-xs button__contact-owner" href="javascript: void(0)" data-toggle="modal" data-target="#contactOwnerModal">
+    <a class="btn btn-xs button__contact-owner" {% if contactFlag == 'email' %}
+      href="javascript: void(0)" data-toggle="modal" data-target="#contactOwnerModal"
+      {% else %}
+      href="{% url 'calisphere:repositoryView' item.parsed_repository_data.0.id 'collections' %}"
+      data-pjax="js-pageContent"
+      {% endif %}>
       <span class="fa fa-envelope"></span>
       Contact Owner
     </a>

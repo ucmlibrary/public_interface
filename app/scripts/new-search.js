@@ -550,6 +550,7 @@ var ComplexCarousel = Backbone.View.extend({
   initCarousel: function() {
     $('.carousel-complex').show();
     $('.carousel-complex__item-container').slick(this.carouselConfig);
+    $('.carousel-complex__item-container').slick('slickGoTo', $('.carousel-complex__item--selected').data('slick-index'));
   },
 
   initialize: function() {

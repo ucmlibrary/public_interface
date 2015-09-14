@@ -7,7 +7,7 @@
     <!-- previous button -->
     {% if start|subtract:rows >= 0 %}
       <li class="pag-buttons__list-item">
-        <a class="btn btn-default button__prev" href="" data-start="{{ start|subtract:16 }}"><i class="fa fa-caret-left fa-lg"></i> <abbr title="Previous">Prev</abbr></a>
+        <a class="btn btn-default button__prev" href="" data-start="{{ start|subtract:rows }}"><i class="fa fa-caret-left fa-lg"></i> <abbr title="Previous">Prev</abbr></a>
       </li>
     {% endif %}
     
@@ -54,7 +54,7 @@
         <li class="pag-buttons__list-item">&#8230;</li>
         
         <li class="pag-buttons__list-item">
-          <a class="btn btn-default" href="" data-start="{{ start|subtract:16 }}">
+          <a class="btn btn-default" href="" data-start="{{ start|subtract:rows }}">
             {{ start|current_page:rows|subtract:1 }}
           </a>
         </li>
@@ -64,7 +64,7 @@
           </a>
         </li>
         <li class="pag-buttons__list-item">
-          <a class="btn btn-default" href="" data-start="{{ start|add:16 }}">
+          <a class="btn btn-default" href="" data-start="{{ start|add:rows }}">
             {{ start|current_page:rows|add:1 }}
           </a>
         </li>
@@ -78,7 +78,7 @@
         
     <!-- next button -->
     {% if start|add:rows < numFound %}
-      <li class="pag-buttons__list-item"><a class="btn btn-default button__next" href="" data-start="{{ start|add:16 }}">Next <i class="fa fa-caret-right fa-lg"></i></a></li>
+      <li class="pag-buttons__list-item"><a class="btn btn-default button__next" href="" data-start="{{ start|add:rows }}">Next <i class="fa fa-caret-right fa-lg"></i></a></li>
     {% endif %}
     
     

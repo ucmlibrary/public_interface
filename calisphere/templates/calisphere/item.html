@@ -19,7 +19,7 @@
 <div id="js-objectViewport">
 {% if item.harvest_type == 'hosted' and item.structMap %}
   {% include 'calisphere/objectViewer/complex-object.html' %}
-{% elif item.harvest_type == 'hosted' and item.type_ss.0|lower == 'image' or item.structmap_url and item.reference_image_md5 %}
+{% elif item.harvest_type == 'hosted' and item.contentFile.format == 'image' %}
   {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
 {% else %}
   {% include 'calisphere/objectViewer/object-tiles-and-overlays.html' %}
@@ -30,12 +30,12 @@
 
 <h3 class="meta-heading">
   {% if item.harvest_type == 'harvested' %}
-    Item Information. 
+    Item Information.
     <a class="meta-heading__preview-link" href="{{ item.url_item }}{% if item.oac %}&layout=metadata{% endif %}">
-      View source record on 
+      View source record on
       {% if item.oac == True %}
         the Online Archive of California.
-      {% else%} 
+      {% else %}
         contributor's website.
       {% endif %}
     </a>

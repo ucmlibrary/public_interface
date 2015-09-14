@@ -2,22 +2,34 @@
 
 {% block content %}
 
-<h1>Contact Calisphere</h1>
-<h2>Thanks for your feedback</h2>
 <div class="static">
 
   <div class="col-sm-8 static__main">
 
+<h1>Contact Calisphere</h1>
+<h2>Thanks for your feedback</h2>
     <a href="{{ request.GET.referer }}">Return to previous page</a>
 
   </div>
 
   <div class="col-sm-4 static__sidebar">
 
-        <h3 class="static__sidebar-heading">Don't want to email?</h3>
-        <p><a href="http://www.calisphere.universityofcalifornia.edu/contact-us-faq.html">Calisphere classic contact form</a></p>
-        <div>Helpline (510) 987-0555<br/>
-         Mon - Fri, 8 AM - 5 PM</div>
+        <h3 class="static__sidebar-heading">How can we help you?</h3>
+        <p>Our <a href="/help/" data-pjax="js-pageContent">help page</a> contains search tips and answers to many frequently asked questions, such as how to find more information about an item or collection. If you're wondering about permissions and what you can do with items you find on Calisphere, a good starting point is the <a href="/terms/" data-pjax="js-pageContent">terms of use</a>.</p>
+        <br>
+        <h3 class="static__sidebar-heading">Contact information</h3>
+        <p>Calisphere is a project of the University of California Libraries, developed and maintained by the <a href="http://cdlib.org/">California Digital Library</a>.</p>
+        <div>California Digital Library (CDL)<br>
+        Office of the President, University of California<br>
+        415 20th Street, 4th Floor<br>
+        Oakland, CA 94612-2901<br>
+        <br>
+CDL Helpline: (510) 987-0555<br>
+CDL Administration: (510) 987-0425<br>
+CDL Fax: (510) 893-5212</div>
 
   </div>
+
+</div>
+
 {% endblock %}

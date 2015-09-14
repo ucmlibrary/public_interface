@@ -10,6 +10,7 @@
     {% block styles %}
     {% if devMode %}
       <link rel="stylesheet" href="{% static "bower_components/mediaelement/build/mediaelementplayer.css" %}" />
+      <link rel="stylesheet" href="{% static "bower_components/nprogress/nprogress.css" %}" />
       <link rel="stylesheet" href="{% static "styles/main.css" %}" />
     {% else %}
       <link rel="stylesheet" href="{% static "styles/vendor.css" %}" />
@@ -21,6 +22,10 @@
     {% block inline-scripts %}
       <script></script>
     {% endblock %}
+    <script>
+      //no-jquery class is now effectively a no-js class
+      document.getElementsByTagName('html')[0].classList.remove('no-jquery');
+    </script>
     {% include "calisphere/ga_site_code.html" %}
   </head>
   <body>
@@ -100,7 +105,6 @@
         </div>
 
       </header>
-      <div id="loading" style="position: absolute; left: 0; right: 0; text-align: center; display: none;"><img src="{% static "images/orange-spinner.gif" %}" style="width: 35px; position: relative; top: -5px;"></div>
       <div id="js-pageContent">{% block content %}{% endblock %}</div>
       {% include "calisphere/footer.html" %}
     </div>
