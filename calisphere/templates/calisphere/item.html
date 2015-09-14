@@ -14,7 +14,7 @@
    > {{ item.title.0 }}
 </p>
 
-<h2 class="obj__page-heading">{{ item.type.0|title }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:12 }}</strong></h2>
+<h1>{{ item.type.0|title }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:12 }}</strong></h1>
 
 <div id="js-objectViewport">
 {% if item.harvest_type == 'hosted' and item.structMap %}
@@ -30,12 +30,12 @@
 
 <h3 class="meta-heading">
   {% if item.harvest_type == 'harvested' %}
-    Item Information. 
+    Item Information.
     <a class="meta-heading__preview-link" href="{{ item.url_item }}{% if item.oac %}&layout=metadata{% endif %}">
-      View source record on 
+      View source record on
       {% if item.oac == True %}
         the Online Archive of California.
-      {% else%} 
+      {% else %}
         contributor's website.
       {% endif %}
     </a>

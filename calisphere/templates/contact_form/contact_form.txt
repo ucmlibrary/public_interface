@@ -1,4 +1,9 @@
-From: {{ name }} {{ email }}
-Message: {{ reason }}
 {{ body }}
-{{ referer }}
+
+Name: {{ name }}
+
+Email: {{ email }}
+
+Email2: {{ email2 }}
+
+URL_Refer: {{ referer }}

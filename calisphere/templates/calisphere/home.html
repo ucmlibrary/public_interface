@@ -41,8 +41,8 @@
             </div>
           </div>
 
-          <div class="col-xs-12 col-sm-4 global-header__search--homepage js-global-header__search--homepage">
-          	<form class="global-header__search-form--homepage" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
+          <div class="col-xs-12 col-sm-4 global-header__search js-global-header__search">
+          	<form class="global-header__search-form" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
               <label for="global-search__field" class="global-search__label">Search the collections</label>
               <div class="input-group">
                 <input id="global-search__field" form="js-searchForm" name="q" value="{{ q }}" type="search" class="form-control global-search__field js-globalSearch">
@@ -70,6 +70,9 @@
               </li>
               <li class="global-header__nav-list-item">
                 <a class="global-header__nav-link" href="{% url 'calisphere:help' %}">Help</a>
+              </li>
+              <li class="global-header__nav-list-item">
+                <a class="global-header__nav-link" href="{% url 'calisphere:termsOfUse' %}">Terms of Use</a>
               </li>
             </ul>
           </div>
@@ -117,7 +120,7 @@
 		        <div class="row home__img-main-row">
 
 			        <div class="col-xs-12 col-sm-8">
-				        <p class="home__{{ lock_up.img2.class }}-text">Calisphere is a gateway to digital collections from California's great libraries, archives, and museums. Discover over 375,000 images, texts, and recordings&#8212;and counting.</p>
+				        <p class="home__{{ lock_up.img2.class }}-text">Calisphere is a gateway to digital collections from California's great libraries, archives, and museums. Discover over 400,000 images, texts, and recordings&#8212;and counting.</p>
 			        </div>
 
 			        <div class="col-xs-8">

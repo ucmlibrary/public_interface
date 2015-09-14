@@ -3,10 +3,12 @@
 
 <div class="related-coll" id="related-coll">
   <h3 class="related-coll__title">
-    {% if q or rq or referral %}
+    {% if num_related_collections == 1 %}
+      Go to collection:
+    {% elif q or rq or referral %}
       {{ num_related_collections }} collection{{ num_related_collections|pluralize }} containing search results
     {% else %}
-      {{ num_related_collections }} collection{{ num_related_collections|pluralize }} on Calisphere
+      {{ num_related_collections }} collection{{ num_related_collections|pluralize }} with similar items
     {% endif %}
   </h3>
   {% for related_collection in related_collections %}

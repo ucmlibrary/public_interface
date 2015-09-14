@@ -41,11 +41,11 @@
 }
 
 .thumbnail__overlay-icon {
-	@include thumbnail__overlay-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+	@include thumbnail__overlay-icon(); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
 }
 
 .thumbnail__tile-icon {
-	@include thumbnail__tile-icon(); // for custom icon sizes instead of default sizes at xs, sm, and md breakpoints, add pixel number in parentheses, like: (20px, 40px, 60px)
+	@include thumbnail__tile-icon(); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
 }
 
 .thumbnail__caption {

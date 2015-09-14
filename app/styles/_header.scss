@@ -145,7 +145,7 @@ html.no-jquery .global-header__nav {
   }
 
   @include bp(md-screen) {
-    margin: 2px (-$layout-container-margin-md) 0 30px;
+    margin: 2px (-$layout-container-margin-md) 0 0;
   }
 
 }
@@ -173,7 +173,6 @@ html.no-flexbox .global-header__nav-list-item {
   color: #fff;
   border-bottom: 1px solid #fff;
   background: $design-dark-gray-color;
-  font-size: 1.1em;
 
   &:hover {
     text-decoration: none;
@@ -189,8 +188,8 @@ html.no-flexbox .global-header__nav-list-item {
   }
 
   @include bp(md-screen) {
-    margin: 0 0.7em;
-    font-size: 1.1em;
+    margin: 0 0.5em;
+    font-size: 1.2em;
   }
 
 }

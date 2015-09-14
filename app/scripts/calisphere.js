@@ -11,7 +11,7 @@ function sessionStorageWarning() {
         $('<div/>', {
           'class': 'alert alert-warning alert-dismissible',
           'role': 'alert'
-        }).text('Calisphere beta has known issues when using private browsing mode')
+        }).text('Some features on the Calisphere beta site do not yet work in private browsing mode. For an optimal experience, please disable private browsing while on this site.')
         .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
       )
     );
