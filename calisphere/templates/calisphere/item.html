@@ -14,7 +14,7 @@
    > {{ item.title.0 }}
 </p>
 
-<h1>{{ item.type.0|title }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:12 }}</strong></h2>
+<h1>{{ item.type.0|title }}{% if item.structMap %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:12 }}</strong></h1>
 
 <div id="js-objectViewport">
 {% if item.harvest_type == 'hosted' and item.structMap %}
