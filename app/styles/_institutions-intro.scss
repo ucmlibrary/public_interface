@@ -5,11 +5,13 @@
 
   @include bp(sm-screen) {
     padding-right: $layout-component-margin / 2;
-    font-size: 1.2em;
   }
 
 }
 
+// This column not currently used:
+
+/*
 .institutions-intro__description {
   margin: 0 0 $layout-component-margin 0;
   
@@ -18,6 +20,7 @@
   }
 
 }
+*/
 
 .institutions-intro__text {
   margin: 0;

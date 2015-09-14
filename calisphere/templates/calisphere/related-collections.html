@@ -31,8 +31,8 @@
                 <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-video-camera"></div>
                 {% elif item.type_ss.0|lower == "sound"%}
                 <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-volume-up"></div>
-                {% elif item.type_ss.0|lower == "text"%}
-                <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-file-text-o"></div>
+                {# elif item.type_ss.0|lower == "text"#}
+                <!-- <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-file-text-o"></div> -->
                 {% elif item.type_ss.0|lower == "dataset" %}
                 <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-bar-chart"></div>
                 {% endif %}
