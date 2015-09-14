@@ -16,3 +16,53 @@
 .static__sidebar-heading {
 	margin: 0 0 $layout-component-margin 0;
 }
+
+// ***** Outreach Page ***** //
+
+// couldn't get flexbox to work; will try again sometime
+
+.static__banner-well-heading {
+	clear: left;
+}
+
+.static__banner-well-container {
+
+	@include bp(md-screen) {
+		// display: flex;
+		// align-items: flex-start;
+	}
+
+}
+
+.static__embeddable-banner {
+	float: left;
+	display: block;
+
+	@include bp(md-screen) {
+		margin: 0 0 20px 0;
+	}
+
+	// flex: 0 0 auto;
+}
+
+.static__well {
+	@extend .well; // Bootstrap class
+	float: left;
+	// flex: 1 1 main-size;
+	// width: auto;
+	margin: $layout-component-margin 0 $layout-component-margin 0;
+
+	@include bp(md-screen) {
+		width: 73%;
+		margin: 0 0 0 $layout-component-margin;
+	}
+
+}
+
+.static__well--small {
+	@extend .static__well;
+	@include bp(md-screen) {
+		width: 55%;
+	}
+
+}
