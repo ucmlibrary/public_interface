@@ -4,6 +4,11 @@
   margin: $layout-component-margin 0 0 0;
 }
 
+#titlesearch__field { // border-radius from bootstrap's form-control class getting removed somehow from typeahead component, so add border-radius back in:
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
 .titlesearch__recommended {
   @extend .clearfix;
   margin: $layout-component-margin 0 0 0;
