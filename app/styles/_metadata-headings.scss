@@ -30,19 +30,3 @@
 .meta-heading__preview-link {
   @extend .icon__external-link;
 }
-
-.meta-heading__complex-item {
-  margin: 0;
-  padding: $layout-component-margin;
-  font-size: 1.4em;
-  background: $design-light-gray-color;
-
-  @include bp(sm-screen) {
-    padding: $layout-component-margin;
-  }
-
-  @include bp(md-screen) {
-    margin: 0 $object-leftright-margin;
-  }
-
-}
