@@ -53,7 +53,7 @@
 
 // Set the attributes for a non-image thumbnail
 
-@mixin thumbview__no-image($thumb-border: $design-primary-color) {
+@mixin thumbnail__no-image($thumb-border: $design-primary-color) {
   width: 100%; // expand the 1px .png to its container
   height: auto;
   border: 1px solid $thumb-border;
