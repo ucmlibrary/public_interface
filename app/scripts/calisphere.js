@@ -121,6 +121,9 @@ var setupObjects = function() {
       viewer = undefined;
       $('#obj__osd').empty();
     }
+    if ($('.openseadragon-container').length > 0) {
+      $('.openseadragon-container').remove();
+    }
     viewer = new OpenSeadragon({
       id: 'obj__osd',
       tileSources: [tileSources],
