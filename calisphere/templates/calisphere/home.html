@@ -35,13 +35,13 @@
                 <a class="global-header__logo-link" href="{% url 'calisphere:home' %}">
                 </a>
               </div>
-              <div class="col-xs-2 col-sm-12 global-header__search-icon js-global-header__search-icon">
+              <div class="col-xs-2 col-sm-12 global-header__search-icon--homepage">
                 <i class="fa fa-search"></i>
               </div>
             </div>
           </div>
 
-          <div class="col-xs-12 col-sm-4 global-header__search--homepage js-global-header__search--homepage">
+          <div class="col-xs-12 col-sm-4 global-header__search">
           	<form class="global-header__search-form--homepage" role="search" id="js-searchForm" action="{% url 'calisphere:search' %}" method="get">
               <label for="global-search__field" class="global-search__label">Search the collections</label>
               <div class="input-group">
@@ -240,9 +240,6 @@
               <li class="global-footer__nav-list-item">
                 <a class="global-footer__nav-link" href="{% url 'calisphere:privacyStatement' %}">Privacy Statement</a>
               </li>
-              <!-- <li class="global-footer__nav-list-item">
-                <a class="global-footer__nav-link" href="{% url 'calisphere:siteMap' %}">Site Map</a>
-              </li> -->
             </ul>
           </div>
 

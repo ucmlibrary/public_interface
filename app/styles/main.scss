@@ -142,21 +142,21 @@ strong {
   content: "\f071";
 }
 
-.thumbview__link .tooltip {
+.thumbnail__link .tooltip {
   width: 100%;
 }
 
-.thumbview__link .tooltip.top { // center tooltip and hide from pointer
+.thumbnail__link .tooltip.top { // center tooltip and hide from pointer
   margin: 55% 0 0 0;
   padding: 0 $layout-component-margin;
   pointer-events: none;
 }
 
-.thumbview__link .tooltip-arrow {
+.thumbnail__link .tooltip-arrow {
   display: none;
 }
 
-.thumbview__link .tooltip-inner {
+.thumbnail__link .tooltip-inner {
   text-align: left;
 }
 

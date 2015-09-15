@@ -60,6 +60,11 @@ html.no-svg .global-header__logo {
 
 }
 
+.global-header__search-icon--homepage { // hide on homepage
+  @extend .global-header__search-icon;
+  display: none;
+}
+
 html.no-jquery .global-header__search-icon {
   display: none;
 }
@@ -76,10 +81,6 @@ html.no-jquery .global-header__search-icon {
     display: block;
   }
 
-}
-
-.global-header__search--homepage {
-  display: block;
 }
 
 html.no-jquery .global-header__search {
@@ -105,14 +106,9 @@ html.no-jquery .global-header__search {
 
 }
 
-.global-header__search-form--homepage { // hide on homepage for tablet and desktop screens
+.global-header__search-form--homepage { // hide on homepage
   @extend .global-header__search-form;
-  display: block;
-
-  @include bp(sm-screen) {
-    display: none;
-  }
-
+  display: none;
 }
 
 .global-header__nav {
