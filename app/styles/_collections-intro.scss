@@ -17,7 +17,10 @@
 }
 
 .collect-intro__buttons {
-  margin: 0 0 $layout-component-margin 0;
+
+  &:nth-child(1), &:nth-child(2) {
+    margin: 0 0 $layout-container-margin-md 0;
+  }
 
   &:nth-child(odd) {
     padding: 0 $layout-container-margin-xs 0 0;
@@ -28,6 +31,11 @@
   }
 
   @include bp(sm-screen) {
+    margin: $layout-component-margin 0;
+
+    &:nth-child(1), &:nth-child(2) {
+      margin: $layout-component-margin 0
+    }
 
     &:nth-child(2) {
       padding: 0 $layout-container-margin-xs;
