@@ -16,35 +16,36 @@
 
 }
 
-.collect-intro__buttons {
+.collect-intro__button-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: $layout-component-margin (-$layout-component-margin / 2) 0 (-$layout-component-margin / 2);
 
-  &:nth-child(1), &:nth-child(2) {
-    margin: 0 0 $layout-container-margin-md 0;
+  @include bp(md-screen) {
+    flex-flow: row nowrap;
   }
 
-  &:nth-child(odd) {
-    padding: 0 $layout-container-margin-xs 0 0;
-  }
+}
 
-  &:nth-child(even) {
-    padding: 0 0 0 $layout-container-margin-xs;
-  }
+.collect-intro__button {
+  flex: 1 0 auto;
+  width: 40%; // any value more than 25%, less than 50%
+  margin: 0 ($layout-component-margin / 2) $layout-component-margin ($layout-component-margin / 2);
 
   @include bp(sm-screen) {
-    margin: $layout-component-margin 0;
-
-    &:nth-child(1), &:nth-child(2) {
-      margin: $layout-component-margin 0
-    }
-
-    &:nth-child(2) {
-      padding: 0 $layout-container-margin-xs;
-    }
-
-    &:nth-child(3) {
-      padding: 0 $layout-container-margin-xs;
-    }
-
+    width: auto;
+    margin: 0 ($layout-component-margin / 2);
   }
 
+  @include bp(md-screen) {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
+}
+
+html.no-flexbox .collect-intro__button {
+  margin: 0 0 ($layout-component-margin / 2) ($layout-component-margin / 2);
+  text-align: left;
 }
