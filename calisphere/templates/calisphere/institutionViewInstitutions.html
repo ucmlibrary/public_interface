@@ -41,11 +41,11 @@
 
   <!-- Begin Institution List Component -->
 
-  <div class="static">
+  <div class="inst-contrib">
 
-    <ul class="list-unstyled">
+    <ul class="inst-contrib__list">
       {% for institution in institutions %}
-          <li><a href="{% url 'calisphere:repositoryView' institution.id 'collections' %}" data-pjax="js-pageContent">{{ institution.name }}</a></li>
+          <li class="inst-contrib__list-item"><a href="{% url 'calisphere:repositoryView' institution.id 'collections' %}" data-pjax="js-pageContent">{{ institution.name }}</a></li>
       {% endfor %}
     </ul>
 

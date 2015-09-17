@@ -4,7 +4,6 @@
   
   @include bp(sm-screen) {
     padding-right: $layout-component-margin / 2;
-    font-size: 1.2em;
   }
 
 }
@@ -17,22 +16,36 @@
 
 }
 
-.collect-intro__buttons {
-  margin: 0 0 $layout-component-margin 0;
-  padding: 0 ($layout-component-margin / 1.5);
+.collect-intro__button-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: $layout-component-margin (-$layout-component-margin / 2) 0 (-$layout-component-margin / 2);
 
-  @include bp(sm-screen) {
-    margin: 0;
-    padding: $layout-component-margin ($layout-component-margin / 1.5);
-
-    &:first-child {
-      padding-left: 0;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
-
+  @include bp(md-screen) {
+    flex-flow: row nowrap;
   }
 
+}
+
+.collect-intro__button {
+  flex: 1 0 auto;
+  width: 40%; // any value more than 25%, less than 50%
+  margin: 0 ($layout-component-margin / 2) $layout-component-margin ($layout-component-margin / 2);
+
+  @include bp(sm-screen) {
+    width: auto;
+    margin: 0 ($layout-component-margin / 2);
+  }
+
+  @include bp(md-screen) {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
+}
+
+html.no-flexbox .collect-intro__button {
+  margin: 0 0 ($layout-component-margin / 2) ($layout-component-margin / 2);
+  text-align: left;
 }

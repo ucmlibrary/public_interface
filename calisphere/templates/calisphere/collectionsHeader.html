@@ -4,28 +4,20 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-6 collect-intro__overview">
-      <p>Collections are groups of related items. Collections bring context to images, documents, videos, and audio recordings.</p>
+      <p>All of the items on Calisphere are organized into collections. Collections bring context to images, documents, videos, and audio recordings. Some collections represent a particular topic or format, some have items created by the same person, and some showcase an institution’s special project or initiative. Use the tabs below to explore the hundreds of collections on Calisphere.</p>
     </div>
     <div class="col-xs-12 col-sm-6 collect-intro__description">
-      <p>All of the items on Calisphere are organized into collections. Some collections represent a particular topic or format, some have items created by the same person, and some showcase an institution’s special program or initiative. Use the tabs below to explore the hundreds of collections on Calisphere.</p>
+      
     </div>
   </div>
 
   <!-- Dynamically add class 'button__secondary' to <a> elements below for selected state -->
 
-  <div class="row">
-    <div class="col-xs-6 col-sm-3 collect-intro__buttons">
-      <a class="btn btn-default btn-block {% if random %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsDirectory' %}" data-pjax="js-pageContent">Random Explore</a>
-    </div>
-    <div class="col-xs-6 col-sm-3 collect-intro__buttons">
-      <a class="btn btn-default btn-block {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsAZ' 'num' %}" data-pjax="js-pageContent">A - Z</a>
-    </div>
-    <div class="col-xs-6 col-sm-3 collect-intro__buttons">
-      <a class="btn btn-default btn-block {% if collection_q %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsTitleSearch' %}" data-pjax="js-pageContent">Title Search</a>
-    </div>
-    <div class="col-xs-6 col-sm-3 collect-intro__buttons">
-      <a class="btn btn-default btn-block {% if themedCollections %}button__secondary{% endif %}" href="{% url 'calisphere:themedCollections' %}" data-pjax="js-pageContent">Themed Collections</a>
-    </div>
+  <div class="collect-intro__button-container">
+    <a class="btn btn-default collect-intro__button {% if random %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsDirectory' %}" data-pjax="js-pageContent">Random Explore</a>
+    <a class="btn btn-default collect-intro__button {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsAZ' 'num' %}" data-pjax="js-pageContent">A - Z</a>
+    <a class="btn btn-default collect-intro__button {% if collection_q %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsTitleSearch' %}" data-pjax="js-pageContent">Title Search</a>
+    <a class="btn btn-default collect-intro__button {% if themedCollections %}button__secondary{% endif %}" href="{% url 'calisphere:themedCollections' %}" data-pjax="js-pageContent">Themed Collections</a>
   </div>
 
 </div>
