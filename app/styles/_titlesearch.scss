@@ -1,7 +1,11 @@
 // ##### Collections Title Search Component ##### //
 
 .titlesearch {
-  margin: 0 0 10em 0;
+
+  @include bp(sm-screen) {
+    margin: 0 0 10em 0;
+  }
+  
 }
 
 .titlesearch__form {

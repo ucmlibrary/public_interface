@@ -4,7 +4,6 @@
   
   @include bp(sm-screen) {
     padding-right: $layout-component-margin / 2;
-    font-size: 1.2em;
   }
 
 }
@@ -18,19 +17,32 @@
 }
 
 .collect-intro__buttons {
-  margin: 0 0 $layout-component-margin 0;
-  padding: 0 ($layout-component-margin / 1.5);
+
+  &:nth-child(1), &:nth-child(2) {
+    margin: 0 0 $layout-container-margin-md 0;
+  }
+
+  &:nth-child(odd) {
+    padding: 0 $layout-container-margin-xs 0 0;
+  }
+
+  &:nth-child(even) {
+    padding: 0 0 0 $layout-container-margin-xs;
+  }
 
   @include bp(sm-screen) {
-    margin: 0;
-    padding: $layout-component-margin ($layout-component-margin / 1.5);
+    margin: $layout-component-margin 0;
 
-    &:first-child {
-      padding-left: 0;
+    &:nth-child(1), &:nth-child(2) {
+      margin: $layout-component-margin 0
     }
 
-    &:last-child {
-      padding-right: 0;
+    &:nth-child(2) {
+      padding: 0 $layout-container-margin-xs;
+    }
+
+    &:nth-child(3) {
+      padding: 0 $layout-container-margin-xs;
     }
 
   }
