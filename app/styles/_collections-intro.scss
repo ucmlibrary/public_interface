@@ -8,12 +8,31 @@
 
 }
 
-.collect-intro__description {
-  
-  @include bp(sm-screen) {
-    padding-left: $layout-component-margin / 2;
+.collect-intro__sidebar {
+  padding: $layout-container-margin-xs;
+  border: 1px solid $design-dark-gray-color;
+  overflow: hidden;
+
+  p {
+    margin: 1em 0 0 0;
   }
 
+  @include bp(sm-screen) {
+    margin-left: $layout-component-margin / 2;
+    padding: $layout-container-margin-md;
+  }
+
+}
+
+.collect-intro__sidebar-img {
+  width: 100%;
+  height: auto;
+  padding: 0 $layout-container-margin-md 0 0;
+}
+
+.collect-intro__sidebar-heading {
+  margin: 0 0 1em 0;
+  font-size: 1.4em;
 }
 
 .collect-intro__button-container {
