@@ -32,6 +32,13 @@ var GlobalSearchForm = Backbone.View.extend({
     //when the model changes, 
     this.listenTo(this.model, 'change:q', this.render);
   }, 
+
+  closeMenu: function() {
+    $('.js-global-header__search').addClass('global-header__search');
+    $('.js-global-header__search').removeClass('global-header__search--selected');
+    $('.js-global-header__mobile-links').addClass('global-header__mobile-links');
+    $('.js-global-header__mobile-links').removeClass('global-header__mobile-links--selected');
+  },
   
   render: function() {
     if(this.model.has('q')) {
