@@ -18,7 +18,7 @@
   }
 
   @include bp(sm-screen) {
-    margin-left: $layout-component-margin / 2;
+    margin: 0 0 $layout-component-margin $layout-component-margin / 2;
     padding: $layout-container-margin-md;
   }
 
