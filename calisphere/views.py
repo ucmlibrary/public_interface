@@ -469,7 +469,7 @@ def search(request):
             'form_action': reverse('calisphere:search')
         })
 
-    return render (request, 'calisphere/home.html', {'q': ''})
+    return redirect('calisphere:home')
 
 def itemViewCarousel(request):
     item_id = request.GET.get('itemId')
