@@ -121,7 +121,8 @@ strong {
 // Bootstrap Overrides
 
 abbr[title], abbr[data-original-title] {
-  border: none;
+  border: none; // for older browsers
+  text-decoration: none; // for newer browsers
   cursor: auto;
 }
 
