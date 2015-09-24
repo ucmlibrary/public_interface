@@ -204,6 +204,8 @@ $(document).ready(function() {
     });
 
     $(document).on('pjax:end', '#js-pageContent', function() {
+      globalSearchForm.closeMenu();
+
       //if we've gotten to a page without search context, clear the query manager
       if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
         qm.clear({silent: true});

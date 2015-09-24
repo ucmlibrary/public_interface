@@ -9,12 +9,20 @@
 }
 
 .static__sidebar {
-	padding: $layout-component-margin;
+	padding: $layout-component-margin $layout-component-margin 0 $layout-component-margin;
 	border: 1px solid $design-dark-gray-color;
 }
 
 .static__sidebar-heading {
 	margin: 0 0 $layout-component-margin 0;
+	font-size: 1.4em;
+}
+
+.static__sidebar-img {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 1em 0;
 }
 
 // ***** Outreach Page ***** //
