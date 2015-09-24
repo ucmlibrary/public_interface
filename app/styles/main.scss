@@ -74,10 +74,6 @@ a:focus {
   text-decoration: underline;
 }
 
-abbr[title] {
-  border: none;
-}
-
 strong {
   -webkit-font-smoothing: antialiased; // small fonts in Chrome on Mac OS don't appear bold without this
 }
@@ -123,6 +119,13 @@ strong {
 }
 
 // Bootstrap Overrides
+
+abbr {
+  border: none !important; // for older browsers
+  text-decoration: none !important; // for newer browsers
+  cursor: auto !important;
+}
+
 .tooltip-inner {
   text-align: left;
 }

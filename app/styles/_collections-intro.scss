@@ -18,7 +18,7 @@
   }
 
   @include bp(sm-screen) {
-    margin-left: $layout-component-margin / 2;
+    margin: 0 0 $layout-component-margin $layout-component-margin / 2;
     padding: $layout-container-margin-md;
   }
 
@@ -41,7 +41,7 @@
   justify-content: space-between;
   margin: $layout-component-margin (-$layout-component-margin / 2) 0 (-$layout-component-margin / 2);
 
-  @include bp(md-screen) {
+  @include bp(sm-screen) {
     flex-flow: row nowrap;
   }
 
@@ -53,11 +53,6 @@
   margin: 0 ($layout-component-margin / 2) $layout-component-margin ($layout-component-margin / 2);
 
   @include bp(sm-screen) {
-    width: auto;
-    margin: 0 ($layout-component-margin / 2);
-  }
-
-  @include bp(md-screen) {
     flex: 0 1 auto;
     width: 100%;
   }
