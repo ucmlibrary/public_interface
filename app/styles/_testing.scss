@@ -200,11 +200,58 @@ $bgreen: 1px solid green;
   @include test__tile-icon(); // for custom icon sizes instead of defaults at xs, sm, md, and lg screen sizes, add comma separated number/unit value in parentheses, like: (20vw, 10vw, 8vw, 80px)
 }
 
+// Testing custom aspect ratio box for home page:
 
+// .test__aspect [class^="col-"] {
+// 	border: $bblue;
+// }
 
+$aspect-border-size: 1px;
 
+.test__aspect-container1 {
+	display: block;
+	position: relative;
+	border: $aspect-border-size solid blue;
 
+	&:before { // sets container height equal to width
+	  display: block;
+	  content: "";
+	  width: 100%;
+	  margin-top: 10px - $aspect-border-size;
+	  padding-top: 50%;
+	}
 
+	@include bp(md-screen) {
+  	margin: 0 $layout-container-margin-md $layout-container-margin-md 0;
+  }
+
+}
+
+.text__aspect-text1 {
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	width: 90%;
+	text-align: center;
+	font-size: 1.3em;
+
+	&:after {
+		display: inline-block; // removes the :hover underline (except in IE)
+		content: "\f105"; // fa-angle-right Font Awesome icon
+    font-family: FontAwesome;
+    margin: 0 0 0 0.5em;
+	}
+
+}
+
+.test__aspect-container1 {
+
+	&:hover .text__aspect-text1 {
+		text-decoration: underline;
+	}
+	
+}
 
 
 

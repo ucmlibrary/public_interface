@@ -8,6 +8,14 @@
   cursor: move;
 }
 
+.obj__heading {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // text-overflow: " \2026"; // css hex value of ellipsis (&hellip;) only works in firefox
+  padding-right: 20px;
+}
+
 .obj__osd-infobanner {
   position: absolute;
   top: 0;
