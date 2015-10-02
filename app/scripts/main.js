@@ -224,6 +224,17 @@ $('.carousel-complex__item-container').slick({
   ]
 });
 
+// ***** jQuery.dotdotdot ***** //
+
+$(document).ready(function() {
+  $('#the-wrapper').dotdotdot({
+    ellipsis: '... ',
+    wrap: 'word',
+    watch: 'window',
+    height: '2em'
+  });
+});
+
 // Alternative JavaScript method (instead of CSS method) for disabling popover via breakpoint:
 // if (Modernizr.mq('only screen and (max-width: 800px)')) {
 //  $('.popover__link').popover('destroy');
