@@ -230,7 +230,10 @@ $(document).ready(function() {
   $('.obj__heading').dotdotdot({
     ellipsis: ' ...',
     watch: 'window',
-    height: 50
+    height: 50,
+    lastCharacter: { // remove these characters from the end of the truncated text:
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
   });
 });
 
