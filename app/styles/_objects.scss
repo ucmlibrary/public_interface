@@ -9,11 +9,7 @@
 }
 
 .obj__heading {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  // text-overflow: " \2026"; // css hex value of ellipsis (&hellip;) only works in firefox
-  padding-right: 20px;
+  // used for jQuery.dotdotdot
 }
 
 .obj__osd-infobanner {

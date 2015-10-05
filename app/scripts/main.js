@@ -227,11 +227,10 @@ $('.carousel-complex__item-container').slick({
 // ***** jQuery.dotdotdot ***** //
 
 $(document).ready(function() {
-  $('#the-wrapper').dotdotdot({
-    ellipsis: '... ',
-    wrap: 'word',
+  $('.obj__heading').dotdotdot({
+    ellipsis: ' ...',
     watch: 'window',
-    height: '2em'
+    height: 50
   });
 });
 
