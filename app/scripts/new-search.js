@@ -1,4 +1,4 @@
-/*global Backbone, _, DESKTOP, ContactOwnerForm, OpenSeadragon, tileSources */
+/*global Backbone, _, ContactOwnerForm, OpenSeadragon, tileSources */
 /*exported GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel */
 
 'use strict';
@@ -220,9 +220,14 @@ var FacetForm = Backbone.View.extend({
     this.model.clear({silent: true});
   },
 
+  changeWidth: function(window_width) {
+    if (window_width > 900) { this.desktop = true; }
+    else { this.desktop = false; }
+  },
+
   render: function() {
     if(!_.isEmpty(this.model.changed) && !_.has(this.model.changed, 'q')) {
-      if(DESKTOP) {
+      if(this.desktop) {
         this.facetSearch();
       }
       else if(_.has(this.model.changed, 'type_ss') ||
@@ -256,43 +261,12 @@ var FacetForm = Backbone.View.extend({
 
 var CarouselContext = Backbone.View.extend({
   el: $('#js-pageContent'),
-  carouselRows: 12,
+  carouselRows: 16,
   carouselConfig: {
-    infinite: false,
+    infinite: true,
     speed: 300,
-    slidesToShow: 10,
-    slidesToScroll: 6,
     variableWidth: true,
-    lazyLoad: 'ondemand',
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          infinite: true,
-          // slidesToShow: 8,
-          slidesToScroll: 8,
-          variableWidth: true
-        }
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          infinite: true,
-          // slidesToShow: 6,
-          slidesToScroll: 6,
-          variableWidth: true
-        }
-      },
-      {
-        breakpoint: 650,
-        settings: {
-          infinite: true,
-          // slidesToShow: 4,
-          slidesToScroll: 4,
-          variableWidth: true
-        }
-      }
-    ]
+    lazyLoad: 'ondemand'
   },
 
   events: {
@@ -326,26 +300,44 @@ var CarouselContext = Backbone.View.extend({
       traditional: true
     });
   },
+
   loadSlides: function(e, slick, currentSlide, nextSlide) {
     var numFound = $('#js-carousel').data('numfound');
     var numLoaded = $('.carousel').slick('getSlick').slideCount;
-    // var slidesPerPage = $('.carousel').slick('getSlick').options.slidesToScroll;
+    var slidesToScroll = slick.options.slidesToScroll;
+    var data_params;
 
-    if (numLoaded < numFound && nextSlide > currentSlide) {
+    //PREVIOUS BUTTON PRESSED
+    if ((currentSlide > nextSlide && (nextSlide !== 0 || currentSlide === slidesToScroll)) || (currentSlide === 0 && nextSlide > slick.slideCount - slidesToScroll && nextSlide < slick.slideCount)) {
+      if (numLoaded < numFound && $('[data-item_number=0]').length === 0) {
+        if (parseInt(this.carouselStart) - parseInt(this.carouselRows) > 0) {
+          this.carouselStart = parseInt(this.carouselStart) - parseInt(this.carouselRows);
+          data_params = this.toJSON();
+        } else {
+          data_params = this.toJSON();
+          data_params.rows = this.carouselStart;
+          this.carouselStart = data_params.start = 0;
+        }
+        delete data_params.itemNumber;
 
-      this.carouselStart = parseInt(this.carouselStart) + parseInt(this.carouselRows);
-
-      // function(data, status, jqXHR)
-      $.ajax({data: this.toJSON(), traditional: true, url: '/carousel/', success: function(data) {
-          $('.carousel').slick('slickAdd', data);
-      }});
+        $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(data) {
+            $('.carousel').slick('slickAdd', data, true);
+        }});
+      }
     }
+    //NEXT BUTTON PRESSED
+    else {
+      if (numLoaded < numFound && $('[data-item_number=' + String(numFound-1) + ']').length === 0) {
+        this.carouselEnd = parseInt(this.carouselEnd) + parseInt(this.carouselRows);
+        data_params = this.toJSON();
+        data_params.start = this.carouselEnd;
+        delete data_params.itemNumber;
 
-    // if (nextSlide+slidesPerPage > numFound){ var slideRange = (nextSlide+slidesPerPage) - numFound}
-    // else { var slideRange = nextSlide+slidesPerPage }
-    //
-    // $('.carousel__items-number').text('Displaying ' + (parseInt(nextSlide)+1) + ' - ' + slideRange + ' of ' + numFound);
-
+        $.ajax({data: data_params, traditional: true, url: '/carousel/', success: function(data) {
+            $('.carousel').slick('slickAdd', data);
+        }});
+      }
+    }
   },
   goToItemPage: function(e) {
     if ($(e.currentTarget).data('item_number') !== undefined) {
@@ -401,9 +393,34 @@ var CarouselContext = Backbone.View.extend({
     return context;
   },
 
+  changeWidth: function() {
+    var visibleCarouselWidth = $('#js-carousel .slick-list').prop('offsetWidth');
+    var currentSlide = $('[data-slick-index=' + $('.carousel').slick('slickCurrentSlide') + ']');
+    var displayedCarouselPx = currentSlide.outerWidth() + parseInt(currentSlide.css('margin-right'));
+    var numPartialThumbs = 1, numFullThumbs = 0;
+
+    while (displayedCarouselPx < visibleCarouselWidth) {
+      numFullThumbs++;
+      currentSlide = currentSlide.next();
+      //if more than just the next slide's left margin is displayed, then numPartialThumbs++
+      if (visibleCarouselWidth - displayedCarouselPx > parseInt(currentSlide.css('margin-left'))) {
+        numPartialThumbs++;
+      }
+      displayedCarouselPx = displayedCarouselPx + currentSlide.outerWidth(true);
+    }
+
+    //if everything but the last slide's right margin is displayed, then numFullThumbs++
+    if (displayedCarouselPx - visibleCarouselWidth < parseInt(currentSlide.css('margin-right'))) {
+      numFullThumbs++;
+    }
+
+    $('.carousel').slick('slickSetOption', 'slidesToShow', numPartialThumbs, false);
+    $('.carousel').slick('slickSetOption', 'slidesToScroll', numFullThumbs, true);
+  },
+
   initCarousel: function() {
     if (this.model.get('itemNumber') !== undefined) {
-      this.carouselStart = this.model.get('itemNumber');
+      this.carouselStart = this.carouselEnd = this.model.get('itemNumber');
     }
     
     var data_params = this.toJSON();
@@ -420,6 +437,7 @@ var CarouselContext = Backbone.View.extend({
           $('#js-carouselContainer').html(data);
           $('.carousel').show();
           $('.carousel').slick(that.carouselConfig);
+          that.changeWidth();
         };
       }(this))
     });
@@ -437,8 +455,6 @@ var ComplexCarousel = Backbone.View.extend({
   carouselConfig: {
     infinite: false,
     speed: 300,
-    slidesToShow: 20,
-    slidesToScroll: 6,
     variableWidth: true,
     lazyLoad: 'ondemand',
     responsive: [
@@ -595,12 +611,19 @@ var GlobalSearchForm = Backbone.View.extend({
       this.facetForm.toggleSelectDeselectAll();
       this.facetForm.toggleTooltips();
     }
-    else if (this.facetForm !== undefined) { delete this.facetForm; }
+    else if (this.facetForm !== undefined) {
+      this.facetForm.stopListening();
+      this.facetForm.undelegateEvents();
+      delete this.facetForm;
+    }
 
     if($('#js-carouselContainer').length > 0) {
       if (this.carousel === undefined) { this.carousel = new CarouselContext({model: this.model}); }
     }
-    else if (this.carousel !== undefined) { delete this.carousel; }
+    else if (this.carousel !== undefined) {
+      this.carousel.undelegateEvents();
+      delete this.carousel;
+    }
 
     if($('#js-contactOwner').length > 0) {
       if (this.contactOwnerForm === undefined) { this.contactOwnerForm = new ContactOwnerForm(); }
@@ -621,7 +644,10 @@ var GlobalSearchForm = Backbone.View.extend({
         $('.js-obj__osd-infobanner').slideUp('fast');
       });
     }
-    else if (this.complexCarousel !== undefined) { delete this.complexCarousel; }
+    else if (this.complexCarousel !== undefined) {
+      this.complexCarousel.undelegateEvents();
+      delete this.complexCarousel;
+    }
 
     if($('#obj__osd').length > 0) {
       if (this.viewer !== undefined) {
@@ -644,6 +670,11 @@ var GlobalSearchForm = Backbone.View.extend({
       delete this.viewer;
     }
 
+  },
+
+  changeWidth: function(window_width) {
+    if (this.facetForm !== undefined) { this.facetForm.changeWidth(window_width); }
+    if (this.carousel !== undefined) { this.carousel.changeWidth(window_width); }
   },
 
   pjax_beforeReplace: function() {

@@ -24,7 +24,7 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, DESKTOP, popstate = null;
+var qm, globalSearchForm, popstate = null;
 
 var setupObjects = function() {
   globalSearchForm.setupComponents();
@@ -49,10 +49,32 @@ var setupObjects = function() {
 
 $(document).ready(function() {
   sessionStorageWarning();
+
+  // http://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+  var rtime;
+  var timeout = false;
+  var delta = 200;
+  $(window).resize(function() {
+      rtime = new Date();
+      if (timeout === false) {
+          timeout = true;
+          setTimeout(resizeend, delta);
+      }
+  });
+
+  function resizeend() {
+      if (new Date() - rtime < delta) {
+          setTimeout(resizeend, delta);
+      } else {
+          timeout = false;
+          if (globalSearchForm !== undefined) {
+            globalSearchForm.changeWidth($(window).width());
+          }
+      }
+  }
+  // ***********************************
+
   if (!$('.home').length) {
-    if ($(window).width() > 900) { DESKTOP = true; }
-    else { DESKTOP = false; }
-    
     $.pjax.defaults.timeout = 5000;
     $(document).pjax('a[data-pjax=js-pageContent]', '#js-pageContent');
 
