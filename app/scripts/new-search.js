@@ -1,4 +1,4 @@
-/*global Backbone, _, ContactOwnerForm, OpenSeadragon, tileSources */
+/*global Backbone, _, ContactOwnerForm, OpenSeadragon, tileSources, imagesLoaded */
 /*exported GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel */
 
 'use strict';
@@ -256,6 +256,7 @@ var FacetForm = Backbone.View.extend({
 
   initialize: function() {
     this.listenTo(this.model, 'change', this.render);
+    this.changeWidth($(window).width());
   }
 });
 
@@ -395,11 +396,11 @@ var CarouselContext = Backbone.View.extend({
 
   changeWidth: function() {
     var visibleCarouselWidth = $('#js-carousel .slick-list').prop('offsetWidth');
-    var currentSlide = $('[data-slick-index=' + $('.carousel').slick('slickCurrentSlide') + ']');
+    var currentSlide = $('.js-carousel_item[data-slick-index=' + $('.carousel').slick('slickCurrentSlide') + ']');
     var displayedCarouselPx = currentSlide.outerWidth() + parseInt(currentSlide.css('margin-right'));
     var numPartialThumbs = 1, numFullThumbs = 0;
 
-    while (displayedCarouselPx < visibleCarouselWidth) {
+    while (displayedCarouselPx < visibleCarouselWidth && currentSlide.length > 0) {
       numFullThumbs++;
       currentSlide = currentSlide.next();
       //if more than just the next slide's left margin is displayed, then numPartialThumbs++
@@ -456,41 +457,15 @@ var ComplexCarousel = Backbone.View.extend({
     infinite: false,
     speed: 300,
     variableWidth: true,
-    lazyLoad: 'ondemand',
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          infinite: true,
-          // slidesToShow: 8,
-          slidesToScroll: 8,
-          variableWidth: true
-        }
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          infinite: true,
-          // slidesToShow: 6,
-          slidesToScroll: 6,
-          variableWidth: true
-        }
-      },
-      {
-        breakpoint: 650,
-        settings: {
-          infinite: true,
-          // slidesToShow: 4,
-          slidesToScroll: 4,
-          variableWidth: true
-        }
-      }
-    ]
+    slidesToShow: 8,
+    slidesToScroll: 8,
+    lazyLoad: 'ondemand'
   },
 
   events: {
     'click .js-set-link'        : 'getSet',
     'click .js-component-link'  : 'getComponent',
+    'afterChange .carousel-complex__item-container': 'afterChange'
   },
   getSet: function(e) {
     e.preventDefault();
@@ -516,6 +491,56 @@ var ComplexCarousel = Backbone.View.extend({
     });
   },
 
+  afterChange: function(e, slick) {
+    this.changeWidth(e, slick);
+    this.checkEdges(e, slick);
+  },
+
+  checkEdges: function(e, slick) {
+    if (slick === undefined) {
+      slick = $('.carousel-complex__item-container').slick('getSlick');
+    }
+
+    if (slick.slickCurrentSlide() !== 0 && slick.slickCurrentSlide() < slick.getOption('slidesToScroll')) {
+      slick.setOption('slidesToScroll', slick.slickCurrentSlide(), true);
+    }
+
+    //There seems to be some sort of off-by-one issue with slidesToScroll
+    if (slick.slickCurrentSlide() + slick.getOption('slidesToScroll') + 1 === slick.slideCount) {
+      slick.setOption('slidesToShow', 1, false);
+      slick.setOption('slidesToScroll', 1, true);
+    }
+  },
+
+  changeWidth: function(e, slick) {
+    if (slick === undefined) {
+      slick = $('.carousel-complex__item-container').slick('getSlick');
+    }
+
+    var visibleCarouselWidth = $('.carousel-complex__item-container .slick-list').prop('offsetWidth');
+    var currentSlide = $('.carousel-complex__item-container [data-slick-index=' + slick.slickCurrentSlide() + ']');
+    var displayedCarouselPx = currentSlide.outerWidth() + parseInt(currentSlide.css('margin-right'));
+    var numPartialThumbs = 1, numFullThumbs = 0;
+
+    while (displayedCarouselPx < visibleCarouselWidth && currentSlide.length > 0) {
+      numFullThumbs++;
+      currentSlide = currentSlide.next();
+      //if more than just the next slide's left margin is displayed, then numPartialThumbs++
+      if (visibleCarouselWidth - displayedCarouselPx > parseInt(currentSlide.css('margin-left'))) {
+        numPartialThumbs++;
+      }
+      displayedCarouselPx = displayedCarouselPx + currentSlide.outerWidth(true);
+    }
+
+    //if everything but the last slide's right margin is displayed, then numFullThumbs++
+    if (displayedCarouselPx - visibleCarouselWidth < parseInt(currentSlide.css('margin-right'))) {
+      numFullThumbs++;
+    }
+
+    slick.slickSetOption('slidesToShow', numPartialThumbs, false);
+    slick.slickSetOption('slidesToScroll', numFullThumbs, true);
+  },
+
   initCarousel: function() {
     $('.carousel-complex').show();
     $('.carousel-complex__item-container').slick(this.carouselConfig);
@@ -526,6 +551,11 @@ var ComplexCarousel = Backbone.View.extend({
 
   initialize: function() {
     this.initCarousel();
+    imagesLoaded('.carousel-complex__item-container img', (function(that) {
+      return function() {
+        that.changeWidth();
+      };
+    }(this)));
   }
 });
 
@@ -675,6 +705,7 @@ var GlobalSearchForm = Backbone.View.extend({
   changeWidth: function(window_width) {
     if (this.facetForm !== undefined) { this.facetForm.changeWidth(window_width); }
     if (this.carousel !== undefined) { this.carousel.changeWidth(window_width); }
+    if (this.complexCarousel !== undefined) { this.complexCarousel.changeWidth(window_width); }
   },
 
   pjax_beforeReplace: function() {
