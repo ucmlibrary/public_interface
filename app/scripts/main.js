@@ -228,7 +228,7 @@ $('.carousel-complex__item-container').slick({
 
 $(document).ready(function() {
   $('.obj__heading').dotdotdot({
-    ellipsis: ' ...',
+    ellipsis: ' …',
     watch: 'window',
     height: 50,
     lastCharacter: { // remove these characters from the end of the truncated text:
@@ -236,7 +236,7 @@ $(document).ready(function() {
     }
   });
   $('.thumbnail__caption').dotdotdot({
-    ellipsis: ' ...',
+    ellipsis: ' …',
     watch: 'window',
     height: 30,
     lastCharacter: {
@@ -244,7 +244,7 @@ $(document).ready(function() {
     }
   });
   $('.carousel__thumbnail-caption').dotdotdot({
-    ellipsis: ' ...',
+    ellipsis: ' …',
     watch: 'window',
     height: 30,
     lastCharacter: {
