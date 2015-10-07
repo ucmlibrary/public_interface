@@ -235,6 +235,22 @@ $(document).ready(function() {
       remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
     }
   });
+  $('.thumbnail__caption').dotdotdot({
+    ellipsis: ' ...',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
+  $('.carousel__thumbnail-caption').dotdotdot({
+    ellipsis: ' ...',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
 });
 
 // Alternative JavaScript method (instead of CSS method) for disabling popover via breakpoint:
