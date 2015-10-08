@@ -29,6 +29,31 @@ var qm, globalSearchForm, popstate = null;
 var setupObjects = function() {
   globalSearchForm.setupComponents();
 
+  $('.obj__heading').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 50,
+    lastCharacter: { // remove these characters from the end of the truncated text:
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
+  $('.thumbnail__caption').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
+  $('.carousel__thumbnail-caption').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
+
   //if we've gotten to a page with a list of collection mosaics, init infinite scroll
   //TODO: change reference to localhost!
   if($('#js-mosaicContainer').length > 0) {
