@@ -18,9 +18,9 @@
       {% endif %}
     {% endfor %}
       <div class="form-group">
-        <label for="referer">
+        <strong>
           Last page viewed:
-        </label> {{ request.META.HTTP_REFERER }}
+        </strong> {{ request.META.HTTP_REFERER }}
         <input type="hidden" name="referer" value="{{ request.META.HTTP_REFERER }}">
       </div>
       <div class="form-group">
