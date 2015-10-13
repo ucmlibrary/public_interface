@@ -469,10 +469,14 @@ def search(request):
             'form_action': reverse('calisphere:search')
         })
 
-    return render (request, 'calisphere/home.html', {'q': ''})
+    return redirect('calisphere:home')
 
 def itemViewCarousel(request):
-    referral = request.GET['referral'] if 'referral' in request.GET else ''
+    item_id = request.GET.get('itemId')
+    if item_id is None:
+        raise Http404("No item id specified")
+
+    referral = request.GET.get('referral')
     linkBackId = ''
     if referral == 'institution':
         linkBackId = request.GET['repository_data']
@@ -482,7 +486,6 @@ def itemViewCarousel(request):
         linkBackId = request.GET['campus_slug']
 
     queryParams = processQueryRequest(request)
-    item_id = request.GET['itemId'] if 'itemId' in request.GET else ''
 
     fq = solrize_filters(queryParams['filters'])
     if 'campus_slug' in request.GET:
@@ -491,7 +494,7 @@ def itemViewCarousel(request):
             if request.GET['campus_slug'] == campus['slug']:
                 campus_id = campus['id']
         if campus_id == '':
-            print "Campus registry ID not found"
+            raise Http404("Campus registry ID not found")
 
         fq.append('campus_url: "https://registry.cdlib.org/api/v1/campus/' + campus_id + '/"')
 
@@ -509,6 +512,8 @@ def itemViewCarousel(request):
             mlt_fl=mlt_fl,
             mlt_mintf=1,
         )
+        if json.loads(carousel_solr_search)['response']['numFound'] == 0:
+            raise Http404('No object with id "' + item_id + '" found.')
         search_results = json.loads(carousel_solr_search)['response']['docs'] + json.loads(carousel_solr_search)['moreLikeThis'][item_id]['docs']
         numFound = len(search_results)
         # numFound = json.loads(carousel_solr_search)['moreLikeThis'][item_id]['numFound']

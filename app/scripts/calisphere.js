@@ -1,4 +1,4 @@
-/*global _, QueryManager, GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel, ContactOwnerForm, OpenSeadragon, tileSources */
+/*global _, QueryManager, GlobalSearchForm */
 
 /* globals Modernizr: false */
 'use strict';
@@ -24,116 +24,35 @@ if(typeof console === 'undefined') {
 
 $(document).on('pjax:timeout', function() { return false; });
 
-var qm, globalSearchForm, facetForm, carousel, complexCarousel, DESKTOP, contactOwnerForm, viewer, popstate = null;
+var qm, globalSearchForm, popstate = null;
 
 var setupObjects = function() {
-  if ($('#js-facet').length > 0) {
-    if (facetForm === undefined) {
-      facetForm = new FacetForm({model: qm});
-      facetForm.listening = true;
-    }
-    else if (facetForm.listening === false) {
-      facetForm.initialize();
-      facetForm.delegateEvents();
-      facetForm.listening = true;
-    }
-    facetForm.toggleSelectDeselectAll();
+  globalSearchForm.setupComponents();
 
-    // get rid of any visible tooltips
-    var visibleTooltips = $('[data-toggle="tooltip"][aria-describedby]');
-    for (var i=0; i<visibleTooltips.length; i++) {
-      var tooltipId = $(visibleTooltips[i]).attr('aria-describedby');
-      $('#' + tooltipId).remove();
+  $('.obj__heading').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 50,
+    lastCharacter: { // remove these characters from the end of the truncated text:
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
     }
-    // set tooltips
-    $('[data-toggle="tooltip"]').tooltip({
-      placement: 'top'
-    });
-  }
-  else if (facetForm !== undefined) {
-    facetForm.stopListening();
-    facetForm.undelegateEvents();
-    facetForm.listening = false;
-  }
-
-  if($('#js-carouselContainer').length > 0) {
-    if (carousel === undefined) {
-      carousel = new CarouselContext({model: qm});
-      carousel.listening = true;
+  });
+  $('.thumbnail__caption').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
     }
-    else if (carousel.listening === false) {
-      carousel.initialize();
-      carousel.delegateEvents();
-      carousel.listening = true;
+  });
+  $('.carousel__thumbnail-caption').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
     }
-  }
-  else if (carousel !== undefined) {
-    carousel.stopListening();
-    carousel.undelegateEvents();
-    carousel.listening = false;
-  }
-
-  if($('#js-contactOwner').length > 0) {
-    if (contactOwnerForm === undefined) {
-      contactOwnerForm = new ContactOwnerForm();
-      contactOwnerForm.listening = true;
-    }
-    else if (contactOwnerForm.listening === false) {
-      contactOwnerForm.initialize();
-      contactOwnerForm.delegateEvents();
-      contactOwnerForm.listening = true;
-    }
-  } else if (contactOwnerForm !== undefined) {
-    contactOwnerForm.stopListening();
-    contactOwnerForm.undelegateEvents();
-    contactOwnerForm.listening = false;
-  }
-
-  if($('.carousel-complex').length > 0) {
-    if (complexCarousel === undefined) {
-      complexCarousel = new ComplexCarousel({model: qm});
-      $('.js-obj__osd-infobanner').show();
-      complexCarousel.listening = true;
-    }
-    else if (complexCarousel.listening === false) {
-      complexCarousel.initialize();
-      complexCarousel.delegateEvents();
-      $('.js-obj__osd-infobanner').show();
-      complexCarousel.listening = true;
-    } else {
-      $('.js-obj__osd-infobanner').hide();
-      complexCarousel.initialize();
-    }
-    //TODO: this should only have to happen once!
-    $('.js-obj__osd-infobanner-link').click(function(){
-      $('.js-obj__osd-infobanner').slideUp('fast');
-    });
-  }
-  else if (complexCarousel !== undefined) {
-    complexCarousel.stopListening();
-    complexCarousel.undelegateEvents();
-    complexCarousel.listening = false;
-  }
-
-  if($('#obj__osd').length > 0) {
-    if (viewer !== undefined) {
-      viewer.destroy();
-      viewer = undefined;
-      $('#obj__osd').empty();
-    }
-    viewer = new OpenSeadragon({
-      id: 'obj__osd',
-      tileSources: [tileSources],
-      zoomInButton: 'obj__osd-button-zoom-in',
-      zoomOutButton: 'obj__osd-button-zoom-out',
-      homeButton: 'obj__osd-button-home',
-      fullPageButton: 'obj__osd-button-fullscreen'
-    });
-  }
-  else if (viewer !== undefined) {
-    viewer.destroy();
-    viewer = undefined;
-  }
+  });
 
   //if we've gotten to a page with a list of collection mosaics, init infinite scroll
   //TODO: change reference to localhost!
@@ -155,10 +74,32 @@ var setupObjects = function() {
 
 $(document).ready(function() {
   sessionStorageWarning();
-  if (!$('.home').length) {
-    if ($(window).width() > 900) { DESKTOP = true; }
-    else { DESKTOP = false; }
 
+  // http://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+  var rtime;
+  var timeout = false;
+  var delta = 200;
+  $(window).resize(function() {
+      rtime = new Date();
+      if (timeout === false) {
+          timeout = true;
+          setTimeout(resizeend, delta);
+      }
+  });
+
+  function resizeend() {
+      if (new Date() - rtime < delta) {
+          setTimeout(resizeend, delta);
+      } else {
+          timeout = false;
+          if (globalSearchForm !== undefined) {
+            globalSearchForm.changeWidth($(window).width());
+          }
+      }
+  }
+  // ***********************************
+
+  if (!$('.home').length) {
     $.pjax.defaults.timeout = 5000;
     $(document).pjax('a[data-pjax=js-pageContent]', '#js-pageContent');
 
@@ -166,24 +107,14 @@ $(document).ready(function() {
     globalSearchForm = new GlobalSearchForm({model: qm});
     setupObjects();
 
-    $('#js-global-header-logo').on('click', function() {
-      if (!_.isEmpty(qm.attributes) || !_.isEmpty(sessionStorage)) {
-        qm.clear({silent: true});
-      }
-    });
-
     $(document).on('pjax:beforeSend', '#js-itemContainer', function(e, xhr, options) {
       if (options.container === '#js-itemContainer') {
         xhr.setRequestHeader('X-From-Item-Page', 'true');
       }
     });
 
-    $(document).on('pjax:beforeReplace', '#js-pageContent', function() {
-      if($('#js-mosaicContainer').length > 0) {
-        $('#js-mosaicContainer').infinitescroll('destroy');
-      }
-    });
-
+    $(document).on('pjax:beforeReplace', '#js-pageContent', globalSearchForm.pjax_beforeReplace);
+    
     $(document).on('pjax:end', '#js-itemContainer', function() {
       var lastItem = $('.carousel__item--selected');
       if (lastItem.children('a').data('item_id') !== qm.get('itemId')) {
@@ -201,6 +132,8 @@ $(document).ready(function() {
     });
 
     $(document).on('pjax:end', '#js-pageContent', function() {
+      globalSearchForm.pjax_end();
+
       //if we've gotten to a page without search context, clear the query manager
       if($('#js-facet').length <= 0 && $('#js-objectViewport').length <= 0) {
         qm.clear({silent: true});
