@@ -87,7 +87,7 @@
               </li>
               <li class="global-header__nav-list-item">
                 <a class="global-header__nav-link" href="{% url 'calisphere:termsOfUse' %}">Terms of Use</a>
-              </li
+              </li>
             </ul>
           </div>
 
@@ -108,6 +108,7 @@
       <div id="js-pageContent">{% block content %}{% endblock %}</div>
       {% include "calisphere/footer.html" %}
     </div>
+
     {% include "calisphere/scripts.html" %}
     {% block footerScripts %}
     {% endblock %}
