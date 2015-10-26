@@ -13,13 +13,6 @@ body.column-test .row .row [class^="col-"] {
   border: 1px solid green;
 }
 
-// Set image thumbnail size
-
-.thumbnail__image, .listview__image, .collect-row__thumbnail img {
-	width: 100%;
-	height: auto;
-}
-
 // Highlight image placeholders
 
 body.image-test img {
