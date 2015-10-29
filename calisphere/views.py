@@ -617,7 +617,7 @@ def relatedCollections(request, queryParams={}):
     three_related_collections = []
     for i in range(queryParams['rc_page']*3, queryParams['rc_page']*3+3):
         if len(related_collections) > i:
-            facet = ["collection_data: \"" + related_collections[i] + "\""]
+            facet = ["collection_url: \"" + getCollectionData(related_collections[i])['url'] + "\""]
             collection_solr_search = SOLR_select(q=queryParams['query_terms'], rows='3', fq=facet, fields='collection_data, reference_image_md5, url_item, id, title, type_ss')
 
             collection_items = collection_solr_search.results
