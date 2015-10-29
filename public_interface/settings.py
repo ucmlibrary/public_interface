@@ -53,6 +53,7 @@ ADMINS = (('', DEFAULT_FROM_EMAIL),)
 MANAGERS = ADMINS
 
 GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
+UCLDC_WALKME = os.getenv('UCLDC_WALKME', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
