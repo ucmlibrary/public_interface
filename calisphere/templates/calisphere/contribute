@@ -27,7 +27,7 @@
 		<p>All metadata that is aggregated and displayed on Calisphere is also pushed to the <a href="http://dp.la">Digital Public Library of America (DPLA) website and platform</a>.</p>
 		<h2>Nominate your collections for harvesting</h2>
 		<p>Because our harvest workflow is still new, we are initially taking in collections slowly and selectively. This will help us refine our technology and ensure that we have the capacity to scale up.</p>
-		<p> We are currently evaluating collections and adding them to a harvesting queue. If you have a collection or collections that you'd like to have harvested, and that meet the baseline requirements above, please <a href="/contact">contact us</a>.
+		<p> We are currently evaluating collections and adding them to a harvesting queue. If you have a collection or collections that you'd like to have harvested, and that meet the baseline requirements above, please <a href="/contact"  data-pjax="js-pageContent">contact us</a>.
   </div>
 
   <div class="col-sm-4 static__sidebar">
