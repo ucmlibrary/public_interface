@@ -2,7 +2,8 @@
 
 <!-- TODO: add disambiguation for faceting search results, collection page, institution page -->
   <!-- value of the search query from the header form -->
-  <input type="text" style="display:none;" name="q" value="{{ q }}" form="js-facet">
+  <label for="js-facet-q" aria-hidden="true" style="display: none;">Query</label>
+  <input type="text" style="display:none;" name="q" value="{{ q }}" form="js-facet" aria-hidden="true" id="js-facet-q">
   
   <!-- <button type="button" id="deselect-facets" class="btn btn-default btn-block">Deselect all</button> -->
 

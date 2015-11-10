@@ -62,7 +62,8 @@
             {% endif %}
           </ul>
           {% if numFound %}
-            <input id="{{ campus_slug }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="campus_slug" value="{{ campus_slug }}" checked style="display: none;">
+            <label for="{{ campus_slug }}" aria-hidden="true" style="display: none;">Campus Slug</label>
+            <input id="{{ campus_slug }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="campus_slug" value="{{ campus_slug }}" checked style="display: none;" aria-hidden="true">
           {% endif %}
         </div>
       </div>
@@ -84,9 +85,10 @@
           {% endif %}
         </ul>
         {% if numFound %}
+          <label for="{{ repository_id }}" aria-hidden="true" style="display: none;">Institution ID</label>
           <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
             form="js-facet" type="checkbox" name="repository_data"
-            value="{{ repository_id }}" checked style="display: none;">
+            value="{{ repository_id }}" checked style="display: none;" aria-hidden="true">
         {% endif %}
       </div>
       <div class="col-md-9">
@@ -123,9 +125,10 @@
           {% endif %}
         </ul>
         {% if numFound %}
+          <label for="{{ repository_id }}" aria-hidden="true" style="display: none;">Institution ID</label>
           <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
             form="js-facet" type="checkbox" name="repository_data"
-            value="{{ repository_id }}" checked style="display: none;">
+            value="{{ repository_id }}" checked style="display: none;" aria-hidden="true">
         {% endif %}
       </div>
       <div class="col-md-6">
@@ -154,9 +157,10 @@
           {% endif %}
         </ul>
         {% if numFound %}
+          <label for="{{ repository_id }}" aria-hidden="true" style="display: none;">Institution ID</label>
           <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
             form="js-facet" type="checkbox" name="repository_data"
-            value="{{ repository_id }}" checked style="display: none;">
+            value="{{ repository_id }}" checked style="display: none;" aria-hidden="true">
         {% endif %}
       </div>
       <div class="col-md-9">
