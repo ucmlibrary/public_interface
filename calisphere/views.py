@@ -374,17 +374,18 @@ def itemView(request, item_id=''):
         item['institution_contact'] = []
         for collection_data in item['collection_data']:
             item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
-        for repository_data in item['repository_data']:
-            item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
+        if 'repository_data' in item:
+            for repository_data in item['repository_data']:
+                item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
 
-            institution_url = item['parsed_repository_data'][0]['url']
-            institution_details = json_loads_url(institution_url + "?format=json")
-            if 'ark' in institution_details and institution_details['ark'] != '':
-                contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + institution_details['ark'])
-            else:
-                contact_information = ''
+                institution_url = item['parsed_repository_data'][0]['url']
+                institution_details = json_loads_url(institution_url + "?format=json")
+                if 'ark' in institution_details and institution_details['ark'] != '':
+                    contact_information = json_loads_url("http://dsc.cdlib.org/institution-json/" + institution_details['ark'])
+                else:
+                    contact_information = ''
 
-            item['institution_contact'].append(contact_information)
+                item['institution_contact'].append(contact_information)
 
     fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE")
     permalink = urlparse.urljoin(settings.UCLDC_FRONT, request.path)
