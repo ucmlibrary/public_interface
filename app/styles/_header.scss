@@ -34,7 +34,8 @@ html.no-jquery .global-header__bars-icon {
 }
 
 html.no-svg .global-header__logo {
-  background: url(../images/logo-calisphere.png) no-repeat;
+  background-image: url(../images/logo-calisphere.png);
+  background-repeat: no-repeat;
 }
 
 .global-header__logo-link {
