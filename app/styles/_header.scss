@@ -20,7 +20,8 @@ html.no-jquery .global-header__bars-icon {
 
 .global-header__logo {
   margin: 0 0 10px 0;
-  background: url(../images/logo-calisphere.svg) no-repeat;
+  background-image: url(../images/logo-calisphere.svg);
+  background-repeat: no-repeat;
   background-position: center top;
   background-size: $header-logo-xs-width $header-logo-xs-height;
 
