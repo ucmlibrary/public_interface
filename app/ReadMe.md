@@ -12,7 +12,7 @@ Each Sass file typically represents a UI component.
 
 Sass files are generally named according to their UI component. Example: carousel.scss represents the styles for the main carousel. 
 
-Generally, selectors for elements within a component are named `<component-name>__<element-name>--<optional-modifier>` in which component names, selector names, and modifier names are use a single hyphen delimiter for multi-word names. Example: `carousel__thumbnail-caption`, `carousel__image`, and `carousel__image--selected`. 
+Generally, selectors for elements within a component are named `<component-name>__<element-name>--<optional-modifier>` in which component names, selector names, and modifier names all use a single hyphen delimiter for multi-word names. Example: `carousel__thumbnail-caption`, `carousel__image`, and `carousel__image--selected`. 
 
 ### Writing Styles
 
