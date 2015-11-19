@@ -78,6 +78,10 @@ var FacetForm = Backbone.View.extend({
   },
 
   goToItemPage: function(e) {
+    // Middle click, cmd click, and ctrl click should open
+    // links in a new tab as normal.
+    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+
     if ($(e.currentTarget).data('item_number') !== undefined) {
       this.model.set({
         itemNumber: $(e.currentTarget).data('item_number'),
@@ -278,6 +282,10 @@ var CarouselContext = Backbone.View.extend({
     'click .js-relatedCollection'    : 'goToCollectionPage'
   },
   goToSearchResults: function(e) {
+    // Middle click, cmd click, and ctrl click should open
+    // links in a new tab as normal.
+    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+
     this.model.unset('itemId', {silent: true});
     this.model.unset('itemNumber', {silent: true});
 
@@ -295,7 +303,7 @@ var CarouselContext = Backbone.View.extend({
 
     e.preventDefault();
     $.pjax({
-      url: $(e.currentTarget).children('a').attr('href'),
+      url: $(e.currentTarget).children('a').attr('href').split('?')[0],
       container: '#js-pageContent',
       data: this.model.toJSON(),
       traditional: true
@@ -341,6 +349,10 @@ var CarouselContext = Backbone.View.extend({
     }
   },
   goToItemPage: function(e) {
+    // Middle click, cmd click, and ctrl click should open
+    // links in a new tab as normal.
+    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+
     if ($(e.currentTarget).data('item_number') !== undefined) {
       this.model.set({
         itemNumber: $(e.currentTarget).data('item_number'),
@@ -468,6 +480,10 @@ var ComplexCarousel = Backbone.View.extend({
     'afterChange .carousel-complex__item-container': 'afterChange'
   },
   getSet: function(e) {
+    // Middle click, cmd click, and ctrl click should open
+    // links in a new tab as normal.
+    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+
     e.preventDefault();
     $.pjax({
       type: 'GET',
@@ -478,12 +494,16 @@ var ComplexCarousel = Backbone.View.extend({
     });
   },
   getComponent: function(e) {
+    // Middle click, cmd click, and ctrl click should open
+    // links in a new tab as normal.
+    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+
     var data_params = {order: $(e.currentTarget).data('item_id')};
 
     e.preventDefault();
     $.pjax({
       type: 'GET',
-      url: $(e.currentTarget).attr('href'),
+      url: $(e.currentTarget).attr('href').split('?')[0],
       container: '#js-itemContainer',
       data: data_params,
       traditional: true,

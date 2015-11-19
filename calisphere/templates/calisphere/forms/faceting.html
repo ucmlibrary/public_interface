@@ -41,12 +41,12 @@
             <div class="check__group">
               {% for facet, count in facets|get_item:facet_type %}
                 {% if facet_type == 'repository_data' %}
-                  <input id="{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'repository_data' %}checked{% endif %}>
-                  <label class="check__label" for="{{ facet.id }}">{% if facet.campus %}{{ facet.campus }}, {% endif %}{{ facet.name }} ({{ count }})</label>
+                  <input id="r-{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'repository_data' %}checked{% endif %}>
+                  <label class="check__label" for="r-{{ facet.id }}">{% if facet.campus %}{{ facet.campus }}, {% endif %}{{ facet.name }} ({{ count }})</label>
                 
                 {% elif facet_type == 'collection_data' %}
-                  <input id="{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'collection_data' %}checked{% endif %}>
-                  <label class="check__label" for="{{ facet.id }}">{{ facet.name }} ({{ count }})</label>
+                  <input id="c-{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'collection_data' %}checked{% endif %}>
+                  <label class="check__label" for="c-{{ facet.id }}">{{ facet.name }} ({{ count }})</label>
                 
                 {% else %}
                   <input id="{{ facet|slugify }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet }}" {% if facet in filters|get_item:facet_type %}checked{% endif %}>
