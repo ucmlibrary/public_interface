@@ -270,6 +270,7 @@ html.svg .check__label {
   background-image: url("../images/checkbox-square.svg"); 
   background-repeat: no-repeat;
   background-size: 18px 18px; // constrains SVG canvas for positioning
+  background-position: 94% center;
   background-position: right 20px center;
 }
 
@@ -296,6 +297,7 @@ html.svg .check__input:checked + .check__label {
    background-color: #fff;
    background-image: url("../images/checkbox-check.svg");
    background-repeat: no-repeat; 
+   background-position: 94% center;
    background-position: right 20px center; // use '96% center' for Modernizr fallback via 'backgroundposition-shorthand' class
    background-size: 18px 12px; // constrains SVG canvas for positioning
 }
