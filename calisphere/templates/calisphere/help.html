@@ -25,6 +25,7 @@
 			<li><a href="#8">I noticed an error in the description of an item or collection—or I have more information to share. How do I report it?</a></li>
 			<li><a href="#9">I found something great on Calisphere! Can I share my story?</a></li>
 			<li><a href="#10">Can I suggest improvements to the site?</a></li>
+			<li><a href="#11">What is the technical framework behind Calisphere?</a></li>
 		</ul>
 
 		<h2 id="1">What are my options for finding content on Calisphere?</h2>
@@ -90,6 +91,11 @@
 
 		<p>We are always on the lookout for new ways to enhance the user experience on Calisphere. Feel free to <a href="/contact/" data-pjax="js-pageContent">contact us</a> with feature requests, ideas, and yes&mdash;even complaints. We’ll try our best to address these in our ongoing development of the site.</p>
 
+<h2 id="11">What is the technical framework behind Calisphere?</h2>
+<p>Calisphere uses many technologies to aggregate and deliver digital collections.</p>
+<p>The public interface uses Django templates to build pages, Sass to build CSS, Backbone.js to maintain and manage query state, and Jquery-pjax to manage URL history as parts of pages are updated.</p>
+<p>Item-level metadata on Calisphere is harvested from a variety of platforms using code adapted from the <a href="http://dp.la/">Digital Public Library of America</a>. The data is indexed in Solr. Collection- and institution-level data is maintained in a Django-based <a href="http://registry.cdlib.org/">registry</a>. Calisphere uses Django and solrpy to query the Solr and registry APIs. Some of the items that appear on Calisphere are hosted in a customized implementation of the digital asset management system Nuxeo.</p>
+<p><a href="https://github.com/ucldc/">All of our code is publicly available on GitHub.</a> For more information about our technical stack, please <a href="/contact/" data-pjax="js-pageContent">contact us</a>.</p>
   </div>
 
   <div class="col-sm-4 static__sidebar">
