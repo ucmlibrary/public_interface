@@ -80,7 +80,7 @@ var FacetForm = Backbone.View.extend({
   goToItemPage: function(e) {
     // Middle click, cmd click, and ctrl click should open
     // links in a new tab as normal.
-    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+    if ( e.which > 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ) { return; }
 
     if ($(e.currentTarget).data('item_number') !== undefined) {
       this.model.set({
@@ -284,7 +284,7 @@ var CarouselContext = Backbone.View.extend({
   goToSearchResults: function(e) {
     // Middle click, cmd click, and ctrl click should open
     // links in a new tab as normal.
-    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+    if ( e.which > 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ) { return; }
 
     this.model.unset('itemId', {silent: true});
     this.model.unset('itemNumber', {silent: true});
@@ -351,7 +351,7 @@ var CarouselContext = Backbone.View.extend({
   goToItemPage: function(e) {
     // Middle click, cmd click, and ctrl click should open
     // links in a new tab as normal.
-    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+    if ( e.which > 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ) { return; }
 
     if ($(e.currentTarget).data('item_number') !== undefined) {
       this.model.set({
@@ -482,7 +482,7 @@ var ComplexCarousel = Backbone.View.extend({
   getSet: function(e) {
     // Middle click, cmd click, and ctrl click should open
     // links in a new tab as normal.
-    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+    if ( e.which > 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ) { return; }
 
     e.preventDefault();
     $.pjax({
@@ -496,7 +496,7 @@ var ComplexCarousel = Backbone.View.extend({
   getComponent: function(e) {
     // Middle click, cmd click, and ctrl click should open
     // links in a new tab as normal.
-    if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+    if ( e.which > 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ) { return; }
 
     var data_params = {order: $(e.currentTarget).data('item_id')};
 
