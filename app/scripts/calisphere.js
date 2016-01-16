@@ -64,7 +64,7 @@ var setupObjects = function() {
       debug: false,
       loading: {
         finishedMsg: 'All collections showing.',
-        img: 'http://calisphere.cdlib.org/static_root/images/orange-spinner.gif',
+        img: '//calisphere.org/static_root/images/orange-spinner.gif',
         msgText: '',
         selector: '#js-loading'
       }
@@ -114,7 +114,7 @@ $(document).ready(function() {
     });
 
     $(document).on('pjax:beforeReplace', '#js-pageContent', globalSearchForm.pjax_beforeReplace);
-    
+
     $(document).on('pjax:end', '#js-itemContainer', function() {
       var lastItem = $('.carousel__item--selected');
       if (lastItem.children('a').data('item_id') !== qm.get('itemId')) {
