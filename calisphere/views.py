@@ -293,6 +293,8 @@ def getHostedContentFile(structmap):
             settings.UCLDC_IIIF,
             structmap['id']
         )
+        if structmap_url.startswith('//'):
+            structmap_url = u''.join(['http', structmap_url])
         size = json_loads_url(structmap_url)['sizes'][-1]
         if size['height'] > size['width']:
             access_size = {'width': ((size['width'] * 1024) / size['height']), 'height': 1024}
