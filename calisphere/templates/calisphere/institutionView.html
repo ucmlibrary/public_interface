@@ -4,9 +4,8 @@
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block title %}: {% if repository_id and uc_institution %}{{ uc_institution.0.name }} / {% endif %}{{ institution.name }}{% endblock %}
 {% block page-metadata %}
-{% include "calisphere/microdata.html" with title='{% if repository_id and uc_institution %}{{ uc_institution.0.name }} / {% endif %}{{ institution.name }}' description='' %}
+{% include "calisphere/microdata.html" with description=contact_information.description %}
 {% endblock %}
 
 {% block pageTitle %}

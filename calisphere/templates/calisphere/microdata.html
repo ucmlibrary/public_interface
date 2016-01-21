@@ -1,0 +1,11 @@
+<title>Calisphere: {{ title }}</title>
+    <!-- social media "cards" -->
+    <!--  ↓ $('meta[property=og\\:type]) start marker for pjax hack -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Calisphere"/>
+    <!--  ↕ stuff in the middle gets swapped out on `pjax:success` -->
+    <meta name="twitter:title" property="og:title" content="{{ title }}" />
+    <meta name="twitter:description" property="og:description" content="{{ description }}" />
+    <link rel="cannonical" href="{{ permalink }}"/>
+    <!--  ↓ $('meta[name=twitter\\:creator]') this should come last for pjax hack -->
+    <meta name="twitter:creator" content="@calisphere">
