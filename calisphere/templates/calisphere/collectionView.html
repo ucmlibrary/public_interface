@@ -5,6 +5,9 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block title %}: {{ collection.name }}{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title=collection.name description=collection.description %}
+{% endblock %}
 
 {% block pageTitle %}<h1 id="js-collection" data-collection="{{ collection_id }}" data-referralName="{{ collection.name }}"><a href="{% url 'calisphere:collectionsDirectory' %}" data-pjax="js-pageContent">Collections</a> / <strong>{{ collection.name }}</strong></h1>{% endblock %}
 

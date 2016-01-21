@@ -1,6 +1,8 @@
 {% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 
-{% block title %}: Outreach Materials{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Outreach Materials' description='' %}
+{% endblock %}
 
 {% block content %}
 

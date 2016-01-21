@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: Collections Random Explore{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Collections Random Explore' description='' %}
+{% endblock %}
 
 {% block collectionContent %}
 

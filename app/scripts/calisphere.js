@@ -115,6 +115,16 @@ $(document).ready(function() {
 
     $(document).on('pjax:beforeReplace', '#js-pageContent', globalSearchForm.pjax_beforeReplace);
 
+    $(document).on('pjax:success', function(e, data, x, xhr, z) {
+      var start_marker = z.context.find('meta[property=og\\:type]');
+      var variable_markup = start_marker.nextUntil($('meta[name=twitter\\:creator]'));
+      var old_start = $('head').find('meta[property=og\\:type]');
+      old_start.nextUntil($('meta[name=twitter\\:creator]')).remove();
+      $.each($(variable_markup).get().reverse(), function(i, v) {
+        $(v).insertAfter(old_start);
+      });
+    });
+
     $(document).on('pjax:end', '#js-itemContainer', function() {
       var lastItem = $('.carousel__item--selected');
       if (lastItem.children('a').data('item_id') !== qm.get('itemId')) {

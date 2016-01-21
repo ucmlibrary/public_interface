@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: Themed Collections{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Themed Collections' description='' %}
+{% endblock %}
 
 {% block collectionContent %}
 
