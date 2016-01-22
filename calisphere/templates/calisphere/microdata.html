@@ -4,7 +4,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Calisphere"/>
     <!--  ↕ stuff in the middle gets swapped out on `pjax:success` -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" property="og:title" content="{{ title }}" />
     <meta name="twitter:description" property="og:description" content="
     {% if description.0 %}
@@ -14,6 +14,12 @@
     {% else %}
       {{ description }}
     {% endif %}" />
+    {% if item.reference_image_md5 %}
+      <meta
+        name="og:image"
+        content="{{ thumbnailUrl }}crop/999x999/{{ item.reference_image_md5 }}"
+      />
+    {% endif %}
     <link rel="cannonical" href="{{ permalink }}" />
     <!--  ↓ $('meta[name=twitter\\:creator]') this should come last for pjax hack -->
     <meta name="twitter:creator" content="@calisphere" />
