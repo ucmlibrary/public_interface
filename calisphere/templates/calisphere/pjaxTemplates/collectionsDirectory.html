@@ -1,6 +1,9 @@
 {% load staticfiles %}
 
-<title>{% block head_title_base %}{% block head_title %}Calisphere{% block title %}{% endblock %}{% endblock %}{% endblock %}</title>
+{% block head_title_base %}
+{% block page-metadata %}
+{% endblock %}
+{% endblock %}
 {% block content_base %}{% block content %}
   {% include "calisphere/collectionsHeader.html" %}
   {% block collectionContent %}{% endblock %}
