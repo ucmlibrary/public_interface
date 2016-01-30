@@ -16,6 +16,8 @@
     {% endif %}" />
     {% if meta_image %}
       <meta name="og:image" content="{{ meta_image }}" />
+    {% else %}
+      <meta name="og:image" content="{{ ucldcImages }}/photo_logo.jpg" />
     {% endif %}
     <link rel="cannonical" href="{{ permalink }}" />
     <!--  ↓ $('meta[name=twitter\\:creator]') this should come last for pjax hack -->
