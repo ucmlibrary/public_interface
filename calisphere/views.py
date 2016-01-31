@@ -389,10 +389,13 @@ def itemView(request, item_id=''):
 
                 item['institution_contact'].append(contact_information)
 
-    meta_image = urlparse.urljoin(
-        settings.UCLDC_FRONT,
-        u'/crop/999x999/{0}'.format(item_solr_search.results[0]['reference_image_md5']),
-    )
+    meta_image = False
+    if item_solr_search.results[0].get('reference_image_md5', False):
+        meta_image = urlparse.urljoin(
+            settings.UCLDC_FRONT,
+            u'/crop/999x999/{0}'.format(item_solr_search.results[0]['reference_image_md5']),
+        )
+
     fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE")
     if fromItemPage:
         return render (request, 'calisphere/itemViewer.html', {
