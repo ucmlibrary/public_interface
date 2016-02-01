@@ -1,6 +1,8 @@
 {% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 
-{% block title %}: Terms of Use and Copyright Information{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Terms of Use and Copyright Information' description='' %}
+{% endblock %}
 
 {% block content %}
 

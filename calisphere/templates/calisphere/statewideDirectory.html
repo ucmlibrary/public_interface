@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: Statewide Partners{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Statewide Partners' description='' %}
+{% endblock %}
 
 {% block content %}
 
@@ -16,8 +18,8 @@
   		<ul class="inst-textboxes__list">
       {% for repository in repos %}
           <li class="inst-textboxes__list-item">
-            <a class="inst-textboxes__link" 
-            href="{% url 'calisphere:repositoryView' repository.repository_id 'collections' %}" 
+            <a class="inst-textboxes__link"
+            href="{% url 'calisphere:repositoryView' repository.repository_id 'collections' %}"
             data-pjax="js-pageContent">
               {{ repository.name }}
             </a>

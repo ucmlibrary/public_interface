@@ -293,6 +293,8 @@ def getHostedContentFile(structmap):
             settings.UCLDC_IIIF,
             structmap['id']
         )
+        if structmap_url.startswith('//'):
+            structmap_url = u''.join(['http:', structmap_url])
         size = json_loads_url(structmap_url)['sizes'][-1]
         if size['height'] > size['width']:
             access_size = {'width': ((size['width'] * 1024) / size['height']), 'height': 1024}
@@ -387,20 +389,26 @@ def itemView(request, item_id=''):
 
                 item['institution_contact'].append(contact_information)
 
+    meta_image = False
+    if item_solr_search.results[0].get('reference_image_md5', False):
+        meta_image = urlparse.urljoin(
+            settings.UCLDC_FRONT,
+            u'/crop/999x999/{0}'.format(item_solr_search.results[0]['reference_image_md5']),
+        )
+
     fromItemPage = request.META.get("HTTP_X_FROM_ITEM_PAGE")
-    permalink = urlparse.urljoin(settings.UCLDC_FRONT, request.path)
     if fromItemPage:
         return render (request, 'calisphere/itemViewer.html', {
             'q': '',
             'item': item_solr_search.results[0],
             'item_solr_search': item_solr_search,
-            'permalink': permalink,
+            'meta_image': meta_image,
         })
     return render(request, 'calisphere/itemView.html', {
         'q': '',
         'item': item_solr_search.results[0],
         'item_solr_search': item_solr_search,
-        'permalink': permalink,
+        'meta_image': meta_image,
     })
 
 
@@ -944,6 +952,7 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
         }
 
         if institution_type == 'campus':
+            context['title'] = institution_details['name']
             context['FACET_TYPES'] = list((facet_type[0], facet_type[1]) for facet_type in FACET_TYPES)
             context['campus_slug'] = institution_details['slug']
             context['form_action'] = reverse('calisphere:campusView', kwargs={'campus_slug': institution_details['slug'], 'subnav': 'items'})
@@ -956,6 +965,15 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
             context['repository_id'] = institution_id
             context['uc_institution'] = uc_institution
             context['form_action'] = reverse('calisphere:repositoryView', kwargs={'repository_id': institution_id, 'subnav': 'items'})
+
+            # title for UC institutions needs to show parent campus
+            if uc_institution:
+                context['title'] = u'{0} / {1}'.format(
+                    uc_institution[0]['name'],
+                    institution_details['name']
+                )
+            else:
+                context['title'] = institution_details['name']
 
             if uc_institution == False:
                 for unit in FEATURED_UNITS:
@@ -1041,14 +1059,27 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
         if page-1 > 0:
             context['prev_page'] = page-1
 
+
         if institution_type == 'campus':
             context['campus_slug'] = institution_details['slug']
+            context['title'] = institution_details['name']
             for campus in CAMPUS_LIST:
                 if institution_id == campus['id'] and 'featuredImage' in campus:
                     context['featuredImage'] = campus['featuredImage']
+
         if institution_type == 'repository':
             context['repository_id'] = institution_id
             context['uc_institution'] = uc_institution
+            # title for UC institutions needs to show parent campus
+            # refactor, as this is copy/pasted in this commit
+            if uc_institution:
+                context['title'] = u'{0} / {1}'.format(
+                    uc_institution[0]['name'],
+                    institution_details['name']
+                )
+            else:
+                context['title'] = institution_details['name']
+
 
             if uc_institution == False:
                 for unit in FEATURED_UNITS:
@@ -1064,6 +1095,7 @@ def campusView(request, campus_slug, subnav=False):
     for campus in CAMPUS_LIST:
         if campus_slug == campus['slug']:
             campus_id = campus['id']
+            campus_name = campus['name']
             if 'featuredImage' in campus:
                 featured_image = campus['featuredImage']
     if campus_id == '':
@@ -1097,7 +1129,9 @@ def campusView(request, campus_slug, subnav=False):
             related_institutions[i] = getRepositoryData(repository_data=related_institution)
         related_institutions = sorted(related_institutions, key=lambda related_institution: related_institution['name'])
 
+
         return render(request, 'calisphere/institutionViewInstitutions.html', {
+            'title': campus_name,
             'featuredImage': featured_image,
             'campus_slug': campus_slug,
             'institutions': related_institutions,

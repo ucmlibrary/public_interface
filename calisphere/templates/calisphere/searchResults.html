@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: {{ q }}{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title=q description='' %}
+{% endblock %}
 
 {% block content %}
 

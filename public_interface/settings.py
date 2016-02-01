@@ -44,6 +44,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_PORT = os.getenv('EMAIL_PORT', '')
 EMAIL_USE_TLS = bool(os.getenv('EMAIL_USE_TLS', ''))
+CSRF_COOKIE_SECURE = bool(os.getenv('CSRF_COOKIE_SECURE', ''))
 
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'project@example.edu')
 
