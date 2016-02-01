@@ -4,8 +4,9 @@
 <html lang="en" class="no-js no-jquery">
   <head>
     <title>Calisphere</title>
-    <meta property="fb:app_id" content="416629941766392" />
-    <meta property="og:site_name" content="Calisphere"/>
+    {% block page-metadata %}
+    {% include "calisphere/microdata.html" %}
+    {% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="apple-touch-icon-precomposed" href="/favicon-152x152.png?v=2">
