@@ -24,6 +24,10 @@ html.no-jquery .global-header__bars-icon {
   background-repeat: no-repeat;
   background-position: center top;
   background-size: $header-logo-xs-width $header-logo-xs-height;
+  
+  @include bp(sm-screen) {
+    background-position: left top;
+  }
 
   @include bp(md-screen) {
     margin: 0;
@@ -44,6 +48,10 @@ html.no-svg .global-header__logo {
   width: $header-logo-xs-width;
   height: $header-logo-xs-height;
 
+  @include bp(sm-screen) {
+    margin: 0;
+  }
+  
   @include bp(md-screen) {
     margin: 0;
     width: $header-logo-md-width;
@@ -139,11 +147,11 @@ html.no-jquery .global-header__nav {
   @include bp(sm-screen) {
     display: flex;
     justify-content: flex-end;
-    margin: 2px (-$layout-container-margin-sm) 0 0;
+    margin: 2px (-($layout-container-margin-sm/2)) 0 0;
   }
 
   @include bp(md-screen) {
-    margin: 2px (-$layout-container-margin-md) 0 0;
+    margin: 2px (-($layout-container-margin-md/2)) 0 0;
   }
 
 }
