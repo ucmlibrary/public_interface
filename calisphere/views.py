@@ -38,7 +38,7 @@ def concat_filters(filters, filter_type):
 # collect filters into an array
 def solrize_filters(filters):
     fq = []
-    for filter_type in FACET_TYPES:
+    for filter_type in [('type_ss', 'Type of Item'), ('facet_decade', 'Decade'), ('repository_url', 'Contributing Institution'), ('collection_url', 'Collection')]:
         if len(filters[filter_type[0]]) > 0:
             fq.extend(concat_filters(filters[filter_type[0]], filter_type[0]))
 
@@ -259,16 +259,20 @@ def processQueryRequest(request):
     # create a dictionary with key solr_name of filter and value list of parameters for that filter
     # {'type': ['image', 'audio'], 'repository_name': [...]}
     filters = dict((filter_type[0], request.GET.getlist(filter_type[0])) for filter_type in FACET_TYPES)
+    filters['collection_url'] = []
+    filters['repository_url'] = []
 
     # use collection_id and repository_id to retrieve collection_data and repository_data filter values
     for i, filter_item in enumerate(filters['collection_data']):
         collection = getCollectionData(collection_id=filter_item)
         filters['collection_data'][i] = collection['url'] + "::" + collection['name']
+        filters['collection_url'].append(collection['url'])
     for i, filter_item in enumerate(filters['repository_data']):
         repository = getRepositoryData(repository_id=filter_item)
         filters['repository_data'][i] = repository['url'] + "::" + repository['name']
         if repository['campus'] != '':
             filters['repository_data'][i] = filters['repository_data'][i] + "::" + repository['campus']
+        filters['repository_url'].append(repository['url'])
 
     return {
         'q': q,
@@ -463,6 +467,9 @@ def search(request):
                     filter_display['repository_data'].append(repository)
             else:
                 filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
+
+        filter_display['collection_url'] = []
+        filter_display['repository_url'] = []
 
         return render(request, 'calisphere/searchResults.html', {
             'q': queryParams['q'],
