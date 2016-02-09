@@ -345,7 +345,12 @@ def itemView(request, item_id=''):
                     component['selected'] = True
                     if 'format' in component:
                         item['contentFile'] = getHostedContentFile(component)
-                    item['selectedComponent'] = component
+                    # remove emptry strings from list
+                    for k,v in component.iteritems():
+                        if isinstance(v, list):
+                            component[k] = filter(lambda name:name.strip(), v)
+                    # remove empty lists and empty strings from dict
+                    item['selectedComponent'] = dict((k, v) for k, v in component.iteritems() if v)
                 else:
                     item['selected'] = True
                     # if parent content file, get it

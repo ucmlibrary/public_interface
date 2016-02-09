@@ -1,6 +1,7 @@
 {% extends "calisphere/searchResults.html" %}
 {% load calisphere-extras %}
 {% load staticfiles %}
+{% load humanize %}
 
 {% block breadcrumbs %}{% endblock %}
 
@@ -89,7 +90,7 @@
 {% endblock %}
 
 {% block objectsFound %}
-{{ numFound }} Object{{ numFound|pluralize }} Found in this collection
+{{ numFound|intcomma }} item{{ numFound|pluralize }} found in this collection
 {% endblock %}
 
 {% block relatedCollections %}
