@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <div class="row collect-row__link js-collectionMosaic">
 
 	<div class="col-xs-12 col-sm-4 collect-row__summary">
@@ -11,7 +12,7 @@
     <p>{% if collection.institutions %}Institution: {% for institution in collection.institutions %}{{ institution }}{% endfor %}{% endif %}</p>
   </div>
 
-  <p class="collect-row__item-number"><strong>{{ collection.numFound }} Item{{ collection.numFound|pluralize }}</strong></p>
+  <p class="collect-row__item-number"><strong>{{ collection.numFound|intcomma }} Item{{ collection.numFound|pluralize }}</strong></p>
 
   <div class="col-xs-12 col-sm-8">
   	<a href="{% url 'calisphere:collectionView' collection.collection_id %}" class="collect-row__mosaic" data-pjax="js-pageContent">

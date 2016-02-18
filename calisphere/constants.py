@@ -1,8 +1,23 @@
-FACET_TYPES = [
-    ('type_ss', 'Type of Item'),
-    ('facet_decade', 'Decade'),
-    ('repository_data', 'Contributing Institution'),
-    ('collection_data', 'Collection'),
+# FACETS are retrieved from Solr for a user to potentially FILTER on
+# FILTERS are FACETS that have been selected by the user already
+# We use more robust solr fields for a FACET (_data) 
+# so we don't have to hit registry for a repository name just to enumerate available FACETS
+# We use more specific solr fields for a FILTER (_url)
+# so if there is a change in some of the robust data and a harvest hasn't been run (ie - a collection name changes)
+# the FILTER still works
+
+# FACET_TYPES = [
+#     ('type_ss', 'Type of Item'),
+#     ('facet_decade', 'Decade'),
+#     ('repository_data', 'Contributing Institution'),
+#     ('collection_data', 'Collection'),
+# ]
+
+FACET_FILTER_TYPES = [
+    {'facet': 'type_ss', 'display_name': 'Type of Item', 'filter': 'type_ss'},
+    {'facet': 'facet_decade', 'display_name': 'Decade', 'filter': 'facet_decade'},
+    {'facet': 'repository_data', 'display_name': 'Contributing Institution', 'filter': 'repository_url'},
+    {'facet': 'collection_data', 'display_name': 'Collection', 'filter': 'collection_url'}
 ]
 
 CAMPUS_LIST = [
@@ -41,8 +56,8 @@ CAMPUS_LIST = [
   'id': '6',
   'name': 'UC San Diego',
   'slug': 'UCSD'},
- {'featuredImage': {'src': '/thumb-uc_sf.jpg',
-                    'url': '/item/751a620a-20f8-4caf-ad36-2b0f89416cf3/'},
+ {'featuredImage': {'src': '/thumb-uc_sf-v2.jpg',
+                    'url': '/item/3fe65b42-122e-48de-8e4b-bc8dcf531216/'},
   'id': '7',
   'name': 'UC San Francisco',
   'slug': 'UCSF'},

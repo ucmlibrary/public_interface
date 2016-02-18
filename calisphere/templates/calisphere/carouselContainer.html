@@ -1,4 +1,6 @@
 {% load calisphere-extras %}
+{% load humanize %}
+
   {% if q != '' %}
     <div class="carousel__search-results" id="js-linkBack">
       <a href="{% url 'calisphere:search' %}?q={{ q }}{% if rq|length > 0 %}{% for r in rq %}&rq={{ r }}{% endfor %}{% endif %}" data-pjax="js-pageContent">
@@ -46,7 +48,7 @@
   {% endif %}
 
   <div class="carousel__items-number">
-    {{ numFound }} items found
+    {{ numFound|intcomma }} items found
   </div>
   
   <form id="js-carouselForm">
@@ -58,7 +60,7 @@
 
     {% for filter_type in filters %}
       {% for filter in filters|get_item:filter_type %}
-        {% if filter_type == 'collection_data' or filter_type == 'repository_data' %}
+        {% if filter_type == 'collection_url' or filter_type == 'repository_url' %}
           <input type="hidden" name="{{ filter_type }}" value="{{ filter.id }}">
         {% else %}
           <input type="hidden" name="{{ filter_type }}" value="{{ filter|slugify }}">

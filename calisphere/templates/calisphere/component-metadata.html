@@ -3,6 +3,121 @@
     <dt class="meta-block__type">Title</dt>
     <dd class="meta-block__defin">{{ item.selectedComponent.label }}</dd>
 
+    {% if item.selectedComponent.alternativeTitle %}
+      <dt class="meta-block__type">Alternative Title</dt>
+      <dd class="meta-block__defin">{% for title in item.selectedComponent.alternativeTitle %}{{ title }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.creator %}
+      <dt class="meta-block__type">Creator</dt>
+      <dd class="meta-block__defin">{% for creator in item.selectedComponent.creator %}{{ creator }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.contributor %}
+      <dt class="meta-block__type">Contributor</dt>
+      <dd class="meta-block__defin">{% for contributor in item.selectedComponent.contributor %}{{ contributor }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.date %}
+      <dt class="meta-block__type">Date Created and/or Issued</dt>
+      <dd class="meta-block__defin">{% for date in item.selectedComponent.date %}{{ date.displayDate }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.publisher %}
+      <dt class="meta-block__type">Publication Information</dt>
+      <dd class="meta-block__defin">{% for publisher in item.selectedComponent.publisher %}{{ publisher }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.rights %}
+      <dt class="meta-block__type">Rights Information</dt>
+      <dd class="meta-block__defin">{% for rights in item.selectedComponent.rights %}{{ rights }} <br>{% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.rightsHolder %}
+      <dt class="meta-block__type">Rights Holder and Contact</dt>
+      <dd class="meta-block__defin">{% for rights_holder in item.selectedComponent.rightsHolder %}{{ rights_holder }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.rightsNote %}
+      <dt class="meta-block__type">Rights Notes</dt>
+      <dd class="meta-block__defin">{% for rights_note in item.selectedComponent.rights_note %}{{ rights_note }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.dateCopyrighted %}
+      <dt class="meta-block__type">Date of Copyright</dt>
+      <dd class="meta-block__defin">{{ item.selectedComponent.dateCopyrighted }} <br> </dd>
+    {% endif %}
+
+    {% if item.selectedComponent.description %}
+      <dt class="meta-block__type">Description</dt>
+      <dd class="meta-block__defin">{% for description in item.selectedComponent.description %}{{ description }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.type %}
+      <dt class="meta-block__type">Type</dt>
+      <dd class="meta-block__defin">{% for type in item.selectedComponent.type %}{{ type }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.format %}
+      <dt class="meta-block__type">Format</dt>
+      <dd class="meta-block__defin">{{ item.selectedComponent.format }}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.genre %}
+      <dt class="meta-block__type">Form/Genre</dt>
+      <dd class="meta-block__defin">{% for genre in item.selectedComponent.genre %}{{ genre }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.extent %}
+      <dt class="meta-block__type">Extent</dt>
+      <dd class="meta-block__defin">{{ item.selectedComponent.extent }}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.identifier %}
+      <dt class="meta-block__type">Identifier</dt>
+      <dd class="meta-block__defin">{% for identifier in item.selectedComponent.identifier %}{{ identifier }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.language %}
+      <dt class="meta-block__type">Language</dt>
+      <dd class="meta-block__defin">{% for language in item.selectedComponent.language %}{{ language.iso639_3 }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.subject %}
+      <dt class="meta-block__type">Subject</dt>
+      <dd class="meta-block__defin">{% for subject in item.selectedComponent.subject %}{{ subject }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.temporalCoverage %}
+      <dt class="meta-block__type">Time Period</dt>
+      <dd class="meta-block__defin">{% for temporal in item.selectedComponent.temporalCoverage %}{{ temporal }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.spatial %}
+      <dt class="meta-block__type">Place</dt>
+      <dd class="meta-block__defin">{% for coverage in item.selectedComponent.spatial %}{{ coverage.text }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.source %}
+      <dt class="meta-block__type">Source</dt>
+      <dd class="meta-block__defin">{% for source in item.selectedComponent.source %}{{ source }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.relation %}
+      <dt class="meta-block__type">Relation</dt>
+      <dd class="meta-block__defin">{% for relation in item.selectedComponent.relation %}{{ relation }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.provenance %}
+      <dt class="meta-block__type">Provenance</dt>
+      <dd class="meta-block__defin">{% for provenance in item.selectedComponent.provenance %}{{ provenance }} <br> {% endfor %}</dd>
+    {% endif %}
+
+    {% if item.selectedComponent.location %}
+      <dt class="meta-block__type">Location</dt>
+      <dd class="meta-block__defin">{% for location in item.selectedComponent.location %}{{ location }} <br> {% endfor %}</dd>
+    {% endif %}
+
     {% if item.selectedComponent.transcription %}
       <dt class="meta-block__type">Transcription</dt>
       <dd class="meta-block__defin">{{ item.selectedComponent.transcription }}</dd>
@@ -42,5 +157,7 @@
           data-ga-dim1="{{ collection.local_id }}{{ collection.slug }}"
        >{{ collection.name }}</a> <br> {% endfor %}</dd>
     {% endif %}
+
+  </dl>
 
 </div>
