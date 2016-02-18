@@ -13,9 +13,12 @@
     <button type="button" class="btn btn-default btn-block check__clear-filters js-clear-filters">Clear filters</button>
 
     <div class="row">
-  
-      {% for facet_type, facet_type_display in FACET_TYPES %}
       
+      {% for facet_filter_type in FACET_FILTER_TYPES %}
+      {% with facet_type=facet_filter_type.facet %}
+      {% with facet_type_display=facet_filter_type.display_name %}
+      {% with filter_type=facet_filter_type.filter %}
+            
       {% if facets|get_item:facet_type|length != 0 %}
 
       <div class="col-xs-12 col-sm-6 col-md-12">
@@ -23,7 +26,7 @@
         <div class="check">
 
           <div class="check__header js-a-check__header">
-            <p class="check__header-text js-a-check__header-text">{{ facet_type_display }} {% if filters|get_item:facet_type|length > 0 %}({{ filters|get_item:facet_type|length }} selected){% endif %}</p>
+            <p class="check__header-text js-a-check__header-text">{{ facet_type_display }} {% if filters|get_item:filter_type|length > 0 %}({{ filters|get_item:filter_type|length }} selected){% endif %}</p>
             <i class="check__header-arrow-icon js-a-check__header-arrow-icon fa fa-angle-down"></i>
             <div class="check__header-links">
               <a class="js-a-check__link-select-all check__link-select-all--selected" href="#">Select all</a>
@@ -42,11 +45,11 @@
             <div class="check__group">
               {% for facet, count in facets|get_item:facet_type %}
                 {% if facet_type == 'repository_data' %}
-                  <input id="r-{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'repository_data' %}checked{% endif %}>
+                  <input id="r-{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'repository_url' %}checked{% endif %}>
                   <label class="check__label" for="r-{{ facet.id }}">{% if facet.campus %}{{ facet.campus }}, {% endif %}{{ facet.name }} ({{ count|intcomma }})</label>
                 
                 {% elif facet_type == 'collection_data' %}
-                  <input id="c-{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'collection_data' %}checked{% endif %}>
+                  <input id="c-{{ facet.id }}" class="check__input facet js-facet facet-{{ facet_type }}" form="js-facet" type="checkbox" name="{{ facet_type }}" value="{{ facet.id }}" {% if facet in filters|get_item:'collection_url' %}checked{% endif %}>
                   <label class="check__label" for="c-{{ facet.id }}">{{ facet.name }} ({{ count|intcomma }})</label>
                 
                 {% else %}
@@ -80,6 +83,9 @@
 
       {% endif %}
 
+      {% endwith %}
+      {% endwith %}
+      {% endwith %}
       {% endfor %}
 
     </div> <!-- .row -->
