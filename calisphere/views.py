@@ -572,16 +572,22 @@ def itemViewCarousel(request):
     if 'init' in request.GET:
         filter_display = {}
         for filter_type in queryParams['filters']:
-            if filter_type == 'collection_data':
-                filter_display['collection_data'] = []
+            if filter_type == 'collection_url':
+                filter_display['collection_url'] = []
                 for filter_item in queryParams['filters'][filter_type]:
-                    collection = getCollectionData(collection_data=filter_item)
-                    filter_display['collection_data'].append(collection)
-            elif filter_type == 'repository_data':
-                filter_display['repository_data'] = []
+                    collection_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/collection/(?P<url>\d*)/?', filter_item)
+                    if collection_api_url is not None:
+                        collection = getCollectionData(collection_id=collection_api_url.group('url'))
+                        collection.pop('local_id', None)
+                        filter_display['collection_url'].append(collection)
+            elif filter_type == 'repository_url':
+                filter_display['repository_url'] = []
                 for filter_item in queryParams['filters'][filter_type]:
-                    repository = getRepositoryData(repository_data=filter_item)
-                    filter_display['repository_data'].append(repository)
+                    repository_api_url = re.match(r'^https://registry\.cdlib\.org/api/v1/repository/(?P<url>\d*)/', filter_item)
+                    if repository_api_url is not None:
+                        repository = getRepositoryData(repository_id=repository_api_url.group('url'))
+                        repository.pop('local_id', None)
+                        filter_display['repository_url'].append(repository)
             else:
                 filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
 
