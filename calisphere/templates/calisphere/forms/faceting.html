@@ -15,9 +15,7 @@
     <div class="row">
       
       {% for facet_filter_type in FACET_FILTER_TYPES %}
-      {% with facet_type=facet_filter_type.facet %}
-      {% with facet_type_display=facet_filter_type.display_name %}
-      {% with filter_type=facet_filter_type.filter %}
+      {% with facet_type=facet_filter_type.facet facet_type_display=facet_filter_type.display_name filter_type=facet_filter_type.filter %}
             
       {% if facets|get_item:facet_type|length != 0 %}
 
@@ -83,8 +81,6 @@
 
       {% endif %}
 
-      {% endwith %}
-      {% endwith %}
       {% endwith %}
       {% endfor %}
 
