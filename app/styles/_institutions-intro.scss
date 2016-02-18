@@ -28,6 +28,7 @@
 
 .institutions-intro__button-uc {
   margin: 0 0 $layout-component-margin 0;
+  padding: 0 $layout-container-margin-sm 0 0;
 
   @include bp(sm-screen) {
     margin: 0;
@@ -37,7 +38,7 @@
 }
 
 .institutions-intro__button-state {
-  
+  padding: 0 0 0 $layout-container-margin-sm;
 
   @include bp(sm-screen) {
     padding: $layout-component-margin 0 $layout-component-margin ($layout-container-margin-sm * 1.5);

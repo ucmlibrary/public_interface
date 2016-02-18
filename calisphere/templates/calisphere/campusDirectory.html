@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: UC Partners{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='UC Partners' %}
+{% endblock %}
 
 {% block content %}
 

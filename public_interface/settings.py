@@ -44,6 +44,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_PORT = os.getenv('EMAIL_PORT', '')
 EMAIL_USE_TLS = bool(os.getenv('EMAIL_USE_TLS', ''))
+CSRF_COOKIE_SECURE = bool(os.getenv('CSRF_COOKIE_SECURE', ''))
 
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'project@example.edu')
 
@@ -53,6 +54,7 @@ ADMINS = (('', DEFAULT_FROM_EMAIL),)
 MANAGERS = ADMINS
 
 GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
+UCLDC_WALKME = os.getenv('UCLDC_WALKME', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
@@ -81,11 +83,12 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.contrib.sessions.middleware.SessionMiddleware',  # are we using sessions?
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 

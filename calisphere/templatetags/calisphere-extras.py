@@ -22,7 +22,7 @@ def get_range( value ):
     </ul>
 
     Instead of 3 one may use the variable set in the views
-    
+
     https://djangosnippets.org/snippets/1357/
   """
   return range( value )
@@ -57,3 +57,7 @@ def divide( a, b ):
 @register.filter
 def current_page( start, rows ):
     return int(int(start) / int(rows)) + 1
+
+@register.filter
+def is_string(val):
+    return isinstance(val, basestring)

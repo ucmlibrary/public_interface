@@ -156,7 +156,7 @@
 
 }
 
-.thumbview {
+.thumbnail {
   margin: 0 0 $layout-component-margin (-$layout-component-margin);
 
   @include bp(sm-screen) {
@@ -252,7 +252,7 @@
 }
 
 .global-footer {
- margin: 0 (-$layout-container-margin-xs);
+ margin: $layout-container-margin-xs (-$layout-container-margin-xs) 0 (-$layout-container-margin-xs);
 
   @include bp(sm-screen) {
     margin: $layout-container-margin-sm 0 0 0;

@@ -37,7 +37,7 @@ CAMPUS_LIST = [
   'name': 'UC Riverside',
   'slug': 'UCR'},
  {'featuredImage': {'src': '/thumb-uc_sandiego.jpg',
-                    'url': '/item/ark:/20775/bb83630989/'},
+                    'url': '/item/ark:/20775/bb34824128/'},
   'id': '6',
   'name': 'UC San Diego',
   'slug': 'UCSD'},

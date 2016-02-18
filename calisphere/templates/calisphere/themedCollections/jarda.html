@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: Themed Collections{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Themed Collections' %}
+{% endblock %}
 
 {% block collectionContent %}
 
@@ -17,14 +19,14 @@
     <a class="btn btn-default themed__button" href="{% url 'calisphere:calCultures' %}" data-pjax="js-pageContent">California Cultures</a>
 
     <a class="btn btn-default themed__button button__secondary" href="{% url 'calisphere:jarda' %}" data-pjax="js-pageContent"><abbr title="Japanese American Relocation Digital Archives">JARDA</abbr></a>
-    
+
   </div>
 
   <div class="themed__hosted-box">
 
-    <span class="themed__hosted-text">The Japanese American Relocation Digital Archives (<abbr>JARDA</abbr>) page is still hosted on the old Calisphere site. We encourage you to continue your exploration there.</span>
+    <span class="themed__hosted-text">The Japanese American Relocation Digital Archives (JARDA) page is still hosted on the old Calisphere site. We encourage you to continue your exploration there.</span>
 
-    <a class="btn btn-default themed__hosted-button" href="http://www.calisphere.universityofcalifornia.edu/jarda/">Main <abbr title="Japanese American Relocation Digital Archives">JARDA</abbr> Page</a>
+    <a class="btn btn-default themed__hosted-button" href="http://www.calisphere.universityofcalifornia.edu/0/jarda/">Main <abbr title="Japanese American Relocation Digital Archives">JARDA</abbr> Page</a>
 
   </div>
 
@@ -34,7 +36,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_family-at-manzanar.jpg" alt="Family at Manzanar">
     </div>
@@ -42,7 +44,7 @@
     <div class="col-sm-9">
       <div class="themed__collection-row-text">
         <h2 class="themed__collection-row-heading">People</h2>
-        <p>The images in this topic show the faces of Japanese Americans before, during, and after incarceration. Most of the photographs were taken by War Relocation Authority (<abbr>WRA</abbr>) photographers for publicity purposes and tend to show people who are smiling or stoic. The paintings by internee artists Estelle Ishigo and Henry Sugimoto suggest a more emotional and somber mood.</p>
+        <p>The images in this topic show the faces of Japanese Americans before, during, and after incarceration. Most of the photographs were taken by War Relocation Authority (WRA) photographers for publicity purposes and tend to show people who are smiling or stoic. The paintings by internee artists Estelle Ishigo and Henry Sugimoto suggest a more emotional and somber mood.</p>
       </div>
     </div>
 
@@ -55,7 +57,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_closing-jerome-center.jpg" alt="Japanese train riders holding streamers with onlookers">
     </div>
@@ -63,7 +65,7 @@
     <div class="col-sm-9">
       <div class="themed__collection-row-text">
         <h2 class="themed__collection-row-heading">Places</h2>
-        <p>From March 1942 to 1946, the US War Relocation Authority (<abbr>WRA</abbr>) had jurisdiction over the Japanese and Japanese Americans evacuated from their homes in California, Oregon, and Washington. The <abbr title="War Relocation Authority">WRA</abbr> photographs document the places that played a role in evacuation, relocation, incarceration, and resettlement — as the government wished to present them. Few, for example, show the barbed wire fences and guards that kept internees imprisoned. Although photographer Dorothea Lange also worked for the <abbr title="War Relocation Authority">WRA</abbr>, her images manage to suggest a more somber personal experience. In contrast, the paintings by internees portray the camps as experienced by the people who lived there.</p>
+        <p>From March 1942 to 1946, the US War Relocation Authority (WRA) had jurisdiction over the Japanese and Japanese Americans evacuated from their homes in California, Oregon, and Washington. The WRA photographs document the places that played a role in evacuation, relocation, incarceration, and resettlement — as the government wished to present them. Few, for example, show the barbed wire fences and guards that kept internees imprisoned. Although photographer Dorothea Lange also worked for the WRA, her images manage to suggest a more somber personal experience. In contrast, the paintings by internees portray the camps as experienced by the people who lived there.</p>
       </div>
     </div>
 
@@ -76,7 +78,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_camp-sign.jpg" alt="Internment camp sign with printed rules">
     </div>
@@ -96,7 +98,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_sketching-camp-jerome.jpg" alt="Watercolor of a man sketching Camp Jerome">
     </div>

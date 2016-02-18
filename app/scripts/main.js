@@ -224,6 +224,35 @@ $('.carousel-complex__item-container').slick({
   ]
 });
 
+// ***** jQuery.dotdotdot ***** //
+
+$(document).ready(function() {
+  $('.obj__heading').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 50,
+    lastCharacter: { // remove these characters from the end of the truncated text:
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
+  $('.thumbnail__caption').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
+  $('.carousel__thumbnail-caption').dotdotdot({
+    ellipsis: '…',
+    watch: 'window',
+    height: 30,
+    lastCharacter: {
+      remove: [ ' ', ',', ';', '.', '!', '?', '[', ']' ]
+    }
+  });
+});
+
 // Alternative JavaScript method (instead of CSS method) for disabling popover via breakpoint:
 // if (Modernizr.mq('only screen and (max-width: 800px)')) {
 //  $('.popover__link').popover('destroy');

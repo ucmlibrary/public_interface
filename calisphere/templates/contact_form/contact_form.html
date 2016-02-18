@@ -1,5 +1,9 @@
 {% extends 'calisphere/base.html' %}
 
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Contact Calisphere' %}
+{% endblock %}
+
 {% block content %}
 
 <div class="static">
@@ -18,9 +22,9 @@
       {% endif %}
     {% endfor %}
       <div class="form-group">
-        <label for="referer">
+        <strong>
           Last page viewed:
-        </label> {{ request.META.HTTP_REFERER }}
+        </strong> {{ request.META.HTTP_REFERER }}
         <input type="hidden" name="referer" value="{{ request.META.HTTP_REFERER }}">
       </div>
       <div class="form-group">
@@ -37,14 +41,16 @@
         <br>
         <h3 class="static__sidebar-heading">Contact information</h3>
         <p>Calisphere is a project of the University of California Libraries, developed and maintained by the <a href="http://cdlib.org/">California Digital Library</a>.</p>
-        <div>California Digital Library (CDL)<br>
-        Office of the President, University of California<br>
-        415 20th Street, 4th Floor<br>
-        Oakland, CA 94612-2901<br>
-        <br>
-CDL Helpline: (510) 987-0555<br>
-CDL Administration: (510) 987-0425<br>
-CDL Fax: (510) 893-5212</div>
+        <p>California Digital Library (CDL)<br>
+          Office of the President, University of California<br>
+          415 20th Street, 4th Floor<br>
+          Oakland, CA 94612-2901
+        </p>
+        <ul class="list-unstyled">
+          <li>CDL Helpline: (510) 987-0555</li>
+          <li>CDL Administration: (510) 987-0425</li>
+          <li>CDL Fax: (510) 893-5212</li>
+        </ul>
 
   </div>
 {% endblock %}

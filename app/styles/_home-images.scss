@@ -2,7 +2,7 @@
 
 // ***** Image Variables ***** //
 
-$home-aws-image-path: "http://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/";
+$home-aws-image-path: "//calisphere.org/calisphere_images/";
 
 $home__img1-v1-xs: "#{$home-aws-image-path}colorado-street-bridge_650x300.jpg";
 $home__img1-v1-sm: "#{$home-aws-image-path}colorado-street-bridge_900x400.jpg";
@@ -60,7 +60,7 @@ $home__img3-v4-md: "#{$home-aws-image-path}maria-felix_465w.jpg";
 	padding: 0 0 $layout-container-margin-md 0; // provide space for image caption
 	background-color: #ccc; // seen before image loads
 	background-size: cover;
-	
+
 	@include bp(sm-screen) {
     padding: 0;
   }

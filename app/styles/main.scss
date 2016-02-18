@@ -17,7 +17,7 @@
 
 // ***** For Testing (comment out before compiling for production) ***** //
 
-@import "testing";
+// @import "testing";
 
 // ***** Custom Elements ***** //
 
@@ -42,6 +42,7 @@
 @import "home";
 @import "home-images";
 @import "institution-intro";
+@import "institution-contributors";
 @import "institutions-intro";
 @import "institutions-nav";
 @import "institutions-textboxes";
@@ -54,7 +55,6 @@
 @import "object-buttons";
 @import "object-container";
 @import "pagination";
-@import "popover";
 @import "searchfields";
 @import "static";
 @import "thumbnail";
@@ -71,10 +71,6 @@
 a:focus {
   outline: 0; // remove dotted border in Firefox
   text-decoration: underline;
-}
-
-abbr[title] {
-  border: none;
 }
 
 strong {
@@ -122,6 +118,13 @@ strong {
 }
 
 // Bootstrap Overrides
+
+abbr {
+  border: none !important; // for older browsers
+  text-decoration: none !important; // for newer browsers
+  cursor: auto !important;
+}
+
 .tooltip-inner {
   text-align: left;
 }
@@ -142,21 +145,21 @@ strong {
   content: "\f071";
 }
 
-.thumbview__link .tooltip {
+.thumbnail__link .tooltip {
   width: 100%;
 }
 
-.thumbview__link .tooltip.top { // center tooltip and hide from pointer
+.thumbnail__link .tooltip.top { // center tooltip and hide from pointer
   margin: 55% 0 0 0;
   padding: 0 $layout-component-margin;
   pointer-events: none;
 }
 
-.thumbview__link .tooltip-arrow {
+.thumbnail__link .tooltip-arrow {
   display: none;
 }
 
-.thumbview__link .tooltip-inner {
+.thumbnail__link .tooltip-inner {
   text-align: left;
 }
 

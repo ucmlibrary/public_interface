@@ -1,5 +1,8 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
+from django.views.decorators.gzip import gzip_page
+from django.utils.decorators import method_decorator
+
 import json
 import random
 import os
@@ -17,6 +20,8 @@ class HomeView(TemplateView):
         this_data = os.path.join(this_dir, 'home-data.json')
         self.home_data = json.loads(open(this_data).read())
 
+
+    @method_decorator(gzip_page)
     def get(self, request):
         """ view for home page """
         random.shuffle(self.home_data['home'])

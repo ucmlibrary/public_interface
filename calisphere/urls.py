@@ -28,6 +28,7 @@ urlpatterns = patterns('calisphere',
     url(r'privacy/$', TemplateView.as_view(template_name='calisphere/privacyStatement.html'), name='privacyStatement'),
     url(r'siteMap/$', TemplateView.as_view(template_name='calisphere/siteMap.html'), name='siteMap'),
     url(r'outreach/$', TemplateView.as_view(template_name='calisphere/outreach.html'), name='siteMap'),
+    url(r'contribute/$', TemplateView.as_view(template_name='calisphere/contribute.html'), name='siteMap'),
 
     # AJAX HELPERS
     url(r'^relatedCollections/', 'views.relatedCollections', name='relatedCollections'),

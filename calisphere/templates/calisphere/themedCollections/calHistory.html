@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: Themed Collections{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Themed Collections' %}
+{% endblock %}
 
 {% block collectionContent %}
 
@@ -17,14 +19,14 @@
     <a class="btn btn-default themed__button" href="{% url 'calisphere:calCultures' %}" data-pjax="js-pageContent">California Cultures</a>
 
     <a class="btn btn-default themed__button" href="{% url 'calisphere:jarda' %}" data-pjax="js-pageContent"><abbr title="Japanese American Relocation Digital Archives">JARDA</abbr></a>
-    
+
   </div>
 
   <div class="themed__hosted-box">
 
     <span class="themed__hosted-text">The California History page is still hosted on the old Calisphere site. We encourage you to continue your exploration there.</span>
 
-    <a class="btn btn-default themed__hosted-button" href="http://www.calisphere.universityofcalifornia.edu/themed_collections/index.html">Main California History Page</a>
+    <a class="btn btn-default themed__hosted-button" href="http://www.calisphere.universityofcalifornia.edu/0/themed_collections/">Main California History Page</a>
 
   </div>
 
@@ -34,7 +36,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_mission-sb.jpg" alt="Santa Barbara mission in the countryside">
     </div>
@@ -66,7 +68,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_ca-gold-diggers.jpg" alt="Men at a camp mining for gold">
     </div>
@@ -97,7 +99,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_chinese-butcher.jpg" alt="Two Chinese men standing outside a shop">
     </div>
@@ -129,7 +131,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_canning-tables.jpg" alt="Workers at tables at a cannery">
     </div>
@@ -161,7 +163,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_picket-parade.jpg" alt="Protestors marching down a street">
     </div>
@@ -193,7 +195,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_shipyard-training.jpg" alt="A woman welding metal">
     </div>
@@ -227,7 +229,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_black-panthers.jpg" alt="Black Panthers press conference">
     </div>

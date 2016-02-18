@@ -3,10 +3,10 @@
 
       <div class="titlesearch">
 
-        <form class="titlesearch__form" role="search" action="add-url-here" method="get">
+        <form class="titlesearch__form" role="search" onsubmit="false()">
           <label for="titlesearch__field" class="sr-only">Search for keywords within the titles of Calisphere's collections</label>
           <div class="input-group">
-            <input id="titlesearch__field" name="" value="" type="search" placeholder="Search for keywords within the titles of Calisphere's collections" class="form-control">
+            <input id="titlesearch__field" type="search" placeholder="Search for keywords within the titles of Calisphere's collections" class="form-control">
             <span class="input-group-btn">
               <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
               </button>
@@ -14,7 +14,9 @@
           </div>
         </form>
 
-        <div class="titlesearch__recommended">
+        <!-- The Recommended Searches box is not currently being used: -->
+
+        <!-- <div class="titlesearch__recommended">
           
           <h2 class="titlesearch__list-heading">Recommended Searches</h2>
 
@@ -35,7 +37,7 @@
             <li class="titlesearch__listitem"><a class="titlesearch__link" href="">Earthquake</a></li>
           </ul>
 
-        </div>
+        </div> -->
 
       </div>
 

@@ -1,7 +1,9 @@
 {% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 {% load calisphere-extras %}
 
-{% block title %}: {{ item.title.0 }}{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title=item.title.0 description=item.description %}
+{% endblock %}
 
 {% block content %}
 

@@ -2,7 +2,9 @@
 {% load calisphere-extras %}
 {% load staticfiles %}
 
-{% block title %}: Themed Collections{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Themed Collections' %}
+{% endblock %}
 
 {% block collectionContent %}
 
@@ -17,14 +19,14 @@
     <a class="btn btn-default themed__button button__secondary" href="{% url 'calisphere:calCultures' %}" data-pjax="js-pageContent">California Cultures</a>
 
     <a class="btn btn-default themed__button" href="{% url 'calisphere:jarda' %}" data-pjax="js-pageContent"><abbr title="Japanese American Relocation Digital Archives">JARDA</abbr></a>
-    
+
   </div>
 
   <div class="themed__hosted-box">
 
     <span class="themed__hosted-text">The California Cultures page is still hosted on the old Calisphere site. We encourage you to continue your exploration there.</span>
 
-    <a class="btn btn-default themed__hosted-button" href="http://www.calisphere.universityofcalifornia.edu/calcultures/">Main California Cultures Page</a>
+    <a class="btn btn-default themed__hosted-button" href="http://www.calisphere.universityofcalifornia.edu/0/calcultures/">Main California Cultures Page</a>
 
   </div>
 
@@ -34,7 +36,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_african-american-couple.jpg" alt="Portrait of an african american couple">
     </div>
@@ -66,7 +68,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_children-on-bicycle.jpg" alt="A boy and a girl on a bicycle">
     </div>
@@ -99,7 +101,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_mexican-american-dancer.jpg" alt="A Mexican American woman dancing to a mariachi band">
     </div>
@@ -131,7 +133,7 @@
 
 
   <div class="row themed__collection-row">
-    
+
     <div class="col-sm-3">
       <img class="themed__collection-row-image" src="https://s3.amazonaws.com/static.ucldc.cdlib.org/calisphere_images/themed_yurok-girls.jpg" alt="Two Yurok girls">
     </div>

@@ -3,9 +3,7 @@
 <!doctype html>
 <html lang="en" class="no-js no-jquery">
   <head>
-    {% block page-metadata %}
-    {% include "calisphere/microdata.html" %}
-    {% endblock %}
+    <title>Calisphere</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="apple-touch-icon-precomposed" href="/favicon-152x152.png?v=2">
@@ -22,7 +20,6 @@
       document.getElementsByTagName('html')[0].classList.remove('no-jquery');
     </script>
     {% include "calisphere/ga_site_code.html" %}
-    {% include "calisphere/walkme.html" %}
   </head>
   <body>
 
@@ -94,107 +91,53 @@
         </div>
 
       </header>
+
       <div id="js-pageContent">
+        
+        <div style="margin: -10px -20px 0 -20px; background-color: lightgray">
+          <div style="text-align: center">
+            <div style="display: inline-block;">
+              <div style="position: relative; min-height: 1px;">
+                <h1 
+                style="color: #fff; display: block; position: absolute; top: 0; left: 0; right: 0; padding: 10px; text-align: center;">
+                  Whoops! Something went wrong here!
+                </h1>
 
-        <div class="home">
+                <img class="obj__simple-image" 
+                  src="{{ thumbnailUrl }}clip/800x800/79643fd3198deb689c7f6b7493bd80e9" 
+                  alt="Toe stuck in a bowling ball [graphic]">
+                
+                <form role="search" id="js-homeForm" action="{% url 'calisphere:search' %}" method="get">
+                  <div style="display: block; position: absolute; top: 0; left: 0; right: 0; padding: 30% 25% 0; text-align: center;">
+                    <label for="home__search-field" class="sr-only">Try another search</label>
+                    <div class="input-group">
+                      <input id="home__search-field" form="js-homeForm" type="search" class="form-control input-lg" placeholder="Try another search" name="q">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default btn-lg home__search-button" type="submit">
+                        </button>
+                      </span>
+                    </div>
+                    <p style="margin-top: 20px; color: #fff;">
+                      If you think this is a problem with Calisphere, please 
+                      <a href="/contact/" data-pjax="js-pageContent">
+                        contact us.
+                      </a>
+                      <br/>
+                      Or return to the <a href="/" data-pjax="js-pageContent">homepage.</a>
+                    </p>
+                  </div>
+                </form>
 
-	        <div class="home__top-images">
-
-		        <div class="home__{{ lock_up.img1.class }}">
-			        <h1 class="home__{{ lock_up.img1.class }}-heading">The deeper you look, the more you'll discover.</h1>
-              <form role="search" id="js-homeForm" action="{% url 'calisphere:search' %}" method="get">
-			        <div class="home__search">
-	              <label for="home__search-field" class="sr-only">Search the collections</label>
-	              <div class="input-group">
-	                <input id="home__search-field" form="js-homeForm" type="search" class="form-control input-lg" placeholder="Search the collections" name="q">
-	                <span class="input-group-btn">
-	                  <button class="btn btn-default btn-lg home__search-button" type="submit">
-	                  </button>
-	                </span>
-	              </div>
-	            </div>
-              </form>
-	            <a href="{% url 'calisphere:itemView' lock_up.img1.id  %}" class="home__{{ lock_up.img1.class }}-credit">
-        {{ lock_up.img1.title }} / {{ lock_up.img1.contributor }}
-              </a>
-
-		        </div>
-
-		        <div class="row home__img-main-row">
-
-			        <div class="col-xs-12 col-sm-8">
-				        <p class="home__{{ lock_up.img2.class }}-text">Calisphere is a gateway to digital collections from California's great libraries, archives, and museums. Discover over 400,000 images, texts, and recordings&#8212;and counting.</p>
-			        </div>
-
-			        <div class="col-xs-8">
-				        <div class="home__{{ lock_up.img2.class }}">
-                  <a href="{% url 'calisphere:itemView' lock_up.img2.id %}" class="home__{{ lock_up.img2.class }}-credit">
-            {{ lock_up.img2.title }} / {{ lock_up.img2.contributor }}
-                  </a>
-				        </div>
-			        </div>
-
-			        <div class="col-xs-4">
-				        <div class="home__{{ lock_up.img3.class }}">
-					        <a href="{% url 'calisphere:itemView' lock_up.img3.id %}" class="home__{{ lock_up.img3.class }}-credit">
-            {{ lock_up.img3.title }} / {{ lock_up.img3.contributor }}
-                  </a>
-				        </div>
-			        </div>
-
-		        </div>
-
-	        </div>
-
-	        <h2 class="home__heading2">Explore University of California collections:</h2>
-
-	        <div class="row home__thumbnail">
-
-          {% for feature in uc_partners %}
-		        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			        <a href="{% url 'calisphere:campusView' feature.id 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/{{ feature.thumb }}');">
-				        <div class="home__thumbnail-caption--uc">
-					{{ feature.name }}
-				        </div>
-			        </a>
-		        </div>
-          {% endfor %}
-
-		        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-			        <div class="home__contributing-block">
-				        <a href="{% url 'calisphere:campusDirectory' %}" class="home__contributing-link">
-					        <span class="home__contributing-content">View all contributing institutions</span>
-				        </a>
-			        </div>
-		        </div>
-
-	        </div>
-
-	        <div class="row home__thumbnail">
-
-		        <h2 class="home__heading2">Featured statewide partners:</h2>
-
-
-          {% for feature in statewide_partners %}
-		        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-			        <a href="{% url 'calisphere:repositoryView' feature.id 'collections' %}" class="home__thumbnail-link" style="background-image: url('{{ ucldcImages }}/{{ feature.thumb }}');">
-				        <div class="home__thumbnail-caption--inst">
-					{{ feature.name }}
-				        </div>
-			        </a>
-		        </div>
-          {% endfor %}
-
-		        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-			        <div class="home__contributing-block">
-				        <a href="{% url 'calisphere:statewideDirectory' %}" class="home__contributing-link--inst">
-					        <span class="home__contributing-content--inst">View all statewide partners</span>
-				        </a>
-			        </div>
-		        </div>
-
-	        </div>
-
+                <a style="color: #fff" href="{% url 'calisphere:itemView' '8fb1debdaadcaa4ac974d9c420782669' %}">
+                  <div 
+                  style="display: block; position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 10px 10px; 
+                  color: #fff; text-align: right; font-size: .9em; background: linear-gradient(transparent,rgba(0,0,0,.8))">
+                    Toe stuck in a bowling ball / Los Angeles Public Library</a>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -273,17 +216,5 @@
     </div>
     {% include "calisphere/scripts.html" %}
     <script src="{% static "scripts/calisphere-home.js" %}"></script>
-    <script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Organization",
-  "name" : "Calisphere",
-  "url" : "https://calisphere.org",
-  "sameAs" : [
-    "https://twitter.com/calisphere",
-    "https://www.facebook.com/calisphere/"
-  ]
-}
-    </script>
   </body>
 </html>

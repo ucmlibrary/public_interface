@@ -4,7 +4,9 @@
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block title %}: {% if repository_id and uc_institution %}{{ uc_institution.0.name }} / {% endif %}{{ institution.name }}{% endblock %}
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with description=contact_information.description %}
+{% endblock %}
 
 {% block pageTitle %}
   <h1 id="js-institution" {%if campus_slug%}data-campus="{{ campus_slug }}"{% else %}data-institution="{{ repository_id }}"{% endif %} data-referralName="{{ institution.name }}">
@@ -61,8 +63,10 @@
               <li class="institution-intro__location-list">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
             {% endif %}
           </ul>
-
-          <input id="{{ campus_slug }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="campus_slug" value="{{ campus_slug }}" checked style="display: none;">
+          {% if numFound %}
+            <label for="{{ campus_slug }}" aria-hidden="true" style="display: none;">Campus Slug</label>
+            <input id="{{ campus_slug }}" class="facet js-facet facet-repository_data" form="js-facet" type="checkbox" name="campus_slug" value="{{ campus_slug }}" checked style="display: none;" aria-hidden="true">
+          {% endif %}
         </div>
       </div>
     {% elif repository_id and uc_institution %}
@@ -82,9 +86,12 @@
             <li class="institution-intro__list-item">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
-          form="js-facet" type="checkbox" name="repository_data"
-          value="{{ repository_id }}" checked style="display: none;">
+        {% if numFound %}
+          <label for="{{ repository_id }}" aria-hidden="true" style="display: none;">Institution ID</label>
+          <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+            form="js-facet" type="checkbox" name="repository_data"
+            value="{{ repository_id }}" checked style="display: none;" aria-hidden="true">
+        {% endif %}
       </div>
       <div class="col-md-9">
         {% if contact_information.description %}
@@ -119,9 +126,12 @@
             <li class="institution-intro__list-item">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
-          form="js-facet" type="checkbox" name="repository_data"
-          value="{{ repository_id }}" checked style="display: none;">
+        {% if numFound %}
+          <label for="{{ repository_id }}" aria-hidden="true" style="display: none;">Institution ID</label>
+          <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+            form="js-facet" type="checkbox" name="repository_data"
+            value="{{ repository_id }}" checked style="display: none;" aria-hidden="true">
+        {% endif %}
       </div>
       <div class="col-md-6">
         {% if contact_information.description %}
@@ -148,9 +158,12 @@
             <li class="institution-intro__list-item">Website: <a class="institution-intro__web-link" href="{{ contact_information.url }}">{{ contact_information.url }}</a></li>
           {% endif %}
         </ul>
-        <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
-          form="js-facet" type="checkbox" name="repository_data"
-          value="{{ repository_id }}" checked style="display: none;">
+        {% if numFound %}
+          <label for="{{ repository_id }}" aria-hidden="true" style="display: none;">Institution ID</label>
+          <input id="{{ repository_id }}" class="facet js-facet facet-repository_data"
+            form="js-facet" type="checkbox" name="repository_data"
+            value="{{ repository_id }}" checked style="display: none;" aria-hidden="true">
+        {% endif %}
       </div>
       <div class="col-md-9">
         {% if contact_information.description %}
