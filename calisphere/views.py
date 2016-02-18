@@ -38,9 +38,9 @@ def concat_filters(filters, filter_type):
 # collect filters into an array
 def solrize_filters(filters):
     fq = []
-    for filter_type in [('type_ss', 'Type of Item'), ('facet_decade', 'Decade'), ('repository_url', 'Contributing Institution'), ('collection_url', 'Collection')]:
-        if len(filters[filter_type[0]]) > 0:
-            fq.extend(concat_filters(filters[filter_type[0]], filter_type[0]))
+    for filter_type in list(facet_filter_type['filter'] for facet_filter_type in FACET_FILTER_TYPES):
+        if len(filters[filter_type]) > 0:
+            fq.extend(concat_filters(filters[filter_type], filter_type))
 
     return fq
 
