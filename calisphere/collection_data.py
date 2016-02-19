@@ -16,7 +16,8 @@ class CollectionManager(object):
 
 
     def __init__(self, solr_url, solr_key):
-        saved = cache.get('collection-manager')
+        cache_key = 'collection-manager'  # won't vary except on djano restart
+        saved = cache.get(cache_key)
         if saved:
             self.data = saved['data']
             self.parsed = saved['parsed']
@@ -38,7 +39,7 @@ class CollectionManager(object):
             save['names'] = self.names
             save['split'] = self.split
             save['no_collections'] = self.no_collections
-            cache.set('collection-manager', save, settings.DJANGO_CACHE_TIMEOUT )
+            cache.set(cache_key, save, settings.DJANGO_CACHE_TIMEOUT )
 
 
     def parse(self):
