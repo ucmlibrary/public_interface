@@ -6,35 +6,57 @@ from collections import namedtuple
 import string
 import random
 from cache_retry import json_loads_url
+from django.core.cache import cache
+from django.conf import settings
 import time
 
+CollectionLink = namedtuple('CollectionLink', 'url, label')
 
 class CollectionManager(object):
 
+
     def __init__(self, solr_url, solr_key):
-        url = '{0}/query?facet.field=collection_data&facet=on&rows=0&facet.limit=-1&facet.mincount=1'.format(
-            solr_url
-        )
-        req = urllib2.Request(url, None, { 'X-Authentication-Token': solr_key  })
-        self.data = json_loads_url(req)['facet_counts']['facet_fields']['collection_data'][::2]
-        self.parse()
+        saved = cache.get('collection-manager')
+        if saved:
+            self.data = saved['data']
+            self.parsed = saved['parsed']
+            self.names = saved['names']
+            self.split = saved['split']
+            self.no_collections = saved['no_collections']
+        else:
+            url = (
+                '{0}/query?facet.field=collection_data&facet=on&rows=0&facet.limit=-1&facet.mincount=1'
+                .format(
+                    solr_url
+                )
+            )
+            req = urllib2.Request(url, None, { 'X-Authentication-Token': solr_key  })
+            save = {}
+            save['data'] = self.data = json_loads_url(req)['facet_counts']['facet_fields']['collection_data'][::2]
+            self.parse()
+            save['parsed'] = self.parsed
+            save['names'] = self.names
+            save['split'] = self.split
+            save['no_collections'] = self.no_collections
+            cache.set('collection-manager', save, settings.DJANGO_CACHE_TIMEOUT )
+            cache.close()
 
 
     def parse(self):
         def sort_key(collection_link):
             return collection_link.label.translate({ord(c): None for c in string.punctuation}).upper()
 
-        CollectionLink = namedtuple('CollectionLink', 'url, label')
-
         self.parsed = sorted(
             [CollectionLink(*x.rsplit('::')) for x in self.data],
             key=sort_key
         )
-        
+
         split_collections = {'num': [], 'a': []}
-        
+        names = {}
+
         current_char = 'a'
         for collection_link in self.parsed:
+            names[collection_link.url] = collection_link.label
             for c in collection_link.label:
                 if c not in string.punctuation:
                     if c in string.digits:
@@ -42,25 +64,26 @@ class CollectionManager(object):
                     elif c.lower() == current_char:
                         split_collections[current_char].append(collection_link)
                     else:
-                        while c.lower() != current_char and current_char <= 'z': 
+                        while c.lower() != current_char and current_char <= 'z':
                             current_char = chr(ord(current_char) + 1)
                             split_collections[current_char] = []
                         split_collections[current_char].append(collection_link)
                     break
         self.split = split_collections
-        
+        self.names = names
+
         self.no_collections = []
         for c in list(string.ascii_lowercase):
             if len(self.split[c]) == 0:
                 self.no_collections.append(c);
-        
+
         random.seed(time.strftime("%d/%m/%Y"))
 
         self.shuffled = random.sample(self.parsed, len(self.parsed))
 
 
 """
-Copyright (c) 2015, Regents of the University of California
+Copyright (c) 2016, Regents of the University of California
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
