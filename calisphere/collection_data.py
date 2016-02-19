@@ -39,7 +39,6 @@ class CollectionManager(object):
             save['split'] = self.split
             save['no_collections'] = self.no_collections
             cache.set('collection-manager', save, settings.DJANGO_CACHE_TIMEOUT )
-            cache.close()
 
 
     def parse(self):
