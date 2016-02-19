@@ -87,11 +87,12 @@ def getCollectionData(collection_data=None, collection_id=None):
         else:
             collection['id'] = collection_api_url.group('url')
     elif collection_id:
+        solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
         collection['url'] = "https://registry.cdlib.org/api/v1/collection/{0}/".format(collection_id)
         collection['id'] = collection_id
 
         collection_details = json_loads_url("{0}?format=json".format(collection['url']))
-        collection['name'] = collection_details['name']
+        collection['name'] = solr_collections.names[collection['url']]
         collection['local_id'] = collection_details['local_id']
     return collection
 
@@ -206,7 +207,7 @@ def process_facets(facets, filters, facet_type=None):
                     display_facets.append((repository['url'] + "::" + repository['name'], 0))
             else:
                 display_facets.append((f, 0))
-    
+
     return display_facets
 
 def filterType(facet_type):
@@ -275,8 +276,8 @@ def processQueryRequest(request):
     rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
     campus_slug = request.GET['campus_slug'] if 'campus_slug' in request.GET else ''
 
-    # for each facet_filter_type 
-    #    {'facet': 'facet_solr_name', 'display_name': 'Display Name', 'filter': 'filter_solr_name'} 
+    # for each facet_filter_type
+    #    {'facet': 'facet_solr_name', 'display_name': 'Display Name', 'filter': 'filter_solr_name'}
     # in the list FACET_FILTER_TYPES create a dictionary with key filter_solr_name of filter
     # and value list of selected parameters for that filter
     # {'type': ['image', 'audio'], 'repository_name': [...]}
@@ -818,7 +819,7 @@ def collectionView(request, collection_id):
     for i, facet_item in enumerate(facets['repository_data']):
         repository = (getRepositoryData(repository_data=facet_item[0]), facet_item[1])
         facets['repository_data'][i] = repository
-    
+
     filter_display = {}
     for filter_type in queryParams['filters']:
         if filter_type == 'collection_url':
@@ -980,7 +981,7 @@ def institutionView(request, institution_id, subnav=False, institution_type='rep
                         filter_display['repository_url'].append(repository)
             else:
                 filter_display[filter_type] = copy.copy(queryParams['filters'][filter_type])
-        
+
         context = {
             'q': queryParams['q'],
             'rq': queryParams['rq'],
