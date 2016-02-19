@@ -13,18 +13,22 @@ import time
 CollectionLink = namedtuple('CollectionLink', 'url, label')
 
 class CollectionManager(object):
+    """ manage collection information that is parsed from solr facets """
 
 
     def __init__(self, solr_url, solr_key):
         cache_key = 'collection-manager'  # won't vary except on djano restart
         saved = cache.get(cache_key)
         if saved:
-            self.data = saved['data']
-            self.parsed = saved['parsed']
-            self.names = saved['names']
-            self.split = saved['split']
-            self.no_collections = saved['no_collections']
+            # got this cached
+            self.data = saved['data']  # `_data` from solr
+            self.parsed = saved['parsed']  # parsed into `CollectionLink`
+            self.names = saved['names']  # dict of URL-> collection label
+            self.split = saved['split']  # set up for a-z
+            self.no_collections = saved['no_collections']  # number of collections per letter for a-z
+            self.shuffled = saved['shuffled']  # For the collections explore
         else:
+            # look it up from solr
             url = (
                 '{0}/query?facet.field=collection_data&facet=on&rows=0&facet.limit=-1&facet.mincount=1'
                 .format(
@@ -39,6 +43,7 @@ class CollectionManager(object):
             save['names'] = self.names
             save['split'] = self.split
             save['no_collections'] = self.no_collections
+            save['shuffled'] = self.shuffled
             cache.set(cache_key, save, settings.DJANGO_CACHE_TIMEOUT )
 
 
