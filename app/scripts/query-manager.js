@@ -16,31 +16,57 @@ var QueryManager = Backbone.Model.extend({
   },
   
   initialize: function() {
+    var attributes;
     if (sessionStorage.length > 0) {
-      // this.set({q: sessionStorage.getItem('q')});
-      // for (var key in sessionStorage) {
-      //   this.set(key, sessionStorage.getItem(key))
-      //   console.log(key);
-      //   console.log(sessionStorage.getItem(key));
-      // }
-      if (sessionStorage.getItem('q') !== null) { this.set({q: sessionStorage.getItem('q')}); }
-      if (sessionStorage.getItem('rq') !== null) { this.set({rq: JSON.parse(sessionStorage.getItem('rq'))}); }
-      if (sessionStorage.getItem('view_format') !== null) { this.set({view_format: sessionStorage.getItem('view_format')}); }
-      if (sessionStorage.getItem('sort') !== null) { this.set({sort: sessionStorage.getItem('sort')}); }
-      if (sessionStorage.getItem('rows') !== null) { this.set({rows: sessionStorage.getItem('rows')}); }
-      if (sessionStorage.getItem('start') !== null) { this.set({start: sessionStorage.getItem('start')}); }
-      
-      if (sessionStorage.getItem('type_ss') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('type_ss'))}); }
-      if (sessionStorage.getItem('facet_decade') !== null) { this.set({type_ss: JSON.parse(sessionStorage.getItem('facet_decade'))}); }      
-      if (sessionStorage.getItem('repository_data') !== null) { this.set({repository_data: JSON.parse(sessionStorage.getItem('repository_data'))}); }
-      if (sessionStorage.getItem('collection_data') !== null) { this.set({collection_data: JSON.parse(sessionStorage.getItem('collection_data'))}); }
-      if (sessionStorage.getItem('campus_slug') !== null) { this.set({campus_slug: sessionStorage.getItem('campus_slug')}); }
-      
-      if (sessionStorage.getItem('itemNumber') !== null) { this.set({itemNumber: sessionStorage.getItem('itemNumber')}); }
-      if (sessionStorage.getItem('itemId') !== null) { this.set({itemId: sessionStorage.getItem('itemId')}); }
-      if (sessionStorage.getItem('referral') !== null) { this.set({referral: sessionStorage.getItem('referral')}); }
-      if (sessionStorage.getItem('referralName') !== null) { this.set({referralName: sessionStorage.getItem('referralName')}); }
-
+      attributes = {
+        q: sessionStorage.getItem('q'),
+        rq: JSON.parse(sessionStorage.getItem('rq')),
+        view_format: sessionStorage.getItem('view_format'),
+        sort: sessionStorage.getItem('sort'),
+        start: sessionStorage.getItem('start'),
+        type_ss: JSON.parse(sessionStorage.getItem('type_ss')),
+        facet_decade: JSON.parse(sessionStorage.getItem('facet_decade')),
+        repository_data: JSON.parse(sessionStorage.getItem('repository_data')),
+        collection_data: JSON.parse(sessionStorage.getItem('collection_data')),
+        campus_slug: sessionStorage.getItem('campus_slug'),
+        itemNumber: sessionStorage.getItem('itemNumber'),
+        itemId: sessionStorage.getItem('itemId'),
+        referral: sessionStorage.getItem('referral'),
+        referralName: sessionStorage.getItem('referralName')
+      };
+      attributes = _.omit(attributes, function(value) {
+        return _.isNull(value);
+      });
+      this.set(attributes);
+    } 
+    else if ($('#js-facet').length > 0) {
+      attributes = {
+        q: $('[form=js-facet][name=q]').val(),
+        view_format: $('[form=js-facet][name=view_format]').val(),
+        sort: $('[form=js-facet][name=sort]').val(),
+        rows: $('[form=js-facet][name=rows]').val(),
+        start: parseInt($('[form=js-facet][name=start]').val()),
+      };
+      if ($('[form=js-facet].js-facet').serializeArray().length > 0) {
+        var filterArray = $('#js-facet .js-facet').serializeArray();
+        for (var i=0; i<filterArray.length; i++) {
+          if (_.has(attributes, filterArray[i].name)) {
+            attributes[filterArray[i].name].push(filterArray[i].value);
+          } else {
+            attributes[filterArray[i].name] = [filterArray[i].value];
+          }
+        }      
+      }
+      if ($('[form=js-facet][name=rq]').serializeArray().length > 0) {
+        var refineArray = $('[form=js-facet][name=rq]').serializeArray();
+        attributes.rq = [];
+        for (var j=0; j<refineArray.length; j++) {
+          if (refineArray[j].value !== '') {
+            attributes.rq.push(refineArray[j].value);
+          }
+        }
+      }
+      this.set(attributes);
     }
   },
   
