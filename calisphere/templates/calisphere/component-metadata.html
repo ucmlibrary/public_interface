@@ -5,122 +5,122 @@
 
     {% if item.selectedComponent.alternativeTitle %}
       <dt class="meta-block__type">Alternative Title</dt>
-      <dd class="meta-block__defin">{% for title in item.selectedComponent.alternativeTitle %}{{ title }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.alternativeTitle %}
     {% endif %}
 
     {% if item.selectedComponent.creator %}
       <dt class="meta-block__type">Creator</dt>
-      <dd class="meta-block__defin">{% for creator in item.selectedComponent.creator %}{{ creator }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.creator %}
     {% endif %}
 
     {% if item.selectedComponent.contributor %}
       <dt class="meta-block__type">Contributor</dt>
-      <dd class="meta-block__defin">{% for contributor in item.selectedComponent.contributor %}{{ contributor }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.contributor %}
     {% endif %}
 
     {% if item.selectedComponent.date %}
       <dt class="meta-block__type">Date Created and/or Issued</dt>
-      <dd class="meta-block__defin">{% for date in item.selectedComponent.date %}{{ date.displayDate }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.date %}
     {% endif %}
 
     {% if item.selectedComponent.publisher %}
       <dt class="meta-block__type">Publication Information</dt>
-      <dd class="meta-block__defin">{% for publisher in item.selectedComponent.publisher %}{{ publisher }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.publisher %}
     {% endif %}
 
     {% if item.selectedComponent.rights %}
       <dt class="meta-block__type">Rights Information</dt>
-      <dd class="meta-block__defin">{% for rights in item.selectedComponent.rights %}{{ rights }} <br>{% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.rights %}
     {% endif %}
 
     {% if item.selectedComponent.rightsHolder %}
       <dt class="meta-block__type">Rights Holder and Contact</dt>
-      <dd class="meta-block__defin">{% for rights_holder in item.selectedComponent.rightsHolder %}{{ rights_holder }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.rightsHolder %}
     {% endif %}
 
     {% if item.selectedComponent.rightsNote %}
       <dt class="meta-block__type">Rights Notes</dt>
-      <dd class="meta-block__defin">{% for rights_note in item.selectedComponent.rights_note %}{{ rights_note }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.rights_note %}
     {% endif %}
 
     {% if item.selectedComponent.dateCopyrighted %}
       <dt class="meta-block__type">Date of Copyright</dt>
-      <dd class="meta-block__defin">{{ item.selectedComponent.dateCopyrighted }} <br> </dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.dateCopyrighted %}
     {% endif %}
 
     {% if item.selectedComponent.description %}
       <dt class="meta-block__type">Description</dt>
-      <dd class="meta-block__defin">{% for description in item.selectedComponent.description %}{{ description }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.description %}
     {% endif %}
 
     {% if item.selectedComponent.type %}
       <dt class="meta-block__type">Type</dt>
-      <dd class="meta-block__defin">{% for type in item.selectedComponent.type %}{{ type }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.type %}
     {% endif %}
 
     {% if item.selectedComponent.format %}
       <dt class="meta-block__type">Format</dt>
-      <dd class="meta-block__defin">{{ item.selectedComponent.format }}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.format %}
     {% endif %}
 
     {% if item.selectedComponent.genre %}
       <dt class="meta-block__type">Form/Genre</dt>
-      <dd class="meta-block__defin">{% for genre in item.selectedComponent.genre %}{{ genre }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.genre %}
     {% endif %}
 
     {% if item.selectedComponent.extent %}
       <dt class="meta-block__type">Extent</dt>
-      <dd class="meta-block__defin">{{ item.selectedComponent.extent }}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.extent %}
     {% endif %}
 
     {% if item.selectedComponent.identifier %}
       <dt class="meta-block__type">Identifier</dt>
-      <dd class="meta-block__defin">{% for identifier in item.selectedComponent.identifier %}{{ identifier }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.identifier %}
     {% endif %}
 
     {% if item.selectedComponent.language %}
       <dt class="meta-block__type">Language</dt>
-      <dd class="meta-block__defin">{% for language in item.selectedComponent.language %}{{ language.iso639_3 }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.language %}
     {% endif %}
 
     {% if item.selectedComponent.subject %}
       <dt class="meta-block__type">Subject</dt>
-      <dd class="meta-block__defin">{% for subject in item.selectedComponent.subject %}{{ subject }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.subject %}
     {% endif %}
 
     {% if item.selectedComponent.temporalCoverage %}
       <dt class="meta-block__type">Time Period</dt>
-      <dd class="meta-block__defin">{% for temporal in item.selectedComponent.temporalCoverage %}{{ temporal }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.temporalCoverage %}
     {% endif %}
 
     {% if item.selectedComponent.spatial %}
       <dt class="meta-block__type">Place</dt>
-      <dd class="meta-block__defin">{% for coverage in item.selectedComponent.spatial %}{{ coverage.text }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.spatial %}
     {% endif %}
 
     {% if item.selectedComponent.source %}
       <dt class="meta-block__type">Source</dt>
-      <dd class="meta-block__defin">{% for source in item.selectedComponent.source %}{{ source }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.source %}
     {% endif %}
 
     {% if item.selectedComponent.relation %}
       <dt class="meta-block__type">Relation</dt>
-      <dd class="meta-block__defin">{% for relation in item.selectedComponent.relation %}{{ relation }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.relation %}
     {% endif %}
 
     {% if item.selectedComponent.provenance %}
       <dt class="meta-block__type">Provenance</dt>
-      <dd class="meta-block__defin">{% for provenance in item.selectedComponent.provenance %}{{ provenance }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.provenance %}
     {% endif %}
 
     {% if item.selectedComponent.location %}
       <dt class="meta-block__type">Location</dt>
-      <dd class="meta-block__defin">{% for location in item.selectedComponent.location %}{{ location }} <br> {% endfor %}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.location %}
     {% endif %}
 
     {% if item.selectedComponent.transcription %}
       <dt class="meta-block__type">Transcription</dt>
-      <dd class="meta-block__defin">{{ item.selectedComponent.transcription }}</dd>
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.transcription %}
     {% endif %}
 
     <hr style="width: 100%">

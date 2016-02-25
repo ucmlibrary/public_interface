@@ -1,0 +1,8 @@
+{% load calisphere-extras %}
+<dd class="meta-block__defin">
+{% if value|is_string %}
+{{ value }}
+{% else %}
+{% for v in value %}{{ v }} <br> {% endfor %}
+{% endif %}
+</dd>
