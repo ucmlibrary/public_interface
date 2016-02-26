@@ -59,12 +59,7 @@ UCLDC_WALKME = os.getenv('UCLDC_WALKME', False)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
 
-UCLDC_DEVEL = TEMPLATE_DEBUG = bool(os.environ.get('UCLDC_DEVEL'))
-
-TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + [
-    'django.core.context_processors.request',
-    'public_interface.context_processors.settings',
-]
+UCLDC_DEVEL = bool(os.environ.get('UCLDC_DEVEL'))
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
@@ -107,11 +102,13 @@ TEMPLATES = [
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
+            "debug": UCLDC_DEVEL,
             "builtins": [
                 "easy_pjax.templatetags.pjax_tags"
             ],
             "context_processors": [
                 "django.template.context_processors.request",
+                'public_interface.context_processors.settings',
             ]
         }
     }
