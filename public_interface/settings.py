@@ -61,10 +61,10 @@ DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
 
 UCLDC_DEVEL = TEMPLATE_DEBUG = bool(os.environ.get('UCLDC_DEVEL'))
 
-TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + (
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS  + [
     'django.core.context_processors.request',
     'public_interface.context_processors.settings',
-)
+]
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'django.contrib.humanize',
     'easy_pjax',
     'calisphere',
@@ -91,6 +92,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     # 'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'easy_pjax.middleware.UnpjaxMiddleware',
 )
 
 ROOT_URLCONF = 'public_interface.urls'
@@ -98,6 +100,22 @@ ROOT_URLCONF = 'public_interface.urls'
 WSGI_APPLICATION = 'public_interface.wsgi.application'
 
 APPEND_SLASH = True
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "builtins": [
+                "easy_pjax.templatetags.pjax_tags"
+            ],
+            "context_processors": [
+                "django.template.context_processors.request",
+            ]
+        }
+    }
+]
 
 
 # Database
@@ -154,3 +172,4 @@ LOGGING = {
 }
 
 CONTRUBUTOR_CONTACT_FLAG = 'link'  # 'email'
+
