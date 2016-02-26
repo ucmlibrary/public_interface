@@ -1,26 +1,29 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from calisphere.home import HomeView
+from . import views
 
-urlpatterns = patterns('calisphere',
+app_name = 'calisphere'
+
+urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^search/$', 'views.search', name='search'),
-    url(r'^item/(?P<item_id>.*)/$', 'views.itemView', name='itemView'),
+    url(r'^search/$', views.search, name='search'),
+    url(r'^item/(?P<item_id>.*)/$', views.itemView, name='itemView'),
 
-    url(r'^collections/$', 'views.collectionsDirectory', name='collectionsDirectory'),
-    url(r'^collections/(?P<collection_letter>[a-zA-Z]{1})/', 'views.collectionsAZ', name='collectionsAZ'),
-    url(r'^collections/(?P<collection_letter>num)/', 'views.collectionsAZ', name='collectionsAZ'),
-    url(r'^collections/(?P<collection_id>\d*)/', 'views.collectionView', name='collectionView'),
-    url(r'^collections/themed/$', 'views.calHistory', name='themedCollections'),
-    url(r'^collections/cal-cultures/$', 'views.calCultures', name='calCultures'),
-    url(r'^collections/jarda/$', 'views.jarda', name='jarda'),
-    url(r'^collections/titleSearch/$', 'views.collectionsSearch', name='collectionsTitleSearch'),
-    url(r'^collections/titles.json$', 'views.collectionsTitles', name='collectionsTitleData'),
+    url(r'^collections/$', views.collectionsDirectory, name='collectionsDirectory'),
+    url(r'^collections/(?P<collection_letter>[a-zA-Z]{1})/', views.collectionsAZ, name='collectionsAZ'),
+    url(r'^collections/(?P<collection_letter>num)/', views.collectionsAZ, name='collectionsAZ'),
+    url(r'^collections/(?P<collection_id>\d*)/', views.collectionView, name='collectionView'),
+    url(r'^collections/themed/$', views.calHistory, name='themedCollections'),
+    url(r'^collections/cal-cultures/$', views.calCultures, name='calCultures'),
+    url(r'^collections/jarda/$', views.jarda, name='jarda'),
+    url(r'^collections/titleSearch/$', views.collectionsSearch, name='collectionsTitleSearch'),
+    url(r'^collections/titles.json$', views.collectionsTitles, name='collectionsTitleData'),
 
-    url(r'^institution/(?P<repository_id>\d*)(?:/(?P<subnav>items|collections))?/', 'views.repositoryView', name='repositoryView'),
-    url(r'^(?P<campus_slug>UC\w{1,2})(?:/(?P<subnav>items|collections|institutions))?/', 'views.campusView', name='campusView'),
-    url(r'^institutions/$', 'views.campusDirectory', name='campusDirectory'),
-    url(r'^institutions/statewide-partners/$', 'views.statewideDirectory', name='statewideDirectory'),
+    url(r'^institution/(?P<repository_id>\d*)(?:/(?P<subnav>items|collections))?/', views.repositoryView, name='repositoryView'),
+    url(r'^(?P<campus_slug>UC\w{1,2})(?:/(?P<subnav>items|collections|institutions))?/', views.campusView, name='campusView'),
+    url(r'^institutions/$', views.campusDirectory, name='campusDirectory'),
+    url(r'^institutions/statewide-partners/$', views.statewideDirectory, name='statewideDirectory'),
 
     url(r'about/$', TemplateView.as_view(template_name='calisphere/about.html'), name='about'),
     url(r'help/$', TemplateView.as_view(template_name='calisphere/help.html'), name='help'),
@@ -31,7 +34,7 @@ urlpatterns = patterns('calisphere',
     url(r'contribute/$', TemplateView.as_view(template_name='calisphere/contribute.html'), name='siteMap'),
 
     # AJAX HELPERS
-    url(r'^relatedCollections/', 'views.relatedCollections', name='relatedCollections'),
-    url(r'^carousel/', 'views.itemViewCarousel', name='carousel'),
-    url(r'^contactOwner/', 'views.contactOwner', name='contactOwner'),
-)
+    url(r'^relatedCollections/', views.relatedCollections, name='relatedCollections'),
+    url(r'^carousel/', views.itemViewCarousel, name='carousel'),
+    url(r'^contactOwner/', views.contactOwner, name='contactOwner'),
+]
