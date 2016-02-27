@@ -20,7 +20,7 @@
 
     {% if item.selectedComponent.date %}
       <dt class="meta-block__type">Date Created and/or Issued</dt>
-      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.date %}
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.date.0.displayDate %}
     {% endif %}
 
     {% if item.selectedComponent.publisher %}
@@ -80,7 +80,7 @@
 
     {% if item.selectedComponent.language %}
       <dt class="meta-block__type">Language</dt>
-      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.language %}
+      {% include "calisphere/component-metadata-dd.html" with value=item.selectedComponent.language.0.iso639_3 %}
     {% endif %}
 
     {% if item.selectedComponent.subject %}
