@@ -80,12 +80,12 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    # 'django.contrib.sessions.middleware.SessionMiddleware',  # are we using sessions?
+    'django.contrib.sessions.middleware.SessionMiddleware',  # are we using sessions?
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'easy_pjax.middleware.UnpjaxMiddleware',
 )
@@ -107,6 +107,7 @@ TEMPLATES = [
                 "easy_pjax.templatetags.pjax_tags"
             ],
             "context_processors": [
+                "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.request",
                 'public_interface.context_processors.settings',
             ]
@@ -169,4 +170,6 @@ LOGGING = {
 }
 
 CONTRUBUTOR_CONTACT_FLAG = 'link'  # 'email'
+
+SITE_ID = 1
 
