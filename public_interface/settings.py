@@ -67,6 +67,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 # Application definition
 
 INSTALLED_APPS = (
+    'exhibits.apps.ExhibitsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -107,8 +108,8 @@ TEMPLATES = [
                 "easy_pjax.templatetags.pjax_tags"
             ],
             "context_processors": [
-                "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
                 'public_interface.context_processors.settings',
             ]
         }
@@ -125,6 +126,26 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
+# Password validation
+# https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
