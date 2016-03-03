@@ -18,8 +18,7 @@ python installation left as an exercise to the reader
 virtualenv-2.7 py27
 . py27/bin/activate
 pip install -r requirements.txt
-python manage.py
-migrate
+python manage.py migrate
 ```
 
 and run the test server
