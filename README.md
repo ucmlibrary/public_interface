@@ -7,7 +7,7 @@ get python, node, and ruby environments on your development host.
 
  * node http://nodejs.org and node's package manager https://npmjs.org
  * requires ruby environment where `gem install sass` has been run
- * requires python environment with `pip` or `virualenv` set up
+ * requires python environment with `pip` or `virtualenv` set up
 
 ### what is happening here?
 
