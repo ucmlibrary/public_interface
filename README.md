@@ -3,21 +3,21 @@
 To work on this project as a developer, you will actually need to
 get python, node, and ruby environments on your development host.
 
-## Requirements to build
+## requirements to build
 
  * node http://nodejs.org and node's package manager https://npmjs.org
  * requires ruby environment where `gem install sass` has been run
  * requires python environment with `pip` or `virualenv` set up
 
-## What is happening here?
+### what is happening here?
 
 The root directory of this repository is both the root of a [django applicaiton](https://www.djangoproject.com) and a [Yeoman](http://yeoman.io) scaffold [`yo webapp`](https://github.com/yeoman/generator-webapp#readme) created back when `grunt` was the default task runner.
 
 ## configuration 
 
-based on the advice here here: http://12factor.net/config all configuration is set in environmental variables.
+Based on the advice here here: http://12factor.net/config all configuration is set in environmental variables.
 
-see `env.conf.in` as a tempalte file for setting environmental variables during development.  `env.conf` is listed in `.gitignore` -- so if you use that filename for your local conf, it won't get checked into git.  Before you start the server, you will need to
+See `env.conf.in` as a tempalte file for setting environmental variables during development.  `env.conf` is listed in `.gitignore` -- so if you use that filename for your local conf, it won't get checked into git.  Before you start the server, you will need to
 ```
 . env.conf
 ```
@@ -59,7 +59,9 @@ bower install
 grunt serve
 ```
 
-# Windows Install
+An html/design reference site will be running on http://localhost:9000/ 
+
+# windows install
 
 [note, use case for windows users is for QA of candiate producton indexes, not code hacking]
 
@@ -69,7 +71,7 @@ http://git-scm.com/download/win
 
 save `run.bat`
 
-### initial setup
+## initial setup
 only do this once
 ```dos
 conda create -n myenv python
@@ -83,7 +85,7 @@ edit `run.bat` in notepad, as per below
 run.bat
 ```
 
-### run again
+## run again
 
 ```dos
 activate myenv
@@ -91,11 +93,10 @@ cd public_interface
 ```
 if you need to update the code
 
-
 ```
 git pull origin master
 ```
-run the local server
+run the local server on http://localhost:8000/
 ```
 run.bat
 ```
