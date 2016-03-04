@@ -9,6 +9,10 @@ get python, node, and ruby environments on your development host.
  * requires ruby environment where `gem install sass` has been run
  * requires python environment with `pip` or `virualenv` set up
 
+## What is happening here?
+
+The root directory of this repository is both the root of a [django applicaiton](https://www.djangoproject.com) and a [Yeoman](http://yeoman.io) scaffold [`yo webapp`](https://github.com/yeoman/generator-webapp#readme) created back when `grunt` was the default task runner.
+
 ## configuration 
 
 http://12factor.net/config
@@ -53,7 +57,7 @@ bower install
 grunt serve
 ```
 
-## Windows Install
+# Windows Install
 
 [note, use case for window's users is for QA of candiate producton indexes, not code hacking]
 
@@ -94,7 +98,7 @@ run the local server
 run.bat
 ```
 
-`run.bat`:
+## `run.bat`:
 ```bat
 set UCLDC_THUMBNAIL_URL=...
 set UCLDC_STATIC_URL=...
