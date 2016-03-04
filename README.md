@@ -15,12 +15,14 @@ The root directory of this repository is both the root of a [django applicaiton]
 
 ## configuration 
 
-http://12factor.net/config
+based on the advice here here: http://12factor.net/config all configuration is set in environmental variables.
 
 see `env.conf.in` as a tempalte file for setting environmental variables during development.  `env.conf` is listed in `.gitignore` -- so if you use that filename for your local conf, it won't get checked into git.  Before you start the server, you will need to
 ```
 . env.conf
 ```
+
+If you are working with CDL on developing a feature, contact oacops@cdlib.org for the values to use in the configuration.
 
 ## install python / django
 
@@ -40,7 +42,7 @@ and run the test server
 python manage.py runserver
 ```
 
-it should be running on http://localhost:8000
+The Calisphere public interface should be running on http://localhost:8000
 
 ## install npm / grunt
 
@@ -59,7 +61,7 @@ grunt serve
 
 # Windows Install
 
-[note, use case for window's users is for QA of candiate producton indexes, not code hacking]
+[note, use case for windows users is for QA of candiate producton indexes, not code hacking]
 
 http://conda.pydata.org/miniconda.html  <-- python 2.7
 
@@ -109,4 +111,16 @@ set UCLDC_IMAGES=...
 set UCLDC_MEDIA=...
 set UCLDC_IIIF=...
 python manage.py runserver
+```
+
+# Deploy to Amazon Web Services Elastic Beanstalk
+Run within an authorized shell (on an EC2 instance with IAM permissions)
+
+```
+deploy-version.sh
+```
+will show the running environments and the last few version names.  Then run
+
+```
+deploy-version.sh version-label environment-name
 ```
