@@ -448,7 +448,6 @@ def itemView(request, item_id=''):
         'title': None,
         'num_related_collections': None,
         'rq': None,
-        'referral': None,
     })
 
 

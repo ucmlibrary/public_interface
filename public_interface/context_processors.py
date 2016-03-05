@@ -27,5 +27,6 @@ def settings(request):
         'themedCollections': None,
         'collection_q': None,
         'alphabet': None,
+        'referral': None,
     }
 
