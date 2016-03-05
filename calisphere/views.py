@@ -86,6 +86,9 @@ def getCollectionData(collection_data=None, collection_id=None):
             collection['id'] = ''
         else:
             collection['id'] = collection_api_url.group('url')
+        collection_details = json_loads_url("{0}?format=json".format(collection['url']))
+        collection['local_id'] = collection_details['local_id']
+        collection['slug'] = collection_details['slug']
     elif collection_id:
         solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
         collection['url'] = "https://registry.cdlib.org/api/v1/collection/{0}/".format(collection_id)
@@ -94,6 +97,7 @@ def getCollectionData(collection_data=None, collection_id=None):
         collection_details = json_loads_url("{0}?format=json".format(collection['url']))
         collection['name'] = solr_collections.names[collection['url']]
         collection['local_id'] = collection_details['local_id']
+        collection['slug'] = collection_details['slug']
     return collection
 
 def getCollectionMosaic(collection_url):
