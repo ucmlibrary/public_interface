@@ -1,41 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
+from exhibits.models import *
 
-def exhibitView(request):
+def exhibitDirectory(request):
     return HttpResponse("Hello, world. You're at the exhibit index.")
 
-# Create your views here.
-# def exhibitView(request, exhibit_id=0, item_id=''):
-#     context = {
-#         'title': "Native Americans in California: Pre-Columbian Period to 18th Century",
-#         'blockquote': "More than 200 different native tribes - about 300,000 people - once made up the population of the land that is today the state of California.",
-#         'hero_img': "",
-#         'exhibition_items': [
-#             {'id': "ark:/13030/tf0779p0bz"},
-#             {'id': "ark:/13030/tf0b69n9ws"},
-#             {'id': "ark:/13030/tf6p3008w7"},
-#             {'id': "ark:/13030/tf3m3nb5ht"},
-#             {'id': "ark:/13030/tf667nb6r7"},
-#             {'id': "ark:/13030/tf3h4nb6hn"},
-#             {'id': "ark:/13030/kt809nd0gr"},
-#             {'id': "ark:/13030/tf6p30065d"},
-#             {'id': "ark:/13030/kt9199q6g6"},
-#             {'id': "ark:/13030/tf4q2nb7m9"},
-#         ],
-#         'essay': "<h2>Where They Lived</h2><p>More than 200 different native tribes - about 300,000 people - once made up the population of the land that is today the state of California. Diverse in culture and way of life, they lived in hundreds of small, politically autonomous communities up and down the state, connected by trade and kinship networks. Two maps show the general range of these tribes throughout the entire area. The map of Pomo linguistic stock shows many dialect variations and village sites, demonstrating the complexity of language variations in just one tribal group.</p><h2>How They Lived</h2><p>Most California native communities consisted of between 200 and 500 people. Boundaries were general. Nomadic groups tended to have greater social and gender equality, while more sedentary groups had hierarchical social classes with a wide gulf between rich and poor.</p><p>Although artwork by European artists depicts some aspects of California Indian life, we have no images from pre-Columbian California. The lithographs shown here, by Russian artist Ludwig Choris, were based on sketches he created during a visit to California in 1816 - long after their traditional way of life had been disrupted.</p><p>It is possible to get glimpses of their lives, but it is impossible to know how these tribes really looked and lived, as opposed to how they were viewed through European eyes. For example, because native groups usually altered the landscape in a way that mimicked nature, Europeans mistakenly assumed natives lived in an untouched &quot;wilderness.&quot; But whether they lived in mountains, valleys, deserts, forests, or beaches, native peoples continually managed their environment, tending and cultivating the land through controlled burnings, weeding, pruning, tilling, irrigation, and selective replanting.</p>",
-#         'asides': [
-#             {
-#                 'title': "Note about picture captions",
-#                 'content': "<p>The original captions on some of the historical photographs may include racial terms that were commonplace at the time, but considered to be derogatory today.</p><p>Few native artifacts from pre-Columbian California have persisted into the 21st century. No original images in this topic were created before the early 19th century.</p>"
-#             }
-#         ],
-#         'related_essays': [
-#             {'title': "Before 1768: Pre-Columbian California"}
-#         ]
-#     }
-#
-#     return render(request, 'exhibits/exhibitView.html', context)
-#
+def exhibitView(request, exhibit_id, exhibit_slug):
+    exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
+    return render(request, 'exhibits/exhibitView.html', {'exhibit': exhibit})
+
 # def exhibitItemView(request, item_id=''):
 #     item_id_search_term = 'id:"{0}"'.format(item_id)
 #     item_solr_search = SOLR_select(q=item_id_search_term)

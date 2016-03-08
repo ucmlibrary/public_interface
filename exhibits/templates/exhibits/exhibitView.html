@@ -1,0 +1,39 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title=item.title.0 description=item.description %}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ exhibit.title }}</h1>
+
+<p>{{ exhibit.blockquote}}</p>
+
+<h4>{{ exhibit.exhibititem_set.all|length }} exhibition items</h4>
+<ul>
+{% for item in exhibit.exhibititem_set.all %}
+  <li>{{ item.item_id }}</li>
+{% endfor %}
+</ul>
+
+<p>{{ exhibit.essay }}</p>
+<p>{{ exhibit.render_as }}</p>
+
+{% for note in exhibit.notesitem_set.all %}
+  <h3>{{ note.title }}</h3>
+  <p>{{ note.essay }}</p>
+  <p>{{ note.render_as }}</p>
+{% endfor %}
+
+{{ exhibit.about_exhibit }}
+
+<h4>Themes</h4>
+<ul>
+{% for theme in exhibit.exhibittheme_set.all %}
+  <li>{{ theme.theme }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
