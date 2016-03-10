@@ -10,3 +10,5 @@ db.sqlite3
 ucldc-django-ebs.zip
 ve/
 env.local
+npm-debug.log
+py27/
