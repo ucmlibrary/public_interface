@@ -8,6 +8,10 @@
   display: inline-block;
 }
 
+.hidden-content {
+  display: none;
+}
+
 .exhibit__header {
   margin-top: 0;
 }
@@ -48,10 +52,6 @@
   @include bp(md-screen) {
     padding: $layout-component-margin $layout-component-margin $layout-component-margin 0;    
   }
-}
-
-.exhibit__overview--break {
-  display: none;
 }
 
 .exhibit__overview h3, .exhibit__notes h3 {

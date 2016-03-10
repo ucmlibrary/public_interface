@@ -1,5 +1,6 @@
 {% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
 {% load calisphere-extras %}
+{% load markdown_filter %}
 
 {% block page-metadata %}
 {# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
@@ -25,61 +26,111 @@
 
 
   <div class="exhibit__items">
-    <h2 class="exhibit__items-header">{{ exhibit.exhibititem_set.all|length }} exhibition items</h2>{% if exhibit.exhibititem_set.all|length > 12 %}<a href="#">View all</a>{% endif %}
+    <h2 class="exhibit__items-header">{{ exhibitItems|length }} exhibition items</h2>{% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
     
     <div class="row thumbnail">
-      {# exhibit.exhibititem_set.all #}
 
-      {% for item in solrExhibitItems %}
+      {% for item in exhibitItems %}
+          <div class="col-xs-6 col-sm-3 col-md-2">
+            <a class="thumbnail__link" href="#" data-toggle="tooltip" title="">
+              <div class="thumbnail__container">
+                {% if item.solrData.reference_image_md5 %}
+                  <img class="thumbnail__image"
+                  src="{{ thumbnailUrl }}crop/210x210/{{ item.solrData.reference_image_md5 }}"
+                  srcset="{{ thumbnailUrl }}crop/210x210/{{ item.solrData.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.solrData.reference_image_md5 }} 50w"
+                  sizes="100vw"
+                  alt="{{ item.solrData.title.0|truncatewords:12 }}">
+                  {% if item.solrData.type_ss.0|lower == "moving image" %}
+                  <div class="thumbnail__overlay-icon fa-video-camera"></div>
+                  {% elif item.solrData.type_ss.0|lower == "sound"%}
+                  <div class="thumbnail__overlay-icon fa-volume-up"></div>
+                  {# elif item.solrData.type_ss.0|lower == "text" #}
+                  <!-- <div class="thumbnail__overlay-icon fa-file-text-o"></div> -->
+                  {% elif item.solrData.type_ss.0|lower == "dataset" %}
+                  <div class="thumbnail__overlay-icon fa-bar-chart"></div>
+                  {% endif %}
+                {% else %}
+                  {% if item.solrData.type_ss.0|lower == "moving image" %}
+                  <div class="thumbnail__tile-icon fa-video-camera"></div>
+                  {% elif item.solrData.type_ss.0|lower == "sound"%}
+                  <div class="thumbnail__tile-icon fa-volume-up"></div>
+                  {% elif item.solrData.type_ss.0|lower == "text"%}
+                  <div class="thumbnail__tile-icon fa-file-text-o"></div>
+                  {% elif item.solrData.type_ss.0|lower == "dataset" %}
+                  <div class="thumbnail__tile-icon fa-bar-chart"></div>
+                  {% elif item.solrData.type_ss.0|lower == "image" %}
+                  <div class="thumbnail__tile-icon fa-picture-o"></div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </a>
+          </div>
 
-        <div class="col-xs-6 col-sm-3 col-md-2">
-          <a class="thumbnail__link" href="#" data-toggle="tooltip" title="">
-            <div class="thumbnail__container">
-              {% if item.reference_image_md5 %}
-                <img class="thumbnail__image"
-                src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
-                srcset="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.reference_image_md5 }} 50w"
-                sizes="100vw"
-                alt="{{ item.title.0|truncatewords:12 }}">
-                {% if item.type_ss.0|lower == "moving image" %}
-                <div class="thumbnail__overlay-icon fa-video-camera"></div>
-                {% elif item.type_ss.0|lower == "sound"%}
-                <div class="thumbnail__overlay-icon fa-volume-up"></div>
-                {# elif item.type_ss.0|lower == "text" #}
-                <!-- <div class="thumbnail__overlay-icon fa-file-text-o"></div> -->
-                {% elif item.type_ss.0|lower == "dataset" %}
-                <div class="thumbnail__overlay-icon fa-bar-chart"></div>
-                {% endif %}
-              {% else %}
-                {% if item.type_ss.0|lower == "moving image" %}
-                <div class="thumbnail__tile-icon fa-video-camera"></div>
-                {% elif item.type_ss.0|lower == "sound"%}
-                <div class="thumbnail__tile-icon fa-volume-up"></div>
-                {% elif item.type_ss.0|lower == "text"%}
-                <div class="thumbnail__tile-icon fa-file-text-o"></div>
-                {% elif item.type_ss.0|lower == "dataset" %}
-                <div class="thumbnail__tile-icon fa-bar-chart"></div>
-                {% elif item.type_ss.0|lower == "image" %}
-                <div class="thumbnail__tile-icon fa-picture-o"></div>
-                {% endif %}
-              {% endif %}
-            </div>
-          </a>
-        </div>
-      
+        {% if forloop.counter == 12 %}
+          <div class="js-exhibit-items-overflow hidden-content">
+        {% endif %}
+
       {% endfor %}
+      {% if exhibitItems|length > 12 %}
+        </div>
+      {% endif %}
       
     </div>
     
-    <div class="row text-right">{% if exhibit.exhibititem_set.all|length > 12 %}<a href="#">View all</a>{% endif %}</div>
+    <div class="row text-right">
+      {% if exhibitItems|length > 12 %}
+        <a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>
+      {% endif %}
+    </div>
   </div>
+  
+  
   
   <div class="row">
     <div class="col-sm-6">
       <div class="exhibit__overview">
-        {{ exhibit.render_as }}
-        {{ exhibit.essay }}
-        <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
+        <!--$('.js-exhibit__overview--full').slideToggle({start: function() { $('.js-exhibit__overview--preview').toggle() }}); -->
+
+        <!--var previewHtml = $('.js-exhibit__overview--preview').html(); 
+            $('.js-exhibit__overview--preview').html($('.js-exhibit__overview--full).html());    
+            $('.js-exhibit__overview--full').html(previewHtml) -->
+        
+        {% if exhibit.render_as == 'H' %}
+          <div class="js-exhibit__overview--preview">
+            {{ exhibit.essay|truncatewords_html:200|safe }}
+          </div>
+          <div class="js-exhibit__overview--full hidden-content">
+            {{ exhibit.essay|safe }}
+          </div>          
+          {% ifnotequal exhibit.essay|truncatewords_html:200|length exhibit.essay|truncatewords_html:201|length %}
+             <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
+          {% endifnotequal %}
+        
+        {% elif exhibit.render_as == 'M' %}
+          <div class="js-exhibit__overview--preview">
+            {{ exhibit.essay|markdownify|truncatewords_html:200|safe }}
+          </div>
+          <div class="js-exhibit__overview--full hidden-content">
+            {{ exhibit.essay|markdownify|safe }}
+          </div>
+          {% ifnotequal exhibit.essay|markdownify|truncatewords_html:200|length exhibit.essay|markdownify|truncatewords_html:201|length %}
+             <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
+          {% endifnotequal %}
+          
+        {% else %}
+          <div class="js-exhibit__overview--preview">
+            {{ exhibit.essay|truncatewords:200 }}
+          </div>
+          <div class="js-exhibit__overview--full hidden-content">
+            {{ exhibit.essay }}
+          </div>
+          {% ifnotequal exhibit.essay|truncatewords:200|length exhibit.essay|truncatewords:201|length %}
+             <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
+          {% endifnotequal %}
+          
+        {% endif %}
+        
+        
       </div>
     </div>
     <div class="col-sm-6">
@@ -87,8 +138,13 @@
         {% for note in exhibit.notesitem_set.all %}
           <div class="exhibit__note">
             <h3>{{ note.title }}</h3>
-            <p>{{ note.render_as }}</p>
-            <p>{{ note.essay }}</p>
+            {% if note.render_as == 'H' %}
+              {{ note.essay|safe }}
+            {% elif note.render_as == 'M' %}
+              {{ note.essay|markdownify|safe }}
+            {% else %}
+              {{ note.essay }}
+            {% endif %}
           </div>
         {% endfor %}
       </div>
@@ -101,51 +157,24 @@
   </div>
 
   <div class="exhibit__related-materials">
-    {% for theme in exhibit.exhibittheme_set.all %}
-      <li>{{ theme.theme }}</li>
+    {% for theme, exhibits in relatedExhibitsByTheme %}
+      <h3>Explore more exhibitions in "{{ theme }}" ({{ exhibits|length }})</h3>
+      <div class="row js-related-carousel exhibit__related-carousel">
+        {% for exhibit in exhibits %}
+          <div class="col-xs-2 col-md-3">
+            <a href="#">
+              <div class="exhibit__lockup--small">
+                <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url({{ exhibitMedia }}{{ exhibit.exhibit.hero }});">
+                  <div class="exhibit__lockup--small-title">{{ exhibit.exhibit }}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
     {% endfor %}
     
-    <h3>Explore more exhibitions in "Native Americans" (4)</h3>
-    <div class="row js-related-carousel exhibit__related-carousel">
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__lockup--small">
-            <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__lockup--small-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__lockup--small">
-            <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__lockup--small-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__lockup--small">
-            <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__lockup--small-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__lockup--small">
-            <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__lockup--small-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-                  
-    <h3>Read related essays (6)</h3>
+    <!-- <h3>Read related essays (6)</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       <div class="col-xs-2 col-md-3">
         <a href="#">
@@ -202,7 +231,7 @@
         </a>
       </div>
     </div>
-  
+
     <h3>Just for teachers: lesson plans (1)</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       <div class="col-xs-2 col-md-3">
@@ -214,7 +243,7 @@
           </div>
         </a>
       </div>
-    </div>
+    </div> -->
   </div>
 
 {% endblock %}

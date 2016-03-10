@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from exhibits.models import *
-from calisphere.cache_retry import SOLR_select, SOLR_raw, json_loads_url
 
 def exhibitDirectory(request):
     return HttpResponse("Hello, world. You're at the exhibit index.")
@@ -10,18 +9,12 @@ def exhibitView(request, exhibit_id, exhibit_slug):
     exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
     exhibitItems = exhibit.exhibititem_set.all().order_by('order')
 
-    itemQuery = ''
-    for exhibitItem in exhibitItems:
-        itemQuery = itemQuery + exhibitItem.item_id + " OR "
+    exhibitListing = []
+    for theme in exhibit.exhibittheme_set.all():
+        exhibitListing.append((theme.theme, theme.theme.exhibittheme_set.exclude(exhibit=exhibit).order_by('order')))
 
-    itemQuery = itemQuery[0:-4]
-
-    # item_solr_search = SOLR_select(q=itemQuery)
-    #
-    # for result in item_solr_search.results:
-    #     exhibitItem = exhibitItems.get(item_id=result['id'])
-
-    return render(request, 'exhibits/exhibitView.html', {'exhibit': exhibit, 'q': '', 'solrExhibitItems': item_solr_search.results})
+    return render(request, 'exhibits/exhibitView.html',
+    {'exhibit': exhibit, 'q': '', 'exhibitItems': exhibitItems, 'relatedExhibitsByTheme': exhibitListing})
 
 # def exhibitItemView(request, item_id=''):
 #     item_id_search_term = 'id:"{0}"'.format(item_id)

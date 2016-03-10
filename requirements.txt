@@ -8,3 +8,4 @@ https://briantinglecdliborg-solrpyx.googlecode.com/archive/d83b854e3b301aa1f433e
 whitenoise==2.0.6
 wsgiref==0.1.2
 django-positions==0.5.3
+markdown==2.6.5

@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 from positions.fields import PositionField
+from calisphere.cache_retry import SOLR_select, SOLR_raw, json_loads_url
 
 # only if you need to support python 2: 
 from django.utils.encoding import python_2_unicode_compatible
@@ -31,7 +32,7 @@ class Exhibit(models.Model):
     meta_keywords = models.CharField(max_length=255, blank=True)
     
     def __str__(self):
-        return self.title        
+        return self.title
 
 @python_2_unicode_compatible    # only if you need to support python 2
 class ExhibitItem(models.Model):
@@ -48,6 +49,11 @@ class ExhibitItem(models.Model):
     exact = models.BooleanField(default=False)    
     def __str__(self):
         return self.item_id
+
+    def solrData(self):
+        item_id_search_term = 'id:"{0}"'.format(self.item_id)
+        item_solr_search = SOLR_select(q=item_id_search_term)
+        return item_solr_search.results[0]
 
 @python_2_unicode_compatible
 class NotesItem(models.Model):
