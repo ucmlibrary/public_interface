@@ -172,7 +172,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
         else:
             repository['id'] = repository_api_url.group('url')
             repository_details = app.registry.repository_data.get(
-                int(repository['id']), None
+                int(repository['id']), {}
             )
     elif repository_id:
         repository['url'] = "https://registry.cdlib.org/api/v1/repository/{0}/".format(repository_id)
