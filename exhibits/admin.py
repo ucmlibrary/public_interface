@@ -36,7 +36,7 @@ class ExhibitAdmin(admin.ModelAdmin):
         (None,                  {'fields': [('title', 'slug'), ('hero', 'blockquote')]}),
         ('Exhibit Overview',    {'fields': [('essay', 'render_as')], 'classes': ['collapse']}),
         ('About this Exhibit',  {'fields': ['about_exhibit'], 'classes': ['collapse']}),
-        ('Publish',             {'fields': ['publish']})
+        ('Publish',             {'fields': [('publish', 'color')]})
     ]
     inlines = [ExhibitItemInline, NotesItemInline, ThemeExhibitInline, HistoricalEssayExhibitInline, LessonPlanExhibitInline]
     list_display = ('title', 'publish')

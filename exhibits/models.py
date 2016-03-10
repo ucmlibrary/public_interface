@@ -23,6 +23,7 @@ class Exhibit(models.Model):
     essay = models.TextField(verbose_name='Exhibit Overview', blank=True)
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
     publish = models.BooleanField(verbose_name='Ready for publication?', default=False)
+    color = models.CharField(max_length=20, blank=True)
     
     hero = models.ImageField(blank=True, verbose_name='Hero Image', upload_to='uploads/')
 

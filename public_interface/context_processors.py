@@ -15,4 +15,5 @@ def settings(request):
         'gaSiteCode': settings.GA_SITE_CODE,
         'contactFlag': settings.CONTRUBUTOR_CONTACT_FLAG,
         'permalink': urlparse.urljoin(settings.UCLDC_FRONT, request.path),
+        'exhibitMedia': settings.MEDIA_URL
     }
