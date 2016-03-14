@@ -26,51 +26,56 @@
   margin: 0;
 }
 
-.col-xs-2-4,
-.col-sm-2-4,
-.col-md-2-4,
-.col-lg-2-4 {
-  position: relative;
-  min-height: 1px;
-  padding-right: 0px;
-  padding-left: 0px;
+//Add a five-column layout to bootstrap
+//.col-xs-2-4,
+//.col-sm-2-4,
+//.col-md-2-4,
+//.col-lg-2-4 {
+//  position: relative;
+//  min-height: 1px;
+//  padding-right: 0px;
+//  padding-left: 0px;
+//}
+//
+//.col-xs-2-4 {
+//  width: 20%;
+//  float: left;
+//}
+//@media (min-width: $screen-sm-min) {
+//  .col-sm-2-4 {
+//    width: 20%;
+//    float: left;
+//  }
+//}
+//@media (min-width: $screen-md-min) {
+//  .col-md-2-4 {
+//    width: 20%;
+//    float: left;
+//  }
+//}
+//@media (min-width: $screen-lg-min) {
+//  .col-lg-2-4 {
+//    width: 20%;
+//    float: left;
+//  }
+//}
+
+.theme__main-content {
+  margin: $layout-component-margin (-$layout-component-margin);
+  display: flex; 
 }
 
-.col-xs-2-4 {
-  width: 20%;
-  float: left;  
-}
-@media (min-width: $screen-sm-min) {
-  .col-sm-2-4 {
-    width: 20%;
-    float: left;
-  }
-}
-@media (min-width: $screen-md-min) {
-  .col-md-2-4 {
-    width: 20%;
-    float: left;
-  }
-}
-@media (min-width: $screen-lg-min) {
-  .col-lg-2-4 {
-    width: 20%;
-    float: left;
-  }
+.theme__overview {
+  flex: 1;
+  background-color: $design-dark-gray-color;
+  padding: $layout-component-margin;
+  color: #fff;
 }
 
 .theme__exhibits {
   background-color: $design-light-gray-color;
-  margin: $layout-component-margin (-$layout-component-margin);
   padding: $layout-component-margin;
-}
-
-.theme__overview {
-  border-top: 2px solid #f36f23; 
-  border-bottom: 2px solid #f36f23; 
-
-  margin: 20px -20px; 
-  padding: 20px 80px;
+  flex: 2;
 }
 
 .browseTerm {
@@ -80,7 +85,13 @@
   background-color: $design-light-gray-color;
   text-align: left;
   border: 0;
+  border-radius: 4px;
 }
+
+.browseTerm:hover {
+  background-color: $design-secondary-color;
+  color: #fff;
+};
 
 .theme__browseTerms h4 {
   margin: 3px 5px 3px 0;
