@@ -124,12 +124,31 @@ class Theme(models.Model):
     essay = models.TextField(blank=True, verbose_name='Theme overview')
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
     
+    hero = models.ImageField(blank=True, verbose_name='Hero Image', upload_to='uploads/')
+
     publish = models.BooleanField(verbose_name='Ready for publication?', default=False)
     meta_description = models.CharField(max_length=255, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
-    
+
     def __str__(self):
         return self.title
+
+class BrowseTermGroup(models.Model):
+    groupTitle = models.CharField(max_length=200)
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
+    order = PositionField(collection='theme')
+
+    def __str__(self):
+        return self.groupTitle
+
+class BrowseTerm(models.Model):
+    linkText = models.CharField(max_length=200)
+    linkLocation = models.CharField(max_length=500)
+    browseTermGroup = models.ForeignKey(BrowseTermGroup, on_delete=models.CASCADE)
+    order = PositionField(collection='browseTermGroup')
+
+    def __str__(self):
+        return self.linkText
 
 # Exhibits ordered within Themes
 class ExhibitTheme(models.Model):

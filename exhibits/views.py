@@ -5,7 +5,7 @@ from exhibits.models import *
 def exhibitDirectory(request):
     return HttpResponse("Hello, world. You're at the exhibit index.")
 
-def exhibitView(request, exhibit_id, exhibit_slug):
+def exhibitView(request, exhibit_id, exhibit_slug=None):
     exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
     exhibitItems = exhibit.exhibititem_set.all().order_by('order')
 
@@ -15,6 +15,13 @@ def exhibitView(request, exhibit_id, exhibit_slug):
 
     return render(request, 'exhibits/exhibitView.html',
     {'exhibit': exhibit, 'q': '', 'exhibitItems': exhibitItems, 'relatedExhibitsByTheme': exhibitListing})
+
+def themeView(request, theme_id, theme_slug):
+    theme = get_object_or_404(Theme, pk=theme_id)
+
+    exhibitListing = theme.exhibittheme_set.all().order_by('order')
+
+    return render(request, 'exhibits/themeView.html', {'theme': theme, 'relatedExhibits': exhibitListing})
 
 # def exhibitItemView(request, item_id=''):
 #     item_id_search_term = 'id:"{0}"'.format(item_id)

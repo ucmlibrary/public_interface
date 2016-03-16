@@ -57,16 +57,32 @@ class LessonPlanThemeInline(admin.TabularInline):
     fields = ['order', 'lessonPlan']
     extra = 0
 
+
+
+class BrowseTermInline(admin.TabularInline):
+    model = BrowseTerm
+    fields = ['order', 'linkText', 'linkLocation']
+    extra = 0
+
+class BrowseTermGroupAdmin(admin.ModelAdmin):
+    inlines = [BrowseTermInline]
+
+class BrowseTermGroupInline(admin.TabularInline):
+    model = BrowseTermGroup
+    fields = ['order', 'groupTitle']
+    extra = 0
+
 class ThemeAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,                  {'fields': [('title', 'slug'), 'color']}),
+        (None,                  {'fields': [('title', 'slug'), ('hero', 'color')]}),
         ('Theme Overview',      {'fields': [('essay', 'render_as')], 'classes': ['collapse']}),
         ('About this Theme',    {'fields': ['about_theme'], 'classes': ['collapse']})
     ]
-    inlines = [ExhibitThemeInline, HistoricalEssayThemeInline, LessonPlanThemeInline]
+    inlines = [ExhibitThemeInline, HistoricalEssayThemeInline, LessonPlanThemeInline, BrowseTermGroupInline]
     prepopulated_fields = {'slug': ['title']}
 
 admin.site.register(Exhibit, ExhibitAdmin)
 admin.site.register(Theme, ThemeAdmin)
 admin.site.register(HistoricalEssay)
 admin.site.register(LessonPlan)
+admin.site.register(BrowseTermGroup, BrowseTermGroupAdmin)
