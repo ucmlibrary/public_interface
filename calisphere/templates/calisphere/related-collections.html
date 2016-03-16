@@ -12,7 +12,7 @@
     {% endif %}
   </h3>
   {% for related_collection in related_collections %}
-    <div class="col-xs-12 col-sm-4">
+    <div class="col-xs-12 col-sm-4"> HEY
       <a class="related-coll__link js-relatedCollection" href="{% url 'calisphere:collectionView' related_collection.collection_id %}" data-pjax="js-pageContent">
         <div class="related-coll__container">
           <div class="col-xs-12 col-sm-12">
@@ -21,7 +21,7 @@
             {% for item in items %}
             {% if forloop.counter <= 3 %}
             <div class="related-coll__thumbnail-container{{ forloop.counter }}">
-              {% if 'reference_image_md5' in item %}
+              {% if 'reference_image_md5' in item and 'type_ss' in item %}
                 <img
                 src="{{ thumbnailUrl }}crop/300x300/{{ item.reference_image_md5 }}"
                 class="thumbnail__image"
@@ -32,7 +32,7 @@
                 {% elif item.type_ss.0|lower == "sound"%}
                 <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-volume-up"></div>
                 {# elif item.type_ss.0|lower == "text"#}
-                <!-- <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-file-text-o"></div> -->
+                <!-- <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}- -large{% endif %} fa-file-text-o"></div> -->
                 {% elif item.type_ss.0|lower == "dataset" %}
                 <div class="related-coll__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-bar-chart"></div>
                 {% endif %}
