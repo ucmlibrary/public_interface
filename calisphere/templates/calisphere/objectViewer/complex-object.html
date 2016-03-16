@@ -2,6 +2,8 @@
 
 {% if item.contentFile.format|lower == 'image' %}
   {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
+{% else %}
+  {% include 'calisphere/objectViewer/object-tiles-and-overlays.html' %}
 {% endif %}
 
 <div class="carousel-complex">
@@ -25,8 +27,8 @@
             <div class="carousel-complex__tile-icon fa-video-camera"></div>
           {% elif component.format|lower == "sound"%}
             <div class="carousel-complex__tile-icon fa-volume-up"></div>
-          {# elif component.format|lower == "text"#}
-            <!-- <div class="carousel-complex__tile-icon fa-file-text-o"></div> -->
+          {% elif component.format|lower == "text" or component.format|lower == "file" %}
+            <div class="carousel-complex__tile-icon fa-file-text-o"></div>
           {% endif %}
           </div>
         {% elif component.format|lower == "image" %}
