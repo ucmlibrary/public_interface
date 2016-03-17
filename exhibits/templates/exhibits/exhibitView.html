@@ -10,17 +10,18 @@
 
   <nav aria-label="breadcrumb" role="navigation">
     <span id="exhibit__breadcrumb-label">Exhibitions</span>
-    <!-- <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
-      <li><a href="#" aria-level="1">California Cultures</a></li>
-      <li><a href="#" aria-level="2">Native Americans</a></li>
-    </ol> -->
+    {% if relatedExhibitsByTheme|length > 0 %}
+      <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
+        <li><a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1">{{ relatedExhibitsByTheme.0.0 }}</a></li>
+      </ol>
+    {% endif %}
   </nav>
   
   <h1 class="exhibit__header">{{ exhibit.title }}</h1>
   
   <div class="exhibit__hero" style="background-image: url('{{ exhibitMedia }}{{ exhibit.hero }}')">
     <div class="col-sm-6">
-      <blockquote class="exhibit__blockquote">{{ exhibit.blockquote }} <a href="#">Read full overview</a></blockquote>
+      <blockquote class="exhibit__blockquote">{{ exhibit.blockquote }} <a href="#overview">Read full overview</a></blockquote>
     </div>
   </div>
 
@@ -88,7 +89,7 @@
   
   <div class="row">
     <div class="col-sm-6">
-      <div class="exhibit__overview">
+      <div class="exhibit__overview" id="overview">
         <!--$('.js-exhibit__overview--full').slideToggle({start: function() { $('.js-exhibit__overview--preview').toggle() }}); -->
 
         <!--var previewHtml = $('.js-exhibit__overview--preview').html(); 
@@ -151,10 +152,12 @@
     </div>
   </div>
 
+  {% if exhibit.about_exhibit %}
   <div class="row">
     <h2>About this exhibition:</h2>
     <p>{{ exhibit.about_exhibit }}</p>
   </div>
+  {% endif %}
 
   <div class="exhibit__related-materials">
     {% for theme, exhibits in relatedExhibitsByTheme %}
@@ -162,7 +165,7 @@
       <div class="row js-related-carousel exhibit__related-carousel">
         {% for exhibit in exhibits %}
           <div class="col-xs-2 col-md-3">
-            <a href="#">
+            <a href="{{ exhibit.exhibit.get_absolute_url }}">
               <div class="exhibit__lockup--small">
                 <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url({{ exhibitMedia }}{{ exhibit.exhibit.hero }});">
                   <div class="exhibit__lockup--small-title">{{ exhibit.exhibit }}</div>

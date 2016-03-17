@@ -35,7 +35,7 @@
       <div class="row">
         {% for exhibittheme in relatedExhibits %}
           <div class="col-md-4">
-            <a href="{% url 'exhibits:exhibitView' exhibit_id=exhibittheme.exhibit.id %}">
+            <a href="{{ exhibittheme.exhibit.get_absolute_url }}">
               <div class="exhibit__lockup--med">
                 <div class="exhibit__lockup--med-image">
                   <div class="aspect-ratio-content exhibit__lockup--med-image-content" style="background-image: url('{{ exhibitMedia }}{{ exhibittheme.exhibit.hero }}');">
@@ -52,7 +52,7 @@
     </div>
   </div>
   
-  <div>
+  <!-- <div>
     <h3>Read related essays (6)</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       <div class="col-xs-2 col-md-3">
@@ -123,55 +123,23 @@
         </a>
       </div>
     </div>
-  </div>
+  </div> -->
   
-  <h3>Browse related items:</h3>
-  <p>More images, documents, videos, and audio files in Calisphere related to this theme.</p>
-  
-  <div class="theme__browseTerms" style="-webkit-column-count: 6">
-    <button class="browseTerm">American Indian Movement</button>
-    <button class="browseTerm">Indian Wars</button>
-    <button class="browseTerm">Modoc War</button>
-    <button class="browseTerm">Rancheria</button>
-    <button class="browseTerm">Sitting Bull</button>
-  </div>
-  
-  <h3>Browse related items on California Tribes:</h3>
-  <div class="theme__browseTerms" style="-webkit-column-count: 6">
-    <button class="browseTerm">Achumawi</button>
-    <button class="browseTerm">Atsugewi</button>
-    <button class="browseTerm">Cahuilla</button>
-    <button class="browseTerm">Chukamina</button>
-    <button class="browseTerm">Chumash</button>
-    <button class="browseTerm">Hupa</button>
-    <button class="browseTerm">Karok</button>
-    <button class="browseTerm">Klamath River Tribes</button>
-    <button class="browseTerm">Konomihu</button>
-    <button class="browseTerm">Kumeyaay</button>
-    <button class="browseTerm">Luiseno</button>
-    <button class="browseTerm">Maidu</button>
-    <button class="browseTerm">Miwok</button>
-    <button class="browseTerm">Mohave</button>
-    <button class="browseTerm">Nomlaki</button>
-    <button class="browseTerm">Ohlone</button>
-    <button class="browseTerm">Paiute</button>
-    <button class="browseTerm">Panamint</button>
-    <button class="browseTerm">Piute</button>
-    <button class="browseTerm">Pomo</button>
-    <button class="browseTerm">Salinan</button>
-    <button class="browseTerm">Sinkyone</button>
-    <button class="browseTerm">Tolowa</button>
-    <button class="browseTerm">Tubatulabal</button>
-    <button class="browseTerm">Wappo</button>
-    <button class="browseTerm">Whilkut</button>
-    <button class="browseTerm">Wintun</button>
-    <button class="browseTerm">Wiyot</button>
-    <button class="browseTerm">Yahi</button>
-    <button class="browseTerm">Yana</button>
-    <button class="browseTerm">Yokuts</button>
-    <button class="browseTerm">Yuki</button>
-    <button class="browseTerm">Yurok</button>
-  </div>
+  {% for browse_term_group in theme.browsetermgroup_set.all %}
+    <!-- TODO: screwy logic here -->
+    {% if browse_term_group.group_title == theme.title %}
+      <h3>Browse related items:</h3>
+    {% else %}
+      <h3>Browse related items on {{ browse_term_group.group_title }}:</h3>
+    {% endif %}
+
+    <p>{{ browse_term_group.group_note }}</p>
+    <div class="theme__browseTerms" style="-webkit-column-count: 6">
+      {% for browse_term in browse_term_group.browseterm_set.all %}
+        <button class="browseTerm" onclick="location.href='{{ browse_term.link_location }}';">{{ browse_term.link_text }}</button>
+      {% endfor %}
+    </div>
+  {% endfor %}
   
   <div class="row">
     <h2>About this theme:</h2>

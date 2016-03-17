@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from positions.fields import PositionField
 from calisphere.cache_retry import SOLR_select, SOLR_raw, json_loads_url
+from django.core.urlresolvers import reverse
 
 # only if you need to support python 2: 
 from django.utils.encoding import python_2_unicode_compatible
@@ -34,6 +35,9 @@ class Exhibit(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('exhibits:exhibitView', kwargs={'exhibit_id': self.id, 'exhibit_slug': self.slug})
+
 @python_2_unicode_compatible    # only if you need to support python 2
 class ExhibitItem(models.Model):
     item_id = models.CharField(max_length=200)
@@ -53,7 +57,10 @@ class ExhibitItem(models.Model):
     def solrData(self):
         item_id_search_term = 'id:"{0}"'.format(self.item_id)
         item_solr_search = SOLR_select(q=item_id_search_term)
-        return item_solr_search.results[0]
+        if len(item_solr_search.results) > 0:
+            return item_solr_search.results[0]
+        else:
+            return None
 
 @python_2_unicode_compatible
 class NotesItem(models.Model):
@@ -130,25 +137,36 @@ class Theme(models.Model):
     meta_description = models.CharField(max_length=255, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('exhibits:themeView', kwargs={'theme_id': self.id, 'theme_slug': self.slug})
+
     def __str__(self):
         return self.title
 
 class BrowseTermGroup(models.Model):
-    groupTitle = models.CharField(max_length=200)
+    group_title = models.CharField(max_length=200, blank=True)
+    group_note = models.TextField(blank=True)
+    render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
     order = PositionField(collection='theme')
 
     def __str__(self):
-        return self.groupTitle
+        return self.group_title
+
+    class Meta:
+        ordering = ['order']
 
 class BrowseTerm(models.Model):
-    linkText = models.CharField(max_length=200)
-    linkLocation = models.CharField(max_length=500)
-    browseTermGroup = models.ForeignKey(BrowseTermGroup, on_delete=models.CASCADE)
-    order = PositionField(collection='browseTermGroup')
+    link_text = models.CharField(max_length=200)
+    link_location = models.CharField(max_length=500)
+    browse_term_group = models.ForeignKey(BrowseTermGroup, on_delete=models.CASCADE)
+    order = PositionField(collection='browse_term_group')
 
     def __str__(self):
-        return self.linkText
+        return self.link_text
+
+    class Meta:
+        ordering = ['order']
 
 # Exhibits ordered within Themes
 class ExhibitTheme(models.Model):

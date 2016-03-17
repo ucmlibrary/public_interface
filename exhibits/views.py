@@ -1,12 +1,16 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from exhibits.models import *
 
 def exhibitDirectory(request):
     return HttpResponse("Hello, world. You're at the exhibit index.")
 
-def exhibitView(request, exhibit_id, exhibit_slug=None):
+def exhibitView(request, exhibit_id, exhibit_slug):
     exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
+
+    if exhibit_slug != exhibit.slug:
+        return redirect(exhibit)
+
     exhibitItems = exhibit.exhibititem_set.all().order_by('order')
 
     exhibitListing = []

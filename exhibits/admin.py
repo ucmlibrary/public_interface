@@ -61,7 +61,7 @@ class LessonPlanThemeInline(admin.TabularInline):
 
 class BrowseTermInline(admin.TabularInline):
     model = BrowseTerm
-    fields = ['order', 'linkText', 'linkLocation']
+    fields = ['order', 'link_text', 'link_location']
     extra = 0
 
 class BrowseTermGroupAdmin(admin.ModelAdmin):
@@ -69,7 +69,7 @@ class BrowseTermGroupAdmin(admin.ModelAdmin):
 
 class BrowseTermGroupInline(admin.TabularInline):
     model = BrowseTermGroup
-    fields = ['order', 'groupTitle']
+    fields = ['order', 'group_title', 'group_note']
     extra = 0
 
 class ThemeAdmin(admin.ModelAdmin):
