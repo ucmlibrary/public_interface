@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from exhibits.models import *
 
 def exhibitDirectory(request):
-    return HttpResponse("Hello, world. You're at the exhibit index.")
+    themes = Theme.objects.all()
+    exhibits = Exhibit.objects.all()
+    return render(request, 'exhibits/exhibitDirectory.html', {'themes': themes, 'exhibits': exhibits})
 
 def exhibitView(request, exhibit_id, exhibit_slug):
     exhibit = get_object_or_404(Exhibit, pk=exhibit_id)

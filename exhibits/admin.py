@@ -36,10 +36,10 @@ class ExhibitAdmin(admin.ModelAdmin):
         (None,                  {'fields': [('title', 'slug'), ('hero', 'blockquote')]}),
         ('Exhibit Overview',    {'fields': [('essay', 'render_as')], 'classes': ['collapse']}),
         ('About this Exhibit',  {'fields': ['about_exhibit'], 'classes': ['collapse']}),
-        ('Publish',             {'fields': [('publish', 'color')]})
+        ('Publish',             {'fields': [('publish', 'color'), 'scraped_from']})
     ]
     inlines = [ExhibitItemInline, NotesItemInline, ThemeExhibitInline, HistoricalEssayExhibitInline, LessonPlanExhibitInline]
-    list_display = ('title', 'publish')
+    list_display = ('title', 'publish', 'scraped_from', 'slug')
     prepopulated_fields = {'slug': ['title']}
 
 class ExhibitThemeInline(admin.TabularInline):

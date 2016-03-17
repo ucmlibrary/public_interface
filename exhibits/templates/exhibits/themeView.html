@@ -8,11 +8,11 @@
 
 {% block content %}
   <nav aria-label="breadcrumb" role="navigation">
-    <span id="exhibit__breadcrumb-label">Exhibitions</span>
-    <!-- <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
-      <li><a href="#" aria-level="1">California Cultures</a></li>
-      <li><a href="#" aria-level="2">Native Americans</a></li>
-    </ol> -->
+    <!-- <span id="exhibit__breadcrumb-label">Exhibitions</span> -->
+    <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
+      <li><a href="#" aria-level="1">Exhibitions</a></li>
+      <li>{{ theme.title }}</li>
+    </ol>
   </nav>
 
   <div class="theme__hero" style="background-image: url('{{ exhibitMedia }}{{ theme.hero }}')">
@@ -31,7 +31,7 @@
       {% endif %}
     </div>
     <div class="theme__exhibits">
-      <h2>5 exhibitions:</h2>
+      <h2>{{ relatedExhibits|length }} exhibitions:</h2>
       <div class="row">
         {% for exhibittheme in relatedExhibits %}
           <div class="col-md-4">

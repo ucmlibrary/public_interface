@@ -1,0 +1,24 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load markdown_filter %}
+
+{% block page-metadata %}
+{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% endblock %}
+
+{% block content %}
+<h1>Themes:</h1>
+
+<ul>
+{% for theme in themes %}
+  <li><a href="{{ theme.get_absolute_url }}">{{ theme }}</a></li>
+{% endfor %}
+</ul>
+
+<h1>Exhibits</h1>
+<ul>
+{% for exhibit in exhibits %}
+  <li><a href="{{ exhibit.get_absolute_url }}">{{ exhibit }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
