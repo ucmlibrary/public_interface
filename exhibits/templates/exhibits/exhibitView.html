@@ -1,0 +1,252 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load markdown_filter %}
+
+{% block page-metadata %}
+{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% endblock %}
+
+{% block content %}
+
+  <nav aria-label="breadcrumb" role="navigation">
+    <span id="exhibit__breadcrumb-label">Exhibitions</span>
+    {% if relatedExhibitsByTheme|length > 0 %}
+      <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
+        <li><a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1">{{ relatedExhibitsByTheme.0.0 }}</a></li>
+      </ol>
+    {% endif %}
+  </nav>
+  
+  <h1 class="exhibit__header">{{ exhibit.title }}</h1>
+  
+  <div class="exhibit__hero" style="background-image: url('{{ exhibitMedia }}{{ exhibit.hero }}')">
+    <div class="col-sm-6">
+      <blockquote class="exhibit__blockquote">{{ exhibit.blockquote }} <a href="#overview">Read full overview</a></blockquote>
+    </div>
+  </div>
+
+
+  <div class="exhibit__items">
+    <h2 class="exhibit__items-header">{{ exhibitItems|length }} exhibition items</h2>{% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
+    
+    <div class="row thumbnail">
+
+      {% for item in exhibitItems %}
+          <div class="col-xs-6 col-sm-3 col-md-2">
+            <a class="thumbnail__link" href="#" data-toggle="tooltip" title="">
+              <div class="thumbnail__container">
+                {% if item.solrData.reference_image_md5 %}
+                  <img class="thumbnail__image"
+                  src="{{ thumbnailUrl }}crop/210x210/{{ item.solrData.reference_image_md5 }}"
+                  srcset="{{ thumbnailUrl }}crop/210x210/{{ item.solrData.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.solrData.reference_image_md5 }} 50w"
+                  sizes="100vw"
+                  alt="{{ item.solrData.title.0|truncatewords:12 }}">
+                  {% if item.solrData.type_ss.0|lower == "moving image" %}
+                  <div class="thumbnail__overlay-icon fa-video-camera"></div>
+                  {% elif item.solrData.type_ss.0|lower == "sound"%}
+                  <div class="thumbnail__overlay-icon fa-volume-up"></div>
+                  {# elif item.solrData.type_ss.0|lower == "text" #}
+                  <!-- <div class="thumbnail__overlay-icon fa-file-text-o"></div> -->
+                  {% elif item.solrData.type_ss.0|lower == "dataset" %}
+                  <div class="thumbnail__overlay-icon fa-bar-chart"></div>
+                  {% endif %}
+                {% else %}
+                  {% if item.solrData.type_ss.0|lower == "moving image" %}
+                  <div class="thumbnail__tile-icon fa-video-camera"></div>
+                  {% elif item.solrData.type_ss.0|lower == "sound"%}
+                  <div class="thumbnail__tile-icon fa-volume-up"></div>
+                  {% elif item.solrData.type_ss.0|lower == "text"%}
+                  <div class="thumbnail__tile-icon fa-file-text-o"></div>
+                  {% elif item.solrData.type_ss.0|lower == "dataset" %}
+                  <div class="thumbnail__tile-icon fa-bar-chart"></div>
+                  {% elif item.solrData.type_ss.0|lower == "image" %}
+                  <div class="thumbnail__tile-icon fa-picture-o"></div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </a>
+          </div>
+
+        {% if forloop.counter == 12 %}
+          <div class="js-exhibit-items-overflow hidden-content">
+        {% endif %}
+
+      {% endfor %}
+      {% if exhibitItems|length > 12 %}
+        </div>
+      {% endif %}
+      
+    </div>
+    
+    <div class="row text-right">
+      {% if exhibitItems|length > 12 %}
+        <a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>
+      {% endif %}
+    </div>
+  </div>
+  
+  
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="exhibit__overview" id="overview">
+        <!--$('.js-exhibit__overview--full').slideToggle({start: function() { $('.js-exhibit__overview--preview').toggle() }}); -->
+
+        <!--var previewHtml = $('.js-exhibit__overview--preview').html(); 
+            $('.js-exhibit__overview--preview').html($('.js-exhibit__overview--full).html());    
+            $('.js-exhibit__overview--full').html(previewHtml) -->
+        
+        {% if exhibit.render_as == 'H' %}
+          <div class="js-exhibit__overview--preview">
+            {{ exhibit.essay|truncatewords_html:200|safe }}
+          </div>
+          <div class="js-exhibit__overview--full hidden-content">
+            {{ exhibit.essay|safe }}
+          </div>          
+          {% ifnotequal exhibit.essay|truncatewords_html:200|length exhibit.essay|truncatewords_html:201|length %}
+             <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
+          {% endifnotequal %}
+        
+        {% elif exhibit.render_as == 'M' %}
+          <div class="js-exhibit__overview--preview">
+            {{ exhibit.essay|markdownify|truncatewords_html:200|safe }}
+          </div>
+          <div class="js-exhibit__overview--full hidden-content">
+            {{ exhibit.essay|markdownify|safe }}
+          </div>
+          {% ifnotequal exhibit.essay|markdownify|truncatewords_html:200|length exhibit.essay|markdownify|truncatewords_html:201|length %}
+             <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
+          {% endifnotequal %}
+          
+        {% else %}
+          <div class="js-exhibit__overview--preview">
+            {{ exhibit.essay|truncatewords:200 }}
+          </div>
+          <div class="js-exhibit__overview--full hidden-content">
+            {{ exhibit.essay }}
+          </div>
+          {% ifnotequal exhibit.essay|truncatewords:200|length exhibit.essay|truncatewords:201|length %}
+             <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
+          {% endifnotequal %}
+          
+        {% endif %}
+        
+        
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="exhibit__notes">
+        {% for note in exhibit.notesitem_set.all %}
+          <div class="exhibit__note">
+            <h3>{{ note.title }}</h3>
+            {% if note.render_as == 'H' %}
+              {{ note.essay|safe }}
+            {% elif note.render_as == 'M' %}
+              {{ note.essay|markdownify|safe }}
+            {% else %}
+              {{ note.essay }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% if exhibit.about_exhibit %}
+  <div class="row">
+    <h2>About this exhibition:</h2>
+    <p>{{ exhibit.about_exhibit }}</p>
+  </div>
+  {% endif %}
+
+  <div class="exhibit__related-materials">
+    {% for theme, exhibits in relatedExhibitsByTheme %}
+      <h3>Explore more exhibitions in "{{ theme }}" ({{ exhibits|length }})</h3>
+      <div class="row js-related-carousel exhibit__related-carousel">
+        {% for exhibit in exhibits %}
+          <div class="col-xs-2 col-md-3">
+            <a href="{{ exhibit.exhibit.get_absolute_url }}">
+              <div class="exhibit__lockup--small">
+                <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url({{ exhibitMedia }}{{ exhibit.exhibit.hero }});">
+                  <div class="exhibit__lockup--small-title">{{ exhibit.exhibit }}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    
+    <!-- <h3>Read related essays (6)</h3>
+    <div class="row js-related-carousel exhibit__related-carousel">
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <h3>Just for teachers: lesson plans (1)</h3>
+    <div class="row js-related-carousel exhibit__related-carousel">
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__lesson-lockup">
+            <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__lesson-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div> -->
+  </div>
+
+{% endblock %}

@@ -228,7 +228,7 @@ html.no-flexbox .global-header__nav-list-item {
   list-style: none;
 }
 
-.global-header__bar-list-item:first-child .global-header__bar-links {
+.global-header__bar-list-item:not(:last-child) .global-header__bar-links {
   border-right: 1px solid #fff;
 }
 

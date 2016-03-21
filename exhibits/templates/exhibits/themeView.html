@@ -1,0 +1,151 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load markdown_filter %}
+
+{% block page-metadata %}
+{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% endblock %}
+
+{% block content %}
+  <nav aria-label="breadcrumb" role="navigation">
+    <span id="exhibit__breadcrumb-label">Exhibitions</span>
+    <!-- <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
+      <li><a href="#" aria-level="1">California Cultures</a></li>
+      <li><a href="#" aria-level="2">Native Americans</a></li>
+    </ol> -->
+  </nav>
+
+  <div class="theme__hero" style="background-image: url('{{ exhibitMedia }}{{ theme.hero }}')">
+    <h1 class="theme__header" style="background-color: {{ theme.color }}">{{ theme.title }}</h1>
+  </div>
+  
+  <div class="theme__main-content">
+    <div class="theme__overview">
+      <h2>Overview</h2>
+      {% if theme.render_as == 'H' %}
+        {{ theme.essay|safe }}
+      {% elif theme.render_as == 'M' %}
+        {{ theme.essay|markdownify|safe }}
+      {% else %}
+        {{ theme.essay }}
+      {% endif %}
+    </div>
+    <div class="theme__exhibits">
+      <h2>5 exhibitions:</h2>
+      <div class="row">
+        {% for exhibittheme in relatedExhibits %}
+          <div class="col-md-4">
+            <a href="{{ exhibittheme.exhibit.get_absolute_url }}">
+              <div class="exhibit__lockup--med">
+                <div class="exhibit__lockup--med-image">
+                  <div class="aspect-ratio-content exhibit__lockup--med-image-content" style="background-image: url('{{ exhibitMedia }}{{ exhibittheme.exhibit.hero }}');">
+                  </div>
+                </div>
+                <div class="exhibit__lockup--med-title">
+                  <div class="aspect-ratio-content exhibit__lockup--med-title-content">{{ exhibittheme.exhibit }}</div>
+                </div>
+              </div>
+            </a>
+          </div>        
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+  <!-- <div>
+    <h3>Read related essays (6)</h3>
+    <div class="row js-related-carousel exhibit__related-carousel">
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__essay-lockup">
+            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <h3>Just for teachers: lesson plans (1)</h3>
+    <div class="row js-related-carousel exhibit__related-carousel">
+      <div class="col-xs-2 col-md-3">
+        <a href="#">
+          <div class="exhibit__lesson-lockup">
+            <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
+              <div class="exhibit__lesson-lockup-title">Pre-Columbian California - 18th Century</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div> -->
+  
+  {% for browse_term_group in theme.browsetermgroup_set.all %}
+    <!-- TODO: screwy logic here -->
+    {% if browse_term_group.group_title == theme.title %}
+      <h3>Browse related items:</h3>
+    {% else %}
+      <h3>Browse related items on {{ browse_term_group.group_title }}:</h3>
+    {% endif %}
+
+    <p>{{ browse_term_group.group_note }}</p>
+    <div class="theme__browseTerms" style="-webkit-column-count: 6">
+      {% for browse_term in browse_term_group.browseterm_set.all %}
+        <button class="browseTerm" onclick="location.href='{{ browse_term.link_location }}';">{{ browse_term.link_text }}</button>
+      {% endfor %}
+    </div>
+  {% endfor %}
+  
+  <div class="row">
+    <h2>About this theme:</h2>
+    <p>{{ theme.about_theme }}</p>
+  </div>
+  
+  
+{% endblock %}
+  

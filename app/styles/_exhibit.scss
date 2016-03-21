@@ -1,0 +1,157 @@
+#exhibit__breadcrumb-label:after, #exhibit__breadcrumb li:after {
+  content: " / ";
+}
+
+#exhibit__breadcrumb-label {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+#exhibit__breadcrumb, #exhibit__breadcrumb li {
+  padding-left: 0;
+  list-style-type: none;
+  display: inline-block;
+}
+
+.hidden-content {
+  display: none;
+}
+
+.exhibit__header {
+  margin-top: 0;
+}
+
+.exhibit__hero {
+  margin: 0 (-$layout-component-margin);
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+}
+
+.exhibit__blockquote {
+  margin: $layout-component-margin 0;
+  padding: 30px 30px 30px $layout-component-margin;
+  background-color: rgba(0,0,0,.5);
+  color: #FFF;
+  border: 0; 
+  line-height: 1.6em;
+}
+
+.exhibit__blockquote a {
+  color: #FFF; 
+  text-decoration: underline;
+}
+
+.exhibit__items {
+  background-color: #f0f0f0;
+  margin: $layout-component-margin (-$layout-component-margin);
+  padding: $layout-component-margin;
+}
+
+.exhibit__items-header {
+  display: inline-block; 
+  margin-right: 20px;
+}
+
+.exhibit__overview {
+  @include bp(md-screen) {
+    padding: $layout-component-margin $layout-component-margin $layout-component-margin 0;    
+  }
+}
+
+.exhibit__overview h3, .exhibit__notes h3 {
+  font-size: 18px;
+}
+
+.exhibit__overview h4, .exhibit__notes h4 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.exhibit__notes {
+  @include bp(md-screen) {
+    padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;    
+  }
+}
+
+.exhibit__notes h3 {
+  color: $design-secondary-color;
+}
+
+.exhibit__related-materials {
+  border-top: 2px solid #f36f23; 
+  margin: 20px -20px; 
+  padding: 0 20px
+}
+
+.exhibit__related-carousel {
+  @include bp(sm-screen) {
+    padding: 0 35px;    
+  }
+
+  @include bp(md-screen) {
+    padding: 0 45px;
+  }
+}
+
+
+.exhibit__lockup--med {
+  margin: $layout-component-margin $layout-component-margin $layout-component-margin 0;
+  min-height: 100px;
+}
+
+.exhibit__lockup--med-image {
+  @include aspect-ratio(1.5, 1);
+}
+
+.exhibit__lockup--med-image-content {
+  background-size: cover;
+  background-position: center;
+}
+
+.exhibit__lockup--med-title {
+  @include aspect-ratio(2.5, 1);
+}
+
+.exhibit__lockup--med-title-content {
+  background-color: #fff;
+  padding: $layout-component-margin;
+  color: $design-secondary-color;
+  font-size: 1.25em;
+}
+
+.exhibit__lockup--small, .exhibit__essay-lockup, .exhibit__lesson-lockup {
+  @include aspect-ratio(2.45, 1);
+  margin: $layout-component-margin $layout-component-margin $layout-component-margin 0;
+  min-height: 100px;
+}
+
+.exhibit__lockup--small-image, .exhibit__essay-lockup-image, .exhibit__lesson-lockup-image {
+  background-size: cover; 
+  background-position: center
+}
+
+.exhibit__lockup--small-title, .exhibit__essay-lockup-title, .exhibit__lesson-lockup-title {
+  width: 80%; 
+  float: right; 
+  height: 100%; 
+  padding: 10px 10px 10px $layout-component-margin; 
+  font-size: 1.1em; 
+  color: #fff; 
+  background-image: inherit; 
+  background-size: 125%; 
+  background-position: right; 
+  background-blend-mode: multiply;
+  
+  @include bp(md-screen) {
+    font-size: 1.1vw;
+  }
+}
+
+.exhibit__lockup--small-title:hover, .exhibit__essay-lockup-title:hover, .exhibit__lesson-lockup-title:hover {
+  background-image: none;
+}
+
+.exhibit__lockup--small-title { background-color: $design-secondary-color; }
+.exhibit__essay-lockup-title { background-color: $design-dark-gray-color; }
+.exhibit__lesson-lockup-title { background-color: $design-dark-gray-color; }

@@ -7,3 +7,5 @@ six==1.10.0
 https://briantinglecdliborg-solrpyx.googlecode.com/archive/d83b854e3b301aa1f433e52c7c5e617c1b4b303e.tar.gz#egg=solrpy
 whitenoise==2.0.6
 wsgiref==0.1.2
+django-positions==0.5.3
+markdown==2.6.5

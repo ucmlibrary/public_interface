@@ -28,5 +28,6 @@ def settings(request):
         'collection_q': None,
         'alphabet': None,
         'referral': None,
+        'exhibitMedia': settings.MEDIA_URL
     }
 
