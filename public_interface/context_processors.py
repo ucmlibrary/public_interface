@@ -12,6 +12,7 @@ def settings(request):
         'ucldcImages': settings.UCLDC_IMAGES,
         'ucldcMedia': settings.UCLDC_MEDIA,
         'ucldcIiif': settings.UCLDC_IIIF,
+        'ucldcNuxeoThumbs': settings.UCLDC_NUXEO_THUMBS,
         'gaSiteCode': settings.GA_SITE_CODE,
         'contactFlag': settings.CONTRUBUTOR_CONTACT_FLAG,
         'permalink': urlparse.urljoin(settings.UCLDC_FRONT, request.path),
