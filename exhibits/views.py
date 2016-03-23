@@ -7,6 +7,18 @@ def exhibitDirectory(request):
     exhibits = Exhibit.objects.all()
     return render(request, 'exhibits/exhibitDirectory.html', {'themes': themes, 'exhibits': exhibits})
 
+def itemView(request, exhibit_id, item_id):
+    exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
+    exhibitItems = exhibit.exhibititem_set.all().order_by('order')
+    exhibitListing = []
+    for theme in exhibit.exhibittheme_set.all():
+        exhibitListing.append((theme.theme, theme.theme.exhibittheme_set.exclude(exhibit=exhibit).order_by('order')))
+    
+    exhibitItem = exhibit.exhibititem_set.filter(item_id=item_id)
+    
+    return render(request, 'exhibits/itemView.html',
+    {'exhibit': exhibit, 'q': '', 'exhibitItems': exhibitItems, 'relatedExhibitsByTheme': exhibitListing, 'exhibitItem': exhibitItem})
+
 def exhibitView(request, exhibit_id, exhibit_slug):
     exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
 

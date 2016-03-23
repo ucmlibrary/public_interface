@@ -7,6 +7,26 @@
 {% endblock %}
 
 {% block content %}
+  
+  {% block itemModal %}
+  <div class="modal fade" tabindex="-1" role="dialog" id="itemModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  {% endblock %}
 
   <nav aria-label="breadcrumb" role="navigation">
     <span id="exhibit__breadcrumb-label"><a href="#">Exhibitions</a></span>
@@ -34,7 +54,7 @@
       {% for item in exhibitItems %}
           <div class="col-xs-6 col-sm-3 col-md-2">
             {% if item.solrData %}
-            <a class="thumbnail__link" href="{% url 'calisphere:itemView' item.item_id %}" data-toggle="tooltip" title="">
+            <a class="thumbnail__link" href="javascript: void(0)" title="{{ item.solrData.title }}" data-toggle="modal" data-target="#itemModal">
             {% else %}
             <a class="thumbnail__link" href="http://content.cdlib.org/{{ item.item_id }}" data-toggle="tooltip" title="">
             {% endif %}
