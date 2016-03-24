@@ -8,36 +8,21 @@
 
 {% block content %}
   
-  {% block itemModal %}
-  <div class="modal fade" tabindex="-1" role="dialog" id="itemModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+  <div id="js-exhibit-item__container">
+  {% block itemContent %}
   {% endblock %}
+  </div>
 
   <nav aria-label="breadcrumb" role="navigation">
-    <span id="exhibit__breadcrumb-label"><a href="#">Exhibitions</a></span>
+    <span id="exhibit__breadcrumb-label"><a href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Exhibitions</a></span>
     {% if relatedExhibitsByTheme|length > 0 %}
       <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
-        <li><a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1">{{ relatedExhibitsByTheme.0.0 }}</a></li>
+        <li><a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1" data-pjax="js-pageContent">{{ relatedExhibitsByTheme.0.0 }}</a></li>
       </ol>
     {% endif %}
   </nav>
   
-  <h1 class="exhibit__header">{{ exhibit.title }}</h1>
+  <h1 class="exhibit__header" id="js-exhibit-title" data-slug="{{ exhibit.slug }}">{{ exhibit.title }}</h1>
   
   <div class="exhibit__hero" style="background-image: url('{{ exhibitMedia }}{{ exhibit.hero }}')">
     <div class="col-sm-6">
@@ -53,38 +38,39 @@
 
       {% for item in exhibitItems %}
           <div class="col-xs-6 col-sm-3 col-md-2">
-            {% if item.solrData %}
-            <a class="thumbnail__link" href="javascript: void(0)" title="{{ item.solrData.title }}" data-toggle="modal" data-target="#itemModal">
+            {% with item.solrData as exhibitItemData %}
+            {% if exhibitItemData %}
+            <a class="thumbnail__link js-exhibit-item" href="{% url 'exhibits:itemView' exhibit.id item.item_id %}" title="{{ exhibitItemData.title }}">
             {% else %}
             <a class="thumbnail__link" href="http://content.cdlib.org/{{ item.item_id }}" data-toggle="tooltip" title="">
             {% endif %}
-                {% if item.solrData %}
+                {% if exhibitItemData %}
                   <div class="thumbnail__container">
-                  {% if item.solrData.reference_image_md5 %}
+                  {% if exhibitItemData.reference_image_md5 %}
                     <img class="thumbnail__image"
-                    src="{{ thumbnailUrl }}crop/210x210/{{ item.solrData.reference_image_md5 }}"
-                    srcset="{{ thumbnailUrl }}crop/210x210/{{ item.solrData.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.solrData.reference_image_md5 }} 50w"
+                    src="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }}"
+                    srcset="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ exhibitItemData.reference_image_md5 }} 50w"
                     sizes="100vw"
-                    alt="{{ item.solrData.title.0|truncatewords:12 }}">
-                    {% if item.solrData.type_ss.0|lower == "moving image" %}
+                    alt="{{ exhibitItemData.title.0|truncatewords:12 }}">
+                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
                     <div class="thumbnail__overlay-icon fa-video-camera"></div>
-                    {% elif item.solrData.type_ss.0|lower == "sound"%}
+                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
                     <div class="thumbnail__overlay-icon fa-volume-up"></div>
-                    {# elif item.solrData.type_ss.0|lower == "text" #}
+                    {# elif exhibitItemData.type_ss.0|lower == "text" #}
                     <!-- <div class="thumbnail__overlay-icon fa-file-text-o"></div> -->
-                    {% elif item.solrData.type_ss.0|lower == "dataset" %}
+                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
                     <div class="thumbnail__overlay-icon fa-bar-chart"></div>
                     {% endif %}
                   {% else %}
-                    {% if item.solrData.type_ss.0|lower == "moving image" %}
+                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
                     <div class="thumbnail__tile-icon fa-video-camera"></div>
-                    {% elif item.solrData.type_ss.0|lower == "sound"%}
+                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
                     <div class="thumbnail__tile-icon fa-volume-up"></div>
-                    {% elif item.solrData.type_ss.0|lower == "text"%}
+                    {% elif exhibitItemData.type_ss.0|lower == "text"%}
                     <div class="thumbnail__tile-icon fa-file-text-o"></div>
-                    {% elif item.solrData.type_ss.0|lower == "dataset" %}
+                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
                     <div class="thumbnail__tile-icon fa-bar-chart"></div>
-                    {% elif item.solrData.type_ss.0|lower == "image" %}
+                    {% elif exhibitItemData.type_ss.0|lower == "image" %}
                     <div class="thumbnail__tile-icon fa-picture-o"></div>
                     {% endif %}
                   {% endif %}
@@ -100,6 +86,7 @@
           <div class="js-exhibit-items-overflow hidden-content">
         {% endif %}
 
+      {% endwith %}
       {% endfor %}
       {% if exhibitItems|length > 12 %}
         </div>
@@ -188,7 +175,7 @@
       <div class="row js-related-carousel exhibit__related-carousel">
         {% for exhibit in exhibits %}
           <div class="col-xs-2 col-md-3">
-            <a href="{{ exhibit.exhibit.get_absolute_url }}">
+            <a href="{{ exhibit.exhibit.get_absolute_url }}" data-pjax="js-pageContent">
               <div class="exhibit__lockup--small">
                 <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url({{ exhibitMedia }}{{ exhibit.exhibit.hero }});">
                   <div class="exhibit__lockup--small-title">{{ exhibit.exhibit }}</div>
@@ -276,6 +263,7 @@
 
 {% block footerScripts %}
 <script>
+  
   $('#js-exhibit__overview').click(function() {
     if ($('.js-exhibit__overview--full').is(':visible')) {
       $('.js-exhibit__overview--preview').show();

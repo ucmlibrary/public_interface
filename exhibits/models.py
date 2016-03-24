@@ -5,6 +5,7 @@ from django.db import models
 from positions.fields import PositionField
 from calisphere.cache_retry import SOLR_select, SOLR_raw, json_loads_url
 from django.core.urlresolvers import reverse
+from calisphere.views import getCollectionData, getRepositoryData
 
 # only if you need to support python 2: 
 from django.utils.encoding import python_2_unicode_compatible
@@ -60,7 +61,17 @@ class ExhibitItem(models.Model):
         item_id_search_term = 'id:"{0}"'.format(self.item_id)
         item_solr_search = SOLR_select(q=item_id_search_term)
         if len(item_solr_search.results) > 0:
-            return item_solr_search.results[0]
+            item = item_solr_search.results[0]
+
+            item['parsed_collection_data'] = []
+            item['parsed_repository_data'] = []
+            for collection_data in item['collection_data']:
+                item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
+            if 'repository_data' in item:
+                for repository_data in item['repository_data']:
+                    item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))
+
+            return item
         else:
             return None
 

@@ -3,6 +3,34 @@
 
 'use strict';
 
+var exhibitPage = Backbone.View.extend({
+  el: $('#js-pageContent'),
+  events: {
+    'click .js-exhibit-item'      : 'exhibitItemView',
+  },
+  exhibitItemView: function(e) {
+    // Middle click, cmd click, and ctrl click should open
+    // links in a new tab as normal.
+    if ( e.which > 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ) { return; }
+    e.preventDefault();
+    $.pjax({
+      push: false,
+      scrollTo: false,
+      url: $(e.currentTarget).attr('href'),
+      container: '#js-exhibit-item__container'
+    });
+  },
+
+  initialize: function() {
+    if ($('#js-exhibit-item')) {
+      $('#js-exhibit-item').modal();
+    }
+    $(document).on('pjax:end', '#js-exhibit-item__container', function() {
+      $('#js-exhibit-item').modal();
+    });
+  },
+});
+
 var FacetForm = Backbone.View.extend({
   el: $('#js-pageContent'),
   events: {
@@ -720,6 +748,12 @@ var GlobalSearchForm = Backbone.View.extend({
       delete this.viewer;
     }
 
+    if($('#js-exhibit-title').length > 0) {
+      if (this.exhibitPage === undefined) { this.exhibitPage = new exhibitPage(); }
+    } else if (this.exhibitPage !== undefined) {
+      this.exhibitPage.undelegateEvents();
+      delete this.exhibitPage;
+    }
   },
 
   changeWidth: function(window_width) {

@@ -8,9 +8,8 @@
 
 {% block content %}
   <nav aria-label="breadcrumb" role="navigation">
-    <!-- <span id="exhibit__breadcrumb-label">Exhibitions</span> -->
+    <span id="exhibit__breadcrumb-label"><a href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Exhibitions</a></span>
     <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
-      <li><a href="#" aria-level="1">Exhibitions</a></li>
       <li>{{ theme.title }}</li>
     </ol>
   </nav>
@@ -35,7 +34,7 @@
       <div class="row">
         {% for exhibittheme in relatedExhibits %}
           <div class="col-md-4">
-            <a href="{{ exhibittheme.exhibit.get_absolute_url }}">
+            <a href="{{ exhibittheme.exhibit.get_absolute_url }}" data-pjax="js-pageContent">
               <div class="exhibit__lockup--med">
                 <div class="exhibit__lockup--med-image">
                   <div class="aspect-ratio-content exhibit__lockup--med-image-content" style="background-image: url('{{ exhibitMedia }}{{ exhibittheme.exhibit.hero }}');">
