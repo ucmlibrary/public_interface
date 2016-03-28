@@ -22,11 +22,13 @@ var exhibitPage = Backbone.View.extend({
   },
 
   initialize: function() {
-    if ($('#js-exhibit-item')) {
+    if ($('#js-exhibit-item__container').children().length > 0) {
       $('#js-exhibit-item').modal();
     }
     $(document).on('pjax:end', '#js-exhibit-item__container', function() {
-      $('#js-exhibit-item').modal();
+      if(!($('#js-exhibit-item').is(':visible'))) {
+        $('#js-exhibit-item').modal();
+      }
     });
   },
 });

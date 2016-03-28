@@ -7,10 +7,12 @@
 {% endblock %}
 
 {% block content %}
-  
-  <div id="js-exhibit-item__container">
-  {% block itemContent %}
-  {% endblock %}
+
+  <div class="modal fade" id="js-exhibit-item" tabindex="-1" role="dialog">
+    <div id="js-exhibit-item__container">
+    {% block itemContent %}
+    {% endblock %}
+    </div>
   </div>
 
   <nav aria-label="breadcrumb" role="navigation">

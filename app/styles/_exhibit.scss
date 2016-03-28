@@ -155,3 +155,29 @@
 .exhibit__lockup--small-title { background-color: $design-secondary-color; }
 .exhibit__essay-lockup-title { background-color: $design-dark-gray-color; }
 .exhibit__lesson-lockup-title { background-color: $design-dark-gray-color; }
+
+.exhibit__modal-arrow {
+  position: absolute;
+  display: block;
+  height: 100%;
+  top: 0;
+  padding: 0 $layout-component-margin;
+  margin: 0 (-$layout-component-margin);
+}
+
+.exhibit__modal-arrow--right {
+  @extend .exhibit__modal-arrow;
+  right: $layout-component-margin;
+}
+
+.exhibit__modal-arrow-position {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.exhibit__modal-arrow:hover {
+  background-color: $design-light-gray-color;
+}

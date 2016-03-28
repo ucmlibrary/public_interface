@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 from exhibits.models import *
 
 def exhibitDirectory(request):
@@ -9,19 +10,28 @@ def exhibitDirectory(request):
 
 def itemView(request, exhibit_id, item_id):
     fromExhibitPage = request.META.get("HTTP_X_FROM_EXHIBIT_PAGE")
-    exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
-    exhibitItem = exhibit.exhibititem_set.filter(item_id=item_id)
+    exhibitItem = get_object_or_404(ExhibitItem, item_id=item_id, exhibit=exhibit_id)
+    try:
+        nextItem = ExhibitItem.objects.get(exhibit=exhibit_id, order=exhibitItem.order+1)
+    except ObjectDoesNotExist:
+        nextItem = None
+    try:
+        prevItem = ExhibitItem.objects.get(exhibit=exhibit_id, order=exhibitItem.order-1)
+    except ObjectDoesNotExist:
+        prevItem = None
 
     if fromExhibitPage:
-        return render(request, 'exhibits/itemView.html', {'exhibitItem': exhibitItem[0]})
+        return render(request, 'exhibits/itemView.html', {'exhibitItem': exhibitItem, 'nextItem': nextItem, 'prevItem': prevItem})
     else:
+        exhibit = Exhibit.objects.get(pk=exhibit_id)
         exhibitItems = exhibit.exhibititem_set.all().order_by('order')
+
         exhibitListing = []
         for theme in exhibit.exhibittheme_set.all():
             exhibitListing.append((theme.theme, theme.theme.exhibittheme_set.exclude(exhibit=exhibit).order_by('order')))
     
         return render(request, 'exhibits/itemView.html',
-        {'exhibit': exhibit, 'q': '', 'exhibitItems': exhibitItems, 'relatedExhibitsByTheme': exhibitListing, 'exhibitItem': exhibitItem[0]})
+        {'exhibit': exhibit, 'q': '', 'exhibitItems': exhibitItems, 'relatedExhibitsByTheme': exhibitListing, 'exhibitItem': exhibitItem, 'nextItem': nextItem, 'prevItem': prevItem})
 
 def exhibitView(request, exhibit_id, exhibit_slug):
     exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
