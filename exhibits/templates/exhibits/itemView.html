@@ -12,54 +12,54 @@
 
       <div class="modal-content" style="border-radius: 0;">
         <div class="modal-body">
-          <div class="row">
-          <div class="col-md-1">
-            <i class="fa fa-angle-left" style="font-size: 70px;"></i>
-          </div>
           {% with item=exhibitItem.solrData %}
-
-          <div class="col-md-5">
-            <div class="obj-container__simple-{% if 'reference_image_md5' in item %}image{% else %}tile{% endif %}">
-              <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}">
-              {% if item.reference_image_md5 %}
-                <div class="obj__icon-container">
-                  <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
-                  {% if item.type_ss.0|lower == "moving image" %}
-                  <div class="obj__overlay-icon fa-video-camera"></div>
-                  {% elif item.type_ss.0|lower == "sound"%}
-                  <div class="obj__overlay-icon fa-volume-up"></div>
-                  {# elif item.type_ss.0|lower == "text"#}
-                  <!-- <div class="obj__overlay-icon fa-file-text-o"></div> -->
-                  {% elif item.type_ss.0|lower == "dataset" %}
-                  <div class="obj__overlay-icon fa-bar-chart"></div>
-                  {% endif %}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="obj-container__simple-{% if 'reference_image_md5' in item %}image{% else %}tile{% endif %}">
+                <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}">
+                {% if item.reference_image_md5 %}
+                  <div class="obj__icon-container">
+                    <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+                    {% if item.type_ss.0|lower == "moving image" %}
+                    <div class="obj__overlay-icon fa-video-camera"></div>
+                    {% elif item.type_ss.0|lower == "sound"%}
+                    <div class="obj__overlay-icon fa-volume-up"></div>
+                    {# elif item.type_ss.0|lower == "text"#}
+                    <!-- <div class="obj__overlay-icon fa-file-text-o"></div> -->
+                    {% elif item.type_ss.0|lower == "dataset" %}
+                    <div class="obj__overlay-icon fa-bar-chart"></div>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="thumbnail__container">
+                    {% if item.type_ss.0|lower == "moving image" %}
+                    <div class="obj__tile-icon fa-video-camera"></div>
+                    {% elif item.type_ss.0|lower == "sound"%}
+                    <div class="obj__tile-icon fa-volume-up"></div>
+                    {% elif item.type_ss.0|lower == "text"%}
+                    <div class="obj__tile-icon fa-file-text-o"></div>
+                    {% elif item.type_ss.0|lower == "dataset" %}
+                    <div class="obj__tile-icon fa-bar-chart"></div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                <div class="obj__caption">
+                  go to item page
                 </div>
-              {% else %}
-                <div class="thumbnail__container">
-                  {% if item.type_ss.0|lower == "moving image" %}
-                  <div class="obj__tile-icon fa-video-camera"></div>
-                  {% elif item.type_ss.0|lower == "sound"%}
-                  <div class="obj__tile-icon fa-volume-up"></div>
-                  {% elif item.type_ss.0|lower == "text"%}
-                  <div class="obj__tile-icon fa-file-text-o"></div>
-                  {% elif item.type_ss.0|lower == "dataset" %}
-                  <div class="obj__tile-icon fa-bar-chart"></div>
-                  {% endif %}
-                </div>
-              {% endif %}
-              <div class="obj__caption">
-                go to item page
+                </a>
               </div>
-              </a>
+            </div>
+            <div class="col-md-6">
+              {% include 'calisphere/item-metadata.html' with item=item %}
             </div>
           </div>
-          <div class="col-md-5">
-            {% include 'calisphere/item-metadata.html' with item=item %}
-          </div>
-
           {% endwith %}
-          <div class="col-md-1">
-            <i class="fa fa-angle-right" style="font-size: 70px; float: right;"></i>
+
+          <div style="position: absolute; display: block; top: 50%; margin-top: -35px;">
+            <i class="fa fa-angle-left" style="font-size: 70px;"></i>
+          </div>
+          <div style="position: absolute; display: block; top: 50%; right: 15px; margin-top: -35px;">
+            <i class="fa fa-angle-right" style="font-size: 70px;"></i>
           </div>
         </div>
       </div>
