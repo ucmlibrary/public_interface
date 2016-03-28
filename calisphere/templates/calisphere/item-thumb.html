@@ -5,7 +5,7 @@
     <a class="thumbnail__link js-item-link" href="{% url 'calisphere:itemView' item.id %}" data-item_id="{{ item.id }}" data-item_number="{{ start|add:forloop.counter0 }}">
       <div class="thumbnail__container" data-toggle="tooltip"
       title="{{ item.title.0|truncatewords:20 }} {% if 'date' in item %}({{ item.date.0 }}){% endif %}">
-        {% if item.reference_image_md5 %}
+        {% if 'reference_image_md5' in item %}
           <img class="thumbnail__image"
           src="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }}"
           srcset="{{ thumbnailUrl }}crop/210x210/{{ item.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ item.reference_image_md5 }} 50w"

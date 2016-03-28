@@ -17,7 +17,7 @@
 <h1 class="obj__heading">{{ item.type.0|title }}{% if 'structMap' in item %} set{% else %}{% endif %} / <strong>{{ item.title.0|truncatewords:12 }}</strong></h1>
 
 <div id="js-objectViewport">
-{% if item.harvest_type == 'hosted' and item.structMap %}
+{% if item.harvest_type == 'hosted' and 'structMap' in item %}
   {% include 'calisphere/objectViewer/complex-object.html' %}
 {% elif item.harvest_type == 'hosted' and item.contentFile.format == 'image' %}
   {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
@@ -42,7 +42,7 @@
   {% elif item.harvest_type == 'hosted' %}
     {% if 'structMap' in item and 'select' in item and item.selected == True %}
       Set Information.
-    {% elif item.structMap %}
+    {% elif 'structMap' in item %}
       Page Information. <a href="{% url 'calisphere:itemView' item.id %}" data-pjax="js-pageContent">Go to set information.</a>
     {% else %}
       Item Information.

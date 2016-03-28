@@ -74,6 +74,18 @@ def process_sort_collection_data(string):
         part2, part3 = remainder.rsplit(':https:')
         return [part1, part2, u'https:{}'.format(part3)]
 
+def getMoreCollectionData(collection_data):
+    collection = getCollectionData(
+        collection_data=collection_data,
+        collection_id=None,
+    )
+    collection_details = json_loads_url(
+        "{0}?format=json".format(collection['url'])
+    )
+    collection['local_id'] = collection_details['local_id']
+    collection['slug'] = collection_details['slug']
+    return collection
+
 def getCollectionData(collection_data=None, collection_id=None):
     collection = {}
     if collection_data:
@@ -86,14 +98,10 @@ def getCollectionData(collection_data=None, collection_id=None):
             collection['id'] = ''
         else:
             collection['id'] = collection_api_url.group('url')
-        collection_details = json_loads_url("{0}?format=json".format(collection['url']))
-        collection['local_id'] = collection_details['local_id']
-        collection['slug'] = collection_details['slug']
     elif collection_id:
         solr_collections = CollectionManager(settings.SOLR_URL, settings.SOLR_API_KEY)
         collection['url'] = "https://registry.cdlib.org/api/v1/collection/{0}/".format(collection_id)
         collection['id'] = collection_id
-
         collection_details = json_loads_url("{0}?format=json".format(collection['url']))
         collection['name'] = solr_collections.names.get(collection['url']) or collection_details['name']
         collection['local_id'] = collection_details['local_id']
@@ -172,7 +180,7 @@ def getRepositoryData(repository_data=None, repository_id=None):
         else:
             repository['id'] = repository_api_url.group('url')
             repository_details = app.registry.repository_data.get(
-                int(repository['id']), None
+                int(repository['id']), {}
             )
     elif repository_id:
         repository['url'] = "https://registry.cdlib.org/api/v1/repository/{0}/".format(repository_id)
@@ -406,7 +414,7 @@ def itemView(request, item_id=''):
         item['parsed_repository_data'] = []
         item['institution_contact'] = []
         for collection_data in item['collection_data']:
-            item['parsed_collection_data'].append(getCollectionData(collection_data=collection_data))
+            item['parsed_collection_data'].append(getMoreCollectionData(collection_data))
         if 'repository_data' in item:
             for repository_data in item['repository_data']:
                 item['parsed_repository_data'].append(getRepositoryData(repository_data=repository_data))

@@ -28,31 +28,31 @@
               alt="{{ item.title.0|truncatewords:12 }}">
 
               {% if item.type_ss.0|lower == "moving image" %}
-              <div class="collect-row__overlay-icon{% if forloop.counter = 1 %}--large{% endif %} fa-video-camera"></div>
+              <div class="collect-row__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-video-camera"></div>
               {% elif item.type_ss.0|lower == "sound"%}
-              <div class="collect-row__overlay-icon{% if forloop.counter = 1 %}--large{% endif %} fa-volume-up"></div>
+              <div class="collect-row__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-volume-up"></div>
               {# elif item.type_ss.0|lower == "text"#}
-              <!-- <div class="collect-row__overlay-icon{% if forloop.counter = 1 %}--large{% endif %} fa-file-text-o"></div> -->
+              <!-- <div class="collect-row__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-file-text-o"></div> -->
               {% elif item.type_ss.0|lower == "dataset" %}
-              <div class="collect-row__overlay-icon{% if forloop.counter = 1 %}--large{% endif %} fa-bar-chart"></div>
+              <div class="collect-row__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-bar-chart"></div>
               {% endif %}
 
             {% else %}
               {% if item.type_ss.0|lower == "moving image" %}
-              <div class="collect-row__tile-icon{% if forloop.counter = 1 %}--large{% endif %} fa-video-camera"></div>
+              <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-video-camera"></div>
               {% elif item.type_ss.0|lower == "sound"%}
-              <div class="collect-row__tile-icon{% if forloop.counter = 1 %}--large{% endif %} fa-volume-up"></div>
+              <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-volume-up"></div>
               {% elif item.type_ss.0|lower == "text"%}
-              <div class="collect-row__tile-icon{% if forloop.counter = 1 %}--large{% endif %} fa-file-text-o"></div>
+              <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-file-text-o"></div>
               {% elif item.type_ss.0|lower == "dataset" %}
-              <div class="collect-row__tile-icon{% if forloop.counter = 1 %}--large{% endif %} fa-bar-chart"></div>
+              <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-bar-chart"></div>
               {% elif item.type_ss.0|lower == "image" %}
-              <div class="collect-row__tile-icon{% if forloop.counter = 1 %}--large{% endif %} fa-picture-o"></div>
+              <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-picture-o"></div>
               {% endif %}
             {% endif %}
           </div>
 
-		    	{% if forloop.counter = 3 %}
+		    	{% if forloop.counter == 3 %}
 		    		</div>
 		    		<div class="col-sm-6">
 		    	{% endif %}
