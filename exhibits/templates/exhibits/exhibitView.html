@@ -9,9 +9,16 @@
 {% block content %}
 
   <div class="modal fade" id="js-exhibit-item" tabindex="-1" role="dialog">
-    <div id="js-exhibit-item__container">
-    {% block itemContent %}
-    {% endblock %}
+    <div class="modal-dialog" style="width: 100%;">
+      <div class="modal-header" style="margin-bottom: 10px; border-bottom: 0">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #fff; text-shadow: 0; opacity: 1" data-url="{{ exhibit.get_absolute_url }}"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-content" style="border-radius: 0;">
+        <div id="js-exhibit-item__container">
+          {% block itemContent %}
+          {% endblock %}
+        </div>
+      </div>
     </div>
   </div>
 

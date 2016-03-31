@@ -34,6 +34,10 @@ def itemView(request, exhibit_id, item_id):
         {'exhibit': exhibit, 'q': '', 'exhibitItems': exhibitItems, 'relatedExhibitsByTheme': exhibitListing, 'exhibitItem': exhibitItem, 'nextItem': nextItem, 'prevItem': prevItem})
 
 def exhibitView(request, exhibit_id, exhibit_slug):
+    fromExhibitPage = request.META.get("HTTP_X_FROM_EXHIBIT_PAGE")
+    if fromExhibitPage:
+        return render(request, 'exhibits/pjaxTemplates/pjax-exhibit-item.html')
+    
     exhibit = get_object_or_404(Exhibit, pk=exhibit_id)
 
     if exhibit_slug != exhibit.slug:

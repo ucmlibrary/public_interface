@@ -6,7 +6,8 @@
 var exhibitPage = Backbone.View.extend({
   el: $('#js-pageContent'),
   events: {
-    'click .js-exhibit-item'      : 'exhibitItemView',
+    'click .js-exhibit-item'            : 'exhibitItemView',
+    'hidden.bs.modal #js-exhibit-item'  : 'exhibitView',
   },
   exhibitItemView: function(e) {
     // Middle click, cmd click, and ctrl click should open
@@ -14,9 +15,18 @@ var exhibitPage = Backbone.View.extend({
     if ( e.which > 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ) { return; }
     e.preventDefault();
     $.pjax({
-      push: false,
+      push: true,
       scrollTo: false,
       url: $(e.currentTarget).attr('href'),
+      container: '#js-exhibit-item__container'
+    });
+  },
+  
+  exhibitView: function() {
+    $.pjax({
+      push: true,
+      scrollTo: false,
+      url: $('#js-exhibit-item .close').data('url'),
       container: '#js-exhibit-item__container'
     });
   },
@@ -26,7 +36,7 @@ var exhibitPage = Backbone.View.extend({
       $('#js-exhibit-item').modal();
     }
     $(document).on('pjax:end', '#js-exhibit-item__container', function() {
-      if(!($('#js-exhibit-item').is(':visible'))) {
+      if(!($('#js-exhibit-item').is(':visible')) && $('#js-exhibit-item__container').children().length > 0) {
         $('#js-exhibit-item').modal();
       }
     });
