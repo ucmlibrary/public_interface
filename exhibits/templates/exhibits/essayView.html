@@ -46,6 +46,14 @@
             {% endfor %}
           </div>
         {% endif %}
+        {% if essay.historicalessaytheme_set.all|length > 0 %}
+          <div class="essay__note">
+            <h3>Related themes</h3>
+            {% for het in essay.historicalessaytheme_set.all %}
+              <a href="{{ het.theme.get_absolute_url }}">{{ het.theme }}</a><br/>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
