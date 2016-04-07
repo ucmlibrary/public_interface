@@ -75,7 +75,7 @@ class HistoricalEssay(models.Model):
     color = models.CharField(max_length=20, blank=True, help_text="Please provide color in <code>#xxx</code>, <code>#xxxxxx</code>, <code>rgb(xxx,xxx,xxx)</code>, or <code>rgba(xxx,xxx,xxx,x.x)</code> formats.")
     meta_description = models.CharField(max_length=255, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
-    
+        
     def get_absolute_url(self):
         return reverse('exhibits:essayView', kwargs={'essay_id': self.id, 'essay_slug': self.slug})
 
@@ -172,9 +172,8 @@ class ExhibitItem(models.Model):
     def imgUrl(self):
         item_id_search_term = 'id:"{0}"'.format(self.item_id)
         item_solr_search = SOLR_select(q=item_id_search_term)
-        if len(item_solr_search.results) > 0:
-            item = item_solr_search.results[0]
-            return settings.THUMBNAIL_URL + "crop/210x210/" + item['reference_image_md5']
+        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+            return settings.THUMBNAIL_URL + "crop/210x210/" + item_solr_search.results[0]['reference_image_md5']
         else:
             return None
 

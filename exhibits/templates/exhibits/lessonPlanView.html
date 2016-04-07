@@ -24,7 +24,7 @@
   <nav role="navigation">
     <ol id="exhibit__breadcrumb">
       <li><a href="{% url 'for-teachers:lessonPlanDirectory' %}" data-pjax="js-pageContent">Just for Teachers</a></li>
-      <li>{{ lessonPlan.title }}</li>
+      <li>Lesson Plan: {{ lessonPlan.title }}</li>
     </ol>
   </nav>
   
@@ -56,7 +56,7 @@
   {% if lessonPlan.byline %}
   <div class="row">
     <h2>About this lesson plan:</h2>
-    <p>{{ lessonPlan.byline }}</p>
+    {% include "exhibits/render_as.html" with render_as=lessonPlan.byline_render_as text=lessonPlan.byline truncate=False container_class="" %}
   </div>
   {% endif %}
 
