@@ -21,13 +21,7 @@
   <div class="theme__main-content">
     <div class="theme__overview">
       <h2>Overview</h2>
-      {% if theme.render_as == 'H' %}
-        {{ theme.essay|safe }}
-      {% elif theme.render_as == 'M' %}
-        {{ theme.essay|markdownify|safe }}
-      {% else %}
-        {{ theme.essay }}
-      {% endif %}
+      {% include "exhibits/render_as.html" with render_as=theme.render_as text=theme.essay truncate=False container_class="" %}
     </div>
     <div class="theme__exhibits">
       <h2>{{ relatedExhibits|length }} exhibitions:</h2>
@@ -51,78 +45,37 @@
     </div>
   </div>
   
-  <!-- <div>
-    <h3>Read related essays (6)</h3>
+  <div>
+    <h3>Read related essays ({{ theme.historicalessaytheme_set.all|length }})</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__essay-lockup">
-            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
+      {% for het in theme.historicalessaytheme_set.all %}
+        <div class="col-xs-2 col-md-3">
+          <a href="{{ het.historicalEssay.get_absolute_url }}">
+            <div class="exhibit__essay-lockup">
+              <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url({{ exhibitMedia }}{{ het.historicalEssay.hero }});">
+                <div class="exhibit__essay-lockup-title">{{ het.historicalEssay.title }}</div>
+              </div>
             </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__essay-lockup">
-            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__essay-lockup">
-            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__essay-lockup">
-            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__essay-lockup">
-            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__essay-lockup">
-            <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__essay-lockup-title">Pre-Columbian California - 18th Century</div>
-            </div>
-          </div>
-        </a>
-      </div>
+          </a>
+        </div>
+      {% endfor %}
     </div>
 
-    <h3>Just for teachers: lesson plans (1)</h3>
+    <h3>Just for teachers: lesson plans ({{ theme.lessonplantheme_set.all|length }})</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
-      <div class="col-xs-2 col-md-3">
-        <a href="#">
-          <div class="exhibit__lesson-lockup">
-            <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url(images/birds1-thumb.jpg);">
-              <div class="exhibit__lesson-lockup-title">Pre-Columbian California - 18th Century</div>
+      {% for lpt in theme.lessonplantheme_set.all %}
+        <div class="col-xs-2 col-md-3">
+          <a href="{{ lpt.lessonPlan.get_absolute_url }}">
+            <div class="exhibit__lesson-lockup">
+              <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url({{ exhibitMedia }}{{ lpt.lessonPlan.hero }});">
+                <div class="exhibit__lesson-lockup-title">{{ lpt.lessonPlan.title }}</div>
+              </div>
             </div>
-          </div>
-        </a>
-      </div>
+          </a>
+        </div>
+      {% endfor %}
     </div>
-  </div> -->
+  </div>
   
   {% for browse_term_group in theme.browsetermgroup_set.all %}
     <!-- TODO: screwy logic here -->
@@ -142,7 +95,7 @@
   
   <div class="row">
     <h2>About this theme:</h2>
-    <p>{{ theme.about_theme }}</p>
+    {% include "exhibits/render_as.html" with render_as=theme.byline_render_as text=theme.byline truncate=False container_class="" %}
   </div>
   
   

@@ -78,6 +78,16 @@
   color: $design-secondary-color;
 }
 
+.essay__note {
+  border: 1px solid black;
+  padding: $layout-component-margin;
+  margin-bottom: $layout-component-margin;
+}
+
+.essay__note h3 {
+  margin-top: 0;
+}
+
 .exhibit__related-materials {
   border-top: 2px solid #f36f23; 
   margin: 20px -20px; 

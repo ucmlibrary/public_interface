@@ -1,0 +1,111 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load markdown_filter %}
+
+{% block page-metadata %}
+{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% endblock %}
+
+{% block content %}
+
+  <nav aria-label="breadcrumb" role="navigation">
+    <span id="exhibit__breadcrumb-label"><a href="{% url 'exhibits:lessonPlanDirectory' %}" data-pjax="js-pageContent">Just for Teachers</a></span>
+  </nav>
+  
+  <h1 class="exhibit__header" id="js-exhibit-title" data-slug="{{ lessonPlan.slug }}">Lesson Plan: {{ lessonPlan.title }}</h1>
+  <h2>{{ lessonPlan.sub_title }}</h2>
+
+  <div class="row">
+    <div class="col-md-4">
+      <button>Download Lesson Plan</button>
+    </div>
+    <div class="col-md-4">
+      <b>Unit Overview:</b><br>
+      {{ lessonPlan.overview }}
+    </div>
+    <div class="col-md-4">
+      <b>Grade Level Recommendation:</b><br>
+      {{ lessonPlan.grade_level }}<br><br>
+      <b>Relates to:</b>
+    </div>
+  </div>
+  
+  <div class="exhibit__items">
+    <h2 class="exhibit__items-header">Primary sources used in this lesson plan ({{ exhibitItems|length }}):</h2>{% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
+    
+    <div class="row thumbnail">
+
+      {% for item in exhibitItems %}
+          <div class="col-xs-6 col-sm-3 col-md-2">
+            {% with item.solrData as exhibitItemData %}
+            {% if exhibitItemData %}
+            <a class="thumbnail__link js-exhibit-item" href="#" title="{{ exhibitItemData.title }}">
+            {% else %}
+            <a class="thumbnail__link" href="http://content.cdlib.org/{{ item.item_id }}" data-toggle="tooltip" title="">
+            {% endif %}
+                {% if exhibitItemData %}
+                  <div class="thumbnail__container">
+                  {% if exhibitItemData.reference_image_md5 %}
+                    <img class="thumbnail__image"
+                    src="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }}"
+                    srcset="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ exhibitItemData.reference_image_md5 }} 50w"
+                    sizes="100vw"
+                    alt="{{ exhibitItemData.title.0|truncatewords:12 }}">
+                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
+                    <div class="thumbnail__overlay-icon fa-video-camera"></div>
+                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
+                    <div class="thumbnail__overlay-icon fa-volume-up"></div>
+                    {# elif exhibitItemData.type_ss.0|lower == "text" #}
+                    <!-- <div class="thumbnail__overlay-icon fa-file-text-o"></div> -->
+                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
+                    <div class="thumbnail__overlay-icon fa-bar-chart"></div>
+                    {% endif %}
+                  {% else %}
+                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
+                    <div class="thumbnail__tile-icon fa-video-camera"></div>
+                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
+                    <div class="thumbnail__tile-icon fa-volume-up"></div>
+                    {% elif exhibitItemData.type_ss.0|lower == "text"%}
+                    <div class="thumbnail__tile-icon fa-file-text-o"></div>
+                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
+                    <div class="thumbnail__tile-icon fa-bar-chart"></div>
+                    {% elif exhibitItemData.type_ss.0|lower == "image" %}
+                    <div class="thumbnail__tile-icon fa-picture-o"></div>
+                    {% endif %}
+                  {% endif %}
+                {% else %}
+                  <div style="display: block; position: relative; background-color: #e5e5e5;">
+                  {{ item.item_id }} not in Calisphere solr index
+                {% endif %}
+              </div>
+            </a>
+          </div>
+
+        {% if forloop.counter == 12 %}
+          <div class="js-exhibit-items-overflow hidden-content">
+        {% endif %}
+
+      {% endwith %}
+      {% endfor %}
+      {% if exhibitItems|length > 12 %}
+        </div>
+      {% endif %}
+      
+    </div>
+    
+    <div class="row text-right">
+      {% if exhibitItems|length > 12 %}
+        <a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>
+      {% endif %}
+    </div>
+  </div>
+  
+  
+  {% if lessonPlan.byline %}
+  <div class="row">
+    <h2>About this lesson plan:</h2>
+    <p>{{ lessonPlan.byline }}</p>
+  </div>
+  {% endif %}
+
+{% endblock %}
