@@ -77,7 +77,7 @@ class HistoricalEssay(models.Model):
     meta_keywords = models.CharField(max_length=255, blank=True)
     
     def get_absolute_url(self):
-        return reverse('exhibits:essayView', kwargs={'essay_slug': self.slug})
+        return reverse('exhibits:essayView', kwargs={'essay_id': self.id, 'essay_slug': self.slug})
 
     def __str__(self):
         return self.title
@@ -101,7 +101,7 @@ class LessonPlan(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('exhibits:lessonPlanView', kwargs={'lesson_slug': self.slug})
+        return reverse('for-teachers:lessonPlanView', kwargs={'lesson_id': self.id, 'lesson_slug': self.slug})
 
 class Theme(models.Model): 
     title = models.CharField(max_length=200)

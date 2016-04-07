@@ -1,10 +1,5 @@
-#exhibit__breadcrumb-label:after, #exhibit__breadcrumb li:after {
+#exhibit__breadcrumb li:after {
   content: " / ";
-}
-
-#exhibit__breadcrumb-label {
-  display: inline-block;
-  margin-bottom: 10px;
 }
 
 #exhibit__breadcrumb, #exhibit__breadcrumb li {

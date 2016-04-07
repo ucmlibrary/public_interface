@@ -7,9 +7,25 @@
 {% endblock %}
 
 {% block content %}
+  <div class="modal fade" id="js-exhibit-item" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 100%;">
+      <div class="modal-header" style="margin-bottom: 10px; border-bottom: 0">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #fff; text-shadow: 0; opacity: 1" data-url="{{ lessonPlan.get_absolute_url }}"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-content" style="border-radius: 0;">
+        <div id="js-exhibit-item__container">
+          {% block itemContent %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <nav aria-label="breadcrumb" role="navigation">
-    <span id="exhibit__breadcrumb-label"><a href="{% url 'exhibits:lessonPlanDirectory' %}" data-pjax="js-pageContent">Just for Teachers</a></span>
+  <nav role="navigation">
+    <ol id="exhibit__breadcrumb">
+      <li><a href="{% url 'for-teachers:lessonPlanDirectory' %}" data-pjax="js-pageContent">Just for Teachers</a></li>
+      <li>{{ lessonPlan.title }}</li>
+    </ol>
   </nav>
   
   <h1 class="exhibit__header" id="js-exhibit-title" data-slug="{{ lessonPlan.slug }}">Lesson Plan: {{ lessonPlan.title }}</h1>
@@ -21,7 +37,7 @@
     </div>
     <div class="col-md-4">
       <b>Unit Overview:</b><br>
-      {{ lessonPlan.overview }}
+      {% include "exhibits/render_as.html" with render_as=lessonPlan.render_as text=lessonPlan.overview truncate=False container_class="" %}
     </div>
     <div class="col-md-4">
       <b>Grade Level Recommendation:</b><br>
@@ -31,80 +47,9 @@
   </div>
   
   <div class="exhibit__items">
-    <h2 class="exhibit__items-header">Primary sources used in this lesson plan ({{ exhibitItems|length }}):</h2>{% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
-    
-    <div class="row thumbnail">
-
-      {% for item in exhibitItems %}
-          <div class="col-xs-6 col-sm-3 col-md-2">
-            {% with item.solrData as exhibitItemData %}
-            {% if exhibitItemData %}
-            <a class="thumbnail__link js-exhibit-item" href="#" title="{{ exhibitItemData.title }}">
-            {% else %}
-            <a class="thumbnail__link" href="{{ item.custom_link }}" data-toggle="tooltip" title="">
-            {% endif %}
-                {% if exhibitItemData %}
-                  <div class="thumbnail__container">
-                  {% if exhibitItemData.reference_image_md5 %}
-                    <img class="thumbnail__image"
-                    src="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }}"
-                    srcset="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ exhibitItemData.reference_image_md5 }} 50w"
-                    sizes="100vw"
-                    alt="{{ exhibitItemData.title.0|truncatewords:12 }}">
-                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
-                    <div class="thumbnail__overlay-icon fa-video-camera"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
-                    <div class="thumbnail__overlay-icon fa-volume-up"></div>
-                    {# elif exhibitItemData.type_ss.0|lower == "text" #}
-                    <!-- <div class="thumbnail__overlay-icon fa-file-text-o"></div> -->
-                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
-                    <div class="thumbnail__overlay-icon fa-bar-chart"></div>
-                    {% endif %}
-                  {% else %}
-                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
-                    <div class="thumbnail__tile-icon fa-video-camera"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
-                    <div class="thumbnail__tile-icon fa-volume-up"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "text"%}
-                    <div class="thumbnail__tile-icon fa-file-text-o"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
-                    <div class="thumbnail__tile-icon fa-bar-chart"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "image" %}
-                    <div class="thumbnail__tile-icon fa-picture-o"></div>
-                    {% endif %}
-                  {% endif %}
-                {% else %}
-                  {% if item.custom_crop %}
-                    <div class="thumbnail__container">
-                      <img class="thumbnail__image"
-                      src="{{ exhibitMedia }}{{ item.custom_crop }}">
-                    </div>
-                  {% else %}
-                    <div style="display: block; position: relative; background-color: #e5e5e5;">
-                    {{ item.item_id }} not in Calisphere solr index
-                  {% endif %}
-                {% endif %}
-              </div>
-            </a>
-          </div>
-
-        {% if forloop.counter == 12 %}
-          <div class="js-exhibit-items-overflow hidden-content">
-        {% endif %}
-
-      {% endwith %}
-      {% endfor %}
-      {% if exhibitItems|length > 12 %}
-        </div>
-      {% endif %}
-      
-    </div>
-    
-    <div class="row text-right">
-      {% if exhibitItems|length > 12 %}
-        <a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>
-      {% endif %}
-    </div>
+    <h2 class="exhibit__items-header">Primary sources used in this lesson plan ({{ exhibitItems|length }}):</h2>
+    {% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
+    {% include "exhibits/exhibit_items.html" with url_name='for-teachers:lessonPlanItemView' url_id=lessonPlan.id %}    
   </div>
   
   

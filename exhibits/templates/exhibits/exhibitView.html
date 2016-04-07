@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block content %}
-
   <div class="modal fade" id="js-exhibit-item" tabindex="-1" role="dialog">
     <div class="modal-dialog" style="width: 100%;">
       <div class="modal-header" style="margin-bottom: 10px; border-bottom: 0">
@@ -22,92 +21,36 @@
     </div>
   </div>
 
-  <nav aria-label="breadcrumb" role="navigation">
-    <span id="exhibit__breadcrumb-label"><a href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Exhibitions</a></span>
-    {% if relatedExhibitsByTheme|length > 0 %}
-      <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
-        <li><a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1" data-pjax="js-pageContent">{{ relatedExhibitsByTheme.0.0 }}</a></li>
-      </ol>
-    {% endif %}
+  <nav role="navigation">
+    <ol id="exhibit__breadcrumb">
+      <li><a href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Exhibitions</a></li>
+      {% if relatedExhibitsByTheme|length > 0 %}
+        <li>
+          <a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1" data-pjax="js-pageContent">
+            {{ relatedExhibitsByTheme.0.0 }}
+          </a>
+        </li>
+      {% endif %}
+      <li>{{ exhibit.title }}</li>
+    </ol>
   </nav>
   
   <h1 class="exhibit__header" id="js-exhibit-title" data-slug="{{ exhibit.slug }}">{{ exhibit.title }}</h1>
   
   <div class="exhibit__hero" style="background-image: url('{{ exhibitMedia }}{{ exhibit.hero }}')">
     <div class="col-sm-6">
-      {% if exhibit.blockquote %}<blockquote class="exhibit__blockquote">{{ exhibit.blockquote }} <a href="#overview">Read full overview</a></blockquote>{% endif %}
+      {% if exhibit.blockquote %}
+        <blockquote class="exhibit__blockquote">
+          {{ exhibit.blockquote }} <a href="#overview">Read full overview</a>
+        </blockquote>
+      {% endif %}
     </div>
   </div>
 
-
   <div class="exhibit__items">
-    <h2 class="exhibit__items-header">{{ exhibitItems|length }} exhibition items</h2>{% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
-    
-    <div class="row thumbnail">
-
-      {% for item in exhibitItems %}
-          <div class="col-xs-6 col-sm-3 col-md-2">
-            {% with item.solrData as exhibitItemData %}
-            {% if exhibitItemData %}
-            <a class="thumbnail__link js-exhibit-item" href="{% url 'exhibits:itemView' exhibit.id item.item_id %}" title="{{ exhibitItemData.title }}">
-            {% else %}
-            <a class="thumbnail__link" href="http://content.cdlib.org/{{ item.item_id }}" data-toggle="tooltip" title="">
-            {% endif %}
-                {% if exhibitItemData %}
-                  <div class="thumbnail__container">
-                  {% if exhibitItemData.reference_image_md5 %}
-                    <img class="thumbnail__image"
-                    src="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }}"
-                    srcset="{{ thumbnailUrl }}crop/210x210/{{ exhibitItemData.reference_image_md5 }} 60w, {{ thumbnailUrl }}crop/310x310/{{ exhibitItemData.reference_image_md5 }} 50w"
-                    sizes="100vw"
-                    alt="{{ exhibitItemData.title.0|truncatewords:12 }}">
-                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
-                    <div class="thumbnail__overlay-icon fa-video-camera"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
-                    <div class="thumbnail__overlay-icon fa-volume-up"></div>
-                    {# elif exhibitItemData.type_ss.0|lower == "text" #}
-                    <!-- <div class="thumbnail__overlay-icon fa-file-text-o"></div> -->
-                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
-                    <div class="thumbnail__overlay-icon fa-bar-chart"></div>
-                    {% endif %}
-                  {% else %}
-                    {% if exhibitItemData.type_ss.0|lower == "moving image" %}
-                    <div class="thumbnail__tile-icon fa-video-camera"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "sound"%}
-                    <div class="thumbnail__tile-icon fa-volume-up"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "text"%}
-                    <div class="thumbnail__tile-icon fa-file-text-o"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "dataset" %}
-                    <div class="thumbnail__tile-icon fa-bar-chart"></div>
-                    {% elif exhibitItemData.type_ss.0|lower == "image" %}
-                    <div class="thumbnail__tile-icon fa-picture-o"></div>
-                    {% endif %}
-                  {% endif %}
-                {% else %}
-                  <div style="display: block; position: relative; background-color: #e5e5e5;">
-                  {{ item.item_id }} not in Calisphere solr index
-                {% endif %}
-              </div>
-            </a>
-          </div>
-
-        {% if forloop.counter == 12 %}
-          <div class="js-exhibit-items-overflow hidden-content">
-        {% endif %}
-
-      {% endwith %}
-      {% endfor %}
-      {% if exhibitItems|length > 12 %}
-        </div>
-      {% endif %}
-      
-    </div>
-    
-    <div class="row text-right">
-      {% if exhibitItems|length > 12 %}
-        <a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>
-      {% endif %}
-    </div>
+    <h2 class="exhibit__items-header">{{ exhibitItems|length }} exhibition items</h2>
+    {% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
+    {% include "exhibits/exhibit_items.html" with url_name='exhibits:itemView' url_id=exhibit.id %}
   </div>
   
   <div class="row">
@@ -136,6 +79,7 @@
   {% endif %}
 
   <div class="exhibit__related-materials">
+  {% if relatedExhibitsByTheme|length > 0 %}
     {% for theme, exhibits in relatedExhibitsByTheme %}
       <h3>Explore more exhibitions in "<a href="{{ theme.get_absolute_url }}">{{ theme }}</a>" ({{ exhibits|length }})</h3>
       <div class="row js-related-carousel exhibit__related-carousel">
@@ -152,7 +96,9 @@
         {% endfor %}
       </div>
     {% endfor %}
+  {% endif %}
     
+  {% if exhibit.historicalessayexhibit_set.all|length > 0 %}
     <h3>Read related essays ({{ exhibit.historicalessayexhibit_set.all|length }})</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for hee in exhibit.historicalessayexhibit_set.all %}
@@ -167,7 +113,9 @@
         </div>
       {% endfor %}
     </div>
+  {% endif %}
 
+  {% if exhibit.lessonplanexhibit_set.all|length > 0 %}
     <h3>Just for teachers: lesson plans ({{ exhibit.lessonplanexhibit_set.all|length }})</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for lpe in exhibit.lessonplanexhibit_set.all %}
@@ -182,6 +130,8 @@
         </div>
       {% endfor %}
     </div>
+  {% endif %}
+  
   </div>
 
 {% endblock %}

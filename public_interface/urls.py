@@ -12,6 +12,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^', include('calisphere.urls', namespace="calisphere")),
     url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
+    url(r'^for-teachers/', include('exhibits.teacher_urls', namespace="for-teachers")),
 
     url(r'^admin/', admin.site.urls),
     url(r'^contact/$',

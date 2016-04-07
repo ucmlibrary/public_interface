@@ -7,9 +7,9 @@
 {% endblock %}
 
 {% block content %}
-  <nav aria-label="breadcrumb" role="navigation">
-    <span id="exhibit__breadcrumb-label"><a href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Exhibitions</a></span>
+  <nav role="navigation">
     <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
+      <li><a href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Exhibitions</a></li>
       <li>{{ theme.title }}</li>
     </ol>
   </nav>
