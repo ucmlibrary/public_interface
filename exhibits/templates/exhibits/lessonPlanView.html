@@ -41,7 +41,7 @@
             {% if exhibitItemData %}
             <a class="thumbnail__link js-exhibit-item" href="#" title="{{ exhibitItemData.title }}">
             {% else %}
-            <a class="thumbnail__link" href="http://content.cdlib.org/{{ item.item_id }}" data-toggle="tooltip" title="">
+            <a class="thumbnail__link" href="{{ item.custom_link }}" data-toggle="tooltip" title="">
             {% endif %}
                 {% if exhibitItemData %}
                   <div class="thumbnail__container">
@@ -74,8 +74,15 @@
                     {% endif %}
                   {% endif %}
                 {% else %}
-                  <div style="display: block; position: relative; background-color: #e5e5e5;">
-                  {{ item.item_id }} not in Calisphere solr index
+                  {% if item.custom_crop %}
+                    <div class="thumbnail__container">
+                      <img class="thumbnail__image"
+                      src="{{ exhibitMedia }}{{ item.custom_crop }}">
+                    </div>
+                  {% else %}
+                    <div style="display: block; position: relative; background-color: #e5e5e5;">
+                    {{ item.item_id }} not in Calisphere solr index
+                  {% endif %}
                 {% endif %}
               </div>
             </a>

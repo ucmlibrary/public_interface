@@ -129,14 +129,19 @@ class Theme(models.Model):
 
 class ExhibitItem(models.Model):
     item_id = models.CharField(max_length=200)
+
     exhibit = models.ForeignKey(Exhibit, on_delete=models.CASCADE, blank=True, null=True)
     lesson_plan = models.ForeignKey(LessonPlan, on_delete=models.CASCADE, blank=True, null=True)
     historical_essay = models.ForeignKey(HistoricalEssay, on_delete=models.CASCADE, blank=True, null=True)
     order = PositionField(collection='exhibit')
     lesson_plan_order = PositionField(collection='lesson_plan')
     historical_essay_order = PositionField(collection='historical_essay')
+
     essay = models.TextField(blank=True, verbose_name='Item-level exhibit information')
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='T')
+
+    custom_crop = models.ImageField(blank=True, null=True, upload_to='uploads/custom_item_crop/')
+    custom_link = models.CharField(max_length=512, blank=True)
 
     #lat/long models
     lat = models.FloatField(default=37.8086906)

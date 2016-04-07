@@ -8,7 +8,7 @@ from models import *
 
 class ExhibitItemInline(admin.TabularInline):
     model = ExhibitItem
-    fields = ['order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl']
+    fields = ['order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link']
     extra = 0
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
@@ -23,7 +23,7 @@ class ExhibitItemInline(admin.TabularInline):
 
 class LessonPlanItemInline(admin.TabularInline):
     model = ExhibitItem
-    fields = ['lesson_plan_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl']
+    fields = ['lesson_plan_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link']
     extra = 0
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
@@ -38,7 +38,7 @@ class LessonPlanItemInline(admin.TabularInline):
 
 class HistoricalEssayItemInline(admin.TabularInline):
     model = ExhibitItem
-    fields = ['historical_essay_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl']
+    fields = ['historical_essay_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link']
     extra = 0
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
