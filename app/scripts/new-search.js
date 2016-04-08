@@ -709,6 +709,10 @@ var GlobalSearchForm = Backbone.View.extend({
       this.viewer = new OpenSeadragon({
         id: 'obj__osd',
         tileSources: [tileSources],
+        preserveViewport: [preserveViewport],
+        sequenceMode: [sequenceMode],
+        navPrevNextWrap: [navPrevNextWrap],
+        immediateRender: [immediateRender],
         zoomInButton: 'obj__osd-button-zoom-in',
         zoomOutButton: 'obj__osd-button-zoom-out',
         homeButton: 'obj__osd-button-home',
