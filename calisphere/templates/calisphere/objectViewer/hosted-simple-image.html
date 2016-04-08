@@ -30,7 +30,22 @@
   <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
 
   <script type="text/javascript">
+  {% if 'structMap' in item %}
+    var tileSources = [{{ item.contentTiles|safe }}];
+    var preserveViewport = true;
+    var sequenceMode = true;
+    var navPrevNextWrap = true;
+    var immediateRender = true;
+    {% if request.GET.order %}
+		var initialPage = {{ request.GET.order }};
+    {% endif %}
+  {% else %}
     var tileSources = {{ item.contentFile.titleSources|safe }};
+    var sequenceMode = false;
+    var preserveViewport = true;
+    var navPrevNextWrap = true;
+    var immediateRender = true;
+  {% endif %}
   </script>
 
 </div>
