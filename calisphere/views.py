@@ -307,12 +307,12 @@ def processQueryRequest(request):
     )
     # use collection_id and repository_id to retrieve collection_data
     # and repository_data filter values
+    collection_template = "https://registry.cdlib.org/api/v1/collection/{0}/"
+    repository_template = "https://registry.cdlib.org/api/v1/repository/{0}/"
     for i, filter_item in enumerate(filters['collection_url']):
-        collection = getCollectionData(collection_id=filter_item)
-        filters['collection_url'][i] = collection['url']
+        filters['collection_url'][i] = collection_template.format(filter_item)
     for i, filter_item in enumerate(filters['repository_url']):
-        repository = getRepositoryData(repository_id=filter_item)
-        filters['repository_url'][i] = repository['url']
+        filters['repository_url'][i] = repository_template.format(filter_item)
 
     return {
         'q': q,
