@@ -511,6 +511,7 @@ def search(request):
                     if collection_api_url is not None:
                         collection = getCollectionData(collection_id=collection_api_url.group('url'))
                         collection.pop('local_id', None)
+                        collection.pop('slug', None)
                         filter_display['collection_url'].append(collection)
             elif filter_type == 'repository_url':
                 filter_display['repository_url'] = []
