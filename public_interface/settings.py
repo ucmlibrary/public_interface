@@ -175,6 +175,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+FILE_UPLOAD_HANDLERS = [
+    "public_interface.upload_handlers.Md5s3stashUploadHandler",
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler"
+]
+
 MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
 MEDIA_URL = '/media/'
 
