@@ -7,6 +7,7 @@ from calisphere.cache_retry import SOLR_select, SOLR_raw, json_loads_url
 from django.core.urlresolvers import reverse
 from calisphere.views import getCollectionData, getRepositoryData
 from django.conf import settings
+from exhibits.custom_fields import HeroField
 
 # only if you need to support python 2: 
 from django.utils.encoding import python_2_unicode_compatible
@@ -39,7 +40,7 @@ class Exhibit(models.Model):
     color = models.CharField(max_length=20, blank=True)
     scraped_from = models.CharField(max_length=250, blank=True)
 
-    hero = models.ImageField(blank=True, verbose_name='Hero Image', upload_to='uploads/', null=True)
+    hero = HeroField(blank=True, verbose_name='Hero Image', upload_to='uploads/', null=True)
     lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Lockup Image', upload_to='uploads/')
     alternate_lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Alternate Lockup Image', upload_to='uploads/')
     item_id = models.CharField(blank=True, max_length=200)
