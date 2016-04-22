@@ -32,19 +32,14 @@
   <script type="text/javascript">
   {% if 'structMap' in item %}
     var tileSources = [{{ item.contentTiles|safe }}];
-    var preserveViewport = true;
-    var sequenceMode = true;
-    var navPrevNextWrap = true;
-    var immediateRender = true;
+    var sequenceMode = '1';
     {% if request.GET.order %}
 		var initialPage = {{ request.GET.order }};
     {% endif %}
   {% else %}
     var tileSources = {{ item.contentFile.titleSources|safe }};
-    var sequenceMode = false;
-    var preserveViewport = true;
-    var navPrevNextWrap = true;
-    var immediateRender = true;
+    var sequenceMode = '0';
+    var initialPage = '0';
   {% endif %}
   </script>
 
