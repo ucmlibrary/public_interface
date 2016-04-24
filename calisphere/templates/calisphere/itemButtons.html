@@ -200,11 +200,14 @@ href="https://twitter.com/share?text={{ item.title.0 }} /via @Calisphere" class=
     </a>
 
     {% if item.harvest_type == 'hosted' %}
+      {% if 'structMap' in item and 'contentFile' in item and item.contentFile.format == 'file' %}
+      {% else %}
       <a class="btn btn-xs obj-buttons__download-image" href="javascript: void(0)" data-toggle="modal" data-target="#downloadModal">
         <span class="icon__download-image">
           <span class="fa fa-arrow-circle-o-down"></span>
         </span> Download {% if 'structMap' in item %}page{% else %}{{ item.type.0 }}{% endif %}
       </a>
+      {% endif %}
     {% endif %}
 
   </div>
