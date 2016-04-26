@@ -30,11 +30,14 @@
   <script src="{% static "bower_components/openseadragon/built-openseadragon/openseadragon/openseadragon.min.js" %}"></script>
 
   <script type="text/javascript">
+  var prefixUrl = '{% static "bower_components/openseadragon/built-openseadragon/openseadragon/images/" %}'
   {% if 'structMap' in item %}
     var tileSources = [{{ item.contentTiles|safe }}];
     var sequenceMode = '1';
     {% if request.GET.order %}
-		var initialPage = {{ request.GET.order }};
+	var initialPage = {{ request.GET.order }};
+    {% else %}
+	var initialPage = '0';
     {% endif %}
   {% else %}
     var tileSources = {{ item.contentFile.titleSources|safe }};

@@ -1,4 +1,4 @@
-/*global Backbone, _, ContactOwnerForm, OpenSeadragon, tileSources, sequenceMode, initialPage, imagesLoaded */
+/*global Backbone, _, ContactOwnerForm, OpenSeadragon, tileSources, sequenceMode, prefixUrl, initialPage, imagesLoaded */
 /*exported GlobalSearchForm, FacetForm, CarouselContext, ComplexCarousel */
 
 'use strict';
@@ -706,11 +706,11 @@ var GlobalSearchForm = Backbone.View.extend({
         $('#obj__osd').empty();
       }
       if ($('.openseadragon-container').length > 0) { $('.openseadragon-container').remove(); }
-      var sMode = parseInt([sequenceMode]);
       this.viewer = new OpenSeadragon({
         id: 'obj__osd',
         tileSources: [tileSources],
         sequenceMode: parseInt([sequenceMode]),
+        prefixUrl: [prefixUrl],
         initialPage: [initialPage],
         preserveViewport: true,
         navPrevNextWrap: true,
@@ -718,10 +718,10 @@ var GlobalSearchForm = Backbone.View.extend({
         zoomInButton: 'obj__osd-button-zoom-in',
         zoomOutButton: 'obj__osd-button-zoom-out',
         homeButton: 'obj__osd-button-home',
-        fullPageButton: 'obj__osd-button-fullscreen'
+        fullPageButton: 'obj__osd-button-fullscreen',
+        //nextButton: 'obj__osd-button-next',
+        //previousButton: 'obj__osd-button-previous'
       });
-      //this.viewer.sequenceMode = false;
-      console.log('Sequence Mode: ' + Boolean(sMode) + this.viewer.sequenceMode);
     }
     else if (this.viewer !== undefined) {
       this.viewer.destroy();
