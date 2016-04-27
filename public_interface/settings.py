@@ -64,6 +64,7 @@ UCLDC_DEVEL = bool(os.environ.get('UCLDC_DEVEL'))
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
+SITE_ID = 1
 
 # Application definition
 
