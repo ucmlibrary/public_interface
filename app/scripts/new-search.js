@@ -709,9 +709,9 @@ var GlobalSearchForm = Backbone.View.extend({
       this.viewer = new OpenSeadragon({
         id: 'obj__osd',
         tileSources: [tileSources],
-        sequenceMode: parseInt([sequenceMode]),
-        prefixUrl: [prefixUrl],
-        initialPage: [initialPage],
+        sequenceMode: sequenceMode,
+        prefixUrl: prefixUrl,
+        initialPage: initialPage,
         preserveViewport: true,
         navPrevNextWrap: true,
         immediateRender: true,
@@ -719,8 +719,12 @@ var GlobalSearchForm = Backbone.View.extend({
         zoomOutButton: 'obj__osd-button-zoom-out',
         homeButton: 'obj__osd-button-home',
         fullPageButton: 'obj__osd-button-fullscreen',
-        //nextButton: 'obj__osd-button-next',
-        //previousButton: 'obj__osd-button-previous'
+      });
+      // Add handler to highlight the carousel thumbnails when the Prev/Next buttons are clicked.
+      // TODO: needs to update the Item metadata.
+      this.viewer.addHandler("page", function (data) {
+        $('.carousel-complex__item--selected').removeClass('carousel-complex__item--selected').addClass('carousel-complex__item');
+        $('.carousel-complex__item[data-slick-index="' + data.page + '"]').addClass('carousel-complex__item--selected');
       });
     }
     else if (this.viewer !== undefined) {
