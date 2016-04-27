@@ -18,7 +18,7 @@
   <div class="carousel-complex__item-container">
   {% for component in item.structMap %}
     <div class="carousel-complex__{% if component.format|lower != "image" %}tile{% else %}item{% endif %}{% if 'selected' in component %}--selected{% endif %}">
-      <a class="carousel-complex__link js-component-link" data-item_id="{{ forloop.counter0 }}" href="{% url 'calisphere:itemView' item.id %}">
+      <a class="carousel-complex__link js-component-link" data-item_id="{{ forloop.counter0 }}" href="{% url 'calisphere:itemView' item.id %}" title="{{ component.label }}">
         {% if component.format|lower != "image" %}
           <div class="carousel-complex__thumbnail-container">
           {% if component.format|lower == "moving image" %}
@@ -43,5 +43,4 @@
     </div>
   {% endfor %}
   </div>
-
 </div>
