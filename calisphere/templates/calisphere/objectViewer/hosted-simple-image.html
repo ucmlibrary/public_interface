@@ -33,7 +33,7 @@
   var prefixUrl = '{% static "bower_components/openseadragon/built-openseadragon/openseadragon/images/" %}'
   {% if 'structMap' in item %}
     var tileSources = [{{ item.contentTiles|safe }}];
-    var sequenceMode = '1';
+    var sequenceMode = true;
     {% if request.GET.order %}
 	var initialPage = {{ request.GET.order }};
     {% else %}
@@ -41,7 +41,7 @@
     {% endif %}
   {% else %}
     var tileSources = {{ item.contentFile.titleSources|safe }};
-    var sequenceMode = '0';
+    var sequenceMode = false;
     var initialPage = '0';
   {% endif %}
   </script>
