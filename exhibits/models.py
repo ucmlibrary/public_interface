@@ -54,6 +54,22 @@ class Exhibit(models.Model):
     def get_absolute_url(self):
         return reverse('exhibits:exhibitView', kwargs={'exhibit_id': self.id, 'exhibit_slug': self.slug})
 
+    def exhibit_lockup(self):
+        item_id_search_term = 'id:"{0}"'.format(self.item_id)
+        item_solr_search = SOLR_select(q=item_id_search_term)
+        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+            return settings.THUMBNAIL_URL + "crop/273x182/" + item_solr_search.results[0]['reference_image_md5']
+        else:
+            return None
+
+    def exhibit_lockup_sm(self):
+        item_id_search_term = 'id:"{0}"'.format(self.item_id)
+        item_solr_search = SOLR_select(q=item_id_search_term)
+        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+            return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
+        else:
+            return None
+
 class HistoricalEssay(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=255, unique=True)

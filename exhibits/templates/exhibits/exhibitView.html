@@ -37,7 +37,7 @@
   
   <h1 class="exhibit__header" id="js-exhibit-title" data-slug="{{ exhibit.slug }}">{{ exhibit.title }}</h1>
   
-  <div class="exhibit__hero" style="background-image: url('{{ exhibitMedia }}{{ exhibit.hero }}')">
+  <div class="exhibit__hero" style="background-image: url('{{ exhibitMedia }}uploads/{{ exhibit.hero }}')">
     <div class="col-sm-6">
       {% if exhibit.blockquote %}
         <blockquote class="exhibit__blockquote">
@@ -87,7 +87,7 @@
           <div class="col-xs-2 col-md-3">
             <a href="{{ exhibit.exhibit.get_absolute_url }}" data-pjax="js-pageContent">
               <div class="exhibit__lockup--small">
-                <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url({{ exhibitMedia }}{{ exhibit.exhibit.hero }});">
+                <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url({{ exhibit.exhibit.exhibit_lockup_sm }});">
                   <div class="exhibit__lockup--small-title">{{ exhibit.exhibit }}</div>
                 </div>
               </div>
