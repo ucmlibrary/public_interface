@@ -7,6 +7,46 @@
 {% endblock %}
 
 {% block content %}
+<h1>Exhibitions on Calisphere</h1>
+
+<div class="collect-intro">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 collect-intro__overview">
+      <p>This is where we will concisely explain what an exhibition is and why it is different from a collection and the amazing things people will see and hear and watch in our beautifully designed and painstakingly curated object groups.</p>
+    </div>
+  </div>
+
+  <!-- Dynamically add class 'button__secondary' to <a> elements below for selected state -->
+
+  <div class="collect-intro__button-container">
+    <a class="btn btn-default collect-intro__button {% if random %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsDirectory' %}" data-pjax="js-pageContent">Random Explore</a>
+    <a class="btn btn-default collect-intro__button {% if alphabet %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsAZ' 'num' %}" data-pjax="js-pageContent">Browse All</a>
+    <a class="btn btn-default collect-intro__button {% if collection_q %}button__secondary{% endif %}" href="{% url 'calisphere:collectionsTitleSearch' %}" data-pjax="js-pageContent">Special Topics</a>
+  </div>
+
+</div>
+
+{% block exhibitionsDirectory %}
+<div class="row theme__exhibits">
+  {% for exhibit in exhibits %}
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <a href="{{ exhibit.get_absolute_url }}" data-pjax="js-pageContent">
+        <div class="exhibit__lockup--med">
+          <div class="exhibit__lockup--med-image">
+            <div class="aspect-ratio-content exhibit__lockup--med-image-content" style="background-image: url('{{ exhibit.exhibit_lockup }}');">
+            </div>
+          </div>
+          <div class="exhibit__lockup--med-title">
+            <div class="aspect-ratio-content exhibit__lockup--med-title-content">{{ exhibit }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
 <h1>Themes:</h1>
 
 <ul>
@@ -15,10 +55,4 @@
 {% endfor %}
 </ul>
 
-<h1>Exhibits</h1>
-<ul>
-{% for exhibit in exhibits %}
-  <li><a href="{{ exhibit.get_absolute_url }}" data-pjax="js-pageContent">{{ exhibit }}</a></li>
-{% endfor %}
-</ul>
 {% endblock %}

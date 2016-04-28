@@ -5,7 +5,7 @@ from exhibits.models import *
 
 def exhibitDirectory(request):
     themes = Theme.objects.all()
-    exhibits = Exhibit.objects.all()
+    exhibits = Exhibit.objects.all().order_by('title')
     return render(request, 'exhibits/exhibitDirectory.html', {'themes': themes, 'exhibits': exhibits})
 
 def lessonPlanDirectory(request):
