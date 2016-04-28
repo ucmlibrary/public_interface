@@ -4,8 +4,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from exhibits.models import *
 
 def exhibitDirectory(request):
+    if request.method == 'GET' and len(request.GET.getlist('title')) > 0:
+        exhibits = Exhibit.objects.filter(title__icontains=request.GET['title'])
+    else: 
+        exhibits = Exhibit.objects.all().order_by('title')
+    
     themes = Theme.objects.all()
-    exhibits = Exhibit.objects.all().order_by('title')
     return render(request, 'exhibits/exhibitDirectory.html', {'themes': themes, 'exhibits': exhibits})
 
 def lessonPlanDirectory(request):
