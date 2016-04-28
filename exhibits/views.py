@@ -2,6 +2,15 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from exhibits.models import *
+from itertools import chain
+import random
+
+def exhibitRandom(request):
+    exhibits = Exhibit.objects.all()
+    themes = Theme.objects.all()
+    exhibit_theme_list = list(chain(exhibits, themes))
+    random.shuffle(exhibit_theme_list)
+    return render(request, 'exhibits/exhibitRandomExplore.html', {'sets': exhibit_theme_list})
 
 def exhibitDirectory(request):
     if request.method == 'GET' and len(request.GET.getlist('title')) > 0:
@@ -9,7 +18,7 @@ def exhibitDirectory(request):
     else: 
         exhibits = Exhibit.objects.all().order_by('title')
     
-    return render(request, 'exhibits/exhibitDirectory.html', {'themes': [], 'exhibits': exhibits})
+    return render(request, 'exhibits/exhibitDirectory.html', {'exhibits': exhibits})
 
 def themeDirectory(request):
     jarda = Theme.objects.get(slug='jarda')

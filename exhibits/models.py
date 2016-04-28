@@ -141,6 +141,14 @@ class Theme(models.Model):
     def get_absolute_url(self):
         return reverse('exhibits:themeView', kwargs={'theme_id': self.id, 'theme_slug': self.slug})
 
+    def theme_lockup(self):
+        item_id_search_term = 'id:"{0}"'.format(self.item_id)
+        item_solr_search = SOLR_select(q=item_id_search_term)
+        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+            return settings.THUMBNAIL_URL + "crop/420x210/" + item_solr_search.results[0]['reference_image_md5']
+        else:
+            return None
+
     def __str__(self):
         return self.title
 

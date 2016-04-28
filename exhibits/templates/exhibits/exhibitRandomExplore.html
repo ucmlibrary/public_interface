@@ -1,0 +1,47 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load markdown_filter %}
+
+{% block page-metadata %}
+{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% endblock %}
+
+{% block content %}
+{% include "exhibits/exhibitsHeader.html" with active="random" %}
+
+<div class="row theme__exhibits">
+  {% for set in sets %}
+    {% if set.exhibit_lockup %}
+    <div class="col-md-5ths col-sm-4 col-xs-6">
+      <a href="{{ set.get_absolute_url }}" data-pjax="js-pageContent">
+        <div class="exhibit__lockup--med">
+          <div class="exhibit__lockup--med-image">
+            <div class="aspect-ratio-content exhibit__lockup--med-image-content" style="background-image: url('{{ set.exhibit_lockup }}');">
+            </div>
+          </div>
+          <div class="exhibit__lockup--med-title">
+            <div class="aspect-ratio-content exhibit__lockup--med-title-content">{{ set }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% else %}
+    <div class="col-md-2-5ths col-sm-6 col-xs-6">
+      <a href="{{ set.get_absolute_url }}" data-pjax="js-pageContent">
+        <div class="theme__lockup--horizontal">
+          <div class="theme__lockup--horizontal-image">
+            <div class="aspect-ratio-content theme__lockup--horizontal-image-content" style="background-image: url('{{ set.theme_lockup }}');">
+              <div class="theme__lockup--horizontal-title">
+                {{ set.title }}
+                <div class="theme__lockup--horizontal-exhibit-count">{{ set.exhibittheme_set.all|length }} exhibitions</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% endblock %}

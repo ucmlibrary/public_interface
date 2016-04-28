@@ -93,6 +93,8 @@ strong {
   @include make-grid(lg);
 }
 
+@import "five-column";
+
 // Bootstrap Container
 
 .container-fluid {

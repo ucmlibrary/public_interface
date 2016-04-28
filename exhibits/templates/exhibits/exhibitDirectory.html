@@ -7,28 +7,8 @@
 {% endblock %}
 
 {% block content %}
-<h1>Exhibitions on Calisphere</h1>
+{% include "exhibits/exhibitsHeader.html" with active="a-z" %}
 
-<div class="collect-intro">
-
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 collect-intro__overview">
-      <p>This is where we will concisely explain what an exhibition is and why it is different from a collection and the amazing things people will see and hear and watch in our beautifully designed and painstakingly curated object groups.</p>
-    </div>
-  </div>
-
-  <!-- Dynamically add class 'button__secondary' to <a> elements below for selected state -->
-
-  <div class="collect-intro__button-container">
-    <a class="btn btn-default collect-intro__button {% if random %}button__secondary{% endif %}" href="" data-pjax="js-pageContent">Random Explore</a>
-    <a class="btn btn-default collect-intro__button {% if alphabet %}button__secondary{% endif %}" href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Browse All</a>
-    <a class="btn btn-default collect-intro__button {% if collection_q %}button__secondary{% endif %}" href="{% url 'exhibits:themeDirectory' %}" data-pjax="js-pageContent">Special Topics</a>
-  </div>
-
-</div>
-<hr/>
-
-{% block exhibitionsDirectory %}
 <div class="row">
   <div class="col-md-4 col-md-offset-4" style="padding: 20px;">
     <form class="exhibit__title-search" role="search" id="js-exhibitTitleSearch" action="{% url 'exhibits:exhibitDirectory' %}" method="get">
@@ -61,6 +41,5 @@
     </div>
   {% endfor %}
 </div>
-{% endblock %}
 
 {% endblock %}
