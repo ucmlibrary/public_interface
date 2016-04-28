@@ -1,5 +1,3 @@
-import sys
-
 from django.core.exceptions import ValidationError
 from django import forms
 from django.db import models
@@ -37,5 +35,4 @@ class HeroFormField(forms.ImageField):
         if not self.allow_empty_file and not file_size:
             raise ValidationError(self.error_messages['empty'], code='empty')
         
-        print >> sys.stderr, data
         return data.name
