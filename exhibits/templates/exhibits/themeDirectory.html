@@ -1,0 +1,27 @@
+{% extends "exhibits/exhibitDirectory.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+
+{% block exhibitionsDirectory %}
+<h1>Themes:</h1>
+
+<h2>Japanese American Relocation Digital Archive</h2>
+<ul>
+{% for theme in jarda %}
+  <li><a href="{{ theme.get_absolute_url }}" data-pjax="js-pageContent">{{ theme }}</a></li>
+{% endfor %}
+</ul>
+
+<h2>California Cultures:</h2>
+<ul>
+{% for theme in california_cultures %}
+  <li><a href="{{ theme.get_absolute_url }}" data-pjax="js-pageContent">{{ theme }}</a></li>
+{% endfor %}
+</ul>
+
+<h2>California History:</h2>
+<ul>
+{% for theme in california_history %}
+  <li><a href="{{ theme.get_absolute_url }}" data-pjax="js-pageContent">{{ theme }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

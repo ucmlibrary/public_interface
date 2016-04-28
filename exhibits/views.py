@@ -9,8 +9,13 @@ def exhibitDirectory(request):
     else: 
         exhibits = Exhibit.objects.all().order_by('title')
     
-    themes = Theme.objects.all()
-    return render(request, 'exhibits/exhibitDirectory.html', {'themes': themes, 'exhibits': exhibits})
+    return render(request, 'exhibits/exhibitDirectory.html', {'themes': [], 'exhibits': exhibits})
+
+def themeDirectory(request):
+    jarda = Theme.objects.get(slug='jarda')
+    california_cultures = Theme.objects.filter(title_icontains='California Cultures')
+    california_history = Theme.objects.exclude(title_icontains='California Cultures', slug='jarda')
+    return render(request, 'exhibits/themeDirectory.html', {'jarda': jarda, 'california_cultures': california_cultures, 'california_history': california_history})
 
 def lessonPlanDirectory(request):
     lessonPlans = LessonPlan.objects.all()
