@@ -13,8 +13,8 @@ def exhibitDirectory(request):
 
 def themeDirectory(request):
     jarda = Theme.objects.get(slug='jarda')
-    california_cultures = Theme.objects.filter(title_icontains='California Cultures')
-    california_history = Theme.objects.exclude(title_icontains='California Cultures', slug='jarda')
+    california_cultures = Theme.objects.filter(title__icontains='California Cultures')
+    california_history = Theme.objects.exclude(title__icontains='California Cultures').exclude(slug='jarda')
     return render(request, 'exhibits/themeDirectory.html', {'jarda': jarda, 'california_cultures': california_cultures, 'california_history': california_history})
 
 def lessonPlanDirectory(request):
