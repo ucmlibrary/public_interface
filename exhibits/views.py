@@ -29,8 +29,7 @@ def themeDirectory(request):
 def lessonPlanDirectory(request):
     lessonPlans = LessonPlan.objects.all()
     historicalEssays = HistoricalEssay.objects.all()
-    return render(request, 'exhibits/exhibitDirectory.html', {'themes': lessonPlans, 'exhibits': historicalEssays})
-
+    return render(request, 'exhibits/for-teachers.html', {'lessonPlans': lessonPlans, 'historicalEssays': historicalEssays})
 
 def itemView(request, exhibit_id, item_id):
     fromExhibitPage = request.META.get("HTTP_X_EXHIBIT_ITEM")
