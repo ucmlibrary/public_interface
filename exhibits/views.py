@@ -10,6 +10,32 @@ def exhibitRandom(request):
     themes = Theme.objects.all()
     exhibit_theme_list = list(chain(exhibits, themes))
     random.shuffle(exhibit_theme_list)
+
+    exhibit_theme_list_by_fives = []
+    sublist = []
+    count = 0
+    
+    print len(exhibit_theme_list)
+    for item in exhibit_theme_list:
+        if count < 4:
+            sublist.append(item)
+            if isinstance(item, Exhibit):
+                count += 1
+            if isinstance(item, Theme):
+                count += 2
+        elif count < 5:
+            if isinstance(item, Exhibit):
+                sublist.append(item)
+                count += 1
+            # if isinstance(item, Theme):
+        else: 
+            count = 0         
+            exhibit_theme_list_by_fives.append(sublist)
+            print sublist
+            sublist = []
+    
+    print exhibit_theme_list_by_fives
+        
     return render(request, 'exhibits/exhibitRandomExplore.html', {'sets': exhibit_theme_list})
 
 def exhibitDirectory(request):
