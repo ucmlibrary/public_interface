@@ -726,6 +726,12 @@ var GlobalSearchForm = Backbone.View.extend({
         $('.carousel-complex__item--selected').removeClass('carousel-complex__item--selected').addClass('carousel-complex__item');
         $('.carousel-complex__item[data-slick-index="' + data.page + '"]').addClass('carousel-complex__item--selected');
       });
+      // Go to corresponding page when carousel thumbnail hovered.
+      var currentViewer = this.viewer;
+      $( ".carousel-complex .slick-slide" ).mouseover(function(evt) {
+      		$( ".carousel-complex .slick-slide" ).off("click");
+  			currentViewer.goToPage($(this).data("slick-index"));
+	  });
     }
     else if (this.viewer !== undefined) {
       this.viewer.destroy();
