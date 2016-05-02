@@ -273,35 +273,46 @@ def facetQuery(facet_fields, queryParams, solr_search, extra_filter=None):
 
 def processQueryRequest(request):
     # concatenate query terms from refine query and query box, set defaults
-    q = request.GET['q'] if 'q' in request.GET else ''
+    q = request.GET.get('q', '')
     rq = request.GET.getlist('rq')
-    query_terms = reduce(concat_query, request.GET.getlist('q') + request.GET.getlist('rq')) if ('q' in request.GET or 'rq' in request.GET) else ''
-    rows = request.GET['rows'] if 'rows' in request.GET else '24'
-    start = request.GET['start'] if 'start' in request.GET and request.GET['start'] != '' else '0'
+    query_terms = ''
+    if q or rq:
+        query_terms = reduce(
+            concat_query,
+            request.GET.getlist('q') + request.GET.getlist('rq')
+        )
+    rows = request.GET.get('rows', '24')
+    start = request.GET.get('start', '0')
     if 'sort' in request.GET:
         sort = request.GET['sort']
     elif query_terms:
         sort = 'relevance'
     else:
         sort = 'a'
-    view_format = request.GET['view_format'] if 'view_format' in request.GET else 'thumbnails'
-    rc_page = int(request.GET['rc_page']) if 'rc_page' in request.GET else 0
-    campus_slug = request.GET['campus_slug'] if 'campus_slug' in request.GET else ''
+    view_format = request.GET.get('view_format', 'thumbnails')
+    rc_page = int(request.GET.get('rc_page', 0))
+    campus_slug = request.GET.get('campus_slug', '')
 
     # for each facet_filter_type
     #    {'facet': 'facet_solr_name', 'display_name': 'Display Name', 'filter': 'filter_solr_name'}
     # in the list FACET_FILTER_TYPES create a dictionary with key filter_solr_name of filter
     # and value list of selected parameters for that filter
     # {'type': ['image', 'audio'], 'repository_name': [...]}
-    filters = dict((facet_filter_type['filter'], request.GET.getlist(facet_filter_type['facet'])) for facet_filter_type in FACET_FILTER_TYPES)
-
-    # use collection_id and repository_id to retrieve collection_data and repository_data filter values
+    filters = dict(
+        (
+            facet_filter_type['filter'],
+            request.GET.getlist(facet_filter_type['facet'])
+        )
+        for facet_filter_type in FACET_FILTER_TYPES
+    )
+    # use collection_id and repository_id to retrieve collection_data
+    # and repository_data filter values
+    collection_template = "https://registry.cdlib.org/api/v1/collection/{0}/"
+    repository_template = "https://registry.cdlib.org/api/v1/repository/{0}/"
     for i, filter_item in enumerate(filters['collection_url']):
-        collection = getCollectionData(collection_id=filter_item)
-        filters['collection_url'][i] = collection['url']
+        filters['collection_url'][i] = collection_template.format(filter_item)
     for i, filter_item in enumerate(filters['repository_url']):
-        repository = getRepositoryData(repository_id=filter_item)
-        filters['repository_url'][i] = repository['url']
+        filters['repository_url'][i] = repository_template.format(filter_item)
 
     return {
         'q': q,
@@ -508,6 +519,7 @@ def search(request):
                     if collection_api_url is not None:
                         collection = getCollectionData(collection_id=collection_api_url.group('url'))
                         collection.pop('local_id', None)
+                        collection.pop('slug', None)
                         filter_display['collection_url'].append(collection)
             elif filter_type == 'repository_url':
                 filter_display['repository_url'] = []

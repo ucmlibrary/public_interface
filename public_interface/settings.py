@@ -32,6 +32,7 @@ SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
 UCLDC_IMAGES = os.getenv('UCLDC_IMAGES', '')
 UCLDC_MEDIA = os.getenv('UCLDC_MEDIA', '')
 UCLDC_IIIF = os.getenv('UCLDC_IIIF', '')
+UCLDC_NUXEO_THUMBS = os.getenv('UCLDC_NUXEO_THUMBS', '')
 UCLDC_REGISTRY_URL = os.getenv('UCLDC_REGISTRY_URL', 'https://registry.cdlib.org/')
 
 UCLDC_FRONT = os.getenv('UCLDC_FRONT','')
@@ -63,6 +64,7 @@ UCLDC_DEVEL = bool(os.environ.get('UCLDC_DEVEL'))
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
+SITE_ID = 1
 
 # Application definition
 

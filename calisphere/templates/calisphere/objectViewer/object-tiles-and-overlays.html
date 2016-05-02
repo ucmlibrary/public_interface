@@ -1,4 +1,4 @@
-<div class="obj-container__simple-{% if 'reference_image_md5' in item %}image{% else %}tile{% endif %}">
+<div class="obj-container__simple-{% if item.reference_image_md5 %}image{% else %}tile{% endif %}">
 
   <a class="obj__link"
     {% if item.harvest_type == "hosted" and item.type_ss.0|lower == "text" %}
@@ -7,9 +7,13 @@
       href="{{ item.url_item }}"
     {% endif %}
   >
-    {% if item.reference_image_md5 %}
+    {% if item.reference_image_md5 or item.contentFile.format|lower == 'file' %}
       <div class="obj__icon-container">
-      	<img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+        {% if item.reference_image_md5 %}
+          <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+        {% elif item.contentFile.format|lower == 'file' %}
+          <img class="obj__simple-image" src="{{ ucldcNuxeoThumbs }}{{ item.contentFile.id }}" alt="{{ item.title.0 }}">
+        {% endif %}
         {% if item.type_ss.0|lower == "moving image" %}
         <div class="obj__overlay-icon fa-video-camera"></div>
         {% elif item.type_ss.0|lower == "sound"%}
