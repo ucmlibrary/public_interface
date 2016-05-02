@@ -44,6 +44,9 @@
                   {{ item.item_id }} not in Calisphere solr index
                 {% endif %}
               </div>
+              <div class="exhibit__caption">
+                {{ exhibitItemData.title.0|truncatechars:30 }}
+              </div>
             </a>
           </div>
 

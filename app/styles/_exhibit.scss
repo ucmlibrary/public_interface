@@ -186,3 +186,16 @@
 .exhibit__modal-arrow:hover {
   background-color: $design-light-gray-color;
 }
+
+.exhibit__caption {
+  position: relative;
+  top: -35px;
+  background-color: $design-dark-gray-color;
+  color: white;
+  padding: 10px;
+}
+
+.exhibit__caption:hover {
+  color: white;
+  text-decoration: underline;
+}
