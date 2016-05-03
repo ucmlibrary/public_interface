@@ -714,6 +714,7 @@ var GlobalSearchForm = Backbone.View.extend({
         initialPage: initialPage,
         preserveViewport: true,
         navPrevNextWrap: true,
+        autoHideControls: false,
         immediateRender: true,
         zoomInButton: 'obj__osd-button-zoom-in',
         zoomOutButton: 'obj__osd-button-zoom-out',
@@ -728,9 +729,9 @@ var GlobalSearchForm = Backbone.View.extend({
       });
       // Go to corresponding page when carousel thumbnail hovered.
       var currentViewer = this.viewer;
-      $( ".carousel-complex .slick-slide" ).mouseover(function(evt) {
-      		$( ".carousel-complex .slick-slide" ).off("click");
-  			currentViewer.goToPage($(this).data("slick-index"));
+      $( '.carousel-complex .slick-slide' ).mouseover(function(evt) {
+      		$( '#js-intemContainer' ).off('pjax:send');
+  			currentViewer.goToPage($(this).data('slick-index'));
 	  });
     }
     else if (this.viewer !== undefined) {
