@@ -23,7 +23,7 @@
 
   <nav role="navigation">
     <ol id="exhibit__breadcrumb">
-      <li><a href="{% url 'exhibits:exhibitDirectory' %}" data-pjax="js-pageContent">Exhibitions</a></li>
+      <li><a href="{% url 'exhibits:randomExplore' %}" data-pjax="js-pageContent">Exhibitions</a></li>
       {% if relatedExhibitsByTheme|length > 0 %}
         <li>
           <a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1" data-pjax="js-pageContent">
