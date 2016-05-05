@@ -501,14 +501,14 @@ var ComplexCarousel = Backbone.View.extend({
     var data_params = {order: $(e.currentTarget).data('item_id')};
 
     e.preventDefault();
-    $.pjax({
-      type: 'GET',
-      url: $(e.currentTarget).attr('href').split('?')[0],
-      container: '#js-itemContainer',
-      data: data_params,
-      traditional: true,
-      scrollTo: 440
-    });
+    //$.pjax({
+    //  type: 'GET',
+    //  url: $(e.currentTarget).attr('href').split('?')[0],
+    //  container: '#js-itemContainer',
+    //  data: data_params,
+    //  traditional: true,
+    //  scrollTo: 440
+    //});
   },
 
   afterChange: function(e, slick) {
@@ -729,8 +729,7 @@ var GlobalSearchForm = Backbone.View.extend({
       });
       // Go to corresponding page when carousel thumbnail hovered.
       var currentViewer = this.viewer;
-      $( '.carousel-complex .slick-slide' ).mouseover(function(evt) {
-      		$( '#js-intemContainer' ).off('pjax:send');
+      $( '.carousel-complex .slick-slide' ).click(function(evt) {
   			currentViewer.goToPage($(this).data('slick-index'));
 	  });
     }
