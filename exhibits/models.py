@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-import sys
+
 import os.path
 
 from django.contrib.auth.models import User
@@ -43,7 +43,7 @@ class Exhibit(models.Model):
     color = models.CharField(max_length=20, blank=True)
     scraped_from = models.CharField(max_length=250, blank=True)
 
-    hero = HeroField(blank=True, verbose_name='Hero Image', upload_to='uploads/', null=True)
+    hero = models.ImageField(blank=True, verbose_name='Hero Image', upload_to='uploads/', null=True)
     lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Lockup Image', upload_to='uploads/')
     alternate_lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Alternate Lockup Image', upload_to='uploads/')
     item_id = models.CharField(blank=True, max_length=200)
@@ -72,6 +72,22 @@ class Exhibit(models.Model):
             return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
         else:
             return None
+    
+    push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
+    def save(self, *args, **kwargs):
+        super(Exhibit, self).save(*args, **kwargs)
+        for s3field in self.push_to_s3:
+            name = getattr(self, s3field).name
+            url = settings.MEDIA_ROOT + "/" + name
+            if os.path.isfile(url):
+                field_instance = getattr(self, s3field)
+                report = md5s3stash("file://" + url, settings.S3_STASH)
+                field_instance.storage.delete(name)
+                field_instance.name = report.md5
+                upload_to = self._meta.get_field(s3field).upload_to
+                self._meta.get_field(s3field).upload_to = ''
+                super(Exhibit, self).save(*args, **kwargs)
+                self._meta.get_field(s3field).upload_to = upload_to
 
 class HistoricalEssay(models.Model):
     title = models.CharField(max_length=200)
@@ -98,6 +114,22 @@ class HistoricalEssay(models.Model):
         
     def get_absolute_url(self):
         return reverse('exhibits:essayView', kwargs={'essay_id': self.id, 'essay_slug': self.slug})
+
+    push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
+    def save(self, *args, **kwargs):
+        super(HistoricalEssay, self).save(*args, **kwargs)
+        for s3field in self.push_to_s3:
+            name = getattr(self, s3field).name
+            url = settings.MEDIA_ROOT + "/" + name
+            if os.path.isfile(url):
+                field_instance = getattr(self, s3field)
+                report = md5s3stash("file://" + url, settings.S3_STASH)
+                field_instance.storage.delete(name)
+                field_instance.name = report.md5
+                upload_to = self._meta.get_field(s3field).upload_to
+                self._meta.get_field(s3field).upload_to = ''
+                super(HistoricalEssay, self).save(*args, **kwargs)
+                self._meta.get_field(s3field).upload_to = upload_to
 
     def __str__(self):
         return self.title
@@ -141,8 +173,6 @@ class Theme(models.Model):
     meta_description = models.CharField(max_length=255, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
 
-    push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
-
     def get_absolute_url(self):
         return reverse('exhibits:themeView', kwargs={'theme_id': self.id, 'theme_slug': self.slug})
 
@@ -154,6 +184,7 @@ class Theme(models.Model):
         else:
             return None
 
+    push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
     def save(self, *args, **kwargs):
         super(Theme, self).save(*args, **kwargs)
         for s3field in self.push_to_s3:
@@ -161,7 +192,7 @@ class Theme(models.Model):
             url = settings.MEDIA_ROOT + "/" + name
             if os.path.isfile(url):
                 field_instance = getattr(self, s3field)
-                report = md5s3stash("file://" + url, "static-ucldc-cdlib-org/harvested_images")
+                report = md5s3stash("file://" + url, settings.S3_STASH)
                 field_instance.storage.delete(name)
                 field_instance.name = report.md5
                 upload_to = self._meta.get_field(s3field).upload_to
@@ -221,6 +252,22 @@ class ExhibitItem(models.Model):
             return settings.THUMBNAIL_URL + "crop/210x210/" + item_solr_search.results[0]['reference_image_md5']
         else:
             return None
+
+    push_to_s3 = ['custom_crop']
+    def save(self, *args, **kwargs):
+        super(ExhibitItem, self).save(*args, **kwargs)
+        for s3field in self.push_to_s3:
+            name = getattr(self, s3field).name
+            url = settings.MEDIA_ROOT + "/" + name
+            if os.path.isfile(url):
+                field_instance = getattr(self, s3field)
+                report = md5s3stash("file://" + url, settings.S3_STASH)
+                field_instance.storage.delete(name)
+                field_instance.name = report.md5
+                upload_to = self._meta.get_field(s3field).upload_to
+                self._meta.get_field(s3field).upload_to = ''
+                super(ExhibitItem, self).save(*args, **kwargs)
+                self._meta.get_field(s3field).upload_to = upload_to
 
 class NotesItem(models.Model):
     title = models.CharField(max_length=200)

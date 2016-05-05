@@ -18,6 +18,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 THUMBNAIL_URL = os.getenv('UCLDC_THUMBNAIL_URL', 'http://localhost:8888/')  # `python thumbnail.py`
+S3_STASH = os.getenv('UCLDC_S3_STASH', '')
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
                        get_random_string(50,
