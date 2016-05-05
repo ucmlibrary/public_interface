@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+import sys
+import os.path
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -8,6 +10,7 @@ from django.core.urlresolvers import reverse
 from calisphere.views import getCollectionData, getRepositoryData
 from django.conf import settings
 from exhibits.custom_fields import HeroField
+from md5s3stash import md5s3stash
 
 # only if you need to support python 2: 
 from django.utils.encoding import python_2_unicode_compatible
@@ -138,6 +141,8 @@ class Theme(models.Model):
     meta_description = models.CharField(max_length=255, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
 
+    push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
+
     def get_absolute_url(self):
         return reverse('exhibits:themeView', kwargs={'theme_id': self.id, 'theme_slug': self.slug})
 
@@ -148,6 +153,21 @@ class Theme(models.Model):
             return settings.THUMBNAIL_URL + "crop/420x210/" + item_solr_search.results[0]['reference_image_md5']
         else:
             return None
+
+    def save(self, *args, **kwargs):
+        super(Theme, self).save(*args, **kwargs)
+        for s3field in self.push_to_s3:
+            name = getattr(self, s3field).name
+            url = settings.MEDIA_ROOT + "/" + name
+            if os.path.isfile(url):
+                field_instance = getattr(self, s3field)
+                report = md5s3stash("file://" + url, "static-ucldc-cdlib-org/harvested_images")
+                field_instance.storage.delete(name)
+                field_instance.name = report.md5
+                upload_to = self._meta.get_field(s3field).upload_to
+                self._meta.get_field(s3field).upload_to = ''
+                super(Theme, self).save(*args, **kwargs)
+                self._meta.get_field(s3field).upload_to = upload_to
 
     def __str__(self):
         return self.title
