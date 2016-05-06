@@ -279,6 +279,9 @@ class NotesItem(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['order']
+
 class BrowseTermGroup(models.Model):
     group_title = models.CharField(max_length=200, blank=True)
     group_note = models.TextField(blank=True)
