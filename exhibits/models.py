@@ -286,8 +286,10 @@ class BrowseTermGroup(models.Model):
     group_title = models.CharField(max_length=200, blank=True)
     group_note = models.TextField(blank=True)
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
-    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, blank=True, null=True)
+    exhibit = models.ForeignKey(Exhibit, on_delete=models.CASCADE, blank=True, null=True)
     order = PositionField(collection='theme')
+    exhibit_order = PositionField(collection='exhibit')
 
     def __str__(self):
         return self.group_title

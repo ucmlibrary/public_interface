@@ -122,7 +122,7 @@ class ExhibitAdmin(admin.ModelAdmin):
         ('About this Exhibit',      {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
     ]
-    inlines = [ExhibitItemInline, NotesItemInline, ThemeExhibitInline, HistoricalEssayExhibitInline, LessonPlanExhibitInline]
+    inlines = [ExhibitItemInline, NotesItemInline, ThemeExhibitInline, HistoricalEssayExhibitInline, LessonPlanExhibitInline, BrowseTermGroupInline]
     list_display = ('title', 'hero', 'publish', 'scraped_from', 'slug', 'get_absolute_url')
     prepopulated_fields = {'slug': ['title']}
 
