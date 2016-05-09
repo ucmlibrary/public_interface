@@ -45,7 +45,7 @@
   
   <div>
   {% if theme.historicalessaytheme_set.all|length > 0 %}
-    <h3>Read related essays ({{ theme.historicalessaytheme_set.all|length }})</h3>
+    <h3>Read related essays ({{ theme.historicalessaytheme_set.all|length }}):</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for het in theme.historicalessaytheme_set.all %}
         <div class="col-xs-2 col-md-3">
@@ -62,7 +62,7 @@
   {% endif %}
 
   {% if theme.lessonplantheme_set.all|length > 0 %}
-    <h3>Just for teachers: lesson plans ({{ theme.lessonplantheme_set.all|length }})</h3>
+    <h3>Just for teachers: lesson plans ({{ theme.lessonplantheme_set.all|length }}):</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for lpt in theme.lessonplantheme_set.all %}
         <div class="col-xs-2 col-md-3">

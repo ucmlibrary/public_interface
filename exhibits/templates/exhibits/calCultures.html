@@ -44,7 +44,7 @@
   </div>
   
   <div>
-    <h3>Read related essays ({{ historical_essays.all|length }})</h3>
+    <h3>Read related essays ({{ historical_essays.all|length }}):</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for he in historical_essays.all %}
         <div class="col-xs-2 col-md-3">
@@ -59,7 +59,7 @@
       {% endfor %}
     </div>
 
-    <h3>Just for teachers: lesson plans ({{ lesson_plans.all|length }})</h3>
+    <h3>Just for teachers: lesson plans ({{ lesson_plans.all|length }}):</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for lp in lesson_plans.all %}
         <div class="col-xs-2 col-md-3">
