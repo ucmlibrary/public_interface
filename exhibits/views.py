@@ -5,6 +5,15 @@ from exhibits.models import *
 from itertools import chain
 import random
 
+def calCultures(request):
+    california_cultures = Theme.objects.filter(title__icontains='California Cultures').order_by('title')
+    historical_essays = HistoricalEssayTheme.objects.filter(theme__in=california_cultures)
+        
+    return render(request, 'exhibits/calCultures.html', {
+        'california_cultures': california_cultures, 
+        'historical_essays': historical_essays
+    })
+
 def exhibitRandom(request):
     exhibits = Exhibit.objects.all()
     themes = Theme.objects.all()
@@ -48,7 +57,7 @@ def exhibitDirectory(request):
 
 def themeDirectory(request):
     jarda = Theme.objects.get(slug='jarda')
-    california_cultures = Theme.objects.filter(title__icontains='California Cultures')
+    california_cultures = Theme.objects.filter(title__icontains='California Cultures').order_by('title')
     california_history = Theme.objects.exclude(title__icontains='California Cultures').exclude(slug='jarda')
     return render(request, 'exhibits/themeDirectory.html', {'jarda': jarda, 'california_cultures': california_cultures, 'california_history': california_history})
 

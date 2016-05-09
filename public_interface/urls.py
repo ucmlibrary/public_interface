@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from calisphere.contact_form_view import CalisphereContactFormView
+from exhibits.views import calCultures
 
 admin.autodiscover()
 
@@ -13,6 +14,7 @@ urlpatterns = [
     url(r'^', include('calisphere.urls', namespace="calisphere")),
     url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
     url(r'^for-teachers/', include('exhibits.teacher_urls', namespace="for-teachers")),
+    url(r'^cal-cultures/', calCultures, name="cal-cultures"),
 
     url(r'^admin/', admin.site.urls),
     url(r'^contact/$',
