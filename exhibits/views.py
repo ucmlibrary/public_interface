@@ -152,4 +152,9 @@ def lessonPlanView(request, lesson_id, lesson_slug):
         return redirect(lesson)
 
     exhibitItems = lesson.exhibititem_set.all().order_by('lesson_plan_order')
-    return render(request, 'exhibits/lessonPlanView.html', {'lessonPlan': lesson, 'q': '', 'exhibitItems': exhibitItems})
+    
+    relatedThemes = []
+    for theme in lesson.lessonplantheme_set.all():
+        relatedThemes.append((theme.theme, theme.theme.lessonplantheme_set.exclude(lessonPlan=lesson)))
+    
+    return render(request, 'exhibits/lessonPlanView.html', {'lessonPlan': lesson, 'q': '', 'exhibitItems': exhibitItems, 'relatedThemes': relatedThemes})

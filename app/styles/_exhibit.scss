@@ -199,3 +199,30 @@
   color: white;
   text-decoration: underline;
 }
+
+.lessonplan__info {
+  border: 1px solid black;
+}
+
+.lessonplan__info-box {
+  margin: 10px;
+}
+
+.lessonplan__header {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.lessonplan__h2 {
+  margin-top: 0;
+}
+
+.lessonPlan {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: $design-primary-color;
+  text-align: left;
+  border: 0;
+  border-radius: 4px;
+  color: #FFF;
+}
