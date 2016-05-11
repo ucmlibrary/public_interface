@@ -126,6 +126,10 @@
   background-color: $design-secondary-color;
 }
 
+.theme__lockup--horizontal:hover .theme__lockup--horizontal-title {
+  background-image: none;
+}
+
 .theme__lockup--horizontal-exhibit-count {
   position: absolute;
   bottom: 0;
