@@ -8,6 +8,8 @@ var exhibitPage = Backbone.View.extend({
   events: {
     'click .js-exhibit-item'            : 'exhibitItemView',
     'hidden.bs.modal #js-exhibit-item'  : 'exhibitView',
+    'click #js-exhibit__overview'       : 'toggleExhibitOverview',
+    'click .js-show-all-exhibit-items'  : 'togglePrimarySourceSet'
   },
   exhibitItemView: function(e) {
     // Middle click, cmd click, and ctrl click should open
@@ -30,6 +32,49 @@ var exhibitPage = Backbone.View.extend({
       container: '#js-exhibit-item__container'
     });
   },
+  
+  toggleExhibitOverview: function() {
+    if ($('.js-exhibit__overview--full').is(':visible')) {
+      $('.js-exhibit__overview--preview').show();
+      $('.js-exhibit__overview--full').slideUp();
+      $('#js-exhibit__overview').text('Read full exhibition overview.');
+    } else {
+      $('.js-exhibit__overview--full').slideDown();
+      $('.js-exhibit__overview--preview').hide();
+      $('#js-exhibit__overview').text('Read less');
+    }
+  },
+  
+  togglePrimarySourceSet: function() {
+    $('.js-exhibit-items-overflow').slideToggle();
+    if ($(this).text() === 'View all') {
+      $(this).text('View fewer');
+    } else {
+      $(this).text('View all');
+    }
+  },
+  
+  initCarousel: function() {
+    $('.js-related-carousel').slick({
+      infinite: false,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 650,
+          settings: {
+            slidesToShow: 2
+          }
+        }
+      ]
+    });
+  },
 
   initialize: function() {
     if ($('#js-exhibit-item__container').children().length > 0) {
@@ -39,7 +84,7 @@ var exhibitPage = Backbone.View.extend({
       if(!($('#js-exhibit-item').is(':visible')) && $('#js-exhibit-item__container').children().length > 0) {
         $('#js-exhibit-item').modal();
       }
-    });
+    });    
   },
 });
 
@@ -762,6 +807,7 @@ var GlobalSearchForm = Backbone.View.extend({
 
     if($('#js-exhibit-title').length > 0) {
       if (this.exhibitPage === undefined) { this.exhibitPage = new exhibitPage(); }
+      this.exhibitPage.initCarousel();
     } else if (this.exhibitPage !== undefined) {
       this.exhibitPage.undelegateEvents();
       delete this.exhibitPage;
