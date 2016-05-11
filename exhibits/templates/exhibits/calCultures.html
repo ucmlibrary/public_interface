@@ -16,12 +16,12 @@
     <h1 class="theme__header" style="background-color: {{ theme.color }}">California Cultures</h1>
   </div>
   
-  <div class="theme__main-content">
-    <div class="theme__overview">
+  <div class="row theme__main-content">
+    <div class="col-md-4 col-sm-12 theme__overview">
       <h2>Overview</h2>
       {# include "exhibits/render_as.html" with render_as=theme.render_as text=theme.essay truncate=False container_class="" #}
     </div>
-    <div class="theme__exhibits">
+    <div class="col-md-8 col-xs-12 theme__exhibits">
       <h2>{{ california_cultures|length }} exhibitions:</h2>
       <div class="row">
         {% for theme in california_cultures %}
