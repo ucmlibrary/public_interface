@@ -45,12 +45,12 @@
 
 .exhibit__items-header {
   display: inline-block; 
-  margin-right: 20px;
+  margin: 0 20px 0 0;
 }
 
 .exhibit__overview {
   @include bp(md-screen) {
-    padding: $layout-component-margin $layout-component-margin $layout-component-margin 0;    
+    padding: 0 $layout-component-margin $layout-component-margin 0;    
   }
 }
 
@@ -65,12 +65,18 @@
 
 .exhibit__notes {
   @include bp(md-screen) {
-    padding: $layout-component-margin 0 $layout-component-margin $layout-component-margin;    
+    padding: 30px 0 $layout-component-margin $layout-component-margin;    
   }
 }
 
 .exhibit__notes h3 {
   color: $design-secondary-color;
+}
+
+.exhibit__note {
+  border: 1px solid black;
+  padding: 0 $layout-component-margin $layout-component-margin $layout-component-margin;
+  margin-top: 20px;
 }
 
 .essay__note {
@@ -225,4 +231,9 @@
   border: 0;
   border-radius: 4px;
   color: #FFF;
+}
+
+.primarysource__link {
+  @extend .thumbnail__link;
+  margin: 25px 0 25px 25px;
 }
