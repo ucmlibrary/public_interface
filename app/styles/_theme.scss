@@ -61,20 +61,23 @@
 
 .theme__main-content {
   margin: $layout-component-margin (-$layout-component-margin);
-  display: flex; 
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .theme__overview {
-  flex: 1;
   background-color: $design-dark-gray-color;
   padding: $layout-component-margin;
   color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .theme__exhibits {
   background-color: $design-light-gray-color;
   padding: $layout-component-margin;
-  flex: 2;
+  display: flex;
+  flex-direction: column;
 }
 
 .browseTerm {

@@ -16,16 +16,19 @@
     <h1 class="theme__header" id="js-exhibit-title" style="background-color: {{ theme.color }}">{{ theme.title }}</h1>
   </div>
   
-  <div class="theme__main-content">
-    <div class="theme__overview">
+  <!-- <div class="theme__main-content"> -->
+  <div class="row theme__main-content">
+    <div class="col-md-4 col-sm-12 theme__overview">
+    <!-- <div class="theme__overview"> -->
       <h2>Overview</h2>
       {% include "exhibits/render_as.html" with render_as=theme.render_as text=theme.essay truncate=False container_class="" %}
     </div>
-    <div class="theme__exhibits">
+    <div class="col-md-8 col-xs-12 theme__exhibits">
+    <!-- <div class="theme__exhibits"> -->
       <h2>{{ relatedExhibits|length }} exhibitions:</h2>
       <div class="row">
         {% for exhibittheme in relatedExhibits %}
-          <div class="col-md-4">
+          <div class="col-sm-4 col-xs-6">
             <a href="{{ exhibittheme.exhibit.get_absolute_url }}" data-pjax="js-pageContent">
               <div class="exhibit__lockup--med">
                 <div class="exhibit__lockup--med-image">
