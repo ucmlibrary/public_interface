@@ -47,10 +47,10 @@ var exhibitPage = Backbone.View.extend({
   
   togglePrimarySourceSet: function() {
     $('.js-exhibit-items-overflow').slideToggle();
-    if ($(this).text() === 'View all') {
-      $(this).text('View fewer');
+    if ($($('.js-show-all-exhibit-items')[0]).text() === 'View all') {
+      $('.js-show-all-exhibit-items').text('View fewer');
     } else {
-      $(this).text('View all');
+      $('.js-show-all-exhibit-items').text('View all');
     }
   },
   
