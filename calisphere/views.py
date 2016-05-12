@@ -833,7 +833,15 @@ def collectionView(request, collection_id):
     fq = solrize_filters(queryParams['filters'])
     fq.append('collection_url: "' + collection['url'] + '"')
 
-    facet_fields = list(facet_filter_type['facet'] for facet_filter_type in FACET_FILTER_TYPES if facet_filter_type['facet'] != 'collection_data')
+    # Add Custom Facet Filter Types
+    extra_facet_types = []
+    if collection_details['custom_facet']:
+      for i in range(len(collection_details['custom_facet'])):
+        custom_facet = collection_details['custom_facet'][i]
+        extra_facet_types.append({'facet': custom_facet['facet_field'], 'display_name': custom_facet['label'], 'filter': custom_facet['facet_field']})
+
+    custom_facet_types = FACET_FILTER_TYPES + extra_facet_types
+    facet_fields = list(facet_filter_type['facet'] for facet_filter_type in custom_facet_types if facet_filter_type['facet'] != 'collection_data')
 
     # perform the search
     solr_search = SOLR_select(
@@ -878,7 +886,7 @@ def collectionView(request, collection_id):
         'sort': queryParams.get('sort'),
         'search_results': solr_search.results,
         'facets': facets,
-        'FACET_FILTER_TYPES': list(facet_filter_type for facet_filter_type in FACET_FILTER_TYPES if facet_filter_type['facet'] != 'collection_data' and facet_filter_type['facet'] != 'repository_data'),
+        'FACET_FILTER_TYPES': list(facet_filter_type for facet_filter_type in custom_facet_types if facet_filter_type['facet'] != 'collection_data' and facet_filter_type['facet'] != 'repository_data'),
         'numFound': solr_search.numFound,
         'pages': int(math.ceil(float(solr_search.numFound)/int(queryParams['rows']))),
         'view_format': queryParams.get('view_format'),
