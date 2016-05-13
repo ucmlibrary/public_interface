@@ -841,6 +841,19 @@ def collectionView(request, collection_id):
     fq = solrize_filters(queryParams['filters'])
     fq.append('collection_url: "' + collection['url'] + '"')
 
+    # Add Custom Facet Filter Types
+    extra_facet_types = []
+    if collection_details['custom_facet']:
+      for i in range(len(collection_details['custom_facet'])):
+        custom_facet = collection_details['custom_facet'][i]
+        extra_facet_types.append({'facet': custom_facet['facet_field'], 'display_name': custom_facet['label'], 'filter': custom_facet['facet_field']})
+
+      # Add custom facet only if doesn't already exist.
+      [FACET_FILTER_TYPES.append(facet) for facet in extra_facet_types if facet not in FACET_FILTER_TYPES]
+    else:
+      # If collection_details['custom_facet'] is empty set FACET_FILTER_TYPES back to the original length.
+      FACET_FILTER_TYPES[:4]
+
     facet_fields = list(facet_filter_type['facet'] for facet_filter_type in FACET_FILTER_TYPES if facet_filter_type['facet'] != 'collection_data')
 
     # perform the search
