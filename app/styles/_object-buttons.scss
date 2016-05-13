@@ -195,5 +195,19 @@ html.no-flexbox .obj__osd-button {
   margin: 0 0 0 0.5em;
 }
 
+.obj__osd-button-sequence {
+  top: 45%;
+  position: absolute;
+  width: 98%;
+  right: 22px;
+}
 
+.obj__osd-button-sequence .slick-prev:before,
+.obj__osd-button-sequence .slick-next:before {
+    font-size: 120px;
+    color: #fff;
+}
 
+#obj__osd-button-next, #obj__osd-button-previous {
+  position: absolute !important;
+}
