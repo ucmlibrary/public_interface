@@ -716,6 +716,8 @@ var GlobalSearchForm = Backbone.View.extend({
         navPrevNextWrap: true,
         autoHideControls: false,
         immediateRender: true,
+        previousButton: 'obj__osd-button-previous',
+        nextButton: 'obj__osd-button-next',
         zoomInButton: 'obj__osd-button-zoom-in',
         zoomOutButton: 'obj__osd-button-zoom-out',
         homeButton: 'obj__osd-button-home',
