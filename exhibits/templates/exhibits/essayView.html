@@ -15,7 +15,7 @@
   
   <h1 class="exhibit__header" id="js-exhibit-title" data-slug="{{ essay.slug }}">Essay: {{ essay.title }}</h1>
   
-  <div class="exhibit__hero" style="background-image: url('{{ exhibitMedia }}{{ essay.hero }}')">
+  <div class="exhibit__hero" style="background-image: url('{{ thumbnailUrl }}clip/1400x280/{{ essay.hero }}')">
     <div class="col-sm-6">
       {% if essay.blockquote %}
         <blockquote class="exhibit__blockquote">{{ essay.blockquote }}</blockquote>

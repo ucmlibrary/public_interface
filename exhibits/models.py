@@ -78,16 +78,17 @@ class Exhibit(models.Model):
         super(Exhibit, self).save(*args, **kwargs)
         for s3field in self.push_to_s3:
             name = getattr(self, s3field).name
-            url = settings.MEDIA_ROOT + "/" + name
-            if os.path.isfile(url):
-                field_instance = getattr(self, s3field)
-                report = md5s3stash("file://" + url, settings.S3_STASH)
-                field_instance.storage.delete(name)
-                field_instance.name = report.md5
-                upload_to = self._meta.get_field(s3field).upload_to
-                self._meta.get_field(s3field).upload_to = ''
-                super(Exhibit, self).save(*args, **kwargs)
-                self._meta.get_field(s3field).upload_to = upload_to
+            if name: 
+                url = settings.MEDIA_ROOT + "/" + name
+                if os.path.isfile(url):
+                    field_instance = getattr(self, s3field)
+                    report = md5s3stash("file://" + url, settings.S3_STASH)
+                    field_instance.storage.delete(name)
+                    field_instance.name = report.md5
+                    upload_to = self._meta.get_field(s3field).upload_to
+                    self._meta.get_field(s3field).upload_to = ''
+                    super(Exhibit, self).save(*args, **kwargs)
+                    self._meta.get_field(s3field).upload_to = upload_to
 
 class HistoricalEssay(models.Model):
     title = models.CharField(max_length=200)
@@ -120,16 +121,17 @@ class HistoricalEssay(models.Model):
         super(HistoricalEssay, self).save(*args, **kwargs)
         for s3field in self.push_to_s3:
             name = getattr(self, s3field).name
-            url = settings.MEDIA_ROOT + "/" + name
-            if os.path.isfile(url):
-                field_instance = getattr(self, s3field)
-                report = md5s3stash("file://" + url, settings.S3_STASH)
-                field_instance.storage.delete(name)
-                field_instance.name = report.md5
-                upload_to = self._meta.get_field(s3field).upload_to
-                self._meta.get_field(s3field).upload_to = ''
-                super(HistoricalEssay, self).save(*args, **kwargs)
-                self._meta.get_field(s3field).upload_to = upload_to
+            if name:
+                url = settings.MEDIA_ROOT + "/" + name
+                if os.path.isfile(url):
+                    field_instance = getattr(self, s3field)
+                    report = md5s3stash("file://" + url, settings.S3_STASH)
+                    field_instance.storage.delete(name)
+                    field_instance.name = report.md5
+                    upload_to = self._meta.get_field(s3field).upload_to
+                    self._meta.get_field(s3field).upload_to = ''
+                    super(HistoricalEssay, self).save(*args, **kwargs)
+                    self._meta.get_field(s3field).upload_to = upload_to
 
     def __str__(self):
         return self.title
@@ -189,16 +191,17 @@ class Theme(models.Model):
         super(Theme, self).save(*args, **kwargs)
         for s3field in self.push_to_s3:
             name = getattr(self, s3field).name
-            url = settings.MEDIA_ROOT + "/" + name
-            if os.path.isfile(url):
-                field_instance = getattr(self, s3field)
-                report = md5s3stash("file://" + url, settings.S3_STASH)
-                field_instance.storage.delete(name)
-                field_instance.name = report.md5
-                upload_to = self._meta.get_field(s3field).upload_to
-                self._meta.get_field(s3field).upload_to = ''
-                super(Theme, self).save(*args, **kwargs)
-                self._meta.get_field(s3field).upload_to = upload_to
+            if name:
+                url = settings.MEDIA_ROOT + "/" + name
+                if os.path.isfile(url):
+                    field_instance = getattr(self, s3field)
+                    report = md5s3stash("file://" + url, settings.S3_STASH)
+                    field_instance.storage.delete(name)
+                    field_instance.name = report.md5
+                    upload_to = self._meta.get_field(s3field).upload_to
+                    self._meta.get_field(s3field).upload_to = ''
+                    super(Theme, self).save(*args, **kwargs)
+                    self._meta.get_field(s3field).upload_to = upload_to
 
     def __str__(self):
         return self.title
@@ -246,28 +249,32 @@ class ExhibitItem(models.Model):
             return None
 
     def imgUrl(self):
-        item_id_search_term = 'id:"{0}"'.format(self.item_id)
-        item_solr_search = SOLR_select(q=item_id_search_term)
-        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
-            return settings.THUMBNAIL_URL + "crop/210x210/" + item_solr_search.results[0]['reference_image_md5']
-        else:
-            return None
+        if self.custom_crop:
+            return settings.THUMBNAIL_URL + "crop/210x210/" + self.custom_crop.name
+        else: 
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "crop/210x210/" + item_solr_search.results[0]['reference_image_md5']
+            else:
+                return None
 
     push_to_s3 = ['custom_crop']
     def save(self, *args, **kwargs):
         super(ExhibitItem, self).save(*args, **kwargs)
         for s3field in self.push_to_s3:
             name = getattr(self, s3field).name
-            url = settings.MEDIA_ROOT + "/" + name
-            if os.path.isfile(url):
-                field_instance = getattr(self, s3field)
-                report = md5s3stash("file://" + url, settings.S3_STASH)
-                field_instance.storage.delete(name)
-                field_instance.name = report.md5
-                upload_to = self._meta.get_field(s3field).upload_to
-                self._meta.get_field(s3field).upload_to = ''
-                super(ExhibitItem, self).save(*args, **kwargs)
-                self._meta.get_field(s3field).upload_to = upload_to
+            if name:
+                url = settings.MEDIA_ROOT + "/" + name
+                if os.path.isfile(url):
+                    field_instance = getattr(self, s3field)
+                    report = md5s3stash("file://" + url, settings.S3_STASH)
+                    field_instance.storage.delete(name)
+                    field_instance.name = report.md5
+                    upload_to = self._meta.get_field(s3field).upload_to
+                    self._meta.get_field(s3field).upload_to = ''
+                    super(ExhibitItem, self).save(*args, **kwargs)
+                    self._meta.get_field(s3field).upload_to = upload_to
 
 class NotesItem(models.Model):
     title = models.CharField(max_length=200)

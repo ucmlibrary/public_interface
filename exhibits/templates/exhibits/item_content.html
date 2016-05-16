@@ -2,6 +2,7 @@
 {% load markdown_filter %}
 
 <div class="modal-body">
+  {% if exhibitItem.solrData %}
   {% with item=exhibitItem.solrData %}
   <div class="row">
     <div class="col-md-6">
@@ -44,6 +45,27 @@
     </div>
   </div>
   {% endwith %}
+  {% else %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="obj-container__simple-{% if exhibitItem.custom_crop %}image{% else %}tile{% endif %}">
+	{% if exhibitItem.custom_crop %}
+          <div class="obj__icon-container">
+            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ exhibitItem.custom_crop }}">
+	  </div>
+	{% else %}
+	  <div class="thumbnail__container"></div>
+	{% endif %}
+      </div>
+      <div class="obj__caption">
+	go to item page
+      </div>
+    </div>
+    <div class="col-md-6">
+      {% include "exhibits/render_as.html" with render_as=exhibitItem.render_as text=exhibitItem.essay truncate=False container_class="" %}
+    </div>
+  </div>
+  {% endif %}
 
   {% if prevItem %}
   <a class="js-exhibit-item" href="{% url url_name url_id prevItem.item_id %}">
