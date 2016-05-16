@@ -729,17 +729,38 @@ var GlobalSearchForm = Backbone.View.extend({
         $('.carousel-complex__item--selected').removeClass('carousel-complex__item--selected').addClass('carousel-complex__item');
         $('.carousel-complex__item[data-slick-index="' + data.page + '"]').addClass('carousel-complex__item--selected');
       });
+
       // Go to corresponding page when carousel thumbnail clicked.
       var currentViewer = this.viewer;
       $( '.carousel-complex .slick-slide' ).click(function(evt) {
   			currentViewer.goToPage($(this).data('slick-index'));
 	    });
+
+	    // Switch panHorizontal off when < > buttons not visible.
+	    $( window ).on('load resize', function(e) {
+        if($('#obj__osd-button-previous, #obj__osd-button-next').css('display') == 'none') {
+          currentViewer.panHorizontal = false;
+          console.log(currentViewer.panHorizontal);
+          currentViewer.addHandler("canvas-drag", function (data) {
+            // Emulate swipe
+            if (data.speed > 650) {
+              var direction = Math.abs(data.direction)
+              if (direction >= 0 && direction <= 0.75) {
+                currentViewer.goToPage(currentViewer._sequenceIndex + 1);
+              } else {
+                currentViewer.goToPage(currentViewer._sequenceIndex - 1);
+              }
+            };
+          });
+        } else {
+          currentViewer.panHorizontal = true;
+        }
+      });
     }
     else if (this.viewer !== undefined) {
       this.viewer.destroy();
       delete this.viewer;
     }
-
   },
 
   changeWidth: function(window_width) {
