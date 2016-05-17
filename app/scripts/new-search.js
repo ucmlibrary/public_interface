@@ -708,7 +708,7 @@ var GlobalSearchForm = Backbone.View.extend({
       if ($('.openseadragon-container').length > 0) { $('.openseadragon-container').remove(); }
       this.viewer = new OpenSeadragon({
         id: 'obj__osd',
-        tileSources: [tileSources],
+        tileSources: tileSources,
         sequenceMode: sequenceMode,
         prefixUrl: prefixUrl,
         initialPage: initialPage,

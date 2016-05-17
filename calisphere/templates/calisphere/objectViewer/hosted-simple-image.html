@@ -34,7 +34,7 @@
   <script type="text/javascript">
   var prefixUrl = '{% static "bower_components/openseadragon/built-openseadragon/openseadragon/images/" %}'
   {% if 'structMap' in item %}
-    var tileSources = [{{ item.contentTiles|safe }}];
+    var tileSources = {{ item.contentTiles|safe }};
     var sequenceMode = true;
     {% if request.GET.order %}
 	var initialPage = {{ request.GET.order }};

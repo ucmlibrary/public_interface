@@ -382,12 +382,12 @@ def itemView(request, item_id=''):
             if 'structMap' in structmap_data:
                 # complex object
 
-		# Generate tiles for Open Seadragon sequence mode. 
+		            # Generate tiles for Open Seadragon sequence mode.
                 components = structmap_data['structMap']
-                tile_sources = ''
+                tile_sources = []
                 for i in range(len(components)):
-                        tile_sources += getHostedContentFile(components[i])['titleSources'] + ','
-                item['contentTiles'] = '[' + tile_sources + ']'
+                        tile_sources.append(getHostedContentFile(components[i])['titleSources'])
+                item['contentTiles'] = tile_sources
 
                 if 'order' in request.GET and 'structMap' in structmap_data:
                     # fetch component object
