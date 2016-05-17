@@ -725,35 +725,36 @@ var GlobalSearchForm = Backbone.View.extend({
       });
       // Add handler to highlight the carousel thumbnails when the Prev/Next buttons are clicked.
       // TODO: needs to update the Item metadata.
-      this.viewer.addHandler("page", function (data) {
+      this.viewer.addHandler('page', function (data) {
         $('.carousel-complex__item--selected').removeClass('carousel-complex__item--selected').addClass('carousel-complex__item');
         $('.carousel-complex__item[data-slick-index="' + data.page + '"]').addClass('carousel-complex__item--selected');
       });
 
       // Go to corresponding page when carousel thumbnail clicked.
       var currentViewer = this.viewer;
-      $( '.carousel-complex .slick-slide' ).click(function(evt) {
+      $( '.carousel-complex .slick-slide' ).click(function() {
   			currentViewer.goToPage($(this).data('slick-index'));
 	    });
 
-	    // Switch panHorizontal off when < > buttons not visible.
-	    $( window ).on('load resize', function(e) {
-        if($('#obj__osd-button-previous, #obj__osd-button-next').css('display') == 'none') {
+	    // Switch panning off when < > seqence buttons are not visible.
+	    $( window ).on('load resize', function() {
+        if($('#obj__osd-button-previous, #obj__osd-button-next').css('display') === 'none') {
+          currentViewer.preserveViewport = false;
           currentViewer.panHorizontal = false;
-          console.log(currentViewer.panHorizontal);
-          currentViewer.addHandler("canvas-drag", function (data) {
-            // Emulate swipe
-            if (data.speed > 650) {
-              var direction = Math.abs(data.direction)
-              if (direction >= 0 && direction <= 0.75) {
-                currentViewer.goToPage(currentViewer._sequenceIndex + 1);
-              } else {
-                currentViewer.goToPage(currentViewer._sequenceIndex - 1);
-              }
-            };
+          currentViewer.panVertical = false;
+          currentViewer.addHandler('canvas-drag-end', function (data) {
+            // Simulate swipe using drag direction.
+            var direction = Math.abs(data.direction);
+            if (direction <= 0.75) {
+              currentViewer.goToPage(currentViewer._sequenceIndex + 1);
+            } else if (direction >= 2.4) {
+              currentViewer.goToPage(currentViewer._sequenceIndex - 1);
+            }
           });
         } else {
+          currentViewer.preserveViewport = true;
           currentViewer.panHorizontal = true;
+          currentViewer.panVertical = true;
         }
       });
     }
