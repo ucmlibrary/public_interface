@@ -140,3 +140,18 @@
   font-size: .7em;
   color: #fff;
 }
+
+.exhibitDirectory__exhibits {
+  background-color: $design-light-gray-color;
+  padding: $layout-component-margin;
+}
+
+.exhibitDirectory__button-container {
+  @extend .collect-intro__button-container;
+  justify-content: center;
+}
+
+.exhibitDirectory__button {
+  @extend .collect-intro__button;
+  flex: 0 1 450px;
+}

@@ -174,6 +174,16 @@ class Theme(models.Model):
     publish = models.BooleanField(verbose_name='Ready for publication?', default=False)
     meta_description = models.CharField(max_length=255, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
+    
+    CALHISTORY = 'cal-history'
+    CALCULTURES = 'cal-cultures'
+    JARDA = 'jarda'
+    CATEGORY_CHOICES = (
+        (CALHISTORY, 'California History'),
+        (CALCULTURES, 'California Cultures'),
+        (JARDA, 'JARDA')
+    )
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, blank=True)
 
     def get_absolute_url(self):
         return reverse('exhibits:themeView', kwargs={'theme_id': self.id, 'theme_slug': self.slug})
@@ -346,6 +356,9 @@ class ExhibitTheme(models.Model):
     class Meta(object):
         unique_together = ('exhibit', 'theme')
         verbose_name = 'Exhibit'
+
+    def __str__(self):
+        return self.theme.title + ', ' + self.exhibit.title
 
 class LessonPlanTheme(models.Model):
     lessonPlan = models.ForeignKey(LessonPlan, on_delete=models.CASCADE)

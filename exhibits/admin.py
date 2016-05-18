@@ -145,7 +145,7 @@ class ThemeAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,                      {'fields': [('title', 'slug')]}),
         ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative')]}),
-        ('Publish',                 {'fields': [('color', 'publish')]}),
+        ('Publish',                 {'fields': [('color', 'publish'), ('category')]}),
         ('Theme Overview',          {'fields': [('essay', 'render_as')]}),
         ('About this Theme',        {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
