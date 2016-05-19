@@ -167,26 +167,47 @@
 .exhibit__essay-lockup-title { background-color: $design-dark-gray-color; }
 .exhibit__lesson-lockup-title { background-color: $design-dark-gray-color; }
 
-.exhibit__modal-arrow {
-  position: absolute;
-  display: block;
-  height: 100%;
-  top: 0;
-  padding: 0 $layout-component-margin;
-  margin: 0 (-$layout-component-margin);
+.exhibit__modal {
+  display: flex;
 }
 
-.exhibit__modal-arrow--right {
-  @extend .exhibit__modal-arrow;
-  right: $layout-component-margin;
+.exhibit__modal-content {
+  flex: 1 1 0;
+  margin: 20px 0;
+}
+
+.exhibit__modal-metadata-container {
+  padding: 0 25px;
+  border-left: 1px solid $design-primary-color;
+  display: flex;
+  flex-direction: column;
+}
+
+.exhibit__modal-metadata hr {
+  margin-top: 3px;
+}
+
+.exhibit-item__count {
+  width: 100%;
+  text-align: right;
+}
+
+.exhibit__modal-description {
+  flex: 1 1 0;
+}
+
+.exhibit__modal-metadata {
+  flex: 0 1 0;
+}
+
+.exhibit__modal-arrow {
+  padding: 20px;
+  flex: 0 1 auto;
+  display: flex;
 }
 
 .exhibit__modal-arrow-position {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  margin: auto 0;
 }
 
 .exhibit__modal-arrow:hover {
