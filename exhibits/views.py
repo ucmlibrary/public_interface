@@ -25,29 +25,45 @@ def exhibitRandom(request):
     exhibit_theme_list_by_fives = []
     sublist = []
     count = 0
-    
-    print len(exhibit_theme_list)
-    for item in exhibit_theme_list:
-        if count < 4:
-            sublist.append(item)
-            if isinstance(item, Exhibit):
+
+    for index, item in enumerate(exhibit_theme_list):
+        if isinstance(item, Exhibit):
+            if count < 5:
+                sublist.append(('exhibit', item))
                 count += 1
-            if isinstance(item, Theme):
-                count += 2
-        elif count < 5:
-            if isinstance(item, Exhibit):
-                sublist.append(item)
-                count += 1
-            # if isinstance(item, Theme):
-        else: 
-            count = 0         
-            exhibit_theme_list_by_fives.append(sublist)
-            print sublist
-            sublist = []
-    
-    print exhibit_theme_list_by_fives
-        
-    return render(request, 'exhibits/exhibitRandomExplore.html', {'sets': exhibit_theme_list})
+            else:
+                exhibit_theme_list_by_fives.append(sublist)
+                sublist = [('exhibit', item)]
+                count = 1
+        elif isinstance(item, Theme):
+            if count < 4:
+                sublist.append(('theme', item))
+                count +=2
+            elif count < 5:
+                # find next instance of exhibit and swap this theme for that exhibit
+                for swap in range(index+1, len(exhibit_theme_list)):
+                    if isinstance(exhibit_theme_list[swap], Exhibit):
+                        tmp = exhibit_theme_list[swap]
+                        exhibit_theme_list[swap] = exhibit_theme_list[index]
+                        exhibit_theme_list[index] = tmp
+                        break
+
+                if isinstance(exhibit_theme_list[index], Exhibit):
+                    sublist.append(('exhibit', exhibit_theme_list[index]))
+                    count += 1
+                else:
+                    # haven't found anything to swap with, so this will be a short row
+                    exhibit_theme_list_by_fives.append(sublist)
+                    sublist = [('theme', item)]
+                    count = 2
+            else:
+                exhibit_theme_list_by_fives.append(sublist)
+                sublist = [('theme', item)]
+                count = 2
+
+    exhibit_theme_list_by_fives.append(sublist)
+
+    return render(request, 'exhibits/exhibitRandomExplore.html', {'sets': exhibit_theme_list_by_fives, 'sets_standard': exhibit_theme_list})
 
 def exhibitDirectory(request, category):
     if category in list(category for (category, display) in Theme.CATEGORY_CHOICES):
