@@ -17,9 +17,7 @@
   
   <div class="exhibit__hero" style="background-image: url('{{ thumbnailUrl }}clip/1400x280/{{ essay.hero }}')">
     <div class="col-sm-6">
-      {% if essay.blockquote %}
-        <blockquote class="exhibit__blockquote">{{ essay.blockquote }}</blockquote>
-      {% endif %}
+      {% if essay.blockquote %}<blockquote class="exhibit__blockquote">{{ essay.blockquote }}</blockquote>{% endif %}
     </div>
   </div>
 
