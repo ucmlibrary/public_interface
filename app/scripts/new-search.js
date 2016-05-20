@@ -9,7 +9,9 @@ var exhibitPage = Backbone.View.extend({
     'click .js-exhibit-item'            : 'exhibitItemView',
     'hidden.bs.modal #js-exhibit-item'  : 'exhibitView',
     'click #js-exhibit__overview'       : 'toggleExhibitOverview',
-    'click .js-show-all-exhibit-items'  : 'togglePrimarySourceSet'
+    'click .js-show-all-exhibit-items'  : 'togglePrimarySourceSet',
+    'mouseenter .primarysource__link'   : 'dotDotDot',
+    'mouseleave .primarysource__link'   : 'killDotDotDot',
   },
   exhibitItemView: function(e) {
     // Middle click, cmd click, and ctrl click should open
@@ -52,6 +54,14 @@ var exhibitPage = Backbone.View.extend({
     } else {
       $('.js-show-all-exhibit-items').text('View all');
     }
+  },
+
+  dotDotDot: function(e) {
+    $(e.currentTarget).find('.exhibit__caption').dotdotdot();
+  },
+
+  killDotDotDot: function(e) {
+    $(e.currentTarget).find('.exhibit__caption').trigger('destroy');
   },
   
   initCarousel: function() {

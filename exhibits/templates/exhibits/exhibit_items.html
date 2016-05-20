@@ -49,7 +49,7 @@
 
           <div class="exhibit__caption">
             {% if item.solrData %}
-              {{ item.solrData.title.0|truncatechars:23 }}
+              {{ item.solrData.title.0 }}
             {% else %}
               {{ item.item_id }} not in Calisphere solr index
             {% endif %}

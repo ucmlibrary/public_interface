@@ -220,6 +220,28 @@
   background-color: $design-dark-gray-color;
   color: white;
   padding: 10px;
+  height: calc(1.4em + 20px);
+  overflow: hidden;
+}
+
+.exhibit__caption:after {
+  content: ' ';
+  display: block;
+  height: 10px;
+  width: 100%;
+  background-color: $design-dark-gray-color;
+  position: absolute;
+  bottom: 0;
+}
+
+.primarysource__link:hover .exhibit__caption {
+  background-color: #9c9e9f;
+  height: auto;
+  max-height: calc(3*1.4em + 20px);
+}
+
+.primarysource__link:hover .exhibit__caption:after {
+  background-color: #9c9e9f;
 }
 
 .exhibit__items .thumbnail__link:hover {
