@@ -47,6 +47,7 @@ class Exhibit(models.Model):
     lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Lockup Image', upload_to='uploads/')
     alternate_lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Alternate Lockup Image', upload_to='uploads/')
     item_id = models.CharField(blank=True, max_length=200)
+    hero_first = models.BooleanField(verbose_name='Use hero for lockups?', default=False)
 
     meta_description = models.CharField(max_length=255, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
@@ -58,24 +59,30 @@ class Exhibit(models.Model):
         return reverse('exhibits:exhibitView', kwargs={'exhibit_id': self.id, 'exhibit_slug': self.slug})
 
     def exhibit_lockup(self):
-        item_id_search_term = 'id:"{0}"'.format(self.item_id)
-        item_solr_search = SOLR_select(q=item_id_search_term)
-        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
-            return settings.THUMBNAIL_URL + "crop/273x182/" + item_solr_search.results[0]['reference_image_md5']
-        elif self.hero:
+        if self.hero_first:
             return settings.THUMBNAIL_URL + "crop/273x182/" + self.hero.name
         else:
-            return None
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "crop/273x182/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "crop/273x182/" + self.hero.name
+            else:
+                return None
 
     def exhibit_lockup_sm(self):
-        item_id_search_term = 'id:"{0}"'.format(self.item_id)
-        item_solr_search = SOLR_select(q=item_id_search_term)
-        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
-            return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
-        elif self.hero:
+        if self.hero_first:
             return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
         else:
-            return None
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
+            else:
+                return None
     
     push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
     def save(self, *args, **kwargs):
@@ -102,6 +109,7 @@ class HistoricalEssay(models.Model):
     lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Lockup Image', upload_to='uploads/')
     alternate_lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Alternate Lockup Image', upload_to='uploads/')
     item_id = models.CharField(blank=True, max_length=200)
+    hero_first = models.BooleanField(verbose_name='Use hero for lockups?', default=False)
 
     blockquote = models.CharField(max_length=200, blank=True)
     essay = models.TextField(blank=True)
@@ -138,14 +146,17 @@ class HistoricalEssay(models.Model):
                     self._meta.get_field(s3field).upload_to = upload_to
 
     def lockup(self):
-        item_id_search_term = 'id:"{0}"'.format(self.item_id)
-        item_solr_search = SOLR_select(q=item_id_search_term)
-        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
-            return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
-        elif self.hero:
+        if self.hero_first:
             return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
         else:
-            return None
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
+            else:
+                return None
 
     def __str__(self):
         return self.title
@@ -156,7 +167,8 @@ class LessonPlan(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     overview = models.TextField(blank=True)
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
-    lesson_plan = models.FileField(blank=True, verbose_name='Lesson Plan File', upload_to='uploads/')
+    lesson_plan = models.CharField(max_length=255, verbose_name='Lesson Plan File URL')
+    # lesson_plan = models.FileField(blank=True, verbose_name='Lesson Plan File', upload_to='uploads/')
     grade_level = models.CharField(max_length=200, blank=True)
     byline = models.TextField(blank=True)
     byline_render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
@@ -184,6 +196,7 @@ class Theme(models.Model):
     lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Lockup Image', upload_to='uploads/')
     alternate_lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Alternate Lockup Image', upload_to='uploads/')
     item_id = models.CharField(blank=True, max_length=200)
+    hero_first = models.BooleanField(verbose_name='Use hero for lockups?', default=False)
 
     publish = models.BooleanField(verbose_name='Ready for publication?', default=False)
     meta_description = models.CharField(max_length=255, blank=True)
@@ -203,14 +216,17 @@ class Theme(models.Model):
         return reverse('exhibits:themeView', kwargs={'theme_id': self.id, 'theme_slug': self.slug})
 
     def theme_lockup(self):
-        item_id_search_term = 'id:"{0}"'.format(self.item_id)
-        item_solr_search = SOLR_select(q=item_id_search_term)
-        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
-            return settings.THUMBNAIL_URL + "crop/420x210/" + item_solr_search.results[0]['reference_image_md5']
-        elif self.hero:
+        if self.hero_first:
             return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
         else:
-            return None
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "crop/420x210/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
+            else:
+                return None
 
     push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
     def save(self, *args, **kwargs):
@@ -247,6 +263,7 @@ class ExhibitItem(models.Model):
 
     custom_crop = models.ImageField(blank=True, null=True, upload_to='uploads/custom_item_crop/')
     custom_link = models.CharField(max_length=512, blank=True)
+    custom_title = models.CharField(max_length=512, blank=True)
 
     #lat/long models
     lat = models.FloatField(default=37.8086906)

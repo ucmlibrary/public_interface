@@ -117,7 +117,11 @@
   {% else %}
     <div class="exhibit__modal-content">
       <div class="obj-container__simple-{% if exhibitItem.custom_crop %}image{% else %}tile{% endif %}">
-        <a class="obj__link" href="http://content.cdlib.org/{{ exhibitItem.item_id }}">
+        {% if item.custom_link %}
+          <a class="obj__link" href="{{ exhibitItem.custom_link }}">
+        {% else %}
+          <a class="obj__link" href="http://content.cdlib.org/{{ exhibitItem.item_id }}">
+        {% endif %}
         {% if exhibitItem.custom_crop %}
           <div class="obj__icon-container">
             <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ exhibitItem.custom_crop }}">
@@ -132,7 +136,19 @@
       </div>
     </div>
     <div class="exhibit__modal-content exhibit__modal-metadata-container">
-      {% include "exhibits/render_as.html" with render_as=exhibitItem.render_as text=exhibitItem.essay truncate=False container_class="" %}
+      <div class="exhibit__modal-description">
+        {% include "exhibits/render_as.html" with render_as=exhibitItem.render_as text=exhibitItem.essay truncate=False container_class="" %}
+      </div>
+      <div class="exhibit__modal-metadata">
+        <div class="exhibit-item__count">{{ item_count }} of {{ total_count }}</div>
+        <hr>
+        {% if exhibitItem.custom_title %}
+        <dl class="meta-block__list">
+            <dt class="meta-block__type">Title</dt>
+            <dd class="meta-block__defin">{{ exhibitItem.custom_title }}</dd>
+        </dl>
+        {% endif %}
+      </div>
     </div>
   {% endif %}
 

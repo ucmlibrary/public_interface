@@ -8,7 +8,7 @@ from models import *
 
 class ExhibitItemInline(admin.TabularInline):
     model = ExhibitItem
-    fields = ['order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link']
+    fields = ['order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link', 'custom_title']
     extra = 0
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
@@ -103,7 +103,7 @@ class BrowseTermGroupInline(admin.TabularInline):
 class HistoricalEssayAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,                      {'fields': [('title', 'slug'), ('blockquote')]}),
-        ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative')]}),
+        ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative'), ('hero_first')]}),
         ('Publish',                 {'fields': [('color', 'publish')]}),
         ('Essay',                   {'fields': [('essay', 'render_as'), ('go_further', 'go_further_render_as')], 'description': 'Use <code>&lt;h2&gt;</code> as the highest level heading for essays. Use <code>&lt;h4&gt;</code> for headings in Go Further.'}),
         ('About this Essay',        {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
@@ -116,7 +116,7 @@ class HistoricalEssayAdmin(admin.ModelAdmin):
 class ExhibitAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,                      {'fields': [('title', 'slug'), ('short_title', 'blockquote')]}),
-        ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative')]}),
+        ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative'), ('hero_first')]}),
         ('Publish',                 {'fields': [('color', 'publish'), ('scraped_from')]}),
         ('Exhibit Overview',        {'fields': [('overview', 'render_as')]}),
         ('About this Exhibit',      {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
@@ -144,7 +144,7 @@ class BrowseTermGroupAdmin(admin.ModelAdmin):
 class ThemeAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,                      {'fields': [('title', 'slug')]}),
-        ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative')]}),
+        ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative'), ('hero_first')]}),
         ('Publish',                 {'fields': [('color', 'publish'), ('category')]}),
         ('Theme Overview',          {'fields': [('essay', 'render_as')]}),
         ('About this Theme',        {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
