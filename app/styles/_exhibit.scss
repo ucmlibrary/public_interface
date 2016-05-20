@@ -25,23 +25,27 @@
 
 .exhibit__items {
   background-color: #f0f0f0;
-  margin: $layout-component-margin (-$layout-component-margin);
-  padding: $layout-component-margin;
+  margin: $exhibit-layout-component-margin (-$layout-component-margin);
+  padding: $exhibit-layout-component-margin;
 }
 
 .exhibit__items-header {
   display: inline-block; 
-  margin: 0 20px 0 0;
+  margin: 0 $exhibit-layout-component-margin 0 0;
 }
 
 .exhibit__overview {
   @include bp(md-screen) {
-    padding: 0 $layout-component-margin $layout-component-margin 0;    
+    padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
   }
 }
 
 .exhibit__overview h3, .exhibit__notes h3 {
   font-size: 18px;
+}
+
+.exhibit__overview h3:first-of-type {
+  margin-top: 0;
 }
 
 .exhibit__overview h4, .exhibit__notes h4 {
@@ -51,34 +55,43 @@
 
 .exhibit__notes {
   @include bp(md-screen) {
-    padding: 30px 0 $layout-component-margin $layout-component-margin;    
+    padding: 0 0 $exhibit-layout-component-margin $exhibit-layout-component-margin;
   }
 }
 
 .exhibit__notes h3 {
+  margin-top: $exhibit-layout-component-margin;
   color: $design-secondary-color;
 }
 
 .exhibit__note {
   border: 1px solid black;
-  padding: 0 $layout-component-margin $layout-component-margin $layout-component-margin;
-  margin-top: 20px;
+  padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin $exhibit-layout-component-margin;
+  margin-top: $exhibit-layout-component-margin;
+}
+
+.exhibit__note:first-of-type {
+  margin-top: 0;
 }
 
 .essay__note {
   border: 1px solid black;
-  padding: $layout-component-margin;
-  margin-bottom: $layout-component-margin;
+  padding: $exhibit-layout-component-margin;
+  margin-bottom: $exhibit-layout-component-margin;
 }
 
 .essay__note h3 {
   margin-top: 0;
 }
 
+.exhibit__byline {
+  margin-bottom: $exhibit-layout-component-margin;
+}
+
 .exhibit__related-materials {
   border-top: 2px solid #f36f23; 
-  margin: 20px -20px; 
-  padding: 0 20px
+  margin: 0 (-$layout-component-margin);
+  padding: 0 $exhibit-layout-component-margin
 }
 
 .exhibit__related-carousel {
@@ -91,9 +104,8 @@
   }
 }
 
-
 .exhibit__lockup--med {
-  margin: $layout-component-margin $layout-component-margin $layout-component-margin 0;
+  margin: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
   min-height: 100px;
 }
 
@@ -201,8 +213,10 @@
 }
 
 .exhibit__caption {
-  position: relative;
-  top: -35px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background-color: $design-dark-gray-color;
   color: white;
   padding: 10px;
@@ -240,7 +254,39 @@
   color: #FFF;
 }
 
+.primarysource {
+  clear: right;
+  margin: 0 0 $exhibit-layout-component-margin (-$exhibit-layout-component-margin);
+}
+
 .primarysource__link {
   @extend .thumbnail__link;
-  margin: 25px 0 25px 25px;
+  margin: $exhibit-layout-component-margin 0 0 $exhibit-layout-component-margin;
+}
+
+.exhibitDirectory__intro hr {
+  margin: $exhibit-layout-component-margin 0;
+}
+
+.exhibitDirectory h2:first-of-type {
+  margin-top: 0;
+}
+
+.exhibitDirectory__exhibits {
+  background-color: $design-light-gray-color;
+  padding: $exhibit-layout-component-margin 0 0 $exhibit-layout-component-margin;
+}
+
+.exhibitDirectory__button-container {
+  @extend .collect-intro__button-container;
+  justify-content: center;
+}
+
+.exhibitDirectory__button {
+  @extend .collect-intro__button;
+  flex: 0 1 450px;
+}
+
+.essay__content {
+  margin-top: $exhibit-layout-component-margin;
 }

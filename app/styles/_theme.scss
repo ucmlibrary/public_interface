@@ -14,7 +14,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  padding: $layout-component-margin;
+  padding: $exhibit-layout-component-margin;
   color: #fff;
 
   background-image: inherit;
@@ -24,60 +24,34 @@
   margin: 0;
 }
 
-//Add a five-column layout to bootstrap
-//.col-xs-2-4,
-//.col-sm-2-4,
-//.col-md-2-4,
-//.col-lg-2-4 {
-//  position: relative;
-//  min-height: 1px;
-//  padding-right: 0px;
-//  padding-left: 0px;
-//}
-//
-//.col-xs-2-4 {
-//  width: 20%;
-//  float: left;
-//}
-//@media (min-width: $screen-sm-min) {
-//  .col-sm-2-4 {
-//    width: 20%;
-//    float: left;
-//  }
-//}
-//@media (min-width: $screen-md-min) {
-//  .col-md-2-4 {
-//    width: 20%;
-//    float: left;
-//  }
-//}
-//@media (min-width: $screen-lg-min) {
-//  .col-lg-2-4 {
-//    width: 20%;
-//    float: left;
-//  }
-//}
-
 .theme__main-content {
-  margin: $layout-component-margin (-$layout-component-margin);
+  margin: $exhibit-layout-component-margin (-$layout-component-margin);
   display: flex;
   flex-wrap: wrap;
 }
 
 .theme__overview {
   background-color: $design-dark-gray-color;
-  padding: $layout-component-margin;
+  padding: $exhibit-layout-component-margin;
   color: #fff;
   display: flex;
   flex-direction: column;
 }
 
+.theme__overview h2:first-of-type {
+  margin-top: 0;
+}
+
 .theme__exhibits {
   background-color: $design-light-gray-color;
-  padding: $layout-component-margin;
+  padding: $exhibit-layout-component-margin 0 0 $exhibit-layout-component-margin;
   display: flex;
   flex-direction: column;
 }
+
+.theme__exhibits h2:first-of-type {
+  margin-top: 0;
+};
 
 .browseTerm {
   width: 100%;
@@ -100,7 +74,7 @@
 }
 
 .theme__lockup--horizontal {
-  margin: $layout-component-margin $layout-component-margin $layout-component-margin 0;
+  margin: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
   min-height: 100px;
 }
 
@@ -138,19 +112,4 @@
   padding-bottom: $layout-component-margin;
   font-size: .7em;
   color: #fff;
-}
-
-.exhibitDirectory__exhibits {
-  background-color: $design-light-gray-color;
-  padding: $layout-component-margin;
-}
-
-.exhibitDirectory__button-container {
-  @extend .collect-intro__button-container;
-  justify-content: center;
-}
-
-.exhibitDirectory__button {
-  @extend .collect-intro__button;
-  flex: 0 1 450px;
 }

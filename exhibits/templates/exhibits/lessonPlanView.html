@@ -63,8 +63,8 @@
   
   {% if lessonPlan.byline %}
   <div class="row">
-    <h2>About this lesson plan:</h2>
-    {% include "exhibits/render_as.html" with render_as=lessonPlan.byline_render_as text=lessonPlan.byline truncate=False container_class="" %}
+    <h3>About this lesson plan:</h3>
+    {% include "exhibits/render_as.html" with render_as=lessonPlan.byline_render_as text=lessonPlan.byline truncate=False container_class="exhibit__byline" %}
   </div>
   {% endif %}
   

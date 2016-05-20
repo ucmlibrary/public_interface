@@ -75,7 +75,7 @@
   {% if exhibit.byline %}
   <div class="row">
     <h2>About this exhibition:</h2>
-    {% include "exhibits/render_as.html" with render_as=exhibit.byline_render_as text=exhibit.byline truncate=False container_class="" %}
+    {% include "exhibits/render_as.html" with render_as=exhibit.byline_render_as text=exhibit.byline truncate=False container_class="exhibit__byline" %}
   </div>
   {% endif %}
 
