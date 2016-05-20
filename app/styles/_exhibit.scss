@@ -1,19 +1,5 @@
-#exhibit__breadcrumb li:after {
-  content: " / ";
-}
-
-#exhibit__breadcrumb, #exhibit__breadcrumb li {
-  padding-left: 0;
-  list-style-type: none;
-  display: inline-block;
-}
-
 .hidden-content {
   display: none;
-}
-
-.exhibit__header {
-  margin-top: 0;
 }
 
 .exhibit__hero {

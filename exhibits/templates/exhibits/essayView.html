@@ -8,12 +8,12 @@
 
 {% block content %}
   <nav role="navigation">
-    <ol id="exhibit__breadcrumb">
+    <ol id="global__breadcrumb">
       <li><a href="{% url 'exhibits:randomExplore' %}" data-pjax="js-pageContent">Exhibitions</a></li>
     </ol>
   </nav>
   
-  <h1 class="exhibit__header" id="js-exhibit-title" data-slug="{{ essay.slug }}">Essay: {{ essay.title }}</h1>
+  <h1 class="global__breadcrumb-header" id="js-exhibit-title" data-slug="{{ essay.slug }}">Essay: {{ essay.title }}</h1>
   
   <div class="exhibit__hero" style="background-image: url('{{ thumbnailUrl }}clip/1400x280/{{ essay.hero }}')">
     <div class="col-sm-6">

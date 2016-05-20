@@ -62,6 +62,8 @@ class Exhibit(models.Model):
         item_solr_search = SOLR_select(q=item_id_search_term)
         if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
             return settings.THUMBNAIL_URL + "crop/273x182/" + item_solr_search.results[0]['reference_image_md5']
+        elif self.hero:
+            return settings.THUMBNAIL_URL + "crop/273x182/" + self.hero.name
         else:
             return None
 
@@ -70,6 +72,8 @@ class Exhibit(models.Model):
         item_solr_search = SOLR_select(q=item_id_search_term)
         if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
             return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
+        elif self.hero:
+            return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
         else:
             return None
     
@@ -133,6 +137,16 @@ class HistoricalEssay(models.Model):
                     super(HistoricalEssay, self).save(*args, **kwargs)
                     self._meta.get_field(s3field).upload_to = upload_to
 
+    def lockup(self):
+        item_id_search_term = 'id:"{0}"'.format(self.item_id)
+        item_solr_search = SOLR_select(q=item_id_search_term)
+        if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+            return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
+        elif self.hero:
+            return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
+        else:
+            return None
+
     def __str__(self):
         return self.title
 
@@ -193,6 +207,8 @@ class Theme(models.Model):
         item_solr_search = SOLR_select(q=item_id_search_term)
         if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
             return settings.THUMBNAIL_URL + "crop/420x210/" + item_solr_search.results[0]['reference_image_md5']
+        elif self.hero:
+            return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
         else:
             return None
 
