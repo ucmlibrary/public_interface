@@ -842,9 +842,11 @@ def collectionView(request, collection_id):
 
       # Add custom facet only if doesn't already exist.
       [FACET_FILTER_TYPES.append(facet) for facet in extra_facet_types if facet not in FACET_FILTER_TYPES]
+
     else:
-      # If collection_details['custom_facet'] is empty set FACET_FILTER_TYPES back to the original length.
-      FACET_FILTER_TYPES[:4]
+      # If collection_details['custom_facet'] is empty, remove extra facet types from FACET_FILTER_TYPES.
+      if len(FACET_FILTER_TYPES) > len(DEFAULT_FACET_FILTER_TYPES):
+        [FACET_FILTER_TYPES.remove(facet) for facet in FACET_FILTER_TYPES if facet not in DEFAULT_FACET_FILTER_TYPES]
 
     facet_fields = list(facet_filter_type['facet'] for facet_filter_type in FACET_FILTER_TYPES if facet_filter_type['facet'] != 'collection_data')
 
