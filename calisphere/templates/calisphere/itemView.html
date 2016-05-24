@@ -18,11 +18,11 @@
     {% include "calisphere/item.html" %}
   {% endblock %}
 </div>
-
+{% if not item.fromItemPage %}
 <div class="related-coll--search-results-page" id="js-relatedCollections">
   {% include "calisphere/related-collections.html" %}
 </div>
-
+{% endif %}
 <!--
   header returned from solr; for debugging
   {{ item_solr_search.header|safe }}
