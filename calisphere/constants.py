@@ -1,6 +1,6 @@
 # FACETS are retrieved from Solr for a user to potentially FILTER on
 # FILTERS are FACETS that have been selected by the user already
-# We use more robust solr fields for a FACET (_data) 
+# We use more robust solr fields for a FACET (_data)
 # so we don't have to hit registry for a repository name just to enumerate available FACETS
 # We use more specific solr fields for a FILTER (_url)
 # so if there is a change in some of the robust data and a harvest hasn't been run (ie - a collection name changes)
@@ -19,6 +19,9 @@ FACET_FILTER_TYPES = [
     {'facet': 'repository_data', 'display_name': 'Contributing Institution', 'filter': 'repository_url'},
     {'facet': 'collection_data', 'display_name': 'Collection', 'filter': 'collection_url'}
 ]
+
+# Make a copy of FACET_FILTER_TYPES to reset to original.
+DEFAULT_FACET_FILTER_TYPES = FACET_FILTER_TYPES[:]
 
 CAMPUS_LIST = [
  {'featuredImage': {'src': '/thumb-uc_berkeley.jpg',
