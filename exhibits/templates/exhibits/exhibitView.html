@@ -1,0 +1,153 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load markdown_filter %}
+
+{% block page-metadata %}
+{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% endblock %}
+
+{% block content %}
+  <div class="modal fade" id="js-exhibit-item" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 100%;">
+      <div class="modal-header" style="margin-bottom: 10px; border-bottom: 0">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #fff; text-shadow: 0; opacity: 1" data-url="{{ exhibit.get_absolute_url }}"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-content" style="border-radius: 0;">
+        <div id="js-exhibit-item__container">
+          {% block itemContent %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav role="navigation">
+    <ol id="global__breadcrumb">
+      <li>
+        <a href="{% url 'exhibits:randomExplore' %}" data-pjax="js-pageContent">Exhibitions</a>
+      </li>
+      {% if relatedExhibitsByTheme|length > 0 %}
+        <li>
+          <a href="{{ relatedExhibitsByTheme.0.0.get_absolute_url }}" aria-level="1" data-pjax="js-pageContent">
+            {{ relatedExhibitsByTheme.0.0 }}
+          </a>
+        </li>
+      {% endif %}
+    </ol>
+  </nav>
+  
+  <h1 class="global__breadcrumb-header" id="js-exhibit-title" data-slug="{{ exhibit.slug }}">{{ exhibit.title }}</h1>
+  
+  <div class="exhibit__hero" style="background-image: url('{{ thumbnailUrl }}clip/1400x280/{{ exhibit.hero }}')">
+    <div class="col-sm-6">
+      {% if exhibit.blockquote %}
+        <blockquote class="exhibit__blockquote">{{ exhibit.blockquote }} <a href="#overview">Read full overview</a></blockquote>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="exhibit__items">
+    <h2 class="exhibit__items-header">{{ exhibitItems|length }} exhibition items</h2>
+    {% if exhibitItems|length > 12 %}<a href="javascript: void(0)" class="js-show-all-exhibit-items">View all</a>{% endif %}
+    {% include "exhibits/exhibit_items.html" with url_name='exhibits:itemView' url_id=exhibit.id %}
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="exhibit__overview" id="overview">
+        {% include "exhibits/render_as.html" with render_as=exhibit.render_as text=exhibit.overview truncate=True container_class="js-exhibit__overview" %}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="exhibit__notes">
+        {% for note in exhibit.notesitem_set.all %}
+          <div class="exhibit__note">
+            <h3>{{ note.title }}</h3>
+            {% include "exhibits/render_as.html" with render_as=note.render_as text=note.essay truncate=False container_class="" %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% if exhibit.byline %}
+  <div class="row">
+    <h2>About this exhibition:</h2>
+    {% include "exhibits/render_as.html" with render_as=exhibit.byline_render_as text=exhibit.byline truncate=False container_class="exhibit__byline" %}
+  </div>
+  {% endif %}
+
+  <div class="exhibit__related-materials">
+  {% if relatedExhibitsByTheme|length > 0 %}
+    {% for theme, exhibits in relatedExhibitsByTheme %}
+      <h3>Explore more exhibitions in "<a href="{{ theme.get_absolute_url }}">{{ theme }}</a>" ({{ exhibits|length }}):</h3>
+      <div class="row js-related-carousel exhibit__related-carousel">
+        {% for exhibit in exhibits %}
+          <div class="col-xs-2 col-md-3">
+            <a href="{{ exhibit.exhibit.get_absolute_url }}" data-pjax="js-pageContent">
+              <div class="exhibit__lockup--small">
+                <div class="aspect-ratio-content exhibit__lockup--small-image" style="background-image: url({{ exhibit.exhibit.exhibit_lockup_sm }});">
+                  <div class="exhibit__lockup--small-title">{{ exhibit.exhibit.short_title }}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endif %}
+    
+  {% if exhibit.historicalessayexhibit_set.all|length > 0 %}
+    <h3>Read related essays ({{ exhibit.historicalessayexhibit_set.all|length }}):</h3>
+    <div class="row js-related-carousel exhibit__related-carousel">
+      {% for hee in exhibit.historicalessayexhibit_set.all %}
+        <div class="col-xs-2 col-md-3">
+          <a href="{{ hee.historicalEssay.get_absolute_url }}">
+            <div class="exhibit__essay-lockup">
+              <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url({{ hee.historicalEssay.lockup }});">
+                <div class="exhibit__essay-lockup-title">{{ hee.historicalEssay.title }}</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if exhibit.lessonplanexhibit_set.all|length > 0 %}
+    <h3>Just for teachers: lesson plans ({{ exhibit.lessonplanexhibit_set.all|length }}):</h3>
+    <div class="row js-related-carousel exhibit__related-carousel">
+      {% for lpe in exhibit.lessonplanexhibit_set.all %}
+        <div class="col-xs-2 col-md-3">
+          <a href="{{ lpe.lessonPlan.get_absolute_url }}">
+            <div class="exhibit__lesson-lockup">
+              <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url({{ exhibitMedia }}{{ lpe.lessonPlan.hero }});">
+                <div class="exhibit__lesson-lockup-title">{{ lpe.lessonPlan.title }}</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  </div>
+
+  {% for browse_term_group in exhibit.browsetermgroup_set.all %}
+    <!-- TODO: screwy logic here -->
+    {% if browse_term_group.group_title == theme.title %}
+      <h3>Browse related items:</h3>
+    {% else %}
+      <h3>Browse related items on {{ browse_term_group.group_title }}:</h3>
+    {% endif %}
+
+    <p>{{ browse_term_group.group_note }}</p>
+    <div class="theme__browseTerms" style="-webkit-column-count: 6">
+      {% for browse_term in browse_term_group.browseterm_set.all %}
+        <button class="browseTerm" onclick="location.href='{{ browse_term.link_location }}';">{{ browse_term.link_text }}</button>
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+
+{% endblock %}

@@ -60,6 +60,8 @@
 @import "thumbnail";
 @import "titlesearch";
 @import "toggle";
+@import "exhibit";
+@import "theme";
 
 // ***** Custom Layouts ***** //
 
@@ -90,6 +92,8 @@ strong {
 @media (min-width: $screen-lg-min), print and (min-width: $print-lg-min)  {
   @include make-grid(lg);
 }
+
+@import "five-column";
 
 // Bootstrap Container
 
