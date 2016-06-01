@@ -1,0 +1,314 @@
+.hidden-content {
+  display: none;
+}
+
+.exhibit__hero {
+  margin: 0 (-$layout-component-margin);
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+}
+
+.exhibit__blockquote {
+  margin: $layout-component-margin 0;
+  padding: 30px 30px 30px $layout-component-margin;
+  background-color: rgba(0,0,0,.5);
+  color: #FFF;
+  border: 0; 
+  line-height: 1.6em;
+}
+
+.exhibit__blockquote a {
+  color: #FFF; 
+  text-decoration: underline;
+}
+
+.exhibit__items {
+  background-color: #f0f0f0;
+  margin: $exhibit-layout-component-margin (-$layout-component-margin);
+  padding: $exhibit-layout-component-margin;
+}
+
+.exhibit__items-header {
+  display: inline-block; 
+  margin: 0 $exhibit-layout-component-margin 0 0;
+}
+
+.exhibit__overview {
+  @include bp(md-screen) {
+    padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
+  }
+}
+
+.exhibit__overview h3, .exhibit__notes h3 {
+  font-size: 18px;
+}
+
+.exhibit__overview h3:first-of-type {
+  margin-top: 0;
+}
+
+.exhibit__overview h4, .exhibit__notes h4 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.exhibit__notes {
+  @include bp(md-screen) {
+    padding: 0 0 $exhibit-layout-component-margin $exhibit-layout-component-margin;
+  }
+}
+
+.exhibit__notes h3 {
+  margin-top: $exhibit-layout-component-margin;
+  color: $design-secondary-color;
+}
+
+.exhibit__note {
+  border: 1px solid black;
+  padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin $exhibit-layout-component-margin;
+  margin-top: $exhibit-layout-component-margin;
+}
+
+.exhibit__note:first-of-type {
+  margin-top: 0;
+}
+
+.essay__note {
+  border: 1px solid black;
+  padding: $exhibit-layout-component-margin;
+  margin-bottom: $exhibit-layout-component-margin;
+}
+
+.essay__note h3 {
+  margin-top: 0;
+}
+
+.exhibit__byline {
+  margin-bottom: $exhibit-layout-component-margin;
+}
+
+.exhibit__related-materials {
+  border-top: 2px solid #f36f23; 
+  margin: 0 (-$layout-component-margin);
+  padding: 0 $exhibit-layout-component-margin
+}
+
+.exhibit__related-carousel {
+  @include bp(sm-screen) {
+    padding: 0 35px;    
+  }
+
+  @include bp(md-screen) {
+    padding: 0 45px;
+  }
+}
+
+.exhibit__lockup--med {
+  margin: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
+  min-height: 100px;
+}
+
+.exhibit__lockup--med-image {
+  @include aspect-ratio(1.5, 1);
+}
+
+.exhibit__lockup--med-image-content {
+  background-size: cover;
+  background-position: center;
+}
+
+.exhibit__lockup--med-title {
+  @include aspect-ratio(2.5, 1);
+}
+
+.exhibit__lockup--med-title-content {
+  background-color: #fff;
+  padding: $layout-component-margin;
+  color: $design-secondary-color;
+  font-size: 1.25em;
+}
+
+.exhibit__lockup--small, .exhibit__essay-lockup, .exhibit__lesson-lockup {
+  @include aspect-ratio(2.45, 1);
+  margin: $layout-component-margin $layout-component-margin $layout-component-margin 0;
+  min-height: 100px;
+}
+
+.exhibit__lockup--small-image, .exhibit__essay-lockup-image, .exhibit__lesson-lockup-image {
+  background-size: cover; 
+  background-position: center
+}
+
+.exhibit__lockup--small-title, .exhibit__essay-lockup-title, .exhibit__lesson-lockup-title {
+  width: 80%; 
+  float: right; 
+  height: 100%; 
+  padding: 10px 10px 10px $layout-component-margin; 
+  font-size: 1.1em; 
+  color: #fff; 
+  background-image: inherit; 
+  background-size: 125%; 
+  background-position: right; 
+  background-blend-mode: multiply;
+  
+  @include bp(md-screen) {
+    font-size: 1.1vw;
+  }
+}
+
+.exhibit__lockup--small-title:hover, .exhibit__essay-lockup-title:hover, .exhibit__lesson-lockup-title:hover {
+  background-image: none;
+}
+
+.exhibit__lockup--small-title { background-color: $design-secondary-color; }
+.exhibit__essay-lockup-title { background-color: $design-dark-gray-color; }
+.exhibit__lesson-lockup-title { background-color: $design-dark-gray-color; }
+
+.exhibit__modal {
+  display: flex;
+}
+
+.exhibit__modal-content {
+  flex: 1 1 0;
+  margin: 20px 0;
+}
+
+.exhibit__modal-metadata-container {
+  padding: 0 25px;
+  border-left: 1px solid $design-primary-color;
+  display: flex;
+  flex-direction: column;
+}
+
+.exhibit__modal-metadata hr {
+  margin-top: 3px;
+}
+
+.exhibit-item__count {
+  width: 100%;
+  text-align: right;
+}
+
+.exhibit__modal-description {
+  flex: 1 1 0;
+}
+
+.exhibit__modal-metadata {
+  flex: 0 1 0;
+}
+
+.exhibit__modal-arrow {
+  padding: 20px;
+  flex: 0 1 auto;
+  display: flex;
+}
+
+.exhibit__modal-arrow-position {
+  margin: auto 0;
+}
+
+.exhibit__modal-arrow:hover {
+  background-color: $design-light-gray-color;
+}
+
+.exhibit__caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $design-dark-gray-color;
+  color: white;
+  padding: 10px;
+  height: calc(1.4em + 20px);
+  overflow: hidden;
+}
+
+.exhibit__caption:after {
+  content: ' ';
+  display: block;
+  height: 10px;
+  width: 100%;
+  background-color: $design-dark-gray-color;
+  position: absolute;
+  bottom: 0;
+}
+
+.primarysource__link:hover .exhibit__caption {
+  background-color: #9c9e9f;
+  height: auto;
+  max-height: calc(3*1.4em + 20px);
+}
+
+.primarysource__link:hover .exhibit__caption:after {
+  background-color: #9c9e9f;
+}
+
+.exhibit__items .thumbnail__link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.lessonplan__info {
+  border: 1px solid black;
+}
+
+.lessonplan__info-box {
+  margin: 10px;
+}
+
+.lessonplan__header {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.lessonplan__h2 {
+  margin-top: 0;
+}
+
+.lessonPlan {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: $design-primary-color;
+  text-align: left;
+  border: 0;
+  border-radius: 4px;
+  color: #FFF;
+}
+
+.primarysource {
+  clear: right;
+  margin: 0 0 $exhibit-layout-component-margin (-$exhibit-layout-component-margin);
+}
+
+.primarysource__link {
+  @extend .thumbnail__link;
+  margin: $exhibit-layout-component-margin 0 0 $exhibit-layout-component-margin;
+}
+
+.exhibitDirectory__intro hr {
+  margin: $exhibit-layout-component-margin 0;
+}
+
+.exhibitDirectory h2:first-of-type {
+  margin-top: 0;
+}
+
+.exhibitDirectory__exhibits {
+  background-color: $design-light-gray-color;
+  padding: $exhibit-layout-component-margin 0 0 $exhibit-layout-component-margin;
+}
+
+.exhibitDirectory__button-container {
+  @extend .collect-intro__button-container;
+  justify-content: center;
+}
+
+.exhibitDirectory__button {
+  @extend .collect-intro__button;
+  flex: 0 1 450px;
+}
+
+.essay__content {
+  margin-top: $exhibit-layout-component-margin;
+}

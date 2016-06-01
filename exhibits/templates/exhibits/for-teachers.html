@@ -1,0 +1,23 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+{% load calisphere-extras %}
+{% load markdown_filter %}
+
+{% block page-metadata %}
+{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% endblock %}
+
+{% block content %}
+<h1>Lesson Plans</h1>
+<ul>
+  {% for lessonPlan in lessonPlans %}
+  <li><a href="{{ lessonPlan.get_absolute_url }}">{{ lessonPlan }}</a></li>
+  {% endfor %}
+</ul>
+
+<h1>Historical Essays</h1>
+<ul>
+  {% for historicalEssay in historicalEssays %}
+  <li><a href="{{ historicalEssay.get_absolute_url }}">{{ historicalEssay }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -141,6 +141,12 @@ $(document).ready(function() {
       }
     });
 
+    $(document).on('pjax:beforeSend', '#js-exhibit-item__container', function(e, xhr, options) {
+      if (options.container === '#js-exhibit-item__container') {
+        xhr.setRequestHeader('X-Exhibit-Item', 'true');
+      }
+    });
+
     $(document).on('pjax:end', '#js-pageContent', function() {
       globalSearchForm.pjax_end();
 
