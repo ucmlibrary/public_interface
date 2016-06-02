@@ -51,8 +51,6 @@
       <div class="exhibit__modal-description">
         {% if exhibitItem.essay %}
           {% include "exhibits/render_as.html" with render_as=exhibitItem.render_as text=exhibitItem.essay truncate=False container_class="" %}
-        {% else %}
-          {{ item.description.0 }}
         {% endif %}
       </div>
       <div class="exhibit__modal-metadata">
@@ -72,7 +70,7 @@
             <dd class="meta-block__defin">{{ item.date.0 }}</dd>
             {% endif %}
 
-            {% if 'description' in item and exhibitItem.essay %}
+            {% if 'description' in item %}
             <dt class="meta-block__type">Description</dt>
             <dd class="meta-block__defin">{{ item.description.0 }}</dd>
             {% endif %}
@@ -141,13 +139,7 @@
       </div>
       <div class="exhibit__modal-metadata">
         <div class="exhibit-item__count">{{ item_count }} of {{ total_count }}</div>
-        <hr>
-        {% if exhibitItem.custom_title %}
-        <dl class="meta-block__list">
-            <dt class="meta-block__type">Title</dt>
-            <dd class="meta-block__defin">{{ exhibitItem.custom_title }}</dd>
-        </dl>
-        {% endif %}
+        <!-- <hr> -->
       </div>
     </div>
   {% endif %}
