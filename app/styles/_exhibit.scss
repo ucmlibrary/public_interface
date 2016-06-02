@@ -107,7 +107,15 @@
 .exhibit__lockup--med {
   margin: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
   min-height: 100px;
+
+  // make space for the exhibit__lockup--med-title which is absolute positioned:
+  font-size: 16px;
+  padding-bottom: calc(3em + 40px);
 }
+
+.exhibit__lockup--med:hover {
+  box-shadow: 0 5px 10px #c3c3c3;
+};
 
 .exhibit__lockup--med-image {
   @include aspect-ratio(1.5, 1);
@@ -119,14 +127,27 @@
 }
 
 .exhibit__lockup--med-title {
-  @include aspect-ratio(2.5, 1);
-}
-
-.exhibit__lockup--med-title-content {
+  position: absolute;
+  bottom: $exhibit-layout-component-margin;
+  left: 0;
+  right: 0;
+  margin-right: $exhibit-layout-component-margin;
   background-color: #fff;
   padding: $layout-component-margin;
   color: $design-secondary-color;
-  font-size: 1.25em;
+}
+
+.exhibit__lockup--med:hover .exhibit__lockup--med-title-content {
+  height: auto;
+  transition: height 0.5s ease;
+  min-height: calc(3em + 5px);
+  max-height: 4.25em;
+};
+
+.exhibit__lockup--med-title-content {
+  font-size: 16px;
+  height: 3em;
+  overflow: hidden;
 }
 
 .exhibit__lockup--small, .exhibit__essay-lockup, .exhibit__lesson-lockup {
@@ -237,6 +258,7 @@
 .primarysource__link:hover .exhibit__caption {
   background-color: #9c9e9f;
   height: auto;
+  min-height: calc(1.4em + 20px);
   max-height: calc(3*1.4em + 20px);
 }
 
