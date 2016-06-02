@@ -77,7 +77,9 @@
   </div>
   {% endif %}
 
+  {% if relatedExhibitsByTheme|length > 0 or exhibit.historicalessayexhibit_set.all|length > 0 or exhibit.lessonplanexhibit_set.all|length > 0 %}
   <div class="exhibit__related-materials">
+  {% endif %}
   {% if relatedExhibitsByTheme|length > 0 %}
     {% for theme, exhibits in relatedExhibitsByTheme %}
       <h3>Explore more exhibitions in "<a href="{{ theme.get_absolute_url }}">{{ theme }}</a>" ({{ exhibits|length }}):</h3>
@@ -131,7 +133,9 @@
     </div>
   {% endif %}
   
+  {% if relatedExhibitsByTheme|length > 0 or exhibit.historicalessayexhibit_set.all|length > 0 or exhibit.lessonplanexhibit_set.all|length > 0 %}
   </div>
+  {% endif %}
 
   {% for browse_term_group in exhibit.browsetermgroup_set.all %}
     <!-- TODO: screwy logic here -->
