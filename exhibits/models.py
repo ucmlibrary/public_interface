@@ -59,7 +59,9 @@ class Exhibit(models.Model):
         return reverse('exhibits:exhibitView', kwargs={'exhibit_id': self.id, 'exhibit_slug': self.slug})
 
     def exhibit_lockup(self):
-        if self.hero_first:
+        if self.lockup_derivative:
+            return settings.THUMBNAIL_URL + "crop/273x182/" + self.lockup_derivative.name
+        elif self.hero_first:
             return settings.THUMBNAIL_URL + "crop/273x182/" + self.hero.name
         else:
             item_id_search_term = 'id:"{0}"'.format(self.item_id)

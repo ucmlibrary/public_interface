@@ -13,31 +13,21 @@
   <div class="col-md-3">
     <div class="row" style="margin-right: 10px;">
       <div class="button__exhibitDirectory-tabs-container">
+        <h3>Browse by theme:</h3>
         <a class="button__exhibitDirectory-tabs{% if selected == 'all' %}--selected{% endif %}"
           href="{% url 'exhibits:exhibitDirectory' 'all' %}" data-pjax="js-pageContent">
-          Browse all exhibitions A-Z
+          All exhibitions
         </a>
         {% for category, display in categories %}
           <a class="button__exhibitDirectory-tabs{% if selected == category %}--selected{% endif %}"
             href="{% url 'exhibits:exhibitDirectory' category %}" data-pjax="js-pageContent">
-            Browse {{ display }}
+            {{ display }}
           </a>
         {% endfor %}
         <a class="button__exhibitDirectory-tabs{% if selected == 'uncategorized' %}--selected{% endif %}"
           href="{% url 'exhibits:exhibitDirectory' 'uncategorized' %}" data-pjax="js-pageContent">
-          Browse uncategorized
+          Uncategorized
         </a>
-        <h3>Search for exhibitions:</h3>
-        <form class="exhibit__title-search" role="search" id="js-exhibitTitleSearch" action="{% url 'exhibits:exhibitDirectory' 'search' %}" method="get">
-          <label for="exhibit__search-field" class="exhibit__search-label" style="display: none;">Search exhibitions</label>
-          <div class="input-group">
-            <input id="exhibit__search-field" form="js-exhibitTitleSearch" name="title" value="{{ title }}" type="search" placeholder="Start typing exhibition name" class="form-control">
-            <span class="input-group-btn">
-              <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
-              </button>
-            </span>
-          </div>
-        </form>        
       </div>
     </div>
   </div>
@@ -57,7 +47,9 @@
                   </div>
                 </div>
                 <div class="exhibit__lockup--med-title">
-                  <div class="aspect-ratio-content exhibit__lockup--med-title-content">{{ exhibit }}</div>
+                  <div class="aspect-ratio-content">
+                    <div class=" exhibit__lockup--med-title-content">{{ exhibit }}</div>
+                  </div>
                 </div>
               </div>
             </a>
