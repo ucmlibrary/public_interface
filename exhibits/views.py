@@ -65,7 +65,15 @@ def exhibitRandom(request):
 
     return render(request, 'exhibits/exhibitRandomExplore.html', {'sets': exhibit_theme_list_by_fives, 'sets_standard': exhibit_theme_list})
 
-def exhibitDirectory(request, category):
+def exhibitSearch(request):
+    if request.method == 'GET' and len(request.GET.getlist('title')) > 0:
+        exhibits = Exhibit.objects.filter(title__icontains=request.GET['title']).order_by('title')
+        return render(request, 'exhibits/exhibitSearch.html', {'searchTerm': request.GET['title'], 'exhibits': exhibits})
+    else: 
+        exhibits = Exhibit.objects.all().order_by('title')
+        return render(request, 'exhibits/exhibitSearch.html', {'searchTerm': '', 'exhibits': exhibits})
+
+def exhibitDirectory(request, category='search'):
     if category in list(category for (category, display) in Theme.CATEGORY_CHOICES):
         themes = Theme.objects.filter(category=category)
         collated = []
@@ -76,8 +84,6 @@ def exhibitDirectory(request, category):
         
     if category == 'all': 
         exhibits = Exhibit.objects.all().order_by('title')
-    if category == 'search' and request.method == 'GET' and len(request.GET.getlist('title')) > 0:
-        exhibits = Exhibit.objects.filter(title__icontains=request.GET['title'])
     if category == 'uncategorized':
         exhibits = Exhibit.objects.filter(exhibittheme__isnull=True)
     return render(request, 'exhibits/exhibitDirectory.html', {'themes': [{'', exhibits}], 'categories': Theme.CATEGORY_CHOICES, 'selected': category})
