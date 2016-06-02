@@ -59,7 +59,8 @@
               <div class="theme__lockup--horizontal">
                 <div class="theme__lockup--horizontal-image">
                   <div class="aspect-ratio-content theme__lockup--horizontal-image-content" style="background-image: url('{{ theme.theme_lockup }}');">
-                    <div class="theme__lockup--horizontal-title" style="background-color: {{ theme.color }}">
+                  <div class="theme__lockup--horizontal-color" style="background-color: {{ theme.color }}"></div>
+                  <div class="theme__lockup--horizontal-title">
                       {{ theme.title }}
                       <div class="theme__lockup--horizontal-exhibit-count">{{ theme.exhibittheme_set.all|length }} exhibitions</div>
                     </div>
