@@ -3,38 +3,19 @@
 
 {% if truncate %}
   {% if render_as == 'H' %}
-    <div class="{{ container_class }}--preview">
-      {{ text|truncatewords_html:200|safe }}
-    </div>
-    <div class="{{ container_class }}--full hidden-content">
+    <div class="{{ container_class }}">
       {{ text|safe }}
-    </div>          
-    {% ifnotequal text|truncatewords_html:200|length text|truncatewords_html:201|length %}
-      <a href="javascript: void(0)" id="{{ container_class }}">Read full exhibition overview</a>
-    {% endifnotequal %}
-        
-  {% elif render_as == 'M' %}
-    <div class="{{ container_class }}--preview">
-      {{ text|markdownify|truncatewords_html:200|safe }}
     </div>
-    <div class="{{ container_class }}--full hidden-content">
+  {% elif render_as == 'M' %}
+    <div class="{{ container_class }}">
       {{ text|markdownify|safe }}
     </div>
-    {% ifnotequal text|markdownify|truncatewords_html:200|length text|markdownify|truncatewords_html:201|length %}
-      <a href="javascript: void(0)" id="{{ container_class }}">Read full exhibition overview</a>
-    {% endifnotequal %}
-      
   {% else %}
-    <div class="{{ container_class }}--preview">
-      {{ text|truncatewords:200 }}
-    </div>
-    <div class="{{ container_class }}--full hidden-content">
+    <div class="{{ container_class }}">
       {{ text }}
     </div>
-    {% ifnotequal text|truncatewords:200|length text|truncatewords:201|length %}
-      <a href="javascript: void(0)" id="js-exhibit__overview">Read full exhibition overview</a>
-    {% endifnotequal %}
   {% endif %}
+  <a href="javascript: void(0)" id="{{ container_class }}">Read full exhibition overview</a>
 {% else %}
   {% if render_as == 'H' %}
     <div class="{{ container_class }}">
@@ -43,10 +24,10 @@
   {% elif render_as == 'M' %}
     <div class="{{ container_class }}">
       {{ text|markdownify|safe }}
-    </div>          
+    </div>
   {% else %}
     <div class="{{ container_class }}">
       {{ text }}
-    </div>          
+    </div>
   {% endif %}
 {% endif %}

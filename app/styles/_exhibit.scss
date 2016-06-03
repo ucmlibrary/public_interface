@@ -34,6 +34,11 @@
   margin: 0 $exhibit-layout-component-margin 0 0;
 }
 
+.js-exhibit__overview {
+  height: 400px;
+  overflow: hidden;
+}
+
 .exhibit__overview {
   @include bp(md-screen) {
     padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;

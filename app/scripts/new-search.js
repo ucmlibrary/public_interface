@@ -36,14 +36,16 @@ var exhibitPage = Backbone.View.extend({
   },
   
   toggleExhibitOverview: function() {
-    if ($('.js-exhibit__overview--full').is(':visible')) {
-      $('.js-exhibit__overview--preview').show();
-      $('.js-exhibit__overview--full').slideUp();
+    var isTruncated = $('.js-exhibit__overview').triggerHandler('isTruncated');
+
+    if (isTruncated) {
+      $('.js-exhibit__overview').trigger('destroy');
+      $('.js-exhibit__overview').css('height', 'auto');
+      $('#js-exhibit__overview').text('Read less.');
+    }
+    else {
+      $('.js-exhibit__overview').css('height', '400px').dotdotdot();
       $('#js-exhibit__overview').text('Read full exhibition overview.');
-    } else {
-      $('.js-exhibit__overview--full').slideDown();
-      $('.js-exhibit__overview--preview').hide();
-      $('#js-exhibit__overview').text('Read less');
     }
   },
   
@@ -84,6 +86,10 @@ var exhibitPage = Backbone.View.extend({
         }
       ]
     });
+  },
+
+  clientTruncate: function() {
+    $('.js-exhibit__overview').dotdotdot();
   },
 
   initialize: function() {
@@ -818,6 +824,7 @@ var GlobalSearchForm = Backbone.View.extend({
     if($('#js-exhibit-title').length > 0) {
       if (this.exhibitPage === undefined) { this.exhibitPage = new exhibitPage(); }
       this.exhibitPage.initCarousel();
+      this.exhibitPage.clientTruncate();
     } else if (this.exhibitPage !== undefined) {
       this.exhibitPage.undelegateEvents();
       delete this.exhibitPage;
