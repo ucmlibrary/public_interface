@@ -10,6 +10,7 @@
   </a>
   {% endif %}
 
+  <div class="exhibit__modal-content-wrapper">
   {% if exhibitItem.solrData %}
   {% with item=exhibitItem.solrData %}
     <div class="exhibit__modal-content">
@@ -17,7 +18,7 @@
         <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}">
         {% if item.reference_image_md5 %}
           <div class="obj__icon-container">
-            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}" style="max-width: 100%">
             {% if item.type_ss.0|lower == "moving image" %}
             <div class="obj__overlay-icon fa-video-camera"></div>
             {% elif item.type_ss.0|lower == "sound"%}
@@ -122,7 +123,7 @@
         {% endif %}
         {% if exhibitItem.custom_crop %}
           <div class="obj__icon-container">
-            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ exhibitItem.custom_crop }}">
+            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ exhibitItem.custom_crop }}" style="max-width: 100%">
           </div>
         {% else %}
           <div class="thumbnail__container"></div>
@@ -143,6 +144,7 @@
       </div>
     </div>
   {% endif %}
+  </div>
 
   {% if nextItem %}
   <a class="js-exhibit-item exhibit__modal-arrow" href="{% url url_name url_id nextItem.item_id %}">

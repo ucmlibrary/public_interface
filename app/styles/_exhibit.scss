@@ -200,9 +200,17 @@
   display: flex;
 }
 
+.exhibit__modal-content-wrapper {
+  flex: 1 1 0;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  display: flex;
+}
+
 .exhibit__modal-content {
   flex: 1 1 0;
   margin: 20px 0;
+  min-width: 250px;
 }
 
 .exhibit__modal-metadata-container {
@@ -223,10 +231,12 @@
 
 .exhibit__modal-description {
   flex: 1 1 0;
+  min-width: 250px;
 }
 
 .exhibit__modal-metadata {
   flex: 0 1 0;
+  min-width: 250px;
 }
 
 .exhibit__modal-arrow {
