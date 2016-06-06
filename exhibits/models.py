@@ -100,7 +100,7 @@ class Exhibit(models.Model):
                     field_instance.name = report.md5
                     upload_to = self._meta.get_field(s3field).upload_to
                     self._meta.get_field(s3field).upload_to = ''
-                    super(Exhibit, self).save(*args, **kwargs)
+                    super(Exhibit, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
 class HistoricalEssay(models.Model):
@@ -144,7 +144,7 @@ class HistoricalEssay(models.Model):
                     field_instance.name = report.md5
                     upload_to = self._meta.get_field(s3field).upload_to
                     self._meta.get_field(s3field).upload_to = ''
-                    super(HistoricalEssay, self).save(*args, **kwargs)
+                    super(HistoricalEssay, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
     def lockup(self):
@@ -214,7 +214,7 @@ class LessonPlan(models.Model):
                     field_instance.name = report.md5
                     upload_to = self._meta.get_field(s3field).upload_to
                     self._meta.get_field(s3field).upload_to = ''
-                    super(LessonPlan, self).save(*args, **kwargs)
+                    super(LessonPlan, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
 class Theme(models.Model): 
@@ -277,7 +277,7 @@ class Theme(models.Model):
                     field_instance.name = report.md5
                     upload_to = self._meta.get_field(s3field).upload_to
                     self._meta.get_field(s3field).upload_to = ''
-                    super(Theme, self).save(*args, **kwargs)
+                    super(Theme, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
     def __str__(self):
