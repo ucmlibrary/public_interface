@@ -109,7 +109,7 @@ class HistoricalEssayAdmin(admin.ModelAdmin):
         ('About this Essay',        {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
     ]
-    list_display = ('title', 'publish', 'slug')
+    list_display = ('title', 'hero', 'hero_first', 'get_absolute_url', 'publish', 'slug')
     prepopulated_fields = {'slug': ['title']}
     inlines = [HistoricalEssayItemInline]
 
@@ -123,7 +123,7 @@ class ExhibitAdmin(admin.ModelAdmin):
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
     ]
     inlines = [ExhibitItemInline, NotesItemInline, ThemeExhibitInline, HistoricalEssayExhibitInline, LessonPlanExhibitInline, BrowseTermGroupInline]
-    list_display = ('title', 'hero', 'publish', 'scraped_from', 'slug', 'get_absolute_url')
+    list_display = ('title', 'hero', 'hero_first', 'scraped_from', 'slug', 'get_absolute_url')
     prepopulated_fields = {'slug': ['title']}
 
 
