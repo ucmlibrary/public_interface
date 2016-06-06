@@ -2,6 +2,8 @@
 
 {% if item.contentFile.format|lower == 'image' %}
   {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
+{% else %}
+  {% include 'calisphere/objectViewer/object-tiles-and-overlays.html' %}
 {% endif %}
 
 <div class="carousel-complex">
@@ -17,22 +19,27 @@
 
   <div class="carousel-complex__item-container">
   {% for component in item.structMap %}
-    <div class="carousel-complex__{% if component.format|lower != "image" %}tile{% else %}item{% endif %}{% if 'selected' in component %}--selected{% endif %}">
+    <div class="carousel-complex__{% if component.format|lower != "image" and component.format|lower != "file" %}tile{% else %}item{% endif %}{% if 'selected' in component %}--selected{% endif %}">
       <a class="carousel-complex__link js-component-link" data-item_id="{{ forloop.counter0 }}" href="{% url 'calisphere:itemView' item.id %}">
-        {% if component.format|lower != "image" %}
+        {% if component.format|lower != "image" and component.format|lower != "file" %}
           <div class="carousel-complex__thumbnail-container">
           {% if component.format|lower == "moving image" %}
             <div class="carousel-complex__tile-icon fa-video-camera"></div>
           {% elif component.format|lower == "sound"%}
             <div class="carousel-complex__tile-icon fa-volume-up"></div>
-          {# elif component.format|lower == "text"#}
-            <!-- <div class="carousel-complex__tile-icon fa-file-text-o"></div> -->
+          {% elif component.format|lower == "text" or component.format|lower == "file" %}
+            <div class="carousel-complex__tile-icon fa-file-text-o"></div>
           {% endif %}
           </div>
         {% elif component.format|lower == "image" %}
           <img
           class="carousel-complex__img"
           data-lazy="{{ ucldcIiif }}{{ component.id }}/full/,80/0/default.jpg"
+          alt="{{ component.label }}">
+        {% elif component.format|lower == "file" %}
+          <img
+          class="carousel-complex__img"
+          data-lazy="{{ ucldcNuxeoThumbs }}{{ component.id }}"
           alt="{{ component.label }}">
         {# else #}
           <!-- <span class="fa fa-file-text-o fa-fw carousel-complex__icon-overlay"></span> -->
