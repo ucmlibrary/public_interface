@@ -200,6 +200,23 @@ class LessonPlan(models.Model):
             else:
                 return None
 
+    push_to_s3 = ['lockup_derivative']
+    def save(self, *args, **kwargs):
+        super(LessonPlan, self).save(*args, **kwargs)
+        for s3field in self.push_to_s3:
+            name = getattr(self, s3field).name
+            if name:
+                url = settings.MEDIA_ROOT + "/" + name
+                if os.path.isfile(url):
+                    field_instance = getattr(self, s3field)
+                    report = md5s3stash("file://" + url, settings.S3_STASH)
+                    field_instance.storage.delete(name)
+                    field_instance.name = report.md5
+                    upload_to = self._meta.get_field(s3field).upload_to
+                    self._meta.get_field(s3field).upload_to = ''
+                    super(LessonPlan, self).save(*args, **kwargs)
+                    self._meta.get_field(s3field).upload_to = upload_to
+
 class Theme(models.Model): 
     title = models.CharField(max_length=200)
     sort_title = models.CharField(blank=True, max_length=200, verbose_name='Sortable Title')
