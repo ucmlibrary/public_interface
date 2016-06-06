@@ -167,9 +167,13 @@ class LessonPlan(models.Model):
     title = models.CharField(max_length=200)
     sub_title = models.CharField(max_length=512, blank=True)
     slug = models.SlugField(max_length=255, unique=True)
+
+    lockup_derivative = models.ImageField(blank=True, null=True, verbose_name='Lockup Image', upload_to='uploads/')
+    item_id = models.CharField(blank=True, max_length=200)
+
     overview = models.TextField(blank=True)
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
-    lesson_plan = models.CharField(max_length=255, verbose_name='Lesson Plan File URL')
+    lesson_plan = models.CharField(max_length=255, blank=True, verbose_name='Lesson Plan File URL')
     # lesson_plan = models.FileField(blank=True, verbose_name='Lesson Plan File', upload_to='uploads/')
     grade_level = models.CharField(max_length=200, blank=True)
     byline = models.TextField(blank=True)
@@ -185,8 +189,20 @@ class LessonPlan(models.Model):
     def get_absolute_url(self):
         return reverse('for-teachers:lessonPlanView', kwargs={'lesson_id': self.id, 'lesson_slug': self.slug})
 
+    def lockup(self):
+        if self.lockup_derivative:
+            return settings.THUMBNAIL_URL + "crop/298x121" + self.lockup_derivative.name
+        else:
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
+            else:
+                return None
+
 class Theme(models.Model): 
     title = models.CharField(max_length=200)
+    sort_title = models.CharField(blank=True, max_length=200, verbose_name='Sortable Title')
     slug = models.SlugField(max_length=255, unique=True)
     color = models.CharField(max_length=20, blank=True)
     byline = models.TextField(blank=True)
@@ -264,6 +280,8 @@ class ExhibitItem(models.Model):
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='T')
 
     custom_crop = models.ImageField(blank=True, null=True, upload_to='uploads/custom_item_crop/')
+    custom_metadata = models.TextField(blank=True, verbose_name='Custom metadata')
+    metadata_render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='M')
     custom_link = models.CharField(max_length=512, blank=True)
     custom_title = models.CharField(max_length=512, blank=True)
 

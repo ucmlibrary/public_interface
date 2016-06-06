@@ -75,7 +75,7 @@ def exhibitSearch(request):
 
 def exhibitDirectory(request, category='search'):
     if category in list(category for (category, display) in Theme.CATEGORY_CHOICES):
-        themes = Theme.objects.filter(category=category)
+        themes = Theme.objects.filter(category=category).order_by('sort_title')
         collated = []
         for theme in themes:
             exhibits = Exhibit.objects.filter(exhibittheme__theme=theme)
