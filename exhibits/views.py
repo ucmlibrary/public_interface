@@ -78,7 +78,7 @@ def exhibitDirectory(request, category='search'):
         themes = Theme.objects.filter(category=category)
         collated = []
         for theme in themes:
-            exhibits = Exhibit.objects.filter(exhibittheme__theme=theme)
+            exhibits = Exhibit.objects.filter(exhibittheme__theme=theme).order_by('sort_title')
             collated.append((theme, exhibits))
         return render(request, 'exhibits/exhibitDirectory.html', {'themes': collated, 'categories': Theme.CATEGORY_CHOICES, 'selected': category})
         

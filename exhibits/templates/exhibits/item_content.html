@@ -140,7 +140,10 @@
       </div>
       <div class="exhibit__modal-metadata">
         <div class="exhibit-item__count">{{ item_count }} of {{ total_count }}</div>
-        <!-- <hr> -->
+        {% if exhibitItem.custom_metadata %}
+          <hr>
+          {% include "exhibits/render_as.html" with render_as=exhibitItem.metadata_render_as text=exhibitItem.custom_metadata truncate=False container_class="" %}
+        {% endif %}
       </div>
     </div>
   {% endif %}
