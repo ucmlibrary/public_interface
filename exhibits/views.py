@@ -75,10 +75,10 @@ def exhibitSearch(request):
 
 def exhibitDirectory(request, category='search'):
     if category in list(category for (category, display) in Theme.CATEGORY_CHOICES):
-        themes = Theme.objects.filter(category=category)
+        themes = Theme.objects.filter(category=category).order_by('sort_title')
         collated = []
         for theme in themes:
-            exhibits = Exhibit.objects.filter(exhibittheme__theme=theme).order_by('sort_title')
+            exhibits = Exhibit.objects.filter(exhibittheme__theme=theme)
             collated.append((theme, exhibits))
         return render(request, 'exhibits/exhibitDirectory.html', {'themes': collated, 'categories': Theme.CATEGORY_CHOICES, 'selected': category})
         
