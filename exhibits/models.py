@@ -353,7 +353,7 @@ class ExhibitItem(models.Model):
                     field_instance.name = report.md5
                     upload_to = self._meta.get_field(s3field).upload_to
                     self._meta.get_field(s3field).upload_to = ''
-                    super(ExhibitItem, self).save(*args, **kwargs)
+                    super(ExhibitItem, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
 class NotesItem(models.Model):
