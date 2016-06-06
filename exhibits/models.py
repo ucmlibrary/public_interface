@@ -173,7 +173,7 @@ class LessonPlan(models.Model):
 
     overview = models.TextField(blank=True)
     render_as = models.CharField(max_length=1, choices=RENDERING_OPTIONS, default='H')
-    lesson_plan = models.CharField(max_length=255, verbose_name='Lesson Plan File URL')
+    lesson_plan = models.CharField(max_length=255, blank=True, verbose_name='Lesson Plan File URL')
     # lesson_plan = models.FileField(blank=True, verbose_name='Lesson Plan File', upload_to='uploads/')
     grade_level = models.CharField(max_length=200, blank=True)
     byline = models.TextField(blank=True)

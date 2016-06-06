@@ -130,7 +130,7 @@ class ExhibitAdmin(admin.ModelAdmin):
 class LessonPlanAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,                      {'fields': [('title', 'slug'), ('sub_title')]}),
-        ('Lockup Image and Publish',{'fields': [('lockup_derivative, item_id'), ('publish')]}),
+        ('Lockup Image and Publish',{'fields': [('lockup_derivative', 'item_id'), ('publish')]}),
         ('Lesson Plan Overview',    {'fields': [('overview', 'render_as'), ('lesson_plan', 'grade_level')]}),
         ('About this Lesson Plan',  {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
