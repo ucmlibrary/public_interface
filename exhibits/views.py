@@ -7,8 +7,8 @@ import random
 
 def calCultures(request):
     california_cultures = Theme.objects.filter(title__icontains='California Cultures').order_by('title')
-    historical_essays = HistoricalEssay.objects.filter(historicalessaytheme__theme__in=california_cultures).distinct('title')
-    lesson_plans = LessonPlan.objects.filter(lessonplantheme__theme__in=california_cultures).distinct('title')
+    historical_essays = HistoricalEssay.objects.filter(historicalessaytheme__theme__in=california_cultures).values_list('title', flat=True).distinct()
+    lesson_plans = LessonPlan.objects.filter(lessonplantheme__theme__in=california_cultures).values_list('title', flat=True).distinct()
 
     return render(request, 'exhibits/calCultures.html', {
         'california_cultures': california_cultures, 
