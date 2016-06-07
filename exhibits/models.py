@@ -251,7 +251,9 @@ class Theme(models.Model):
         return reverse('exhibits:themeView', kwargs={'theme_id': self.id, 'theme_slug': self.slug})
 
     def theme_lockup(self):
-        if self.hero_first:
+        if self.lockup_derivative:
+            return settings.THUMBNAIL_URL + "crop/298x121/" + self.lockup_derivative
+        elif self.hero_first:
             return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
         else:
             item_id_search_term = 'id:"{0}"'.format(self.item_id)
