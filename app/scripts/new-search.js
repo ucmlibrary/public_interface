@@ -26,13 +26,16 @@ var exhibitPage = Backbone.View.extend({
     });
   },
   
-  exhibitView: function() {
-    $.pjax({
-      push: true,
-      scrollTo: false,
-      url: $('#js-exhibit-item .close').data('url'),
-      container: '#js-exhibit-item__container'
-    });
+  exhibitView: function(e) {
+    if (this.popstate !== 'back' && this.popstate !== 'forward') {
+      $.pjax({
+        push: true,
+        scrollTo: false,
+        url: $('#js-exhibit-item .close').data('url'),
+        container: '#js-exhibit-item__container'
+      });
+    }
+    this.popstate = null;
   },
   
   toggleExhibitOverview: function() {
@@ -96,11 +99,6 @@ var exhibitPage = Backbone.View.extend({
     if ($('#js-exhibit-item__container').children().length > 0) {
       $('#js-exhibit-item').modal();
     }
-    $(document).on('pjax:end', '#js-exhibit-item__container', function() {
-      if(!($('#js-exhibit-item').is(':visible')) && $('#js-exhibit-item__container').children().length > 0) {
-        $('#js-exhibit-item').modal();
-      }
-    });    
   },
 });
 
