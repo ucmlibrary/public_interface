@@ -10,14 +10,14 @@
 <h1>Lesson Plans</h1>
 <ul>
   {% for lessonPlan in lessonPlans %}
-  <li><a href="{{ lessonPlan.get_absolute_url }}">{{ lessonPlan }}</a></li>
+  <li><a href="{{ lessonPlan.get_absolute_url }}" data-pjax="js-pageContent">{{ lessonPlan }}</a></li>
   {% endfor %}
 </ul>
 
 <h1>Historical Essays</h1>
 <ul>
   {% for historicalEssay in historicalEssays %}
-  <li><a href="{{ historicalEssay.get_absolute_url }}">{{ historicalEssay }}</a></li>
+  <li><a href="{{ historicalEssay.get_absolute_url }}" data-pjax="js-pageContent">{{ historicalEssay }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

@@ -52,7 +52,7 @@
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for het in theme.historicalessaytheme_set.all %}
         <div class="col-xs-2 col-md-3">
-          <a href="{{ het.historicalEssay.get_absolute_url }}">
+          <a href="{{ het.historicalEssay.get_absolute_url }}" data-pjax="js-pageContent">
             <div class="exhibit__essay-lockup">
               <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url({{ het.historicalEssay.lockup }});">
                 <div class="exhibit__essay-lockup-title">{{ het.historicalEssay.title }}</div>
@@ -69,7 +69,7 @@
     <div class="row js-related-carousel exhibit__related-carousel">
       {% for lpt in theme.lessonplantheme_set.all %}
         <div class="col-xs-2 col-md-3">
-          <a href="{{ lpt.lessonPlan.get_absolute_url }}">
+          <a href="{{ lpt.lessonPlan.get_absolute_url }}" data-pjax="js-pageContent">
             <div class="exhibit__lesson-lockup">
               <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url({{ lpt.lessonPlan.lockup }});">
                 <div class="exhibit__lesson-lockup-title">{{ lpt.lessonPlan.title }}</div>

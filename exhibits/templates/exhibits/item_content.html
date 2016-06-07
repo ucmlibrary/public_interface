@@ -15,7 +15,7 @@
   {% with item=exhibitItem.solrData %}
     <div class="exhibit__modal-content">
       <div class="obj-container__simple-{% if 'reference_image_md5' in item %}image{% else %}tile{% endif %}">
-        <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}">
+        <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}" data-pjax="js-pageContent">
         {% if item.reference_image_md5 %}
           <div class="obj__icon-container">
             <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}" style="max-width: 100%">

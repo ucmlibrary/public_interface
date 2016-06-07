@@ -35,7 +35,7 @@
   <div class="col-md-9 exhibitDirectory">
     {% for theme, exhibits in themes %}
       {% if theme != '' %}
-        <h2>{{ exhibits|length }} exhibition{{ exhibits|pluralize }} in <a href="{{ theme.get_absolute_url }}">{{ theme.title }}</a>:</h2>
+        <h2>{{ exhibits|length }} exhibition{{ exhibits|pluralize }} in <a href="{{ theme.get_absolute_url }}" data-pjax="js-pageContent">{{ theme.title }}</a>:</h2>
       {% endif %}
       <div class="row exhibitDirectory__exhibits">
         {% for exhibit in exhibits %}
