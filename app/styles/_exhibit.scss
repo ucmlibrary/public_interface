@@ -70,7 +70,7 @@
 }
 
 .exhibit__note {
-  border: 1px solid black;
+  border: 1px solid #8b8d8e;
   padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin $exhibit-layout-component-margin;
   margin-top: $exhibit-layout-component-margin;
 }
@@ -80,7 +80,7 @@
 }
 
 .essay__note {
-  border: 1px solid black;
+  border: 1px solid #8b8d8e;
   padding: $exhibit-layout-component-margin;
   margin-bottom: $exhibit-layout-component-margin;
 }
@@ -94,7 +94,7 @@
 }
 
 .exhibit__related-materials {
-  border-top: 2px solid #f36f23; 
+  border-top: 1px solid $design-primary-color; 
   margin: 0 (-$layout-component-margin);
   padding: 0 $exhibit-layout-component-margin
 }

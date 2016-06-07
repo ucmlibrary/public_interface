@@ -38,6 +38,14 @@
   flex-direction: column;
 }
 
+.theme__overview a {
+  color: #FF8F28;
+}
+
+.theme__overview a:hover {
+  color: #FF8F28;
+};
+
 .theme__overview h2:first-of-type {
   margin-top: 0;
 }
