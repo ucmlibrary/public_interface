@@ -191,7 +191,7 @@ class LessonPlan(models.Model):
 
     def lockup(self):
         if self.lockup_derivative:
-            return settings.THUMBNAIL_URL + "crop/298x121" + self.lockup_derivative.name
+            return settings.THUMBNAIL_URL + "crop/298x121/" + self.lockup_derivative.name
         else:
             item_id_search_term = 'id:"{0}"'.format(self.item_id)
             item_solr_search = SOLR_select(q=item_id_search_term)
@@ -252,16 +252,16 @@ class Theme(models.Model):
 
     def theme_lockup(self):
         if self.lockup_derivative:
-            return settings.THUMBNAIL_URL + "crop/298x121/" + self.lockup_derivative
+            return settings.THUMBNAIL_URL + "crop/420x210/" + self.lockup_derivative.name
         elif self.hero_first:
-            return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
+            return settings.THUMBNAIL_URL + "crop/420x210/" + self.hero.name
         else:
             item_id_search_term = 'id:"{0}"'.format(self.item_id)
             item_solr_search = SOLR_select(q=item_id_search_term)
             if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
                 return settings.THUMBNAIL_URL + "crop/420x210/" + item_solr_search.results[0]['reference_image_md5']
             elif self.hero:
-                return settings.THUMBNAIL_URL + "crop/298x121/" + self.hero.name
+                return settings.THUMBNAIL_URL + "crop/420x210/" + self.hero.name
             else:
                 return None
 
