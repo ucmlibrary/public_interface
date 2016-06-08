@@ -144,18 +144,16 @@ $(document).ready(function() {
     $(document).on('pjax:end', '#js-exhibit-item__container', function() {
       if(!($('#js-exhibit-item').is(':visible')) && $('#js-exhibit-item__container').children().length > 0) {
         $('#js-exhibit-item').modal();
-      }
-      // this triggers hide on the modal, which calls exhibitView on the exhibitPage,
-      // which resets popstate back to null - otherwise we have to reset popstate back to null here.
-      if ($('#js-exhibit-item__container').children().length <= 0) {
+      } else if ($('#js-exhibit-item__container').children().length <= 0) {
         $('#js-exhibit-item').modal('hide');
-      } else {
-        globalSearchForm.exhibitPage.popstate = null;
       }
     });
 
-    $(document).on('pjax:popstate', '#js-exhibit-item__container', function(e) {
-      globalSearchForm.exhibitPage.popstate = e.direction;
+    $(document).on('pjax:beforeReplace', '#js-pageContent', function(e) {
+      if (e.target !== $('#js-exhibit-item__container')[0] && $('#js-exhibit-item').is(':visible')) {
+        $('.modal-backdrop').remove();
+        $('body').removeClass('modal-open');
+      }
     });
 
     $(document).on('pjax:beforeSend', '#js-exhibit-item__container', function(e, xhr, options) {

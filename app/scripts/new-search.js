@@ -27,7 +27,7 @@ var exhibitPage = Backbone.View.extend({
   },
   
   exhibitView: function(e) {
-    if (this.popstate !== 'back' && this.popstate !== 'forward') {
+    if ($('#js-exhibit-item__container').children().length > 0) {
       $.pjax({
         push: true,
         scrollTo: false,
@@ -35,7 +35,6 @@ var exhibitPage = Backbone.View.extend({
         container: '#js-exhibit-item__container'
       });
     }
-    this.popstate = null;
   },
   
   toggleExhibitOverview: function() {
