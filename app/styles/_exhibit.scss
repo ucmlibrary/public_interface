@@ -206,16 +206,15 @@
 }
 
 .exhibit__modal-content-wrapper {
-  flex: 1 1 0;
+  flex: 1 1 auto;
   margin: 20px 0;
   flex-wrap: wrap;
   display: flex;
 }
 
 .exhibit__modal-content {
-  flex: 1 1 0;
+  flex: 1 1 450px;
   margin: 20px 0;
-  min-width: 250px;
 }
 
 .exhibit__modal-metadata-container {
@@ -235,13 +234,12 @@
 }
 
 .exhibit__modal-description {
-  flex: 1 1 0;
-  min-width: 250px;
+  flex: 1 1 auto;
 }
 
 .exhibit__modal-metadata {
-  flex: 0 1 0;
-  min-width: 250px;
+  flex: 0 0 auto;
+  min-width: 200px;
 }
 
 .exhibit__modal-arrow {
@@ -254,7 +252,7 @@
   margin: auto 0;
 }
 
-.exhibit__modal-arrow:hover {
+a.exhibit__modal-arrow:hover {
   background-color: $design-light-gray-color;
 }
 
