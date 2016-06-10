@@ -109,6 +109,9 @@
   }
 }
 
+
+
+
 .exhibit__lockup--med {
   margin: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
   border: 3px solid rgba(0,0,0,0);
@@ -165,41 +168,42 @@
   overflow: hidden;
 }
 
-.exhibit__lockup--small, .exhibit__essay-lockup, .exhibit__lesson-lockup {
+
+.exhibit__essay-lockup, .exhibit__lesson-lockup {
   @include aspect-ratio(2.45, 1);
   margin: $layout-component-margin $layout-component-margin $layout-component-margin 0;
   min-height: 100px;
 }
 
-.exhibit__lockup--small-image, .exhibit__essay-lockup-image, .exhibit__lesson-lockup-image {
-  background-size: cover; 
+.exhibit__essay-lockup-image, .exhibit__lesson-lockup-image {
+  background-size: 100%; 
   background-position: center
 }
 
-.exhibit__lockup--small-title, .exhibit__essay-lockup-title, .exhibit__lesson-lockup-title {
-  width: 80%; 
+.exhibit__essay-lockup-title, .exhibit__lesson-lockup-title {
+  width: 100%; 
   float: right; 
   height: 100%; 
-  padding: 10px 10px 10px $layout-component-margin; 
-  font-size: 1.1em; 
+  position: absolute;
+  padding: 15px; 
+  font-size: 16px; 
   color: #fff; 
-  background-image: inherit; 
-  background-size: 125%; 
-  background-position: right; 
+}
+
+.exhibit__essay-lockup-color, .exhibit__lesson-lockup-color {
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: 100%;
+  background-position: right;
   background-blend-mode: multiply;
-  
-  @include bp(md-screen) {
-    font-size: 1.1vw;
-  }
+  background-color: $design-dark-gray-color;
+  position: absolute;
 }
 
-.exhibit__lockup--small-title:hover, .exhibit__essay-lockup-title:hover, .exhibit__lesson-lockup-title:hover {
-  background-image: none;
+.exhibit__essay-lockup:hover .exhibit__essay-lockup-color, .exhibit__lesson-lockup:hover .exhibit__lesson-lockup-color {
+  opacity: .6;
 }
-
-.exhibit__lockup--small-title { background-color: $design-secondary-color; }
-.exhibit__essay-lockup-title { background-color: $design-dark-gray-color; }
-.exhibit__lesson-lockup-title { background-color: $design-dark-gray-color; }
 
 .exhibit__modal {
   display: flex;
