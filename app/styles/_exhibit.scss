@@ -223,9 +223,12 @@
 
 .exhibit__modal-metadata-container {
   padding: 0 25px;
-  border-left: 1px solid $design-primary-color;
   display: flex;
   flex-direction: column;
+  
+  @include bp(md-screen) {
+    border-left: 1px solid $design-primary-color;
+  }
 }
 
 .exhibit__modal-metadata hr {
