@@ -7,8 +7,19 @@ import random
 
 def calCultures(request):
     california_cultures = Theme.objects.filter(title__icontains='California Cultures').order_by('title')
-    historical_essays = HistoricalEssay.objects.filter(historicalessaytheme__theme__in=california_cultures).distinct('title')
-    lesson_plans = LessonPlan.objects.filter(lessonplantheme__theme__in=california_cultures).distinct('title')
+
+    unique_historical_essays = HistoricalEssay.objects.filter(historicalessaytheme__theme__in=california_cultures).values_list('title', 'id').distinct()
+    historical_essays = []
+    for (title, key) in unique_historical_essays:
+        historical_essays.append(HistoricalEssay.objects.get(pk=key))
+    print "HELLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+    print historical_essays
+
+    unique_lesson_plans = LessonPlan.objects.filter(lessonplantheme__theme__in=california_cultures).values_list('title', 'id').distinct()
+    lesson_plans = []
+    for (title, key) in unique_lesson_plans:
+        lesson_plans.append(LessonPlan.objects.get(pk=key))
+    print lesson_plans
 
     return render(request, 'exhibits/calCultures.html', {
         'california_cultures': california_cultures, 
@@ -65,9 +76,17 @@ def exhibitRandom(request):
 
     return render(request, 'exhibits/exhibitRandomExplore.html', {'sets': exhibit_theme_list_by_fives, 'sets_standard': exhibit_theme_list})
 
-def exhibitDirectory(request, category):
+def exhibitSearch(request):
+    if request.method == 'GET' and len(request.GET.getlist('title')) > 0:
+        exhibits = Exhibit.objects.filter(title__icontains=request.GET['title']).order_by('title')
+        return render(request, 'exhibits/exhibitSearch.html', {'searchTerm': request.GET['title'], 'exhibits': exhibits})
+    else: 
+        exhibits = Exhibit.objects.all().order_by('title')
+        return render(request, 'exhibits/exhibitSearch.html', {'searchTerm': '', 'exhibits': exhibits})
+
+def exhibitDirectory(request, category='search'):
     if category in list(category for (category, display) in Theme.CATEGORY_CHOICES):
-        themes = Theme.objects.filter(category=category)
+        themes = Theme.objects.filter(category=category).order_by('sort_title')
         collated = []
         for theme in themes:
             exhibits = Exhibit.objects.filter(exhibittheme__theme=theme)
@@ -76,8 +95,6 @@ def exhibitDirectory(request, category):
         
     if category == 'all': 
         exhibits = Exhibit.objects.all().order_by('title')
-    if category == 'search' and request.method == 'GET' and len(request.GET.getlist('title')) > 0:
-        exhibits = Exhibit.objects.filter(title__icontains=request.GET['title'])
     if category == 'uncategorized':
         exhibits = Exhibit.objects.filter(exhibittheme__isnull=True)
     return render(request, 'exhibits/exhibitDirectory.html', {'themes': [{'', exhibits}], 'categories': Theme.CATEGORY_CHOICES, 'selected': category})

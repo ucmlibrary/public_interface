@@ -8,16 +8,23 @@
       <i class="fa fa-angle-left" style="font-size: 70px;"></i>
     </div>
   </a>
+  {% else %}
+  <div class="js-exhibit-item exhibit__modal-arrow">
+    <div class="exhibit__modal-arrow-position">
+      <i class="fa fa-angle-left" style="font-size: 70px; opacity: 0;"></i>
+    </div>
+  </div>
   {% endif %}
 
+  <div class="exhibit__modal-content-wrapper">
   {% if exhibitItem.solrData %}
   {% with item=exhibitItem.solrData %}
     <div class="exhibit__modal-content">
       <div class="obj-container__simple-{% if 'reference_image_md5' in item %}image{% else %}tile{% endif %}">
-        <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}">
+        <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}" data-pjax="js-pageContent">
         {% if item.reference_image_md5 %}
           <div class="obj__icon-container">
-            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}">
+            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}" style="max-width: 100%">
             {% if item.type_ss.0|lower == "moving image" %}
             <div class="obj__overlay-icon fa-video-camera"></div>
             {% elif item.type_ss.0|lower == "sound"%}
@@ -51,8 +58,6 @@
       <div class="exhibit__modal-description">
         {% if exhibitItem.essay %}
           {% include "exhibits/render_as.html" with render_as=exhibitItem.render_as text=exhibitItem.essay truncate=False container_class="" %}
-        {% else %}
-          {{ item.description.0 }}
         {% endif %}
       </div>
       <div class="exhibit__modal-metadata">
@@ -72,7 +77,7 @@
             <dd class="meta-block__defin">{{ item.date.0 }}</dd>
             {% endif %}
 
-            {% if 'description' in item and exhibitItem.essay %}
+            {% if 'description' in item %}
             <dt class="meta-block__type">Description</dt>
             <dd class="meta-block__defin">{{ item.description.0 }}</dd>
             {% endif %}
@@ -124,7 +129,7 @@
         {% endif %}
         {% if exhibitItem.custom_crop %}
           <div class="obj__icon-container">
-            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ exhibitItem.custom_crop }}">
+            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ exhibitItem.custom_crop }}" style="max-width: 100%">
           </div>
         {% else %}
           <div class="thumbnail__container"></div>
@@ -141,16 +146,14 @@
       </div>
       <div class="exhibit__modal-metadata">
         <div class="exhibit-item__count">{{ item_count }} of {{ total_count }}</div>
-        <hr>
-        {% if exhibitItem.custom_title %}
-        <dl class="meta-block__list">
-            <dt class="meta-block__type">Title</dt>
-            <dd class="meta-block__defin">{{ exhibitItem.custom_title }}</dd>
-        </dl>
+        {% if exhibitItem.custom_metadata %}
+          <hr>
+          {% include "exhibits/render_as.html" with render_as=exhibitItem.metadata_render_as text=exhibitItem.custom_metadata truncate=False container_class="" %}
         {% endif %}
       </div>
     </div>
   {% endif %}
+  </div>
 
   {% if nextItem %}
   <a class="js-exhibit-item exhibit__modal-arrow" href="{% url url_name url_id nextItem.item_id %}">
@@ -158,5 +161,11 @@
       <i class="fa fa-angle-right" style="font-size: 70px;"></i>
     </div>
   </a>
+  {% else %}
+  <div class="js-exhibit-item exhibit__modal-arrow">
+    <div class="exhibit__modal-arrow-position">
+      <i class="fa fa-angle-left" style="font-size: 70px; opacity: 0;"></i>
+    </div>
+  </div>
   {% endif %}
 </div>

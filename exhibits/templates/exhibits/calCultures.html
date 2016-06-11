@@ -3,12 +3,12 @@
 {% load markdown_filter %}
 
 {% block page-metadata %}
-{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% include "calisphere/microdata.html" with title="California Cultures" description="California Cultures documents California's rich history of diversity and multicultural contributions." %}
 {% endblock %}
 
 {% block content %}
   <nav role="navigation">
-    <ol id="exhibit__breadcrumb" aria-labelledby="exhibit__breadcrumb-label">
+    <ol id="global__breadcrumb" aria-labelledby="global__breadcrumb-label">
       <li><a href="{% url 'exhibits:randomExplore' %}" data-pjax="js-pageContent">Exhibitions</a></li>
     </ol>
   </nav>
@@ -19,13 +19,15 @@
   <div class="row theme__main-content">
     <div class="col-md-4 col-sm-12 theme__overview">
       <h2>Overview</h2>
-      {# include "exhibits/render_as.html" with render_as=theme.render_as text=theme.essay truncate=False container_class="" #}
+      <p>California Cultures documents California's rich history of diversity and multicultural contributions. The California Cultures project was specially charged with correcting the historic lack of digitized primary source materials for four major ethnic groups: African Americans, Asian Americans, Hispanic Americans, and Native Americans. More than 20,000 photographs, documents, and other materials tell their stories, struggles, and contributions.</p>
+
+      <p>Explore California Cultures by jumping into each of the four themes; or read the <a href="#historicalEssays">six historical essays</a> to learn how California's diversity has evolved over time.</p>
     </div>
     <div class="col-md-8 col-xs-12 theme__exhibits">
       <h2>{{ california_cultures|length }} exhibitions:</h2>
       <div class="row">
         {% for theme in california_cultures %}
-          <div class="col-md-4">
+          <div class="col-sm-4 col-xs-6">
             <a href="{{ theme.get_absolute_url }}" data-pjax="js-pageContent">
               <div class="exhibit__lockup--med">
                 <div class="exhibit__lockup--med-image">
@@ -44,13 +46,14 @@
   </div>
   
   <div>
-    <h3>Read related essays ({{ historical_essays.all|length }}):</h3>
+    <h3 id="historicalEssays">Read related essays ({{ historical_essays|length }}):</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
-      {% for he in historical_essays.all %}
+      {% for he in historical_essays %}
         <div class="col-xs-2 col-md-3">
           <a href="{{ he.get_absolute_url }}">
             <div class="exhibit__essay-lockup">
-              <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url({{ exhibitMedia }}{{ he.hero }});">
+              <div class="aspect-ratio-content exhibit__essay-lockup-image" style="background-image: url({{ he.lockup }});">
+                <div class="exhibit__essay-lockup-color"></div>
                 <div class="exhibit__essay-lockup-title">{{ he.title }}</div>
               </div>
             </div>
@@ -59,13 +62,14 @@
       {% endfor %}
     </div>
 
-    <h3>Just for teachers: lesson plans ({{ lesson_plans.all|length }}):</h3>
+    <h3>Just for teachers: lesson plans ({{ lesson_plans|length }}):</h3>
     <div class="row js-related-carousel exhibit__related-carousel">
-      {% for lp in lesson_plans.all %}
+      {% for lp in lesson_plans %}
         <div class="col-xs-2 col-md-3">
           <a href="{{ lp.get_absolute_url }}">
             <div class="exhibit__lesson-lockup">
-              <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url({{ exhibitMedia }}{{ lp.hero }});">
+              <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url({{ lp.lockup }});">
+                <div class="exhibit__lesson-lockup-color"></div>
                 <div class="exhibit__lesson-lockup-title">{{ lp.title }}</div>
               </div>
             </div>
@@ -77,7 +81,7 @@
 
   <div class="row">
     <h2>About this theme:</h2>
-    {% include "exhibits/render_as.html" with render_as=theme.byline_render_as text=theme.byline truncate=False container_class="" %}
+    <p>California Cultures was created by the scholars and curators of the University of California in response to H.R. 1905, an appropriation from the US Congress through Library of Congress’s American Memory program, which made funds available to digitize archival materials relating to the ethnic groups of California.</p>
   </div>
 
   

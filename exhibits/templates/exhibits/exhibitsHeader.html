@@ -7,7 +7,7 @@
       <p>This is where we will concisely explain what an exhibition is and why it is different from a collection and the amazing things people will see and hear and watch in our beautifully designed and painstakingly curated object groups.</p>
     </div>
     <div class="col-xs-12 col-sm-6">
-      <a href="{% url 'for-teachers:lessonPlanDirectory' %}">For teachers!</a>
+      <a href="{% url 'for-teachers:lessonPlanDirectory' %}" data-pjax="js-pageContent">For teachers!</a>
     </div>
   </div>
 
@@ -16,6 +16,7 @@
   <div class="exhibitDirectory__button-container">
     <a class="btn btn-default exhibitDirectory__button {% if active == 'random' %}button__secondary{% endif %}" href="{% url 'exhibits:randomExplore' %}" data-pjax="js-pageContent">Random Explore</a>
     <a class="btn btn-default exhibitDirectory__button {% if active == 'a-z' %}button__secondary{% endif %}" href="{% url 'exhibits:exhibitDirectory' 'all' %}" data-pjax="js-pageContent">Browse All</a>
+    <a class="btn btn-default exhibitDirectory__button {% if active == 'search' %}button__secondary{% endif %}" href="{% url 'exhibits:exhibitSearch' %}" data-pjax="js-pageContent">Title Search</a>
   </div>
 
   <hr/>

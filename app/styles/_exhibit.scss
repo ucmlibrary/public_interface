@@ -34,6 +34,11 @@
   margin: 0 $exhibit-layout-component-margin 0 0;
 }
 
+.js-exhibit__overview {
+  height: 400px;
+  overflow: hidden;
+}
+
 .exhibit__overview {
   @include bp(md-screen) {
     padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
@@ -44,7 +49,7 @@
   font-size: 18px;
 }
 
-.exhibit__overview h3:first-of-type {
+.exhibit__overview h3:first-of-type, .button__exhibitDirectory-tabs-container h3:first-of-type {
   margin-top: 0;
 }
 
@@ -65,7 +70,7 @@
 }
 
 .exhibit__note {
-  border: 1px solid black;
+  border: 1px solid #8b8d8e;
   padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin $exhibit-layout-component-margin;
   margin-top: $exhibit-layout-component-margin;
 }
@@ -75,7 +80,7 @@
 }
 
 .essay__note {
-  border: 1px solid black;
+  border: 1px solid #8b8d8e;
   padding: $exhibit-layout-component-margin;
   margin-bottom: $exhibit-layout-component-margin;
 }
@@ -89,7 +94,7 @@
 }
 
 .exhibit__related-materials {
-  border-top: 2px solid #f36f23; 
+  border-top: 1px solid $design-primary-color; 
   margin: 0 (-$layout-component-margin);
   padding: 0 $exhibit-layout-component-margin
 }
@@ -104,10 +109,22 @@
   }
 }
 
+
+
+
 .exhibit__lockup--med {
   margin: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
+  border: 3px solid rgba(0,0,0,0);
   min-height: 100px;
+
+  // make space for the exhibit__lockup--med-title which is absolute positioned:
+  font-size: 16px;
+  padding-bottom: calc(3em + 40px);
 }
+
+.exhibit__lockup--med:hover {
+  border: 3px solid $design-secondary-color;
+};
 
 .exhibit__lockup--med-image {
   @include aspect-ratio(1.5, 1);
@@ -119,66 +136,99 @@
 }
 
 .exhibit__lockup--med-title {
-  @include aspect-ratio(2.5, 1);
-}
-
-.exhibit__lockup--med-title-content {
+  position: absolute;
+  bottom: $exhibit-layout-component-margin;
+  left: 0;
+  right: 0;
+  margin-right: $exhibit-layout-component-margin;
   background-color: #fff;
   padding: $layout-component-margin;
   color: $design-secondary-color;
-  font-size: 1.25em;
+  border-left: 3px solid rgba(0,0,0,0);
+  border-right: 3px solid rgba(0,0,0,0);
+  border-bottom: 3px solid rgba(0,0,0,0);
 }
 
-.exhibit__lockup--small, .exhibit__essay-lockup, .exhibit__lesson-lockup {
+.exhibit__lockup--med:hover .exhibit__lockup--med-title-content {
+  height: auto;
+  transition: height 0.5s ease;
+  min-height: 3em;
+  max-height: 4.25em;
+};
+
+.exhibit__lockup--med:hover .exhibit__lockup--med-title {
+  border-left: 3px solid $design-secondary-color;
+  border-right: 3px solid $design-secondary-color;
+  border-bottom: 3px solid $design-secondary-color;
+};
+
+.exhibit__lockup--med-title-content {
+  font-size: 16px;
+  height: 3em;
+  overflow: hidden;
+}
+
+
+.exhibit__essay-lockup, .exhibit__lesson-lockup {
   @include aspect-ratio(2.45, 1);
   margin: $layout-component-margin $layout-component-margin $layout-component-margin 0;
   min-height: 100px;
 }
 
-.exhibit__lockup--small-image, .exhibit__essay-lockup-image, .exhibit__lesson-lockup-image {
-  background-size: cover; 
+.exhibit__essay-lockup-image, .exhibit__lesson-lockup-image {
+  background-size: 100%; 
   background-position: center
 }
 
-.exhibit__lockup--small-title, .exhibit__essay-lockup-title, .exhibit__lesson-lockup-title {
-  width: 80%; 
+.exhibit__essay-lockup-title, .exhibit__lesson-lockup-title {
+  width: 100%; 
   float: right; 
   height: 100%; 
-  padding: 10px 10px 10px $layout-component-margin; 
-  font-size: 1.1em; 
+  position: absolute;
+  padding: 15px; 
+  font-size: 16px; 
   color: #fff; 
-  background-image: inherit; 
-  background-size: 125%; 
-  background-position: right; 
+}
+
+.exhibit__essay-lockup-color, .exhibit__lesson-lockup-color {
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: 100%;
+  background-position: right;
   background-blend-mode: multiply;
-  
-  @include bp(md-screen) {
-    font-size: 1.1vw;
-  }
+  background-color: $design-dark-gray-color;
+  position: absolute;
 }
 
-.exhibit__lockup--small-title:hover, .exhibit__essay-lockup-title:hover, .exhibit__lesson-lockup-title:hover {
-  background-image: none;
+.exhibit__essay-lockup:hover .exhibit__essay-lockup-color, .exhibit__lesson-lockup:hover .exhibit__lesson-lockup-color {
+  opacity: .6;
 }
-
-.exhibit__lockup--small-title { background-color: $design-secondary-color; }
-.exhibit__essay-lockup-title { background-color: $design-dark-gray-color; }
-.exhibit__lesson-lockup-title { background-color: $design-dark-gray-color; }
 
 .exhibit__modal {
   display: flex;
 }
 
+.exhibit__modal-content-wrapper {
+  flex: 1 1 auto;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  display: flex;
+}
+
 .exhibit__modal-content {
-  flex: 1 1 0;
+  flex: 1 1 450px;
   margin: 20px 0;
 }
 
 .exhibit__modal-metadata-container {
   padding: 0 25px;
-  border-left: 1px solid $design-primary-color;
   display: flex;
   flex-direction: column;
+  
+  @include bp(md-screen) {
+    border-left: 1px solid $design-primary-color;
+  }
 }
 
 .exhibit__modal-metadata hr {
@@ -191,11 +241,12 @@
 }
 
 .exhibit__modal-description {
-  flex: 1 1 0;
+  flex: 1 1 auto;
 }
 
 .exhibit__modal-metadata {
-  flex: 0 1 0;
+  flex: 0 0 auto;
+  min-width: 200px;
 }
 
 .exhibit__modal-arrow {
@@ -208,7 +259,7 @@
   margin: auto 0;
 }
 
-.exhibit__modal-arrow:hover {
+a.exhibit__modal-arrow:hover {
   background-color: $design-light-gray-color;
 }
 
@@ -237,6 +288,7 @@
 .primarysource__link:hover .exhibit__caption {
   background-color: #9c9e9f;
   height: auto;
+  min-height: calc(1.4em + 20px);
   max-height: calc(3*1.4em + 20px);
 }
 

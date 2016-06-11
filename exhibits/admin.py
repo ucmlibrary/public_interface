@@ -8,7 +8,7 @@ from models import *
 
 class ExhibitItemInline(admin.TabularInline):
     model = ExhibitItem
-    fields = ['order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link', 'custom_title']
+    fields = ['order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link', 'custom_title', 'custom_metadata', 'metadata_render_as']
     extra = 0
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
@@ -23,7 +23,7 @@ class ExhibitItemInline(admin.TabularInline):
 
 class LessonPlanItemInline(admin.TabularInline):
     model = ExhibitItem
-    fields = ['lesson_plan_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link']
+    fields = ['lesson_plan_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link', 'custom_title', 'custom_metadata', 'metadata_render_as']
     extra = 0
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
@@ -38,7 +38,7 @@ class LessonPlanItemInline(admin.TabularInline):
 
 class HistoricalEssayItemInline(admin.TabularInline):
     model = ExhibitItem
-    fields = ['historical_essay_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link']
+    fields = ['historical_essay_order', 'item_id', 'essay', 'render_as', 'img_display', 'imgUrl', 'custom_crop', 'custom_link', 'custom_title', 'custom_metadata', 'metadata_render_as']
     extra = 0
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
@@ -109,7 +109,7 @@ class HistoricalEssayAdmin(admin.ModelAdmin):
         ('About this Essay',        {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
     ]
-    list_display = ('title', 'publish', 'slug')
+    list_display = ('title', 'hero', 'hero_first', 'get_absolute_url', 'publish', 'slug')
     prepopulated_fields = {'slug': ['title']}
     inlines = [HistoricalEssayItemInline]
 
@@ -123,14 +123,14 @@ class ExhibitAdmin(admin.ModelAdmin):
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
     ]
     inlines = [ExhibitItemInline, NotesItemInline, ThemeExhibitInline, HistoricalEssayExhibitInline, LessonPlanExhibitInline, BrowseTermGroupInline]
-    list_display = ('title', 'hero', 'publish', 'scraped_from', 'slug', 'get_absolute_url')
+    list_display = ('title', 'hero', 'hero_first', 'scraped_from', 'slug', 'get_absolute_url')
     prepopulated_fields = {'slug': ['title']}
 
 
 class LessonPlanAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,                      {'fields': [('title', 'slug'), ('sub_title')]}),
-        ('Publish',                 {'fields': [('publish')]}),
+        ('Lockup Image and Publish',{'fields': [('lockup_derivative', 'item_id'), ('publish')]}),
         ('Lesson Plan Overview',    {'fields': [('overview', 'render_as'), ('lesson_plan', 'grade_level')]}),
         ('About this Lesson Plan',  {'fields': [('byline', 'byline_render_as')], 'classes': ['collapse']}),
         ('Metadata',                {'fields': [('meta_description', 'meta_keywords')], 'classes': ['collapse']})
@@ -143,7 +143,7 @@ class BrowseTermGroupAdmin(admin.ModelAdmin):
 
 class ThemeAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,                      {'fields': [('title', 'slug')]}),
+        (None,                      {'fields': [('title', 'slug'), ('sort_title')]}),
         ('Hero Image and Lockup',   {'fields': [('hero', 'lockup_derivative'), ('item_id', 'alternate_lockup_derivative'), ('hero_first')]}),
         ('Publish',                 {'fields': [('color', 'publish'), ('category')]}),
         ('Theme Overview',          {'fields': [('essay', 'render_as')]}),

@@ -3,7 +3,7 @@
 {% load markdown_filter %}
 
 {% block page-metadata %}
-{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% include "calisphere/microdata.html" with title="Exhibitions Directory" %}
 {% endblock %}
 
 {% block content %}
@@ -13,31 +13,21 @@
   <div class="col-md-3">
     <div class="row" style="margin-right: 10px;">
       <div class="button__exhibitDirectory-tabs-container">
+        <h3>Browse by theme:</h3>
         <a class="button__exhibitDirectory-tabs{% if selected == 'all' %}--selected{% endif %}"
           href="{% url 'exhibits:exhibitDirectory' 'all' %}" data-pjax="js-pageContent">
-          Browse all exhibitions A-Z
+          All exhibitions
         </a>
         {% for category, display in categories %}
           <a class="button__exhibitDirectory-tabs{% if selected == category %}--selected{% endif %}"
             href="{% url 'exhibits:exhibitDirectory' category %}" data-pjax="js-pageContent">
-            Browse {{ display }}
+            {{ display }}
           </a>
         {% endfor %}
         <a class="button__exhibitDirectory-tabs{% if selected == 'uncategorized' %}--selected{% endif %}"
           href="{% url 'exhibits:exhibitDirectory' 'uncategorized' %}" data-pjax="js-pageContent">
-          Browse uncategorized
+          Uncategorized
         </a>
-        <h3>Search for exhibitions:</h3>
-        <form class="exhibit__title-search" role="search" id="js-exhibitTitleSearch" action="{% url 'exhibits:exhibitDirectory' 'search' %}" method="get">
-          <label for="exhibit__search-field" class="exhibit__search-label" style="display: none;">Search exhibitions</label>
-          <div class="input-group">
-            <input id="exhibit__search-field" form="js-exhibitTitleSearch" name="title" value="{{ title }}" type="search" placeholder="Start typing exhibition name" class="form-control">
-            <span class="input-group-btn">
-              <button class="btn btn-default global-search__button" type="submit"><span class="fa fa-search"></span>
-              </button>
-            </span>
-          </div>
-        </form>        
       </div>
     </div>
   </div>
@@ -45,7 +35,7 @@
   <div class="col-md-9 exhibitDirectory">
     {% for theme, exhibits in themes %}
       {% if theme != '' %}
-        <h2>{{ exhibits|length }} exhibition{{ exhibits|pluralize }} in <a href="{{ theme.get_absolute_url }}">{{ theme.title }}</a>:</h2>
+        <h2>{{ exhibits|length }} exhibition{{ exhibits|pluralize }} in <a href="{{ theme.get_absolute_url }}" data-pjax="js-pageContent">{{ theme.title }}</a>:</h2>
       {% endif %}
       <div class="row exhibitDirectory__exhibits">
         {% for exhibit in exhibits %}
@@ -57,7 +47,7 @@
                   </div>
                 </div>
                 <div class="exhibit__lockup--med-title">
-                  <div class="aspect-ratio-content exhibit__lockup--med-title-content">{{ exhibit }}</div>
+                  <div class=" exhibit__lockup--med-title-content">{% if theme != '' and exhibit.short_title %}{{ exhibit.short_title }}{% else %}{{ exhibit }}{% endif %}</div>
                 </div>
               </div>
             </a>
@@ -69,7 +59,8 @@
               <div class="theme__lockup--horizontal">
                 <div class="theme__lockup--horizontal-image">
                   <div class="aspect-ratio-content theme__lockup--horizontal-image-content" style="background-image: url('{{ theme.theme_lockup }}');">
-                    <div class="theme__lockup--horizontal-title">
+                  <div class="theme__lockup--horizontal-color" style="background-color: {{ theme.color }}"></div>
+                  <div class="theme__lockup--horizontal-title">
                       {{ theme.title }}
                       <div class="theme__lockup--horizontal-exhibit-count">{{ theme.exhibittheme_set.all|length }} exhibitions</div>
                     </div>

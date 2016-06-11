@@ -3,7 +3,7 @@
 {% load markdown_filter %}
 
 {% block page-metadata %}
-{# {% include "calisphere/microdata.html" with title=item.title.0 description=item.description %} #}
+{% include "calisphere/microdata.html" with title=essay.title description=essay.blockquote %}
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
   <div class="row essay__content">
     <div class="col-sm-6">
       <div class="exhibit__overview" id="overview">
-        {% include "exhibits/render_as.html" with render_as=essay.render_as text=essay.essay truncate=False container_class="js-exhibit__overview" %}
+        {% include "exhibits/render_as.html" with render_as=essay.render_as text=essay.essay truncate=False container_class="" %}
       </div>
     </div>
     <div class="col-sm-6">
@@ -39,7 +39,7 @@
           <div class="essay__note">
             <h3>Related exhibits</h3>
             {% for hee in essay.historicalessayexhibit_set.all %}
-              <a href="{{ hee.exhibit.get_absolute_url }}">{{ hee.exhibit }}</a><br/>
+              <a href="{{ hee.exhibit.get_absolute_url }}" data-pjax="js-pageContent">{{ hee.exhibit }}</a><br/>
             {% endfor %}
           </div>
         {% endif %}
@@ -47,7 +47,7 @@
           <div class="essay__note">
             <h3>Related themes</h3>
             {% for het in essay.historicalessaytheme_set.all %}
-              <a href="{{ het.theme.get_absolute_url }}">{{ het.theme }}</a><br/>
+              <a href="{{ het.theme.get_absolute_url }}" data-pjax="js-pageContent">{{ het.theme }}</a><br/>
             {% endfor %}
           </div>
         {% endif %}

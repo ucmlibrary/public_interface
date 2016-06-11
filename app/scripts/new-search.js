@@ -26,24 +26,28 @@ var exhibitPage = Backbone.View.extend({
     });
   },
   
-  exhibitView: function() {
-    $.pjax({
-      push: true,
-      scrollTo: false,
-      url: $('#js-exhibit-item .close').data('url'),
-      container: '#js-exhibit-item__container'
-    });
+  exhibitView: function(e) {
+    if ($('#js-exhibit-item__container').children().length > 0) {
+      $.pjax({
+        push: true,
+        scrollTo: false,
+        url: $('#js-exhibit-item .close').data('url'),
+        container: '#js-exhibit-item__container'
+      });
+    }
   },
   
   toggleExhibitOverview: function() {
-    if ($('.js-exhibit__overview--full').is(':visible')) {
-      $('.js-exhibit__overview--preview').show();
-      $('.js-exhibit__overview--full').slideUp();
+    var isTruncated = $('.js-exhibit__overview').triggerHandler('isTruncated');
+
+    if (isTruncated) {
+      $('.js-exhibit__overview').trigger('destroy');
+      $('.js-exhibit__overview').css('height', 'auto');
+      $('#js-exhibit__overview').text('Read less.');
+    }
+    else {
+      $('.js-exhibit__overview').css('height', '400px').dotdotdot();
       $('#js-exhibit__overview').text('Read full exhibition overview.');
-    } else {
-      $('.js-exhibit__overview--full').slideDown();
-      $('.js-exhibit__overview--preview').hide();
-      $('#js-exhibit__overview').text('Read less');
     }
   },
   
@@ -86,15 +90,14 @@ var exhibitPage = Backbone.View.extend({
     });
   },
 
+  clientTruncate: function() {
+    $('.js-exhibit__overview').dotdotdot();
+  },
+
   initialize: function() {
     if ($('#js-exhibit-item__container').children().length > 0) {
       $('#js-exhibit-item').modal();
     }
-    $(document).on('pjax:end', '#js-exhibit-item__container', function() {
-      if(!($('#js-exhibit-item').is(':visible')) && $('#js-exhibit-item__container').children().length > 0) {
-        $('#js-exhibit-item').modal();
-      }
-    });    
   },
 });
 
@@ -818,6 +821,7 @@ var GlobalSearchForm = Backbone.View.extend({
     if($('#js-exhibit-title').length > 0) {
       if (this.exhibitPage === undefined) { this.exhibitPage = new exhibitPage(); }
       this.exhibitPage.initCarousel();
+      this.exhibitPage.clientTruncate();
     } else if (this.exhibitPage !== undefined) {
       this.exhibitPage.undelegateEvents();
       delete this.exhibitPage;
