@@ -27,7 +27,6 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
                        )
              )
 
-DJANGO_CACHE_TIMEOUT = os.getenv('DJANGO_CACHE_TIMEOUT', 60*15) # seconds
 
 SOLR_URL = os.getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = os.getenv('UCLDC_SOLR_API_KEY', '')
@@ -38,6 +37,7 @@ UCLDC_NUXEO_THUMBS = os.getenv('UCLDC_NUXEO_THUMBS', '')
 UCLDC_REGISTRY_URL = os.getenv('UCLDC_REGISTRY_URL', 'https://registry.cdlib.org/')
 
 UCLDC_FRONT = os.getenv('UCLDC_FRONT','')
+UCLDC_REDIS_URL = os.getenv('UCLDC_REDIS_URL', False)
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND',
                           'django.core.mail.backends.console.EmailBackend')
@@ -106,7 +106,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
-        "APP_DIRS": True,
+        # "APP_DIRS": True,
         "OPTIONS": {
             "builtins": [
                 "easy_pjax.templatetags.pjax_tags"
@@ -154,6 +154,24 @@ else:
         }
     }
 
+# Cache / Redis
+# 
+
+DJANGO_CACHE_TIMEOUT = os.getenv('DJANGO_CACHE_TIMEOUT', 60*15) # seconds
+
+if UCLDC_REDIS_URL:
+    DJANGO_REDIS_IGNORE_EXCEPTIONS = True
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": UCLDC_REDIS_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        }
+    }
+    SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+    SESSION_CACHE_ALIAS = "default"
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
