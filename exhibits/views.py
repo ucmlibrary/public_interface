@@ -12,14 +12,11 @@ def calCultures(request):
     historical_essays = []
     for (title, key) in unique_historical_essays:
         historical_essays.append(HistoricalEssay.objects.get(pk=key))
-    print "HELLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    print historical_essays
 
     unique_lesson_plans = LessonPlan.objects.filter(lessonplantheme__theme__in=california_cultures).values_list('title', 'id').distinct()
     lesson_plans = []
     for (title, key) in unique_lesson_plans:
         lesson_plans.append(LessonPlan.objects.get(pk=key))
-    print lesson_plans
 
     return render(request, 'exhibits/calCultures.html', {
         'california_cultures': california_cultures, 
