@@ -1,7 +1,7 @@
 <div class="row primarysource">
   {% for item in exhibitItems %}
     <div class="col-xs-6 col-sm-3 col-md-2">
-        <a class="primarysource__link js-exhibit-item" href="{% url url_name url_id item.item_id %}" title="{{ item.solrData.title }}">
+        <a class="primarysource__link js-exhibit-item" href="{% url url_name url_id item.item_id %}" title="{% if item.solrData %}{{ item.solrData.title.0 }}{% else %}{{ item.custom_title }}{% endif %}">
 
         <div class="thumbnail__container">
           {% if item.solrData %}
