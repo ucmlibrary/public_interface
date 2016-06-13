@@ -108,7 +108,6 @@ TEMPLATES = [
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
-            "debug": UCLDC_DEVEL,
             "builtins": [
                 "easy_pjax.templatetags.pjax_tags"
             ],
@@ -117,7 +116,14 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 'public_interface.context_processors.settings',
-            ]
+            ],
+            "debug": UCLDC_DEVEL,
+            'loaders': [
+                ('django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ]),
+        ],
         }
     }
 ]
