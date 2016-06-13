@@ -34,8 +34,7 @@
   background-color: $design-dark-gray-color;
   padding: $exhibit-layout-component-margin;
   color: #fff;
-  display: flex;
-  flex-direction: column;
+  flex: 1 1 300px;
 }
 
 .theme__overview a {
@@ -53,8 +52,7 @@
 .theme__exhibits {
   background-color: $design-light-gray-color;
   padding: $exhibit-layout-component-margin 0 0 $exhibit-layout-component-margin;
-  display: flex;
-  flex-direction: column;
+  flex: 2 2 600px;
 }
 
 .theme__exhibits h2:first-of-type {
