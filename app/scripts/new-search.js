@@ -26,7 +26,7 @@ var exhibitPage = Backbone.View.extend({
     });
   },
   
-  exhibitView: function(e) {
+  exhibitView: function() {
     if ($('#js-exhibit-item__container').children().length > 0) {
       $.pjax({
         push: true,
