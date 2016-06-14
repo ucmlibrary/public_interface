@@ -326,6 +326,13 @@ a.exhibit__modal-arrow:hover {
   border: 0;
   border-radius: 4px;
   color: #FFF;
+  position: relative;
+  top: 5px;
+}
+
+.lessonPlan:hover {
+  color: #FFF;
+  text-decoration: underline;
 }
 
 .primarysource {
