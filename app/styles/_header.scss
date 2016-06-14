@@ -213,7 +213,7 @@ html.no-flexbox .global-header__nav-list-item {
 
   @include bp(md-screen) {
     margin: $layout-component-margin (-$layout-container-margin-md);
-    padding: 0.7em 10% 0.5em 0;
+    padding: 0.7em 5% 0.5em 0;
   }
 
 }
@@ -235,7 +235,7 @@ html.no-flexbox .global-header__nav-list-item {
 .global-header__bar-links {
 
   @include bp(sm-screen) {
-    padding: 0.1em 3em;
+    padding: 0.1em 2em;
     color: #fff;
     font-size: 1.3em;
     line-height: 1;
