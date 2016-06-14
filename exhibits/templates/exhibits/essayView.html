@@ -22,12 +22,12 @@
   </div>
 
   <div class="row essay__content">
-    <div class="col-sm-6">
+    <div class="col-md-6">
       <div class="exhibit__overview" id="overview">
         {% include "exhibits/render_as.html" with render_as=essay.render_as text=essay.essay truncate=False container_class="" %}
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-md-6">
       <div class="exhibit__notes">
         {% if essay.go_further %}
           <div class="essay__note">
