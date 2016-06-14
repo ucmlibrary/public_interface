@@ -10,3 +10,6 @@ wsgiref==0.1.2
 django-positions==0.5.3
 markdown==2.6.5
 https://github.com/ucldc/md5s3stash/archive/master.zip#egg=md5s3stash
+django-redis==4.4.3
+redis==2.10.5
+hiredis==0.2.0

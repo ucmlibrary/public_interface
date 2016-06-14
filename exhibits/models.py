@@ -7,6 +7,7 @@ from django.db import models
 from positions.fields import PositionField
 from calisphere.cache_retry import SOLR_select, SOLR_raw, json_loads_url
 from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 from calisphere.views import getCollectionData, getRepositoryData
 from django.conf import settings
 from exhibits.custom_fields import HeroField
@@ -30,6 +31,7 @@ RENDERING_OPTIONS = (
 #     def __str__(self):
 #         return self.item_id
 
+@python_2_unicode_compatible
 class Exhibit(models.Model):
     title = models.CharField(max_length=512)
     slug = models.SlugField(max_length=255, unique=True)
@@ -103,6 +105,7 @@ class Exhibit(models.Model):
                     super(Exhibit, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
+@python_2_unicode_compatible
 class HistoricalEssay(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=255, unique=True)
@@ -163,6 +166,7 @@ class HistoricalEssay(models.Model):
     def __str__(self):
         return self.title
 
+@python_2_unicode_compatible
 class LessonPlan(models.Model):
     title = models.CharField(max_length=200)
     sub_title = models.CharField(max_length=512, blank=True)
@@ -217,6 +221,7 @@ class LessonPlan(models.Model):
                     super(LessonPlan, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
+@python_2_unicode_compatible
 class Theme(models.Model): 
     title = models.CharField(max_length=200)
     sort_title = models.CharField(blank=True, max_length=200, verbose_name='Sortable Title')
@@ -285,6 +290,7 @@ class Theme(models.Model):
     def __str__(self):
         return self.title
 
+@python_2_unicode_compatible
 class ExhibitItem(models.Model):
     item_id = models.CharField(max_length=200)
 
@@ -358,6 +364,7 @@ class ExhibitItem(models.Model):
                     super(ExhibitItem, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
 
+@python_2_unicode_compatible
 class NotesItem(models.Model):
     title = models.CharField(max_length=200)
     exhibit = models.ForeignKey(Exhibit, on_delete=models.CASCADE)
@@ -371,6 +378,7 @@ class NotesItem(models.Model):
     class Meta:
         ordering = ['order']
 
+@python_2_unicode_compatible
 class BrowseTermGroup(models.Model):
     group_title = models.CharField(max_length=200, blank=True)
     group_note = models.TextField(blank=True)
@@ -386,6 +394,7 @@ class BrowseTermGroup(models.Model):
     class Meta:
         ordering = ['order']
 
+@python_2_unicode_compatible
 class BrowseTerm(models.Model):
     link_text = models.CharField(max_length=200)
     link_location = models.CharField(max_length=500)
@@ -420,6 +429,7 @@ class LessonPlanExhibit(models.Model):
         ordering = ['order']
 
 # Exhibits ordered within Themes
+@python_2_unicode_compatible
 class ExhibitTheme(models.Model):
     exhibit = models.ForeignKey(Exhibit, on_delete=models.CASCADE)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
