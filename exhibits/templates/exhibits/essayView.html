@@ -37,7 +37,7 @@
         {% endif %}
         {% if essay.historicalessayexhibit_set.all|length > 0 %}
           <div class="essay__note">
-            <h3>Related exhibits</h3>
+            <h3>Related exhibitions</h3>
             {% for hee in essay.historicalessayexhibit_set.all %}
               <a href="{{ hee.exhibit.get_absolute_url }}" data-pjax="js-pageContent">{{ hee.exhibit }}</a><br/>
             {% endfor %}
