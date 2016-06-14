@@ -40,6 +40,8 @@
 }
 
 .exhibit__overview {
+  padding: 0 0 $exhibit-layout-component-margin 0;
+
   @include bp(md-screen) {
     padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
   }
