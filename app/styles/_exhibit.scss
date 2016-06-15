@@ -40,6 +40,8 @@
 }
 
 .exhibit__overview {
+  padding: 0 0 $exhibit-layout-component-margin 0;
+
   @include bp(md-screen) {
     padding: 0 $exhibit-layout-component-margin $exhibit-layout-component-margin 0;
   }
@@ -326,6 +328,13 @@ a.exhibit__modal-arrow:hover {
   border: 0;
   border-radius: 4px;
   color: #FFF;
+  position: relative;
+  top: 5px;
+}
+
+.lessonPlan:hover {
+  color: #FFF;
+  text-decoration: underline;
 }
 
 .primarysource {

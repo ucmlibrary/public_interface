@@ -13,8 +13,9 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^', include('calisphere.urls', namespace="calisphere")),
     url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
-    url(r'^for-teachers/', include('exhibits.teacher_urls', namespace="for-teachers")),
+    url(r'^for-educators/', include('exhibits.teacher_urls', namespace="for-teachers")),
     url(r'^cal-cultures/', calCultures, name="cal-cultures"),
+    url(r'jarda-related-resources/$', TemplateView.as_view(template_name='exhibits/jarda-related-resources.html'), name='jarda-related-resources'),
 
     url(r'^admin/', admin.site.urls),
     url(r'^contact/$',

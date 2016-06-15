@@ -17,13 +17,13 @@
   </div>
   
   <!-- <div class="theme__main-content"> -->
-  <div class="row theme__main-content">
-    <div class="col-md-4 col-sm-12 theme__overview">
+  <div class="theme__main-content">
+    <div class="theme__overview">
     <!-- <div class="theme__overview"> -->
       <h2>Overview</h2>
       {% include "exhibits/render_as.html" with render_as=theme.render_as text=theme.essay truncate=False container_class="" %}
     </div>
-    <div class="col-md-8 col-xs-12 theme__exhibits">
+    <div class="theme__exhibits">
     <!-- <div class="theme__exhibits"> -->
       <h2>{{ relatedExhibits|length }} exhibitions:</h2>
       <div class="row">
@@ -74,7 +74,7 @@
             <div class="exhibit__lesson-lockup">
               <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url({{ lpt.lessonPlan.lockup }});">
                 <div class="exhibit__lesson-lockup-color"></div>
-                <div class="exhibit__lesson-lockup-title">{{ lpt.lessonPlan.title }}</div>
+                <div class="exhibit__lesson-lockup-title">{{ lpt.lessonPlan.title }}:<br/>{{ lpt.lessonPlan.sub_title }}</div>
               </div>
             </div>
           </a>

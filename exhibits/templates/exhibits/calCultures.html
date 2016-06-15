@@ -12,8 +12,8 @@
       <li><a href="{% url 'exhibits:randomExplore' %}" data-pjax="js-pageContent">Exhibitions</a></li>
     </ol>
   </nav>
-  <div class="theme__hero" style="background-image: url('{{ thumbnailUrl }}clip/1400x280/{{ theme.hero }}')">
-    <h1 class="theme__header" style="background-color: {{ theme.color }}">California Cultures</h1>
+  <div class="theme__hero" style="background-image: url('https://calisphere.org/calisphere_images/cal_cultures_hero.jpg')">
+    <h1 class="theme__header" style="background-color: #005581">California Cultures</h1>
   </div>
   
   <div class="row theme__main-content">
@@ -70,7 +70,7 @@
             <div class="exhibit__lesson-lockup">
               <div class="aspect-ratio-content exhibit__lesson-lockup-image" style="background-image: url({{ lp.lockup }});">
                 <div class="exhibit__lesson-lockup-color"></div>
-                <div class="exhibit__lesson-lockup-title">{{ lp.title }}</div>
+                <div class="exhibit__lesson-lockup-title">{{ lp.title }}:<br/>{{ lp.sub_title }}</div>
               </div>
             </div>
           </a>

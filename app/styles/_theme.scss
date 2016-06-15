@@ -31,19 +31,19 @@
 }
 
 .theme__overview {
-  background-color: $design-dark-gray-color;
+  background-color: #6c6d6e;
   padding: $exhibit-layout-component-margin;
   color: #fff;
-  display: flex;
-  flex-direction: column;
+  flex: 1 1 300px;
 }
 
 .theme__overview a {
-  color: #FF8F28;
+  color: #fff;
+  text-decoration: underline;
 }
 
 .theme__overview a:hover {
-  color: #FF8F28;
+  color: #fff;
 };
 
 .theme__overview h2:first-of-type {
@@ -53,8 +53,7 @@
 .theme__exhibits {
   background-color: $design-light-gray-color;
   padding: $exhibit-layout-component-margin 0 0 $exhibit-layout-component-margin;
-  display: flex;
-  flex-direction: column;
+  flex: 2 2 600px;
 }
 
 .theme__exhibits h2:first-of-type {
