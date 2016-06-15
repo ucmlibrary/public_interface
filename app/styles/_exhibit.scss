@@ -47,6 +47,22 @@
   }
 }
 
+.js-grid-sizer, .js-grid-item {
+  float: left;
+
+  width: 50%;
+  @include bp(sm-screen) { width: 25%; }
+  @include bp(md-screen) { width: 20%; }
+}
+
+.grid-item-width2 {
+  float: left;
+
+  width: 100%;
+  @include bp(sm-screen) { width: 50%; }
+  @include bp(md-screen) { width: 40%; }
+}
+
 .exhibit__overview h3, .exhibit__notes h3 {
   font-size: 18px;
 }
@@ -144,6 +160,7 @@
   right: 0;
   margin-right: $exhibit-layout-component-margin;
   background-color: #fff;
+  background-clip: padding-box;
   padding: $layout-component-margin;
   color: $design-secondary-color;
   border-left: 3px solid rgba(0,0,0,0);

@@ -10,11 +10,12 @@
 {% include "exhibits/exhibitsHeader.html" with active="random" %}
 
 <div class="exhibitDirectory__exhibits">
+  <div class="row" id="js-exhibit-wrapper">
+    <div class="js-grid-sizer"></div>
   {% for set in sets %}
-    <div style="display: flex; align-items: center">
     {% for type, entry in set %}
       {% if type == 'exhibit' %}
-        <div style="flex: 1 1 auto; position: relative;">
+        <div class="js-grid-item">
           <a href="{{ entry.get_absolute_url }}" data-pjax="js-pageContent">
             <div class="exhibit__lockup--med">
               <div class="exhibit__lockup--med-image">
@@ -28,7 +29,7 @@
           </a>
         </div>
       {% else %}
-        <div style="flex: 2 2 auto;">
+        <div class="js-grid-item grid-item-width2">
           <a href="{{ entry.get_absolute_url }}" data-pjax="js-pageContent">
             <div class="theme__lockup--horizontal">
               <div class="theme__lockup--horizontal-image">
@@ -45,8 +46,8 @@
         </div>
       {% endif %}
     {% endfor %}
-    </div>
   {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

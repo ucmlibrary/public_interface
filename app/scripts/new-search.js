@@ -832,9 +832,24 @@ var GlobalSearchForm = Backbone.View.extend({
       if (this.exhibitPage === undefined) { this.exhibitPage = new exhibitPage(); }
       this.exhibitPage.initCarousel();
       this.exhibitPage.clientTruncate();
-    } else if (this.exhibitPage !== undefined) {
+    }
+    else if (this.exhibitPage !== undefined) {
       this.exhibitPage.undelegateEvents();
       delete this.exhibitPage;
+    }
+
+    if($('#js-exhibit-wrapper').length > 0) {
+      this.grid = $('#js-exhibit-wrapper').isotope({
+        layoutMode: 'masonry',
+        itemSelector: '.js-grid-item',
+        percentPosition: true,
+        masonry: {
+          columnWidth: '.js-grid-sizer'
+        }
+      });
+    }
+    else if (this.grid !== undefined) {
+      this.grid.isotope('destroy');
     }
   },
 
