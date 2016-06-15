@@ -8,6 +8,7 @@ var exhibitPage = Backbone.View.extend({
   events: {
     'click .js-exhibit-item'            : 'exhibitItemView',
     'hidden.bs.modal #js-exhibit-item'  : 'exhibitView',
+    'click .js-blockquote'              : 'showExhibitOverview',
     'click #js-exhibit__overview'       : 'toggleExhibitOverview',
     'click .js-show-all-exhibit-items'  : 'togglePrimarySourceSet',
     'mouseenter .primarysource__link'   : 'dotDotDot',
@@ -34,6 +35,15 @@ var exhibitPage = Backbone.View.extend({
         url: $('#js-exhibit-item .close').data('url'),
         container: '#js-exhibit-item__container'
       });
+    }
+  },
+
+  showExhibitOverview: function() {
+    var isTruncated = $('.js-exhibit__overview').triggerHandler('isTruncated');
+    if (isTruncated) {
+      $('.js-exhibit__overview').trigger('destroy');
+      $('.js-exhibit__overview').css('height', 'auto');
+      $('#js-exhibit__overview').text('Read less.');
     }
   },
   
