@@ -18,7 +18,7 @@ urlpatterns = [
 
     # Redirects to new 'exhibitions'
     url(r'^collections/themed/$', RedirectView.as_view(url='/exhibitions/'), name='themedCollections'),
-    url(r'^collections/cal-cultures/$', RedirectView.as_view(url='/exhibitions/browse/cal-cultures/'), name='calCultures'),
+    url(r'^collections/cal-cultures/$', RedirectView.as_view(url='/cal-cultures/'), name='calCultures'),
     url(r'^collections/jarda/$', RedirectView.as_view(url='/exhibitions/browse/jarda/'), name='jarda'),
 
     url(r'^collections/titleSearch/$', views.collectionsSearch, name='collectionsTitleSearch'),
