@@ -24,6 +24,11 @@
   margin: 0;
 }
 
+html.no-background-blend-mode .theme__header {
+  background-image: none;
+  opacity: .95;
+}
+
 .theme__main-content {
   margin: $exhibit-layout-component-margin (-$layout-component-margin);
   display: flex;
@@ -114,6 +119,11 @@
   background-position: right;
   background-blend-mode: multiply;
   background-color: $design-secondary-color;
+}
+
+html.no-background-blend-mode .theme__lockup--horizontal-color {
+  background-image: none;
+  opacity: .3;
 }
 
 .theme__lockup--horizontal-title {

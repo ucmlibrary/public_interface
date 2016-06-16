@@ -220,6 +220,12 @@
   position: absolute;
 }
 
+html.no-background-blend-mode .exhibit__essay-lockup-title,
+html.no-background-blend-mode .exhibit__lesson-lockup-title {
+  background-image: none;
+  opacity: 1;
+}
+
 .exhibit__essay-lockup:hover .exhibit__essay-lockup-color, .exhibit__lesson-lockup:hover .exhibit__lesson-lockup-color {
   opacity: .6;
 }
@@ -272,6 +278,7 @@
   padding: 20px;
   flex: 0 1 auto;
   display: flex;
+  align-items: center;
 }
 
 .exhibit__modal-arrow-position {
