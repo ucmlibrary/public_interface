@@ -85,12 +85,7 @@
   </div>
   
   {% for browse_term_group in theme.browsetermgroup_set.all %}
-    <!-- TODO: screwy logic here -->
-    {% if browse_term_group.group_title == theme.title %}
-      <h3>Browse related items:</h3>
-    {% else %}
-      <h3>Browse related items on {{ browse_term_group.group_title }}:</h3>
-    {% endif %}
+    <h3>{{ browse_term_group.group_title }}:</h3>
 
     <p>{{ browse_term_group.group_note }}</p>
     <div class="theme__browseTerms" style="-webkit-column-count: 6">
