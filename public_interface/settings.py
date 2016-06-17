@@ -61,9 +61,10 @@ GA_SITE_CODE = os.getenv('UCLDC_GA_SITE_CODE', False)
 UCLDC_WALKME = os.getenv('UCLDC_WALKME', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('UCLDC_DEBUG'))
+DEBUG = bool(os.environ.get('UCLDC_DEBUG'))  # <-- this is django's debug
 
 UCLDC_DEVEL = bool(os.environ.get('UCLDC_DEVEL'))
+#<-- this has to do with css via devMode
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
@@ -124,12 +125,18 @@ TEMPLATES = [
             'loaders': [
                 ('django.template.loaders.cached.Loader', [
                     'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                ]),
-        ],
+                    'django.template.loaders.app_directories.Loader', ]
+                ),
+            ],
         }
     }
 ]
+
+if UCLDC_DEVEL or DEBUG:
+    # turn off template cache if we are debugging
+    TEMPLATES[0]['APP_DIRS'] = True
+    TEMPLATES[0]['OPTIONS'].pop('loaders', None)
+    TEMPLATES[0]['OPTIONS']['debug'] = True
 
 
 # Database
@@ -167,7 +174,7 @@ CACHE_MIDDLEWARE_SECONDS = DJANGO_CACHE_TIMEOUT
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
 if UCLDC_REDIS_URL:
-    DJANGO_REDIS_IGNORE_EXCEPTIONS = True
+    # DJANGO_REDIS_IGNORE_EXCEPTIONS = True
     CACHES = {
         'default': {
             'BACKEND': 'django_redis.cache.RedisCache',
