@@ -161,3 +161,39 @@
   }
 
 }
+
+// ***** Exhibit Directory Nav Tabs ***** //
+
+.button__exhibitDirectory-tabs-container {
+  margin: 1px 0 $layout-container-margin-md 0;
+}
+
+.button__exhibitDirectory-tabs {
+  display: block;
+  position: relative;
+  margin: -1px 0 0 0;
+  padding: 7px 15px 7px 7px;
+  text-align: left;
+  border: 1px solid $design-dark-gray-color;
+  color: #000;
+
+  &:before {
+    position: absolute;
+    left: 12px;
+    top: 6px;
+    font-family: FontAwesome;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: #000;
+    background-color: $design-light-gray-color;
+  }
+  
+  &--selected {
+    @extend .button__exhibitDirectory-tabs;
+    background-color: $design-secondary-color;
+    color: #fff;
+  }
+
+}
