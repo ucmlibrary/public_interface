@@ -3,7 +3,7 @@
 {% load markdown_filter %}
 
 {% block page-metadata %}
-{% include "calisphere/microdata.html" with title=lessonPlan.title %}
+{% include "calisphere/microdata.html" with title=lessonPlan.title meta_image="{{ lessonPlan.lockup }}" %}
 {% endblock %}
 
 {% block content %}
