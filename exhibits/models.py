@@ -305,7 +305,17 @@ class Theme(models.Model):
                     self._meta.get_field(s3field).upload_to = upload_to
 
     def social_media_card(self):
-        return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
+        if self.item_id: 
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
+            else:
+                return None
+        else:
+            return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
 
     def __str__(self):
         return self.title
