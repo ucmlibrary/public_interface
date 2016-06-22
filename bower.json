@@ -11,7 +11,6 @@
     "picturefill": "~2.2.0",
     "mediaelement": "~2.16.4",
     "openseadragon": "~2.0.0",
-    "flickity": "https://github.com/kukac7/flickity.git#master",
     "infinite-scroll": "~2.1.0",
     "imagesloaded": "~3.1.8",
     "backbone": "~1.2.1",
@@ -19,7 +18,8 @@
     "nprogress": "~0.2.0",
     "jQuery.dotdotdot": "~1.7.4",
     "isotope": "~3.0.1",
-    "jquery": "2"
+    "jquery": "2",
+    "outlayer": "~2.1.0"
   },
   "resolutions": {
     "slick.js": "~1.5.5",
