@@ -5,11 +5,12 @@ def settings(request):
     Put selected settings variables into the default template context
     """
     from django.conf import settings
-    # http://stackoverflow.com/a/2506425/1763984
-    permalink = u'?'.join([
-        urlparse.urljoin(settings.UCLDC_FRONT, request.path),
-        request.META['QUERY_STRING']
-    ])
+    permalink = urlparse.urljoin(settings.UCLDC_FRONT, request.path)
+    if request.META['QUERY_STRING']:
+        permalink = u'?'.join([
+            permalink,
+            request.META['QUERY_STRING']
+        ])
     return {
         'thumbnailUrl': settings.THUMBNAIL_URL,
         'devMode': settings.UCLDC_DEVEL,
