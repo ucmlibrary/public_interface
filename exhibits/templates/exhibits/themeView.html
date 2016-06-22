@@ -3,7 +3,7 @@
 {% load markdown_filter %}
 
 {% block page-metadata %}
-{% include "calisphere/microdata.html" with title=theme.title %}
+{% include "calisphere/microdata.html" with title=theme.title meta_image=theme.social_media_card %}
 {% endblock %}
 
 {% block content %}

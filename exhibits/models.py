@@ -88,6 +88,19 @@ class Exhibit(models.Model):
             else:
                 return None
     
+    def social_media_card(self):
+        if self.item_id: 
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
+            else:
+                return None
+        else:
+            return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
+
     push_to_s3 = ['hero', 'lockup_derivative', 'alternate_lockup_derivative']
     def save(self, *args, **kwargs):
         super(Exhibit, self).save(*args, **kwargs)
@@ -163,6 +176,19 @@ class HistoricalEssay(models.Model):
             else:
                 return None
 
+    def social_media_card(self):
+        if self.item_id: 
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
+            else:
+                return None
+        else:
+            return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
+
     def __str__(self):
         return self.title
 
@@ -201,6 +227,17 @@ class LessonPlan(models.Model):
             item_solr_search = SOLR_select(q=item_id_search_term)
             if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
                 return settings.THUMBNAIL_URL + "crop/298x121/" + item_solr_search.results[0]['reference_image_md5']
+            else:
+                return None
+
+    def social_media_card(self):
+        if self.lockup_derivative:
+            return settings.THUMBNAIL_URL + "clip/999x999/" + self.lockup_derivative.name
+        else:
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + item_solr_search.results[0]['reference_image_md5']
             else:
                 return None
 
@@ -286,6 +323,19 @@ class Theme(models.Model):
                     self._meta.get_field(s3field).upload_to = ''
                     super(Theme, self).save(update_fields=[s3field])
                     self._meta.get_field(s3field).upload_to = upload_to
+
+    def social_media_card(self):
+        if self.item_id: 
+            item_id_search_term = 'id:"{0}"'.format(self.item_id)
+            item_solr_search = SOLR_select(q=item_id_search_term)
+            if len(item_solr_search.results) > 0 and 'reference_image_md5' in item_solr_search.results[0]:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + item_solr_search.results[0]['reference_image_md5']
+            elif self.hero:
+                return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
+            else:
+                return None
+        else:
+            return settings.THUMBNAIL_URL + "clip/999x999/" + self.hero.name
 
     def __str__(self):
         return self.title
