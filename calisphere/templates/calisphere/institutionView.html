@@ -9,19 +9,25 @@
 {% endblock %}
 
 {% block pageTitle %}
-  <h1 id="js-institution" {%if campus_slug%}data-campus="{{ campus_slug }}"{% else %}data-institution="{{ repository_id }}"{% endif %} data-referralName="{{ institution.name }}">
-    {% if campus_slug or uc_institution %}
-      <a href="{% url 'calisphere:campusDirectory' %}" data-pjax="js-pageContent">Institutions</a>
-    {% else %}
-      <a href="{% url 'calisphere:statewideDirectory' %}" data-pjax="js-pageContent">Institutions</a>
-    {% endif %}
-     /
-    {% if repository_id and uc_institution %}
-      <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}" data-pjax="js-pageContent">{{ uc_institution.0.name }}</a> /
-    {% endif %}
-    <strong>
-      {{ institution.name }}
-    </strong>
+  <nav role="navigation">
+    <ol id="global__breadcrumb">
+      <li>
+        {% if campus_slug or uc_institution %}
+          <a href="{% url 'calisphere:campusDirectory' %}" data-pjax="js-pageContent">Institutions</a>
+        {% else %}
+          <a href="{% url 'calisphere:statewideDirectory' %}" data-pjax="js-pageContent">Institutions</a>
+        {% endif %}
+      </li>
+      {% if repository_id and uc_institution %}
+      <li>
+        <a href="{% url 'calisphere:campusView' uc_institution.0.slug 'collections' %}" data-pjax="js-pageContent">{{ uc_institution.0.name }}</a>
+      </li>
+      {% endif %}
+    </ol>
+  </nav>
+
+  <h1 id="js-institution" class="global__breadcrumb-header" {%if campus_slug%}data-campus="{{ campus_slug }}"{% else %}data-institution="{{ repository_id }}"{% endif %} data-referralName="{{ institution.name }}">
+    {{ institution.name }}
   </h1>
 {% endblock %}
 

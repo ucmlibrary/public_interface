@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 from calisphere.home import HomeView
 from . import views
 
@@ -14,9 +15,12 @@ urlpatterns = [
     url(r'^collections/(?P<collection_letter>[a-zA-Z]{1})/', views.collectionsAZ, name='collectionsAZ'),
     url(r'^collections/(?P<collection_letter>num)/', views.collectionsAZ, name='collectionsAZ'),
     url(r'^collections/(?P<collection_id>\d*)/', views.collectionView, name='collectionView'),
-    url(r'^collections/themed/$', views.calHistory, name='themedCollections'),
-    url(r'^collections/cal-cultures/$', views.calCultures, name='calCultures'),
-    url(r'^collections/jarda/$', views.jarda, name='jarda'),
+
+    # Redirects to new 'exhibitions'
+    url(r'^collections/themed/$', RedirectView.as_view(url='/exhibitions/'), name='themedCollections'),
+    url(r'^collections/cal-cultures/$', RedirectView.as_view(url='/cal-cultures/'), name='calCultures'),
+    url(r'^collections/jarda/$', RedirectView.as_view(url='/exhibitions/t11/jarda/'), name='jarda'),
+
     url(r'^collections/titleSearch/$', views.collectionsSearch, name='collectionsTitleSearch'),
     url(r'^collections/titles.json$', views.collectionsTitles, name='collectionsTitleData'),
 
