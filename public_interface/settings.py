@@ -132,7 +132,7 @@ TEMPLATES = [
     }
 ]
 
-if UCLDC_DEVEL or DEBUG:
+if UCLDC_DEVEL or DEBUG or 1 == 1:
     # turn off template cache if we are debugging
     TEMPLATES[0]['APP_DIRS'] = True
     TEMPLATES[0]['OPTIONS'].pop('loaders', None)
