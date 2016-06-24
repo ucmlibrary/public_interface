@@ -97,7 +97,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'easy_pjax.middleware.UnpjaxMiddleware',
 )
 
 ROOT_URLCONF = 'public_interface.urls'
