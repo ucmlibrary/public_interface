@@ -5,6 +5,12 @@ def settings(request):
     Put selected settings variables into the default template context
     """
     from django.conf import settings
+    permalink = urlparse.urljoin(settings.UCLDC_FRONT, request.path)
+    if request.META['QUERY_STRING']:
+        permalink = u'?'.join([
+            permalink,
+            request.META['QUERY_STRING']
+        ])
     return {
         'thumbnailUrl': settings.THUMBNAIL_URL,
         'devMode': settings.UCLDC_DEVEL,
@@ -15,7 +21,7 @@ def settings(request):
         'ucldcNuxeoThumbs': settings.UCLDC_NUXEO_THUMBS,
         'gaSiteCode': settings.GA_SITE_CODE,
         'contactFlag': settings.CONTRUBUTOR_CONTACT_FLAG,
-        'permalink': urlparse.urljoin(settings.UCLDC_FRONT, request.path),
+        'permalink': permalink,
         'q': '',
         'page': None,
         'meta_image': None,
@@ -29,5 +35,6 @@ def settings(request):
         'collection_q': None,
         'alphabet': None,
         'referral': None,
+        'exhibitMedia': settings.MEDIA_URL
     }
 

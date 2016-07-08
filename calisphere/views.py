@@ -820,15 +820,6 @@ def collectionsTitles(request):
 def collectionsSearch(request):
     return render(request, 'calisphere/collectionsTitleSearch.html', {'collections': [], 'collection_q': True})
 
-def calHistory(request):
-    return render(request, 'calisphere/themedCollections/calHistory.html', {'themedCollections': True})
-
-def calCultures(request):
-    return render(request, 'calisphere/themedCollections/calCultures.html', {'themedCollections': True})
-
-def jarda(request):
-    return render(request, 'calisphere/themedCollections/jarda.html', {'themedCollections': True})
-
 def collectionView(request, collection_id):
     collection_url = 'https://registry.cdlib.org/api/v1/collection/' + collection_id + '/?format=json'
     collection_details = json_loads_url(collection_url)
@@ -840,6 +831,21 @@ def collectionView(request, collection_id):
     collection = getCollectionData(collection_id=collection_id)
     fq = solrize_filters(queryParams['filters'])
     fq.append('collection_url: "' + collection['url'] + '"')
+
+    # Add Custom Facet Filter Types
+    extra_facet_types = []
+    if collection_details['custom_facet']:
+      for i in range(len(collection_details['custom_facet'])):
+        custom_facet = collection_details['custom_facet'][i]
+        extra_facet_types.append({'facet': custom_facet['facet_field'], 'display_name': custom_facet['label'], 'filter': custom_facet['facet_field']})
+
+      # Add custom facet only if doesn't already exist.
+      [FACET_FILTER_TYPES.append(facet) for facet in extra_facet_types if facet not in FACET_FILTER_TYPES]
+
+    else:
+      # If collection_details['custom_facet'] is empty, remove extra facet types from FACET_FILTER_TYPES.
+      if len(FACET_FILTER_TYPES) > len(DEFAULT_FACET_FILTER_TYPES):
+        [FACET_FILTER_TYPES.remove(facet) for facet in FACET_FILTER_TYPES if facet not in DEFAULT_FACET_FILTER_TYPES]
 
     facet_fields = list(facet_filter_type['facet'] for facet_filter_type in FACET_FILTER_TYPES if facet_filter_type['facet'] != 'collection_data')
 
