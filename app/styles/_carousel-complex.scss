@@ -61,7 +61,7 @@ $carousel-item-size: 80px;
   margin: 0 0 0 90px;
   border-left: 2px solid $design-dark-gray-color;
   padding: 0 0 0 ($layout-component-margin / 2);
-  
+
   @include bp(sm-screen) {
     margin: 0 0 0 130px;
     padding: 0 ($layout-component-margin * 2) 0 ($layout-component-margin / 2);
@@ -81,7 +81,7 @@ $carousel-item-size: 80px;
 
 .carousel-complex__item--selected {
   opacity: 1;
-  
+
   .carousel-complex__img {
     border: 5px solid $design-primary-color;
   }
@@ -124,6 +124,5 @@ $carousel-item-size: 80px;
 }
 
 .carousel-complex img { // Slick carousel reset
-  width: 100%;
   height: $carousel-item-size;
 }

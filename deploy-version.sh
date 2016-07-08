@@ -48,7 +48,7 @@ git checkout .
 cd ..
 
 # package app and upload
-zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/ dist/
+zip $ZIP -r calisphere/ manage.py public_interface/ test/ requirements.txt README.md .ebextensions/ dist/ exhibits/
 aws s3 cp $ZIP s3://$BUCKET/$DIR/$ZIP
 aws elasticbeanstalk create-application-version \
   --application-name $APPNAME \

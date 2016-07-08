@@ -233,7 +233,9 @@ module.exports = function (grunt) {
     // additional tasks can operate on them
     useminPrepare: {
       options: {
-        dest: '<%= config.dist %>'
+        dest: '<%= config.dist %>' //,
+        // use flow to disable uglify  http://stackoverflow.com/a/37958399/1763984
+        // flow: { steps: { js: ['concat'], css: ['concat', 'cssmin'] }, post: {} }
       },
       html: '<%= config.app %>/index.html'
     },
@@ -317,6 +319,7 @@ module.exports = function (grunt) {
     // concat: {
     //   dist: {}
     // },
+
 
     // Copies remaining files to places other tasks can use
     copy: {
