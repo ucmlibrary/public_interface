@@ -1,5 +1,6 @@
 {% load calisphere-extras %}
 {% load markdown_filter %}
+{% load exhibit_extras %}
 
 <div class="exhibit__modal">
   {% if prevItem %}
@@ -18,13 +19,13 @@
 
   <div class="exhibit__modal-content-wrapper">
   {% if exhibitItem.solrData %}
-  {% with item=exhibitItem.solrData %}
+  {% with item=exhibitItem.solrData clipto="500x500" %}
     <div class="exhibit__modal-content">
       <div class="obj-container__simple-{% if 'reference_image_md5' in item %}image{% else %}tile{% endif %}">
         <a class="obj__link" href="{% url 'calisphere:itemView' item.id %}" data-pjax="js-pageContent">
         {% if item.reference_image_md5 %}
           <div class="obj__icon-container">
-            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}" style="max-width: 100%">
+            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/{{ clipto }}/{{ item.reference_image_md5 }}" alt="{{ item.title.0 }}" style="width: {{ item.reference_image_dimensions|clip_width:clipto }}px;height: {{ item.reference_image_dimensions|clip_height:clipto }}px;max-width: 100%">
             {% if item.type_ss.0|lower == "moving image" %}
             <div class="obj__overlay-icon fa-video-camera"></div>
             {% elif item.type_ss.0|lower == "sound"%}
@@ -129,7 +130,7 @@
         {% endif %}
         {% if exhibitItem.custom_crop %}
           <div class="obj__icon-container">
-            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/500x500/{{ exhibitItem.custom_crop }}" style="max-width: 100%">
+            <img class="obj__simple-image" src="{{ thumbnailUrl }}clip/{{ clipto }}/{{ exhibitItem.custom_crop }}" style="max-width: 100%">
           </div>
         {% else %}
           <div class="thumbnail__container"></div>
