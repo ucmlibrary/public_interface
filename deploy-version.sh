@@ -24,7 +24,6 @@ fi
 
 set -u
 
-ZIP=ucldc-django-ebs.zip
 DIR=ucldc-django-beanstalk
 BUCKET=xtf.dsc.cdlib.org
 REGION=us-west-2
@@ -41,6 +40,8 @@ if [[ env_exists -ne 1 ]]
     echo "environment $2 does not exist"
     usage
 fi
+
+ZIP="ucldc-$2.zip"
 
 grunt
 cd app
