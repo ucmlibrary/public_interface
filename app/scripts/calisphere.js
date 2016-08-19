@@ -211,6 +211,23 @@ $(document).ready(function() {
       NProgress.done();
     });
   }
+
+  // google event tracking
+  // based on https://support.google.com/analytics/answer/1136920?hl=en
+  if ('ga' in window){
+    // track outbound links
+    // jshint quotmark: false
+    // globals ga: false
+    $('body').on('click',"a[href^='http://']",function() {
+      var url = $(this).attr('href');
+      ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
+        function () {
+          document.location = url;
+        }
+      });
+      return false;
+    });
+  };
 });
 
 $(document).on('pjax:end', function() {
