@@ -41,7 +41,7 @@ if [[ env_exists -ne 1 ]]
     usage
 fi
 
-ZIP="ucldc-$2.zip"
+ZIP="ucldc-$1.zip"
 
 grunt
 cd app
