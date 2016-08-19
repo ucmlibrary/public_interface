@@ -248,6 +248,7 @@ $(document).on('pjax:end', function() {
 $(document).on('ready pjax:end', function() {
   // send google analytics on pjax pages
   /* globals ga: false */
+  /* jshint latedef: false */
   if (typeof ga !== 'undefined') {
     var inst_ga_code = $('[data-ga-code]').data('ga-code');
     var dim1 = $('[data-ga-dim1]').data('ga-dim1');
