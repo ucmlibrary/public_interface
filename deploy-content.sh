@@ -29,7 +29,8 @@ REGION=us-west-2
 DUMP="exhibits-$1.json"
 
 python manage.py dumpdata exhibits -o $DUMP
-aws s3 cp $DUMP s3://$BUCKET/$DIR/$DUMP
+gzip $DUMP
+aws s3 cp $DUMP.gz s3://$BUCKET/$DIR/$DUMP.gz
 
 # Copyright (c) 2016, Regents of the University of California
 #
