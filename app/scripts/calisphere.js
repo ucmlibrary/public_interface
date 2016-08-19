@@ -73,6 +73,23 @@ var setupObjects = function() {
 };
 
 $(document).ready(function() {
+  if (typeof ga !== 'undefined') {
+    // google event tracking
+    // based on https://support.google.com/analytics/answer/1136920?hl=en
+    // track outbound links
+    // jshint quotmark: false
+    // capture the click handler on outbound links
+    $('body').on('click',"a[href^='http://'], a[href^='https://']",function() {
+      var url = $(this).attr('href');
+      ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
+        // click captured and tracked, send the user along
+        function () {
+          document.location = url;
+        }
+      });
+      return false;
+    });
+  }
   sessionStorageWarning();
 
   // http://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
@@ -212,22 +229,7 @@ $(document).ready(function() {
     });
   }
 
-  // google event tracking
-  // based on https://support.google.com/analytics/answer/1136920?hl=en
-  if ('ga' in window){
-    // track outbound links
-    // jshint quotmark: false
-    // globals ga: false
-    $('body').on('click',"a[href^='http://']",function() {
-      var url = $(this).attr('href');
-      ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
-        function () {
-          document.location = url;
-        }
-      });
-      return false;
-    });
-  };
+
 });
 
 $(document).on('pjax:end', function() {
