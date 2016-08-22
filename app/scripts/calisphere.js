@@ -77,7 +77,7 @@ $(document).ready(function() {
     // google event tracking track outbound links
     // based on https://support.google.com/analytics/answer/1136920?hl=en
     // capture the click handler on outbound links
-    $('body').on('click', $('a[href^="http://"], a[href^="https://"]'), function() {
+    $('body').on('click', 'a[href^="http://"], a[href^="https://"]', function() {
       var url = $(this).attr('href');
       ga('send', 'event', 'outbound', 'click', url, {
         'transport': 'beacon',  // use navigator.sendBeacon
