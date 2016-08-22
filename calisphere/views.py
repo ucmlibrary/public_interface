@@ -283,6 +283,10 @@ def processQueryRequest(request):
         )
     rows = request.GET.get('rows', '24')
     start = request.GET.get('start', '0')
+    try:
+        int(start)
+    except ValueError:
+        start = 0
     if 'sort' in request.GET:
         sort = request.GET['sort']
     elif query_terms:
