@@ -74,16 +74,15 @@ var setupObjects = function() {
 
 $(document).ready(function() {
   if (typeof ga !== 'undefined') {
-    // google event tracking
+    // google event tracking track outbound links
     // based on https://support.google.com/analytics/answer/1136920?hl=en
-    // track outbound links
-    // jshint quotmark: false
     // capture the click handler on outbound links
-    $('body').on('click',"a[href^='http://'], a[href^='https://']",function() {
+    $('body').on('click', $('a[href^="http://"], a[href^="https://"]'), function() {
       var url = $(this).attr('href');
-      ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
+      ga('send', 'event', 'outbound', 'click', url, {
+        'transport': 'beacon',  // use navigator.sendBeacon
         // click captured and tracked, send the user along
-        function () {
+        'hitCallback': function () {
           document.location = url;
         }
       });
