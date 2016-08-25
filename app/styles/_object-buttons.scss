@@ -211,3 +211,8 @@ html.no-flexbox .obj__osd-button {
 #obj__osd-button-next, #obj__osd-button-previous {
   position: absolute !important;
 }
+
+.obj__osd-button-group .fa-refresh:before {
+    content: "reset";
+    margin-left: -3px;
+}
