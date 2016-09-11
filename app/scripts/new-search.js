@@ -26,7 +26,7 @@ var exhibitPage = Backbone.View.extend({
       container: '#js-exhibit-item__container'
     });
   },
-  
+
   exhibitView: function() {
     if ($('#js-exhibit-item__container').children().length > 0) {
       $.pjax({
@@ -46,7 +46,7 @@ var exhibitPage = Backbone.View.extend({
       $('#js-exhibit__overview').text('Read less.');
     }
   },
-  
+
   toggleExhibitOverview: function() {
     var isTruncated = $('.js-exhibit__overview').triggerHandler('isTruncated');
 
@@ -60,7 +60,7 @@ var exhibitPage = Backbone.View.extend({
       $('#js-exhibit__overview').text('Read full exhibition overview.');
     }
   },
-  
+
   togglePrimarySourceSet: function() {
     $('.js-exhibit-items-overflow').slideToggle();
     if ($($('.js-show-all-exhibit-items')[0]).text() === 'View all') {
@@ -77,7 +77,7 @@ var exhibitPage = Backbone.View.extend({
   killDotDotDot: function(e) {
     $(e.currentTarget).find('.exhibit__caption').trigger('destroy');
   },
-  
+
   initCarousel: function() {
     $('.js-related-carousel').slick({
       infinite: false,
@@ -251,7 +251,7 @@ var FacetForm = Backbone.View.extend({
         $(facetTypes[i]).find('.js-a-check__button-deselect-all').prop('disabled', false);
       }
     }
-  },  
+  },
   toggleTooltips: function() {
     // get rid of any visible tooltips
     var visibleTooltips = $('[data-toggle="tooltip"][aria-describedby]');
@@ -543,7 +543,7 @@ var CarouselContext = Backbone.View.extend({
     if (this.model.get('itemNumber') !== undefined) {
       this.carouselStart = this.carouselEnd = this.model.get('itemNumber');
     }
-    
+
     var data_params = this.toJSON();
     delete data_params.itemNumber;
     data_params.init = true;
@@ -552,7 +552,7 @@ var CarouselContext = Backbone.View.extend({
     $.ajax({
       url: '/carousel/',
       data: data_params,
-      traditional: true, 
+      traditional: true,
       success: (function(that) {
         return function(data) {
           $('#js-carouselContainer').html(data);
@@ -838,19 +838,6 @@ var GlobalSearchForm = Backbone.View.extend({
       delete this.exhibitPage;
     }
 
-    if($('#js-exhibit-wrapper').length > 0) {
-      this.grid = $('#js-exhibit-wrapper').isotope({
-        layoutMode: 'masonry',
-        itemSelector: '.js-grid-item',
-        percentPosition: true,
-        masonry: {
-          columnWidth: '.js-grid-sizer'
-        }
-      });
-    }
-    else if (this.grid !== undefined) {
-      this.grid.isotope('destroy');
-    }
   },
 
   changeWidth: function(window_width) {
@@ -863,8 +850,10 @@ var GlobalSearchForm = Backbone.View.extend({
     if($('#js-mosaicContainer').length > 0) {
       $('#js-mosaicContainer').infinitescroll('destroy');
     }
+
   },
   pjax_end: function() {
     this.closeMenu();
   }
 });
+
