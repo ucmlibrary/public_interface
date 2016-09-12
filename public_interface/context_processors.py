@@ -14,7 +14,6 @@ def settings(request):
     return {
         'thumbnailUrl': settings.THUMBNAIL_URL,
         'devMode': settings.UCLDC_DEVEL,
-        'ucldcWalkMe': settings.UCLDC_WALKME,
         'ucldcImages': settings.UCLDC_IMAGES,
         'ucldcMedia': settings.UCLDC_MEDIA,
         'ucldcIiif': settings.UCLDC_IIIF,

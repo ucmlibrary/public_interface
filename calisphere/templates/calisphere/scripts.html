@@ -26,10 +26,12 @@
       <script src="{% static "bower_components/typeahead.js/dist/typeahead.bundle.js" %}"></script>
       <script src="{% static "bower_components/nprogress/nprogress.js" %}"></script>
       <script src="{% static "bower_components/jQuery.dotdotdot/src/js/jquery.dotdotdot.min.js" %}"></script>
-    {% else %}
-      <script src="{% static "scripts/vendor.js" %}"></script>
-      <script src="{% static "scripts/vendor/modernizr.js" %}"></script>
       <script src="{% static "bower_components/isotope/dist/isotope.pkgd.min.js" %}"></script>
+    {% else %}
+      <script src="{% static "bower_components/masonry/dist/masonry.pkgd.min.js" %}"></script>
+      <script src="{% static "scripts/vendor.js" %}"></script>
+      <script src="{% static "bower_components/isotope/dist/isotope.pkgd.min.js" %}"></script>
+      <script src="{% static "scripts/vendor/modernizr.js" %}"></script>
     {% endif %}
 
     <script src="{% static "scripts/query-manager.js" %}"></script>
