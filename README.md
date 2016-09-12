@@ -133,6 +133,8 @@ To generate or update sitemaps, first make sure that "UCLDC_FRONT" has been defi
 UCLDC_FRONT="https://calisphere.org/"
 ```
 
+Also make sure that the `domain` is set correctly using the django ["sites" framework](https://docs.djangoproject.com/en/1.10/ref/contrib/sites/)
+ 
 Then, run:
 
 ```
