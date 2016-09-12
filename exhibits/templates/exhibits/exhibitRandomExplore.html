@@ -50,23 +50,3 @@
   </div>
 </div>
 {% endblock %}
-
-{% block footerScripts %}
-<script>
-  $(document).on('ready pjax:success', function() {
-    if($('#js-exhibit-wrapper').length > 0) {
-      this.grid = $('#js-exhibit-wrapper').isotope({
-        layoutMode: 'masonry',
-        itemSelector: '.js-grid-item',
-        percentPosition: true,
-        masonry: {
-          columnWidth: '.js-grid-sizer'
-        }
-      });
-    }
-    else if (this.grid !== undefined) {
-      this.grid.isotope('destroy');
-    }
-  });
-</script>
-{% endblock %}

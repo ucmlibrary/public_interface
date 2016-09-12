@@ -838,6 +838,17 @@ var GlobalSearchForm = Backbone.View.extend({
       delete this.exhibitPage;
     }
 
+    if($('#js-exhibit-wrapper').length > 0) {
+      this.grid = $('#js-exhibit-wrapper').isotope({
+        layoutMode: 'masonry',
+        itemSelector: '.js-grid-item',
+        percentPosition: true,
+        masonry: {
+          columnWidth: '.js-grid-sizer'
+        }
+      });
+    }
+
   },
 
   changeWidth: function(window_width) {
