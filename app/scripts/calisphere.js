@@ -250,6 +250,7 @@ $(document).on('ready pjax:end', function() {
     if (inst_ga_code) {
       var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
       ga('create', inst_ga_code, 'auto', {'name': inst_tracker_name});
+      ga(inst_tracker_name + '.set', 'anonymizeIp', true);
       ga(inst_tracker_name + '.set', 'location', window.location.href);
       if (dim1) { ga(inst_tracker_name + '.set', 'dimension1', dim1); }
       if (dim2) { ga(inst_tracker_name + '.set', 'dimension2', dim2); }
