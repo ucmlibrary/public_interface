@@ -231,18 +231,6 @@ $(document).ready(function() {
 
 });
 
-$(document).on('pjax:end', function() {
-  /* globals FB: false */
-  // http://stackoverflow.com/a/11727384/1763984
-  if (typeof FB !== 'undefined') {
-    FB.XFBML.parse();
-  }
-  /* globals twttr: false */
-  // http://stackoverflow.com/a/15075801/1763984
-  if (typeof twttr !== 'undefined') {
-    twttr.widgets.load();
-  }
-});
 
 $(document).on('ready pjax:end', function() {
   // send google analytics on pjax pages
@@ -262,6 +250,7 @@ $(document).on('ready pjax:end', function() {
     if (inst_ga_code) {
       var inst_tracker_name = inst_ga_code.replace(/-/g,'x');
       ga('create', inst_ga_code, 'auto', {'name': inst_tracker_name});
+      ga(inst_tracker_name + '.set', 'anonymizeIp', true);
       ga(inst_tracker_name + '.set', 'location', window.location.href);
       if (dim1) { ga(inst_tracker_name + '.set', 'dimension1', dim1); }
       if (dim2) { ga(inst_tracker_name + '.set', 'dimension2', dim2); }
