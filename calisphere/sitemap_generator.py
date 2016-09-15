@@ -56,6 +56,7 @@ class CalisphereSitemapGenerator(SitemapGenerator):
 
     def write_data_fast(self, section, site):
         ''' process data using generator and streaming xml ''' 
+        # FIXME need to generalize this code if we ever want to use it for anything other than Calisphere items
         items = site().items() # generator yielding all items
 
         parts = []
@@ -70,10 +71,12 @@ class CalisphereSitemapGenerator(SitemapGenerator):
                 for n in xrange(site().limit):
                     item = next(items)
                     f.write('<url>')
-                    f.write(u'<loc>https://calisphere.org/item/{0}/</loc>'.format(item['id'])) 
+                    f.write(u'<loc>https://calisphere.org/item/{0}/</loc>'.format(item['id'])) # FIXME hardcoded to only work for Calisphere items
                     # <lastmod>
                     # <changefreq>
                     # <priority>
+                    # <lastmod>
+                    # FIXME hardcoded to only work for Calisphere items
                     if item['reference_image_md5']:
                         f.write('<image:image><image:loc>https://calisphere.org/crop/999x999/{0}</image:loc></image:image>'.format(item['reference_image_md5']))
                     f.write('</url>')
