@@ -6,7 +6,6 @@ from django.conf import settings
 from django.contrib.sitemaps import Sitemap as RegularDjangoSitemap
 from static_sitemaps.generator import SitemapGenerator
 from static_sitemaps import conf
-from xml.etree.ElementTree import Element, SubElement, ElementTree
 from six import BytesIO
 
 class CalisphereSitemapGenerator(SitemapGenerator):
@@ -69,19 +68,15 @@ class CalisphereSitemapGenerator(SitemapGenerator):
                 f.write('<?xml version="1.0" encoding="UTF-8"?>')
                 f.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">')
                 for n in xrange(site().limit):
-                    # https://pymotw.com/2/xml/etree/ElementTree/create.html#serializing-xml-to-a-stream
                     item = next(items)
-                    url = Element('url')
-                    loc = SubElement(url, 'loc')
-                    loc.text = u'https://calisphere.org/item/{0}/'.format(item['id']) # TODO: use location
+                    f.write('<url>')
+                    f.write(u'<loc>https://calisphere.org/item/{0}/</loc>'.format(item['id'])) 
                     # <lastmod>
                     # <changefreq>
                     # <priority>
                     if item['reference_image_md5']:
-                        image = SubElement(url, 'image:image')
-                        imageloc = SubElement(image, 'image:loc')
-                        imageloc.text = u'https://calisphere.org/crop/999x999/{0}'.format(item['reference_image_md5'])
-                    ElementTree(url).write(f)
+                        f.write('<image:image><image:loc>https://calisphere.org/crop/999x999/{0}</image:loc></image:image>'.format(item['reference_image_md5']))
+                    f.write('</url>')
                 f.write('</urlset>')
  
             if conf.USE_GZIP:
