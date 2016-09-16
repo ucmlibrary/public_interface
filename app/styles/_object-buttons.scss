@@ -199,11 +199,14 @@ html.no-flexbox .obj__osd-button {
   top: 45%;
   position: absolute;
   width: 98%;
-  right: 22px;
+  right: 12px;
 }
 
-.obj__osd-button-sequence .slick-prev:before,
-.obj__osd-button-sequence .slick-next:before {
+.obj__osd-button-sequence > button {
+    width: 40px;
+}
+
+.obj__osd-button-sequence > button:before {
     font-size: 120px;
     color: #fff;
 }
@@ -214,5 +217,6 @@ html.no-flexbox .obj__osd-button {
 
 .obj__osd-button-group .fa-refresh:before {
     content: "reset";
-    margin-left: -3px;
+    margin-left: -6px;
+    font-family: KievitWeb, Arial, sans-serif;
 }
