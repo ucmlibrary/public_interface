@@ -198,12 +198,15 @@ html.no-flexbox .obj__osd-button {
 .obj__osd-button-sequence {
   top: 45%;
   position: absolute;
-  width: 98%;
-  right: 12px;
+  width: 100%;
 }
 
 .obj__osd-button-sequence > button {
-    width: 40px;
+    width: 50px;
+}
+
+.obj__osd-button-sequence > button:hover {
+    background-color: #222;
 }
 
 .obj__osd-button-sequence > button:before {
