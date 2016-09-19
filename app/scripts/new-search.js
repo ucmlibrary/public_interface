@@ -612,7 +612,7 @@ var ComplexCarousel = Backbone.View.extend({
     $.pjax({
       type: 'GET',
       url: $(e.currentTarget).attr('href').split('?')[0],
-      container: '#js-itemContainer .meta-block',
+      container: '#js-itemContainer',
       data: data_params,
       traditional: true,
       scrollTo: 440
