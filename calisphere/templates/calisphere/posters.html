@@ -1,0 +1,84 @@
+{% extends "calisphere/base.html,calisphere/pjaxTemplates/pjax-base.html"|pjax:request %}
+
+{% block page-metadata %}
+{% include "calisphere/microdata.html" with title='Posters' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Calisphere Posters</h1>
+
+<!-- Begin Static Posters Component -->
+
+<div class="static">
+
+  <div class="col-sm-8 static__main">
+
+		<p>Share your love of Calisphere! We offer free posters for students, teachers, and librarians. We’ll even mail them at no charge!</p>
+
+		<p>To order posters, please send an email with the following information to <a href="mailto:calisphere@cdlib.org">calisphere@cdlib.org</a>. You can also contact us about special orders for large groups.</p>
+
+		<ul>
+		<li>Name</li>
+		<li>Occupation</li>
+		<li>Mailing address</li>
+		<li>Desired design and quantities</li>
+		</ul>
+<p>Each poster measures 14.75 x 24 inches.</p>
+    </div>
+
+
+  <div class="col-sm-4">
+
+    <!-- Add class: 'static__sidebar' above next to col-sm-4 to add sidebar border styles -->
+
+    <!-- <h2 class="static__sidebar-heading">Sidebar heading here</h2>
+
+    <p>Sidebar content here</p>
+    </a> -->
+
+  </div>
+
+    <div class="col-sm-12">
+    {% for poster in poster_data %}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="poster__container">
+            <a href="#" data-toggle="modal" data-target="#posterModal" title="{{ poster.title }}">
+                <div>
+                    <img src="{{ ucldcImages }}/{{ poster.image }}" class="poster__imagePreview">
+                </div>
+            </a>
+            <div class="poster__info">
+                {{ poster.title }} / {{ poster.contributor }}
+            </div>
+            <div class="poster__source">
+                <a href="{{ poster.source }}">
+                    View source image            
+                </a> 
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="posterModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <img src="{{ ucldcImages }}/{{ poster.image }}" class="poster__imageLarge">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+<!-- End Static About Component -->
+{{ q }}
+{% endblock %}
