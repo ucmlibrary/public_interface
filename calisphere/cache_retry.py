@@ -134,7 +134,16 @@ def SOLR_raw(**kwargs):
     sr = cache.get(key)
     if not sr:
         # do the solr look up
-        sr = SOLR.raw(**kwargs)
+        solr_url = u'{}/query/'.format(settings.SOLR_URL)
+        solr_auth = {'X-Authentication-Token': settings.SOLR_API_KEY}
+        # Clean up optional parameters to match SOLR spec
+        query = {}
+        for key, value in kwargs.items():
+            key = key.replace('_', '.')
+            query.update({key: value})
+        res = requests.get(solr_url, headers=solr_auth, params=query, verify=False)
+        res.raise_for_status()
+        sr = res.content
         cache.set(key, sr, settings.DJANGO_CACHE_TIMEOUT)  # seconds
     return sr
 
