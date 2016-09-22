@@ -61,23 +61,23 @@ class CollectionSitemap(Sitemap):
 
 class ItemSitemap(object):
 
-    ''' 
+    '''
         class for generating Calisphere item sitemaps in conjunction with
-        calisphere.sitemap_generator, which is a subclass of django-static-sitemaps 
+        calisphere.sitemap_generator, which is a subclass of django-static-sitemaps
         (https://github.com/xaralis/django-static-sitemaps)
- 
+
         Note that this is not a subclass of django.contrib.sitemaps.Sitemap
 
         Use a generator of solr results rather than a list, which is too memory intensive.
     '''
     def __init__(self):
 
-        self.limit = 50000 # 50,000 is google limit on urls per sitemap file
+        self.limit = 15000  # 50,000 is google limit on urls per sitemap file
         self.solr_total = SOLR_select_nocache(q='').numFound
         self.num_pages = self.solr_total/self.limit
 
     def items(self):
-        ''' returns a generator containing data for all items in solr ''' 
+        ''' returns a generator containing data for all items in solr '''
         # https://github.com/ucldc/extent_stats/blob/master/calisphere_arks.py
         base_query = {
             'q': '',
@@ -86,10 +86,10 @@ class ItemSitemap(object):
             'sort': 'score desc,id desc',
         }
 
-        
+
         data_iter = self.get_iter(base_query)
 
-        return data_iter 
+        return data_iter
 
 
     def location(self, item):
