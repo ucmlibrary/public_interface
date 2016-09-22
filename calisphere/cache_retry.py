@@ -12,6 +12,8 @@ import hashlib
 import json
 import itertools
 
+requests.packages.urllib3.disable_warnings()
+
 SOLR_DEFAULTS = {
     'mm': '100%',
     'pf3': 'title',
@@ -49,7 +51,8 @@ SOLR_DEFAULTS = {
 
 """
 
-SolrResults = namedtuple('SolrResults', 'results header numFound facet_counts')
+SolrResults = namedtuple('SolrResults',
+                         'results header numFound facet_counts nextCursorMark')
 
 
 def SOLR(**params):
@@ -74,7 +77,8 @@ def SOLR(**params):
     return SolrResults(results['response']['docs'],
                        results['responseHeader'],
                        results['response']['numFound'],
-                       facet_counts, )
+                       facet_counts,
+                       results.get('nextCursorMark'), )
 
 
 # create a hash for a cache key
@@ -134,22 +138,9 @@ def SOLR_raw(**kwargs):
         cache.set(key, sr, settings.DJANGO_CACHE_TIMEOUT)  # seconds
     return sr
 
+
 @retry(stop_max_delay=3000)
 def SOLR_select_nocache(**kwargs):
     kwargs.update(SOLR_DEFAULTS)
-    # set up solr handler with auth token
-    SOLR = solr.SearchHandler(
-        solr.Solr(
-            settings.SOLR_URL,
-            post_headers={
-                'X-Authentication-Token': settings.SOLR_API_KEY,
-            },
-        ),
-        "/query"
-    )
-
-    # do the solr look up
     sr = SOLR(**kwargs)
-
-    return sr 
- 
+    return sr
