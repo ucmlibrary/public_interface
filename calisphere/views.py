@@ -364,6 +364,14 @@ def getHostedContentFile(structmap):
             'id': structmap['id'],
             'format': 'file',
         }
+    if structmap['format'] == 'video':
+        access_url = os.path.join(settings.UCLDC_MEDIA, structmap['id'])
+        contentFile = {
+            'id': structmap['id'],
+            'format': 'video',
+            'url': access_url
+        }
+
     return contentFile
 
 def itemView(request, item_id=''):
