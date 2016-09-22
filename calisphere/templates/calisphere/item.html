@@ -21,6 +21,8 @@
   {% include 'calisphere/objectViewer/complex-object.html' %}
 {% elif item.harvest_type == 'hosted' and item.contentFile.format == 'image' %}
   {% include 'calisphere/objectViewer/hosted-simple-image.html' %}
+{% elif item.harvest_type == 'hosted' and item.contentFile.format == 'video' %}
+  {% include 'calisphere/objectViewer/hosted-simple-video.html' %}
 {% else %}
   {% include 'calisphere/objectViewer/object-tiles-and-overlays.html' %}
 {% endif %}
