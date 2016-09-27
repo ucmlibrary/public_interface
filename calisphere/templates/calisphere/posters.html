@@ -32,7 +32,12 @@
     {% for key, poster in poster_data %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
         <div class="poster__container">
-            <a href="#" data-toggle="modal" data-target="#posterModal{{ key }}" title="{{ poster.title }}">
+            <a href="#" class="hidden-xs hidden-sm" data-toggle="modal" data-target="#posterModal{{ key }}" title="{{ poster.title }}">
+                <div>
+                    <img src="{{ ucldcImages }}/{{ poster.image }}" class="poster__imagePreview">
+                </div>
+            </a>
+            <a href="{{ poster.source }}" class="visible-xs-inline visible-sm-inline" title="{{ poster.title }}">
                 <div>
                     <img src="{{ ucldcImages }}/{{ poster.image }}" class="poster__imagePreview">
                 </div>
