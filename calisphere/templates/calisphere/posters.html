@@ -12,7 +12,7 @@
 
 <div class="static">
 
-  <div class="col-sm-8 static__main">
+  <div>
 
 		<p>Share your love of Calisphere! We offer free posters for students, teachers, and librarians. We’ll even mail them at no charge!</p>
 
@@ -28,17 +28,6 @@
     </div>
 
 
-  <div class="col-sm-4">
-
-    <!-- Add class: 'static__sidebar' above next to col-sm-4 to add sidebar border styles -->
-
-    <!-- <h2 class="static__sidebar-heading">Sidebar heading here</h2>
-
-    <p>Sidebar content here</p>
-    </a> -->
-
-  </div>
-
     <div class="col-sm-12">
     {% for key, poster in poster_data %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
@@ -52,9 +41,9 @@
                 {{ poster.title }} / {{ poster.contributor }}
             </div>
             <div class="poster__source">
-                <a href="{{ poster.source }}">
-                    View source image            
-                </a> 
+                <a class="btn btn-xs button__viewPosterSource" href="{{ poster.source }}">
+                    View Source Image
+                </a>
             </div>
         </div>
     </div>

@@ -197,3 +197,13 @@
   }
 
 }
+
+// ***** Posters Page ***** //
+.button__viewPosterSource {
+  @extend .button__primary;
+
+  .fa {
+    margin: 0 0.5em 0 0;
+  }
+
+}
