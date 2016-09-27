@@ -59,7 +59,9 @@
                 <div class="modal-header">
                 </div>
                 <div class="modal-body">
-                    <img src="{{ ucldcImages }}/{{ poster.image }}" class="poster__imageLarge">
+                    <a href="{{ poster.source }}" title="{{ poster.title }}">
+                        <img src="{{ ucldcImages }}/{{ poster.image }}" class="poster__imageLarge">
+                    </a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
