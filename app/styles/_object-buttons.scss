@@ -202,11 +202,11 @@ html.no-flexbox .obj__osd-button {
 }
 
 .obj__osd-button-sequence > button {
-    width: 50px;
+    width: 70px;
 }
 
 .obj__osd-button-sequence > button:hover {
-    background-color: #222;
+    background-color: #5e5f60;
 }
 
 .obj__osd-button-sequence > button:before {
@@ -219,7 +219,7 @@ html.no-flexbox .obj__osd-button {
 }
 
 .obj__osd-button-group .fa-refresh:before {
-    content: "reset";
+    content: "Reset";
     margin-left: -6px;
     font-family: KievitWeb, Arial, sans-serif;
 }
