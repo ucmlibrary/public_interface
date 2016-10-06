@@ -17,7 +17,7 @@
           >
 
           {% if carousel_item.type_ss.0|lower == "moving image" %}
-          <span class="carousel__overlay-icon fa-video-camera"></span>
+          <span class="carousel__overlay-icon fa-play-circle-o"></span>
           {% elif carousel_item.type_ss.0|lower == "sound"%}
           <span class="carousel__overlay-icon fa-volume-up"></span>
           {# elif carousel_item.type_ss.0|lower == "text"#}
@@ -28,7 +28,7 @@
 
         {% else %}
           {% if carousel_item.type_ss.0|lower == "moving image" %}
-          <span class="carousel__tile-icon fa-video-camera"></span>
+          <span class="carousel__tile-icon fa-play-circle-o"></span>
           {% elif carousel_item.type_ss.0|lower == "sound"%}
           <span class="carousel__tile-icon fa-volume-up"></span>
           {% elif carousel_item.type_ss.0|lower == "text"%}
