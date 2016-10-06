@@ -15,7 +15,7 @@
           <img class="obj__simple-image" src="{{ ucldcNuxeoThumbs }}{{ item.contentFile.id }}" alt="{{ item.title.0 }}">
         {% endif %}
         {% if item.type_ss.0|lower == "moving image" %}
-        <div class="obj__overlay-icon fa-video-camera"></div>
+        <div class="obj__overlay-icon fa-play-circle-o"></div>
         {% elif item.type_ss.0|lower == "sound"%}
         <div class="obj__overlay-icon fa-volume-up"></div>
         {# elif item.type_ss.0|lower == "text"#}
@@ -27,7 +27,7 @@
     {% else %}
       <div class="thumbnail__container">
         {% if item.type_ss.0|lower == "moving image" %}
-        <div class="obj__tile-icon fa-video-camera"></div>
+        <div class="obj__tile-icon fa-play-circle-o"></div>
         {% elif item.type_ss.0|lower == "sound"%}
         <div class="obj__tile-icon fa-volume-up"></div>
         {% elif item.type_ss.0|lower == "text"%}

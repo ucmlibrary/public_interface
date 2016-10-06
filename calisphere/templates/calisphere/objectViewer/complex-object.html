@@ -24,7 +24,7 @@
         {% if component.format|lower != "image" and component.format|lower != "file" %}
           <div class="carousel-complex__thumbnail-container">
           {% if component.format|lower == "moving image" %}
-            <div class="carousel-complex__tile-icon fa-video-camera"></div>
+            <div class="carousel-complex__tile-icon fa-play-circle-o"></div>
           {% elif component.format|lower == "sound"%}
             <div class="carousel-complex__tile-icon fa-volume-up"></div>
           {% elif component.format|lower == "text" or component.format|lower == "file" %}
