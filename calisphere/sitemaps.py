@@ -1,4 +1,5 @@
 import re
+import time
 
 from django.contrib.sitemaps import Sitemap
 from django.apps import apps
@@ -12,7 +13,11 @@ from cache_retry import SOLR_select_nocache
 app = apps.get_app_config('calisphere')
 
 
-class StaticSitemap(Sitemap):
+class HttpsSitemap(Sitemap):
+    protocol = 'https'
+
+
+class StaticSitemap(HttpsSitemap):
 
 
     def items(self):
@@ -31,7 +36,7 @@ class StaticSitemap(Sitemap):
         return reverse(item)
 
 
-class InstitutionSitemap(Sitemap):
+class InstitutionSitemap(HttpsSitemap):
 
     def items(self):
         return app.registry.repository_data.keys()
@@ -43,7 +48,7 @@ class InstitutionSitemap(Sitemap):
         )
 
 
-class CollectionSitemap(Sitemap):
+class CollectionSitemap(HttpsSitemap):
 
 
     def items(self):
@@ -111,7 +116,10 @@ class ItemSitemap(object):
 
             nextCursorMark = solr_page.nextCursorMark
 
-    def get_solr_page(self, params, cursor='*'):
+    def get_solr_page(self, params, cursor='*', sleepiness=1):
         params.update({'cursorMark': cursor})
+        t1 = time.time()
         solr_search = SOLR_select_nocache(**params)
+        nap = (time.time() - t1) * sleepiness
+        time.sleep(nap)
         return solr_search
