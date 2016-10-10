@@ -1261,6 +1261,16 @@ def contactOwner(request):
     # print request.GET
     return render(request, 'calisphere/thankyou.html');
 
+def posters(request):
+    this_dir = os.path.dirname(os.path.realpath(__file__))
+    this_data = os.path.join(this_dir, 'poster-data.json')
+    poster_data = json.loads(open(this_data).read())
+    poster_data = sorted(poster_data.items())
+
+    return render(request, 'calisphere/posters.html', {
+        'poster_data': poster_data 
+    })
+
 def sitemapSection(request, section):
     storage = _lazy_load(conf.STORAGE_CLASS)(location=conf.ROOT_DIR)
     path = os.path.join(conf.ROOT_DIR, 'sitemap-{}.xml'.format(section))
