@@ -3,12 +3,16 @@
 from django.core.cache import cache
 from django.conf import settings
 
+from collections import namedtuple
 import urllib2
-import solr
 from retrying import retry
+import requests
 import pickle
 import hashlib
 import json
+import itertools
+
+requests.packages.urllib3.disable_warnings()
 
 SOLR_DEFAULTS = {
     'mm': '100%',
@@ -17,7 +21,6 @@ SOLR_DEFAULTS = {
     'qs': 12,
     'ps': 12,
 }
-
 """
     qf:
         fields and the "boosts" `fieldOne^2.3 fieldTwo fieldThree^0.4`
@@ -47,6 +50,35 @@ SOLR_DEFAULTS = {
         Typically a low value (ie: 0.1) is useful.
 
 """
+
+SolrResults = namedtuple('SolrResults',
+                         'results header numFound facet_counts nextCursorMark')
+
+
+def SOLR(**params):
+    # replacement for edsu's solrpy based stuff
+    solr_url = u'{}/query/'.format(settings.SOLR_URL)
+    solr_auth = {'X-Authentication-Token': settings.SOLR_API_KEY}
+    # Clean up optional parameters to match SOLR spec
+    query = {}
+    for key, value in params.items():
+        key = key.replace('_', '.')
+        query.update({key: value})
+    res = requests.get(solr_url, headers=solr_auth, params=query, verify=False)
+    res.raise_for_status()
+    results = json.loads(res.content)
+    facet_counts = results.get('facet_counts', {})
+    for key, value in facet_counts.get('facet_fields', {}).iteritems():
+        # Make facet fields match edsu with grouper recipe
+        facet_counts['facet_fields'][key] = dict(
+            itertools.izip_longest(
+                *[iter(value)] * 2, fillvalue=""))
+
+    return SolrResults(results['response']['docs'],
+                       results['responseHeader'],
+                       results['response']['numFound'],
+                       facet_counts,
+                       results.get('nextCursorMark'), )
 
 
 # create a hash for a cache key
@@ -78,16 +110,6 @@ class SolrCache(object):
 @retry(stop_max_delay=3000)  # milliseconds
 def SOLR_select(**kwargs):
     kwargs.update(SOLR_DEFAULTS)
-    # set up solr handler with auth token
-    SOLR = solr.SearchHandler(
-        solr.Solr(
-            settings.SOLR_URL,
-            post_headers={
-                'X-Authentication-Token': settings.SOLR_API_KEY,
-            },
-        ),
-        "/query"
-    )
     # look in the cache
     key = 'SOLR_select_{0}'.format(kwargs_md5(**kwargs))
     sc = cache.get(key)
@@ -107,21 +129,27 @@ def SOLR_select(**kwargs):
 @retry(stop_max_delay=3000)
 def SOLR_raw(**kwargs):
     kwargs.update(SOLR_DEFAULTS)
-    # set up solr handler with auth token
-    SOLR = solr.SearchHandler(
-        solr.Solr(
-            settings.SOLR_URL,
-            post_headers={
-                'X-Authentication-Token': settings.SOLR_API_KEY,
-            },
-        ),
-        "/query"
-    )
     # look in the cache
     key = 'SOLR_raw_{0}'.format(kwargs_md5(**kwargs))
     sr = cache.get(key)
     if not sr:
         # do the solr look up
-        sr = SOLR.raw(**kwargs)
+        solr_url = u'{}/query/'.format(settings.SOLR_URL)
+        solr_auth = {'X-Authentication-Token': settings.SOLR_API_KEY}
+        # Clean up optional parameters to match SOLR spec
+        query = {}
+        for key, value in kwargs.items():
+            key = key.replace('_', '.')
+            query.update({key: value})
+        res = requests.get(solr_url, headers=solr_auth, params=query, verify=False)
+        res.raise_for_status()
+        sr = res.content
         cache.set(key, sr, settings.DJANGO_CACHE_TIMEOUT)  # seconds
+    return sr
+
+
+@retry(stop_max_delay=3000)
+def SOLR_select_nocache(**kwargs):
+    kwargs.update(SOLR_DEFAULTS)
+    sr = SOLR(**kwargs)
     return sr
