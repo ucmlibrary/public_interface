@@ -828,6 +828,10 @@ var GlobalSearchForm = Backbone.View.extend({
       delete this.viewer;
     }
 
+    if($('#obj__mejs').length > 0) {
+      $('.mejs-player').mediaelementplayer();
+    }
+
     if($('#js-exhibit-title').length > 0) {
       if (this.exhibitPage === undefined) { this.exhibitPage = new exhibitPage(); }
       this.exhibitPage.initCarousel();

@@ -1,10 +1,10 @@
 {% load staticfiles %}
 
   <div class="obj-container__video">
-    <video controls="controls" class="mejs-player" preload="none" poster="{{ ucldcNuxeoThumbs }}{{ item.contentFile.id }}">
-      <source src="{{ item.contentFile.url }}" type="video/mp4">
-    </video>
-
+    <div id="obj__mejs">
+      <video controls="controls" class="mejs-player" preload="none" poster="{{ ucldcNuxeoThumbs }}{{ item.contentFile.id }}">
+        <source src="{{ item.contentFile.url }}" type="video/mp4">
+      </video>
+    </div>
   </div>
-
 </div>
