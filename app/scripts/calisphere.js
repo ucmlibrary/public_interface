@@ -155,8 +155,6 @@ $(document).ready(function() {
         linkItem.parent().toggleClass('carousel__item--selected');
         linkItem.parent().toggleClass('carousel__item');
       }
-
-      $('.mejs-player').mediaelementplayer();
     });
 
     $(document).on('pjax:end', '#js-exhibit-item__container', function() {
