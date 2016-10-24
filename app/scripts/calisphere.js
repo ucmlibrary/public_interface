@@ -141,6 +141,12 @@ $(document).ready(function() {
       });
     });
 
+    $(document).on('pjax:end', function() {
+      if($('#obj__mejs').length > 0) {
+        $('.mejs-player').mediaelementplayer();
+      }
+    });
+
     $(document).on('pjax:end', '#js-itemContainer', function() {
       var lastItem = $('.carousel__item--selected');
       if (lastItem.children('a').data('item_id') !== qm.get('itemId')) {

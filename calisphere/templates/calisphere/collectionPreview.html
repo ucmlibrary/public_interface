@@ -28,7 +28,7 @@
               alt="{{ item.title.0|truncatewords:12 }}">
 
               {% if item.type_ss.0|lower == "moving image" %}
-              <div class="collect-row__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-video-camera"></div>
+              <div class="collect-row__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-play-circle-o"></div>
               {% elif item.type_ss.0|lower == "sound"%}
               <div class="collect-row__overlay-icon{% if forloop.counter == 1 %}--large{% endif %} fa-volume-up"></div>
               {# elif item.type_ss.0|lower == "text"#}
@@ -39,7 +39,7 @@
 
             {% else %}
               {% if item.type_ss.0|lower == "moving image" %}
-              <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-video-camera"></div>
+              <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-play-circle-o"></div>
               {% elif item.type_ss.0|lower == "sound"%}
               <div class="collect-row__tile-icon{% if forloop.counter == 1 %}--large{% endif %} fa-volume-up"></div>
               {% elif item.type_ss.0|lower == "text"%}
