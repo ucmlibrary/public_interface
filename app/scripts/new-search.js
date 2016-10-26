@@ -598,7 +598,7 @@ var ComplexCarousel = Backbone.View.extend({
       url: $(e.currentTarget).attr('href'),
       container: '#js-itemContainer',
       traditional: true,
-      scrollTo: 440
+      scrollTo: false
     });
   },
   getComponent: function(e) {
@@ -609,14 +609,14 @@ var ComplexCarousel = Backbone.View.extend({
     var data_params = {order: $(e.currentTarget).data('item_id')};
 
     e.preventDefault();
-    $.pjax({
-      type: 'GET',
-      url: $(e.currentTarget).attr('href').split('?')[0],
-      container: '#js-itemContainer',
-      data: data_params,
-      traditional: true,
-      scrollTo: 440
-    });
+    //$.pjax({
+    //  type: 'GET',
+    //  url: $(e.currentTarget).attr('href').split('?')[0],
+    //  container: '#js-itemContainer',
+    //  data: data_params,
+    //  traditional: true,
+    //  scrollTo: 440
+    //});
   },
 
   afterChange: function(e, slick) {
